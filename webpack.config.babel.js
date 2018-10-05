@@ -106,7 +106,11 @@ export default (env = {}) => {
           exclude: /node_modules\/(?!(@gemsorg)\/).*/,
         },
         {
-          test: /\.jpe?g$|\.gif$|\.png$|\.svg$|\.woff2?$|\.eot$|\.otf$|\.ttf$/,
+          test: /\.svg$/,
+          use: ['@svgr/webpack', 'file-loader?name=static/[hash].[ext]'],
+        },
+        {
+          test: /\.jpe?g$|\.gif$|\.png$|\.woff2?$|\.eot$|\.otf$|\.ttf$/,
           loader: 'file-loader?name=static/[hash].[ext]',
           exclude: /node_modules/,
         },

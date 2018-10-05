@@ -33,6 +33,7 @@
     "@gemsorg/app-utils": "^0.0.8",
     "@gemsorg/components": "^0.0.75",
     "@gemsorg/utils": "^0.0.4",
+    "@svgr/webpack": "^3.0.0",
     "classnames": "^2.2.6",
     "core-js": "^2.5.7",
     "date-fns": "^1.29.0",

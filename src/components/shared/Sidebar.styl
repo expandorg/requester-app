@@ -1,0 +1,60 @@
+@import '~@gemsorg/components/src/uikit/colors'
+@import '~@gemsorg/components/src/uikit/font'
+
+
+.gem-sidebar
+  position: fixed
+  top: 0
+  left: 0
+
+  box-sizing: border-box;
+
+  width: 125px
+  height: 100vh
+
+  background-color: #1C2541
+  z-index: 2
+
+  &-nav
+    margin-top: 100px
+
+    &-link
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      justify-content: center;
+
+      box-sizing: border-box;
+      height: 100px
+
+      color: color-white;
+
+      font-family: Avenir;
+      font-weight: 800;
+      font-size: 11px;
+
+      letter-spacing: 0.2em;
+
+      text-decoration: none;
+      text-transform: uppercase;
+
+      outline: 0
+
+      path
+        fill: color-white
+
+      &:hover
+        background-color: #3A506B
+
+      &-active
+        background-color: #6FFFE9
+        color: #1C2541
+
+        path
+          fill: #1C2541
+
+        &:hover
+          background-color: #6FFFE9
+
+      &-icon
+        margin-bottom: 17px;
