@@ -13,7 +13,7 @@ import './Sidebar.styl';
 const navItemType = PropTypes.shape({
   link: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
-  Icon: PropTypes.func.isRequired,
+  icon: PropTypes.func.isRequired,
 });
 
 const SidebarLink = ({ item }) => (
