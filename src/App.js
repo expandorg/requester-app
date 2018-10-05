@@ -6,6 +6,9 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import { ServiceProvider } from '@gemsorg/components';
 
 import Dashboard from './components/Dashboard/Dashboard';
+import Api from './components/Api/Api';
+import Profile from './components/Profile/Profile';
+import Settings from './components/Settings/Settings';
 
 import AppPage from './components/shared/AppPage';
 import NotFound from './components/shared/NotFound';
@@ -21,6 +24,11 @@ const App = () => (
         <AppPage>
           <Switch>
             <Route path="/" exact component={Dashboard} />
+
+            <Route path="/profile" component={Profile} />
+            <Route path="/api" component={Api} />
+            <Route path="/settings" component={Settings} />
+
             <Route component={NotFound} />
           </Switch>
         </AppPage>
