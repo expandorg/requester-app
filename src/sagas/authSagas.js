@@ -1,6 +1,7 @@
-import { fork } from 'redux-saga/effects';
+// @flow
+import { takeEvery } from 'redux-saga/effects';
 
-import { takeEveryApiCall } from '@gemsorg/app-utils';
+import { handleAsyncCall } from '@gemsorg/app-utils';
 
 import { authActionTypes } from './actionTypes';
 
@@ -11,14 +12,10 @@ import { authResponseSchema } from '../model/schemas';
 export const getCurrentUser = () => ({
   type: authActionTypes.GET_CURRENT,
   payload: {},
+  asyncCall: authApi.getCurrentUser,
   meta: { schema: authResponseSchema },
 });
 
-const watchGetCurrent = takeEveryApiCall(
-  authActionTypes.GET_CURRENT,
-  authApi.getCurrentUser
-);
-
 export function* authSagas() {
-  yield fork(watchGetCurrent);
+  yield takeEvery(authActionTypes.GET_CURRENT, handleAsyncCall);
 }
