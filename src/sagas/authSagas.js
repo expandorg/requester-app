@@ -1,4 +1,3 @@
-// @flow
 import { takeEvery } from 'redux-saga/effects';
 
 import { handleAsyncCall } from '@gemsorg/app-utils';

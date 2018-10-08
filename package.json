@@ -85,7 +85,7 @@
     "postcss-preset-env": "^6.0.10",
     "prettier": "^1.14.3",
     "react-hot-loader": "^4.3.11",
-    "style-loader": "^0.23.0",
+    "style-loader": "^0.23.1",
     "stylus": "^0.54.5",
     "stylus-loader": "^3.0.2",
     "webpack": "^4.20.2",
