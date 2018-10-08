@@ -33,7 +33,6 @@
     "@gemsorg/app-utils": "^0.0.8",
     "@gemsorg/components": "^0.0.75",
     "@gemsorg/utils": "^0.0.4",
-    "@svgr/webpack": "^3.0.0",
     "classnames": "^2.2.6",
     "core-js": "^2.5.7",
     "date-fns": "^1.29.0",
@@ -51,7 +50,7 @@
     "react-router-dom": "^4.3.1",
     "react-spring": "^5.9.0",
     "redux": "^4.0.0",
-    "redux-saga": "^0.16.0",
+    "redux-saga": "^0.16.1",
     "reselect": "^4.0.0"
   },
   "devDependencies": {
@@ -66,7 +65,8 @@
     "@babel/preset-flow": "^7.0.0",
     "@babel/preset-react": "^7.0.0",
     "@babel/register": "^7.0.0",
-    "@gemsorg/eslint-config": "0.0.2",
+    "@gemsorg/eslint-config": "0.1.0",
+    "@svgr/webpack": "^3.1.0",
     "babel-core": "^7.0.0-bridge.0",
     "babel-eslint": "^10.0.1",
     "babel-loader": "^8.0.4",

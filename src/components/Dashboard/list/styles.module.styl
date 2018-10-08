@@ -1,0 +1,100 @@
+@import '~@gemsorg/components/src/uikit/colors'
+
+.container
+  box-sizing: border-box;
+  position: relative;
+
+  width: 250px
+  height: 250px
+
+  margin-right: 50px
+  margin-bottom: 50px
+
+  border-radius: 5px
+  text-decoration: none;
+
+.new
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+
+  background-color: #FF7092
+
+  color: color-white
+
+.plus
+  font-family: 'Avenir';
+  font-size: 96px
+
+  margin-top: 43px
+
+  line-height: 120px
+  font-weight: 300
+
+.create
+  font-family: 'Avenir';
+  font-size: 12px
+  font-weight: 800
+  letter-spacing: 20%;
+  text-transform: uppercase;
+
+.task
+  padding: 21px 17px 50px 17px
+
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+
+  background-color: color-white;
+  border-radius: 5px;
+  box-shadow: 0px 4px 8px #E0EDFF;
+
+  color: color-black
+
+  &:hover
+    box-shadow: 0px 20px 50px #DBEBFF;
+
+.copy
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+
+.copyBtn
+  outline: none
+  background-color: transparent;
+  cursor: pointer;
+
+  path
+    fill: #CCCCCC
+
+  &:hover
+    path
+      fill: darken(#CCCCCC, 20%)
+
+.logo
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  flex-grow: 1
+
+.img
+  width: 60px
+  height: 60px
+
+.title
+.state
+  font-family: 'Avenir';
+
+.title
+  font-size: 18px
+  line-height: 25px
+
+.state
+  font-size: 12px
+  font-weight: 800
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: #1C2541
+
+  margin-top: 7px

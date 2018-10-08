@@ -27,4 +27,8 @@ export const authActionTypes = createActionTypes('auth', {
   LOGOUT_FAILED: null,
 });
 
-export const tasksActionTypes = createActionTypes('tasks', {});
+export const tasksActionTypes = createActionTypes('tasks', {
+  FETCH: null,
+  FETCH_COMPLETE: null,
+  FETCH_FAILED: null,
+});

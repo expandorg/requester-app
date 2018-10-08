@@ -6,6 +6,9 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import { ServiceProvider } from '@gemsorg/components';
 
 import Dashboard from './components/Dashboard/Dashboard';
+import Create from './components/Create/Create';
+import Task from './components/Task/Task';
+
 import Api from './components/Api/Api';
 import Profile from './components/Profile/Profile';
 import Settings from './components/Settings/Settings';
@@ -24,6 +27,10 @@ const App = () => (
         <AppPage>
           <Switch>
             <Route path="/" exact component={Dashboard} />
+            <Route path="/tasks/:category" component={Dashboard} />
+
+            <Route path="/task/create" component={Create} />
+            <Route path="/task/:id" component={Task} />
 
             <Route path="/profile" component={Profile} />
             <Route path="/api" component={Api} />

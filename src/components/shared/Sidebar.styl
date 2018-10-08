@@ -15,8 +15,18 @@
   background-color: #1C2541
   z-index: 2
 
+  &-logo
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    height: 100px;
+
+    &:hover
+      background-color: #3A506B
+
   &-nav
-    margin-top: 100px
 
     &-link
       display: flex;
@@ -47,14 +57,10 @@
         background-color: #3A506B
 
       &-active
-        background-color: #6FFFE9
-        color: #1C2541
-
-        path
-          fill: #1C2541
+        background-color: #2F80ED
 
         &:hover
-          background-color: #6FFFE9
+          background-color: #2F80ED
 
       &-icon
         margin-bottom: 17px;
