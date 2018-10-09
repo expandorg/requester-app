@@ -4,9 +4,18 @@ import cn from 'classnames';
 
 import { Link } from 'react-router-dom';
 
+import { Tooltip } from '@gemsorg/components';
+
 import { ReactComponent as CopyIcon } from '../../assets/copy.svg';
 
 import styles from './styles.module.styl';
+
+const Copy = Tooltip(({ children, ...props }) => (
+  <button {...props} className={styles.copyBtn}>
+    <CopyIcon />
+    {children}
+  </button>
+));
 
 export default class TaskItem extends Component {
   static propTypes = {
@@ -28,9 +37,7 @@ export default class TaskItem extends Component {
         to={`/task/${task.id}`}
       >
         <div className={styles.copy}>
-          <button className={styles.copyBtn} onClick={this.handleCopyClick}>
-            <CopyIcon />
-          </button>
+          <Copy onClick={this.handleCopyClick} tooltip="Copy" />
         </div>
         <div className={styles.logo}>
           <img src={task.logo} className={styles.img} alt={task.title} />
