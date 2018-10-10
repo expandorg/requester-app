@@ -8,7 +8,13 @@ import styles from './styles.module.styl';
 const Field = ({ children, tooltip }) => (
   <div className={styles.field}>
     {children}
-    {tooltip && <I className={styles.fieldTooltip} tooltip={tooltip} />}
+    {tooltip && (
+      <I
+        className={styles.fieldTooltip}
+        tooltip={tooltip}
+        tooltipOrientation="right"
+      />
+    )}
   </div>
 );
 
