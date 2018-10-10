@@ -10,14 +10,21 @@ import Settings from './Wizard/Settings';
 import styles from './Create.module.styl';
 
 export default class Create extends Component {
+  state = {
+    active: 0,
+  };
+
+  handleChangeActive = active => {
+    this.setState({ active });
+  };
+
   render() {
+    const { active } = this.state;
     return (
       <Content title="Create">
         <Header title="Create">
-          <Navigation>
-            <NavItem active done>
-              Settings
-            </NavItem>
+          <Navigation onChange={this.handleChangeActive} active={active}>
+            <NavItem done>Settings</NavItem>
             <NavItem>Upload</NavItem>
             <NavItem>Templates</NavItem>
             <NavItem>Create Task</NavItem>
@@ -25,9 +32,7 @@ export default class Create extends Component {
             <NavItem>Pay</NavItem>
           </Navigation>
         </Header>
-        <div className={styles.container}>
-          <Settings />
-        </div>
+        <div className={styles.container}>{active === 0 && <Settings />}</div>
       </Content>
     );
   }

@@ -20,7 +20,7 @@ export default class NavItem extends Component {
   };
 
   render() {
-    const { children, onClick, active, done } = this.props;
+    const { children, onClick, active, done, ...rest } = this.props;
 
     const classes = cn(styles.item, {
       [styles.active]: active,
@@ -28,7 +28,7 @@ export default class NavItem extends Component {
     });
 
     return (
-      <button className={classes} onClick={onClick}>
+      <button className={classes} onClick={onClick} {...rest}>
         {children}
         {done && <Checkmark className={styles.checkmark} />}
       </button>
