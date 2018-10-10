@@ -6,6 +6,7 @@ import Header from '../shared/Header';
 import { Navigation, NavItem } from './Wizard/Navigation';
 
 import Settings from './Wizard/Settings';
+import Upload from './Wizard/Upload';
 
 import styles from './Create.module.styl';
 
@@ -16,6 +17,14 @@ export default class Create extends Component {
 
   handleChangeActive = active => {
     this.setState({ active });
+  };
+
+  handleNext = () => {
+    this.setState(({ active }) => ({ active: active + 1 }));
+  };
+
+  handleBack = () => {
+    this.setState(({ active }) => ({ active: active - 1 }));
   };
 
   render() {
@@ -32,7 +41,12 @@ export default class Create extends Component {
             <NavItem>Pay</NavItem>
           </Navigation>
         </Header>
-        <div className={styles.container}>{active === 0 && <Settings />}</div>
+        <div className={styles.container}>
+          {active === 0 && <Settings onNext={this.handleNext} />}
+          {active === 1 && (
+            <Upload onNext={this.handleNext} onBack={this.handleBack} />
+          )}
+        </div>
       </Content>
     );
   }

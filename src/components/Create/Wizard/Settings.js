@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 import {
   Form,
@@ -7,10 +8,18 @@ import {
   Field,
   Input,
   Actions,
-  Submit,
+  ActionBtn,
 } from './Form';
 
 export default class Settings extends Component {
+  static propTypes = {
+    onNext: PropTypes.func,
+  };
+
+  static defaultProps = {
+    onNext: Function.prototype,
+  };
+
   state = {
     settings: {
       image: null,
@@ -21,7 +30,10 @@ export default class Settings extends Component {
     },
   };
 
-  handleSubmit = () => {};
+  handleSubmit = () => {
+    const { onNext } = this.props;
+    onNext();
+  };
 
   handleSelect = image => {
     this.setState(({ settings }) => ({
@@ -37,7 +49,6 @@ export default class Settings extends Component {
 
   render() {
     const { settings } = this.state;
-    console.log(settings);
     return (
       <Form onSubmit={this.handleSubmit}>
         <Description>Description about this step goes here.</Description>
@@ -80,7 +91,7 @@ export default class Settings extends Component {
           />
         </Field>
         <Actions>
-          <Submit>Next</Submit>
+          <ActionBtn>Next</ActionBtn>
         </Actions>
       </Form>
     );
