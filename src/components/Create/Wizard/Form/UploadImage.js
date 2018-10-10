@@ -15,12 +15,14 @@ export default class UploadImage extends Component {
       name: PropTypes.string,
     }),
     label: PropTypes.string.isRequired,
+    tooltip: PropTypes.string,
     isUploading: PropTypes.bool,
     onSelect: PropTypes.func.isRequired,
   };
 
   static defaultProps = {
     image: null,
+    tooltip: null,
     isUploading: false,
   };
 
@@ -34,12 +36,12 @@ export default class UploadImage extends Component {
   };
 
   render() {
-    const { image, isUploading, label } = this.props;
+    const { image, isUploading, tooltip, label } = this.props;
     return (
       <div className={styles.container}>
         <div className={styles.label}>
           <span>{label}</span>
-          <I tooltip="Task logo" />
+          {tooltip && <I tooltip={tooltip} />}
         </div>
         <Dropzone
           className={styles.dropzone}
@@ -48,12 +50,13 @@ export default class UploadImage extends Component {
           disabled={isUploading}
           onDrop={this.handleDrop}
         >
-          {image && <div className={styles.preview}>{image.name}</div>}
-          {!image && (
-            <div className={styles.hint}>
+          <div className={styles.hint}>
+            {image ? (
+              <img className={styles.preview} src={image.preview} alt={label} />
+            ) : (
               <Hint />
-            </div>
-          )}
+            )}
+          </div>
         </Dropzone>
       </div>
     );

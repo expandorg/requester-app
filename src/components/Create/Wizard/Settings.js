@@ -37,12 +37,14 @@ export default class Settings extends Component {
 
   render() {
     const { settings } = this.state;
+    console.log(settings);
     return (
       <Form onSubmit={this.handleSubmit}>
         <Description>Description about this step goes here.</Description>
         <UploadImage
           image={settings.image}
           label="Thumbnail *"
+          tooltip="Upload Image"
           onSelect={this.handleSelect}
         />
         <Field tooltip="Title">
