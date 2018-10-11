@@ -14,7 +14,7 @@ import styles from './Create.module.styl';
 
 export default class Create extends Component {
   state = {
-    active: 3,
+    active: 0,
   };
 
   handleChangeActive = active => {
