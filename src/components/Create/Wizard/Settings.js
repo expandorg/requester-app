@@ -6,6 +6,7 @@ import {
   Description,
   Field,
   Input,
+  DateInput,
   Fieldset,
   Actions,
   ActionBtn,
@@ -27,8 +28,8 @@ export default class Settings extends Component {
       image: null,
       title: '',
       description: '',
-      startDate: '',
-      endDate: '',
+      startDate: undefined,
+      endDate: undefined,
     },
   };
 
@@ -86,7 +87,7 @@ export default class Settings extends Component {
             />
           </Field>
           <Field tooltip="Start Date">
-            <Input
+            <DateInput
               placeholder="Start Date *"
               name="startDate"
               value={settings.startDate}
@@ -94,7 +95,7 @@ export default class Settings extends Component {
             />
           </Field>
           <Field tooltip="End Date">
-            <Input
+            <DateInput
               placeholder="End Date *"
               name="endDate"
               value={settings.endDate}

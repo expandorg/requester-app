@@ -6,8 +6,18 @@ import Fieldset from './Fieldset';
 import Description from './Description';
 
 import Input from './Input';
+import DateInput from './DateInput';
 
 import Actions from './Actions';
 import ActionBtn from './ActionBtn';
 
-export { Form, Description, Field, Input, Fieldset, Actions, ActionBtn };
+export {
+  Form,
+  Description,
+  Field,
+  Input,
+  DateInput,
+  Fieldset,
+  Actions,
+  ActionBtn,
+};
