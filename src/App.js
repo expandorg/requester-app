@@ -13,7 +13,6 @@ import Api from './components/Api/Api';
 import Profile from './components/Profile/Profile';
 import Settings from './components/Settings/Settings';
 
-import AppPage from './components/shared/AppPage';
 import NotFound from './components/shared/NotFound';
 
 import store from './reducers/store';
@@ -24,21 +23,19 @@ const App = () => (
   <ServiceProvider services={services}>
     <Provider store={store}>
       <BrowserRouter>
-        <AppPage>
-          <Switch>
-            <Route path="/" exact component={Dashboard} />
-            <Route path="/tasks/:category" component={Dashboard} />
+        <Switch>
+          <Route path="/" exact component={Dashboard} />
+          <Route path="/tasks/:category" component={Dashboard} />
 
-            <Route path="/task/create" component={Create} />
-            <Route path="/task/:id" component={Task} />
+          <Route path="/task/create" component={Create} />
+          <Route path="/task/:id" component={Task} />
 
-            <Route path="/profile" component={Profile} />
-            <Route path="/api" component={Api} />
-            <Route path="/settings" component={Settings} />
+          <Route path="/profile" component={Profile} />
+          <Route path="/api" component={Api} />
+          <Route path="/settings" component={Settings} />
 
-            <Route component={NotFound} />
-          </Switch>
-        </AppPage>
+          <Route component={NotFound} />
+        </Switch>
       </BrowserRouter>
     </Provider>
   </ServiceProvider>

@@ -31,8 +31,8 @@ export default class Create extends Component {
   render() {
     const { active } = this.state;
     return (
-      <Content title="Create a task" className={styles.content}>
-        <Header title="Create a task" className={styles.header}>
+      <Content title="Create a task" className={styles.content} sidebar={false}>
+        <Header title="Create a task" className={styles.header} logo>
           <Navigation onChange={this.handleChangeActive} active={active}>
             <NavItem done>Settings</NavItem>
             <NavItem>Upload</NavItem>
