@@ -1,27 +1,31 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import cn from 'classnames';
 
 import Dropzone from 'react-dropzone';
 
-import { ReactComponent as Hint } from '../../../assets/preview.svg';
+import I from '../I';
 
-import I from './I';
-
-import styles from './UploadImage.module.styl';
+import styles from './Upload.module.styl';
 
 export default class UploadImage extends Component {
   static propTypes = {
-    image: PropTypes.shape({
+    file: PropTypes.shape({
       name: PropTypes.string,
     }),
-    label: PropTypes.string.isRequired,
+    label: PropTypes.string,
+    accept: PropTypes.string,
+    className: PropTypes.string,
     tooltip: PropTypes.string,
     isUploading: PropTypes.bool,
     onSelect: PropTypes.func.isRequired,
   };
 
   static defaultProps = {
-    image: null,
+    file: null,
+    label: null,
+    className: null,
+    accept: 'image/jpeg, image/png, image/gif',
     tooltip: null,
     isUploading: false,
   };
@@ -36,27 +40,32 @@ export default class UploadImage extends Component {
   };
 
   render() {
-    const { image, isUploading, tooltip, label } = this.props;
+    const {
+      children,
+      file,
+      isUploading,
+      tooltip,
+      className,
+      label,
+      accept,
+    } = this.props;
+
     return (
       <div className={styles.container}>
-        <div className={styles.label}>
-          <span>{label}</span>
-          {tooltip && <I tooltip={tooltip} tooltipOrientation="right" />}
-        </div>
+        {label && (
+          <div className={styles.label}>
+            <span>{label}</span>
+            {tooltip && <I tooltip={tooltip} tooltipOrientation="right" />}
+          </div>
+        )}
         <Dropzone
-          className={styles.dropzone}
-          accept="image/jpeg, image/png, image/gif"
+          className={cn(styles.dropzone, className)}
+          accept={accept}
           multiple={false}
           disabled={isUploading}
           onDrop={this.handleDrop}
         >
-          <div className={styles.hint}>
-            {image ? (
-              <img className={styles.preview} src={image.preview} alt={label} />
-            ) : (
-              <Hint />
-            )}
-          </div>
+          {children({ file })}
         </Dropzone>
       </div>
     );

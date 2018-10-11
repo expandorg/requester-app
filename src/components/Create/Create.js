@@ -6,7 +6,7 @@ import Header from '../shared/Header';
 import { Navigation, NavItem } from './Wizard/Navigation';
 
 import Settings from './Wizard/Settings';
-import Upload from './Wizard/Upload';
+import UploadData from './Wizard/UploadData';
 
 import styles from './Create.module.styl';
 
@@ -30,8 +30,8 @@ export default class Create extends Component {
   render() {
     const { active } = this.state;
     return (
-      <Content title="Create">
-        <Header title="Create">
+      <Content title="Create a task" className={styles.content}>
+        <Header title="Create a task" className={styles.header}>
           <Navigation onChange={this.handleChangeActive} active={active}>
             <NavItem done>Settings</NavItem>
             <NavItem>Upload</NavItem>
@@ -44,7 +44,7 @@ export default class Create extends Component {
         <div className={styles.container}>
           {active === 0 && <Settings onNext={this.handleNext} />}
           {active === 1 && (
-            <Upload onNext={this.handleNext} onBack={this.handleBack} />
+            <UploadData onNext={this.handleNext} onBack={this.handleBack} />
           )}
         </div>
       </Content>

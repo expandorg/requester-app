@@ -4,12 +4,18 @@ import PropTypes from 'prop-types';
 import {
   Form,
   Description,
-  UploadImage,
   Field,
   Input,
+  Fieldset,
   Actions,
   ActionBtn,
 } from './Form';
+
+import { Upload, ImagePreview } from './Form/Upload';
+
+import { ReactComponent as Placeholder } from '../../assets/preview.svg';
+
+import styles from './Settings.module.styl';
 
 export default class Settings extends Component {
   static propTypes = {
@@ -35,7 +41,7 @@ export default class Settings extends Component {
     onNext();
   };
 
-  handleSelect = image => {
+  handleUpload = image => {
     this.setState(({ settings }) => ({
       settings: { ...settings, image },
     }));
@@ -51,45 +57,55 @@ export default class Settings extends Component {
     const { settings } = this.state;
     return (
       <Form onSubmit={this.handleSubmit}>
-        <Description>Description about this step goes here.</Description>
-        <UploadImage
-          image={settings.image}
-          label="Thumbnail *"
-          tooltip="Upload Image"
-          onSelect={this.handleSelect}
-        />
-        <Field tooltip="Title">
-          <Input
-            placeholder="Title *"
-            name="title"
-            value={settings.title}
-            onChange={this.handleInputChange}
-          />
-        </Field>
-        <Field tooltip="Description">
-          <Input
-            placeholder="Description *"
-            name="description"
-            value={settings.description}
-            onChange={this.handleInputChange}
-          />
-        </Field>
-        <Field tooltip="Start Date">
-          <Input
-            placeholder="Start Date *"
-            name="startDate"
-            value={settings.startDate}
-            onChange={this.handleInputChange}
-          />
-        </Field>
-        <Field tooltip="End Date">
-          <Input
-            placeholder="End Date *"
-            name="endDate"
-            value={settings.endDate}
-            onChange={this.handleInputChange}
-          />
-        </Field>
+        <Fieldset>
+          <Description>Description about this step goes here.</Description>
+          <Upload
+            file={settings.image}
+            label="Thumbnail *"
+            tooltip="Upload Image"
+            onSelect={this.handleUpload}
+          >
+            {({ file }) =>
+              file ? (
+                <ImagePreview file={file} />
+              ) : (
+                <Placeholder className={styles.hint} />
+              )
+            }
+          </Upload>
+          <Field tooltip="Title">
+            <Input
+              placeholder="Title *"
+              name="title"
+              value={settings.title}
+              onChange={this.handleInputChange}
+            />
+          </Field>
+          <Field tooltip="Description">
+            <Input
+              placeholder="Description *"
+              name="description"
+              value={settings.description}
+              onChange={this.handleInputChange}
+            />
+          </Field>
+          <Field tooltip="Start Date">
+            <Input
+              placeholder="Start Date *"
+              name="startDate"
+              value={settings.startDate}
+              onChange={this.handleInputChange}
+            />
+          </Field>
+          <Field tooltip="End Date">
+            <Input
+              placeholder="End Date *"
+              name="endDate"
+              value={settings.endDate}
+              onChange={this.handleInputChange}
+            />
+          </Field>
+        </Fieldset>
         <Actions>
           <ActionBtn>Next</ActionBtn>
         </Actions>

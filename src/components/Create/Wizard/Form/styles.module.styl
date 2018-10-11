@@ -2,10 +2,12 @@
 
 .form
   box-sizing: border-box;
+  padding: 75px 15px 20px
 
-  margin: 0 auto 0 auto;
-  padding: 40px 0
+.fieldset
+  box-sizing: border-box;
 
+  margin: 0 auto;
   max-width: 520px
 
 .i
@@ -15,12 +17,19 @@
   width: 12px
   line-height: 12px
 
+  :global(.gem-tooltip)
+    background-color: #34A853
+
+    &:after
+      border-right-color: #34A853
+
   path
     fill: #BED8FA
 
   &:hover
     path
       fill: #3A506B
+
 
 .field
   position: relative;
@@ -33,10 +42,10 @@
 
 .description
   font-family: 'Avenir';
-  font-weight: 800;
-  font-size: 16px;
-
+  font-size: 24px;
   color: #1C2541
+
+  text-align: center;
 
 .input
   box-sizing: border-box
