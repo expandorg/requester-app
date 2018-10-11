@@ -8,12 +8,13 @@ import { Navigation, NavItem } from './Wizard/Navigation';
 import Settings from './Wizard/Settings';
 import UploadData from './Wizard/UploadData';
 import Templates from './Wizard/Templates';
+import CreateTask from './Wizard/CreateTask';
 
 import styles from './Create.module.styl';
 
 export default class Create extends Component {
   state = {
-    active: 0,
+    active: 3,
   };
 
   handleChangeActive = active => {
@@ -49,6 +50,9 @@ export default class Create extends Component {
           )}
           {active === 2 && (
             <Templates onNext={this.handleNext} onBack={this.handleBack} />
+          )}
+          {active === 3 && (
+            <CreateTask onNext={this.handleNext} onBack={this.handleBack} />
           )}
         </div>
       </Content>
