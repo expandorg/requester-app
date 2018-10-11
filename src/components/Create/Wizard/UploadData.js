@@ -11,13 +11,8 @@ import styles from './UploadData.module.styl';
 
 export default class UploadData extends Component {
   static propTypes = {
-    onNext: PropTypes.func,
-    onBack: PropTypes.func,
-  };
-
-  static defaultProps = {
-    onNext: Function.prototype,
-    onBack: Function.prototype,
+    onNext: PropTypes.func.isRequired,
+    onBack: PropTypes.func.isRequired,
   };
 
   state = {

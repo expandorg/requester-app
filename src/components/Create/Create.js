@@ -7,6 +7,7 @@ import { Navigation, NavItem } from './Wizard/Navigation';
 
 import Settings from './Wizard/Settings';
 import UploadData from './Wizard/UploadData';
+import Templates from './Wizard/Templates';
 
 import styles from './Create.module.styl';
 
@@ -45,6 +46,9 @@ export default class Create extends Component {
           {active === 0 && <Settings onNext={this.handleNext} />}
           {active === 1 && (
             <UploadData onNext={this.handleNext} onBack={this.handleBack} />
+          )}
+          {active === 2 && (
+            <Templates onNext={this.handleNext} onBack={this.handleBack} />
           )}
         </div>
       </Content>

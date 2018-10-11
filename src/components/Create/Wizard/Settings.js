@@ -19,11 +19,7 @@ import styles from './Settings.module.styl';
 
 export default class Settings extends Component {
   static propTypes = {
-    onNext: PropTypes.func,
-  };
-
-  static defaultProps = {
-    onNext: Function.prototype,
+    onNext: PropTypes.func.isRequired,
   };
 
   state = {
