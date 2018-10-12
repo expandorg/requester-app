@@ -1,26 +1,62 @@
 import React, { Component } from 'react';
 
-import { DragDropContextProvider } from 'react-dnd';
-import HTML5Backend from 'react-dnd-html5-backend';
+import { removeAtIndex } from '@gemsorg/utils';
 
 import AvailableModules from './Available/AvailableModules';
-import Form from './Form';
+
+import Form from './Form/Form';
 
 import styles from './FormEditor.module.styl';
 
+export const insertAtIndex = (array, index, item) => [
+  ...array.slice(0, index),
+  item,
+  ...array.slice(index),
+];
+
 export default class FormEditor extends Component {
+  state = {
+    modules: [],
+    invisibleIndex: null,
+  };
+
+  handleAdd = ({ module }) => {
+    const { modules } = this.state;
+    this.setState({
+      modules: [...modules, module],
+    });
+  };
+
+  handleMove = (dragModule, dragIndex, hoverIndex, finish = false) => {
+    if (finish) {
+      this.setState({ invisibleIndex: null });
+    } else {
+      let { modules } = this.state;
+      if (dragIndex) {
+        modules = removeAtIndex(modules, dragIndex);
+      }
+      modules = insertAtIndex(modules, hoverIndex, dragModule);
+      this.setState({ modules, invisibleIndex: hoverIndex });
+    }
+  };
+
   render() {
+    const { modules, invisibleIndex } = this.state;
+
     return (
-      <DragDropContextProvider backend={HTML5Backend}>
-        <div className={styles.container}>
-          <div className={styles.left}>
-            <AvailableModules />
-          </div>
-          <div className={styles.form}>
-            <Form />
-          </div>
+      <div className={styles.container}>
+        <div className={styles.left}>
+          <AvailableModules onMoveModule={this.handleMove} />
         </div>
-      </DragDropContextProvider>
+        <div className={styles.form}>
+          <Form
+            invisibleIndex={invisibleIndex}
+            modules={modules}
+            onAddModule={this.handleAdd}
+            onMoveModule={this.handleMove}
+          />
+        </div>
+      </div>
     );
   }
 }

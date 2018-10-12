@@ -4,7 +4,9 @@ import cn from 'classnames';
 
 import { DropTarget } from 'react-dnd';
 
-import { ReactComponent as Preview } from '../../assets/preview.svg';
+import { ReactComponent as Preview } from '../../../assets/preview.svg';
+
+import { targetEmpty, FORM_DND_ID } from '../dnd';
 
 import styles from './Empty.module.styl';
 
@@ -12,6 +14,7 @@ class Empty extends Component {
   static propTypes = {
     canDrop: PropTypes.bool.isRequired,
     connectDropTarget: PropTypes.func.isRequired,
+    onAdd: PropTypes.func.isRequired, // eslint-disable-line react/no-unused-prop-types
   };
 
   render() {
@@ -35,14 +38,9 @@ class Empty extends Component {
   }
 }
 
-const target = {
-  canDrop: () => true,
-  hover: () => {},
-};
-
-const collect = (connect, monitor) => ({
+export const collect = (connect, monitor) => ({
   connectDropTarget: connect.dropTarget(),
   canDrop: monitor.canDrop(),
 });
 
-export default DropTarget('asd', target, collect)(Empty);
+export default DropTarget(FORM_DND_ID, targetEmpty, collect)(Empty);

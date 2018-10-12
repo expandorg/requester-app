@@ -6,14 +6,17 @@ import { DragSource } from 'react-dnd';
 
 import { ReactComponent as DragIcon } from '../../../assets/dragcursor.svg';
 
+import { sourceItem, FORM_DND_ID } from '../dnd';
+
 import styles from './ModuleItem.module.styl';
 
 class ModuleItem extends Component {
   static propTypes = {
-    module: PropTypes.shape({
+    meta: PropTypes.shape({
       type: PropTypes.string,
     }).isRequired,
     isDragging: PropTypes.bool.isRequired,
+    onMove: PropTypes.func.isRequired, // eslint-disable-line
     connectDragPreview: PropTypes.func.isRequired,
     connectDragSource: PropTypes.func.isRequired,
   };
@@ -23,7 +26,7 @@ class ModuleItem extends Component {
       connectDragSource,
       connectDragPreview,
       isDragging,
-      module,
+      meta,
     } = this.props;
 
     return connectDragPreview(
@@ -33,19 +36,11 @@ class ModuleItem extends Component {
             <DragIcon />
           </div>
         )}
-        <div className={styles.name}>{module.type}</div>
+        <div className={styles.name}>{meta.type}</div>
       </div>
     );
   }
 }
-
-const source = {
-  beginDrag: props => ({ props }),
-  endDrag: props => {
-    console.log(props);
-    // props.onMove(null, null, null, true);
-  },
-};
 
 const collect = (connect, monitor) => ({
   isDragging: monitor.isDragging(),
@@ -53,4 +48,4 @@ const collect = (connect, monitor) => ({
   connectDragPreview: connect.dragPreview(),
 });
 
-export default DragSource('asd', source, collect)(ModuleItem);
+export default DragSource(FORM_DND_ID, sourceItem, collect)(ModuleItem);
