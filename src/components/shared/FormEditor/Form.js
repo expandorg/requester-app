@@ -4,6 +4,6 @@ import styles from './Form.module.styl';
 
 export default class Form extends Component {
   render() {
-    return <div className={styles.container} />;
+    return <div className={styles.container}>aasdasd</div>;
   }
 }

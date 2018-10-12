@@ -10,9 +10,13 @@ export default class AvailableModules extends Component {
   render() {
     return (
       <div className={styles.container}>
-        {moduleControls.map(control => (
-          <ModuleItem module={control.module} key={control.module.type} />
-        ))}
+        <div className={styles.list}>
+          {moduleControls
+            .filter(c => typeof c.module.type === 'string')
+            .map(control => (
+              <ModuleItem module={control.module} key={control.module.type} />
+            ))}
+        </div>
       </div>
     );
   }
