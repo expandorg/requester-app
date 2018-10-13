@@ -2,13 +2,14 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
 
-import { moduleProps } from '@gemsorg/modules';
+import { moduleProps, Module } from '@gemsorg/modules';
 
 import styles from './styles.module.styl';
 
 export default class ModuleEdit extends Component {
   static propTypes = {
     module: moduleProps.isRequired,
+    controls: PropTypes.object.isRequired, // eslint-disable-line
     className: PropTypes.string,
   };
 
@@ -17,7 +18,11 @@ export default class ModuleEdit extends Component {
   };
 
   render() {
-    const { module, className } = this.props;
-    return <div className={cn(styles.container, className)}>{module.name}</div>;
+    const { module, className, controls } = this.props;
+    return (
+      <div className={cn(styles.container, className)}>
+        <Module module={module} isSubmitting={false} controls={controls} />
+      </div>
+    );
   }
 }

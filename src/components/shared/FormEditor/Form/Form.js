@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import { moduleProps } from '@gemsorg/modules';
+import {
+  moduleProps,
+  moduleControls,
+  getModuleControlsMap,
+} from '@gemsorg/modules';
 
 import Empty from './Empty';
 import DnDModule from './Module/DnDModule';
@@ -11,29 +15,34 @@ import styles from './Form.module.styl';
 export default class Form extends Component {
   static propTypes = {
     modules: PropTypes.arrayOf(moduleProps),
-    invisibleIndex: PropTypes.number,
     onAddModule: PropTypes.func.isRequired,
     onMoveModule: PropTypes.func.isRequired,
   };
 
   static defaultProps = {
     modules: [],
-    invisibleIndex: null,
+  };
+
+  state = {
+    controls: getModuleControlsMap(moduleControls),
   };
 
   render() {
-    const { modules, onMoveModule, onAddModule, invisibleIndex } = this.props;
+    const { modules, onAddModule, onMoveModule } = this.props;
+    const { controls } = this.state;
+
     return (
       <div className={styles.container}>
         <div className={styles.title}>Task Module</div>
         <div className={styles.content}>
           {modules.length === 0 && <Empty onAdd={onAddModule} />}
           <div className={styles.list}>
-            {modules.map((module, ix) => (
+            {modules.map((module, order) => (
               <DnDModule
                 key={module.name}
-                index={ix}
-                invisible={ix === invisibleIndex}
+                controls={controls}
+                order={order}
+                id={module.name}
                 module={module}
                 onMove={onMoveModule}
               />

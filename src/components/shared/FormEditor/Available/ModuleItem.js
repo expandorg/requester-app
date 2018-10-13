@@ -6,7 +6,7 @@ import { DragSource } from 'react-dnd';
 
 import { ReactComponent as DragIcon } from '../../../assets/dragcursor.svg';
 
-import { sourceItem, FORM_DND_ID } from '../dnd';
+import { sourceItem } from '../dnd';
 
 import styles from './ModuleItem.module.styl';
 
@@ -16,7 +16,7 @@ class ModuleItem extends Component {
       type: PropTypes.string,
     }).isRequired,
     isDragging: PropTypes.bool.isRequired,
-    onMove: PropTypes.func.isRequired, // eslint-disable-line
+
     connectDragPreview: PropTypes.func.isRequired,
     connectDragSource: PropTypes.func.isRequired,
   };
@@ -48,4 +48,6 @@ const collect = (connect, monitor) => ({
   connectDragPreview: connect.dragPreview(),
 });
 
-export default DragSource(FORM_DND_ID, sourceItem, collect)(ModuleItem);
+export default DragSource('temporary_disabled', sourceItem, collect)(
+  ModuleItem
+);

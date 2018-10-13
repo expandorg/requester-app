@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { removeAtIndex } from '@gemsorg/utils';
+import immer from 'immer';
 
 import AvailableModules from './Available/AvailableModules';
 
@@ -8,16 +8,26 @@ import Form from './Form/Form';
 
 import styles from './FormEditor.module.styl';
 
-export const insertAtIndex = (array, index, item) => [
-  ...array.slice(0, index),
-  item,
-  ...array.slice(index),
-];
-
 export default class FormEditor extends Component {
   state = {
-    modules: [],
-    invisibleIndex: null,
+    modules: [
+      {
+        type: 'text',
+        placeholder: 'Test',
+        name: 'input-1',
+      },
+      {
+        type: 'email',
+        placeholder: 'email',
+        name: 'input-2',
+      },
+      {
+        type: 'paragraph',
+        content:
+          'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et',
+        name: 'input-3',
+      },
+    ],
   };
 
   handleAdd = ({ module }) => {
@@ -27,30 +37,32 @@ export default class FormEditor extends Component {
     });
   };
 
-  handleMove = (dragModule, dragIndex, hoverIndex, finish = false) => {
-    if (finish) {
-      this.setState({ invisibleIndex: null });
-    } else {
-      let { modules } = this.state;
-      if (dragIndex) {
-        modules = removeAtIndex(modules, dragIndex);
-      }
-      modules = insertAtIndex(modules, hoverIndex, dragModule);
-      this.setState({ modules, invisibleIndex: hoverIndex });
-    }
+  handleMove = (dragId, hoverId) => {
+    const { modules } = this.state;
+
+    const dragIndex = modules.findIndex(m => m.name === dragId);
+    const hoverIndex = modules.findIndex(m => m.name === hoverId);
+    const dragged = modules[dragIndex];
+    const hovered = modules[hoverIndex];
+
+    this.setState({
+      modules: immer(modules, draft => {
+        draft[dragIndex] = hovered;
+        draft[hoverIndex] = dragged;
+      }),
+    });
   };
 
   render() {
-    const { modules, invisibleIndex } = this.state;
+    const { modules } = this.state;
 
     return (
       <div className={styles.container}>
         <div className={styles.left}>
-          <AvailableModules onMoveModule={this.handleMove} />
+          <AvailableModules />
         </div>
         <div className={styles.form}>
           <Form
-            invisibleIndex={invisibleIndex}
             modules={modules}
             onAddModule={this.handleAdd}
             onMoveModule={this.handleMove}

@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 
 import { moduleControls } from '@gemsorg/modules';
 
@@ -7,25 +6,18 @@ import ModuleItem from './ModuleItem';
 
 import styles from './AvailableModules.module.styl';
 
-export default class AvailableModules extends Component {
-  static propTypes = {
-    onMoveModule: PropTypes.func.isRequired,
-  };
+const modulesMeta = moduleControls
+  .map(c => c.module)
+  .filter(m => typeof m.type === 'string');
 
+export default class AvailableModules extends Component {
   render() {
-    const { onMoveModule } = this.props;
     return (
       <div className={styles.container}>
         <div className={styles.list}>
-          {moduleControls
-            .filter(c => typeof c.module.type === 'string')
-            .map(control => (
-              <ModuleItem
-                meta={control.module}
-                onMove={onMoveModule}
-                key={control.module.type}
-              />
-            ))}
+          {modulesMeta.map(meta => (
+            <ModuleItem meta={meta} key={meta.type} />
+          ))}
         </div>
       </div>
     );

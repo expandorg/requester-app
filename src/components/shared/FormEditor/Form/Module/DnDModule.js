@@ -1,32 +1,60 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import cn from 'classnames';
 
-import { DropTarget } from 'react-dnd';
+import { DragSource, DropTarget } from 'react-dnd';
 
-import DraggableModule from './DraggableModule';
+import { moduleProps } from '@gemsorg/modules';
 
-import { targetModule, FORM_DND_ID } from '../../dnd';
+import ModuleEdit from './ModuleEdit';
+
+import { moduleSource, moduleTarget, FORM_DND_ID } from '../../dnd';
+
+import styles from './DnDModule.module.styl';
 
 class DnDModule extends Component {
   static propTypes = {
+    module: moduleProps.isRequired,
+    order: PropTypes.number.isRequired, // eslint-disable-line
+    controls: PropTypes.object.isRequired, // eslint-disable-line
+
+    isDragging: PropTypes.bool.isRequired,
+    onMove: PropTypes.func.isRequired, // eslint-disable-line
+
+    connectDragSource: PropTypes.func.isRequired,
     connectDropTarget: PropTypes.func.isRequired,
-    invisible: PropTypes.bool.isRequired,
-    onMove: PropTypes.func.isRequired,
   };
 
   render() {
-    const { connectDropTarget, invisible, ...rest } = this.props;
+    const {
+      connectDragSource,
+      connectDropTarget,
+      isDragging,
+      module,
+      controls,
+    } = this.props;
 
-    return connectDropTarget(
-      <div style={{ opacity: invisible ? 0 : null }}>
-        <DraggableModule {...rest} />
-      </div>
+    return connectDragSource(
+      connectDropTarget(
+        <div
+          className={cn(styles.container)}
+          ref={c => {
+            this.containerRef = c;
+          }}
+        >
+          {isDragging && <div className={styles.placehoder}>Drop here</div>}
+          {!isDragging && <ModuleEdit module={module} controls={controls} />}
+        </div>
+      )
     );
   }
 }
 
-const collect = connect => ({
+export default DropTarget(FORM_DND_ID, moduleTarget, connect => ({
   connectDropTarget: connect.dropTarget(),
-});
-
-export default DropTarget(FORM_DND_ID, targetModule, collect)(DnDModule);
+}))(
+  DragSource(FORM_DND_ID, moduleSource, (connect, monitor) => ({
+    connectDragSource: connect.dragSource(),
+    isDragging: monitor.isDragging(),
+  }))(DnDModule)
+);
