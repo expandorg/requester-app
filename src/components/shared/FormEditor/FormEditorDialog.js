@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+import { DragDropContextProvider } from 'react-dnd';
+import HTML5Backend from 'react-dnd-html5-backend';
+
 import { Dialog } from '@gemsorg/components';
 
 import FormEditor from './FormEditor';
@@ -20,17 +23,19 @@ export default class FormEditorDialog extends Component {
     const { onHide } = this.props;
 
     return (
-      <Dialog
-        visible
-        onHide={onHide}
-        modalClass={styles.modal}
-        overlayClass={styles.overlay}
-        contentLabel="test"
-        hideButton
-        shouldCloseOnEsc={false}
-      >
-        <FormEditor />
-      </Dialog>
+      <DragDropContextProvider backend={HTML5Backend}>
+        <Dialog
+          visible
+          onHide={onHide}
+          modalClass={styles.modal}
+          overlayClass={styles.overlay}
+          contentLabel="test"
+          hideButton
+          shouldCloseOnEsc={false}
+        >
+          <FormEditor />
+        </Dialog>
+      </DragDropContextProvider>
     );
   }
 }

@@ -24,10 +24,10 @@
     height: 100px;
 
     &:hover
-      background-color: #3A506B
+      path
+        fill: darken(#FF7092, 5%)
 
   &-nav
-
     &-link
       display: flex;
       align-items: center;
@@ -48,19 +48,21 @@
       text-decoration: none;
       text-transform: uppercase;
 
+
+      border-left: 5px solid transparent
+      border-right: 5px solid transparent
+
       outline: 0
 
       path
         fill: color-white
 
       &:hover
-        background-color: #3A506B
+        border-left-color: #2F80ED
 
       &-active
         background-color: #2F80ED
 
-        &:hover
-          background-color: #2F80ED
 
       &-icon
         margin-bottom: 17px;
