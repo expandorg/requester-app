@@ -69,6 +69,8 @@ export default class Templates extends Component {
           <Description>Description about this step goes here.</Description>
           <TemplatesForm
             className={styles.templates}
+            title="Templates"
+            description="Select task template"
             templates={stubs}
             selected={templateId}
             onSelect={this.handleSelect}

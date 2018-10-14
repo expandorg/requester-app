@@ -13,6 +13,7 @@ export default class Templates extends Component {
   static propTypes = {
     className: PropTypes.string,
     title: PropTypes.string,
+    description: PropTypes.string,
     templates: PropTypes.arrayOf(
       PropTypes.shape({
         id: PropTypes.number,
@@ -28,18 +29,31 @@ export default class Templates extends Component {
   static defaultProps = {
     selected: null,
     className: null,
+    description: null,
     title: 'Templates',
     templates: [],
   };
 
   render() {
-    const { className, title, templates, selected, onSelect } = this.props;
+    const {
+      className,
+      title,
+      templates,
+      description,
+      selected,
+      onSelect,
+    } = this.props;
 
     return (
       <div className={cn(styles.container, className)}>
         <div className={styles.sidebar}>
           <div className={styles.title}>
-            {title} <I tooltip={title} tooltipOrientation="right" />
+            {title}
+            <I
+              className={styles.i}
+              tooltip={description}
+              tooltipOrientation="right"
+            />
           </div>
           <div className={styles.list}>
             {templates.map(template => (
