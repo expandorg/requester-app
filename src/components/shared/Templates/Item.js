@@ -1,0 +1,39 @@
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import cn from 'classnames';
+
+import { ReactComponent as Checkmark } from '../../assets/checkmark.svg';
+
+import styles from './Item.module.styl';
+
+export default class Item extends Component {
+  static propTypes = {
+    template: PropTypes.shape({
+      id: PropTypes.number,
+      name: PropTypes.string,
+      logo: PropTypes.string,
+      description: PropTypes.string,
+    }).isRequired,
+    selected: PropTypes.bool.isRequired,
+    onSelect: PropTypes.func.isRequired,
+  };
+
+  handleClick = evt => {
+    evt.preventDefault();
+    const { template, onSelect } = this.props;
+    onSelect(template.id);
+  };
+
+  render() {
+    const { template, selected } = this.props;
+    return (
+      <button
+        className={cn(styles.container, { [styles.selected]: selected })}
+        onClick={this.handleClick}
+      >
+        <div className={styles.name}>{template.name}</div>
+        {selected && <Checkmark className={styles.checkmark} />}
+      </button>
+    );
+  }
+}

@@ -1,0 +1,47 @@
+@import '~@gemsorg/uikit/colors';
+
+.container
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  width: 100%
+
+  box-sizing: border-box;
+  height: 50px
+
+  padding: 0 15px
+
+  font-family: 'Avenir';
+  font-size: 16px;
+  text-align: left;
+
+  color: #1C2541;
+
+  background-color: transparent;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+
+  outline: none;
+  cursor: pointer;
+
+  &:hover
+    border-left-color #2F80ED
+
+.selected
+  background-color: #2F80ED
+  color: color-white
+
+.name
+  white-space: nowrap
+  overflow: hidden
+  text-overflow: ellipsis
+
+.checkmark
+  display: block;
+  width: 15px
+  min-width: 15px;
+  height: 15px
+
+  path
+    fill: color-white;
