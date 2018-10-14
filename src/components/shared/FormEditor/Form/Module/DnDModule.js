@@ -8,6 +8,8 @@ import { moduleProps } from '@gemsorg/modules';
 
 import ModuleEdit from './ModuleEdit';
 
+import Placeholder from './Placeholder';
+
 import { moduleSource, moduleTarget, FORM_DND_ID } from '../../dnd';
 
 import styles from './DnDModule.module.styl';
@@ -34,6 +36,8 @@ class DnDModule extends Component {
       controls,
     } = this.props;
 
+    const dragging = isDragging || module.isDragging;
+
     return connectDragSource(
       connectDropTarget(
         <div
@@ -42,8 +46,8 @@ class DnDModule extends Component {
             this.containerRef = c;
           }}
         >
-          {isDragging && <div className={styles.placehoder}>Drop here</div>}
-          {!isDragging && <ModuleEdit module={module} controls={controls} />}
+          {dragging && <Placeholder />}
+          {!dragging && <ModuleEdit module={module} controls={controls} />}
         </div>
       )
     );

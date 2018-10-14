@@ -8,47 +8,66 @@ import Form from './Form/Form';
 
 import styles from './FormEditor.module.styl';
 
+const scaffold = (meta, name, isDragging) => ({
+  ...meta.editor.defaults,
+  type: meta.type,
+  name,
+  isDragging,
+});
+
+export const insertAtIndex = (array, index, item) => [
+  ...array.slice(0, index),
+  item,
+  ...array.slice(index),
+];
+
 export default class FormEditor extends Component {
   state = {
-    modules: [
-      {
-        type: 'text',
-        placeholder: 'Test',
-        name: 'input-1',
-      },
-      {
-        type: 'email',
-        placeholder: 'email',
-        name: 'input-2',
-      },
-      {
-        type: 'paragraph',
-        content:
-          'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et',
-        name: 'input-3',
-      },
-    ],
+    modules: [],
   };
 
-  handleAdd = ({ module }) => {
+  handleAdd = (dragId, meta) => {
     const { modules } = this.state;
     this.setState({
-      modules: [...modules, module],
+      modules: [...modules, scaffold(meta, dragId)],
     });
   };
 
-  handleMove = (dragId, hoverId) => {
+  handleMove = (dragId, hoverId, meta) => {
     const { modules } = this.state;
 
     const dragIndex = modules.findIndex(m => m.name === dragId);
     const hoverIndex = modules.findIndex(m => m.name === hoverId);
-    const dragged = modules[dragIndex];
-    const hovered = modules[hoverIndex];
 
+    if (dragIndex === -1) {
+      this.setState({
+        modules: insertAtIndex(
+          modules,
+          hoverIndex,
+          scaffold(meta, dragId, true)
+        ),
+      });
+    } else {
+      const dragged = modules[dragIndex];
+      const hovered = modules[hoverIndex];
+
+      this.setState({
+        modules: immer(modules, draft => {
+          draft[dragIndex] = hovered;
+          draft[hoverIndex] = dragged;
+        }),
+      });
+    }
+  };
+
+  handleEndDrag = dragId => {
+    const { modules } = this.state;
     this.setState({
       modules: immer(modules, draft => {
-        draft[dragIndex] = hovered;
-        draft[hoverIndex] = dragged;
+        const module = draft.find(m => m.name === dragId);
+        if (module) {
+          module.isDragging = undefined;
+        }
       }),
     });
   };
@@ -59,7 +78,10 @@ export default class FormEditor extends Component {
     return (
       <div className={styles.container}>
         <div className={styles.left}>
-          <AvailableModules />
+          <AvailableModules
+            totalModules={modules.length}
+            onEndDrag={this.handleEndDrag}
+          />
         </div>
         <div className={styles.form}>
           <Form

@@ -2,11 +2,15 @@
 
 .container
   box-sizing: border-box;
+  padding: 40px 28px
+
 
   display: flex;
   flex-direction: column;
 
-  min-height: 100%;
+  height: 100%;
+
+  overflow-y: scroll;
 
 .title
   font-family: 'Avenir';
@@ -17,6 +21,13 @@
   margin-bottom: 12px
 
 .content
+  margin-top: 30px
   box-sizing: border-box;
   position: relative;
   flex-grow: 1
+
+.form
+  display: block
+  margin: 0 auto;
+  max-width: 800px;
+  margin-bottom: s-margin-big

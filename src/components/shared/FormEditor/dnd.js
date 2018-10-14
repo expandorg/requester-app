@@ -2,14 +2,21 @@ export const FORM_DND_ID = 'FORM_DND_ID';
 
 export const targetEmpty = {
   canDrop: () => true,
-  drop: (props, montior) => {
-    props.onAdd(montior.getItem());
+  drop: (props, monitor) => {
+    const { id, meta } = monitor.getItem();
+    props.onAdd(id, meta);
   },
 };
 
-export const sourceItem = {
-  beginDrag: () => ({}),
-  endDrag: () => {},
+export const metaSource = {
+  beginDrag: props => ({
+    id: `${props.meta.type}-${props.totalModules}`,
+    meta: props.meta,
+    order: props.totalModules,
+  }),
+  endDrag: ({ onEndDrag }, monitor) => {
+    onEndDrag(monitor.getItem().id);
+  },
 };
 
 export const moduleSource = {
@@ -17,13 +24,12 @@ export const moduleSource = {
     id: props.module.name,
     order: props.order,
   }),
-  endDrag: () => {},
 };
 
 export const moduleTarget = {
-  hover: ({ id: hoverId, order: hoverOrder, onMove }, monitor, component) => {
-    const { id: dragId, order: dragOrder } = monitor.getItem();
-    if (dragId === hoverId) {
+  hover: ({ id, order, onMove }, monitor, component) => {
+    const { id: dragId, order: dragOrder, meta } = monitor.getItem();
+    if (dragId === id) {
       return;
     }
 
@@ -35,14 +41,13 @@ export const moduleTarget = {
     const clientOffset = monitor.getClientOffset();
     const hoverClientY = clientOffset.y - hoverBoundingRect.top;
 
-    if (dragOrder < hoverOrder && hoverClientY < hoverMiddleY) {
+    if (dragOrder < order && hoverClientY < hoverMiddleY) {
       return;
     }
 
-    if (dragOrder > hoverOrder && hoverClientY > hoverMiddleY) {
+    if (dragOrder > order && hoverClientY > hoverMiddleY) {
       return;
     }
-
-    onMove(dragId, hoverId);
+    onMove(dragId, id, meta);
   },
 };

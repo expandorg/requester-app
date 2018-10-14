@@ -5,12 +5,18 @@ import {
   moduleProps,
   moduleControls,
   getModuleControlsMap,
+  FormDataProvider,
 } from '@gemsorg/modules';
 
 import Empty from './Empty';
 import DnDModule from './Module/DnDModule';
 
 import styles from './Form.module.styl';
+
+const formData = {
+  allowedRetries: 3,
+  currentTry: 1,
+};
 
 export default class Form extends Component {
   static propTypes = {
@@ -36,17 +42,19 @@ export default class Form extends Component {
         <div className={styles.title}>Task Module</div>
         <div className={styles.content}>
           {modules.length === 0 && <Empty onAdd={onAddModule} />}
-          <div className={styles.list}>
-            {modules.map((module, order) => (
-              <DnDModule
-                key={module.name}
-                controls={controls}
-                order={order}
-                id={module.name}
-                module={module}
-                onMove={onMoveModule}
-              />
-            ))}
+          <div className={styles.form}>
+            <FormDataProvider formData={formData}>
+              {modules.map((module, order) => (
+                <DnDModule
+                  key={module.name}
+                  controls={controls}
+                  order={order}
+                  id={module.name}
+                  module={module}
+                  onMove={onMoveModule}
+                />
+              ))}
+            </FormDataProvider>
           </div>
         </div>
       </div>
