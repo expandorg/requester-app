@@ -24,6 +24,7 @@ export const insertAtIndex = (array, index, item) => [
 export default class FormEditor extends Component {
   state = {
     modules: [],
+    selected: null,
   };
 
   handleAdd = (dragId, meta) => {
@@ -31,6 +32,10 @@ export default class FormEditor extends Component {
     this.setState({
       modules: [...modules, scaffold(meta, dragId)],
     });
+  };
+
+  handleSelect = module => {
+    this.setState({ selected: module.name });
   };
 
   handleMove = (dragId, hoverId, meta) => {
@@ -73,7 +78,7 @@ export default class FormEditor extends Component {
   };
 
   render() {
-    const { modules } = this.state;
+    const { modules, selected } = this.state;
 
     return (
       <div className={styles.container}>
@@ -88,7 +93,12 @@ export default class FormEditor extends Component {
             modules={modules}
             onAddModule={this.handleAdd}
             onMoveModule={this.handleMove}
+            onSelectModule={this.handleSelect}
           />
+        </div>
+        <div className={styles.aside}>
+          <button className={styles.preview}>Preview</button>
+          {selected && <div>{selected}</div>}
         </div>
       </div>
     );

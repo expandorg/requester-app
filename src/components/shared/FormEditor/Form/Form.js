@@ -23,6 +23,7 @@ export default class Form extends Component {
     modules: PropTypes.arrayOf(moduleProps),
     onAddModule: PropTypes.func.isRequired,
     onMoveModule: PropTypes.func.isRequired,
+    onSelectModule: PropTypes.func.isRequired,
   };
 
   static defaultProps = {
@@ -34,7 +35,7 @@ export default class Form extends Component {
   };
 
   render() {
-    const { modules, onAddModule, onMoveModule } = this.props;
+    const { modules, onAddModule, onSelectModule, onMoveModule } = this.props;
     const { controls } = this.state;
 
     return (
@@ -52,6 +53,7 @@ export default class Form extends Component {
                   id={module.name}
                   module={module}
                   onMove={onMoveModule}
+                  onEdit={onSelectModule}
                 />
               ))}
             </FormDataProvider>

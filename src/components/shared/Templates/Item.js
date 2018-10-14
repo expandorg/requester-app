@@ -2,11 +2,13 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
 
+import { Tooltip } from '@gemsorg/components';
+
 import { ReactComponent as Checkmark } from '../../assets/checkmark.svg';
 
 import styles from './Item.module.styl';
 
-export default class Item extends Component {
+class Item extends Component {
   static propTypes = {
     template: PropTypes.shape({
       id: PropTypes.number,
@@ -25,15 +27,19 @@ export default class Item extends Component {
   };
 
   render() {
-    const { template, selected } = this.props;
+    const { children, template, selected, onSelect, ...rest } = this.props;
     return (
       <button
         className={cn(styles.container, { [styles.selected]: selected })}
         onClick={this.handleClick}
+        {...rest}
       >
         <div className={styles.name}>{template.name}</div>
         {selected && <Checkmark className={styles.checkmark} />}
+        {children}
       </button>
     );
   }
 }
+
+export default Tooltip(Item);

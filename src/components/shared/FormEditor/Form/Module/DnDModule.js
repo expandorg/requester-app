@@ -22,9 +22,14 @@ class DnDModule extends Component {
 
     isDragging: PropTypes.bool.isRequired,
     onMove: PropTypes.func.isRequired, // eslint-disable-line
+    onEdit: PropTypes.func,
 
     connectDragSource: PropTypes.func.isRequired,
     connectDropTarget: PropTypes.func.isRequired,
+  };
+
+  static defaultProps = {
+    onEdit: Function.prototype,
   };
 
   render() {
@@ -34,6 +39,7 @@ class DnDModule extends Component {
       isDragging,
       module,
       controls,
+      onEdit,
     } = this.props;
 
     const dragging = isDragging || module.isDragging;
@@ -47,7 +53,9 @@ class DnDModule extends Component {
           }}
         >
           {dragging && <Placeholder />}
-          {!dragging && <ModuleEdit module={module} controls={controls} />}
+          {!dragging && (
+            <ModuleEdit module={module} controls={controls} onEdit={onEdit} />
+          )}
         </div>
       )
     );
