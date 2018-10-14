@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import I from './I';
+import I from '../../../common/I';
 
 import styles from './styles.module.styl';
 

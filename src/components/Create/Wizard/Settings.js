@@ -1,18 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import {
-  Form,
-  Description,
-  Field,
-  Input,
-  DateInput,
-  Fieldset,
-  Actions,
-  ActionBtn,
-} from './Form';
+import Input from '../../common/Input';
+import DateInput from '../../common/DateInput';
+import { Upload, ImagePreview } from '../../common/Upload';
 
-import { Upload, ImagePreview } from './Form/Upload';
+import { Form, Description, Field, Fieldset, Actions, ActionBtn } from './Form';
 
 import { ReactComponent as Placeholder } from '../../assets/preview.svg';
 

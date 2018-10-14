@@ -2,7 +2,7 @@ import React, { Component, forwardRef } from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
 
-import styles from './styles.module.styl';
+import styles from './Input.module.styl';
 
 class Input extends Component {
   static propTypes = {

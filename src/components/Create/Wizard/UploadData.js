@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import { Form, Description, Fieldset, Actions, ActionBtn } from './Form';
 
-import { Upload } from './Form/Upload';
+import { Upload } from '../../common/Upload';
 
 import { ReactComponent as Placeholder } from '../../assets/data.svg';
 
