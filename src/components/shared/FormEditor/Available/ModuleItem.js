@@ -4,9 +4,9 @@ import cn from 'classnames';
 
 import { DragSource } from 'react-dnd';
 
-import { ReactComponent as DragIcon } from '../../../assets/dragcursor.svg';
+import { metaSource, FORM_DND_ID, uniqName } from '../dnd';
 
-import { metaSource, FORM_DND_ID } from '../dnd';
+import { ReactComponent as DragIcon } from '../../../assets/dragcursor.svg';
 
 import styles from './ModuleItem.module.styl';
 
@@ -18,14 +18,26 @@ class ModuleItem extends Component {
     isDragging: PropTypes.bool.isRequired,
     totalModules: PropTypes.number.isRequired,  // eslint-disable-line
     onEndDrag: PropTypes.func.isRequired, // eslint-disable-line
+    onAdd: PropTypes.func.isRequired,
     connectDragSource: PropTypes.func.isRequired,
+  };
+
+  handleAdd = () => {
+    const { onAdd, meta, totalModules } = this.props;
+    const id = uniqName(meta, totalModules);
+
+    onAdd(id, meta);
   };
 
   render() {
     const { connectDragSource, isDragging, meta } = this.props;
 
+    const classes = cn(styles.container, {
+      [styles.dragging]: isDragging,
+    });
+
     return connectDragSource(
-      <div className={cn(styles.container, { [styles.dragging]: isDragging })}>
+      <div className={classes}>
         <div className={styles.drag}>
           <DragIcon />
         </div>

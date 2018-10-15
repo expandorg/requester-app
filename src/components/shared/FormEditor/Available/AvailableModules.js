@@ -15,10 +15,11 @@ export default class AvailableModules extends Component {
   static propTypes = {
     totalModules: PropTypes.number.isRequired,
     onEndDrag: PropTypes.func.isRequired,
+    onAddModule: PropTypes.func.isRequired,
   };
 
   render() {
-    const { totalModules, onEndDrag } = this.props;
+    const { totalModules, onAddModule, onEndDrag } = this.props;
 
     return (
       <div className={styles.container}>
@@ -28,6 +29,7 @@ export default class AvailableModules extends Component {
               meta={meta}
               key={meta.type}
               onEndDrag={onEndDrag}
+              onAdd={onAddModule}
               totalModules={totalModules}
             />
           ))}

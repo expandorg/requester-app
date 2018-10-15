@@ -2,9 +2,11 @@ import React, { Component } from 'react';
 
 import immer from 'immer';
 
-import AvailableModules from './Available/AvailableModules';
+import Button from '../../common/Button';
 
 import Form from './Form/Form';
+import AvailableModules from './Available/AvailableModules';
+import Properties from './Properties/Properties';
 
 import styles from './FormEditor.module.styl';
 
@@ -34,9 +36,19 @@ export default class FormEditor extends Component {
     });
   };
 
-  handleSelect = module => {
-    this.setState({ selected: module.name });
+  handleRemove = module => {
+    this.setState(({ modules }) => ({
+      modules: modules.filter(m => m.name !== module.name),
+      selected: null,
+    }));
   };
+
+  handleSelect = module => {
+    const { selected } = this.state;
+    this.setState({ selected: selected === module.name ? null : module.name });
+  };
+
+  handleSave = () => {};
 
   handleMove = (dragId, hoverId, meta) => {
     const { modules } = this.state;
@@ -86,6 +98,7 @@ export default class FormEditor extends Component {
           <AvailableModules
             totalModules={modules.length}
             onEndDrag={this.handleEndDrag}
+            onAddModule={this.handleAdd}
           />
         </div>
         <div className={styles.form}>
@@ -97,9 +110,18 @@ export default class FormEditor extends Component {
           />
         </div>
         <div className={styles.aside}>
-          <button className={styles.preview}>Preview</button>
-          {selected && <div>{selected}</div>}
+          <div className={styles.asideContent}>
+            <Button theme="aqua" className={styles.preview}>
+              Preview
+            </Button>
+          </div>
         </div>
+        <Properties
+          module={modules.find(m => m.name === selected)}
+          onCancel={this.handleSelect}
+          onRemove={this.handleRemove}
+          onSave={this.handleSave}
+        />
       </div>
     );
   }
