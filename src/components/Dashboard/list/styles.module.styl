@@ -19,8 +19,12 @@
   flex-direction: column;
 
   background-color: #FF7092
-
   color: color-white
+
+  transition: box-shadow 100ms ease-in;
+
+  &:hover
+    box-shadow: 0px 40px 75px #CCE3FD;
 
 .plus
   font-family: 'Avenir';
@@ -32,6 +36,11 @@
   font-weight: 300
 
   color #EA3863
+
+  transition: color 100ms ease-in;
+
+  .new:hover &
+    color: color-white;
 
 .create
   font-family: 'Avenir';
