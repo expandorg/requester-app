@@ -6,7 +6,7 @@ import { DropTarget } from 'react-dnd';
 
 import { ReactComponent as Preview } from '../../../assets/preview.svg';
 
-import { targetEmpty, FORM_DND_ID } from '../dnd';
+import { emptyTarget, FORM_DND_ID } from '../dnd';
 
 import styles from './Empty.module.styl';
 
@@ -43,4 +43,4 @@ export const collect = (connect, monitor) => ({
   canDrop: monitor.canDrop(),
 });
 
-export default DropTarget(FORM_DND_ID, targetEmpty, collect)(Empty);
+export default DropTarget(FORM_DND_ID, emptyTarget, collect)(Empty);

@@ -35,9 +35,9 @@ export default class FormEditor extends Component {
     });
   };
 
-  handleRemove = module => {
+  handleRemove = id => {
     this.setState(({ modules }) => ({
-      modules: modules.filter(m => m.name !== module.name),
+      modules: modules.filter(m => m.name !== id),
       selected: null,
     }));
   };
@@ -102,6 +102,7 @@ export default class FormEditor extends Component {
             totalModules={modules.length}
             onEndDrag={this.handleEndDrag}
             onAddModule={this.handleAdd}
+            onRemoveModule={this.handleRemove}
           />
         </div>
         <div className={styles.form}>

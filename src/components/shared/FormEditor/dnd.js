@@ -2,10 +2,17 @@ export const FORM_DND_ID = 'FORM_DND_ID';
 
 export const uniqName = (meta, totalModules) => `${meta.type}-${totalModules}`;
 
-export const targetEmpty = {
+export const emptyTarget = {
   drop: (props, monitor) => {
     const { id, meta } = monitor.getItem();
     props.onAdd(id, meta);
+  },
+};
+
+export const availableTarget = {
+  drop: ({ onRemoveModule }, monitor) => {
+    const { id } = monitor.getItem();
+    onRemoveModule(id);
   },
 };
 

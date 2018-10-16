@@ -2,10 +2,13 @@ import React, { Component, createRef } from 'react';
 import PropTypes from 'prop-types';
 
 import debounce from 'debounce';
+import { DropTarget } from 'react-dnd';
 
 import { moduleControls } from '@gemsorg/modules';
 
 import ModuleItem from './ModuleItem';
+
+import { availableTarget, FORM_DND_ID } from '../dnd';
 
 import styles from './AvailableModules.module.styl';
 
@@ -15,11 +18,14 @@ const modulesMeta = moduleControls
   .map(c => c.module)
   .filter(m => typeof m.type === 'string');
 
-export default class AvailableModules extends Component {
+class AvailableModules extends Component {
   static propTypes = {
     totalModules: PropTypes.number.isRequired,
     onEndDrag: PropTypes.func.isRequired,
     onAddModule: PropTypes.func.isRequired,
+    onRemoveModule: PropTypes.func.isRequired, // eslint-disable-line
+
+    connectDropTarget: PropTypes.func.isRequired,
   };
 
   constructor(props) {
@@ -67,25 +73,31 @@ export default class AvailableModules extends Component {
   };
 
   render() {
-    const { totalModules, onEndDrag } = this.props;
+    const { totalModules, onEndDrag, connectDropTarget } = this.props;
     const { preview, top } = this.state;
     return (
       <div className={styles.container} ref={this.container}>
-        <div className={styles.list} onScroll={this.handleScroll}>
-          {modulesMeta.map(meta => (
-            <ModuleItem
-              meta={meta}
-              key={meta.type}
-              onEndDrag={onEndDrag}
-              onAdd={this.handleAdd}
-              offset={top}
-              isHovered={meta.type === preview}
-              onPreview={this.handlePreview}
-              totalModules={totalModules}
-            />
-          ))}
-        </div>
+        {connectDropTarget(
+          <div className={styles.list} onScroll={this.handleScroll}>
+            {modulesMeta.map(meta => (
+              <ModuleItem
+                meta={meta}
+                key={meta.type}
+                onEndDrag={onEndDrag}
+                onAdd={this.handleAdd}
+                offset={top}
+                isHovered={meta.type === preview}
+                onPreview={this.handlePreview}
+                totalModules={totalModules}
+              />
+            ))}
+          </div>
+        )}
       </div>
     );
   }
 }
+
+export default DropTarget(FORM_DND_ID, availableTarget, connect => ({
+  connectDropTarget: connect.dropTarget(),
+}))(AvailableModules);
