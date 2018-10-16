@@ -2,11 +2,10 @@ import React, { Component } from 'react';
 
 import immer from 'immer';
 
-import Button from '../../common/Button';
-
 import Form from './Form/Form';
 import AvailableModules from './Available/AvailableModules';
 import Properties from './Properties/Properties';
+import Info from './Info';
 
 import styles from './FormEditor.module.styl';
 
@@ -89,6 +88,10 @@ export default class FormEditor extends Component {
     });
   };
 
+  handleSave = () => {};
+  handleTogglePreview = () => {};
+  handleCancel = () => {};
+
   render() {
     const { modules, selected } = this.state;
 
@@ -110,11 +113,11 @@ export default class FormEditor extends Component {
           />
         </div>
         <div className={styles.aside}>
-          <div className={styles.asideContent}>
-            <Button theme="aqua" className={styles.preview}>
-              Preview
-            </Button>
-          </div>
+          <Info
+            onSave={this.handleSave}
+            onPreview={this.handleTogglePreview}
+            onCancel={this.handleCancel}
+          />
         </div>
         <Properties
           module={modules.find(m => m.name === selected)}

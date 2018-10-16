@@ -22,12 +22,14 @@ export default class PropertiesForm extends Component {
       <aside className={styles.container}>
         <div className={styles.content}>
           <div className={styles.title}>{module.name}</div>
+          <Button theme="link" onClick={() => onRemove(module)}>
+            Remove
+          </Button>
         </div>
         <div className={styles.actions}>
-          <Button theme="link" onClick={() => onCancel(module)}>
+          <Button theme="secondary" onClick={() => onCancel(module)}>
             Cancel
           </Button>
-          <Button onClick={() => onRemove(module)}>Remove</Button>
           <Button onClick={() => onSave(module)}>Save</Button>
         </div>
       </aside>
