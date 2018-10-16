@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import { Form, Actions, ActionBtn } from './Form';
+import Button from '../../common/Button';
+import { Form, Actions } from './Form';
 
 import FormEditorDialog from '../../shared/FormEditor/FormEditorDialog';
 
@@ -28,8 +29,8 @@ export default class CreateTask extends Component {
       <Form onSubmit={this.handleSubmit}>
         <Actions>
           <FormEditorDialog onHide={this.handleBack} />
-          <ActionBtn onClick={this.handleBack}>Back</ActionBtn>
-          <ActionBtn>Next</ActionBtn>
+          <Button onClick={this.handleBack}>Back</Button>
+          <Button>Next</Button>
         </Actions>
       </Form>
     );

@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import { Form, Description, Actions, ActionBtn } from './Form';
+import { Form, Description, Actions } from './Form';
+import Button from '../../common/Button';
 
 import TemplatesForm from '../../shared/Templates/Templates';
 
@@ -77,8 +78,8 @@ export default class Templates extends Component {
           />
         </div>
         <Actions>
-          <ActionBtn onClick={this.handleBack}>Back</ActionBtn>
-          <ActionBtn>Next</ActionBtn>
+          <Button onClick={this.handleBack}>Back</Button>
+          <Button>Next</Button>
         </Actions>
       </Form>
     );

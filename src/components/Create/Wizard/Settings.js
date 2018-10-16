@@ -5,7 +5,8 @@ import Input from '../../common/Input';
 import DateInput from '../../common/DateInput';
 import { Upload, ImagePreview } from '../../common/Upload';
 
-import { Form, Description, Field, Fieldset, Actions, ActionBtn } from './Form';
+import { Form, Description, Field, Fieldset, Actions } from './Form';
+import Button from '../../common/Button';
 
 import { ReactComponent as Placeholder } from '../../assets/preview.svg';
 
@@ -97,7 +98,7 @@ export default class Settings extends Component {
           </Field>
         </Fieldset>
         <Actions>
-          <ActionBtn>Next</ActionBtn>
+          <Button>Next</Button>
         </Actions>
       </Form>
     );

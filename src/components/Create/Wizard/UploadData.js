@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import { Form, Description, Fieldset, Actions, ActionBtn } from './Form';
-
+import Button from '../../common/Button';
 import { Upload } from '../../common/Upload';
+
+import { Form, Description, Fieldset, Actions } from './Form';
 
 import { ReactComponent as Placeholder } from '../../assets/data.svg';
 
@@ -68,11 +69,15 @@ export default class UploadData extends Component {
           </Upload>
         </Fieldset>
         <Actions>
-          <ActionBtn className={styles.api} onClick={this.handleToggleApi}>
+          <Button
+            theme="aqua"
+            className={styles.api}
+            onClick={this.handleToggleApi}
+          >
             Api
-          </ActionBtn>
-          <ActionBtn onClick={this.handleBack}>Back</ActionBtn>
-          <ActionBtn>Next</ActionBtn>
+          </Button>
+          <Button onClick={this.handleBack}>Back</Button>
+          <Button>Next</Button>
         </Actions>
       </Form>
     );
