@@ -3,7 +3,6 @@ export const FORM_DND_ID = 'FORM_DND_ID';
 export const uniqName = (meta, totalModules) => `${meta.type}-${totalModules}`;
 
 export const targetEmpty = {
-  canDrop: () => true,
   drop: (props, monitor) => {
     const { id, meta } = monitor.getItem();
     props.onAdd(id, meta);
@@ -11,11 +10,14 @@ export const targetEmpty = {
 };
 
 export const metaSource = {
-  beginDrag: ({ meta, totalModules }) => ({
-    id: uniqName(meta, totalModules),
-    meta,
-    order: totalModules,
-  }),
+  beginDrag: ({ meta, totalModules, onPreview }) => {
+    onPreview(null);
+    return {
+      id: uniqName(meta, totalModules),
+      meta,
+      order: totalModules,
+    };
+  },
   endDrag: ({ onEndDrag }, monitor) => {
     onEndDrag(monitor.getItem().id);
   },
