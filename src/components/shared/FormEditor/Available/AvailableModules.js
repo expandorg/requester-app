@@ -14,10 +14,6 @@ import styles from './AvailableModules.module.styl';
 
 const RESIZE_DEBOUNCE = 200;
 
-const modulesMeta = moduleControls
-  .map(c => c.module)
-  .filter(m => typeof m.type === 'string');
-
 class AvailableModules extends Component {
   static propTypes = {
     totalModules: PropTypes.number.isRequired,
@@ -79,14 +75,14 @@ class AvailableModules extends Component {
       <div className={styles.container} ref={this.container}>
         {connectDropTarget(
           <div className={styles.list} onScroll={this.handleScroll}>
-            {modulesMeta.map(meta => (
+            {moduleControls.map(C => (
               <ModuleItem
-                meta={meta}
-                key={meta.type}
+                meta={C.module}
+                key={C.module.type}
                 onEndDrag={onEndDrag}
                 onAdd={this.handleAdd}
                 offset={top}
-                isHovered={meta.type === preview}
+                isHovered={C.module.type === preview}
                 onPreview={this.handlePreview}
                 totalModules={totalModules}
               />

@@ -76,10 +76,10 @@ class ModuleItem extends Component {
         <div className={styles.drag}>
           <DragIcon />
         </div>
-        <div className={styles.name}>{meta.type}</div>
+        <div className={styles.name}>{meta.name}</div>
         {isHovered && (
           <div className={styles.preview} style={{ top: previewTop - offset }}>
-            <Icon className={styles.img} alt={meta.type} />
+            <Icon className={styles.img} alt={meta.name} />
             <button className={styles.add} onClick={this.handleAdd}>
               Add
             </button>
