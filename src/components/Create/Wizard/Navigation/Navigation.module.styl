@@ -1,4 +1,5 @@
 @import 'components/common/uikit/colors'
+@import 'components/common/uikit/font'
 
 .container
   box-sizing: border-box;
@@ -19,20 +20,18 @@
   align-items: center;
   justify-content: center;
 
-  font-family: 'Avenir'
-  font-size: 16px;
+  font(h4)
   width: 150px
 
   background-color: color-blue-background
   color: color-white
-
 
   outline: 0
   cursor: pointer;
 
 .active
   font-weight: 800
-  background-color: #2F80ED
+  background-color: color-primary-blue
 
 .checkmark
   position: relative;

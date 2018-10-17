@@ -1,4 +1,5 @@
 @import 'components/common/uikit/colors';
+@import 'components/common/uikit/font';
 
 .container
   display: flex;
@@ -14,8 +15,7 @@
 
   padding: 0 15px
 
-  font-family: 'Avenir';
-  font-size: 16px;
+  font(body, 500, false, normal)
   text-align: left;
 
   color: color-text-dark;
@@ -28,10 +28,10 @@
   cursor: pointer;
 
   &:hover
-    border-left-color #2F80ED
+    border-left-color color-primary-blue
 
 .selected
-  background-color: #2F80ED
+  background-color: color-primary-blue
   color: color-white
 
 .name

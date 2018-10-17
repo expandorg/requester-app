@@ -67,15 +67,11 @@ export default class UploadData extends Component {
               )
             }
           </Upload>
+          <button onClick={this.handleToggleApi} className={styles.api}>
+            Use API instead?
+          </button>
         </Fieldset>
         <Actions>
-          <Button
-            theme="aqua"
-            className={styles.api}
-            onClick={this.handleToggleApi}
-          >
-            Api
-          </Button>
           <Button onClick={this.handleBack}>Back</Button>
           <Button>Next</Button>
         </Actions>

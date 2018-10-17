@@ -1,4 +1,5 @@
 @import 'components/common/uikit/colors'
+@import 'components/common/uikit/font'
 
 .container
   box-sizing: border-box;
@@ -37,17 +38,15 @@
 
 
 .title
-  font-family: 'Avenir';
-  font-size: 24px;
+  font(h2-title)
 
-  color: color-black;
+  color: color-text-dark;
   margin-bottom: 18px
 
 .text
   box-sizing: border-box;
   padding: 7px
 
-  font-family: 'Avenir';
-  font-size: 16px;
+  font(body, false, false, 1.4)
 
-  color: #898989;
+  color: color-text-grey;

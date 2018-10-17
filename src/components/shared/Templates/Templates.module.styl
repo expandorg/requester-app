@@ -1,4 +1,5 @@
 @import 'components/common/uikit/colors';
+@import 'components/common/uikit/font';
 
 .container
   display: flex;
@@ -14,17 +15,14 @@
   border-top-left-radius: 5px
   border-bottom-left-radius: 5px
 
-  background-color: #F3F9FF
+  background-color: color-light-blue
   border-right: 1px solid color-heavy-blue;
 
 .title
   box-sizing: border-box;
   height: 75px
 
-  line-height: 75px
-
-  font-family: 'Avenir';
-  font-size: 24px;
+  font(h2-title, false, false, 75px)
 
   text-align: center;
   color: color-text-dark;

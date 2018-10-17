@@ -1,4 +1,5 @@
 @import 'components/common/uikit/colors';
+@import 'components/common/uikit/font';
 
 .i
   position: relative;
@@ -8,10 +9,17 @@
   line-height: 12px
 
   :global(.gem-tooltip)
-    background-color: #383838
+    box-sizing: border-box;
+    padding: 16px 20px
+
+    color: color-blue-background
+    background-color: color-white
+    box-shadow: heavy-shadow
+
+    font(h3-title)
 
     &:after
-      border-right-color: #383838
+      border-right-color: color-white
 
   path
     fill: color-text-heavy-blue

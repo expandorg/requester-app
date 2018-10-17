@@ -1,12 +1,11 @@
 @import 'components/common/uikit/colors';
+@import 'components/common/uikit/font';
 
 .input
   box-sizing: border-box
   display: inline-block
 
-  font-family: 'Avenir';
-  font-weight: 800;
-  font-size: 16px;
+  font(body-bold, false, false, normal)
 
   height: 32px;
   width: 100%
@@ -27,11 +26,9 @@
     transition: background-color 5000s ease-in-out 0s
 
   &::placeholder
-    font-family: 'Avenir';
-    font-weight: normal;
-    font-size: 16px;
+    font(body, false, false, normal)
     color: color-text-dark;
 
 
   &:focus
-    border-bottom:  2px solid #4285F4
+    border-bottom:  2px solid color-primary-blue

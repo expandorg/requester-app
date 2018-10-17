@@ -1,4 +1,5 @@
 @import 'components/common/uikit/colors';
+@import 'components/common/uikit/font';
 
 .container
   margin-top: 40px;
@@ -8,8 +9,7 @@
   align-items: center;
   justify-content: space-between;
 
-  font-family: 'Avenir';
-  font-size: 16px;
+  font(body)
   color: color-text-dark;
 
 .dropzone
@@ -24,7 +24,7 @@
   height: 140px;
   width: 100%
 
-  background-color: #F3F9FF
+  background-color: color-light-blue
   border-radius: 5px;
   border: 2px dashed color-heavy-blue;
 

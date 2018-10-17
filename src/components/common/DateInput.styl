@@ -1,11 +1,11 @@
 @import 'components/common/uikit/colors';
+@import 'components/common/uikit/font';
 
 /* DayPicker styles */
 
 .DayPicker
   display: inline-block;
-  font-size: 16px;
-  font-family: 'Avenir';
+  font(body, false, false, normal)
 
 
   &-wrapper
@@ -82,13 +82,9 @@
 
   &-Weekday
     display: table-cell;
-    color: color-text-heavy-blue;
-    background-color: #F3F9FF
-
-    font-family: Avenir;
-    font-weight: 800;
-    font-size: 14px;
-    line-height: 40px
+    color: color-text-blue;
+    background-color: color-light-blue
+    font(body-bold, false, 14px, 40px)
     width: 40px
     height: 40px
     text-align: center;
@@ -114,11 +110,11 @@
     cursor: pointer;
 
     &--today
-      color: #D0021B;
+      color: color-text-grey;
       font-weight: 700;
 
     &--outside
-      color: #8B9898;
+      color: #DCE0E0;
       cursor: default;
 
     &--disabled
@@ -134,11 +130,11 @@
     &--selected:not(&--disabled):not(&--outside)
       position: relative;
 
-      background-color: #2F80ED;
+      background-color: color-primary-blue;
       color: color-white;
 
     &--selected:not(&--disabled):not(&--outside):hover
-      background-color: #2F80ED;
+      background-color: color-primary-blue;
 
 
   &-WeekNumber
@@ -178,9 +174,7 @@
     box-sizing: border-box
     display: inline-block
 
-    font-family: 'Avenir';
-    font-weight: 800;
-    font-size: 16px;
+    font(body-bold, false, false, normal)
 
     height: 32px;
     width: 100%
@@ -201,14 +195,11 @@
       transition: background-color 5000s ease-in-out 0s
 
     &::placeholder
-      font-family: Avenir;
-      font-weight: normal;
-      font-size: 16px;
+      font(body, false, false, normal)
       color: color-text-dark;
 
-
     &:focus
-      border-bottom:  2px solid #4285F4
+      border-bottom:  2px solid color-primary-blue
 
 
   &-OverlayWrapper
@@ -220,5 +211,5 @@
     z-index: 1;
 
     background: color-white;
-    box-shadow: 0px 20px 50px rgba(47, 128, 237, 0.33);
+    box-shadow: heavy-shadow
     border-radius: 5px;

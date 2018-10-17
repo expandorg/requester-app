@@ -1,4 +1,5 @@
 @import 'components/common/uikit/colors'
+@import 'components/common/uikit/font'
 
 .nav
   display: flex;
@@ -7,18 +8,14 @@
 
 .link
   box-sizing: border-box;
-
-
   padding: 0 34px
-  line-height: 36px
 
-  font-family: 'Avenir';
-  font-size: 16px
+  font(h4, false, false, 36px)
   text-decoration: none;
 
   color: color-text-dark
 
 .active
   color: color-white
-  background-color: #2F80ED;
+  background-color: color-primary-blue;
   border-radius: 5px;

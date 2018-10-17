@@ -7,7 +7,7 @@ import { DragSource } from 'react-dnd';
 import { metaSource, FORM_DND_ID, uniqName } from '../dnd';
 
 import { ReactComponent as DragIcon } from '../../../assets/dragcursor.svg';
-import { ReactComponent as Icon } from '../../../assets/data.svg';
+// import { ReactComponent as Icon } from '../../../assets/data.svg';
 
 import styles from './ModuleItem.module.styl';
 
@@ -17,7 +17,7 @@ class ModuleItem extends Component {
       type: PropTypes.string,
     }).isRequired,
     isDragging: PropTypes.bool.isRequired,
-    offset: PropTypes.number.isRequired,
+    // offset: PropTypes.number.isRequired,
     isHovered: PropTypes.bool.isRequired,
     totalModules: PropTypes.number.isRequired,  // eslint-disable-line
     onEndDrag: PropTypes.func.isRequired, // eslint-disable-line
@@ -27,7 +27,7 @@ class ModuleItem extends Component {
   };
 
   state = {
-    previewTop: null,
+    // previewTop: null,
   };
 
   handleAdd = () => {
@@ -36,11 +36,11 @@ class ModuleItem extends Component {
     onAdd(id, meta);
   };
 
-  handleMouseEnter = evt => {
+  handleMouseEnter = () => {
     const { isDragging, onPreview, meta, isHovered } = this.props;
     if (!isDragging && !isHovered) {
-      const { top } = evt.currentTarget.getBoundingClientRect();
-      this.setState({ previewTop: top });
+      // const { top } = evt.currentTarget.getBoundingClientRect();
+      // this.setState({ previewTop: top });
       onPreview(meta.type);
     }
   };
@@ -55,17 +55,16 @@ class ModuleItem extends Component {
   render() {
     const {
       connectDragSource,
-      isHovered,
+      // isHovered,
       isDragging,
       meta,
-      offset,
+      // offset,
     } = this.props;
 
-    const { previewTop } = this.state;
+    // const { previewTop } = this.state;
 
     const classes = cn(styles.container, {
       [styles.dragging]: isDragging,
-      [styles.hovered]: isHovered,
     });
     return connectDragSource(
       <div
@@ -74,17 +73,14 @@ class ModuleItem extends Component {
         onMouseLeave={this.handleMouseLeave}
       >
         <div className={styles.drag}>
-          <DragIcon />
+          <DragIcon className={styles.dragIcon} />
         </div>
         <div className={styles.name}>{meta.name}</div>
-        {isHovered && (
+        {/* {isHovered && (
           <div className={styles.preview} style={{ top: previewTop - offset }}>
             <Icon className={styles.img} alt={meta.name} />
-            <button className={styles.add} onClick={this.handleAdd}>
-              Add
-            </button>
           </div>
-        )}
+        )} */}
       </div>
     );
   }

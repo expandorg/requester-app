@@ -1,4 +1,5 @@
 @import 'components/common/uikit/colors'
+@import 'components/common/uikit/font'
 
 .button
   box-sizing: border-box;
@@ -7,44 +8,41 @@
   width: 150px;
   height: 60px;
 
-  font-family: 'Avenir';
-  font-weight: 800;
-  font-size: 12px;
-  letter-spacing: 0.1em;
+  font(subtitle)
 
   text-align: center;
   text-transform: uppercase;
 
   color: color-white;
 
-  background-color: #FF7092;
+  background-color: color-pink;
   border-radius: 5px;
 
   outline: 0
   cursor: pointer;
 
   &:hover
-    background-color: lighten(#FF7092, 10%)
+    background-color: lighten(color-pink, 10%)
 
 
 .link
   background-color: transparent
-  color: #FF7092;
+  color: color-pink;
 
   &:hover
     background-color: transparent
-    color: lighten(#FF7092, 10%)
+    color: lighten(color-pink, 10%)
 
 .aqua
-  border: 1px solid #34A893;
-  background-color: rgba(112, 255, 221, 0.5);
-  color: #34A893;
+  border: 1px solid color-teel-dark;
+  background-color: color-teel-light;
+  color: color-text-teel-dark;
 
   &:hover
-    background-color: rgba(112, 255, 221, 0.7);
+    background-color: lighten(color-teel-light, 10%);
 
 .secondary
-  color: #979797
+  color: color-text-grey
   background-color: color-grey-background
 
   &:hover
