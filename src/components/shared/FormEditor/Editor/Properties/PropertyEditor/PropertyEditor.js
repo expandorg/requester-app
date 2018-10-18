@@ -5,18 +5,18 @@ import { PropControlTypes } from '@gemsorg/modules';
 
 import NumberEditor from './NumberEditor';
 import StringEditor from './StringEditor';
-import SelectEditor from './SelectEditor';
-// import BoolEditor from './BoolEditor';
+// import SelectEditor from './SelectEditor';
+import BoolEditor from './BoolEditor';
 
 import styles from './styles.module.styl';
 
 const editorsMap = {
   [PropControlTypes.number]: NumberEditor,
-  [PropControlTypes.boolean]: null, // BoolEditor,
+  [PropControlTypes.boolean]: BoolEditor,
   [PropControlTypes.string]: StringEditor,
   [PropControlTypes.text]: StringEditor,
   [PropControlTypes.richText]: StringEditor,
-  [PropControlTypes.enum]: SelectEditor,
+  [PropControlTypes.enum]: null,
   [PropControlTypes.modules]: null,
 };
 

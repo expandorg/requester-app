@@ -188,11 +188,11 @@
 
     outline: 0
 
-    &:-webkit-autofill,
-    &:-webkit-autofill:hover,
-    &:-webkit-autofill:focus,
-    &:-webkit-autofill:active
+    &:-webkit-autofill
       transition: background-color 5000s ease-in-out 0s
+
+      &:hover, &:focus, &:active
+        transition: background-color 5000s ease-in-out 0s
 
     &::placeholder
       font(body, false, false, normal)

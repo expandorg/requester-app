@@ -1,0 +1,62 @@
+@import 'components/common/uikit/colors';
+@import 'components/common/uikit/font';
+
+.checkbox
+  display: inline-flex;
+  position: relative
+
+  align-items:center
+
+  cursor: pointer
+  user-select: none
+
+  @media(min-width: 768px)
+    font-size:14px
+
+.input
+  position: absolute
+  opacity: 0
+  cursor: pointer
+
+  &:checked~.mark
+    background-color: color-medium-blue
+
+    &:after
+      display: block
+
+.mark
+  position: relative
+
+  height: 36px
+  width: 36px
+
+  min-width: 36px
+  min-height: 36px
+
+  margin-right: 20px
+
+  border: 1px solid color-heavy-blue
+  border-radius: 5px
+  background-color: transparent;
+
+  &:after
+    position: absolute
+    display: none
+    content: ""
+
+    left: 13px
+    top: 5px
+
+    width: 8px
+    height: 16px
+
+    border: solid color-text-blue
+    border-width: 0 4px 4px 0
+
+    -webkit-transform: rotate(45deg)
+    -ms-transform: rotate(45deg)
+    transform: rotate(45deg)
+
+.label
+  color: color-text-dark
+  font(body)

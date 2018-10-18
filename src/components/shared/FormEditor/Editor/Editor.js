@@ -33,8 +33,6 @@ export default class Editor extends Component {
   handleTogglePreview = () => {};
   handleCancel = () => {};
 
-  handleSaveModule = () => {};
-
   handleRemoveModule = id => {
     const { onRemoveModule } = this.props;
     const { selected } = this.state;
@@ -50,6 +48,7 @@ export default class Editor extends Component {
     const { selected } = this.state;
 
     onEditModule(selected, module);
+    this.setState({ selected: null });
   };
 
   render() {
