@@ -21,6 +21,7 @@ const formData = {
 export default class Form extends Component {
   static propTypes = {
     modules: PropTypes.arrayOf(moduleProps),
+    selected: PropTypes.string,
     onAddModule: PropTypes.func.isRequired,
     onMoveModule: PropTypes.func.isRequired,
     onSelectModule: PropTypes.func.isRequired,
@@ -29,6 +30,7 @@ export default class Form extends Component {
 
   static defaultProps = {
     modules: [],
+    selected: null,
   };
 
   state = {
@@ -42,6 +44,7 @@ export default class Form extends Component {
       onSelectModule,
       onRemoveModule,
       onMoveModule,
+      selected,
     } = this.props;
 
     const { controls } = this.state;
@@ -59,6 +62,7 @@ export default class Form extends Component {
                   controls={controls}
                   order={order}
                   id={module.name}
+                  dimmed={selected !== null && module.name !== selected}
                   module={module}
                   onMove={onMoveModule}
                   onRemove={onRemoveModule}

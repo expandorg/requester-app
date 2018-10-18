@@ -108,6 +108,7 @@ export default class FormEditor extends Component {
         <div className={styles.form}>
           <Form
             modules={modules}
+            selected={selected}
             onAddModule={this.handleAdd}
             onMoveModule={this.handleMove}
             onSelectModule={this.handleSelect}

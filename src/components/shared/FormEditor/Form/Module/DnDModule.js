@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import cn from 'classnames';
 
 import { DragSource, DropTarget } from 'react-dnd';
 
@@ -19,8 +18,8 @@ class DnDModule extends Component {
     module: moduleProps.isRequired,
     order: PropTypes.number.isRequired, // eslint-disable-line
     controls: PropTypes.object.isRequired, // eslint-disable-line
-
     isDragging: PropTypes.bool.isRequired,
+    dimmed: PropTypes.bool.isRequired,
     onMove: PropTypes.func.isRequired, // eslint-disable-line
     onEdit: PropTypes.func.isRequired,
     onRemove: PropTypes.func.isRequired,
@@ -35,7 +34,7 @@ class DnDModule extends Component {
       connectDragSource,
       connectDropTarget,
       connectDragPreview,
-
+      dimmed,
       isDragging,
       module,
       onRemove,
@@ -48,7 +47,7 @@ class DnDModule extends Component {
     return connectDragSource(
       connectDropTarget(
         <div
-          className={cn(styles.container)}
+          className={styles.container}
           ref={c => {
             this.containerRef = c;
           }}
@@ -56,6 +55,7 @@ class DnDModule extends Component {
           {!dragging ? (
             <ModuleEdit
               module={module}
+              dimmed={dimmed}
               controls={controls}
               onEdit={onEdit}
               onRemove={onRemove}

@@ -12,6 +12,7 @@ export default class ModuleEdit extends Component {
   static propTypes = {
     module: moduleProps.isRequired,
     controls: PropTypes.object.isRequired, // eslint-disable-line
+    dimmed: PropTypes.bool.isRequired,
     className: PropTypes.string,
     onEdit: PropTypes.func.isRequired,
     onRemove: PropTypes.func.isRequired,
@@ -37,7 +38,13 @@ export default class ModuleEdit extends Component {
   };
 
   render() {
-    const { module, className, onPreview, controls } = this.props;
+    const { module, className, onPreview, dimmed, controls } = this.props;
+
+    const classes = cn(
+      styles.container,
+      { [styles.dimmed]: dimmed },
+      className
+    );
 
     /* eslint-disable jsx-a11y/click-events-have-key-events */
     /* eslint-disable jsx-a11y/no-static-element-interactions */
@@ -45,7 +52,7 @@ export default class ModuleEdit extends Component {
     return (
       <div className={styles.outer}>
         {onPreview(
-          <div className={cn(styles.container, className)}>
+          <div className={classes}>
             <Module module={module} isSubmitting={false} controls={controls} />
             <div className={styles.edit} onClick={this.handleEditClick} />
           </div>
