@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import { withRouter, NavLink, Link } from 'react-router-dom';
+import { withRouter, NavLink } from 'react-router-dom';
 
 import { ReactComponent as ApiIcon } from '../assets/api.svg';
 import { ReactComponent as DashboardIcon } from '../assets/dashboard.svg';
 import { ReactComponent as ProfileIcon } from '../assets/profile.svg';
 import { ReactComponent as SettingsIcon } from '../assets/settings.svg';
-import { ReactComponent as Logo } from '../assets/logo.svg';
 
 import { isActive } from '../../model/dashboard';
 
@@ -22,12 +21,12 @@ const navItemType = PropTypes.shape({
 const SidebarLink = ({ item }) => (
   <NavLink
     to={item.link}
-    className="gem-sidebar-nav-link"
+    className="gem-sidebar-link"
     isActive={item.isActive}
     exact
-    activeClassName="gem-sidebar-nav-link-active"
+    activeClassName="gem-sidebar-link-active"
   >
-    <item.icon className="gem-sidebar-nav-link-icon" />
+    <item.icon className="gem-sidebar-link-icon" />
     {item.title}
   </NavLink>
 );
@@ -66,24 +65,19 @@ class Sidebar extends Component {
 
     return (
       <div className="gem-sidebar">
-        <Link to="/" className="gem-sidebar-logo">
-          <Logo className="gem-sidebar-logo-icon" />
-        </Link>
-        <div className="gem-sidebar-nav">
-          <NavLink
-            to="/"
-            className="gem-sidebar-nav-link"
-            isActive={isActive}
-            exact
-            activeClassName="gem-sidebar-nav-link-active"
-          >
-            <DashboardIcon className="gem-sidebar-nav-link-icon" />
-            Dashboard
-          </NavLink>
-          {navigation.map(item => (
-            <SidebarLink key={item.link} item={item} />
-          ))}
-        </div>
+        <NavLink
+          to="/"
+          className="gem-sidebar-link"
+          isActive={isActive}
+          exact
+          activeClassName="gem-sidebar-link-active"
+        >
+          <DashboardIcon className="gem-sidebar-link-icon" />
+          Dashboard
+        </NavLink>
+        {navigation.map(item => (
+          <SidebarLink key={item.link} item={item} />
+        ))}
       </div>
     );
   }

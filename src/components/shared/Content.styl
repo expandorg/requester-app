@@ -1,18 +1,20 @@
 @import 'components/common/uikit/layout'
 @import 'components/common/uikit/colors'
+@import 'components/common/uikit/size'
 
 .gem-page
   box-sizing: border-box;
   min-height: 100vh;
 
-  &-content
-    box-sizing: border-box;
-
-    &-shifted
-      width: calc(100% - 125px)
-      margin-left: 125px;
 
 .gem-content
   box-sizing: border-box;
   background-color: color-light-blue
   min-height: 100vh
+
+
+  &__sidebar
+    padding-top: sz-sidebar-width
+
+  &__navbar
+    padding-left: sz-navbar-height

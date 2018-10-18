@@ -1,5 +1,6 @@
 @import 'components/common/uikit/colors'
 @import 'components/common/uikit/font'
+@import 'components/common/uikit/size'
 
 .header
   box-sizing: border-box;
@@ -8,14 +9,20 @@
   align-items: center;
   justify-content: flex-start
 
-  height: 125px
-  padding-left: 80px
+  height: sz-navbar-height
+  padding-left: 25px
 
-  box-shadow: light-shadow;
   background-color: color-white;
 
-.withLogo
-  padding-left: 45px
+.top
+  position: fixed;
+  top: 0
+  left: 0
+  right: 0
+
+  box-shadow: light-shadow;
+
+  z-index: 2
 
 .logo
   display: inline-block;
@@ -23,7 +30,7 @@
   width: 50px
   height: 50px
 
-  margin-right: 60px
+  margin-right: 130px
 
   &:hover
     path

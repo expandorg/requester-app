@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import Content from '../shared/Content';
-import Header from '../shared/Header';
+import Navbar from '../shared/Navbar';
 
 import { Navigation, NavItem } from './Wizard/Navigation';
 
@@ -32,8 +32,13 @@ export default class Create extends Component {
   render() {
     const { active } = this.state;
     return (
-      <Content title="Create a task" className={styles.content} sidebar={false}>
-        <Header title="Create a task" className={styles.header} logo>
+      <Content
+        title="Create a task"
+        className={styles.content}
+        sidebar={false}
+        navbar={false}
+      >
+        <Navbar title="Create a task" top={false}>
           <Navigation onChange={this.handleChangeActive} active={active}>
             <NavItem done>Settings</NavItem>
             <NavItem>Upload</NavItem>
@@ -42,7 +47,7 @@ export default class Create extends Component {
             <NavItem>Whitelist</NavItem>
             <NavItem>Pay</NavItem>
           </Navigation>
-        </Header>
+        </Navbar>
         <div className={styles.container}>
           {active === 0 && <Settings onNext={this.handleNext} />}
           {active === 1 && (

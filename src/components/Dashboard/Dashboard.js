@@ -7,7 +7,8 @@ import { bindActionCreators } from 'redux';
 import { withRouter } from 'react-router-dom';
 
 import Content from '../shared/Content';
-import Header from '../shared/Header';
+import Navbar from '../shared/Navbar';
+import Sidebar from '../shared/Sidebar';
 
 import Navigation from './Navigation';
 
@@ -47,11 +48,10 @@ class Dashboard extends Component {
     const { items } = this.props;
     return (
       <Content title="Dashboard">
-        <div className={styles.container}>
-          <Header title="Dashboard">
-            <Navigation className={styles.nav} />
-          </Header>
-        </div>
+        <Navbar title="Dashboard">
+          <Navigation className={styles.nav} />
+        </Navbar>
+        <Sidebar />
         <List className={styles.list}>
           <NewTask />
           {items.map(task => (

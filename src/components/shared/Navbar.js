@@ -6,31 +6,27 @@ import { Link } from 'react-router-dom';
 
 import { ReactComponent as Logo } from '../assets/logo.svg';
 
-import styles from './Header.module.styl';
+import styles from './Navbar.module.styl';
 
-export default class Header extends Component {
+export default class Navbar extends Component {
   static propTypes = {
     title: PropTypes.string.isRequired,
-    logo: PropTypes.bool,
     className: PropTypes.string,
+    top: PropTypes.bool,
   };
 
   static defaultProps = {
     className: null,
-    logo: false,
+    top: true,
   };
 
   render() {
-    const { children, title, logo, className } = this.props;
+    const { children, title, top, className } = this.props;
     return (
-      <div
-        className={cn(styles.header, className, { [styles.withLogo]: logo })}
-      >
-        {logo && (
-          <Link to="/" className={styles.logo}>
-            <Logo />
-          </Link>
-        )}
+      <div className={cn(styles.header, { [styles.top]: top }, className)}>
+        <Link to="/" className={styles.logo}>
+          <Logo />
+        </Link>
         <h1 className={styles.title}>{title}</h1>
         <div className={styles.nav}>{children}</div>
       </div>

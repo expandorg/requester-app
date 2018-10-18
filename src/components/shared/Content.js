@@ -4,20 +4,22 @@ import cn from 'classnames';
 
 import DocumentTitle from 'react-document-title';
 
-import Sidebar from './Sidebar';
-
 import './Content.styl';
 
-const Content = ({ children, title, className, sidebar }) => (
+const Content = ({ children, title, className, sidebar, navbar }) => (
   <DocumentTitle title={`${title} - Gems`}>
     <div className="gem-page">
-      {sidebar && <Sidebar />}
       <div
-        className={cn('gem-page-content', {
-          'gem-page-content-shifted': sidebar,
-        })}
+        className={cn(
+          'gem-content',
+          {
+            'gem-content__sidebar': sidebar,
+            'gem-content__navbar': navbar,
+          },
+          className
+        )}
       >
-        <div className={cn('gem-content', className)}>{children}</div>
+        {children}
       </div>
     </div>
   </DocumentTitle>
@@ -27,11 +29,13 @@ Content.propTypes = {
   title: PropTypes.string.isRequired,
   className: PropTypes.string,
   sidebar: PropTypes.bool,
+  navbar: PropTypes.bool,
 };
 
 Content.defaultProps = {
   className: null,
   sidebar: true,
+  navbar: true,
 };
 
 export default Content;
