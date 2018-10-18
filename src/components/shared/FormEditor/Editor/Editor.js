@@ -45,8 +45,15 @@ export default class Editor extends Component {
     onRemoveModule(id);
   };
 
+  handleEditModule = module => {
+    const { onEditModule } = this.props;
+    const { selected } = this.state;
+
+    onEditModule(selected, module);
+  };
+
   render() {
-    const { modules, onMoveModule, onEditModule, onAddModule } = this.props;
+    const { modules, onMoveModule, onAddModule } = this.props;
     const { controls, selected } = this.state;
 
     return (
@@ -70,10 +77,10 @@ export default class Editor extends Component {
           />
         </div>
         <Properties
-          module={modules.find(m => m.name === selected)}
+          module={selected && modules.find(m => m.name === selected)}
           controls={controls}
           onCancel={this.handleSelect}
-          onSave={onEditModule}
+          onEdit={this.handleEditModule}
         />
       </div>
     );

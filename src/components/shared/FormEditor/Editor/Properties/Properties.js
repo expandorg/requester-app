@@ -21,7 +21,7 @@ export default class Properties extends Component {
     const { module, ...rest } = this.props;
     const visible = !!module;
     return (
-      <Drawer className={styles.container} width={450} visible={visible}>
+      <Drawer className={styles.container} width={540} visible={visible}>
         {visible && <PropertiesForm module={module} {...rest} />}
       </Drawer>
     );

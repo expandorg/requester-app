@@ -79,7 +79,16 @@ export default class FormEditor extends Component {
     });
   };
 
-  handleEditModule = () => {};
+  handleEditModule = (moduleId, module) => {
+    const { modules } = this.state;
+    const index = modules.findIndex(m => m.name === moduleId);
+
+    this.setState({
+      modules: immer(modules, draft => {
+        draft[index] = module;
+      }),
+    });
+  };
 
   render() {
     const { modules } = this.state;
