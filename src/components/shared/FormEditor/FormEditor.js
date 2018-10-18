@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 
 import immer from 'immer';
 
-import Form from './Form/Form';
+import { moduleControls } from '@gemsorg/modules';
+
+import Editor from './Editor/Editor';
 import AvailableModules from './Available/AvailableModules';
-import Properties from './Properties/Properties';
-import Info from './Info';
 
 import styles from './FormEditor.module.styl';
 
@@ -25,7 +25,6 @@ export const insertAtIndex = (array, index, item) => [
 export default class FormEditor extends Component {
   state = {
     modules: [],
-    selected: null,
   };
 
   handleAdd = (dragId, meta) => {
@@ -38,16 +37,8 @@ export default class FormEditor extends Component {
   handleRemove = id => {
     this.setState(({ modules }) => ({
       modules: modules.filter(m => m.name !== id),
-      selected: null,
     }));
   };
-
-  handleSelect = module => {
-    const { selected } = this.state;
-    this.setState({ selected: selected === module.name ? null : module.name });
-  };
-
-  handleSave = () => {};
 
   handleMove = (dragId, hoverId, meta) => {
     const { modules } = this.state;
@@ -88,46 +79,32 @@ export default class FormEditor extends Component {
     });
   };
 
-  handleSave = () => {};
-  handleTogglePreview = () => {};
-  handleCancel = () => {};
+  handleEditModule = () => {};
 
   render() {
-    const { modules, selected } = this.state;
+    const { modules } = this.state;
 
     return (
       <div className={styles.container}>
         <div className={styles.left}>
           <AvailableModules
             totalModules={modules.length}
+            moduleControls={moduleControls}
             onEndDrag={this.handleEndDrag}
             onAddModule={this.handleAdd}
             onRemoveModule={this.handleRemove}
           />
         </div>
-        <div className={styles.form}>
-          <Form
+        <div className={styles.editor}>
+          <Editor
             modules={modules}
-            selected={selected}
+            moduleControls={moduleControls}
             onAddModule={this.handleAdd}
+            onEditModule={this.handleEditModule}
             onMoveModule={this.handleMove}
-            onSelectModule={this.handleSelect}
             onRemoveModule={this.handleRemove}
           />
         </div>
-        <div className={styles.aside}>
-          <Info
-            onSave={this.handleSave}
-            onPreview={this.handleTogglePreview}
-            onCancel={this.handleCancel}
-          />
-        </div>
-        <Properties
-          module={modules.find(m => m.name === selected)}
-          onCancel={this.handleSelect}
-          onRemove={this.handleRemove}
-          onSave={this.handleSave}
-        />
       </div>
     );
   }

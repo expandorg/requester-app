@@ -63,6 +63,8 @@ class ModuleItem extends Component {
 
     // const { previewTop } = this.state;
 
+    // TODO: icon with description
+
     const classes = cn(styles.container, {
       [styles.dragging]: isDragging,
     });

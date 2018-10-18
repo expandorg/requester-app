@@ -1,12 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import {
-  moduleProps,
-  moduleControls,
-  getModuleControlsMap,
-  FormDataProvider,
-} from '@gemsorg/modules';
+import { moduleProps, FormDataProvider } from '@gemsorg/modules';
 
 import Empty from './Empty';
 import DnDModule from './Module/DnDModule';
@@ -22,6 +17,7 @@ export default class Form extends Component {
   static propTypes = {
     modules: PropTypes.arrayOf(moduleProps),
     selected: PropTypes.string,
+    controls: PropTypes.object.isRequired, // eslint-disable-line
     onAddModule: PropTypes.func.isRequired,
     onMoveModule: PropTypes.func.isRequired,
     onSelectModule: PropTypes.func.isRequired,
@@ -33,10 +29,6 @@ export default class Form extends Component {
     selected: null,
   };
 
-  state = {
-    controls: getModuleControlsMap(moduleControls),
-  };
-
   render() {
     const {
       modules,
@@ -45,9 +37,10 @@ export default class Form extends Component {
       onRemoveModule,
       onMoveModule,
       selected,
+      controls,
     } = this.props;
 
-    const { controls } = this.state;
+    // TODO: outer drop target;
 
     return (
       <div className={styles.container}>

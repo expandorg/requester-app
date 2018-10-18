@@ -4,9 +4,9 @@ import cn from 'classnames';
 
 import { DropTarget } from 'react-dnd';
 
-import { ReactComponent as Preview } from '../../../assets/preview.svg';
+import { ReactComponent as Preview } from '../../../../assets/preview.svg';
 
-import { emptyTarget, FORM_DND_ID } from '../dnd';
+import { emptyTarget, FORM_DND_ID } from '../../dnd';
 
 import styles from './Empty.module.styl';
 

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import { moduleProps } from '@gemsorg/modules';
 
-import Drawer from '../../../common/Drawer';
+import Drawer from '../../../../common/Drawer';
 
 import PropertiesForm from './PropertiesForm';
 

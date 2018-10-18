@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import Button from '../../common/Button';
+import Button from '../../../common/Button';
 
 import styles from './Info.module.styl';
 

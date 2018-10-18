@@ -4,7 +4,7 @@ import cn from 'classnames';
 
 import { moduleProps, Module } from '@gemsorg/modules';
 
-import { ReactComponent as X } from '../../../../assets/x.svg';
+import { ReactComponent as X } from '../../../../../assets/x.svg';
 
 import styles from './ModuleEdit.module.styl';
 

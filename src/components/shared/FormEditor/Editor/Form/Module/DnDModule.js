@@ -9,7 +9,7 @@ import ModuleEdit from './ModuleEdit';
 
 import Placeholder from './Placeholder';
 
-import { moduleSource, moduleTarget, FORM_DND_ID } from '../../dnd';
+import { moduleSource, moduleTarget, FORM_DND_ID } from '../../../dnd';
 
 import styles from './DnDModule.module.styl';
 

@@ -4,8 +4,6 @@ import PropTypes from 'prop-types';
 import debounce from 'debounce';
 import { DropTarget } from 'react-dnd';
 
-import { moduleControls } from '@gemsorg/modules';
-
 import ModuleItem from './ModuleItem';
 
 import { availableTarget, FORM_DND_ID } from '../dnd';
@@ -18,6 +16,7 @@ class AvailableModules extends Component {
   static propTypes = {
     totalModules: PropTypes.number.isRequired,
     onEndDrag: PropTypes.func.isRequired,
+    moduleControls: PropTypes.arrayOf(PropTypes.func).isRequired,
     onAddModule: PropTypes.func.isRequired,
     onRemoveModule: PropTypes.func.isRequired, // eslint-disable-line
 
@@ -69,8 +68,15 @@ class AvailableModules extends Component {
   };
 
   render() {
-    const { totalModules, onEndDrag, connectDropTarget } = this.props;
+    const {
+      totalModules,
+      onEndDrag,
+      moduleControls,
+      connectDropTarget,
+    } = this.props;
+
     const { preview, top } = this.state;
+
     return (
       <div className={styles.container} ref={this.container}>
         <div className={styles.header}>Components</div>
