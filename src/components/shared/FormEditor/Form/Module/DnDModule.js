@@ -22,22 +22,23 @@ class DnDModule extends Component {
 
     isDragging: PropTypes.bool.isRequired,
     onMove: PropTypes.func.isRequired, // eslint-disable-line
-    onEdit: PropTypes.func,
+    onEdit: PropTypes.func.isRequired,
+    onRemove: PropTypes.func.isRequired,
 
     connectDragSource: PropTypes.func.isRequired,
+    connectDragPreview: PropTypes.func.isRequired,
     connectDropTarget: PropTypes.func.isRequired,
-  };
-
-  static defaultProps = {
-    onEdit: Function.prototype,
   };
 
   render() {
     const {
       connectDragSource,
       connectDropTarget,
+      connectDragPreview,
+
       isDragging,
       module,
+      onRemove,
       controls,
       onEdit,
     } = this.props;
@@ -53,7 +54,13 @@ class DnDModule extends Component {
           }}
         >
           {!dragging ? (
-            <ModuleEdit module={module} controls={controls} onEdit={onEdit} />
+            <ModuleEdit
+              module={module}
+              controls={controls}
+              onEdit={onEdit}
+              onRemove={onRemove}
+              onPreview={connectDragPreview}
+            />
           ) : (
             <Placeholder />
           )}
@@ -68,6 +75,7 @@ export default DropTarget(FORM_DND_ID, moduleTarget, connect => ({
 }))(
   DragSource(FORM_DND_ID, moduleSource, (connect, monitor) => ({
     connectDragSource: connect.dragSource(),
+    connectDragPreview: connect.dragPreview(),
     isDragging: monitor.isDragging(),
   }))(DnDModule)
 );

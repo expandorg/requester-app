@@ -1,5 +1,11 @@
 @import 'components/common/uikit/colors';
 
+.outer
+  box-sizing: border-box;
+  position: relative;
+
+  padding-right: 30px
+
 .container
   box-sizing: border-box;
   position: relative;
@@ -20,3 +26,28 @@
   bottom: 0
 
   cursor: pointer;
+
+.remove
+  box-sizing: border-box;
+  position: absolute;
+  display: none;
+
+  right: 0
+  top: calc(50% - 8px)
+
+  width: 16px
+  height: 16px
+
+  padding: 0
+  margin: 0
+
+  background-color: transparent;
+
+  cursor: pointer;
+  outline: 0
+
+  path
+    fill: color-text-disabled
+
+  .outer:hover &
+    display: block;
