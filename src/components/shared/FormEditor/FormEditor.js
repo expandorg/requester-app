@@ -111,6 +111,7 @@ export default class FormEditor extends Component {
             onAddModule={this.handleAdd}
             onMoveModule={this.handleMove}
             onSelectModule={this.handleSelect}
+            onRemoveModule={this.handleRemove}
           />
         </div>
         <div className={styles.aside}>

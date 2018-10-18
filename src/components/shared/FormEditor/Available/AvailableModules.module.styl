@@ -1,4 +1,5 @@
 @import 'components/common/uikit/colors';
+@import 'components/common/uikit/font';
 
 .container
   box-sizing: border-box;
@@ -6,15 +7,27 @@
   height: 100%
   width: 100%
 
-  padding: 20px 14px
+  padding: 10px 14px
   background-color: color-blue-background
 
   position: relative;
 
+  border-top-left-radius: 5px
+  border-bottom-left-radius: 5px
+
+.header
+  box-sizing: border-box;
+
+  height: 75px
+  font(h2-title, false, false, 75px)
+  text-align: center;
+
+  color: color-white
+
 .list
   box-sizing: content-box;
 
-  height: 100%
+  height: calc(100% - 75px)
   width: 100%
 
   padding-right: 17px;

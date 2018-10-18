@@ -2,30 +2,21 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
 
-import { Tooltip } from '@gemsorg/components';
 import { moduleProps, Module } from '@gemsorg/modules';
 
-import { ReactComponent as EditIcon } from '../../../../assets/edit.svg';
-
-import styles from './styles.module.styl';
-
-const EditButton = Tooltip(({ children, ...rest }) => (
-  <button className={styles.edit} {...rest}>
-    {children}
-  </button>
-));
+import styles from './ModuleEdit.module.styl';
 
 export default class ModuleEdit extends Component {
   static propTypes = {
     module: moduleProps.isRequired,
     controls: PropTypes.object.isRequired, // eslint-disable-line
     className: PropTypes.string,
-    onEdit: PropTypes.func,
+    onEdit: PropTypes.func.isRequired,
+    onRemove: PropTypes.func.isRequired,
   };
 
   static defaultProps = {
     className: null,
-    onEdit: Function.prototype,
   };
 
   handleEditClick = evt => {
@@ -35,14 +26,23 @@ export default class ModuleEdit extends Component {
     evt.preventDefault();
   };
 
+  handleRemoveClick = evt => {
+    const { onRemove, module } = this.props;
+    onRemove(module.name);
+
+    evt.preventDefault();
+  };
+
   render() {
     const { module, className, controls } = this.props;
+
+    /* eslint-disable jsx-a11y/click-events-have-key-events */
+    /* eslint-disable jsx-a11y/no-static-element-interactions */
+
     return (
       <div className={cn(styles.container, className)}>
         <Module module={module} isSubmitting={false} controls={controls} />
-        <EditButton onClick={this.handleEditClick} tooltip="Edit">
-          <EditIcon />
-        </EditButton>
+        <div className={styles.edit} onClick={this.handleEditClick} />
       </div>
     );
   }

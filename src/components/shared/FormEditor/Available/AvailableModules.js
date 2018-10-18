@@ -73,6 +73,7 @@ class AvailableModules extends Component {
     const { preview, top } = this.state;
     return (
       <div className={styles.container} ref={this.container}>
+        <div className={styles.header}>Components</div>
         {connectDropTarget(
           <div className={styles.list} onScroll={this.handleScroll}>
             {moduleControls.map(C => (

@@ -24,6 +24,7 @@ export default class Form extends Component {
     onAddModule: PropTypes.func.isRequired,
     onMoveModule: PropTypes.func.isRequired,
     onSelectModule: PropTypes.func.isRequired,
+    onRemoveModule: PropTypes.func.isRequired,
   };
 
   static defaultProps = {
@@ -35,12 +36,19 @@ export default class Form extends Component {
   };
 
   render() {
-    const { modules, onAddModule, onSelectModule, onMoveModule } = this.props;
+    const {
+      modules,
+      onAddModule,
+      onSelectModule,
+      onRemoveModule,
+      onMoveModule,
+    } = this.props;
+
     const { controls } = this.state;
 
     return (
       <div className={styles.container}>
-        <div className={styles.title}>Task Module</div>
+        <div className={styles.title}>Edit Task Module</div>
         <div className={styles.content}>
           {modules.length === 0 && <Empty onAdd={onAddModule} />}
           <div className={styles.form}>
@@ -53,6 +61,7 @@ export default class Form extends Component {
                   id={module.name}
                   module={module}
                   onMove={onMoveModule}
+                  onRemove={onRemoveModule}
                   onEdit={onSelectModule}
                 />
               ))}

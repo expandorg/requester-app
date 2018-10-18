@@ -52,9 +52,10 @@ class DnDModule extends Component {
             this.containerRef = c;
           }}
         >
-          {dragging && <Placeholder />}
-          {!dragging && (
+          {!dragging ? (
             <ModuleEdit module={module} controls={controls} onEdit={onEdit} />
+          ) : (
+            <Placeholder />
           )}
         </div>
       )
