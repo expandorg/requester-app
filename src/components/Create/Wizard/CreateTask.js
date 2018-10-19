@@ -54,7 +54,7 @@ export default class CreateTask extends Component {
 
   handleAddStep = template => {
     this.setState(({ steps }) => ({
-      steps: [...steps, template],
+      steps: [template, ...steps],
       add: false,
     }));
   };
