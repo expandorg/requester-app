@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 import immer from 'immer';
 
@@ -23,8 +24,18 @@ export const insertAtIndex = (array, index, item) => [
 ];
 
 export default class FormEditor extends Component {
+  static propTypes = {
+    onSave: PropTypes.func.isRequired,
+    onHide: PropTypes.func.isRequired,
+  };
+
   state = {
     modules: [],
+  };
+
+  handleSave = () => {
+    const { onSave } = this.props;
+    onSave();
   };
 
   handleAdd = (dragId, meta) => {
@@ -91,6 +102,8 @@ export default class FormEditor extends Component {
   };
 
   render() {
+    const { onHide } = this.props;
+
     const { modules } = this.state;
 
     return (
@@ -112,6 +125,8 @@ export default class FormEditor extends Component {
             onEditModule={this.handleEditModule}
             onMoveModule={this.handleMove}
             onRemoveModule={this.handleRemove}
+            onSave={this.handleSave}
+            onCancel={onHide}
           />
         </div>
       </div>

@@ -19,6 +19,8 @@ export default class Editor extends Component {
     onEditModule: PropTypes.func.isRequired,
     onMoveModule: PropTypes.func.isRequired,
     onRemoveModule: PropTypes.func.isRequired,
+    onSave: PropTypes.func.isRequired,
+    onCancel: PropTypes.func.isRequired,
   };
 
   state = {
@@ -31,9 +33,7 @@ export default class Editor extends Component {
     this.setState({ selected: selected === module.name ? null : module.name });
   };
 
-  handleSave = () => {};
   handleTogglePreview = () => {};
-  handleCancel = () => {};
 
   handleRemoveModule = id => {
     const { onRemoveModule } = this.props;
@@ -54,7 +54,7 @@ export default class Editor extends Component {
   };
 
   render() {
-    const { modules, onMoveModule, onAddModule } = this.props;
+    const { modules, onMoveModule, onAddModule, onSave, onCancel } = this.props;
     const { controls, selected } = this.state;
 
     return (
@@ -82,11 +82,7 @@ export default class Editor extends Component {
             />
           </div>
           <div className={styles.aside}>
-            <Info
-              onSave={this.handleSave}
-              onPreview={this.handleTogglePreview}
-              onCancel={this.handleCancel}
-            />
+            <Info onSave={onSave} onCancel={onCancel} />
           </div>
         </div>
         <Properties

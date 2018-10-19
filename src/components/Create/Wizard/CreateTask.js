@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import immer from 'immer';
 
 import Button from '../../common/Button';
 import { Form, Actions, Description } from './Form';
@@ -52,6 +53,21 @@ export default class CreateTask extends Component {
     this.setState(({ add }) => ({ add: !add }));
   };
 
+  handleSaveTemplate = () => {
+    const { steps, selected } = this.state;
+
+    this.setState({
+      selected: null,
+      steps: immer(steps, draft => {
+        draft[selected] = {
+          ...draft[selected],
+          // ...step,
+          checked: true,
+        };
+      }),
+    });
+  };
+
   handleAddStep = template => {
     this.setState(({ steps }) => ({
       steps: [template, ...steps],
@@ -100,6 +116,7 @@ export default class CreateTask extends Component {
           <FormEditorDialog
             form={steps[selected]}
             onHide={this.handleHideEditor}
+            onSave={this.handleSaveTemplate}
           />
         )}
         {add && (

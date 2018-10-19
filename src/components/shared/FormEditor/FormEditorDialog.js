@@ -12,11 +12,7 @@ import styles from './FormEditorDialog.module.styl';
 
 export default class FormEditorDialog extends Component {
   static propTypes = {
-    onHide: PropTypes.func,
-  };
-
-  static defaultProps = {
-    onHide: Function.prototype,
+    onHide: PropTypes.func.isRequired,
   };
 
   render() {
@@ -33,7 +29,7 @@ export default class FormEditorDialog extends Component {
           hideButton
           shouldCloseOnEsc={false}
         >
-          <FormEditor {...rest} />
+          <FormEditor onHide={onHide} {...rest} />
         </Dialog>
       </DragDropContextProvider>
     );
