@@ -20,9 +20,16 @@ export default class CreateTask extends Component {
   };
 
   state = {
-    selected: null,
+    selected: 0,
     add: false,
-    steps: [],
+    steps: [
+      {
+        id: 0,
+        name: 'Task',
+        checked: true,
+        modules: [],
+      },
+    ],
   };
 
   handleSubmit = () => {
