@@ -60,37 +60,58 @@ dragging()
   overflow: hidden
   text-overflow: ellipsis
 
+.info
+  box-sizing: border-box;
+  line-height: 46px
+  padding-right: 8px
+
+.mark
+  opacity: 0
+  transition: opacity 0.15s ease-in-out
+
+  path
+    transition: fill 0.15s ease-in-out
+    fill: color-text-heavy-blue
+
+  .container:hover &
+    opacity: 1
+
+  .markHover &
+    path
+      fill: color-white
+
+
 .preview
   position: absolute;
   box-sizing: border-box;
 
-  left: 100%
+  left: calc(100% - 15px)
   top: 0
-
-  padding: 15px
-
   width: 220px
-  text-align: center;
 
-  background-color: color-blue-background
+  padding: 8px
 
+  background-color: #383838
   border-radius: 5px;
-  border-top-left-radius: 0
-
   z-index: 2;
 
-  &:before
-    position: absolute;
-    box-sizing: border-box;
-    content: " "
+  &:after
+    position: absolute
+    content: ''
+    top: 14px
+    left: -13px
+    border: 8px solid transparent
+    border-right: 8px solid #383838
 
 
-    top: -2px
-    left: -20px
-    width: 20px
-    height: 54px
+.previewContainer
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: color-white
 
-    background-color: color-blue-background
+  min-height: 135px
 
 .img
   max-width: 100%;
@@ -98,4 +119,4 @@ dragging()
   width: auto;
 
   path
-    fill: color-white;
+    fill: #1C2541;

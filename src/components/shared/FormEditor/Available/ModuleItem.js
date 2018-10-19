@@ -7,7 +7,8 @@ import { DragSource } from 'react-dnd';
 import { metaSource, FORM_DND_ID, uniqName } from '../dnd';
 
 import { ReactComponent as DragIcon } from '../../../assets/dragcursor.svg';
-// import { ReactComponent as Icon } from '../../../assets/data.svg';
+import { ReactComponent as InfoMark } from '../../../assets/i.svg';
+import { ReactComponent as DataIcon } from '../../../assets/data.svg';
 
 import styles from './ModuleItem.module.styl';
 
@@ -17,7 +18,7 @@ class ModuleItem extends Component {
       type: PropTypes.string,
     }).isRequired,
     isDragging: PropTypes.bool.isRequired,
-    // offset: PropTypes.number.isRequired,
+    offset: PropTypes.number.isRequired,
     isHovered: PropTypes.bool.isRequired,
     totalModules: PropTypes.number.isRequired,  // eslint-disable-line
     onEndDrag: PropTypes.func.isRequired, // eslint-disable-line
@@ -27,7 +28,7 @@ class ModuleItem extends Component {
   };
 
   state = {
-    // previewTop: null,
+    previewTop: null,
   };
 
   handleAdd = () => {
@@ -36,11 +37,11 @@ class ModuleItem extends Component {
     onAdd(id, meta);
   };
 
-  handleMouseEnter = () => {
+  handleMouseEnter = evt => {
     const { isDragging, onPreview, meta, isHovered } = this.props;
     if (!isDragging && !isHovered) {
-      // const { top } = evt.currentTarget.getBoundingClientRect();
-      // this.setState({ previewTop: top });
+      const { top } = evt.currentTarget.getBoundingClientRect();
+      this.setState({ previewTop: top });
       onPreview(meta.type);
     }
   };
@@ -55,15 +56,13 @@ class ModuleItem extends Component {
   render() {
     const {
       connectDragSource,
-      // isHovered,
+      isHovered,
       isDragging,
       meta,
-      // offset,
+      offset,
     } = this.props;
 
-    // const { previewTop } = this.state;
-
-    // TODO: icon with description
+    const { previewTop } = this.state;
 
     const classes = cn(styles.container, {
       [styles.dragging]: isDragging,
@@ -73,21 +72,28 @@ class ModuleItem extends Component {
     /* eslint-disable jsx-a11y/no-static-element-interactions  */
 
     return connectDragSource(
-      <div
-        className={classes}
-        onMouseEnter={this.handleMouseEnter}
-        onMouseLeave={this.handleMouseLeave}
-        onClick={this.handleAdd}
-      >
+      <div className={classes} onClick={this.handleAdd}>
         <div className={styles.drag}>
           <DragIcon className={styles.dragIcon} />
         </div>
         <div className={styles.name}>{meta.name}</div>
-        {/* {isHovered && (
-          <div className={styles.preview} style={{ top: previewTop - offset }}>
-            <Icon className={styles.img} alt={meta.name} />
-          </div>
-        )} */}
+        <div
+          className={cn(styles.info, { [styles.markHover]: isHovered })}
+          onMouseEnter={this.handleMouseEnter}
+          onMouseLeave={this.handleMouseLeave}
+        >
+          <InfoMark className={styles.mark} />
+          {isHovered && (
+            <div
+              className={styles.preview}
+              style={{ top: previewTop - offset }}
+            >
+              <div className={styles.previewContainer}>
+                <DataIcon className={styles.img} alt={meta.name} />
+              </div>
+            </div>
+          )}
+        </div>
       </div>
     );
   }
