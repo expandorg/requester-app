@@ -5,6 +5,8 @@ import cn from 'classnames';
 import Item from './Item';
 import Preview from './Preview';
 
+import templateProps from './templateProps';
+
 import I from '../../common/I';
 
 import styles from './Templates.module.styl';
@@ -14,14 +16,7 @@ export default class Templates extends Component {
     className: PropTypes.string,
     title: PropTypes.string,
     description: PropTypes.string,
-    templates: PropTypes.arrayOf(
-      PropTypes.shape({
-        id: PropTypes.number,
-        name: PropTypes.string,
-        logo: PropTypes.string,
-        description: PropTypes.string,
-      })
-    ),
+    templates: PropTypes.arrayOf(templateProps),
     selected: PropTypes.number,
     onSelect: PropTypes.func.isRequired,
   };

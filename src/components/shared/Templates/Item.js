@@ -4,18 +4,15 @@ import cn from 'classnames';
 
 import { Tooltip } from '@gemsorg/components';
 
+import templateProps from './templateProps';
+
 import { ReactComponent as Checkmark } from '../../assets/checkmark.svg';
 
 import styles from './Item.module.styl';
 
 class Item extends Component {
   static propTypes = {
-    template: PropTypes.shape({
-      id: PropTypes.number,
-      name: PropTypes.string,
-      logo: PropTypes.string,
-      description: PropTypes.string,
-    }).isRequired,
+    template: templateProps.isRequired,
     selected: PropTypes.bool.isRequired,
     onSelect: PropTypes.func.isRequired,
   };

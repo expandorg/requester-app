@@ -1,16 +1,12 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+
+import templateProps from './templateProps';
 
 import styles from './Preview.module.styl';
 
 export default class Preview extends Component {
   static propTypes = {
-    template: PropTypes.shape({
-      id: PropTypes.number,
-      name: PropTypes.string,
-      logo: PropTypes.string,
-      description: PropTypes.string,
-    }),
+    template: templateProps,
   };
 
   static defaultProps = {

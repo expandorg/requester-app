@@ -6,21 +6,34 @@ import HTML5Backend from 'react-dnd-html5-backend';
 
 import { Dialog } from '@gemsorg/components';
 
-import FormEditor from './FormEditor';
+import Templates from './Templates';
 
-import styles from './FormEditorDialog.module.styl';
+import templateProps from './templateProps';
 
-export default class FormEditorDialog extends Component {
+import styles from './TemplatesDialog.module.styl';
+
+export default class TemplatesDialog extends Component {
   static propTypes = {
     onHide: PropTypes.func,
+    templates: PropTypes.arrayOf(templateProps),
   };
 
   static defaultProps = {
     onHide: Function.prototype,
+    templates: [],
+  };
+
+  state = {
+    selected: null,
+  };
+
+  handleSelect = id => {
+    this.setState({ selected: id });
   };
 
   render() {
-    const { onHide, ...rest } = this.props;
+    const { onHide, templates, ...rest } = this.props;
+    const { selected } = this.state;
 
     return (
       <DragDropContextProvider backend={HTML5Backend}>
@@ -29,11 +42,17 @@ export default class FormEditorDialog extends Component {
           onHide={onHide}
           modalClass={styles.modal}
           overlayClass={styles.overlay}
-          contentLabel="form-editor-dialog"
+          contentLabel="templates-dialog"
           hideButton
           shouldCloseOnEsc={false}
         >
-          <FormEditor {...rest} />
+          <Templates
+            className={styles.content}
+            templates={templates}
+            selected={selected}
+            onSelect={this.handleSelect}
+            {...rest}
+          />
         </Dialog>
       </DragDropContextProvider>
     );
