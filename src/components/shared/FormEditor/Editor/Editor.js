@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 
 import { moduleProps, getModuleControlsMap } from '@gemsorg/modules';
 
+import Button from '../../../common/Button';
+
 import Form from './Form/Form';
 import Properties from './Properties/Properties';
 import Info from './Info';
@@ -57,23 +59,35 @@ export default class Editor extends Component {
 
     return (
       <div className={styles.container}>
-        <div className={styles.form}>
-          <Form
-            modules={modules}
-            selected={selected}
-            controls={controls}
-            onAddModule={onAddModule}
-            onMoveModule={onMoveModule}
-            onSelectModule={this.handleSelect}
-            onRemoveModule={this.handleRemoveModule}
-          />
+        <div className={styles.header}>
+          <div className={styles.title}>Edit Task Module</div>
+          <Button
+            theme="aqua"
+            className={styles.preview}
+            onClick={this.handleTogglePreview}
+          >
+            Preview
+          </Button>
         </div>
-        <div className={styles.aside}>
-          <Info
-            onSave={this.handleSave}
-            onPreview={this.handleTogglePreview}
-            onCancel={this.handleCancel}
-          />
+        <div className={styles.content}>
+          <div className={styles.form}>
+            <Form
+              modules={modules}
+              selected={selected}
+              controls={controls}
+              onAddModule={onAddModule}
+              onMoveModule={onMoveModule}
+              onSelectModule={this.handleSelect}
+              onRemoveModule={this.handleRemoveModule}
+            />
+          </div>
+          <div className={styles.aside}>
+            <Info
+              onSave={this.handleSave}
+              onPreview={this.handleTogglePreview}
+              onCancel={this.handleCancel}
+            />
+          </div>
         </div>
         <Properties
           module={selected && modules.find(m => m.name === selected)}

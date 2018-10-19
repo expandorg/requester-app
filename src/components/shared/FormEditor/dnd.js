@@ -3,9 +3,24 @@ export const FORM_DND_ID = 'FORM_DND_ID';
 export const uniqName = (meta, totalModules) => `${meta.type}-${totalModules}`;
 
 export const emptyTarget = {
-  drop: (props, monitor) => {
+  drop: ({ onAdd }, monitor) => {
     const { id, meta } = monitor.getItem();
-    props.onAdd(id, meta);
+    onAdd(id, meta);
+  },
+};
+
+export const dropAreaTarget = {
+  canDrop: (props, monitor) => {
+    const { meta, added } = monitor.getItem();
+    return !!meta && !added;
+  },
+  drop: ({ onAddModule }, monitor) => {
+    if (!monitor.didDrop()) {
+      const { id, meta, added } = monitor.getItem();
+      if (!added) {
+        onAddModule(id, meta);
+      }
+    }
   },
 };
 
@@ -39,7 +54,9 @@ export const moduleSource = {
 
 export const moduleTarget = {
   hover: ({ id, order, onMove }, monitor, component) => {
-    const { id: dragId, order: dragOrder, meta } = monitor.getItem();
+    const item = monitor.getItem();
+
+    const { id: dragId, order: dragOrder, meta } = item;
     if (dragId === id) {
       return;
     }
@@ -60,5 +77,8 @@ export const moduleTarget = {
       return;
     }
     onMove(dragId, id, meta);
+    if (!item.added) {
+      item.added = true;
+    }
   },
 };

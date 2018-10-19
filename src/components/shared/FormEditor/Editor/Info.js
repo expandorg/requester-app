@@ -9,19 +9,13 @@ export default class Info extends Component {
   static propTypes = {
     onSave: PropTypes.func.isRequired,
     onCancel: PropTypes.func.isRequired,
-    onPreview: PropTypes.func.isRequired,
   };
 
   render() {
-    const { onSave, onCancel, onPreview } = this.props;
+    const { onSave, onCancel } = this.props;
 
     return (
       <div className={styles.container}>
-        <div className={styles.top}>
-          <Button theme="aqua" className={styles.preview} onClick={onPreview}>
-            Preview
-          </Button>
-        </div>
         <div className={styles.content}>
           <div className={styles.tips}>
             <div className={styles.title}>Tips</div>

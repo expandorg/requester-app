@@ -68,11 +68,16 @@ class ModuleItem extends Component {
     const classes = cn(styles.container, {
       [styles.dragging]: isDragging,
     });
+
+    /* eslint-disable jsx-a11y/click-events-have-key-events  */
+    /* eslint-disable jsx-a11y/no-static-element-interactions  */
+
     return connectDragSource(
       <div
         className={classes}
         onMouseEnter={this.handleMouseEnter}
         onMouseLeave={this.handleMouseLeave}
+        onClick={this.handleAdd}
       >
         <div className={styles.drag}>
           <DragIcon className={styles.dragIcon} />

@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+import { DropTarget } from 'react-dnd';
 import { moduleProps, FormDataProvider } from '@gemsorg/modules';
+
+import { dropAreaTarget, FORM_DND_ID } from '../../dnd';
 
 import Empty from './Empty';
 import DnDModule from './Module/DnDModule';
@@ -13,7 +16,7 @@ const formData = {
   currentTry: 1,
 };
 
-export default class Form extends Component {
+class Form extends Component {
   static propTypes = {
     modules: PropTypes.arrayOf(moduleProps),
     selected: PropTypes.string,
@@ -22,6 +25,7 @@ export default class Form extends Component {
     onMoveModule: PropTypes.func.isRequired,
     onSelectModule: PropTypes.func.isRequired,
     onRemoveModule: PropTypes.func.isRequired,
+    connectDropTarget: PropTypes.func.isRequired,
   };
 
   static defaultProps = {
@@ -38,16 +42,14 @@ export default class Form extends Component {
       onMoveModule,
       selected,
       controls,
+      connectDropTarget,
     } = this.props;
-
-    // TODO: outer drop target;
 
     return (
       <div className={styles.container}>
-        <div className={styles.title}>Edit Task Module</div>
-        <div className={styles.content}>
-          {modules.length === 0 && <Empty onAdd={onAddModule} />}
+        {connectDropTarget(
           <div className={styles.form}>
+            {modules.length === 0 && <Empty onAdd={onAddModule} />}
             <FormDataProvider formData={formData}>
               {modules.map((module, order) => (
                 <DnDModule
@@ -64,8 +66,12 @@ export default class Form extends Component {
               ))}
             </FormDataProvider>
           </div>
-        </div>
+        )}
       </div>
     );
   }
 }
+
+export default DropTarget(FORM_DND_ID, dropAreaTarget, connect => ({
+  connectDropTarget: connect.dropTarget(),
+}))(Form);

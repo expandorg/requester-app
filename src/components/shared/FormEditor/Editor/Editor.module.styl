@@ -1,11 +1,39 @@
+@import 'components/common/uikit/colors';
+@import 'components/common/uikit/font';
+
 .container
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+
+  box-sizing: border-box;
+
+  height: 100%
+
+
+.header
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  box-sizing: border-box;
+  min-height: 80px
+  padding: 20px 30px 0 40px
+
+.title
+  font(h2-title)
+  color: color-text-dark
+
+.content
   display: flex;
   position: relative;
 
   box-sizing: border-box;
 
   justify-content: flex-start;
-  height: 100%;
+
+  flex-grow: 1
+  padding-bottom: 30px
 
 .form
   flex-grow: 1
@@ -16,4 +44,4 @@
   width: 345px
   min-width: 345px
 
-  padding: 30px 30px 30px 5px
+  padding: 30px 30px 0 5px
