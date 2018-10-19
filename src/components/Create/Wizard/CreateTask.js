@@ -89,24 +89,26 @@ export default class CreateTask extends Component {
     return (
       <Form onSubmit={this.handleSubmit}>
         <div className={styles.container}>
-          <div className={styles.header}>
-            <Button
-              className={styles.preview}
-              theme="aqua"
-              onClick={this.handlePreview}
-            >
-              Preview
-            </Button>
-            <Description className={styles.desc}>
-              Description about this step goes here.
-            </Description>
+          <div className={styles.inner}>
+            <div className={styles.header}>
+              <Button
+                className={styles.preview}
+                theme="aqua"
+                onClick={this.handlePreview}
+              >
+                Preview
+              </Button>
+              <Description className={styles.desc}>
+                Description about this step goes here.
+              </Description>
+            </div>
+            <StepsForm
+              className={styles.steps}
+              steps={steps}
+              onAdd={this.handleToggleTemplates}
+              onSelect={this.handleSelectStep}
+            />
           </div>
-          <StepsForm
-            className={styles.steps}
-            steps={steps}
-            onAdd={this.handleToggleTemplates}
-            onSelect={this.handleSelectStep}
-          />
         </div>
         <Actions>
           <Button onClick={this.handleBack}>Back</Button>
