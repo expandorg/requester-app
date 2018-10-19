@@ -4,11 +4,12 @@ import cn from 'classnames';
 
 import { DragSource } from 'react-dnd';
 
+import PreviewTooltip from './PreviewTooltip';
+
 import { metaSource, FORM_DND_ID, uniqName } from '../dnd';
 
 import { ReactComponent as DragIcon } from '../../../assets/dragcursor.svg';
 import { ReactComponent as InfoMark } from '../../../assets/i.svg';
-import { ReactComponent as DataIcon } from '../../../assets/data.svg';
 
 import styles from './ModuleItem.module.styl';
 
@@ -83,16 +84,7 @@ class ModuleItem extends Component {
           onMouseLeave={this.handleMouseLeave}
         >
           <InfoMark className={styles.mark} />
-          {isHovered && (
-            <div
-              className={styles.preview}
-              style={{ top: previewTop - offset }}
-            >
-              <div className={styles.previewContainer}>
-                <DataIcon className={styles.img} alt={meta.name} />
-              </div>
-            </div>
-          )}
+          {isHovered && <PreviewTooltip top={previewTop - offset} />}
         </div>
       </div>
     );

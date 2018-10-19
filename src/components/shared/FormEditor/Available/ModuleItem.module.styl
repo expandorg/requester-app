@@ -2,10 +2,6 @@
 @import 'components/common/uikit/font';
 
 
-dragging()
-  .dragging &
-    {block}
-
 .container
   box-sizing: border-box;
 
@@ -79,44 +75,3 @@ dragging()
   .markHover &
     path
       fill: color-white
-
-
-.preview
-  position: absolute;
-  box-sizing: border-box;
-
-  left: calc(100% - 15px)
-  top: 0
-  width: 220px
-
-  padding: 8px
-
-  background-color: #383838
-  border-radius: 5px;
-  z-index: 2;
-
-  &:after
-    position: absolute
-    content: ''
-    top: 14px
-    left: -13px
-    border: 8px solid transparent
-    border-right: 8px solid #383838
-
-
-.previewContainer
-  box-sizing: border-box;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: color-white
-
-  min-height: 135px
-
-.img
-  max-width: 100%;
-  height: auto;
-  width: auto;
-
-  path
-    fill: #1C2541;
