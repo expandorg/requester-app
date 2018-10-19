@@ -18,6 +18,7 @@ export default class Templates extends Component {
     description: PropTypes.string,
     templates: PropTypes.arrayOf(templateProps),
     selected: PropTypes.number,
+    actions: PropTypes.element,
     onSelect: PropTypes.func.isRequired,
   };
 
@@ -25,6 +26,7 @@ export default class Templates extends Component {
     selected: null,
     className: null,
     description: null,
+    actions: null,
     title: 'Templates',
     templates: [],
   };
@@ -37,6 +39,7 @@ export default class Templates extends Component {
       description,
       selected,
       onSelect,
+      actions,
     } = this.props;
 
     return (
@@ -62,7 +65,10 @@ export default class Templates extends Component {
           </div>
         </div>
         <div className={styles.content}>
-          <Preview template={templates.find(t => t.id === selected)} />
+          <div className={styles.preview}>
+            <Preview template={templates.find(t => t.id === selected)} />
+          </div>
+          {actions}
         </div>
       </div>
     );
