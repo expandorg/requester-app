@@ -22,7 +22,7 @@ export default class CreateTask extends Component {
   state = {
     selected: null,
     add: false,
-    forms: [],
+    steps: [],
   };
 
   handleSubmit = () => {
@@ -45,14 +45,24 @@ export default class CreateTask extends Component {
     this.setState(({ add }) => ({ add: !add }));
   };
 
-  onSelect = index => {
-    this.setState({ selected: index });
+  handleAddStep = template => {
+    this.setState(({ steps }) => ({
+      steps: [...steps, template],
+      add: false,
+    }));
+  };
+
+  handleSelectStep = id => {
+    const { steps } = this.state;
+
+    const selected = steps.findIndex(s => s.id === id);
+    this.setState({ selected });
   };
 
   handleHideEditor = () => this.setState({ selected: null });
 
   render() {
-    const { selected, add, forms } = this.state;
+    const { selected, add, steps } = this.state;
     return (
       <Form onSubmit={this.handleSubmit}>
         <div className={styles.container}>
@@ -70,7 +80,9 @@ export default class CreateTask extends Component {
           </div>
           <StepsForm
             className={styles.steps}
+            steps={steps}
             onAdd={this.handleToggleTemplates}
+            onSelect={this.handleSelectStep}
           />
         </div>
         <Actions>
@@ -79,7 +91,7 @@ export default class CreateTask extends Component {
         </Actions>
         {selected !== null && (
           <FormEditorDialog
-            form={forms[selected]}
+            form={steps[selected]}
             onHide={this.handleHideEditor}
           />
         )}
@@ -89,6 +101,7 @@ export default class CreateTask extends Component {
             templates={mocks}
             description="Pick onboarding step template"
             onHide={this.handleToggleTemplates}
+            onSelect={this.handleAddStep}
           />
         )}
       </Form>
