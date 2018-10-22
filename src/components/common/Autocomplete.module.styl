@@ -1,0 +1,27 @@
+@import 'components/common/uikit/colors'
+@import 'components/common/uikit/font'
+
+.autocomplete
+
+  :global(.gem-autocomplete-input)
+    box-sizing: border-box
+
+    font(body, false, false, normal)
+
+    height: 32px;
+    width: 100%
+    padding: 0 15px 10px 0
+
+    background-color: transparent
+    color: color-text-dark
+
+    box-shadow: none;
+    border: none;
+    border-bottom: 2px solid  color-heavy-blue
+
+    transition: all 0.2s ease-out;
+
+    resize: none;
+
+    &:focus
+      border-bottom-color color-primary-blue

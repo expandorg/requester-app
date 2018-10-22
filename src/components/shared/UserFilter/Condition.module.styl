@@ -1,0 +1,39 @@
+@import 'components/common/uikit/colors'
+@import 'components/common/uikit/font'
+
+.container
+  position: relative;
+  box-sizing: border-box;
+
+  padding: 15px 66px 15px 0
+
+.inner
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+
+.field
+  box-sizing: border-box;
+  padding-right: 20px
+  width: 100%;
+  flex-grow: 1
+
+.remove
+  position: absolute;
+  right: 0
+  top: calc(50% - 8px)
+
+  width: 16px
+  height: 16px;
+
+  cursor: pointer;
+  outline: none;
+  background-color: transparent;
+
+  path
+    fill: color-text-disabled
+
+  &:hover
+    path
+      fill: color-pink

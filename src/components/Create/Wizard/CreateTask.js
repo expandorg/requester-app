@@ -18,7 +18,7 @@ export default class CreateTask extends Component {
   };
 
   state = {
-    selected: 0,
+    selected: null,
     steps: [
       {
         id: 0,
@@ -45,15 +45,14 @@ export default class CreateTask extends Component {
     evt.preventDefault();
   };
 
-  handleSaveTemplate = () => {
+  handleSaveTemplate = form => {
     const { steps, selected } = this.state;
 
     this.setState({
       selected: null,
       steps: immer(steps, draft => {
         draft[selected] = {
-          ...draft[selected],
-          // ...step,
+          ...form,
           checked: true,
         };
       }),

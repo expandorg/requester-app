@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import immer from 'immer';
 
-import { moduleControls } from '@gemsorg/modules';
+import { moduleControls, formProps } from '@gemsorg/modules';
 
 import { insertAtIndex } from '../../../common/immutable';
 
@@ -21,17 +21,39 @@ const scaffold = (meta, name, isDragging) => ({
 
 export default class FormEditor extends Component {
   static propTypes = {
+    form: formProps,
     onSave: PropTypes.func.isRequired,
     onHide: PropTypes.func.isRequired,
   };
 
-  state = {
-    modules: [],
+  static defaultProps = {
+    form: null,
   };
 
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      prev: props.form, // eslint-disable-line react/no-unused-state
+      modules: props.form ? props.form.modules : [],
+    };
+  }
+
+  static getDerviedStateFromProps({ form }, state) {
+    if (state.prev !== form) {
+      return {
+        prev: form,
+        modules: form ? form.modules : [],
+      };
+    }
+    return null;
+  }
+
   handleSave = () => {
-    const { onSave } = this.props;
-    onSave();
+    const { onSave, form } = this.props;
+    const { modules } = this.state;
+
+    onSave({ ...form, modules });
   };
 
   handleAdd = (dragId, meta) => {

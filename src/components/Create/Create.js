@@ -12,12 +12,13 @@ import Settings from './Wizard/Settings';
 import UploadData from './Wizard/UploadData';
 import Templates from './Wizard/Templates';
 import CreateTask from './Wizard/CreateTask';
+import Whitelist from './Wizard/Whitelist';
 
 import styles from './Create.module.styl';
 
 export default class Create extends Component {
   state = {
-    active: 0,
+    active: 4,
   };
 
   handleChangeActive = active => {
@@ -62,6 +63,9 @@ export default class Create extends Component {
             )}
             {active === 3 && (
               <CreateTask onNext={this.handleNext} onBack={this.handleBack} />
+            )}
+            {active === 4 && (
+              <Whitelist onNext={this.handleNext} onBack={this.handleBack} />
             )}
           </div>
         </Content>

@@ -23,7 +23,6 @@ export default class FormEditorDialog extends Component {
         overlayClass={styles.overlay}
         contentLabel="form-editor-dialog"
         hideButton
-        shouldCloseOnEsc={false}
       >
         <FormEditor onHide={onHide} {...rest} />
       </Dialog>
