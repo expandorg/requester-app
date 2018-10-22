@@ -5,6 +5,8 @@ import Autocomplete from '../../common/Autocomplete';
 
 import { ReactComponent as X } from '../../assets/x.svg';
 
+import { params, ops } from './filters';
+
 import styles from './Condition.module.styl';
 
 export default class Condition extends Component {
@@ -26,12 +28,12 @@ export default class Condition extends Component {
     evt.preventDefault();
   };
 
-  handleChangeParam = ({ target }) => {
+  handleChangeParam = param => {
     const { onChange, condition, index } = this.props;
     onChange(
       {
         ...condition,
-        param: target.value,
+        param,
         op: undefined,
         value: undefined,
       },
@@ -39,9 +41,9 @@ export default class Condition extends Component {
     );
   };
 
-  handleChangeOp = ({ target }) => {
+  handleChangeOp = op => {
     const { onChange, condition, index } = this.props;
-    onChange({ ...condition, op: target.value, value: undefined }, index);
+    onChange({ ...condition, op, value: undefined }, index);
   };
 
   handleChangeValue = ({ target }) => {
@@ -58,15 +60,19 @@ export default class Condition extends Component {
           <div className={styles.field}>
             <Autocomplete
               placeholder="Parameter"
+              options={params}
               value={condition.param}
-              onChange={this.handleChangeParam}
+              onChange={({ target }) => this.handleChangeParam(target.value)}
+              onSelect={this.handleChangeParam}
             />
           </div>
           <div className={styles.field}>
             <Autocomplete
               placeholder="Operation"
               value={condition.op}
-              onChange={this.handleChangeOp}
+              options={ops[condition.param] || []}
+              onChange={({ target }) => this.handleChangeOp(target.value)}
+              onSelect={this.handleChangeOp}
             />
           </div>
           <div className={styles.field}>

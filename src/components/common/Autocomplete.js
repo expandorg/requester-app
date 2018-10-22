@@ -8,10 +8,12 @@ import styles from './Autocomplete.module.styl';
 
 export default class AutocompleteContainer extends Component {
   static propTypes = {
+    value: PropTypes.string,
     className: PropTypes.string,
   };
 
   static defaultProps = {
+    value: '',
     className: null,
   };
 
