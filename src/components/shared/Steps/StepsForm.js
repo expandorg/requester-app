@@ -2,20 +2,19 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
 
-import { DragDropContextProvider } from 'react-dnd';
-import HTML5Backend from 'react-dnd-html5-backend';
-
-import styles from './StepsForm.module.styl';
+import immer from 'immer';
 
 import Step from './Step';
 import AddNew from './AddNew';
+
+import styles from './StepsForm.module.styl';
 
 export default class StepsForm extends Component {
   static propTypes = {
     steps: PropTypes.arrayOf(PropTypes.object),
     className: PropTypes.string,
     onSelect: PropTypes.func.isRequired,
-    onAdd: PropTypes.func.isRequired,
+    onUpdate: PropTypes.func.isRequired,
   };
 
   static defaultProps = {
@@ -23,19 +22,47 @@ export default class StepsForm extends Component {
     steps: [],
   };
 
+  handleAdd = template => {
+    const { onUpdate, steps } = this.props;
+    const step = { ...template, modules: [], checked: false, id: steps.length };
+    onUpdate([step, ...steps]);
+  };
+
+  handleMove = (dragId, hoverId) => {
+    const { onUpdate, steps } = this.props;
+
+    const dragIndex = steps.findIndex(m => m.id === dragId);
+    const hoverIndex = steps.findIndex(m => m.id === hoverId);
+
+    const dragged = steps[dragIndex];
+    const hovered = steps[hoverIndex];
+    onUpdate(
+      immer(steps, draft => {
+        draft[dragIndex] = hovered;
+        draft[hoverIndex] = dragged;
+      })
+    );
+  };
+
   render() {
-    const { onAdd, steps, onSelect, className } = this.props;
+    const { steps, onSelect, className } = this.props;
+    const last = steps.length - 1;
     return (
-      <DragDropContextProvider backend={HTML5Backend}>
-        <div className={cn(styles.container, className)}>
-          <div className={styles.list}>
-            <AddNew onAdd={onAdd} />
-            {steps.map(step => (
-              <Step step={step} key={step.id} onSelect={onSelect} />
-            ))}
-          </div>
+      <div className={cn(styles.container, className)}>
+        <div className={styles.list}>
+          <AddNew onAdd={this.handleAdd} />
+          {steps.map((step, order) => (
+            <Step
+              key={step.id}
+              step={step}
+              isTask={order === last}
+              order={order}
+              onSelect={onSelect}
+              onMove={this.handleMove}
+            />
+          ))}
         </div>
-      </DragDropContextProvider>
+      </div>
     );
   }
 }

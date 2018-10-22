@@ -6,7 +6,7 @@ import Button from '../../common/Button';
 
 import TemplatesForm from '../../shared/Templates/Templates';
 
-import mocks from './template-mocks';
+import mocks from '../../shared/Templates/template-mocks';
 
 import styles from './Templates.module.styl';
 

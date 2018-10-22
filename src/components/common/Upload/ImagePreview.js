@@ -14,7 +14,10 @@ export default class ImagePreview extends Component {
   render() {
     const { file } = this.props;
     return (
-      <img className={styles.preview} src={file.preview} alt={file.name} />
+      <div className={styles.previewContainer}>
+        <img className={styles.preview} src={file.preview} alt={file.name} />
+        <div className={styles.previewHint}>Upload image</div>
+      </div>
     );
   }
 }

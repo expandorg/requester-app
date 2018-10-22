@@ -11,6 +11,9 @@
   width: 245px
   min-width: 245px
 
+  display: flex;
+  flex-direction: column;
+
   border-top-left-radius: 5px
   border-bottom-left-radius: 5px
 
@@ -26,14 +29,27 @@
   text-align: center;
   color: color-text-dark;
 
+
+.list
+  flex-grow: 1
+  overflow-y: scroll;
+
+
 .i
   margin-left: 8px
 
 .content
   box-sizing: border-box;
+
+  display: flex;
+  flex-direction: column;
+
   flex-grow: 1
-  padding: 15px 0
   background-color: color-white
 
 .preview
+  box-sizing: border-box;
+  padding: 15px 0
   overflow-y: scroll;
+
+  flex-grow: 1

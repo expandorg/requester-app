@@ -5,4 +5,7 @@ export const envs = {
 };
 
 const env = process.env.NODE_ENV;
-export const envFilePath = join(__dirname, `${envs[env || 'development'] || env}.env`);
+export const envFilePath = join(
+  __dirname,
+  `${envs[env || 'development'] || env}.env`
+);

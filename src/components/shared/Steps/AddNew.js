@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+import TemplatesDialog from '../Templates/TemplatesDialog';
+import mocks from '../Templates/template-mocks';
+
 import styles from './AddNew.module.styl';
 
 export default class AddNew extends Component {
@@ -8,18 +11,43 @@ export default class AddNew extends Component {
     onAdd: PropTypes.func.isRequired,
   };
 
-  handleAdd = evt => {
-    const { onAdd } = this.props;
+  state = {
+    dialog: false,
+  };
+
+  handleToggle = evt => {
     evt.preventDefault();
-    onAdd();
+
+    this.setState(({ dialog }) => ({ dialog: !dialog }));
+  };
+
+  handleAdd = (...args) => {
+    const { onAdd } = this.props;
+
+    this.setState({ dialog: false });
+
+    onAdd(...args);
   };
 
   render() {
+    const { dialog } = this.state;
+
     return (
-      <button className={styles.container} onClick={this.handleAdd}>
-        <div className={styles.plus}>+</div>
-        <div className={styles.add}>Add a new section to your task</div>
-      </button>
+      <>
+        <button className={styles.container} onClick={this.handleToggle}>
+          <div className={styles.plus}>+</div>
+          <div className={styles.add}>Add a new section to your task</div>
+        </button>
+        {dialog && (
+          <TemplatesDialog
+            title="Onboarding"
+            templates={mocks}
+            description="Pick onboarding step template"
+            onHide={this.handleToggle}
+            onSelect={this.handleAdd}
+          />
+        )}
+      </>
     );
   }
 }

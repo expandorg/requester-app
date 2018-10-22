@@ -6,11 +6,8 @@ import Button from '../../common/Button';
 import { Form, Actions, Description } from './Form';
 
 import FormEditorDialog from '../../shared/FormEditor/FormEditorDialog';
-import TemplatesDialog from '../../shared/Templates/TemplatesDialog';
 
 import StepsForm from '../../shared/Steps/StepsForm';
-
-import mocks from './template-mocks';
 
 import styles from './CreateTask.module.styl';
 
@@ -22,7 +19,6 @@ export default class CreateTask extends Component {
 
   state = {
     selected: 0,
-    add: false,
     steps: [
       {
         id: 0,
@@ -49,10 +45,6 @@ export default class CreateTask extends Component {
     evt.preventDefault();
   };
 
-  handleToggleTemplates = () => {
-    this.setState(({ add }) => ({ add: !add }));
-  };
-
   handleSaveTemplate = () => {
     const { steps, selected } = this.state;
 
@@ -68,11 +60,8 @@ export default class CreateTask extends Component {
     });
   };
 
-  handleAddStep = template => {
-    this.setState(({ steps }) => ({
-      steps: [template, ...steps],
-      add: false,
-    }));
+  handleUpdateSteps = steps => {
+    this.setState({ steps });
   };
 
   handleSelectStep = id => {
@@ -85,7 +74,8 @@ export default class CreateTask extends Component {
   handleHideEditor = () => this.setState({ selected: null });
 
   render() {
-    const { selected, add, steps } = this.state;
+    const { selected, steps } = this.state;
+
     return (
       <Form onSubmit={this.handleSubmit}>
         <div className={styles.container}>
@@ -105,7 +95,7 @@ export default class CreateTask extends Component {
             <StepsForm
               className={styles.steps}
               steps={steps}
-              onAdd={this.handleToggleTemplates}
+              onUpdate={this.handleUpdateSteps}
               onSelect={this.handleSelectStep}
             />
           </div>
@@ -119,15 +109,6 @@ export default class CreateTask extends Component {
             form={steps[selected]}
             onHide={this.handleHideEditor}
             onSave={this.handleSaveTemplate}
-          />
-        )}
-        {add && (
-          <TemplatesDialog
-            title="Onboarding"
-            templates={mocks}
-            description="Pick onboarding step template"
-            onHide={this.handleToggleTemplates}
-            onSelect={this.handleAddStep}
           />
         )}
       </Form>

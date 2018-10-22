@@ -5,6 +5,8 @@ import immer from 'immer';
 
 import { moduleControls } from '@gemsorg/modules';
 
+import { insertAtIndex } from '../../../common/immutable';
+
 import Editor from './Editor/Editor';
 import AvailableModules from './Available/AvailableModules';
 
@@ -16,12 +18,6 @@ const scaffold = (meta, name, isDragging) => ({
   name,
   isDragging,
 });
-
-export const insertAtIndex = (array, index, item) => [
-  ...array.slice(0, index),
-  item,
-  ...array.slice(index),
-];
 
 export default class FormEditor extends Component {
   static propTypes = {
