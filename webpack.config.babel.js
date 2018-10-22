@@ -107,10 +107,13 @@ export default (env = {}) => {
         },
         {
           test: /\.svg$/,
+          issuer: {
+            test: /\.js$/,
+          },
           use: ['@svgr/webpack', 'file-loader?name=static/[hash].[ext]'],
         },
         {
-          test: /\.jpe?g$|\.gif$|\.png$|\.woff2?$|\.eot$|\.otf$|\.ttf$/,
+          test: /\.jpe?g$|\.gif$|\.svg|\.png$|\.woff2?$|\.eot$|\.otf$|\.ttf$/,
           loader: 'file-loader?name=static/[hash].[ext]',
           exclude: /node_modules/,
         },

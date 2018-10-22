@@ -2,6 +2,21 @@
 @import 'components/common/uikit/font'
 
 .autocomplete
+  position: relative;
+
+
+  &:after
+    position: absolute
+    content: ''
+    right: 0
+    top: calc(50% - 8px)
+    width: 12px
+    height: 16px
+    background-color: transparent;
+    background-position: center;
+    background-origin: border-box
+    background-repeat: no-repeat
+    background-image: url(../assets/arrow-down.svg)
 
   :global(.gem-autocomplete-input)
     box-sizing: border-box
