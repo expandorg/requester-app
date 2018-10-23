@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import Button from '../../common/Button';
+import Button from '../../../common/Button';
 
-import { Form, Description, Hero, Actions } from './Form';
+import { Form, Description, Hero, Actions } from '../Form';
 
-import UserFilter, { newCondition } from '../../shared/UserFilter/UserFilter';
+import UserFilter, { newCondition } from './UserFilter/UserFilter';
 
 import styles from './Whitelist.module.styl';
 

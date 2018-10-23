@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import TemplatesDialog from '../Templates/TemplatesDialog';
-import mocks from '../Templates/template-mocks';
+import TemplatesDialog from '../../../../shared/Templates/TemplatesDialog';
+import mocks from '../../../../shared/Templates/template-mocks';
 
 import styles from './AddNew.module.styl';
 

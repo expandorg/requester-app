@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import immer from 'immer';
 
-import Button from '../../common/Button';
-import { Form, Actions, Description } from './Form';
+import Button from '../../../common/Button';
+import { Form, Actions, Description } from '../Form';
 
-import FormEditorDialog from '../../shared/FormEditor/FormEditorDialog';
+import FormEditorDialog from '../../../shared/FormEditor/FormEditorDialog';
 
-import StepsForm from '../../shared/Steps/StepsForm';
+import StepsForm from './Steps/StepsForm';
 
 import styles from './CreateTask.module.styl';
 

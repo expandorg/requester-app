@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import Autocomplete from '../../common/Autocomplete';
+import Autocomplete from '../../../../common/Autocomplete';
 
-import { ReactComponent as X } from '../../assets/x.svg';
+import { ReactComponent as X } from '../../../../assets/x.svg';
 
 import { params, ops } from './filters';
 

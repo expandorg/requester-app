@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import Button from '../../common/Button';
-import { Upload } from '../../common/Upload';
+import Button from '../../../common/Button';
+import { Upload } from '../../../common/Upload';
 
-import { Form, Description, Fieldset, Actions } from './Form';
+import { Form, Description, Fieldset, Actions } from '../Form';
 
-import { ReactComponent as Placeholder } from '../../assets/data.svg';
+import { ReactComponent as Placeholder } from '../../../assets/data.svg';
 
-import styles from './UploadData.module.styl';
+import styles from './Data.module.styl';
 
 export default class UploadData extends Component {
   static propTypes = {

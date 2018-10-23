@@ -9,16 +9,16 @@ import Navbar from '../shared/Navbar';
 import { Navigation, NavItem } from './Wizard/Navigation';
 
 import Settings from './Wizard/Settings';
-import UploadData from './Wizard/UploadData';
+import Data from './Wizard/Data/Data';
 import Templates from './Wizard/Templates';
-import CreateTask from './Wizard/CreateTask';
-import Whitelist from './Wizard/Whitelist';
+import CreateTask from './Wizard/Task/CreateTask';
+import Whitelist from './Wizard/Whitelist/Whitelist';
 
 import styles from './Create.module.styl';
 
 export default class Create extends Component {
   state = {
-    active: 4,
+    active: 0,
   };
 
   handleChangeActive = active => {
@@ -56,7 +56,7 @@ export default class Create extends Component {
           <div className={styles.container}>
             {active === 0 && <Settings onNext={this.handleNext} />}
             {active === 1 && (
-              <UploadData onNext={this.handleNext} onBack={this.handleBack} />
+              <Data onNext={this.handleNext} onBack={this.handleBack} />
             )}
             {active === 2 && (
               <Templates onNext={this.handleNext} onBack={this.handleBack} />
