@@ -16,7 +16,12 @@ export default class DataEditor extends Component {
 
   state = {
     data: {
-      columns: [],
+      columns: [
+        { name: 'column 1', type: 'string', skipped: false },
+        { name: 'column 2', type: 'string', skipped: false },
+        { name: 'column 3', type: 'string', skipped: false },
+        { name: 'column 4', type: 'string', skipped: true },
+      ],
       values: [],
     },
   };
@@ -37,11 +42,9 @@ export default class DataEditor extends Component {
           <Table data={data} />
           <div className={styles.footer}>
             <Pagination />
-            <div className={styles.actions}>
-              <button className={styles.delete} onClick={this.handleDelete}>
-                Remove data
-              </button>
-            </div>
+            <button className={styles.delete} onClick={this.handleDelete}>
+              Remove data
+            </button>
           </div>
         </div>
       </div>

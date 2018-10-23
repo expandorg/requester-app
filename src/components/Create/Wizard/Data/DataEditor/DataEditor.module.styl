@@ -1,2 +1,35 @@
+@import 'components/common/uikit/colors'
+@import 'components/common/uikit/font'
+
+.container
+  box-sizing: border-box;
+  padding: 0 20px;
+
 .content
-  margin-top: 50px
+  margin: 50px auto 0 auto
+  max-width: 1100px
+
+.footer
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 32px
+
+.delete
+  box-sizing: border-box;
+
+  width: 176px
+  height: 40px
+
+  font(subtitle, false, false, 40px)
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  text-align: center;
+
+  border-radius: 2px
+
+  background-color: color-yellow
+  color: color-text-yellow-2
+
+  outline: none
+  cursor: pointer;
