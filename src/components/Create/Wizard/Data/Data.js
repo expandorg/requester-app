@@ -2,13 +2,11 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import Button from '../../../common/Button';
-import { Upload } from '../../../common/Upload';
 
-import { Form, Description, Fieldset, Actions } from '../Form';
+import UploadForm from './UploadForm';
+import DataEditor from './DataEditor/DataEditor';
 
-import { ReactComponent as Placeholder } from '../../../assets/data.svg';
-
-import styles from './Data.module.styl';
+import { Form, Actions } from '../Form';
 
 export default class UploadData extends Component {
   static propTypes = {
@@ -17,7 +15,7 @@ export default class UploadData extends Component {
   };
 
   state = {
-    data: null,
+    data: 1,
   };
 
   handleSubmit = () => {
@@ -26,9 +24,11 @@ export default class UploadData extends Component {
   };
 
   handleUpload = data => {
-    this.setState({
-      data,
-    });
+    this.setState({ data });
+  };
+
+  handleDelete = () => {
+    this.setState({ data: null });
   };
 
   handleBack = evt => {
@@ -38,39 +38,12 @@ export default class UploadData extends Component {
     evt.preventDefault();
   };
 
-  handleToggleApi = evt => {
-    evt.preventDefault();
-  };
-
   render() {
     const { data } = this.state;
     return (
       <Form onSubmit={this.handleSubmit}>
-        <Fieldset>
-          <Description>
-            The second step is uploading your data and assigning variables.
-          </Description>
-          <Upload
-            file={data}
-            className={styles.upload}
-            onSelect={this.handleUpload}
-          >
-            {({ file }) =>
-              file ? (
-                file.name
-              ) : (
-                <div className={styles.placeholder}>
-                  <Placeholder className={styles.image} />
-                  <div className={styles.or}>Drag a file or</div>
-                  <div className={styles.button}>Select from computer</div>
-                </div>
-              )
-            }
-          </Upload>
-          <button onClick={this.handleToggleApi} className={styles.api}>
-            Use API instead?
-          </button>
-        </Fieldset>
+        {!data && <UploadForm onUpload={this.handleUpload} />}
+        {data && <DataEditor data={data} onDelete={this.handleDelete} />}
         <Actions>
           <Button onClick={this.handleBack}>Back</Button>
           <Button>Next</Button>
