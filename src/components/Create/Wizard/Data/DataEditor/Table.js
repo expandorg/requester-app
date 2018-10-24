@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import cn from 'classnames';
 
 import { replaceAtIndex } from '@gemsorg/utils/src/immutable';
 
@@ -13,7 +14,12 @@ export default class Table extends Component {
       columns: PropTypes.arrayOf(PropTypes.object).isRequired,
       values: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.any)).isRequired,
     }).isRequired,
+    className: PropTypes.string,
     onChange: PropTypes.func.isRequired,
+  };
+
+  static defaultProps = {
+    className: null,
   };
 
   handleChange = (column, index) => {
@@ -28,12 +34,13 @@ export default class Table extends Component {
   render() {
     const {
       data: { columns, values },
+      className,
     } = this.props;
 
     /* eslint-disable react/no-array-index-key */
 
     return (
-      <div className={styles.table}>
+      <div className={cn(styles.table, className)}>
         <div className={styles.header}>
           {columns.map((column, index) => (
             <Column
