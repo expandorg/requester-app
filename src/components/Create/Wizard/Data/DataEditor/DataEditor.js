@@ -5,6 +5,7 @@ import { Description } from '../../Form';
 
 import Table from './Table';
 import Pagination from './Pagination';
+import ConfirmationDialog from './ConfirmationDialog';
 
 import styles from './DataEditor.module.styl';
 
@@ -36,21 +37,29 @@ export default class DataEditor extends Component {
         [60, 61, 62, 63, 64], // , 65, 66, 67, 68],
       ],
     },
+    dialog: false,
   };
 
-  handleDelete = evt => {
+  handleDelete = () => {
     const { onDelete } = this.props;
     onDelete();
 
-    evt.preventDefault();
+    this.setState({ dialog: false });
   };
 
   handleChangeData = data => {
     this.setState({ data });
   };
 
+  handleToggleDelete = evt => {
+    if (evt) {
+      evt.preventDefault();
+    }
+    this.setState(({ dialog }) => ({ dialog: !dialog }));
+  };
+
   render() {
-    const { data } = this.state;
+    const { data, dialog } = this.state;
     return (
       <div className={styles.container}>
         <Description>Description about this step goes here.</Description>
@@ -61,12 +70,21 @@ export default class DataEditor extends Component {
             </div>
             <div className={styles.footer}>
               <Pagination />
-              <button className={styles.delete} onClick={this.handleDelete}>
+              <button
+                className={styles.delete}
+                onClick={this.handleToggleDelete}
+              >
                 Remove data
               </button>
             </div>
           </div>
         </div>
+        {dialog && (
+          <ConfirmationDialog
+            onDelete={this.handleDelete}
+            onHide={this.handleToggleDelete}
+          />
+        )}
       </div>
     );
   }
