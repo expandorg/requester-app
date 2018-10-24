@@ -54,14 +54,16 @@ export default class Templates extends Component {
             />
           </div>
           <div className={styles.list}>
-            {templates.map(template => (
-              <Item
-                key={template.id}
-                template={template}
-                selected={template.id === selected}
-                onSelect={onSelect}
-              />
-            ))}
+            <div className={styles.inner}>
+              {templates.map(template => (
+                <Item
+                  key={template.id}
+                  template={template}
+                  selected={template.id === selected}
+                  onSelect={onSelect}
+                />
+              ))}
+            </div>
           </div>
         </div>
         <div className={styles.content}>
