@@ -15,7 +15,7 @@ export default class UploadData extends Component {
   };
 
   state = {
-    data: {},
+    data: null,
   };
 
   handleSubmit = () => {
