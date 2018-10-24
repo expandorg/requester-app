@@ -21,8 +21,16 @@ export default class DataEditor extends Component {
         { name: 'column 2', type: 'string', skipped: false },
         { name: 'column 3', type: 'string', skipped: false },
         { name: 'column 4', type: 'string', skipped: true },
+        // { name: 'column 5', type: 'string', skipped: false },
       ],
-      values: [],
+      values: [
+        [10, 11, 12, 13], // 14],
+        [20, 21, 22, 23], // 24],
+        [30, 31, 32, 33], // 34],
+        [40, 41, 42, 43], // 44],
+        [50, 51, 52, 53], // 54],
+        [60, 61, 62, 63], // 64],
+      ],
     },
   };
 
@@ -33,13 +41,17 @@ export default class DataEditor extends Component {
     evt.preventDefault();
   };
 
+  handleChangeData = data => {
+    this.setState({ data });
+  };
+
   render() {
     const { data } = this.state;
     return (
       <div className={styles.container}>
         <Description>Description about this step goes here.</Description>
         <div className={styles.content}>
-          <Table data={data} />
+          <Table data={data} onChange={this.handleChangeData} />
           <div className={styles.footer}>
             <Pagination />
             <button className={styles.delete} onClick={this.handleDelete}>

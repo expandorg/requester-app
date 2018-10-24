@@ -17,10 +17,14 @@ export default class Select extends Component {
   };
 
   render() {
-    const { className, children } = this.props;
+    const { className, children, ...rest } = this.props;
 
     const classes = cn(styles.dropdown, className);
 
-    return <Dropdown className={classes}>{children}</Dropdown>;
+    return (
+      <Dropdown className={classes} {...rest}>
+        {children}
+      </Dropdown>
+    );
   }
 }

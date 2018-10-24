@@ -1,0 +1,43 @@
+@import 'components/common/uikit/colors'
+@import 'components/common/uikit/font'
+
+.table
+  box-sizing: border-box;
+  display: inline-flex;
+  flex-direction: column;
+  border: 1px solid color-heavy-blue;
+
+.header
+  box-sizing: border-box;
+  display: flex;
+  justify-content: flex-start;
+  align-items: stretch;
+
+.row
+  box-sizing: border-box;
+  display: flex;
+  justify-content: flex-start;
+  align-items: stretch;
+
+  border-bottom: 1px solid color-heavy-blue
+
+  &:last-child
+    border-bottom: none;
+
+.cell
+  box-sizing: border-box;
+  width: 241px
+  height: 50px
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-right: 1px solid color-heavy-blue
+
+  font(body)
+  color: color-text-dark
+
+
+  &:last-child
+    border-right: none;
