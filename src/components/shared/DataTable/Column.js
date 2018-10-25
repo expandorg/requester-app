@@ -16,7 +16,12 @@ export default class Column extends Component {
       skipped: PropTypes.bool,
     }).isRequired, // eslint-disable-line
     index: PropTypes.number.isRequired,
+    readOnly: PropTypes.bool,
     onChange: PropTypes.func.isRequired,
+  };
+
+  static defaultProps = {
+    readOnly: false,
   };
 
   constructor(props) {
@@ -88,6 +93,7 @@ export default class Column extends Component {
 
   render() {
     const { edit, column, original } = this.state;
+    const { readOnly } = this.props;
 
     return (
       <div className={styles.container}>
@@ -100,22 +106,24 @@ export default class Column extends Component {
             {column.skipped && (
               <div className={styles.skipped}>Will not be imported</div>
             )}
-            <div className={styles.actions}>
-              {!column.skipped && (
+            {!readOnly && (
+              <div className={styles.actions}>
+                {!column.skipped && (
+                  <button
+                    className={cn(styles.button, styles.skip)}
+                    onClick={this.handleSkip}
+                  >
+                    skip
+                  </button>
+                )}
                 <button
-                  className={cn(styles.button, styles.skip)}
-                  onClick={this.handleSkip}
+                  className={cn(styles.button, styles.edit)}
+                  onClick={this.handleToggleEdit}
                 >
-                  skip
+                  edit
                 </button>
-              )}
-              <button
-                className={cn(styles.button, styles.edit)}
-                onClick={this.handleToggleEdit}
-              >
-                edit
-              </button>
-            </div>
+              </div>
+            )}
           </div>
         )}
         {edit && (

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { Description } from '../../Form';
 
 import {
-  Table,
+  DataTable,
   TableContainer,
   Pagination,
 } from '../../../../shared/DataTable';
@@ -69,6 +69,7 @@ export default class DataEditor extends Component {
       <div className={styles.container}>
         <Description>Description about this step goes here.</Description>
         <TableContainer
+          className={styles.content}
           footer={
             <>
               <Pagination />
@@ -81,7 +82,7 @@ export default class DataEditor extends Component {
             </>
           }
         >
-          <Table data={data} onChange={this.handleChangeData} />
+          <DataTable data={data} onChange={this.handleChangeData} />
         </TableContainer>
         {dialog && (
           <ConfirmationDialog

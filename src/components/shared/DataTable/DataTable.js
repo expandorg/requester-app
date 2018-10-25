@@ -6,35 +6,41 @@ import { replaceAtIndex } from '@gemsorg/utils/src/immutable';
 
 import Column from './Column';
 
-import styles from './Table.module.styl';
+import styles from './DataTable.module.styl';
 
-export default class Table extends Component {
+export default class DataTable extends Component {
   static propTypes = {
     data: PropTypes.shape({
       columns: PropTypes.arrayOf(PropTypes.object).isRequired,
       values: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.any)).isRequired,
     }).isRequired,
     className: PropTypes.string,
-    onChange: PropTypes.func.isRequired,
+    readOnly: PropTypes.bool,
+    onChange: PropTypes.func,
   };
 
   static defaultProps = {
     className: null,
+    readOnly: false,
+    onChange: Function.prototype,
   };
 
   handleChange = (column, index) => {
     const {
       data: { columns, values },
       onChange,
+      readOnly,
     } = this.props;
-
-    onChange({ values, columns: replaceAtIndex(columns, index, column) });
+    if (!readOnly) {
+      onChange({ values, columns: replaceAtIndex(columns, index, column) });
+    }
   };
 
   render() {
     const {
       data: { columns, values },
       className,
+      readOnly,
     } = this.props;
 
     /* eslint-disable react/no-array-index-key */
@@ -46,6 +52,7 @@ export default class Table extends Component {
             <Column
               column={column}
               key={index}
+              readOnly={readOnly}
               index={index}
               onChange={this.handleChange}
             />
