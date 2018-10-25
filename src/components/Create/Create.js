@@ -13,6 +13,9 @@ import Data from './Wizard/Data/Data';
 import Templates from './Wizard/Templates';
 import CreateTask from './Wizard/Task/CreateTask';
 import Whitelist from './Wizard/Whitelist/Whitelist';
+import Payments from './Wizard/Payments/Payments';
+
+import Summary from './Wizard/Summary/Summary';
 
 import styles from './Create.module.styl';
 
@@ -66,6 +69,12 @@ export default class Create extends Component {
             )}
             {active === 4 && (
               <Whitelist onNext={this.handleNext} onBack={this.handleBack} />
+            )}
+            {active === 5 && (
+              <Payments onNext={this.handleNext} onBack={this.handleBack} />
+            )}
+            {active === 6 && (
+              <Summary onNext={this.handleNext} onBack={this.handleBack} />
             )}
           </div>
         </Content>
