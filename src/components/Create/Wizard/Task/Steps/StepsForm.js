@@ -28,6 +28,11 @@ export default class StepsForm extends Component {
     onUpdate([step, ...steps]);
   };
 
+  handleDelete = stepId => {
+    const { onUpdate, steps } = this.props;
+    onUpdate(steps.filter(s => s.id !== stepId));
+  };
+
   handleMove = (dragId, hoverId) => {
     const { onUpdate, steps } = this.props;
 
@@ -59,6 +64,7 @@ export default class StepsForm extends Component {
               order={order}
               onSelect={onSelect}
               onMove={this.handleMove}
+              onDelete={this.handleDelete}
             />
           ))}
         </div>

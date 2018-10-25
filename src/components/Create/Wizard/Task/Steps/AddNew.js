@@ -33,7 +33,7 @@ export default class AddNew extends Component {
     const { dialog } = this.state;
 
     return (
-      <>
+      <div className={styles.outer}>
         <button className={styles.container} onClick={this.handleToggle}>
           <div className={styles.plus}>+</div>
           <div className={styles.add}>Add a new section to your task</div>
@@ -47,7 +47,7 @@ export default class AddNew extends Component {
             onSelect={this.handleAdd}
           />
         )}
-      </>
+      </div>
     );
   }
 }
