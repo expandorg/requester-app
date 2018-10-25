@@ -48,8 +48,8 @@ export default class Create extends Component {
         >
           <Navbar title="Create a task" top={false}>
             <Navigation onChange={this.handleChangeActive} active={active}>
-              <NavItem done>Settings</NavItem>
-              <NavItem>Upload</NavItem>
+              <NavItem status="complete">Settings</NavItem>
+              <NavItem status="required">Upload</NavItem>
               <NavItem>Templates</NavItem>
               <NavItem>Create Task</NavItem>
               <NavItem>Whitelist</NavItem>

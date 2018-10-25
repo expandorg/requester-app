@@ -2,15 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
 
-import { ReactComponent as Checkmark } from '../../../assets/checkmark.svg';
+import StatusIcon from './StatusIcon';
 
 import styles from './Section.module.styl';
 
-const Section = ({ children, title, confirmed, blue }) => (
+const Section = ({ children, title, status, blue }) => (
   <div className={cn(styles.container, { [styles.blue]: blue })}>
     <div className={styles.title}>
       {title}
-      {confirmed && <Checkmark className={styles.checkmark} />}
+      <StatusIcon status={status} />
     </div>
     <div className={styles.content}>{children}</div>
   </div>
@@ -18,12 +18,12 @@ const Section = ({ children, title, confirmed, blue }) => (
 
 Section.propTypes = {
   title: PropTypes.string.isRequired,
-  confirmed: PropTypes.bool,
+  status: PropTypes.string,
   blue: PropTypes.bool,
 };
 
 Section.defaultProps = {
-  confirmed: false,
+  status: null,
   blue: false,
 };
 

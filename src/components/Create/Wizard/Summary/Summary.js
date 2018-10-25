@@ -34,19 +34,19 @@ export default class Summary extends Component {
         <Description className={styles.description}>
           Description about this step goes here.
         </Description>
-        <Section title="Settings" confirmed blue>
+        <Section title="Settings" status="complete" blue>
           <Settings />
         </Section>
-        <Section title="Data" confirmed>
+        <Section title="Data" status="required">
           <Data />
         </Section>
-        <Section title="Task" confirmed blue>
+        <Section title="Task" blue>
           <Task />
         </Section>
-        <Section title="Whitelist" confirmed>
+        <Section title="Whitelist">
           <Whitelist />
         </Section>
-        <Section title="Payout" confirmed blue>
+        <Section title="Payout" blue>
           <Payout />
         </Section>
         <Actions>

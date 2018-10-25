@@ -2,35 +2,34 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
 
-import { ReactComponent as Checkmark } from '../../../assets/checkmark.svg';
+import { StatusIcon } from '../Form';
 
 import styles from './Navigation.module.styl';
 
 export default class NavItem extends Component {
   static propTypes = {
     active: PropTypes.bool,
-    done: PropTypes.bool,
+    status: PropTypes.string,
     onClick: PropTypes.func,
   };
 
   static defaultProps = {
     active: false,
-    done: false,
+    status: null,
     onClick: Function.prototype,
   };
 
   render() {
-    const { children, onClick, active, done, ...rest } = this.props;
+    const { children, onClick, active, status, ...rest } = this.props;
 
     const classes = cn(styles.item, {
       [styles.active]: active,
-      [styles.done]: done,
     });
 
     return (
       <button className={classes} onClick={onClick} {...rest}>
         {children}
-        {done && <Checkmark className={styles.checkmark} />}
+        <StatusIcon className={styles.status} status={status} />
       </button>
     );
   }
