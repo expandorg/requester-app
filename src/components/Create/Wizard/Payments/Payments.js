@@ -96,14 +96,20 @@ export default class Payments extends Component {
             </HeroWarning>
           )}
           <Field>
-            <button className={styles.deposit} onClick={this.handleToggle}>
+            <button
+              type="button"
+              className={styles.deposit}
+              onClick={this.handleToggle}
+            >
               deposit gems
             </button>
           </Field>
         </Fieldset>
         <Actions>
-          <Button onClick={this.handleBack}>Back</Button>
-          <Button>Next</Button>
+          <Button theme="secondary" onClick={this.handleBack}>
+            Back
+          </Button>
+          <Button type="submit">Next</Button>
         </Actions>
         {dialog && <DepositDialog onHide={this.handleToggle} />}
       </Form>

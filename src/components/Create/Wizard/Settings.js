@@ -98,7 +98,7 @@ export default class Settings extends Component {
           </Field>
         </Fieldset>
         <Actions>
-          <Button>Next</Button>
+          <Button type="submit">Next</Button>
         </Actions>
       </Form>
     );

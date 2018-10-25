@@ -45,8 +45,10 @@ export default class UploadData extends Component {
         {!data && <UploadForm onUpload={this.handleUpload} />}
         {data && <DataEditor data={data} onDelete={this.handleDelete} />}
         <Actions>
-          <Button onClick={this.handleBack}>Back</Button>
-          <Button>Next</Button>
+          <Button theme="secondary" onClick={this.handleBack}>
+            Back
+          </Button>
+          <Button type="submit">Next</Button>
         </Actions>
       </Form>
     );

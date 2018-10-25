@@ -74,7 +74,7 @@ export default class PropertiesForm extends Component {
           )}
         </div>
         <div className={styles.actions}>
-          <Button theme="secondary" onClick={onCancel}>
+          <Button theme="grey" onClick={onCancel}>
             Cancel
           </Button>
           <Button onClick={this.handleSave}>Save</Button>

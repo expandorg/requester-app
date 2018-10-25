@@ -12,6 +12,7 @@ import Data from './Data';
 import Task from './Task';
 import Whitelist from './Whitelist';
 import Payout from './Payout';
+import MenuButton from './Publish/MenuButton';
 
 import styles from './Summary.module.styl';
 
@@ -30,6 +31,10 @@ export default class Summary extends Component {
   handleSubmit = evt => {
     evt.preventDefault();
   };
+
+  handleScheduleClick = () => {};
+
+  handlePublishClick = () => {};
 
   render() {
     return (
@@ -62,7 +67,13 @@ export default class Summary extends Component {
           </HeroWarning>
         </Section>
         <Actions className={styles.actions}>
-          <Button onClick={this.handleBack}>Back</Button>
+          <Button theme="secondary" onClick={this.handleBack}>
+            Back
+          </Button>
+          <MenuButton
+            onPublish={this.handlePublishClick}
+            onSchedule={this.handleScheduleClick}
+          />
         </Actions>
       </Form>
     );

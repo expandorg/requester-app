@@ -7,18 +7,22 @@ import styles from './Button.module.styl';
 export default class Button extends Component {
   static propTypes = {
     className: PropTypes.string,
+    type: PropTypes.string,
     theme: PropTypes.string,
   };
 
   static defaultProps = {
     className: null,
+    type: 'button',
     theme: null,
   };
 
   render() {
-    const { children, className, theme, ...rest } = this.props;
+    const { children, type, className, theme, ...rest } = this.props;
+    const classes = cn(styles.button, styles[theme], className);
+
     return (
-      <button className={cn(styles.button, styles[theme], className)} {...rest}>
+      <button type={type} className={classes} {...rest}>
         {children}
       </button>
     );

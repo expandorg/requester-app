@@ -66,7 +66,7 @@ export default class TemplatesDialog extends Component {
           onSelect={this.handleSelect}
           actions={
             <div className={styles.actions}>
-              <Button theme="secondary" onClick={onHide}>
+              <Button theme="grey" onClick={onHide}>
                 Cancel
               </Button>
               <Button onClick={this.handlePick}>Use this</Button>

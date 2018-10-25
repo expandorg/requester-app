@@ -53,7 +53,7 @@ export default class ConfirmationDialog extends Component {
             </Button>
             <Button
               className={styles.button}
-              theme="secondary"
+              theme="grey"
               onClick={this.handleHide}
             >
               No, go back

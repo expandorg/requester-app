@@ -66,7 +66,7 @@ export default class DepositDialog extends Component {
             </Button>
             <Button
               className={styles.button}
-              theme="secondary"
+              theme="grey"
               onClick={this.handleHide}
             >
               go back

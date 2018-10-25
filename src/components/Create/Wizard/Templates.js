@@ -56,8 +56,10 @@ export default class Templates extends Component {
           />
         </div>
         <Actions>
-          <Button onClick={this.handleBack}>Back</Button>
-          <Button>Next</Button>
+          <Button theme="secondary" onClick={this.handleBack}>
+            Back
+          </Button>
+          <Button type="submit">Next</Button>
         </Actions>
       </Form>
     );

@@ -54,8 +54,10 @@ export default class Whitelist extends Component {
           </div>
         </div>
         <Actions>
-          <Button onClick={this.handleBack}>Back</Button>
-          <Button>Next</Button>
+          <Button theme="secondary" onClick={this.handleBack}>
+            Back
+          </Button>
+          <Button type="submit">Next</Button>
         </Actions>
       </Form>
     );

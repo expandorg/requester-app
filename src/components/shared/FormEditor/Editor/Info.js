@@ -29,11 +29,7 @@ export default class Info extends Component {
           </div>
         </div>
         <div className={styles.bottom}>
-          <Button
-            theme="secondary"
-            className={styles.preview}
-            onClick={onCancel}
-          >
+          <Button theme="grey" className={styles.preview} onClick={onCancel}>
             Cancel
           </Button>
           <Button className={styles.preview} onClick={onSave}>
