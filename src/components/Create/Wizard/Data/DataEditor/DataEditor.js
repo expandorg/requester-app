@@ -3,8 +3,12 @@ import PropTypes from 'prop-types';
 
 import { Description } from '../../Form';
 
-import Table from './Table';
-import Pagination from './Pagination';
+import {
+  Table,
+  TableContainer,
+  Pagination,
+} from '../../../../shared/DataTable';
+
 import ConfirmationDialog from './ConfirmationDialog';
 
 import styles from './DataEditor.module.styl';
@@ -60,15 +64,13 @@ export default class DataEditor extends Component {
 
   render() {
     const { data, dialog } = this.state;
+
     return (
       <div className={styles.container}>
         <Description>Description about this step goes here.</Description>
-        <div className={styles.content}>
-          <div className={styles.inner}>
-            <div className={styles.table}>
-              <Table data={data} onChange={this.handleChangeData} />
-            </div>
-            <div className={styles.footer}>
+        <TableContainer
+          footer={
+            <>
               <Pagination />
               <button
                 className={styles.delete}
@@ -76,9 +78,11 @@ export default class DataEditor extends Component {
               >
                 Remove data
               </button>
-            </div>
-          </div>
-        </div>
+            </>
+          }
+        >
+          <Table data={data} onChange={this.handleChangeData} />
+        </TableContainer>
         {dialog && (
           <ConfirmationDialog
             onDelete={this.handleDelete}

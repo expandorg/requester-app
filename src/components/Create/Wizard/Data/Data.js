@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import Button from '../../../common/Button';
+import DataEditor from './DataEditor/DataEditor';
 
 import UploadForm from './UploadForm';
-import DataEditor from './DataEditor/DataEditor';
 
 import { Form, Actions } from '../Form';
 
