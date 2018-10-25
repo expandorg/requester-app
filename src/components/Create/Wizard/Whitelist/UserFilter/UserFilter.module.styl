@@ -3,20 +3,61 @@
 
 .actions
   margin-top: 15px
+  display: flex;
+  justify-content: flex-end;
+
+.xbtn
+  box-sizing: border-box;
+
+  width: 16px
+  height: 16px;
+
+  background-color: transparent;
+
+  outline: none;
+  cursor: pointer;
+
+.x
+  transform: rotate(45deg);
+  path
+    fill: color-text-blue
+
+    .add:hover &
+      fill: lighten(color-text-blue, 15%)
+
+.preview
+  height: 144px
+  text-align: center;
+
+.previewIocn
+  path
+    fill: color-text-heavy-blue
+
+.centered
+  display: flex;
+  justify-content: center;
+
+  margin-top: 20px
 
 .add
   box-sizing: border-box;
 
-  width: 160px
   height: 40px
+  width: 222px
+
   font(subtitle, false, false, 38px)
   text-align: center;
-  text-transform: uppercase;
   letter-spacing: 0.15em;
+  text-transform: uppercase;
 
   color: color-text-blue
+  background-color: color-light-blue
+
   border: 1px solid color-heavy-blue
   border-radius: 2px
 
   outline: none;
   cursor: pointer;
+
+  &:hover
+    background-color: darken(color-light-blue, 2%)

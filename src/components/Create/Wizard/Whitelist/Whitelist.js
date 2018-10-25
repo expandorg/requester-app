@@ -5,7 +5,7 @@ import Button from '../../../common/Button';
 
 import { Form, Description, Hero, Actions } from '../Form';
 
-import UserFilter, { newCondition } from './UserFilter/UserFilter';
+import UserFilter from './UserFilter/UserFilter';
 
 import styles from './Whitelist.module.styl';
 
@@ -17,7 +17,7 @@ export default class Whitelist extends Component {
 
   state = {
     value: 765,
-    filters: [newCondition()],
+    filters: [],
   };
 
   handleSubmit = () => {

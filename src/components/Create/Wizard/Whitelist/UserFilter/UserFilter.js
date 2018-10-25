@@ -8,6 +8,9 @@ import { removeAtIndex, replaceAtIndex } from '@gemsorg/utils/src/immutable';
 
 import Condition from './Condition';
 
+import { ReactComponent as X } from '../../../../assets/x.svg';
+import { ReactComponent as Preview } from '../../../../assets/preview.svg';
+
 import styles from './UserFilter.module.styl';
 
 export const newCondition = () => ({
@@ -57,22 +60,43 @@ export default class UserFilter extends Component {
     const { filters, className } = this.props;
     return (
       <div className={cn(styles.container, className)}>
-        <div className={styles.list}>
-          {filters.map((c, index) => (
-            <Condition
-              key={c.id}
-              index={index}
-              condition={c}
-              onRemove={this.handleRemove}
-              onChange={this.handleChange}
-            />
-          ))}
-        </div>
-        <div className={styles.actions}>
-          <button className={styles.add} onClick={this.handleAdd}>
-            Add another
-          </button>
-        </div>
+        {filters.length !== 0 && (
+          <>
+            <div className={styles.list}>
+              {filters.map((c, index) => (
+                <Condition
+                  key={c.id}
+                  index={index}
+                  condition={c}
+                  onRemove={this.handleRemove}
+                  onChange={this.handleChange}
+                />
+              ))}
+            </div>
+            <div className={styles.actions}>
+              <button className={styles.xbtn} onClick={this.handleAdd}>
+                <X className={styles.x} />
+              </button>
+            </div>
+          </>
+        )}
+        {filters.length === 0 && (
+          <div className={styles.empty}>
+            <div className={styles.preview}>
+              <Preview
+                className={styles.previewIocn}
+                width="144"
+                height="144"
+                viewBox="0 0 64 48"
+              />
+            </div>
+            <div className={styles.centered}>
+              <button className={styles.add} onClick={this.handleAdd}>
+                Add condition
+              </button>
+            </div>
+          </div>
+        )}
       </div>
     );
   }
