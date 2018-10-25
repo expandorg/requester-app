@@ -56,7 +56,7 @@ export default class Summary extends Component {
             The task can not be published until all sections are complete.
           </HeroWarning>
         </Section>
-        <Actions>
+        <Actions className={styles.actions}>
           <Button onClick={this.handleBack}>Back</Button>
         </Actions>
       </Form>
