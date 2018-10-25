@@ -50,7 +50,10 @@ export default class Payments extends Component {
     });
   };
 
-  handleToggle = () => {
+  handleToggle = evt => {
+    if (evt) {
+      evt.preventDefault();
+    }
     this.setState(({ dialog }) => ({ dialog: !dialog }));
   };
 
