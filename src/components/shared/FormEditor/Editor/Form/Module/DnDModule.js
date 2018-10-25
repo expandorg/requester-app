@@ -20,6 +20,7 @@ class DnDModule extends Component {
     controls: PropTypes.object.isRequired, // eslint-disable-line
     isDragging: PropTypes.bool.isRequired,
     dimmed: PropTypes.bool.isRequired,
+    selected: PropTypes.bool.isRequired,
     onMove: PropTypes.func.isRequired, // eslint-disable-line
     onEdit: PropTypes.func.isRequired,
     onRemove: PropTypes.func.isRequired,
@@ -35,6 +36,7 @@ class DnDModule extends Component {
       connectDropTarget,
       connectDragPreview,
       dimmed,
+      selected,
       isDragging,
       module,
       onRemove,
@@ -56,6 +58,7 @@ class DnDModule extends Component {
             <ModuleEdit
               module={module}
               dimmed={dimmed}
+              selected={selected}
               controls={controls}
               onEdit={onEdit}
               onRemove={onRemove}

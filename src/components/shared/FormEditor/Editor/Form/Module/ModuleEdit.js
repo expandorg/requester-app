@@ -13,6 +13,7 @@ export default class ModuleEdit extends Component {
     module: moduleProps.isRequired,
     controls: PropTypes.object.isRequired, // eslint-disable-line
     dimmed: PropTypes.bool.isRequired,
+    selected: PropTypes.bool.isRequired,
     className: PropTypes.string,
     onEdit: PropTypes.func.isRequired,
     onRemove: PropTypes.func.isRequired,
@@ -38,11 +39,18 @@ export default class ModuleEdit extends Component {
   };
 
   render() {
-    const { module, className, onPreview, dimmed, controls } = this.props;
+    const {
+      module,
+      className,
+      onPreview,
+      dimmed,
+      controls,
+      selected,
+    } = this.props;
 
     const classes = cn(
       styles.container,
-      { [styles.dimmed]: dimmed },
+      { [styles.dimmed]: dimmed, [styles.selected]: selected },
       className
     );
 

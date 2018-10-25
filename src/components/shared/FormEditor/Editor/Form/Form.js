@@ -58,6 +58,7 @@ class Form extends Component {
                   order={order}
                   id={module.name}
                   dimmed={selected !== null && module.name !== selected}
+                  selected={selected !== null && module.name === selected}
                   module={module}
                   onMove={onMoveModule}
                   onRemove={onRemoveModule}
