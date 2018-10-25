@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+import { Fieldset } from '../Form';
+
 import styles from './Whitelist.module.styl';
 
 export default class Whitelist extends Component {
@@ -28,13 +30,15 @@ export default class Whitelist extends Component {
     const { filters } = this.props;
     return (
       <div className={styles.container}>
-        {filters.map(condition => (
-          <div key={condition.id} className={styles.condition}>
-            <span className={styles.param}>{condition.param}</span>
-            <span className={styles.op}>{condition.op}</span>
-            <span className={styles.value}>{condition.value}</span>
-          </div>
-        ))}
+        <Fieldset>
+          {filters.map(condition => (
+            <div key={condition.id} className={styles.condition}>
+              <span className={styles.param}>{condition.param}</span>
+              <span className={styles.op}>{condition.op}</span>
+              <span className={styles.value}>{condition.value}</span>
+            </div>
+          ))}
+        </Fieldset>
       </div>
     );
   }
