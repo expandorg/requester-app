@@ -55,7 +55,13 @@ export default class UploadImage extends Component {
         {label && (
           <div className={styles.label}>
             <span>{label}</span>
-            {tooltip && <I tooltip={tooltip} tooltipOrientation="right" />}
+            {tooltip && (
+              <I
+                className={styles.tooltip}
+                tooltip={tooltip}
+                tooltipOrientation="right"
+              />
+            )}
           </div>
         )}
         <Dropzone

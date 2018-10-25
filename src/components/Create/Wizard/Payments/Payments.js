@@ -6,6 +6,8 @@ import { ReactComponent as Card } from '../../../assets/creditcard.svg';
 import Input from '../../../common/Input';
 import Button from '../../../common/Button';
 
+import DepositDialog from '../../../shared/Deposit/DepositDialog';
+
 import {
   Form,
   Description,
@@ -27,6 +29,7 @@ export default class Payments extends Component {
   state = {
     pay: '',
     earned: '',
+    dialog: false,
   };
 
   handleSubmit = () => {
@@ -47,8 +50,12 @@ export default class Payments extends Component {
     });
   };
 
+  handleToggle = () => {
+    this.setState(({ dialog }) => ({ dialog: !dialog }));
+  };
+
   render() {
-    const { pay, earned } = this.state;
+    const { pay, earned, dialog } = this.state;
     const insufficent = false;
     return (
       <Form onSubmit={this.handleSubmit}>
@@ -86,7 +93,7 @@ export default class Payments extends Component {
             </HeroWarning>
           )}
           <Field>
-            <button className={styles.deposit} onClick={this.handleDeposit}>
+            <button className={styles.deposit} onClick={this.handleToggle}>
               deposit gems
             </button>
           </Field>
@@ -95,6 +102,7 @@ export default class Payments extends Component {
           <Button onClick={this.handleBack}>Back</Button>
           <Button>Next</Button>
         </Actions>
+        {dialog && <DepositDialog onHide={this.handleToggle} />}
       </Form>
     );
   }

@@ -2,7 +2,10 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import { Actions, Section, Form, Description, HeroWarning } from '../Form';
+
 import Button from '../../../common/Button';
+
+import { ReactComponent as Warning } from '../../../assets/warning.svg';
 
 import Settings from './Settings';
 import Data from './Data';
@@ -50,7 +53,9 @@ export default class Summary extends Component {
           <Payout />
         </Section>
         <Section>
-          <HeroWarning>
+          <HeroWarning
+            icon={<Warning width="64px" height="64px" viewBox="0 0 42 42" />}
+          >
             There are still some sections that need completing.
             <br />
             The task can not be published until all sections are complete.
