@@ -21,7 +21,7 @@ import styles from './Create.module.styl';
 
 export default class Create extends Component {
   state = {
-    active: 0,
+    active: 6,
   };
 
   handleChangeActive = active => {
@@ -73,9 +73,7 @@ export default class Create extends Component {
             {active === 5 && (
               <Payments onNext={this.handleNext} onBack={this.handleBack} />
             )}
-            {active === 6 && (
-              <Summary onNext={this.handleNext} onBack={this.handleBack} />
-            )}
+            {active === 6 && <Summary onBack={this.handleBack} />}
           </div>
         </Content>
       </DragDropContextProvider>

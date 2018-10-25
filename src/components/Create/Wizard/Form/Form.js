@@ -1,11 +1,17 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import cn from 'classnames';
 
 import styles from './styles.module.styl';
 
 export default class Form extends Component {
   static propTypes = {
     onSubmit: PropTypes.func.isRequired,
+    className: PropTypes.string,
+  };
+
+  static defaultProps = {
+    className: null,
   };
 
   handleSubmit = evt => {
@@ -15,9 +21,9 @@ export default class Form extends Component {
   };
 
   render() {
-    const { children } = this.props;
+    const { children, className } = this.props;
     return (
-      <form onSubmit={this.handleSubmit} className={styles.form}>
+      <form onSubmit={this.handleSubmit} className={cn(styles.form, className)}>
         {children}
       </form>
     );
