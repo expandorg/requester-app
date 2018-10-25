@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import { Actions, Section, Form, Description } from '../Form';
+import { Actions, Section, Form, Description, HeroWarning } from '../Form';
 import Button from '../../../common/Button';
 
 import Settings from './Settings';
@@ -48,6 +48,13 @@ export default class Summary extends Component {
         </Section>
         <Section title="Payout" blue>
           <Payout />
+        </Section>
+        <Section>
+          <HeroWarning>
+            There are still some sections that need completing.
+            <br />
+            The task can not be published until all sections are complete.
+          </HeroWarning>
         </Section>
         <Actions>
           <Button onClick={this.handleBack}>Back</Button>

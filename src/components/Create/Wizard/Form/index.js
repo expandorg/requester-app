@@ -8,6 +8,7 @@ import Description from './Description';
 import StatusIcon from './StatusIcon';
 
 import Hero from './Hero';
+import HeroWarning from './HeroWarning';
 
 import Actions from './Actions';
 
@@ -18,6 +19,7 @@ export {
   Fieldset,
   Actions,
   Hero,
+  HeroWarning,
   Section,
   StatusIcon,
 };

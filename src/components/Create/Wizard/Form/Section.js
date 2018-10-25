@@ -8,21 +8,24 @@ import styles from './Section.module.styl';
 
 const Section = ({ children, title, status, blue }) => (
   <div className={cn(styles.container, { [styles.blue]: blue })}>
-    <div className={styles.title}>
-      {title}
-      <StatusIcon status={status} />
-    </div>
+    {title && (
+      <div className={styles.title}>
+        {title}
+        <StatusIcon status={status} />
+      </div>
+    )}
     <div className={styles.content}>{children}</div>
   </div>
 );
 
 Section.propTypes = {
-  title: PropTypes.string.isRequired,
+  title: PropTypes.string,
   status: PropTypes.string,
   blue: PropTypes.bool,
 };
 
 Section.defaultProps = {
+  title: null,
   status: null,
   blue: false,
 };
