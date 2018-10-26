@@ -5,7 +5,7 @@ import { clickOutside } from '@gemsorg/components/hoc';
 
 import Button from '../../../../common/Button';
 
-import styles from './Menu.module.styl';
+import styles from './styles.module.styl';
 
 class Menu extends Component {
   static propTypes = {

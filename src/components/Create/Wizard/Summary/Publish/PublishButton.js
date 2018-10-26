@@ -5,26 +5,20 @@ import Button from '../../../../common/Button';
 
 import { ReactComponent as Arrow } from '../../../../assets/arrow-down.svg';
 
+import DateTimePicker from '../../../../shared/DateTimePicker/DateTimePicker';
+
 import Menu from './Menu';
 
-import styles from './Menu.module.styl';
+import styles from './styles.module.styl';
 
-export default class MenuButton extends Component {
+export default class PublishButton extends Component {
   static propTypes = {
     onPublish: PropTypes.func.isRequired,
-    onSchedule: PropTypes.func.isRequired,
   };
 
   state = {
     menu: false,
-  };
-
-  handleScheduleClick = evt => {
-    const { onSchedule } = this.props;
-    onSchedule();
-    this.handleHide();
-
-    evt.preventDefault();
+    schedule: false,
   };
 
   handlePublishClick = evt => {
@@ -35,6 +29,12 @@ export default class MenuButton extends Component {
     evt.preventDefault();
   };
 
+  handleSchedulePublish = dateTime => {
+    const { onPublish } = this.props;
+    onPublish(dateTime);
+    this.handleToggleSchedule();
+  };
+
   handleToggle = () => {
     this.setState(({ menu }) => ({ menu: !menu }));
   };
@@ -43,8 +43,12 @@ export default class MenuButton extends Component {
     this.setState({ menu: false });
   };
 
+  handleToggleSchedule = () => {
+    this.setState(({ schedule }) => ({ schedule: !schedule }));
+  };
+
   render() {
-    const { menu } = this.state;
+    const { menu, schedule } = this.state;
 
     return (
       <div className={styles.group}>
@@ -55,8 +59,15 @@ export default class MenuButton extends Component {
         {menu && (
           <Menu
             onPublish={this.handlePublishClick}
-            onSchedule={this.handleScheduleClick}
+            onSchedule={this.handleToggleSchedule}
             onToggle={this.handleHide}
+          />
+        )}
+        {schedule && (
+          <DateTimePicker
+            className={styles.picker}
+            onHide={this.handleToggleSchedule}
+            onDone={this.handleSchedulePublish}
           />
         )}
       </div>

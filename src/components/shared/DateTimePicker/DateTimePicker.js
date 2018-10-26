@@ -2,30 +2,16 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
 
-import DayPicker, { DateUtils } from 'react-day-picker';
-
-import format from 'date-fns/format';
-import parse from 'date-fns/parse';
+import DayPicker from 'react-day-picker';
 
 import TimePicker from './TimePicker';
 
 import styles from './DateTimePicker.module.styl';
 
-const parseDate = (str, fmt, locale) => {
-  const parsed = parse(str, fmt, { locale });
-  if (DateUtils.isDate(parsed)) {
-    return parsed;
-  }
-  return undefined;
-};
-
-const formatDate = (date, fmt, locale) => format(date, fmt, { locale });
-
 export default class DateTimePicker extends Component {
   static propTypes = {
-    value: PropTypes.any, // eslint-disable-line
     className: PropTypes.string,
-    onChange: PropTypes.func.isRequired,
+    onDone: PropTypes.func.isRequired,
     onHide: PropTypes.func.isRequired,
   };
 
@@ -42,11 +28,11 @@ export default class DateTimePicker extends Component {
   };
 
   handleDone = evt => {
-    const { onChange } = this.props;
+    const { onDone } = this.props;
     const { value } = this.state;
-
-    onChange(value);
-
+    if (value) {
+      onDone(value);
+    }
     evt.preventDefault();
   };
 
@@ -65,13 +51,7 @@ export default class DateTimePicker extends Component {
       <div className={cn(styles.container, className)}>
         <div className={styles.content}>
           <div className={styles.date}>
-            <DayPicker
-              selectedDays={value}
-              formatDate={formatDate}
-              format="MM/DD/YYYY"
-              parseDate={parseDate}
-              onDayClick={this.handleChange}
-            />
+            <DayPicker selectedDays={value} onDayClick={this.handleChange} />
           </div>
           <div className={styles.time}>
             <TimePicker value={value} onChange={this.handleChange} />

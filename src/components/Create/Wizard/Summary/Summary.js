@@ -5,8 +5,6 @@ import { Actions, Section, Form, Description, HeroWarning } from '../Form';
 
 import Button from '../../../common/Button';
 
-import DateTimePicker from '../../../shared/DateTimePicker/DateTimePicker';
-
 import { ReactComponent as Warning } from '../../../assets/warning.svg';
 
 import Settings from './Settings';
@@ -14,17 +12,13 @@ import Data from './Data';
 import Task from './Task';
 import Whitelist from './Whitelist';
 import Payout from './Payout';
-import MenuButton from './Publish/MenuButton';
+import PublishButton from './Publish/PublishButton';
 
 import styles from './Summary.module.styl';
 
 export default class Summary extends Component {
   static propTypes = {
     onBack: PropTypes.func.isRequired,
-  };
-
-  state = {
-    schedule: true,
   };
 
   handleBack = evt => {
@@ -38,14 +32,11 @@ export default class Summary extends Component {
     evt.preventDefault();
   };
 
-  handleScheduleClick = () => {
-    this.setState(({ schedule }) => ({ schedule: !schedule }));
+  handlePublishClick = time => {
+    console.log(time);
   };
 
-  handlePublishClick = () => {};
-
   render() {
-    const { schedule } = this.state;
     return (
       <Form onSubmit={this.handleSubmit} className={styles.form}>
         <Description className={styles.description}>
@@ -79,17 +70,7 @@ export default class Summary extends Component {
           <Button theme="secondary" onClick={this.handleBack}>
             Back
           </Button>
-          <MenuButton
-            onPublish={this.handlePublishClick}
-            onSchedule={this.handleScheduleClick}
-          />
-          {schedule && (
-            <DateTimePicker
-              className={styles.picker}
-              onHide={this.handleScheduleClick}
-              onChange={this.handlePublishClick}
-            />
-          )}
+          <PublishButton onPublish={this.handlePublishClick} />
         </Actions>
       </Form>
     );

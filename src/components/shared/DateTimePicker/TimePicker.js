@@ -2,52 +2,66 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
 
+import format from 'date-fns/format';
+import addHours from 'date-fns/add_hours';
+
 import Watch from './Watch';
 
 import styles from './TimePicker.module.styl';
 
+const getAMPM = date => {
+  if (!date) {
+    return null;
+  }
+  return format(date, 'a');
+};
+
 export default class TimePicker extends Component {
   static propTypes = {
+    value: PropTypes.object, // eslint-disable-line
     onChange: PropTypes.func.isRequired,
   };
 
-  state = {
-    am: false,
-    time: 0,
+  static defaultProps = {
+    value: undefined,
   };
 
-  handleChange = value => {
+  handleChangeTime = value => {
     const { onChange } = this.props;
     onChange(value);
   };
 
-  handleChangeTime = time => {
-    this.setState({ time });
-  };
-
   handleToggle = evt => {
-    const am = evt.target.dataset.val === 'am';
-    const { am: current } = this.state;
-    if (current !== am) {
-      this.setState({ am });
+    const { value, onChange } = this.props;
+    if (value) {
+      const ampm = evt.target.dataset.val;
+      const current = getAMPM(value);
+
+      if (current !== ampm) {
+        onChange(addHours(value, ampm === 'pm' ? 12 : -12));
+      }
     }
   };
 
   render() {
-    const { time, am } = this.state;
+    const { value } = this.props;
+
+    const ampm = getAMPM(value);
 
     return (
       <div className={styles.container}>
         <div className={styles.header}>
-          <div className={styles.value}>{`${time}:00 ${am ? 'AM' : 'PM'}`}</div>
+          {value && (
+            <div className={styles.value}>{format(value, 'HH:mm A')}</div>
+          )}
         </div>
         <div className={styles.content}>
-          <Watch time={time} onChange={this.handleChangeTime} />
+          <Watch date={value} onChange={this.handleChangeTime} />
         </div>
         <div className={styles.ampm}>
           <button
             type="button"
-            className={cn(styles.btn, { [styles.selected]: am })}
+            className={cn(styles.btn, { [styles.selected]: ampm === 'am' })}
             data-val="am"
             onClick={this.handleToggle}
           >
@@ -55,7 +69,7 @@ export default class TimePicker extends Component {
           </button>
           <button
             type="button"
-            className={cn(styles.btn, { [styles.selected]: !am })}
+            className={cn(styles.btn, { [styles.selected]: ampm === 'pm' })}
             data-val="pm"
             onClick={this.handleToggle}
           >
