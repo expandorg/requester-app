@@ -5,6 +5,8 @@ import { Actions, Section, Form, Description, HeroWarning } from '../Form';
 
 import Button from '../../../common/Button';
 
+import DateTimePicker from '../../../shared/DateTimePicker/DateTimePicker';
+
 import { ReactComponent as Warning } from '../../../assets/warning.svg';
 
 import Settings from './Settings';
@@ -21,6 +23,10 @@ export default class Summary extends Component {
     onBack: PropTypes.func.isRequired,
   };
 
+  state = {
+    schedule: true,
+  };
+
   handleBack = evt => {
     const { onBack } = this.props;
     onBack();
@@ -32,11 +38,14 @@ export default class Summary extends Component {
     evt.preventDefault();
   };
 
-  handleScheduleClick = () => {};
+  handleScheduleClick = () => {
+    this.setState(({ schedule }) => ({ schedule: !schedule }));
+  };
 
   handlePublishClick = () => {};
 
   render() {
+    const { schedule } = this.state;
     return (
       <Form onSubmit={this.handleSubmit} className={styles.form}>
         <Description className={styles.description}>
@@ -74,6 +83,13 @@ export default class Summary extends Component {
             onPublish={this.handlePublishClick}
             onSchedule={this.handleScheduleClick}
           />
+          {schedule && (
+            <DateTimePicker
+              className={styles.picker}
+              onHide={this.handleScheduleClick}
+              onChange={this.handlePublishClick}
+            />
+          )}
         </Actions>
       </Form>
     );
