@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { Hero } from '../Form';
+import Hero from '../../../shared/Hero';
 
 import styles from './Payout.module.styl';
 

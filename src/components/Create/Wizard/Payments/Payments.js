@@ -8,15 +8,10 @@ import Button from '../../../common/Button';
 
 import DepositDialog from '../../../shared/Deposit/DepositDialog';
 
-import {
-  Form,
-  Description,
-  Field,
-  Fieldset,
-  Actions,
-  Hero,
-  HeroWarning,
-} from '../Form';
+import { Form, Description, Field, Fieldset, Actions } from '../Form';
+
+import Hero from '../../../shared/Hero';
+import HeroWarning from '../../../shared/HeroWarning';
 
 import styles from './Payments.module.styl';
 

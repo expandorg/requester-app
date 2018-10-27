@@ -7,7 +7,7 @@ import Sidebar from '../shared/Sidebar';
 import Button from '../common/Button';
 import Input from '../common/Input';
 
-import Hero from '../Create/Wizard/Form/Hero';
+import Hero from '../shared/Hero';
 import DepositDialog from '../shared/Deposit/DepositDialog';
 
 import styles from './Settings.module.styl';

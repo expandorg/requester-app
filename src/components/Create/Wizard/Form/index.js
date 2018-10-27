@@ -7,19 +7,6 @@ import Fieldset from './Fieldset';
 import Description from './Description';
 import StatusIcon from './StatusIcon';
 
-import Hero from './Hero';
-import HeroWarning from './HeroWarning';
-
 import Actions from './Actions';
 
-export {
-  Form,
-  Description,
-  Field,
-  Fieldset,
-  Actions,
-  Hero,
-  HeroWarning,
-  Section,
-  StatusIcon,
-};
+export { Form, Description, Field, Fieldset, Actions, Section, StatusIcon };

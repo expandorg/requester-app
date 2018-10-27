@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import { Actions, Section, Form, Description, HeroWarning } from '../Form';
-
 import Button from '../../../common/Button';
+import HeroWarning from '../../../shared/HeroWarning';
+
+import { Actions, Section, Form, Description } from '../Form';
 
 import { ReactComponent as Warning } from '../../../assets/warning.svg';
 
