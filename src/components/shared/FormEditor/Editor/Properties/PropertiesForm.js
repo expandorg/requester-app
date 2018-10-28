@@ -6,6 +6,7 @@ import { moduleProps } from '@gemsorg/modules';
 import Button from '../../../../common/Button';
 
 import PropertyEditor from './PropertyEditor/PropertyEditor';
+import FieldValidation from './FieldValidation';
 
 import styles from './PropertiesForm.module.styl';
 
@@ -40,6 +41,10 @@ export default class PropertiesForm extends Component {
     this.setState(({ module }) => ({ module: { ...module, [name]: value } }));
   };
 
+  handleChangeValidation = validation => {
+    this.setState(({ module }) => ({ module: { ...module, validation } }));
+  };
+
   handleSave = () => {
     const { onEdit } = this.props;
     const { module } = this.state;
@@ -52,15 +57,14 @@ export default class PropertiesForm extends Component {
     const { module } = this.state;
 
     const {
-      module: { name, editor },
+      module: { name, editor, validation },
     } = controls[module.type];
-
     return (
       <aside className={styles.container}>
         <div className={styles.content}>
           <div className={styles.title}>{name}</div>
           {editor.properties && (
-            <div className={styles.list}>
+            <div className={styles.props}>
               {Reflect.ownKeys(editor.properties).map(propertyName => (
                 <PropertyEditor
                   key={propertyName}
@@ -71,6 +75,13 @@ export default class PropertiesForm extends Component {
                 />
               ))}
             </div>
+          )}
+          {validation && (
+            <FieldValidation
+              validation={validation}
+              module={module}
+              onChange={this.handleChangeValidation}
+            />
           )}
         </div>
         <div className={styles.actions}>

@@ -9,18 +9,20 @@ export default class Checkbox extends Component {
     className: PropTypes.string,
     label: PropTypes.string,
     value: PropTypes.bool,
+    name: PropTypes.string,
     onChange: PropTypes.func.isRequired,
   };
 
   static defaultProps = {
     className: null,
     value: false,
+    name: undefined,
     label: '',
   };
 
   handleChange = () => {
-    const { onChange, value } = this.props;
-    onChange(!value);
+    const { onChange, value, name } = this.props;
+    onChange(!value, name);
   };
 
   render() {
