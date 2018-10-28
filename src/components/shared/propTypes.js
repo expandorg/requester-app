@@ -12,6 +12,6 @@ export const locationProps = PropTypes.shape({
 });
 
 export const notificationProps = PropTypes.shape({
-  type: PropTypes.oneOf(['warning, message, success']).isRequired,
+  type: PropTypes.oneOf(['warning', 'message', 'success']).isRequired,
   message: PropTypes.string,
 });
