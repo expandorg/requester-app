@@ -4,6 +4,8 @@ import cn from 'classnames';
 
 import DocumentTitle from 'react-document-title';
 
+import Notifications from './Notifications/Notifications';
+
 import './Content.styl';
 
 const Content = ({ children, title, className, sidebar, navbar }) => (
@@ -20,6 +22,7 @@ const Content = ({ children, title, className, sidebar, navbar }) => (
         )}
       >
         {children}
+        <Notifications />
       </div>
     </div>
   </DocumentTitle>

@@ -1,6 +1,11 @@
 // @flow
 import { createActionTypes } from '@gemsorg/app-utils';
 
+export const appActionTypes = createActionTypes('app', {
+  NOTIFICATION_ADD: null,
+  NOTIFICATION_REMOVE: null,
+});
+
 export const authActionTypes = createActionTypes('auth', {
   GET_CURRENT: null,
   GET_CURRENT_COMPLETE: null,

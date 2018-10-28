@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 
 import Button from '../../../common/Button';
 
-import { Form, Description, Hero, Actions } from '../Form';
+import { Form, Description, Actions } from '../Form';
+import Hero from '../../../shared/Hero';
 
 import UserFilter from './UserFilter/UserFilter';
 
