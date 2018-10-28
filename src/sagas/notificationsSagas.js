@@ -1,3 +1,5 @@
+// @flow
+
 import { takeLatest, call, put, take, race } from 'redux-saga/effects';
 
 import { delay } from '@gemsorg/utils';
@@ -6,7 +8,9 @@ import { appActionTypes } from './actionTypes';
 
 const NOTIFICATION_TIMEOUT = 3000;
 
-export const addNotification = (type, message) => ({
+declare type NotificationType = 'error' | 'success';
+
+export const addNotification = (type: NotificationType, message: string) => ({
   type: appActionTypes.NOTIFICATION_ADD,
   payload: { type, message },
 });
@@ -30,7 +34,7 @@ function* handldNotificationAdded() {
 //   yield put(addNotification('error', { type }));
 // }
 
-export function* notificationsSagas() {
+export function* notificationsSagas(): any {
   yield takeLatest(appActionTypes.NOTIFICATION_ADD, handldNotificationAdded);
 
   // yield takeEvery(gemsActionTypes.TRANSACTION_FAILED, handleTxFailed);
