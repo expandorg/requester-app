@@ -40,6 +40,7 @@ export default class FieldValidation extends Component {
         <div className={styles.list}>
           {Reflect.ownKeys(validation).map(name => (
             <Input
+              key={name}
               className={styles.item}
               name={name}
               placeholder={labels[name] || name}

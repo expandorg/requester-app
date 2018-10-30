@@ -1,9 +1,13 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+
+import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Transition, animated } from 'react-spring';
 
 import Notification from './Notification';
 
+import { clearNotification } from '../../../sagas/notificationsSagas';
 import { notificationSelector } from '../../../selectors/uiStateSelectors';
 import { notificationProps } from '../propTypes';
 
@@ -17,9 +21,13 @@ const mapStateToProps = state => ({
   notification: notificationSelector(state),
 });
 
+const mapdDispatchToProps = dispatch =>
+  bindActionCreators({ clearNotification }, dispatch);
+
 class Notifications extends Component {
   static propTypes = {
     notification: notificationProps,
+    clearNotification: PropTypes.func.isRequired,
   };
 
   static defaultProps = {
@@ -33,7 +41,10 @@ class Notifications extends Component {
         {notification &&
           (style => (
             <animated.div style={style} className={styles.container}>
-              <Notification notification={notification} />
+              <Notification
+                notification={notification}
+                onClear={this.props.clearNotification}
+              />
             </animated.div>
           ))}
       </Transition>
@@ -41,4 +52,7 @@ class Notifications extends Component {
   }
 }
 
-export default connect(mapStateToProps)(Notifications);
+export default connect(
+  mapStateToProps,
+  mapdDispatchToProps
+)(Notifications);
