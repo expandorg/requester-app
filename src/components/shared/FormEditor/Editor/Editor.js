@@ -7,7 +7,6 @@ import Button from '../../../common/Button';
 
 import Form from './Form/Form';
 import Properties from './Properties/Properties';
-import Info from './Info';
 
 import styles from './Editor.module.styl';
 
@@ -33,7 +32,7 @@ export default class Editor extends Component {
     this.setState({ selected: selected === module.name ? null : module.name });
   };
 
-  handleTogglePreview = () => {};
+  handlePreview = () => {};
 
   handleRemoveModule = id => {
     const { onRemoveModule } = this.props;
@@ -59,16 +58,6 @@ export default class Editor extends Component {
 
     return (
       <div className={styles.container}>
-        <div className={styles.header}>
-          <div className={styles.title}>Edit Task Module</div>
-          <Button
-            theme="aqua"
-            className={styles.preview}
-            onClick={this.handleTogglePreview}
-          >
-            Preview
-          </Button>
-        </div>
         <div className={styles.content}>
           <div className={styles.form}>
             <Form
@@ -81,8 +70,25 @@ export default class Editor extends Component {
               onRemoveModule={this.handleRemoveModule}
             />
           </div>
-          <div className={styles.aside}>
-            <Info onSave={onSave} onCancel={onCancel} />
+        </div>
+        <div className={styles.actions}>
+          <div>
+            <Button
+              theme="aqua"
+              className={styles.btn}
+              onClick={this.handlePreview}
+            >
+              Preview
+            </Button>
+          </div>
+          <div className={styles.title}>Edit Task Module</div>
+          <div>
+            <Button theme="grey" className={styles.btn} onClick={onCancel}>
+              Cancel
+            </Button>
+            <Button className={styles.btn} onClick={onSave}>
+              Save
+            </Button>
           </div>
         </div>
         <Properties

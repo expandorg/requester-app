@@ -85,10 +85,12 @@ export default class PropertiesForm extends Component {
           )}
         </div>
         <div className={styles.actions}>
-          <Button theme="grey" onClick={onCancel}>
+          <Button theme="grey" onClick={onCancel} className={styles.btn}>
             Cancel
           </Button>
-          <Button onClick={this.handleSave}>Save</Button>
+          <Button onClick={this.handleSave} className={styles.btn}>
+            Save
+          </Button>
         </div>
       </aside>
     );
