@@ -33,6 +33,8 @@ export default class FormEditor extends Component {
   constructor(props) {
     super(props);
 
+    this.previewTab = null;
+
     this.state = {
       prev: props.form, // eslint-disable-line react/no-unused-state
       modules: props.form ? props.form.modules : [],

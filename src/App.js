@@ -8,6 +8,7 @@ import { ServiceProvider } from '@gemsorg/components';
 import Dashboard from './components/Dashboard/Dashboard';
 import Create from './components/Create/Create';
 import Task from './components/Task/Task';
+import Preview from './components/Preview/Preview';
 
 import Api from './components/Api/Api';
 import Profile from './components/Profile/Profile';
@@ -29,6 +30,7 @@ const App = () => (
 
           <Route path="/task/create" component={Create} />
           <Route path="/task/:id" component={Task} />
+          <Route path="/preview" component={Preview} />
 
           <Route path="/profile" component={Profile} />
           <Route path="/api" component={Api} />

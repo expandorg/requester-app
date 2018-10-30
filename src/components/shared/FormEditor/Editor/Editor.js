@@ -7,6 +7,7 @@ import Button from '../../../common/Button';
 
 import Form from './Form/Form';
 import Properties from './Properties/Properties';
+import PreviewCtx from './PreviewCtx';
 
 import styles from './Editor.module.styl';
 
@@ -31,8 +32,6 @@ export default class Editor extends Component {
     const { selected } = this.state;
     this.setState({ selected: selected === module.name ? null : module.name });
   };
-
-  handlePreview = () => {};
 
   handleRemoveModule = id => {
     const { onRemoveModule } = this.props;
@@ -73,13 +72,13 @@ export default class Editor extends Component {
         </div>
         <div className={styles.actions}>
           <div>
-            <Button
-              theme="aqua"
-              className={styles.btn}
-              onClick={this.handlePreview}
-            >
-              Preview
-            </Button>
+            <PreviewCtx modules={modules}>
+              {({ onPreview }) => (
+                <Button theme="aqua" className={styles.btn} onClick={onPreview}>
+                  Preview
+                </Button>
+              )}
+            </PreviewCtx>
           </div>
           <div className={styles.title}>Edit Task Module</div>
           <div>
