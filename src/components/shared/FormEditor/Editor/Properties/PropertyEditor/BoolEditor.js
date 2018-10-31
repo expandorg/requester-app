@@ -19,6 +19,7 @@ export default class BoolEditor extends Component {
 
   render() {
     const { value, label, onChange } = this.props;
+    console.log(this.props);
 
     return (
       <Checkbox

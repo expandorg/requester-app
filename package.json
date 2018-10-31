@@ -32,7 +32,7 @@
     "@gemsorg/api-client": "^0.0.6",
     "@gemsorg/app-utils": "^0.0.8",
     "@gemsorg/components": "^0.1.5",
-    "@gemsorg/modules": "^0.1.10",
+    "@gemsorg/modules": "^0.1.11",
     "@gemsorg/uikit": "^0.1.1",
     "@gemsorg/utils": "^0.0.4",
     "classnames": "^2.2.6",
