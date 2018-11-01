@@ -14,7 +14,6 @@ const RESIZE_DEBOUNCE = 200;
 
 class AvailableModules extends Component {
   static propTypes = {
-    totalModules: PropTypes.number.isRequired,
     onEndDrag: PropTypes.func.isRequired,
     moduleControls: PropTypes.arrayOf(PropTypes.func).isRequired,
     onAddModule: PropTypes.func.isRequired,
@@ -68,12 +67,7 @@ class AvailableModules extends Component {
   };
 
   render() {
-    const {
-      totalModules,
-      onEndDrag,
-      moduleControls,
-      connectDropTarget,
-    } = this.props;
+    const { onEndDrag, moduleControls, connectDropTarget } = this.props;
 
     const { preview, top } = this.state;
 
@@ -91,7 +85,6 @@ class AvailableModules extends Component {
                 offset={top}
                 isHovered={C.module.type === preview}
                 onPreview={this.handlePreview}
-                totalModules={totalModules}
               />
             ))}
           </div>

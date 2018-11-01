@@ -54,9 +54,9 @@ class Form extends Component {
               {modules.map((module, order) => (
                 <DnDModule
                   key={module.name}
+                  path={[order]}
                   controls={controls}
                   order={order}
-                  id={module.name}
                   dimmed={selected !== null && module.name !== selected}
                   selected={selected !== null && module.name === selected}
                   module={module}

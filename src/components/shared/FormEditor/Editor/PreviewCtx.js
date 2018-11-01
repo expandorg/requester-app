@@ -38,7 +38,6 @@ export default class Editor extends Component {
 
   updatePreview = () => {
     const { modules } = this.props;
-    console.log(modules);
     if (this.tab) {
       const wnd = this.tab.getWindow();
       if (wnd) {

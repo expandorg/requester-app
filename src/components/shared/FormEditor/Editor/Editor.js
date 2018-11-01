@@ -11,6 +11,21 @@ import PreviewCtx from './PreviewCtx';
 
 import styles from './Editor.module.styl';
 
+const getByPath = (path, modules) => {
+  let result = null;
+  if (path) {
+    let p = path;
+    let mods = modules;
+    while (p.length) {
+      const [index, ...rest] = p;
+      result = mods[index];
+      mods = result.modules;
+      p = rest;
+    }
+  }
+  return result;
+};
+
 export default class Editor extends Component {
   static propTypes = {
     modules: PropTypes.arrayOf(moduleProps).isRequired,
@@ -28,19 +43,19 @@ export default class Editor extends Component {
     controls: getModuleControlsMap(this.props.moduleControls),
   };
 
-  handleSelect = module => {
+  handleSelect = path => {
     const { selected } = this.state;
-    this.setState({ selected: selected === module.name ? null : module.name });
+    this.setState({ selected: selected === path ? null : path });
   };
 
-  handleRemoveModule = id => {
+  handleRemoveModule = order => {
     const { onRemoveModule } = this.props;
     const { selected } = this.state;
 
-    if (id === selected) {
+    if (order === selected) {
       this.setState({ selected: null });
     }
-    onRemoveModule(id);
+    onRemoveModule(order);
   };
 
   handleEditModule = module => {
@@ -91,7 +106,7 @@ export default class Editor extends Component {
           </div>
         </div>
         <Properties
-          module={selected && modules.find(m => m.name === selected)}
+          module={selected && getByPath(selected, modules)}
           controls={controls}
           onCancel={this.handleSelect}
           onEdit={this.handleEditModule}

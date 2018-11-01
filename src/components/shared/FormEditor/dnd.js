@@ -1,24 +1,22 @@
 export const FORM_DND_ID = 'FORM_DND_ID';
 
-export const uniqName = (meta, totalModules) => `${meta.type}-${totalModules}`;
-
 export const emptyTarget = {
   drop: ({ onAdd }, monitor) => {
-    const { id, meta } = monitor.getItem();
-    onAdd(id, meta);
+    const { meta } = monitor.getItem();
+    onAdd(meta);
   },
 };
 
 export const dropAreaTarget = {
   canDrop: (props, monitor) => {
-    const { meta, added } = monitor.getItem();
-    return !!meta && !added;
+    const { meta, order } = monitor.getItem();
+    return !!meta && order === -1;
   },
   drop: ({ onAddModule }, monitor) => {
     if (!monitor.didDrop()) {
-      const { id, meta, added } = monitor.getItem();
-      if (!added) {
-        onAddModule(id, meta);
+      const { order, meta } = monitor.getItem();
+      if (order === -1) {
+        onAddModule(meta);
       }
     }
   },
@@ -26,22 +24,21 @@ export const dropAreaTarget = {
 
 export const availableTarget = {
   drop: ({ onRemoveModule }, monitor) => {
-    const { id } = monitor.getItem();
-    onRemoveModule(id);
+    const { order } = monitor.getItem();
+    onRemoveModule(order);
   },
 };
 
 export const metaSource = {
-  beginDrag: ({ meta, totalModules, onPreview }) => {
+  beginDrag: ({ meta, onPreview }) => {
     onPreview(null);
     return {
-      id: uniqName(meta, totalModules),
       meta,
-      order: totalModules,
+      order: -1,
     };
   },
   endDrag: ({ onEndDrag }, monitor) => {
-    onEndDrag(monitor.getItem().id);
+    onEndDrag(monitor.getItem().order);
   },
 };
 
@@ -53,32 +50,44 @@ export const moduleSource = {
 };
 
 export const moduleTarget = {
-  hover: ({ id, order, onMove }, monitor, component) => {
-    const item = monitor.getItem();
-
-    const { id: dragId, order: dragOrder, meta } = item;
-    if (dragId === id) {
+  hover: ({ nested, order, onMove }, monitor, component) => {
+    if (!monitor.isOver({ shallow: true })) {
       return;
     }
 
-    const hoverBoundingRect = component
+    const item = monitor.getItem();
+
+    if (order === item.order) {
+      return;
+    }
+
+    if (nested) {
+      return;
+    }
+
+    const {
+      top,
+      bottom,
+    } = component
       .getDecoratedComponentInstance()
       .containerRef.getBoundingClientRect();
 
-    const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
-    const clientOffset = monitor.getClientOffset();
-    const hoverClientY = clientOffset.y - hoverBoundingRect.top;
+    const { y } = monitor.getClientOffset();
+    const dragY = y - top;
 
-    if (dragOrder < order && hoverClientY < hoverMiddleY) {
-      return;
-    }
+    const middle = (bottom - top) / 2;
 
-    if (dragOrder > order && hoverClientY > hoverMiddleY) {
-      return;
+    if (dragY < middle) {
+      if (item.order <= order) {
+        return;
+      }
     }
-    onMove(dragId, id, meta);
-    if (!item.added) {
-      item.added = true;
+    if (dragY > middle) {
+      if (item.order > order) {
+        return;
+      }
     }
+    onMove(item.order, order, item.meta);
+    item.order = order;
   },
 };

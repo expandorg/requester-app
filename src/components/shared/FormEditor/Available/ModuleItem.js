@@ -6,7 +6,7 @@ import { DragSource } from 'react-dnd';
 
 import PreviewTooltip from './PreviewTooltip';
 
-import { metaSource, FORM_DND_ID, uniqName } from '../dnd';
+import { metaSource, FORM_DND_ID } from '../dnd';
 
 import { ReactComponent as DragIcon } from '../../../assets/dragcursor.svg';
 import { ReactComponent as InfoMark } from '../../../assets/i.svg';
@@ -21,7 +21,6 @@ class ModuleItem extends Component {
     isDragging: PropTypes.bool.isRequired,
     offset: PropTypes.number.isRequired,
     isHovered: PropTypes.bool.isRequired,
-    totalModules: PropTypes.number.isRequired,  // eslint-disable-line
     onEndDrag: PropTypes.func.isRequired, // eslint-disable-line
     onAdd: PropTypes.func.isRequired,
     onPreview: PropTypes.func.isRequired,
@@ -33,9 +32,8 @@ class ModuleItem extends Component {
   };
 
   handleAdd = () => {
-    const { onAdd, meta, totalModules } = this.props;
-    const id = uniqName(meta, totalModules);
-    onAdd(id, meta);
+    const { onAdd, meta } = this.props;
+    onAdd(meta);
   };
 
   handleMouseEnter = evt => {

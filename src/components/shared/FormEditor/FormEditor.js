@@ -5,6 +5,7 @@ import immer from 'immer';
 
 import { moduleControls, formProps } from '@gemsorg/modules';
 
+import { removeAtIndex } from '@gemsorg/utils/src/immutable';
 import { insertAtIndex } from '../../../common/immutable';
 
 import Editor from './Editor/Editor';
@@ -12,10 +13,10 @@ import AvailableModules from './Available/AvailableModules';
 
 import styles from './FormEditor.module.styl';
 
-const scaffold = (meta, name, isDragging) => ({
+const scaffold = (meta, last, isDragging) => ({
   ...meta.editor.defaults,
   type: meta.type,
-  name,
+  name: `${meta.type}-${last}`,
   isDragging,
 });
 
@@ -58,31 +59,28 @@ export default class FormEditor extends Component {
     onSave({ ...form, modules });
   };
 
-  handleAdd = (dragId, meta) => {
+  handleAdd = meta => {
     const { modules } = this.state;
     this.setState({
-      modules: [...modules, scaffold(meta, dragId)],
+      modules: [...modules, scaffold(meta, modules.length)],
     });
   };
 
-  handleRemove = id => {
+  handleRemove = order => {
     this.setState(({ modules }) => ({
-      modules: modules.filter(m => m.name !== id),
+      modules: removeAtIndex(modules, order),
     }));
   };
 
-  handleMove = (dragId, hoverId, meta) => {
+  handleMove = (dragIndex, hoverIndex, meta) => {
     const { modules } = this.state;
-
-    const dragIndex = modules.findIndex(m => m.name === dragId);
-    const hoverIndex = modules.findIndex(m => m.name === hoverId);
 
     if (dragIndex === -1) {
       this.setState({
         modules: insertAtIndex(
           modules,
           hoverIndex,
-          scaffold(meta, dragId, true)
+          scaffold(meta, modules.length, true)
         ),
       });
     } else {
@@ -98,13 +96,13 @@ export default class FormEditor extends Component {
     }
   };
 
-  handleEndDrag = dragId => {
+  handleEndDrag = order => {
     const { modules } = this.state;
     this.setState({
       modules: immer(modules, draft => {
-        const module = draft.find(m => m.name === dragId);
-        if (module) {
-          module.isDragging = undefined;
+        const item = draft[order];
+        if (item !== undefined) {
+          item.isDragging = undefined;
         }
       }),
     });
@@ -130,7 +128,6 @@ export default class FormEditor extends Component {
       <div className={styles.container}>
         <div className={styles.left}>
           <AvailableModules
-            totalModules={modules.length}
             moduleControls={moduleControls}
             onEndDrag={this.handleEndDrag}
             onAddModule={this.handleAdd}
