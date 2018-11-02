@@ -29,7 +29,6 @@ export default class SelectEditor extends Component {
 
   render() {
     const { value, options, label } = this.props;
-    console.log(label);
     return (
       <Dropdown
         options={options}

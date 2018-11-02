@@ -2,21 +2,21 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import immer from 'immer';
+import nanoid from 'nanoid';
 
 import { moduleControls, formProps } from '@gemsorg/modules';
-
-import { removeAtIndex } from '@gemsorg/utils/src/immutable';
-import { insertAtIndex } from '../../../common/immutable';
 
 import Editor from './Editor/Editor';
 import AvailableModules from './Available/AvailableModules';
 
 import styles from './FormEditor.module.styl';
 
-const scaffold = (meta, last, isDragging) => ({
+import { findParent } from './dnd';
+
+const scaffold = (meta, isDragging) => ({
   ...meta.editor.defaults,
   type: meta.type,
-  name: `${meta.type}-${last}`,
+  name: `${meta.type}-${nanoid()}`,
   isDragging,
 });
 
@@ -62,45 +62,55 @@ export default class FormEditor extends Component {
   handleAdd = meta => {
     const { modules } = this.state;
     this.setState({
-      modules: [...modules, scaffold(meta, modules.length)],
+      modules: immer(modules, draft => {
+        draft.push(scaffold(meta));
+      }),
     });
   };
 
-  handleRemove = order => {
+  handleRemove = path => {
     this.setState(({ modules }) => ({
-      modules: removeAtIndex(modules, order),
+      modules: immer(modules, draft => {
+        findParent(draft, path).splice(path[path.length - 1], 1);
+      }),
     }));
   };
 
-  handleMove = (dragIndex, hoverIndex, meta) => {
+  handleMove = (dragPath, hoverPath, meta) => {
     const { modules } = this.state;
 
-    if (dragIndex === -1) {
-      this.setState({
-        modules: insertAtIndex(
-          modules,
-          hoverIndex,
-          scaffold(meta, modules.length, true)
-        ),
-      });
-    } else {
-      const dragged = modules[dragIndex];
-      const hovered = modules[hoverIndex];
-
+    if (dragPath.length === 0) {
       this.setState({
         modules: immer(modules, draft => {
-          draft[dragIndex] = hovered;
-          draft[hoverIndex] = dragged;
+          const newItem = scaffold(meta, true);
+          const parent = findParent(draft, hoverPath, true);
+          parent.splice(hoverPath[hoverPath.length - 1], 0, newItem);
+        }),
+      });
+    } else {
+      this.setState({
+        modules: immer(modules, draft => {
+          const hoverParent = findParent(draft, hoverPath, true);
+          const dragParent = findParent(draft, dragPath, true);
+
+          const dragIndex = dragPath[dragPath.length - 1];
+          const hoverIndex = hoverPath[hoverPath.length - 1];
+
+          const dragged = dragParent[dragIndex];
+
+          dragParent.splice(dragIndex, 1);
+          hoverParent.splice(hoverIndex, 0, dragged);
         }),
       });
     }
   };
 
-  handleEndDrag = order => {
+  handleEndDrag = path => {
     const { modules } = this.state;
     this.setState({
       modules: immer(modules, draft => {
-        const item = draft[order];
+        const parent = findParent(draft, path);
+        const item = parent[path[path.length - 1]];
         if (item !== undefined) {
           item.isDragging = undefined;
         }

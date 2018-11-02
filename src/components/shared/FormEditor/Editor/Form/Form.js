@@ -56,7 +56,6 @@ class Form extends Component {
                   key={module.name}
                   path={[order]}
                   controls={controls}
-                  order={order}
                   dimmed={selected !== null && module.name !== selected}
                   selected={selected !== null && module.name === selected}
                   module={module}

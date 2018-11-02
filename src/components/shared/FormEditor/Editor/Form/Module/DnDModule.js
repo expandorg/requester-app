@@ -10,16 +10,23 @@ import { ReactComponent as X } from '../../../../../assets/x.svg';
 
 import Placeholder from './Placeholder';
 
-import { moduleSource, moduleTarget, FORM_DND_ID } from '../../../dnd';
+import {
+  moduleSource,
+  nestedTarget,
+  moduleTarget,
+  FORM_DND_ID,
+} from '../../../dnd';
 
 import styles from './DnDModule.module.styl';
+
+const EmptyDroppable = DropTarget(FORM_DND_ID, nestedTarget, connect => ({
+  connectDropTarget: connect.dropTarget(),
+}))(Placeholder);
 
 class DnDModule extends Component {
   static propTypes = {
     module: moduleProps.isRequired,
-    nested: PropTypes.bool,
     path: PropTypes.arrayOf(PropTypes.number).isRequired,
-    order: PropTypes.number.isRequired, // eslint-disable-line
     controls: PropTypes.object.isRequired, // eslint-disable-line
     isOver: PropTypes.bool.isRequired,
     isDragging: PropTypes.bool.isRequired,
@@ -34,10 +41,6 @@ class DnDModule extends Component {
     connectDropTarget: PropTypes.func.isRequired,
   };
 
-  static defaultProps = {
-    nested: false,
-  };
-
   handleEditClick = evt => {
     const { onEdit, path } = this.props;
     onEdit(path);
@@ -46,8 +49,8 @@ class DnDModule extends Component {
   };
 
   handleRemoveClick = evt => {
-    const { onRemove, order } = this.props;
-    onRemove(order);
+    const { onRemove, path } = this.props;
+    onRemove(path);
     evt.preventDefault();
   };
 
@@ -57,7 +60,6 @@ class DnDModule extends Component {
       connectDropTarget,
       connectDragPreview,
       dimmed,
-      nested,
       selected,
       isDragging,
       module,
@@ -117,7 +119,6 @@ class DnDModule extends Component {
                             path={[...path, nestedOrder]}
                             module={nestedModule}
                             controls={controls}
-                            order={nestedOrder}
                             dimmed={
                               selected !== null &&
                               nestedModule.name !== selected
@@ -129,17 +130,16 @@ class DnDModule extends Component {
                             onMove={onMove}
                             onRemove={onRemove}
                             onEdit={onEdit}
-                            nested
                           />
                         ))
                       ) : (
-                        <Placeholder />
+                        <EmptyDroppable path={path} onMove={onMove} />
                       )}
                     </div>
                   )}
                 </div>
               )}
-              {!nested && (
+              {path.length === 1 && (
                 <button
                   className={styles.remove}
                   onClick={this.handleRemoveClick}

@@ -20,7 +20,6 @@ export const links = [
 ];
 
 export const isActive = (match: Object, localtion: Object): boolean => {
-  console.log(match, localtion);
   if (match && match.isExact) {
     return true;
   }

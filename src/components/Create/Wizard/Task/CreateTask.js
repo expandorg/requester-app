@@ -29,7 +29,9 @@ export default class CreateTask extends Component {
             name: 'collapsable=1',
             type: 'collapsable',
             header: 'asd',
-            modules: [{ name: 't-1', type: 'email', placeholder: 'email' }],
+            modules: [
+              // { name: 't-1', type: 'email', placeholder: 'email' }
+            ],
           },
         ],
       },
