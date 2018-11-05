@@ -1,3 +1,5 @@
+import { treeEditor } from './tree';
+
 export const FORM_DND_ID = 'FORM_DND_ID';
 
 export const getPathId = path => path.join('-');
@@ -7,23 +9,6 @@ export const emptyTarget = {
     const { meta } = monitor.getItem();
     onAdd(meta);
   },
-};
-
-export const findParent = (modules, path, createParent = false) => {
-  let mods = modules;
-  if (path) {
-    let p = path;
-    while (p.length > 1) {
-      const [index, ...rest] = p;
-      p = rest;
-      const module = mods[index];
-      if (!module.modules && createParent) {
-        module.modules = [];
-      }
-      mods = module.modules;
-    }
-  }
-  return mods;
 };
 
 export const nestedTarget = {
@@ -121,8 +106,7 @@ export const moduleTarget = {
         }
       }
     }
-    console.log(item.path, path);
     onMove(item.path, path, item.meta);
-    item.path = path;
+    item.path = treeEditor.pathOnRemoved(item.path, path);
   },
 };

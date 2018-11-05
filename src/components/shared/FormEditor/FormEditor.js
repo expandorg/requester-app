@@ -9,14 +9,15 @@ import { moduleControls, formProps } from '@gemsorg/modules';
 import Editor from './Editor/Editor';
 import AvailableModules from './Available/AvailableModules';
 
+import { treeEditor } from './tree';
+
 import styles from './FormEditor.module.styl';
 
-import { findParent } from './dnd';
-
-const scaffold = (meta, isDragging) => ({
-  ...meta.editor.defaults,
-  type: meta.type,
-  name: `${meta.type}-${nanoid()}`,
+const scaffold = ({ editor: { defaults, properties }, type }, isDragging) => ({
+  ...defaults,
+  type,
+  name: `${type}-${nanoid()}`,
+  modules: properties && properties.modules ? [] : undefined,
   isDragging,
 });
 
@@ -62,45 +63,25 @@ export default class FormEditor extends Component {
   handleAdd = meta => {
     const { modules } = this.state;
     this.setState({
-      modules: immer(modules, draft => {
-        draft.push(scaffold(meta));
-      }),
+      modules: treeEditor.push(modules, scaffold(meta)),
     });
   };
 
   handleRemove = path => {
     this.setState(({ modules }) => ({
-      modules: immer(modules, draft => {
-        findParent(draft, path).splice(path[path.length - 1], 1);
-      }),
+      modules: treeEditor.removeAt(modules, path),
     }));
   };
 
   handleMove = (dragPath, hoverPath, meta) => {
     const { modules } = this.state;
-
     if (dragPath.length === 0) {
       this.setState({
-        modules: immer(modules, draft => {
-          const newItem = scaffold(meta, true);
-          const parent = findParent(draft, hoverPath, true);
-          parent.splice(hoverPath[hoverPath.length - 1], 0, newItem);
-        }),
+        modules: treeEditor.insertAt(modules, hoverPath, scaffold(meta, true)),
       });
     } else {
       this.setState({
-        modules: immer(modules, draft => {
-          const hoverParent = findParent(draft, hoverPath, true);
-          const dragParent = findParent(draft, dragPath, true);
-
-          const dragIndex = dragPath[dragPath.length - 1];
-          const hoverIndex = hoverPath[hoverPath.length - 1];
-
-          const dragged = dragParent[dragIndex];
-
-          dragParent.splice(dragIndex, 1);
-          hoverParent.splice(hoverIndex, 0, dragged);
-        }),
+        modules: treeEditor.moveAt(modules, dragPath, hoverPath),
       });
     }
   };
@@ -108,9 +89,7 @@ export default class FormEditor extends Component {
   handleEndDrag = path => {
     const { modules } = this.state;
     this.setState({
-      modules: immer(modules, draft => {
-        const parent = findParent(draft, path);
-        const item = parent[path[path.length - 1]];
+      modules: treeEditor.modifyAt(modules, path, item => {
         if (item !== undefined) {
           item.isDragging = undefined;
         }

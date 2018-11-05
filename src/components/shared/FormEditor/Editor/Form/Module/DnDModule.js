@@ -71,7 +71,11 @@ class DnDModule extends Component {
       onEdit,
     } = this.props;
 
-    const { module: meta } = controls[module.type];
+    const {
+      module: {
+        editor: { properties },
+      },
+    } = controls[module.type];
 
     const dragging = isDragging || module.isDragging;
 
@@ -81,7 +85,7 @@ class DnDModule extends Component {
       [styles.over]: isOver,
     });
 
-    const supportNested = !!meta.editor.properties.modules;
+    const supportNested = !!(properties && properties.modules);
     const hasNested = module.modules && module.modules.length > 0;
 
     /* eslint-disable jsx-a11y/click-events-have-key-events */
