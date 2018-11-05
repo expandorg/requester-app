@@ -9,66 +9,49 @@ import Form from './Form/Form';
 import Properties from './Properties/Properties';
 import PreviewCtx from './PreviewCtx';
 
+import { treeEditor } from '../tree';
 import styles from './Editor.module.styl';
-
-const getByPath = (path, modules) => {
-  let result = null;
-  if (path) {
-    let p = path;
-    let mods = modules;
-    while (p.length) {
-      const [index, ...rest] = p;
-      result = mods[index];
-      mods = result.modules;
-      p = rest;
-    }
-  }
-  return result;
-};
 
 export default class Editor extends Component {
   static propTypes = {
     modules: PropTypes.arrayOf(moduleProps).isRequired,
+    selected: PropTypes.arrayOf(PropTypes.number),
     moduleControls: PropTypes.arrayOf(PropTypes.func).isRequired,
     onAddModule: PropTypes.func.isRequired,
     onEditModule: PropTypes.func.isRequired,
     onMoveModule: PropTypes.func.isRequired,
     onRemoveModule: PropTypes.func.isRequired,
+    onSelectModule: PropTypes.func.isRequired,
     onSave: PropTypes.func.isRequired,
     onCancel: PropTypes.func.isRequired,
   };
 
-  state = {
+  static defaultProps = {
     selected: null,
+  };
+
+  state = {
     controls: getModuleControlsMap(this.props.moduleControls),
   };
 
-  handleSelect = path => {
-    const { selected } = this.state;
-    this.setState({ selected: selected === path ? null : path });
-  };
-
-  handleRemoveModule = path => {
-    const { onRemoveModule } = this.props;
-    const { selected } = this.state;
-
-    if (path === selected) {
-      this.setState({ selected: null });
-    }
-    onRemoveModule(path);
-  };
-
-  handleEditModule = module => {
-    const { onEditModule } = this.props;
-    const { selected } = this.state;
-
-    onEditModule(selected, module);
-    this.setState({ selected: null });
+  handleCancel = () => {
+    const { selected, onSelectModule } = this.props;
+    onSelectModule(selected);
   };
 
   render() {
-    const { modules, onMoveModule, onAddModule, onSave, onCancel } = this.props;
-    const { controls, selected } = this.state;
+    const {
+      modules,
+      onMoveModule,
+      onAddModule,
+      onSave,
+      onEditModule,
+      onSelectModule,
+      onRemoveModule,
+      onCancel,
+      selected,
+    } = this.props;
+    const { controls } = this.state;
 
     return (
       <div className={styles.container}>
@@ -76,12 +59,12 @@ export default class Editor extends Component {
           <div className={styles.form}>
             <Form
               modules={modules}
-              selected={selected}
+              selected={selected && treeEditor.getIdByPath(selected)}
               controls={controls}
               onAddModule={onAddModule}
               onMoveModule={onMoveModule}
-              onSelectModule={this.handleSelect}
-              onRemoveModule={this.handleRemoveModule}
+              onSelectModule={onSelectModule}
+              onRemoveModule={onRemoveModule}
             />
           </div>
         </div>
@@ -106,10 +89,10 @@ export default class Editor extends Component {
           </div>
         </div>
         <Properties
-          module={selected && getByPath(selected, modules)}
+          module={selected && treeEditor.findByPath(modules, selected)}
           controls={controls}
-          onCancel={this.handleSelect}
-          onEdit={this.handleEditModule}
+          onEdit={onEditModule}
+          onCancel={this.handleCancel}
         />
       </div>
     );

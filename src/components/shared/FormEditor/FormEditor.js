@@ -28,6 +28,7 @@ export default class FormEditor extends Component {
     this.previewTab = null;
 
     this.state = {
+      selected: null,
       prev: props.form, // eslint-disable-line react/no-unused-state
       modules: props.form ? props.form.modules : [],
     };
@@ -36,6 +37,7 @@ export default class FormEditor extends Component {
   static getDerviedStateFromProps({ form }, state) {
     if (state.prev !== form) {
       return {
+        selected: null,
         prev: form,
         modules: form ? form.modules : [],
       };
@@ -60,6 +62,7 @@ export default class FormEditor extends Component {
   handleRemove = path => {
     if (path.length) {
       this.setState(({ modules }) => ({
+        selected: null,
         modules: treeEditor.removeAt(modules, path),
       }));
     }
@@ -69,10 +72,12 @@ export default class FormEditor extends Component {
     const { modules } = this.state;
     if (dragPath.length === 0) {
       this.setState({
+        selected: null,
         modules: treeEditor.insertAt(modules, hoverPath, scaffold(meta, true)),
       });
     } else {
       this.setState({
+        selected: null,
         modules: treeEditor.moveAt(modules, dragPath, hoverPath),
       });
     }
@@ -89,12 +94,17 @@ export default class FormEditor extends Component {
     });
   };
 
+  handleSelectModule = path => {
+    const { selected } = this.state;
+    this.setState({ selected: treeEditor.eq(selected, path) ? null : path });
+  };
+
   handleEditModule = () => {};
 
   render() {
     const { onHide } = this.props;
 
-    const { modules } = this.state;
+    const { modules, selected } = this.state;
 
     return (
       <div className={styles.container}>
@@ -109,11 +119,13 @@ export default class FormEditor extends Component {
         <div className={styles.editor}>
           <Editor
             modules={modules}
+            selected={selected}
             moduleControls={moduleControls}
             onAddModule={this.handleAdd}
             onEditModule={this.handleEditModule}
             onMoveModule={this.handleMoveAt}
             onRemoveModule={this.handleRemove}
+            onSelectModule={this.handleSelectModule}
             onSave={this.handleSave}
             onCancel={onHide}
           />

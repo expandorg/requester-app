@@ -56,12 +56,11 @@ class Form extends Component {
                   key={module.name}
                   path={[order]}
                   controls={controls}
-                  dimmed={selected !== null && module.name !== selected}
-                  selected={selected !== null && module.name === selected}
+                  selected={selected}
                   module={module}
                   onMove={onMoveModule}
                   onRemove={onRemoveModule}
-                  onEdit={onSelectModule}
+                  onSelect={onSelectModule}
                 />
               ))}
             </FormDataProvider>
