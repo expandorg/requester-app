@@ -1,25 +1,15 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import immer from 'immer';
-import nanoid from 'nanoid';
-
 import { moduleControls, formProps } from '@gemsorg/modules';
 
 import Editor from './Editor/Editor';
 import AvailableModules from './Available/AvailableModules';
 
 import { treeEditor } from './tree';
+import { scaffold } from './modules';
 
 import styles from './FormEditor.module.styl';
-
-const scaffold = ({ editor: { defaults, properties }, type }, isDragging) => ({
-  ...defaults,
-  type,
-  name: `${type}-${nanoid()}`,
-  modules: properties && properties.modules ? [] : undefined,
-  isDragging,
-});
 
 export default class FormEditor extends Component {
   static propTypes = {
@@ -68,12 +58,14 @@ export default class FormEditor extends Component {
   };
 
   handleRemove = path => {
-    this.setState(({ modules }) => ({
-      modules: treeEditor.removeAt(modules, path),
-    }));
+    if (path.length) {
+      this.setState(({ modules }) => ({
+        modules: treeEditor.removeAt(modules, path),
+      }));
+    }
   };
 
-  handleMove = (dragPath, hoverPath, meta) => {
+  handleMoveAt = (dragPath, hoverPath, meta) => {
     const { modules } = this.state;
     if (dragPath.length === 0) {
       this.setState({
@@ -97,16 +89,7 @@ export default class FormEditor extends Component {
     });
   };
 
-  handleEditModule = (moduleId, module) => {
-    const { modules } = this.state;
-    const index = modules.findIndex(m => m.name === moduleId);
-
-    this.setState({
-      modules: immer(modules, draft => {
-        draft[index] = module;
-      }),
-    });
-  };
+  handleEditModule = () => {};
 
   render() {
     const { onHide } = this.props;
@@ -129,7 +112,7 @@ export default class FormEditor extends Component {
             moduleControls={moduleControls}
             onAddModule={this.handleAdd}
             onEditModule={this.handleEditModule}
-            onMoveModule={this.handleMove}
+            onMoveModule={this.handleMoveAt}
             onRemoveModule={this.handleRemove}
             onSave={this.handleSave}
             onCancel={onHide}

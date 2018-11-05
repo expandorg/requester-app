@@ -37,14 +37,6 @@ describe('modules tree', () => {
       });
     });
 
-    describe('findParent()', () => {
-      it('should find right element', () => {
-        const modules = getData();
-        expect(te.findParent(modules, [0, 1, 1]).id).toEqual(12);
-        expect(te.findParent(modules, [0, 2]).id).toEqual(1);
-      });
-    });
-
     describe('pathOnRemoved()', () => {
       it('should return modified path', () => {
         expect(te.pathOnRemoved([0], [1, 1])).toEqual([0, 1]);
@@ -109,32 +101,6 @@ describe('modules tree', () => {
           { id: 999 },
           { id: 121 },
           { id: 122 },
-        ]);
-      });
-    });
-
-    describe('insertAfter()', () => {
-      it('should insert in empty erray', () => {
-        const modules = getData();
-        te.insertAfter(modules, [0, 2, 0], { id: 999 });
-        expect(modules[0].modules[2].modules[0]).toEqual({ id: 999 });
-      });
-
-      it('should insert in the middle', () => {
-        const m1 = getData();
-        te.insertAfter(m1, [0, 1, 0], { id: 999 });
-        expect(m1[0].modules[1].modules).toEqual([
-          { id: 121 },
-          { id: 999 },
-          { id: 122 },
-        ]);
-
-        const m2 = getData();
-        te.insertAfter(m2, [0, 1, 1], { id: 999 });
-        expect(m2[0].modules[1].modules).toEqual([
-          { id: 121 },
-          { id: 122 },
-          { id: 999 },
         ]);
       });
     });
@@ -239,17 +205,5 @@ describe('modules tree', () => {
         ]);
       });
     });
-
-    // describe('moveAfter()', () => {
-    //   it('should move element forward in same level', () => {
-    //     const m1 = getData();
-    //     te.moveAfter(m1, [1, 0], [1, 1]);
-    //     expect(m1[1].modules).toEqual([
-    //       { id: 22, modules: [] },
-    //       { id: 23, modules: [] },
-    //       { id: 21, modules: [] },
-    //     ]);
-    //   });
-    // });
   });
 });

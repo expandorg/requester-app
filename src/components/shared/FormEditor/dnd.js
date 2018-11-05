@@ -1,8 +1,7 @@
 import { treeEditor } from './tree';
+import { supportNesting } from './modules';
 
 export const FORM_DND_ID = 'FORM_DND_ID';
-
-export const getPathId = path => path.join('-');
 
 export const emptyTarget = {
   drop: ({ onAdd }, monitor) => {
@@ -19,8 +18,12 @@ export const nestedTarget = {
     const item = monitor.getItem();
     const newPath = [...path, 0];
     onMove(item.path, newPath, item.meta);
-    item.path = newPath;
+    item.path = treeEditor.pathOnRemoved(item.path, newPath);
   },
+};
+
+export const nestedModuleTarget = {
+  canDrop: () => false,
 };
 
 export const dropAreaTarget = {
@@ -65,48 +68,56 @@ export const moduleSource = {
   }),
 };
 
+const getContainerRect = component =>
+  component
+    .getDecoratedComponentInstance()
+    .containerRef.getBoundingClientRect();
+
+const getParentId = path =>
+  treeEditor.getIdByPath(treeEditor.getParentPath(path));
+
+const getControlEdges = (top, bottom, nesting, padding = 25) => {
+  const topEdge = nesting ? padding : (bottom - top) / 2;
+  const bottomEdge = nesting ? bottom - top - padding : (bottom - top) / 2;
+  return [topEdge, bottomEdge];
+};
+
 export const moduleTarget = {
-  hover: ({ path, onMove }, monitor, component) => {
+  hover: ({ path, onMove, module, controls }, monitor, component) => {
     if (!monitor.isOver({ shallow: true })) {
       return;
     }
     const item = monitor.getItem();
 
-    if (getPathId(path) === getPathId(item.path)) {
+    if (treeEditor.getIdByPath(path) === treeEditor.getIdByPath(item.path)) {
       return;
     }
 
-    const parentPath = path.slice(0, -1);
-    const parentIremPath = item.path.slice(0, -1);
+    const { top, bottom } = getContainerRect(component);
 
-    if (getPathId(parentPath) === getPathId(parentIremPath)) {
-      const {
-        top,
-        bottom,
-      } = component
-        .getDecoratedComponentInstance()
-        .containerRef.getBoundingClientRect();
+    const { y } = monitor.getClientOffset();
+    const dragY = y - top;
 
-      const { y } = monitor.getClientOffset();
-      const dragY = y - top;
+    const [topEdge, bottomEdge] = getControlEdges(
+      top,
+      bottom,
+      supportNesting(controls[module.type].module)
+    );
+    const compare = treeEditor.comparePaths(item.path, path);
 
-      const middle = (bottom - top) / 2;
-
-      const hoverOrder = path[path.length - 1];
-      const dragOrder = item.path[item.path.length - 1];
-
-      if (dragY < middle) {
-        if (dragOrder <= hoverOrder) {
-          return;
-        }
-      }
-      if (dragY > middle) {
-        if (dragOrder > hoverOrder) {
-          return;
-        }
-      }
+    if (dragY < topEdge && compare > 0) {
+      onMove(item.path, path, item.meta);
+      item.path = treeEditor.pathOnRemoved(item.path, path);
+      return;
     }
-    onMove(item.path, path, item.meta);
-    item.path = treeEditor.pathOnRemoved(item.path, path);
+
+    if (dragY > bottomEdge && compare <= 0) {
+      const sameLevel = getParentId(path) === getParentId(item.path);
+
+      const movePath = sameLevel ? path : treeEditor.pathAfter(path);
+
+      onMove(item.path, movePath, item.meta);
+      item.path = treeEditor.pathOnRemoved(item.path, movePath);
+    }
   },
 };

@@ -48,14 +48,14 @@ export default class Editor extends Component {
     this.setState({ selected: selected === path ? null : path });
   };
 
-  handleRemoveModule = order => {
+  handleRemoveModule = path => {
     const { onRemoveModule } = this.props;
     const { selected } = this.state;
 
-    if (order === selected) {
+    if (path === selected) {
       this.setState({ selected: null });
     }
-    onRemoveModule(order);
+    onRemoveModule(path);
   };
 
   handleEditModule = module => {
