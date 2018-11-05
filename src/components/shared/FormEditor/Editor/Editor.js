@@ -39,13 +39,17 @@ export default class Editor extends Component {
     onSelectModule(selected);
   };
 
+  handleEditModule = edited => {
+    const { selected, onEditModule } = this.props;
+    onEditModule(selected, edited);
+  };
+
   render() {
     const {
       modules,
       onMoveModule,
       onAddModule,
       onSave,
-      onEditModule,
       onSelectModule,
       onRemoveModule,
       onCancel,
@@ -91,7 +95,7 @@ export default class Editor extends Component {
         <Properties
           module={selected && treeEditor.findByPath(modules, selected)}
           controls={controls}
-          onEdit={onEditModule}
+          onEdit={this.handleEditModule}
           onCancel={this.handleCancel}
         />
       </div>

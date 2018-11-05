@@ -55,15 +55,14 @@ export default class ModulePreview extends Component {
     } = this.props;
 
     const { module: meta } = controls[module.type];
+    const isSelected = treeEditor.getIdByPath(path) === selected;
 
     const containerClasses = cn(styles.container, {
-      [styles.selected]:
-        selected !== null && treeEditor.getIdByPath(path) === selected,
+      [styles.selected]: isSelected,
     });
 
     const innerClasses = cn(styles.inner, {
-      [styles.dimmed]:
-        selected !== null && treeEditor.getIdByPath(path) !== selected,
+      [styles.dimmed]: selected !== null && !isSelected,
     });
 
     /* eslint-disable jsx-a11y/click-events-have-key-events */
@@ -75,8 +74,8 @@ export default class ModulePreview extends Component {
           <div className={containerClasses}>
             <div className={innerClasses}>
               <Module
-                module={module}
                 isSubmitting={false}
+                module={module}
                 controls={controls}
               />
               <div className={styles.edit} onClick={this.handleSelect} />
@@ -94,11 +93,9 @@ export default class ModulePreview extends Component {
             )}
           </div>
         )}
-        {path.length === 1 && (
-          <button className={styles.remove} onClick={this.handleRemoveClick}>
-            <X />
-          </button>
-        )}
+        <button className={styles.remove} onClick={this.handleRemoveClick}>
+          <X />
+        </button>
       </div>
     );
   }

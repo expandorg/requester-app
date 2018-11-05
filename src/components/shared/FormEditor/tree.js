@@ -118,6 +118,15 @@ export class ModulesTreeEditor {
     }
   };
 
+  replaceAt = (
+    modules: Array<TreeModule>,
+    path: Array<number>,
+    module: TreeModule
+  ): void => {
+    const parent = this.findParentModules(modules, path);
+    parent.splice(path[path.length - 1], 1, module);
+  };
+
   removeAt = (modules: Array<TreeModule>, path: Array<number>): void => {
     const parent = this.findParentModules(modules, path);
     const index = path[path.length - 1];
@@ -180,6 +189,13 @@ export class ImmutableTreeBuilder {
     module: TreeModule
   ): Array<TreeModule> =>
     immer(modules, draft => this.builder.insertAt(draft, path, module));
+
+  replaceAt = (
+    modules: Array<TreeModule>,
+    path: Array<number>,
+    module: TreeModule
+  ): Array<TreeModule> =>
+    immer(modules, draft => this.builder.replaceAt(draft, path, module));
 
   moveAt = (
     modules: Array<TreeModule>,

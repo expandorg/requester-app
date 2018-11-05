@@ -99,7 +99,13 @@ export default class FormEditor extends Component {
     this.setState({ selected: treeEditor.eq(selected, path) ? null : path });
   };
 
-  handleEditModule = () => {};
+  handleEditModule = (path, module) => {
+    const { modules } = this.state;
+    this.setState({
+      selected: null,
+      modules: treeEditor.replaceAt(modules, path, module),
+    });
+  };
 
   render() {
     const { onHide } = this.props;
