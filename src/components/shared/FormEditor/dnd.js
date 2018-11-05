@@ -1,24 +1,41 @@
-export const FORM_DND_ID = 'FORM_DND_ID';
+import { treeEditor } from './tree';
+import { supportNesting } from './modules';
 
-export const uniqName = (meta, totalModules) => `${meta.type}-${totalModules}`;
+export const FORM_DND_ID = 'FORM_DND_ID';
 
 export const emptyTarget = {
   drop: ({ onAdd }, monitor) => {
-    const { id, meta } = monitor.getItem();
-    onAdd(id, meta);
+    const { meta } = monitor.getItem();
+    onAdd(meta);
   },
+};
+
+export const nestedTarget = {
+  hover: ({ path, onMove }, monitor) => {
+    if (!monitor.isOver({ shallow: true })) {
+      return;
+    }
+    const item = monitor.getItem();
+    const newPath = [...path, 0];
+    onMove(item.path, newPath, item.meta);
+    item.path = treeEditor.pathOnRemoved(item.path, newPath);
+  },
+};
+
+export const nestedModuleTarget = {
+  canDrop: () => false,
 };
 
 export const dropAreaTarget = {
   canDrop: (props, monitor) => {
-    const { meta, added } = monitor.getItem();
-    return !!meta && !added;
+    const { meta, path } = monitor.getItem();
+    return !!meta && path.length === 0;
   },
   drop: ({ onAddModule }, monitor) => {
     if (!monitor.didDrop()) {
-      const { id, meta, added } = monitor.getItem();
-      if (!added) {
-        onAddModule(id, meta);
+      const { path, meta } = monitor.getItem();
+      if (path.length === 0) {
+        onAddModule(meta);
       }
     }
   },
@@ -26,59 +43,81 @@ export const dropAreaTarget = {
 
 export const availableTarget = {
   drop: ({ onRemoveModule }, monitor) => {
-    const { id } = monitor.getItem();
-    onRemoveModule(id);
+    const { path } = monitor.getItem();
+    onRemoveModule(path);
   },
 };
 
 export const metaSource = {
-  beginDrag: ({ meta, totalModules, onPreview }) => {
+  beginDrag: ({ meta, onPreview }) => {
     onPreview(null);
     return {
-      id: uniqName(meta, totalModules),
       meta,
-      order: totalModules,
+      path: [],
     };
   },
   endDrag: ({ onEndDrag }, monitor) => {
-    onEndDrag(monitor.getItem().id);
+    onEndDrag(monitor.getItem().path);
   },
 };
 
 export const moduleSource = {
   beginDrag: props => ({
     id: props.module.name,
-    order: props.order,
+    path: props.path,
   }),
 };
 
+const getContainerRect = component =>
+  component
+    .getDecoratedComponentInstance()
+    .containerRef.getBoundingClientRect();
+
+const getParentId = path =>
+  treeEditor.getIdByPath(treeEditor.getParentPath(path));
+
+const getControlEdges = (top, bottom, nesting, padding = 25) => {
+  const topEdge = nesting ? padding : (bottom - top) / 2;
+  const bottomEdge = nesting ? bottom - top - padding : (bottom - top) / 2;
+  return [topEdge, bottomEdge];
+};
+
 export const moduleTarget = {
-  hover: ({ id, order, onMove }, monitor, component) => {
+  hover: ({ path, onMove, module, controls }, monitor, component) => {
+    if (!monitor.isOver({ shallow: true })) {
+      return;
+    }
     const item = monitor.getItem();
 
-    const { id: dragId, order: dragOrder, meta } = item;
-    if (dragId === id) {
+    if (treeEditor.getIdByPath(path) === treeEditor.getIdByPath(item.path)) {
       return;
     }
 
-    const hoverBoundingRect = component
-      .getDecoratedComponentInstance()
-      .containerRef.getBoundingClientRect();
+    const { top, bottom } = getContainerRect(component);
 
-    const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
-    const clientOffset = monitor.getClientOffset();
-    const hoverClientY = clientOffset.y - hoverBoundingRect.top;
+    const { y } = monitor.getClientOffset();
+    const dragY = y - top;
 
-    if (dragOrder < order && hoverClientY < hoverMiddleY) {
+    const [topEdge, bottomEdge] = getControlEdges(
+      top,
+      bottom,
+      supportNesting(controls[module.type].module)
+    );
+    const compare = treeEditor.comparePaths(item.path, path);
+
+    if (dragY < topEdge && compare > 0) {
+      onMove(item.path, path, item.meta);
+      item.path = treeEditor.pathOnRemoved(item.path, path);
       return;
     }
 
-    if (dragOrder > order && hoverClientY > hoverMiddleY) {
-      return;
-    }
-    onMove(dragId, id, meta);
-    if (!item.added) {
-      item.added = true;
+    if (dragY > bottomEdge && compare <= 0) {
+      const sameLevel = getParentId(path) === getParentId(item.path);
+
+      const movePath = sameLevel ? path : treeEditor.pathAfter(path);
+
+      onMove(item.path, movePath, item.meta);
+      item.path = treeEditor.pathOnRemoved(item.path, movePath);
     }
   },
 };

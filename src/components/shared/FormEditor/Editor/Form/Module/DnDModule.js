@@ -5,9 +5,8 @@ import { DragSource, DropTarget } from 'react-dnd';
 
 import { moduleProps } from '@gemsorg/modules';
 
-import ModuleEdit from './ModuleEdit';
-
 import Placeholder from './Placeholder';
+import ModulePreview from './ModulePreview';
 
 import { moduleSource, moduleTarget, FORM_DND_ID } from '../../../dnd';
 
@@ -16,13 +15,12 @@ import styles from './DnDModule.module.styl';
 class DnDModule extends Component {
   static propTypes = {
     module: moduleProps.isRequired,
-    order: PropTypes.number.isRequired, // eslint-disable-line
+    path: PropTypes.arrayOf(PropTypes.number).isRequired,
     controls: PropTypes.object.isRequired, // eslint-disable-line
     isDragging: PropTypes.bool.isRequired,
-    dimmed: PropTypes.bool.isRequired,
-    selected: PropTypes.bool.isRequired,
+    selected: PropTypes.string,
     onMove: PropTypes.func.isRequired, // eslint-disable-line
-    onEdit: PropTypes.func.isRequired,
+    onSelect: PropTypes.func.isRequired,
     onRemove: PropTypes.func.isRequired,
 
     connectDragSource: PropTypes.func.isRequired,
@@ -30,18 +28,23 @@ class DnDModule extends Component {
     connectDropTarget: PropTypes.func.isRequired,
   };
 
+  static defaultProps = {
+    selected: null,
+  };
+
   render() {
     const {
       connectDragSource,
       connectDropTarget,
       connectDragPreview,
-      dimmed,
-      selected,
       isDragging,
       module,
-      onRemove,
+      selected,
       controls,
-      onEdit,
+      path,
+      onMove,
+      onRemove,
+      onSelect,
     } = this.props;
 
     const dragging = isDragging || module.isDragging;
@@ -49,23 +52,24 @@ class DnDModule extends Component {
     return connectDragSource(
       connectDropTarget(
         <div
-          className={styles.container}
+          className={styles.dndContainer}
           ref={c => {
             this.containerRef = c;
           }}
         >
           {!dragging ? (
-            <ModuleEdit
+            <ModulePreview
               module={module}
-              dimmed={dimmed}
-              selected={selected}
+              connectDragPreview={connectDragPreview}
+              path={path}
               controls={controls}
-              onEdit={onEdit}
+              selected={selected}
+              onMove={onMove}
+              onSelect={onSelect}
               onRemove={onRemove}
-              onPreview={connectDragPreview}
             />
           ) : (
-            <Placeholder />
+            <Placeholder className={styles.placeholder} />
           )}
         </div>
       )
@@ -73,7 +77,7 @@ class DnDModule extends Component {
   }
 }
 
-export default DropTarget(FORM_DND_ID, moduleTarget, connect => ({
+const DndContainer = DropTarget(FORM_DND_ID, moduleTarget, connect => ({
   connectDropTarget: connect.dropTarget(),
 }))(
   DragSource(FORM_DND_ID, moduleSource, (connect, monitor) => ({
@@ -82,3 +86,5 @@ export default DropTarget(FORM_DND_ID, moduleTarget, connect => ({
     isDragging: monitor.isDragging(),
   }))(DnDModule)
 );
+
+export default DndContainer;

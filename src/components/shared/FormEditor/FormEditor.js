@@ -1,23 +1,15 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import immer from 'immer';
-
 import { moduleControls, formProps } from '@gemsorg/modules';
-
-import { insertAtIndex } from '../../../common/immutable';
 
 import Editor from './Editor/Editor';
 import AvailableModules from './Available/AvailableModules';
 
-import styles from './FormEditor.module.styl';
+import { treeEditor } from './tree';
+import { scaffold } from './modules';
 
-const scaffold = (meta, name, isDragging) => ({
-  ...meta.editor.defaults,
-  type: meta.type,
-  name,
-  isDragging,
-});
+import styles from './FormEditor.module.styl';
 
 export default class FormEditor extends Component {
   static propTypes = {
@@ -36,6 +28,7 @@ export default class FormEditor extends Component {
     this.previewTab = null;
 
     this.state = {
+      selected: null,
       prev: props.form, // eslint-disable-line react/no-unused-state
       modules: props.form ? props.form.modules : [],
     };
@@ -44,6 +37,7 @@ export default class FormEditor extends Component {
   static getDerviedStateFromProps({ form }, state) {
     if (state.prev !== form) {
       return {
+        selected: null,
         prev: form,
         modules: form ? form.modules : [],
       };
@@ -58,79 +52,70 @@ export default class FormEditor extends Component {
     onSave({ ...form, modules });
   };
 
-  handleAdd = (dragId, meta) => {
+  handleAdd = meta => {
     const { modules } = this.state;
     this.setState({
-      modules: [...modules, scaffold(meta, dragId)],
+      modules: treeEditor.push(modules, scaffold(meta)),
     });
   };
 
-  handleRemove = id => {
-    this.setState(({ modules }) => ({
-      modules: modules.filter(m => m.name !== id),
-    }));
+  handleRemove = path => {
+    if (path.length) {
+      this.setState(({ modules }) => ({
+        selected: null,
+        modules: treeEditor.removeAt(modules, path),
+      }));
+    }
   };
 
-  handleMove = (dragId, hoverId, meta) => {
+  handleMoveAt = (dragPath, hoverPath, meta) => {
     const { modules } = this.state;
-
-    const dragIndex = modules.findIndex(m => m.name === dragId);
-    const hoverIndex = modules.findIndex(m => m.name === hoverId);
-
-    if (dragIndex === -1) {
+    if (dragPath.length === 0) {
       this.setState({
-        modules: insertAtIndex(
-          modules,
-          hoverIndex,
-          scaffold(meta, dragId, true)
-        ),
+        selected: null,
+        modules: treeEditor.insertAt(modules, hoverPath, scaffold(meta, true)),
       });
     } else {
-      const dragged = modules[dragIndex];
-      const hovered = modules[hoverIndex];
-
       this.setState({
-        modules: immer(modules, draft => {
-          draft[dragIndex] = hovered;
-          draft[hoverIndex] = dragged;
-        }),
+        selected: null,
+        modules: treeEditor.moveAt(modules, dragPath, hoverPath),
       });
     }
   };
 
-  handleEndDrag = dragId => {
+  handleEndDrag = path => {
     const { modules } = this.state;
     this.setState({
-      modules: immer(modules, draft => {
-        const module = draft.find(m => m.name === dragId);
-        if (module) {
-          module.isDragging = undefined;
+      modules: treeEditor.modifyAt(modules, path, item => {
+        if (item !== undefined) {
+          item.isDragging = undefined;
         }
       }),
     });
   };
 
-  handleEditModule = (moduleId, module) => {
-    const { modules } = this.state;
-    const index = modules.findIndex(m => m.name === moduleId);
+  handleSelectModule = path => {
+    const { selected } = this.state;
+    this.setState({ selected: treeEditor.eq(selected, path) ? null : path });
+  };
 
+  handleEditModule = (path, module) => {
+    const { modules } = this.state;
     this.setState({
-      modules: immer(modules, draft => {
-        draft[index] = module;
-      }),
+      selected: null,
+      modules: treeEditor.replaceAt(modules, path, module),
     });
   };
 
   render() {
     const { onHide } = this.props;
 
-    const { modules } = this.state;
+    const { modules, selected } = this.state;
 
     return (
       <div className={styles.container}>
         <div className={styles.left}>
           <AvailableModules
-            totalModules={modules.length}
             moduleControls={moduleControls}
             onEndDrag={this.handleEndDrag}
             onAddModule={this.handleAdd}
@@ -140,11 +125,13 @@ export default class FormEditor extends Component {
         <div className={styles.editor}>
           <Editor
             modules={modules}
+            selected={selected}
             moduleControls={moduleControls}
             onAddModule={this.handleAdd}
             onEditModule={this.handleEditModule}
-            onMoveModule={this.handleMove}
+            onMoveModule={this.handleMoveAt}
             onRemoveModule={this.handleRemove}
+            onSelectModule={this.handleSelectModule}
             onSave={this.handleSave}
             onCancel={onHide}
           />
