@@ -28,8 +28,11 @@ const App = () => (
           <Route path="/" exact component={Dashboard} />
           <Route path="/tasks/:category" component={Dashboard} />
 
-          <Route path="/task/create" component={Create} />
+          <Route path="/draft/create" component={Create} />
+
+          <Route path="/draft/:id" component={Create} />
           <Route path="/task/:id" component={Task} />
+
           <Route path="/preview" component={Preview} />
 
           <Route path="/profile" component={Profile} />
