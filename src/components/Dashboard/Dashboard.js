@@ -17,12 +17,12 @@ import NewTask from './list/NewTask';
 import TaskItem from './list/TaskItem';
 
 import { fetchTasks } from '../../sagas/tasksSagas';
-import { tasksSelector } from '../../selectors/tasksSelectors';
+import { dashboardTasksSelector } from '../../selectors/tasksSelectors';
 
 import styles from './Dashboard.module.styl';
 
 const mapStateToProps = state => ({
-  items: tasksSelector(state),
+  items: dashboardTasksSelector(state),
 });
 
 const mapDispatchToProps = dispatch =>
@@ -42,6 +42,13 @@ class Dashboard extends Component {
   componentDidMount() {
     const { match } = this.props;
     this.props.fetchTasks(match.params.category);
+  }
+
+  componentDidUpdate({ match: prevMatch }) {
+    const { match } = this.props;
+    if (match.params.category !== prevMatch.params.category) {
+      this.props.fetchTasks(match.params.category);
+    }
   }
 
   render() {

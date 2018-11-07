@@ -1,11 +1,11 @@
 import { BaseApi } from '@gemsorg/api-client';
 
 export class TemplatesApi extends BaseApi {
-  taskTemplates = () => this.get('/api/task/templates');
+  taskTemplates = () => this.get('/task/templates');
 
-  onboardingTemplates = () => this.get('/api/onboarding/templates');
+  onboardingTemplates = () => this.get('/onboarding/templates');
 
-  onboardingTemplate = ({ id }) => this.get(`/api/onboarding/templates/${id}`);
+  onboardingTemplate = ({ id }) => this.get(`/onboarding/templates/${id}`);
 }
 
 export const templatesApi = new TemplatesApi();

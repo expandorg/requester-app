@@ -10,7 +10,7 @@ import { templatesApi } from '../api/TemplatesApi';
 export const fetchTasks = status => ({
   type: tasksActionTypes.FETCH_LIST,
   payload: { status },
-  asyncCall: tasksApi.fetch,
+  asyncCall: tasksApi.list,
 });
 
 export const fetchTaskTemplates = () => ({
@@ -20,6 +20,8 @@ export const fetchTaskTemplates = () => ({
 });
 
 export function* tasksSagas() {
-  yield takeEvery(tasksActionTypes.FETCH_LIST, handleAsyncCall);
-  yield takeEvery(tasksActionTypes.FETCH_TEMPLATES, handleAsyncCall);
+  yield takeEvery(
+    [tasksActionTypes.FETCH_LIST, tasksActionTypes.FETCH_TEMPLATES],
+    handleAsyncCall
+  );
 }

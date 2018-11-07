@@ -25,16 +25,15 @@ export default class TaskItem extends Component {
   handleCopyClick = evt => {
     evt.preventDefault();
     evt.stopPropagation();
-
-    console.log('copied');
   };
 
   render() {
     const { task } = this.props;
+    const route = task.state === 'draft' ? 'draft' : 'task';
     return (
       <Link
         className={cn(styles.container, styles.task)}
-        to={`/task/${task.id}`}
+        to={`/${route}/${task.id}`}
       >
         <div className={styles.copy}>
           <Copy onClick={this.handleCopyClick} tooltip="Copy" />

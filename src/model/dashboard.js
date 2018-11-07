@@ -6,7 +6,7 @@ export const links = [
     text: 'All',
   },
   {
-    href: '/tasks/drafts',
+    href: '/tasks/draft',
     text: 'Drafts',
   },
   {
