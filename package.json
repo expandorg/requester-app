@@ -29,8 +29,8 @@
   },
   "dependencies": {
     "@babel/polyfill": "^7.0.0",
-    "@gemsorg/api-client": "^0.0.7",
-    "@gemsorg/app-utils": "^0.0.9",
+    "@gemsorg/api-client": "^0.0.8",
+    "@gemsorg/app-utils": "^0.0.10",
     "@gemsorg/components": "^0.1.5",
     "@gemsorg/modules": "^0.1.11",
     "@gemsorg/uikit": "^0.1.1",
