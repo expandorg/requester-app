@@ -15,7 +15,7 @@ export default function setupMocks(app: Object) {
     });
   });
 
-  app.post('/api/v1/draft/create', (req, res) => {
+  app.post('/api/v1/drafts', (req, res) => {
     const draft = {
       id: tasks.length,
       ...req.body,
@@ -29,7 +29,7 @@ export default function setupMocks(app: Object) {
     });
   });
 
-  app.get('/api/v1/draft/:id', (req, res) => {
+  app.get('/api/v1/drafts/:id', (req, res) => {
     res.json({
       draft: draftsRepo[req.params.id],
     });

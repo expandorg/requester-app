@@ -1,45 +1,59 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
-import { DragDropContextProvider } from 'react-dnd';
-import HTML5Backend from 'react-dnd-html5-backend';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { withRouter } from 'react-router-dom';
 
+import { requestStateProps, RequestStates } from '@gemsorg/app-utils';
+
+import { historyProps } from '../shared/propTypes';
+import { SubmitStateEffect } from '../common/submitStateEffect';
 import Content from '../shared/Content';
 import Navbar from '../shared/Navbar';
 
-import { Navigation, NavItem } from './Wizard/Navigation';
+import { Navigation, NavItem } from '../Draft/Wizard/Navigation';
+import Settings from '../Draft/Wizard/Settings';
 
-import Settings from './Wizard/Settings';
-import Data from './Wizard/Data/Data';
-import Templates from './Wizard/Templates';
-import CreateTask from './Wizard/Task/CreateTask';
-import Whitelist from './Wizard/Whitelist/Whitelist';
-import Payments from './Wizard/Payments/Payments';
-
-import Summary from './Wizard/Summary/Summary';
+import { createDraft } from '../../sagas/draftsSagas';
+import { createDraftStateSelector } from '../../selectors/uiStateSelectors';
 
 import styles from './Create.module.styl';
 
-export default class Create extends Component {
-  state = {
-    active: 0,
+const mapsStateToProps = state => ({
+  requestState: createDraftStateSelector(state),
+});
+
+const mapDispatchToProps = dispatch =>
+  bindActionCreators({ createDraft }, dispatch);
+
+class Create extends Component {
+  static propTypes = {
+    createDraft: PropTypes.func.isRequired,
+    history: historyProps.isRequired,
+    requestState: requestStateProps.isRequired,
   };
 
-  handleChangeActive = active => {
-    this.setState({ active });
+  handleCreate = draft => {
+    const { requestState } = this.props;
+    if (requestState.state !== RequestStates.Fetching) {
+      this.props.createDraft(draft);
+    }
   };
 
-  handleNext = () => {
-    this.setState(({ active }) => ({ active: active + 1 }));
-  };
-
-  handleBack = () => {
-    this.setState(({ active }) => ({ active: active - 1 }));
+  handleCreateComplete = createState => {
+    const { history } = this.props;
+    const { draft } = createState.payload.result;
+    history.replace(`/draft/${draft}`);
   };
 
   render() {
-    const { active } = this.state;
+    const { requestState } = this.props;
     return (
-      <DragDropContextProvider backend={HTML5Backend}>
+      <SubmitStateEffect
+        submitState={requestState}
+        onComplete={this.handleCreateComplete}
+      >
         <Content
           title="Create a task"
           className={styles.content}
@@ -47,36 +61,26 @@ export default class Create extends Component {
           navbar={false}
         >
           <Navbar title="Create a task" top={false}>
-            <Navigation onChange={this.handleChangeActive} active={active}>
-              <NavItem status="complete">Settings</NavItem>
-              <NavItem status="required">Upload</NavItem>
-              <NavItem>Templates</NavItem>
-              <NavItem>Create Task</NavItem>
-              <NavItem>Whitelist</NavItem>
-              <NavItem>Pay</NavItem>
+            <Navigation active={0}>
+              <NavItem>Settings</NavItem>
+              <NavItem disabled>Upload</NavItem>
+              <NavItem disabled>Templates</NavItem>
+              <NavItem disabled>Create Task</NavItem>
+              <NavItem disabled>Whitelist</NavItem>
+              <NavItem disabled>Pay</NavItem>
             </Navigation>
           </Navbar>
           <div className={styles.container}>
-            {active === 0 && <Settings onNext={this.handleNext} />}
-            {active === 1 && (
-              <Data onNext={this.handleNext} onBack={this.handleBack} />
-            )}
-            {active === 2 && (
-              <Templates onNext={this.handleNext} onBack={this.handleBack} />
-            )}
-            {active === 3 && (
-              <CreateTask onNext={this.handleNext} onBack={this.handleBack} />
-            )}
-            {active === 4 && (
-              <Whitelist onNext={this.handleNext} onBack={this.handleBack} />
-            )}
-            {active === 5 && (
-              <Payments onNext={this.handleNext} onBack={this.handleBack} />
-            )}
-            {active === 6 && <Summary onBack={this.handleBack} />}
+            <Settings onNext={this.handleCreate} />
           </div>
         </Content>
-      </DragDropContextProvider>
+      </SubmitStateEffect>
     );
   }
 }
+export default withRouter(
+  connect(
+    mapsStateToProps,
+    mapDispatchToProps
+  )(Create)
+);

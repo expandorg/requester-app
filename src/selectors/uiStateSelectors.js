@@ -7,3 +7,8 @@ export const notificationSelector = createSelector(
   uiStateSelector,
   state => state.notification
 );
+
+export const createDraftStateSelector = createSelector(
+  uiStateSelector,
+  state => state.createDraft
+);

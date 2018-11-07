@@ -10,20 +10,23 @@ export default class NavItem extends Component {
   static propTypes = {
     active: PropTypes.bool,
     status: PropTypes.string,
+    disabled: PropTypes.bool,
     onClick: PropTypes.func,
   };
 
   static defaultProps = {
     active: false,
+    disabled: false,
     status: null,
     onClick: Function.prototype,
   };
 
   render() {
-    const { children, onClick, active, status, ...rest } = this.props;
+    const { children, onClick, active, status, disabled, ...rest } = this.props;
 
     const classes = cn(styles.item, {
       [styles.active]: active,
+      [styles.disabled]: disabled,
     });
 
     return (

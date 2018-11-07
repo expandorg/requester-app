@@ -6,7 +6,10 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import { ServiceProvider } from '@gemsorg/components';
 
 import Dashboard from './components/Dashboard/Dashboard';
+
 import Create from './components/Create/Create';
+import Draft from './components/Draft/Draft';
+
 import Task from './components/Task/Task';
 import Preview from './components/Preview/Preview';
 
@@ -30,7 +33,7 @@ const App = () => (
 
           <Route path="/draft/create" component={Create} />
 
-          <Route path="/draft/:id" component={Create} />
+          <Route path="/draft/:id" component={Draft} />
           <Route path="/task/:id" component={Task} />
 
           <Route path="/preview" component={Preview} />

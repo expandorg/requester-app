@@ -6,10 +6,11 @@ import styles from './Navigation.module.styl';
 export default class Navigation extends Component {
   static propTypes = {
     active: PropTypes.number,
-    onChange: PropTypes.func.isRequired,
+    onChange: PropTypes.func,
   };
 
   static defaultProps = {
+    onChange: Function.prototype,
     active: null,
   };
 
