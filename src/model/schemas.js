@@ -7,4 +7,6 @@ const taskSchema = new schema.Entity('tasks');
 
 const authResponseSchema = {};
 
-export { draftSchema, taskSchema, authResponseSchema };
+const draftResponseSchema = { draft: draftSchema };
+
+export { draftSchema, taskSchema, draftResponseSchema, authResponseSchema };
