@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 import { DragDropContextProvider } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 
 import Content from '../shared/Content';
 import Navbar from '../shared/Navbar';
+import { draftProps } from '../shared/propTypes';
 
 import { Navigation, NavItem } from './Wizard/Navigation';
 
@@ -20,9 +22,22 @@ import Summary from './Wizard/Summary/Summary';
 import styles from './DraftWizard.module.styl';
 
 export default class DraftWizard extends Component {
-  state = {
-    active: 0,
+  static propTypes = {
+    draft: draftProps,
+    page: PropTypes.number,
   };
+
+  static defaultProps = {
+    page: 0,
+    draft: null,
+  };
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      active: props.page,
+    };
+  }
 
   handleChangeActive = active => {
     this.setState({ active });
@@ -38,6 +53,8 @@ export default class DraftWizard extends Component {
 
   render() {
     const { active } = this.state;
+    const { draft } = this.props;
+    console.log(draft);
     return (
       <DragDropContextProvider backend={HTML5Backend}>
         <Content

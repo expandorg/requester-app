@@ -1,3 +1,4 @@
+// @flow
 import PropTypes from 'prop-types';
 
 export const historyProps = PropTypes.shape({
@@ -11,7 +12,13 @@ export const locationProps = PropTypes.shape({
   hash: PropTypes.string.isRequired,
 });
 
+export const matchProps = PropTypes.shape({
+  params: PropTypes.object,
+});
+
 export const notificationProps = PropTypes.shape({
   type: PropTypes.oneOf(['warning', 'message', 'success']).isRequired,
   message: PropTypes.string,
 });
+
+export const draftProps = PropTypes.shape({});

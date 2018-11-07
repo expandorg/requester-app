@@ -6,6 +6,7 @@ import { bindActionCreators } from 'redux';
 
 import { withRouter } from 'react-router-dom';
 
+import { matchProps } from '../shared/propTypes';
 import Content from '../shared/Content';
 import Navbar from '../shared/Navbar';
 import Sidebar from '../shared/Sidebar';
@@ -30,7 +31,7 @@ const mapDispatchToProps = dispatch =>
 
 class Dashboard extends Component {
   static propTypes = {
-    match: PropTypes.object.isRequired, // eslint-disable-line
+    match: matchProps.isRequired,
     items: PropTypes.arrayOf(PropTypes.object),
     fetchTasks: PropTypes.func.isRequired,
   };

@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { withRouter } from 'react-router-dom';
 
 import { requestStateProps, RequestStates } from '@gemsorg/app-utils';
 
@@ -44,7 +44,7 @@ class Create extends Component {
   handleCreateComplete = createState => {
     const { history } = this.props;
     const { draft } = createState.payload.result;
-    history.replace(`/draft/${draft}`);
+    history.replace(`/draft/${draft}`, { page: 1 });
   };
 
   render() {

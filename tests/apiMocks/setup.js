@@ -18,6 +18,7 @@ export default function setupMocks(app: Object) {
   app.post('/api/v1/drafts', (req, res) => {
     const draft = {
       id: tasks.length,
+      state: 'draft',
       ...req.body,
     };
 
