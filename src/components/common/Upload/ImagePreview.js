@@ -8,12 +8,17 @@ export default class ImagePreview extends Component {
     file: PropTypes.shape({
       name: PropTypes.string,
     }).isRequired,
+    uploadedUrl: PropTypes.string,
+  };
+
+  static defaultProps = {
+    uploadedUrl: null,
   };
 
   constructor(props) {
     super(props);
     this.state = {
-      file: props.file,
+      file: props.file, // eslint-disable-line react/no-unused-state
       preview: props.file ? URL.createObjectURL(props.file) : null,
     };
   }
@@ -32,10 +37,15 @@ export default class ImagePreview extends Component {
   }
 
   render() {
-    const { preview, file } = this.state;
+    const { uploadedUrl } = this.props;
+    const { preview } = this.state;
     return (
       <div className={styles.previewContainer}>
-        <img className={styles.preview} src={preview} alt={file.name} />
+        <img
+          className={styles.preview}
+          src={preview || uploadedUrl}
+          alt="Task logo"
+        />
         <div className={styles.previewHint}>Upload image</div>
       </div>
     );

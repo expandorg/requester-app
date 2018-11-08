@@ -11,7 +11,7 @@ import { draftProps } from '../shared/propTypes';
 import { Navigation, NavItem } from './Wizard/Navigation';
 import { LoadIndicator } from './Wizard/Form';
 
-import Settings from './Wizard/Settings';
+import Settings from './Wizard/Settings/SettingsContainer';
 import Data from './Wizard/Data/Data';
 import Templates from './Wizard/Templates';
 import CreateTask from './Wizard/Task/CreateTask';
@@ -60,6 +60,7 @@ export default class DraftWizard extends Component {
   render() {
     const { draft, isLoading } = this.props;
     const { active } = this.state;
+
     const nav = getNavState(draft);
 
     return (
@@ -82,23 +83,47 @@ export default class DraftWizard extends Component {
           </Navbar>
           <LoadIndicator isLoading={isLoading}>
             <div className={styles.container}>
-              {active === 0 && <Settings onNext={this.handleNext} />}
+              {active === 0 && (
+                <Settings draft={draft} onNext={this.handleNext} />
+              )}
               {active === 1 && (
-                <Data onNext={this.handleNext} onBack={this.handleBack} />
+                <Data
+                  draft={draft}
+                  onNext={this.handleNext}
+                  onBack={this.handleBack}
+                />
               )}
               {active === 2 && (
-                <Templates onNext={this.handleNext} onBack={this.handleBack} />
+                <Templates
+                  draft={draft}
+                  onNext={this.handleNext}
+                  onBack={this.handleBack}
+                />
               )}
               {active === 3 && (
-                <CreateTask onNext={this.handleNext} onBack={this.handleBack} />
+                <CreateTask
+                  draft={draft}
+                  onNext={this.handleNext}
+                  onBack={this.handleBack}
+                />
               )}
               {active === 4 && (
-                <Whitelist onNext={this.handleNext} onBack={this.handleBack} />
+                <Whitelist
+                  draft={draft}
+                  onNext={this.handleNext}
+                  onBack={this.handleBack}
+                />
               )}
               {active === 5 && (
-                <Payments onNext={this.handleNext} onBack={this.handleBack} />
+                <Payments
+                  draft={draft}
+                  onNext={this.handleNext}
+                  onBack={this.handleBack}
+                />
               )}
-              {active === 6 && <Summary onBack={this.handleBack} />}
+              {active === 6 && (
+                <Summary draft={draft} onBack={this.handleBack} />
+              )}
             </div>
           </LoadIndicator>
         </Content>

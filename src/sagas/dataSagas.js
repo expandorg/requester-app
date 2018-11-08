@@ -28,7 +28,7 @@ export const uppdateDataColumns = (draftId, dataId, columns) => ({
 export const removeData = draftId => ({
   type: dataActionTypes.REMOVE_DATA,
   payload: { id: draftId, params: { dataid: null } },
-  asyncCall: draftApi.patch,
+  asyncCall: draftApi.update,
 });
 
 export function* dataSagas() {

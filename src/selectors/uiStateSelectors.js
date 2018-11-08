@@ -17,3 +17,8 @@ export const createDraftStateSelector = createSelector(
   uiStateSelector,
   state => state.createDraft
 );
+
+export const updateDraftSettingsStateSelector = createSelector(
+  uiStateSelector,
+  state => state.updateDraftSettings
+);

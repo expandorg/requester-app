@@ -13,7 +13,7 @@ import Content from '../shared/Content';
 import Navbar from '../shared/Navbar';
 
 import { Navigation, NavItem } from '../Draft/Wizard/Navigation';
-import Settings from '../Draft/Wizard/Settings';
+import Settings from '../Draft/Wizard/Settings/Settings';
 
 import { createDraft } from '../../sagas/draftsSagas';
 import { createDraftStateSelector } from '../../selectors/uiStateSelectors';
@@ -34,7 +34,7 @@ class Create extends Component {
     requestState: requestStateProps.isRequired,
   };
 
-  handleCreate = draft => {
+  handleNextClick = draft => {
     const { requestState } = this.props;
     if (requestState.state !== RequestStates.Fetching) {
       this.props.createDraft(draft);
@@ -49,32 +49,36 @@ class Create extends Component {
 
   render() {
     const { requestState } = this.props;
+    const isSubmitting = requestState.state === RequestStates.Fetching;
     return (
-      <SubmitStateEffect
-        submitState={requestState}
-        onComplete={this.handleCreateComplete}
+      <Content
+        title="Create a task"
+        className={styles.content}
+        sidebar={false}
+        navbar={false}
       >
-        <Content
-          title="Create a task"
-          className={styles.content}
-          sidebar={false}
-          navbar={false}
-        >
-          <Navbar title="Create a task" top={false}>
-            <Navigation active={0}>
-              <NavItem>Settings</NavItem>
-              <NavItem disabled>Upload</NavItem>
-              <NavItem disabled>Templates</NavItem>
-              <NavItem disabled>Create Task</NavItem>
-              <NavItem disabled>Whitelist</NavItem>
-              <NavItem disabled>Pay</NavItem>
-            </Navigation>
-          </Navbar>
-          <div className={styles.container}>
-            <Settings onNext={this.handleCreate} />
-          </div>
-        </Content>
-      </SubmitStateEffect>
+        <Navbar title="Create a task" top={false}>
+          <Navigation active={0}>
+            <NavItem>Settings</NavItem>
+            <NavItem disabled>Upload</NavItem>
+            <NavItem disabled>Templates</NavItem>
+            <NavItem disabled>Create Task</NavItem>
+            <NavItem disabled>Whitelist</NavItem>
+            <NavItem disabled>Pay</NavItem>
+          </Navigation>
+        </Navbar>
+        <div className={styles.container}>
+          <SubmitStateEffect
+            submitState={requestState}
+            onComplete={this.handleCreateComplete}
+          >
+            <Settings
+              onNext={this.handleNextClick}
+              isSubmitting={isSubmitting}
+            />
+          </SubmitStateEffect>
+        </div>
+      </Content>
     );
   }
 }

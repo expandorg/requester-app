@@ -11,5 +11,6 @@ export default combineReducers({
   notification,
 
   fetchDraft: requestUiStateReducer(draftsActionTypes.FETCH),
+  updateDraftSettings: requestUiStateReducer(draftsActionTypes.UPDATE_SETTINGS),
   createDraft: requestUiStateReducer(draftsActionTypes.CREATE, true),
 });
