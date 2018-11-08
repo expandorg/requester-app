@@ -8,6 +8,11 @@ export const notificationSelector = createSelector(
   state => state.notification
 );
 
+export const fetchDraftStateSelector = createSelector(
+  uiStateSelector,
+  state => state.fetchDraft
+);
+
 export const createDraftStateSelector = createSelector(
   uiStateSelector,
   state => state.createDraft

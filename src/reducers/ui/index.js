@@ -10,5 +10,6 @@ export default combineReducers({
   auth: requestUiStateReducer(authActionTypes.GET_CURRENT),
   notification,
 
+  fetchDraft: requestUiStateReducer(draftsActionTypes.FETCH),
   createDraft: requestUiStateReducer(draftsActionTypes.CREATE, true),
 });

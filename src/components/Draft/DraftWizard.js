@@ -9,6 +9,7 @@ import Navbar from '../shared/Navbar';
 import { draftProps } from '../shared/propTypes';
 
 import { Navigation, NavItem } from './Wizard/Navigation';
+import { LoadIndicator } from './Wizard/Form';
 
 import Settings from './Wizard/Settings';
 import Data from './Wizard/Data/Data';
@@ -26,18 +27,21 @@ import styles from './DraftWizard.module.styl';
 export default class DraftWizard extends Component {
   static propTypes = {
     draft: draftProps,
-    page: PropTypes.number,
+    tab: PropTypes.number,
+    isLoading: PropTypes.bool,
   };
 
   static defaultProps = {
-    page: 0,
+    tab: 0,
     draft: null,
+    isLoading: false,
   };
 
   constructor(props) {
     super(props);
+
     this.state = {
-      active: props.page,
+      active: props.tab,
     };
   }
 
@@ -54,10 +58,10 @@ export default class DraftWizard extends Component {
   };
 
   render() {
-    const { draft } = this.props;
+    const { draft, isLoading } = this.props;
     const { active } = this.state;
-
     const nav = getNavState(draft);
+
     return (
       <DragDropContextProvider backend={HTML5Backend}>
         <Content
@@ -76,25 +80,27 @@ export default class DraftWizard extends Component {
               <NavItem {...nav.pay}>Pay</NavItem>
             </Navigation>
           </Navbar>
-          <div className={styles.container}>
-            {active === 0 && <Settings onNext={this.handleNext} />}
-            {active === 1 && (
-              <Data onNext={this.handleNext} onBack={this.handleBack} />
-            )}
-            {active === 2 && (
-              <Templates onNext={this.handleNext} onBack={this.handleBack} />
-            )}
-            {active === 3 && (
-              <CreateTask onNext={this.handleNext} onBack={this.handleBack} />
-            )}
-            {active === 4 && (
-              <Whitelist onNext={this.handleNext} onBack={this.handleBack} />
-            )}
-            {active === 5 && (
-              <Payments onNext={this.handleNext} onBack={this.handleBack} />
-            )}
-            {active === 6 && <Summary onBack={this.handleBack} />}
-          </div>
+          <LoadIndicator isLoading={isLoading}>
+            <div className={styles.container}>
+              {active === 0 && <Settings onNext={this.handleNext} />}
+              {active === 1 && (
+                <Data onNext={this.handleNext} onBack={this.handleBack} />
+              )}
+              {active === 2 && (
+                <Templates onNext={this.handleNext} onBack={this.handleBack} />
+              )}
+              {active === 3 && (
+                <CreateTask onNext={this.handleNext} onBack={this.handleBack} />
+              )}
+              {active === 4 && (
+                <Whitelist onNext={this.handleNext} onBack={this.handleBack} />
+              )}
+              {active === 5 && (
+                <Payments onNext={this.handleNext} onBack={this.handleBack} />
+              )}
+              {active === 6 && <Summary onBack={this.handleBack} />}
+            </div>
+          </LoadIndicator>
         </Content>
       </DragDropContextProvider>
     );

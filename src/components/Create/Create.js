@@ -44,7 +44,7 @@ class Create extends Component {
   handleCreateComplete = createState => {
     const { history } = this.props;
     const { draft } = createState.payload.result;
-    history.replace(`/draft/${draft}`, { page: 1 });
+    history.replace(`/draft/${draft}`, { tab: 1 });
   };
 
   render() {
