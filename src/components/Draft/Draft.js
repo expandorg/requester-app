@@ -15,7 +15,7 @@ import { fetch } from '../../sagas/draftsSagas';
 const makeMapStateToProps = () => {
   const draftsSelector = makeDraftSelector();
   return (state, props) => ({
-    draft: draftsSelector(state, props.id),
+    draft: draftsSelector(state, +props.match.params.id),
   });
 };
 

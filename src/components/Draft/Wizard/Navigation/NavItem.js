@@ -21,8 +21,22 @@ export default class NavItem extends Component {
     onClick: Function.prototype,
   };
 
+  handleClick = evt => {
+    const { onClick, disabled } = this.props;
+    if (!disabled) {
+      onClick(evt);
+    }
+  };
+
   render() {
-    const { children, onClick, active, status, disabled, ...rest } = this.props;
+    const {
+      children,
+      onClick: _,
+      active,
+      status,
+      disabled,
+      ...rest
+    } = this.props;
 
     const classes = cn(styles.item, {
       [styles.active]: active,
@@ -30,7 +44,7 @@ export default class NavItem extends Component {
     });
 
     return (
-      <button className={classes} onClick={onClick} {...rest}>
+      <button className={classes} onClick={this.handleClick} {...rest}>
         {children}
         <StatusIcon className={styles.status} status={status} />
       </button>

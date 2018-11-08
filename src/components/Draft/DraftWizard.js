@@ -19,6 +19,8 @@ import Payments from './Wizard/Payments/Payments';
 
 import Summary from './Wizard/Summary/Summary';
 
+import { getNavState } from './wizard';
+
 import styles from './DraftWizard.module.styl';
 
 export default class DraftWizard extends Component {
@@ -52,9 +54,10 @@ export default class DraftWizard extends Component {
   };
 
   render() {
-    const { active } = this.state;
     const { draft } = this.props;
-    console.log(draft);
+    const { active } = this.state;
+
+    const nav = getNavState(draft);
     return (
       <DragDropContextProvider backend={HTML5Backend}>
         <Content
@@ -65,12 +68,12 @@ export default class DraftWizard extends Component {
         >
           <Navbar title="Create a task" top={false}>
             <Navigation onChange={this.handleChangeActive} active={active}>
-              <NavItem status="complete">Settings</NavItem>
-              <NavItem status="required">Upload</NavItem>
-              <NavItem>Templates</NavItem>
-              <NavItem>Create Task</NavItem>
-              <NavItem>Whitelist</NavItem>
-              <NavItem>Pay</NavItem>
+              <NavItem {...nav.settings}>Settings</NavItem>
+              <NavItem {...nav.upload}>Upload</NavItem>
+              <NavItem {...nav.templates}>Templates</NavItem>
+              <NavItem {...nav.task}>Create Task</NavItem>
+              <NavItem {...nav.whitelist}>Whitelist</NavItem>
+              <NavItem {...nav.pay}>Pay</NavItem>
             </Navigation>
           </Navbar>
           <div className={styles.container}>
