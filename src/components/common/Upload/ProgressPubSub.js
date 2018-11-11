@@ -3,8 +3,12 @@
 import { PubSub } from '@gemsorg/utils';
 
 export default class ProgressPubSub {
-  unsubscribeCallback: Function;
+  unsubscribeCallback: ?Function = null;
+
   pubSub: PubSub = new PubSub();
+  abort: Function;
+
+  aborted: boolean = false;
 
   constructor(onProgress: Function) {
     this.unsubscribeCallback = this.pubSub.sibscribe(onProgress);
@@ -13,6 +17,14 @@ export default class ProgressPubSub {
   unsubscribe = () => {
     if (this.unsubscribeCallback) {
       this.unsubscribeCallback();
+      this.unsubscribeCallback = null;
+    }
+  };
+
+  abortRequest = () => {
+    if (!this.aborted && this.abort) {
+      this.aborted = true;
+      this.abort();
     }
   };
 

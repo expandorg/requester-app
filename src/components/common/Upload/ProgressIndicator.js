@@ -11,6 +11,7 @@ export default class ProgressIndicator extends Component {
     uploadState: PropTypes.string.isRequired,
     progress: PropTypes.number,
     className: PropTypes.string,
+    onAbort: PropTypes.func.isRequired,
   };
 
   static defaultProps = {
@@ -18,8 +19,17 @@ export default class ProgressIndicator extends Component {
     className: null,
   };
 
+  handleAbort = evt => {
+    evt.preventDefault();
+
+    const { uploadState, onAbort } = this.props;
+    if (uploadState === RequestStates.Fetching) {
+      onAbort();
+    }
+  };
+
   render() {
-    const { uploadState, progress, className, children } = this.props;
+    const { uploadState, progress, className } = this.props;
 
     const progressClasses = cn(styles.progress, {
       [styles.fetching]: uploadState === RequestStates.Fetching,
@@ -37,7 +47,11 @@ export default class ProgressIndicator extends Component {
             {Math.ceil(progress * 100)}%
           </div>
         </div>
-        {children}
+        {uploadState === RequestStates.Fetching && (
+          <button className={styles.cancel} onClick={this.handleAbort}>
+            cancel
+          </button>
+        )}
       </div>
     );
   }

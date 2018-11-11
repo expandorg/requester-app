@@ -16,15 +16,18 @@ export const fetch = (draftId, dataId, page) => ({
   asyncCall: dataApi.fetch,
 });
 
-export const uploadData = (draftId, data, onProgress) => ({
+export const uploadData = (draftId, data, xhrCallbacks) => ({
   type: dataActionTypes.UPLOAD_DATA,
   payload: { draftId, data },
-  meta: { onProgress },
+  meta: { xhrCallbacks },
 });
 
-function* handleUploadData({ payload, meta: { onProgress } }) {
+function* handleUploadData({ payload, meta: { xhrCallbacks } }) {
   try {
-    const response = yield call(dataApi.uploadData, { ...payload, onProgress });
+    const response = yield call(dataApi.uploadData, {
+      ...payload,
+      xhrCallbacks,
+    });
     yield put({
       type: dataActionTypes.UPLOAD_DATA_COMPLETE,
       payload: normalize(response, draftResponseSchema),

@@ -65,7 +65,9 @@ export default class UploadImage extends Component {
           </div>
         )}
         <Dropzone
-          className={cn(styles.dropzone, className)}
+          className={cn(styles.dropzone, className, {
+            [styles.uploading]: isUploading,
+          })}
           accept={accept}
           multiple={false}
           disabled={isUploading}

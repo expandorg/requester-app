@@ -54,12 +54,18 @@ class UploadForm extends Component {
       this.setState({ data, progress: 0 });
 
       this.progress = new ProgressPubSub(this.handleProgress);
-      this.props.uploadData(draft.id, data, this.progress.onProgress);
+      this.props.uploadData(draft.id, data, this.progress);
     }
   };
 
   handleProgress = progress => {
     this.setState({ progress });
+  };
+
+  handleAbort = () => {
+    if (this.progress) {
+      this.progress.abortRequest();
+    }
   };
 
   handleToggleApi = evt => {
@@ -87,6 +93,7 @@ class UploadForm extends Component {
               <ProgressIndicator
                 uploadState={uploadState.state}
                 progress={progress}
+                onAbort={this.handleAbort}
               />
             ) : (
               <div className={styles.placeholder}>
