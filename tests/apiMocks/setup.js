@@ -1,14 +1,9 @@
 // @flow
 
 import bodyParser from 'body-parser';
-import multer, { memoryStorage } from 'multer';
 import tasks from './tasksRepo';
 
-const data = {};
-
-export const dataUpload = multer({
-  storage: memoryStorage(),
-});
+import { dataRepo, dataUpload, createData } from './dataRepos';
 
 const draftsRepo = tasks
   .filter(t => t.state === 'draft')
@@ -60,11 +55,31 @@ export default function setupMocks(app: Object) {
   app.post('/api/v1/drafts/:id/data', dataUpload.single('data'), (req, res) => {
     const draft = draftsRepo[+req.params.id];
 
-    data[draft.id] = req.file;
+    dataRepo[draft.id] = createData(draft.id, draft.id);
     draft.dataId = draft.id;
 
     res.json({
       draft,
+    });
+  });
+
+  app.get('/api/v1/drafts/:id/data/:dataId', (req, res) => {
+    const data = dataRepo[+req.params.id];
+    res.json({
+      data,
+    });
+  });
+
+  app.post('/api/v1/drafts/:id/data/:dataId/columns', (req, res) => {
+    const data = dataRepo[+req.params.id];
+    data.columns = req.body.columns;
+    const { columns, id, draftId } = data;
+    res.json({
+      data: {
+        id,
+        draftId,
+        columns,
+      },
     });
   });
 }

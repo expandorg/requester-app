@@ -8,12 +8,13 @@ import { dataActionTypes } from './actionTypes';
 import { draftApi } from '../api/DraftApi';
 import { dataApi } from '../api/DataApi';
 
-import { draftResponseSchema } from '../model/schemas';
+import { draftResponseSchema, dataResponseSchema } from '../model/schemas';
 
 export const fetch = (draftId, dataId, page) => ({
   type: dataActionTypes.FETCH,
   payload: { draftId, dataId, page },
   asyncCall: dataApi.fetch,
+  meta: { schema: dataResponseSchema },
 });
 
 export const uploadData = (draftId, data, xhrCallbacks) => ({
