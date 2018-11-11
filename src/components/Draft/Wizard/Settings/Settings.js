@@ -11,7 +11,7 @@ import { draftProps } from '../../../shared/propTypes';
 import { Form, Description, Field, Fieldset, Actions } from '../Form';
 import Button from '../../../common/Button';
 
-import { ReactComponent as Placeholder } from '../../../assets/preview.svg';
+import { ReactComponent as Placeholder } from '../../../assets/data.svg';
 
 import { settingsRules } from '../../../../model/draft';
 
@@ -106,7 +106,16 @@ export default class Settings extends Component {
               file ? (
                 <ImagePreview uploadedUrl={settings.logoUrl} file={file} />
               ) : (
-                <Placeholder className={styles.hint} />
+                <div className={styles.placeholder}>
+                  <Placeholder
+                    viewBox="0 0 80 56"
+                    width={45}
+                    height={36}
+                    className={styles.hint}
+                  />
+                  <div className={styles.or}>Drag a file or</div>
+                  <div className={styles.browse}>Browse</div>
+                </div>
               )
             }
           </Upload>
