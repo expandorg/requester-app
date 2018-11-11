@@ -24,7 +24,7 @@ const getUploadStatus = (draft: ?Object) => {
   if (!draft) {
     return null;
   }
-  if (draft.dataId) {
+  if (draft.dataId !== null && draft.dataId !== undefined) {
     return 'complete';
   }
   return null;
