@@ -1,7 +1,14 @@
 // @flow
 
 import bodyParser from 'body-parser';
+import multer, { memoryStorage } from 'multer';
 import tasks from './tasksRepo';
+
+const data = {};
+
+export const dataUpload = multer({
+  storage: memoryStorage(),
+});
 
 const draftsRepo = tasks
   .filter(t => t.state === 'draft')
@@ -47,6 +54,17 @@ export default function setupMocks(app: Object) {
   app.get('/api/v1/drafts/:id', (req, res) => {
     res.json({
       draft: draftsRepo[req.params.id],
+    });
+  });
+
+  app.post('/api/v1/drafts/:id/data', dataUpload.single('data'), (req, res) => {
+    const draft = draftsRepo[+req.params.id];
+
+    data[draft.id] = req.file;
+    draft.dataId = draft.id;
+
+    res.json({
+      draft,
     });
   });
 }

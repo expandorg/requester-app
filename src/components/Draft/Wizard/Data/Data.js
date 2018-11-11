@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+import { draftProps } from '../../../shared/propTypes';
+
 import Button from '../../../common/Button';
 import DataEditor from './DataEditor/DataEditor';
 
@@ -10,40 +12,33 @@ import { Form, Actions } from '../Form';
 
 export default class UploadData extends Component {
   static propTypes = {
+    draft: draftProps.isRequired,
     onNext: PropTypes.func.isRequired,
     onBack: PropTypes.func.isRequired,
   };
 
-  state = {
-    data: null,
-  };
+  componentDidMount() {}
 
-  handleSubmit = () => {
+  handleSubmit = evt => {
+    evt.preventDefault();
     const { onNext } = this.props;
     onNext();
   };
 
-  handleUpload = data => {
-    this.setState({ data });
-  };
-
-  handleDelete = () => {
-    this.setState({ data: null });
-  };
-
   handleBack = evt => {
+    evt.preventDefault();
     const { onBack } = this.props;
     onBack();
-
-    evt.preventDefault();
   };
 
   render() {
-    const { data } = this.state;
+    const { draft } = this.props;
+
+    const hasData = draft.dataId !== null && draft.dataId !== undefined;
     return (
       <Form onSubmit={this.handleSubmit}>
-        {!data && <UploadForm onUpload={this.handleUpload} />}
-        {data && <DataEditor data={data} onDelete={this.handleDelete} />}
+        {!hasData && <UploadForm draft={draft} />}
+        {hasData && <DataEditor draft={draft} />}
         <Actions>
           <Button theme="secondary" onClick={this.handleBack}>
             Back

@@ -22,3 +22,8 @@ export const updateDraftSettingsStateSelector = createSelector(
   uiStateSelector,
   state => state.updateDraftSettings
 );
+
+export const dataUploadStateSelector = createSelector(
+  uiStateSelector,
+  state => state.uploadData
+);

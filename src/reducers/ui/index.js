@@ -1,8 +1,11 @@
 import { combineReducers } from 'redux';
-
 import { requestUiStateReducer } from '@gemsorg/app-utils';
 
-import { authActionTypes, draftsActionTypes } from '../../sagas/actionTypes';
+import {
+  authActionTypes,
+  draftsActionTypes,
+  dataActionTypes,
+} from '../../sagas/actionTypes';
 
 import notification from './notificationsReducer';
 
@@ -13,4 +16,6 @@ export default combineReducers({
   fetchDraft: requestUiStateReducer(draftsActionTypes.FETCH),
   updateDraftSettings: requestUiStateReducer(draftsActionTypes.UPDATE_SETTINGS),
   createDraft: requestUiStateReducer(draftsActionTypes.CREATE, true),
+
+  uploadData: requestUiStateReducer(dataActionTypes.UPLOAD_DATA),
 });

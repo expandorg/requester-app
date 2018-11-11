@@ -29,6 +29,7 @@ const babelPlugins = [
 
 export default (env = {}) => {
   const dev = !!env.dev;
+
   const port = env.port || 3000;
 
   Reflect.ownKeys(entry).forEach(name => {
@@ -159,8 +160,8 @@ export default (env = {}) => {
     devtool: dev ? 'cheap-module-eval-source-map' : 'source-map',
     bail: !dev,
     devServer: {
-      setup: app => setupMocks(app),
       port,
+      before: env.mocks && setupMocks,
       contentBase: './public',
       historyApiFallback: true,
       headers: {

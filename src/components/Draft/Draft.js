@@ -52,7 +52,6 @@ class Draft extends Component {
 
   render() {
     const { draft, loadState, location } = this.props;
-
     const isLoading = !draft && loadState.state === RequestStates.Fetching;
     const tab = (location.state && location.state.tab) || 0;
 

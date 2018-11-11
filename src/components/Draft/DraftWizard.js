@@ -82,49 +82,51 @@ export default class DraftWizard extends Component {
             </Navigation>
           </Navbar>
           <LoadIndicator isLoading={isLoading}>
-            <div className={styles.container}>
-              {active === 0 && (
-                <Settings draft={draft} onNext={this.handleNext} />
-              )}
-              {active === 1 && (
-                <Data
-                  draft={draft}
-                  onNext={this.handleNext}
-                  onBack={this.handleBack}
-                />
-              )}
-              {active === 2 && (
-                <Templates
-                  draft={draft}
-                  onNext={this.handleNext}
-                  onBack={this.handleBack}
-                />
-              )}
-              {active === 3 && (
-                <CreateTask
-                  draft={draft}
-                  onNext={this.handleNext}
-                  onBack={this.handleBack}
-                />
-              )}
-              {active === 4 && (
-                <Whitelist
-                  draft={draft}
-                  onNext={this.handleNext}
-                  onBack={this.handleBack}
-                />
-              )}
-              {active === 5 && (
-                <Payments
-                  draft={draft}
-                  onNext={this.handleNext}
-                  onBack={this.handleBack}
-                />
-              )}
-              {active === 6 && (
-                <Summary draft={draft} onBack={this.handleBack} />
-              )}
-            </div>
+            {draft && (
+              <div className={styles.container}>
+                {active === 0 && (
+                  <Settings draft={draft} onNext={this.handleNext} />
+                )}
+                {active === 1 && (
+                  <Data
+                    draft={draft}
+                    onNext={this.handleNext}
+                    onBack={this.handleBack}
+                  />
+                )}
+                {active === 2 && (
+                  <Templates
+                    draft={draft}
+                    onNext={this.handleNext}
+                    onBack={this.handleBack}
+                  />
+                )}
+                {active === 3 && (
+                  <CreateTask
+                    draft={draft}
+                    onNext={this.handleNext}
+                    onBack={this.handleBack}
+                  />
+                )}
+                {active === 4 && (
+                  <Whitelist
+                    draft={draft}
+                    onNext={this.handleNext}
+                    onBack={this.handleBack}
+                  />
+                )}
+                {active === 5 && (
+                  <Payments
+                    draft={draft}
+                    onNext={this.handleNext}
+                    onBack={this.handleBack}
+                  />
+                )}
+                {active === 6 && (
+                  <Summary draft={draft} onBack={this.handleBack} />
+                )}
+              </div>
+            )}
           </LoadIndicator>
         </Content>
       </DragDropContextProvider>

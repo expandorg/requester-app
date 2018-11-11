@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+
 import { Description } from '../../Form';
 
 import {
@@ -8,15 +11,21 @@ import {
   TableContainer,
   Pagination,
 } from '../../../../shared/DataTable';
+import { draftProps } from '../../../../shared/propTypes';
 
 import ConfirmationDialog from './ConfirmationDialog';
 
+import { removeData } from '../../../../../sagas/dataSagas';
+
 import styles from './DataEditor.module.styl';
 
-export default class DataEditor extends Component {
+const mapDispatchToProps = dispatch =>
+  bindActionCreators({ removeData }, dispatch);
+
+class DataEditor extends Component {
   static propTypes = {
-    onDelete: PropTypes.func.isRequired,
-    data: PropTypes.object.isRequired, // eslint-disable-line
+    draft: draftProps.isRequired,
+    removeData: PropTypes.func.isRequired,
   };
 
   state = {
@@ -45,9 +54,8 @@ export default class DataEditor extends Component {
   };
 
   handleDelete = () => {
-    const { onDelete } = this.props;
-    onDelete();
-
+    const { draft } = this.props;
+    this.props.removeData(draft.id);
     this.setState({ dialog: false });
   };
 
@@ -63,8 +71,9 @@ export default class DataEditor extends Component {
   };
 
   render() {
+    const { draft } = this.props;
     const { data, dialog } = this.state;
-
+    console.log(draft);
     return (
       <div className={styles.container}>
         <Description>Description about this step goes here.</Description>
@@ -94,3 +103,8 @@ export default class DataEditor extends Component {
     );
   }
 }
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(DataEditor);

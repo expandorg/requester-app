@@ -21,17 +21,13 @@ const mapsStateToProps = state => ({
 const mapDispatchToProps = dispatch =>
   bindActionCreators({ updateSettings }, dispatch);
 
-class Create extends Component {
+class SettingsContainer extends Component {
   static propTypes = {
-    draft: draftProps,
+    draft: draftProps.isRequired,
     requestState: requestStateProps.isRequired,
 
     onNext: PropTypes.func.isRequired,
     updateSettings: PropTypes.func.isRequired,
-  };
-
-  static defaultProps = {
-    draft: null,
   };
 
   handleUpdate = settings => {
@@ -66,4 +62,4 @@ class Create extends Component {
 export default connect(
   mapsStateToProps,
   mapDispatchToProps
-)(Create);
+)(SettingsContainer);

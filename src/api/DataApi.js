@@ -1,8 +1,8 @@
 import { BaseApi } from '@gemsorg/api-client';
 
 export class DataApi extends BaseApi {
-  uploadData = ({ draftId, data }) =>
-    this.postForm(`/drafts/${draftId}/data`, { data });
+  uploadData = ({ draftId, data, onProgress }) =>
+    this.uploadFile(`/drafts/${draftId}/data`, 'data', data, onProgress);
 
   fetch = ({ draftId, dataId, page = 0 }) =>
     this.get(`/drafts/${draftId}/data/${dataId}`, { page });
