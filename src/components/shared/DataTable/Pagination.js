@@ -6,16 +6,20 @@ import { range } from '@gemsorg/utils/src/immutable';
 
 import styles from './Pagination.module.styl';
 
+const getPages = total => range(total);
+
 export default class Pagination extends Component {
   static propTypes = {
     current: PropTypes.number,
     total: PropTypes.number,
+    display: PropTypes.number,
     onChange: PropTypes.func.isRequired,
   };
 
   static defaultProps = {
     current: 0,
     total: 0,
+    display: 5,
   };
 
   handleClick = evt => {
@@ -26,14 +30,15 @@ export default class Pagination extends Component {
   };
 
   render() {
-    const { current, total } = this.props;
+    const { current, total, display } = this.props;
     if (!total) {
       return null;
     }
+    const pages = getPages(total, current, display);
 
     return (
       <div className={styles.container}>
-        {range(total).map(p => (
+        {pages.map(p => (
           <button
             key={p}
             className={cn(styles.page, { [styles.active]: p === current })}
