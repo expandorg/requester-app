@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
 import { requestStateProps, RequestStates } from '@gemsorg/app-utils';
 
@@ -13,6 +14,7 @@ import {
 
 import { draftProps, dataProps } from '../../../../shared/propTypes';
 
+import { uppdateColumns } from '../../../../../sagas/dataSagas';
 import { makeDataSelector } from '../../../../../selectors/dataSelectors';
 import { fetchDataStateSelector } from '../../../../../selectors/uiStateSelectors';
 
@@ -26,6 +28,9 @@ const makeMapStatetoProps = () => {
   });
 };
 
+const mapDispatchToProps = dispatch =>
+  bindActionCreators({ uppdateColumns }, dispatch);
+
 class Table extends Component {
   static propTypes = {
     draft: draftProps.isRequired, // eslint-disable-line
@@ -35,10 +40,16 @@ class Table extends Component {
 
     onDelete: PropTypes.func.isRequired,
     onChangePage: PropTypes.func.isRequired,
+    uppdateColumns: PropTypes.func.isRequired,
   };
 
   static defaultProps = {
     data: null,
+  };
+
+  handleChangeColumn = columns => {
+    const { draft } = this.props;
+    this.props.uppdateColumns(draft.id, draft.dataId, columns);
   };
 
   render() {
@@ -67,11 +78,14 @@ class Table extends Component {
         <DataTable
           data={data}
           isFetching={isFetching}
-          onChange={this.handleChangeData}
+          onChangeColumns={this.handleChangeColumn}
         />
       </TableContainer>
     );
   }
 }
 
-export default connect(makeMapStatetoProps)(Table);
+export default connect(
+  makeMapStatetoProps,
+  mapDispatchToProps
+)(Table);

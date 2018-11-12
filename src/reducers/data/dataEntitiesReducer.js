@@ -1,6 +1,22 @@
+import { dataActionTypes } from '../../sagas/actionTypes';
+
 const initialState = {};
 
 const dataEntitiesReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case dataActionTypes.UPDATE_COLUMNS: {
+      const { dataId, columns } = action.payload;
+      return {
+        ...state,
+        [dataId]: {
+          ...state[dataId],
+          columns,
+        },
+      };
+    }
+    default:
+      break;
+  }
   if (action.payload) {
     const { entities } = action.payload;
     if (entities && entities.data) {
