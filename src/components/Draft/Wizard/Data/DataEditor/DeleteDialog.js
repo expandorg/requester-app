@@ -1,40 +1,59 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+
 import { Dialog } from '@gemsorg/components';
+import { RequestStates, requestStateProps } from '@gemsorg/app-utils';
 import Button from '../../../../common/Button';
 
 import { ReactComponent as Warning } from '../../../../assets/warning.svg';
 
-import styles from './ConfirmationDialog.module.styl';
+import { draftProps } from '../../../../shared/propTypes';
 
-export default class ConfirmationDialog extends Component {
+import { removeData } from '../../../../../sagas/dataSagas';
+import { removeDataStateSelector } from '../../../../../selectors/uiStateSelectors';
+
+import styles from './DeleteDialog.module.styl';
+
+const mapStateToProps = state => ({
+  removeState: removeDataStateSelector(state),
+});
+
+const mapDispatchToProps = dispatch =>
+  bindActionCreators({ removeData }, dispatch);
+
+class DeleteDialog extends Component {
   static propTypes = {
+    draft: draftProps.isRequired,
     onHide: PropTypes.func.isRequired,
-    onDelete: PropTypes.func.isRequired,
+
+    removeState: requestStateProps.isRequired,
+    removeData: PropTypes.func.isRequired,
   };
 
   handleDelete = evt => {
-    const { onDelete } = this.props;
-    onDelete();
+    const { draft, removeState } = this.props;
+    if (removeState.state !== RequestStates.Fetching) {
+      this.props.removeData(draft.id);
+    }
 
     evt.preventDefault();
   };
 
   handleHide = evt => {
-    const { onHide } = this.props;
-    onHide();
-
-    evt.preventDefault();
+    const { onHide, removeState } = this.props;
+    if (removeState.state !== RequestStates.Fetching) {
+      onHide(evt);
+    }
   };
 
   render() {
-    const { onHide } = this.props;
-
     return (
       <Dialog
         visible
-        onHide={onHide}
+        onHide={this.handleHide}
         overlayClass={styles.overlay}
         modalClass={styles.modal}
         contentLabel="delete-confirm-dialog"
@@ -64,3 +83,8 @@ export default class ConfirmationDialog extends Component {
     );
   }
 }
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(DeleteDialog);

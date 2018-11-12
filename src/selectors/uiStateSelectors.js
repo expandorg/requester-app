@@ -23,7 +23,17 @@ export const updateDraftSettingsStateSelector = createSelector(
   state => state.updateDraftSettings
 );
 
-export const dataUploadStateSelector = createSelector(
+export const fetchDataStateSelector = createSelector(
+  uiStateSelector,
+  state => state.fetchData
+);
+
+export const uploadDataStateSelector = createSelector(
   uiStateSelector,
   state => state.uploadData
+);
+
+export const removeDataStateSelector = createSelector(
+  uiStateSelector,
+  state => state.removeData
 );

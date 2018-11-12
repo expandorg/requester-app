@@ -5,6 +5,17 @@ import tasks from './tasksRepo';
 
 import { dataRepo, dataUpload, createData } from './dataRepos';
 
+const getPage = (array, page, pageSize = 10) => {
+  const from = (page || 0) * pageSize;
+  const to = from + pageSize;
+  const result = array.filter((ins, index) => index >= from && index < to);
+  const pagination = {
+    current: page,
+    total: Math.ceil(array.length / pageSize),
+  };
+  return [result, pagination];
+};
+
 const draftsRepo = tasks
   .filter(t => t.state === 'draft')
   .reduce((all, d) => ({ ...all, [d.id]: d }), {});
@@ -64,9 +75,14 @@ export default function setupMocks(app: Object) {
   });
 
   app.get('/api/v1/drafts/:id/data/:dataId', (req, res) => {
+    const current = +req.query.page || 0;
     const data = dataRepo[+req.params.id];
+
+    const [values, pagination] = getPage(data.values, current, 10);
+
     res.json({
-      data,
+      data: { ...data, values },
+      pagination,
     });
   });
 

@@ -10,12 +10,14 @@ import {
 import notification from './notificationsReducer';
 
 export default combineReducers({
-  auth: requestUiStateReducer(authActionTypes.GET_CURRENT),
   notification,
+  auth: requestUiStateReducer(authActionTypes.GET_CURRENT),
 
   fetchDraft: requestUiStateReducer(draftsActionTypes.FETCH),
   updateDraftSettings: requestUiStateReducer(draftsActionTypes.UPDATE_SETTINGS),
   createDraft: requestUiStateReducer(draftsActionTypes.CREATE, true),
 
+  fetchData: requestUiStateReducer(dataActionTypes.FETCH),
   uploadData: requestUiStateReducer(dataActionTypes.UPLOAD_DATA),
+  removeData: requestUiStateReducer(dataActionTypes.REMOVE_DATA),
 });

@@ -22,3 +22,17 @@ export const notificationProps = PropTypes.shape({
 });
 
 export const draftProps = PropTypes.shape({});
+
+export const dataColumnProps = PropTypes.shape({
+  name: PropTypes.string,
+  type: PropTypes.string,
+  skipped: PropTypes.bool,
+});
+
+export const dataProps = PropTypes.shape({
+  id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+  draftId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+  columns: PropTypes.arrayOf(dataColumnProps).isRequired,
+  values: PropTypes.arrayOf(PropTypes.any),
+  total: PropTypes.number,
+});

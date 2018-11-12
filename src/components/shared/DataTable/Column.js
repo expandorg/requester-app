@@ -4,17 +4,14 @@ import cn from 'classnames';
 
 import { Dropdown } from '@gemsorg/components';
 
+import { dataColumnProps } from '../propTypes';
 import tableTypes from './table-types';
 
 import styles from './Column.module.styl';
 
 export default class Column extends Component {
   static propTypes = {
-    column: PropTypes.shape({
-      name: PropTypes.string,
-      type: PropTypes.string,
-      skipped: PropTypes.bool,
-    }).isRequired, // eslint-disable-line
+    column: dataColumnProps.isRequired, // eslint-disable-line
     index: PropTypes.number.isRequired,
     readOnly: PropTypes.bool,
     onChange: PropTypes.func.isRequired,

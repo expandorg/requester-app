@@ -5,6 +5,7 @@ import dashboardTasks from './dashboardTasksReducer';
 import draftEntities from './drafts/draftEntitiesReducer';
 
 import dataEntities from './data/dataEntitiesReducer';
+import dataValues from './data/dataValuesReducer';
 
 import ui from './ui';
 
@@ -16,6 +17,7 @@ export default combineReducers({
   }),
   data: combineReducers({
     entities: dataEntities,
+    values: dataValues,
   }),
   ui,
 });

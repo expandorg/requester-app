@@ -8,15 +8,14 @@ import styles from './Pagination.module.styl';
 
 export default class Pagination extends Component {
   static propTypes = {
-    page: PropTypes.number,
+    current: PropTypes.number,
     total: PropTypes.number,
-    onChange: PropTypes.func,
+    onChange: PropTypes.func.isRequired,
   };
 
   static defaultProps = {
-    page: 0,
-    total: 5,
-    onChange: Function.prototype,
+    current: 0,
+    total: 0,
   };
 
   handleClick = evt => {
@@ -27,13 +26,17 @@ export default class Pagination extends Component {
   };
 
   render() {
-    const { page, total } = this.props;
+    const { current, total } = this.props;
+    if (!total) {
+      return null;
+    }
+
     return (
       <div className={styles.container}>
         {range(total).map(p => (
           <button
             key={p}
-            className={cn(styles.page, { [styles.active]: p === page })}
+            className={cn(styles.page, { [styles.active]: p === current })}
             data-page={p}
             onClick={this.handleClick}
           >

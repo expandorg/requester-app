@@ -3,48 +3,48 @@ import PropTypes from 'prop-types';
 import cn from 'classnames';
 
 import { replaceAtIndex } from '@gemsorg/utils/src/immutable';
+import { dataProps } from '../propTypes';
 
 import Column from './Column';
+import ValuesRow from './ValuesRow';
+import Value from './Value';
+import Loading from './Loading';
 
 import styles from './DataTable.module.styl';
 
 export default class DataTable extends Component {
   static propTypes = {
-    data: PropTypes.shape({
-      columns: PropTypes.arrayOf(PropTypes.object).isRequired,
-      values: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.any)).isRequired,
-    }).isRequired,
+    data: dataProps,
+    isFetching: PropTypes.bool,
     className: PropTypes.string,
     readOnly: PropTypes.bool,
-    onChange: PropTypes.func,
+    onChangeColumns: PropTypes.func,
   };
 
   static defaultProps = {
+    data: null,
+    isFetching: false,
     className: null,
     readOnly: false,
-    onChange: Function.prototype,
+    onChangeColumns: Function.prototype,
   };
 
-  handleChange = (column, index) => {
-    const {
-      data: { columns, values },
-      onChange,
-      readOnly,
-    } = this.props;
+  handleChangeColumn = (column, index) => {
+    const { data, onChangeColumns, readOnly } = this.props;
     if (!readOnly) {
-      onChange({ values, columns: replaceAtIndex(columns, index, column) });
+      onChangeColumns(replaceAtIndex(data.columns, index, column));
     }
   };
 
   render() {
-    const {
-      data: { columns, values },
-      className,
-      readOnly,
-    } = this.props;
+    const { data, className, readOnly, isFetching } = this.props;
+    if (!data) {
+      return null;
+    }
+
+    const { columns, values } = data;
 
     /* eslint-disable react/no-array-index-key */
-
     return (
       <div className={cn(styles.table, className)}>
         <div className={styles.header}>
@@ -54,20 +54,20 @@ export default class DataTable extends Component {
               key={index}
               readOnly={readOnly}
               index={index}
-              onChange={this.handleChange}
+              onChange={this.handleChangeColumn}
             />
           ))}
         </div>
         <div className={styles.tbody}>
-          {values.map((row, i) => (
-            <div key={i} className={styles.row}>
-              {row.map((val, j) => (
-                <div key={j} className={styles.cell}>
-                  {val}
-                </div>
-              ))}
-            </div>
-          ))}
+          {!isFetching &&
+            values.map((row, i) => (
+              <ValuesRow key={i}>
+                {row.map((val, j) => (
+                  <Value key={j}>{val}</Value>
+                ))}
+              </ValuesRow>
+            ))}
+          {isFetching && <Loading columns={columns.length} />}
         </div>
       </div>
     );

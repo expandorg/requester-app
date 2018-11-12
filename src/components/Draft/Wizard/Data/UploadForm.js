@@ -17,12 +17,12 @@ import { ReactComponent as Placeholder } from '../../../assets/data.svg';
 import { Description, Fieldset } from '../Form';
 
 import { uploadData } from '../../../../sagas/dataSagas';
-import { dataUploadStateSelector } from '../../../../selectors/uiStateSelectors';
+import { uploadDataStateSelector } from '../../../../selectors/uiStateSelectors';
 
 import styles from './UploadForm.module.styl';
 
 const mapStateToProps = state => ({
-  uploadState: dataUploadStateSelector(state),
+  uploadState: uploadDataStateSelector(state),
 });
 
 const mapDispatchToProps = dispatch =>
