@@ -23,6 +23,11 @@ export const updateDraftSettingsStateSelector = createSelector(
   state => state.updateDraftSettings
 );
 
+export const selectDraftTemplateStateSelector = createSelector(
+  uiStateSelector,
+  state => state.selectDraftTemplate
+);
+
 export const fetchDataStateSelector = createSelector(
   uiStateSelector,
   state => state.fetchData

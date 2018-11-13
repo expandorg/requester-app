@@ -7,7 +7,7 @@ const getSettingsStatus = (draft: ?Object) => {
   return 'complete';
 };
 
-const hasTemplate = (draft: ?Object) =>
+export const hasTemplate = (draft: ?Object) =>
   draft && draft.templateId !== null && draft.templateId !== undefined;
 
 const getTemplateStatus = (draft: ?Object) => {
@@ -17,7 +17,7 @@ const getTemplateStatus = (draft: ?Object) => {
   if (hasTemplate(draft)) {
     return 'complete';
   }
-  return null;
+  return 'required';
 };
 
 const getUploadStatus = (draft: ?Object) => {

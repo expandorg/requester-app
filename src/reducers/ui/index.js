@@ -20,4 +20,6 @@ export default combineReducers({
   fetchData: requestUiStateReducer(dataActionTypes.FETCH),
   uploadData: requestUiStateReducer(dataActionTypes.UPLOAD_DATA),
   removeData: requestUiStateReducer(dataActionTypes.REMOVE_DATA),
+
+  selectDraftTemplate: requestUiStateReducer(draftsActionTypes.UPDATE_TEMPLATE),
 });

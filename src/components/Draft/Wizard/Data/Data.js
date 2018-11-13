@@ -17,10 +17,7 @@ export default class UploadData extends Component {
     onBack: PropTypes.func.isRequired,
   };
 
-  componentDidMount() {}
-
-  handleSubmit = evt => {
-    evt.preventDefault();
+  handleSubmit = () => {
     const { onNext } = this.props;
     onNext();
   };

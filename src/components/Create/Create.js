@@ -13,6 +13,8 @@ import Content from '../shared/Content';
 import Navbar from '../shared/Navbar';
 
 import { Navigation, NavItem } from '../Draft/Wizard/Navigation';
+import { LoadIndicator } from '../Draft/Wizard/Form';
+
 import Settings from '../Draft/Wizard/Settings/Settings';
 
 import { createDraft } from '../../sagas/draftsSagas';
@@ -68,15 +70,19 @@ class Create extends Component {
           </Navigation>
         </Navbar>
         <div className={styles.container}>
-          <SubmitStateEffect
-            submitState={requestState}
-            onComplete={this.handleCreateComplete}
+          <LoadIndicator
+            isLoading={isSubmitting}
+            message="Preparing your task, please wait..."
           >
             <Settings
               onNext={this.handleNextClick}
               isSubmitting={isSubmitting}
             />
-          </SubmitStateEffect>
+          </LoadIndicator>
+          <SubmitStateEffect
+            submitState={requestState}
+            onComplete={this.handleCreateComplete}
+          />
         </div>
       </Content>
     );

@@ -1,7 +1,7 @@
 import { BaseApi } from '@gemsorg/api-client';
 
 export class TemplatesApi extends BaseApi {
-  taskTemplates = () => this.get('/task/templates');
+  taskTemplates = () => this.get('/tasks/templates');
 
   onboardingTemplates = () => this.get('/onboarding/templates');
 

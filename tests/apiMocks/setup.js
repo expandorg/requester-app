@@ -1,7 +1,7 @@
 // @flow
 
 import bodyParser from 'body-parser';
-import tasks from './tasksRepo';
+import { tasks, taskTemplates } from './tasksRepo';
 
 import { dataRepo, dataUpload, createData } from './dataRepos';
 
@@ -41,9 +41,9 @@ export default function setupMocks(app: Object) {
     tasks.push(draft);
     draftsRepo[+draft.id] = draft;
 
-    res.json({
-      draft,
-    });
+    setTimeout(() => {
+      res.json({ draft });
+    }, 1000);
   });
 
   app.patch('/api/v1/drafts/:id', (req, res) => {
@@ -52,9 +52,13 @@ export default function setupMocks(app: Object) {
       ...req.body,
     };
     draftsRepo[+req.params.id] = draft;
-    res.json({
-      draft,
-    });
+    if (req.body.templateId) {
+      setTimeout(() => {
+        res.json({ draft });
+      }, 1000);
+    } else {
+      res.json({ draft });
+    }
   });
 
   app.get('/api/v1/drafts/:id', (req, res) => {
@@ -96,6 +100,12 @@ export default function setupMocks(app: Object) {
         draftId,
         columns,
       },
+    });
+  });
+
+  app.get('/api/v1/tasks/templates', (req, res) => {
+    res.json({
+      templates: taskTemplates,
     });
   });
 }

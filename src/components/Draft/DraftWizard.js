@@ -13,7 +13,7 @@ import { LoadIndicator } from './Wizard/Form';
 
 import Settings from './Wizard/Settings/SettingsContainer';
 import Data from './Wizard/Data/Data';
-import Templates from './Wizard/Templates';
+import Templates from './Wizard/Templates/Templates';
 import CreateTask from './Wizard/Task/CreateTask';
 import Whitelist from './Wizard/Whitelist/Whitelist';
 import Payments from './Wizard/Payments/Payments';

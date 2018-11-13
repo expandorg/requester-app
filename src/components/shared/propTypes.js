@@ -21,7 +21,9 @@ export const notificationProps = PropTypes.shape({
   message: PropTypes.string,
 });
 
-export const draftProps = PropTypes.shape({});
+export const draftProps = PropTypes.shape({
+  id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+});
 
 export const dataColumnProps = PropTypes.shape({
   name: PropTypes.string,
@@ -35,4 +37,11 @@ export const dataProps = PropTypes.shape({
   columns: PropTypes.arrayOf(dataColumnProps).isRequired,
   values: PropTypes.arrayOf(PropTypes.any),
   total: PropTypes.number,
+});
+
+export const taskTemplateProps = PropTypes.shape({
+  id: PropTypes.number.isRequired,
+  name: PropTypes.string.isRequired,
+  logo: PropTypes.string,
+  description: PropTypes.string,
 });
