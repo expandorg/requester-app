@@ -14,6 +14,7 @@ import styles from './styles.module.styl';
 export default class PublishButton extends Component {
   static propTypes = {
     onPublish: PropTypes.func.isRequired,
+    readOnly: PropTypes.bool.isRequired,
   };
 
   state = {
@@ -48,11 +49,16 @@ export default class PublishButton extends Component {
   };
 
   render() {
+    const { readOnly } = this.props;
     const { menu, schedule } = this.state;
 
     return (
       <div className={styles.group}>
-        <Button className={styles.toggle} onClick={this.handleToggle}>
+        <Button
+          className={styles.toggle}
+          disabled={readOnly}
+          onClick={this.handleToggle}
+        >
           Publish
           <Arrow className={styles.arrow} />
         </Button>

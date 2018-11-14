@@ -69,7 +69,9 @@ export const isDraftReady = (draft: Object) => {
   if (!hasTemplate(draft)) {
     return false;
   }
-
+  if (!hasWhitelist(draft)) {
+    return false;
+  }
   if (!hasFunding(draft)) {
     return false;
   }

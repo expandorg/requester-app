@@ -1,27 +1,32 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import Button from '../../../common/Button';
-import HeroWarning from '../../../shared/HeroWarning';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
-import { Actions, Section, Form, Description } from '../Form';
+import { requestStateProps, RequestStates } from '@gemsorg/app-utils';
+
+import { SubmitStateEffect } from '../../../common/submitStateEffect';
+import { LoadIndicator } from '../Form';
+
+import SummaryForm from './SummaryForm';
 import { draftProps } from '../../../shared/propTypes';
-import { getNavState, isDraftReady } from '../../wizard';
 
-import { ReactComponent as Warning } from '../../../assets/warning.svg';
+import { publish } from '../../../../sagas/draftsSagas';
+import { publishDraftStateSelector } from '../../../../selectors/uiStateSelectors';
 
-import Settings from './Settings';
-import Data from './Data/Data';
-import Task from './Task';
-import Whitelist from './Whitelist';
-import Payout from './Payout';
-import PublishButton from './Publish/PublishButton';
+const mapsStateToProps = state => ({
+  submitState: publishDraftStateSelector(state),
+});
 
-import styles from './Summary.module.styl';
+const mapDispatchToProps = dispatch =>
+  bindActionCreators({ publish }, dispatch);
 
-export default class Summary extends Component {
+class Summary extends Component {
   static propTypes = {
     draft: draftProps.isRequired,
+    submitState: requestStateProps.isRequired,
+    publish: PropTypes.func.isRequired,
     onBack: PropTypes.func.isRequired,
   };
 
@@ -32,56 +37,39 @@ export default class Summary extends Component {
     evt.preventDefault();
   };
 
-  handleSubmit = evt => {
-    evt.preventDefault();
+  handleSubmit = time => {
+    const { draft, submitState } = this.props;
+    if (submitState.state !== RequestStates.Fetching) {
+      this.props.publish(draft.id, time);
+    }
   };
 
-  handlePublishClick = time => {
-    console.log(time);
-  };
+  handlePublishComplete = () => {};
 
   render() {
-    const { draft } = this.props;
-    const nav = getNavState(draft);
-    const draftReady = isDraftReady(draft);
+    const { draft, submitState } = this.props;
+    const isSubmitting = submitState.state === RequestStates.Fetching;
     return (
-      <Form onSubmit={this.handleSubmit} className={styles.form}>
-        <Description className={styles.description}>
-          Description about this step goes here.
-        </Description>
-        <Section title="Settings" status={nav.settings.status} blue>
-          <Settings draft={draft} />
-        </Section>
-        <Section title="Data" status={nav.upload.status}>
-          <Data draft={draft} />
-        </Section>
-        <Section title="Task" status={nav.templates.status} blue>
-          <Task draft={draft} />
-        </Section>
-        <Section title="Whitelist" status={nav.whitelist.status}>
-          <Whitelist draft={draft} />
-        </Section>
-        <Section title="Payout" status={nav.pay.status} blue>
-          <Payout draft={draft} />
-        </Section>
-        <Section>
-          {!draftReady && (
-            <HeroWarning
-              icon={<Warning width="64px" height="64px" viewBox="0 0 42 42" />}
-            >
-              There are still some sections that need completing.
-              <br />
-              The task can not be published until all sections are complete.
-            </HeroWarning>
-          )}
-        </Section>
-        <Actions className={styles.actions}>
-          <Button theme="secondary" onClick={this.handleBack}>
-            Back
-          </Button>
-          <PublishButton onPublish={this.handlePublishClick} />
-        </Actions>
-      </Form>
+      <SubmitStateEffect
+        submitState={submitState}
+        onComplete={this.handlePublishComplete}
+      >
+        <LoadIndicator
+          isLoading={isSubmitting}
+          message="Publishing your task, please wait..."
+        >
+          <SummaryForm
+            draft={draft}
+            onBack={this.handleBack}
+            onSubmit={this.handleSubmit}
+          />
+        </LoadIndicator>
+      </SubmitStateEffect>
     );
   }
 }
+
+export default connect(
+  mapsStateToProps,
+  mapDispatchToProps
+)(Summary);

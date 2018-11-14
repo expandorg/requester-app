@@ -38,6 +38,11 @@ export const updateDraftFundingStateSelector = createSelector(
   state => state.updateDraftFunding
 );
 
+export const publishDraftStateSelector = createSelector(
+  uiStateSelector,
+  state => state.publishDraft
+);
+
 export const fetchDataStateSelector = createSelector(
   uiStateSelector,
   state => state.fetchData

@@ -6,12 +6,13 @@ import styles from './styles.module.styl';
 
 export default class Form extends Component {
   static propTypes = {
-    onSubmit: PropTypes.func.isRequired,
+    onSubmit: PropTypes.func,
     className: PropTypes.string,
   };
 
   static defaultProps = {
     className: null,
+    onSubmit: Function.prototype,
   };
 
   handleSubmit = evt => {
