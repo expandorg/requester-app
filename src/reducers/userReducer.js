@@ -1,6 +1,10 @@
 import { authActionTypes } from '../sagas/actionTypes';
 
-const initialState = null;
+const initialState = {
+  gems: {
+    balance: 200,
+  },
+};
 
 export default function userReducer(state = initialState, action) {
   switch (action.type) {

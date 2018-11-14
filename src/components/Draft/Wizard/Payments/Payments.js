@@ -13,7 +13,7 @@ import Input from '../../../common/Input';
 import Button from '../../../common/Button';
 import { SubmitStateEffect } from '../../../common/submitStateEffect';
 
-import { draftProps } from '../../../shared/propTypes';
+import { userProps, draftProps } from '../../../shared/propTypes';
 import DepositDialog from '../../../shared/Deposit/DepositDialog';
 
 import { Form, Description, Field, Fieldset, Actions } from '../Form';
@@ -23,11 +23,14 @@ import HeroWarning from '../../../shared/HeroWarning';
 
 import { updateFunding } from '../../../../sagas/draftsSagas';
 import { updateDraftFundingStateSelector } from '../../../../selectors/uiStateSelectors';
+import { userSelector } from '../../../../selectors/userSelectors';
+
 import { fundingRules } from '../../../../model/draft';
 
 import styles from './Payments.module.styl';
 
 const mapsStateToProps = state => ({
+  user: userSelector(state),
   submitState: updateDraftFundingStateSelector(state),
 });
 
@@ -41,6 +44,7 @@ const getInitialState = draft => ({
 
 class Payments extends Component {
   static propTypes = {
+    user: userProps.isRequired,
     draft: draftProps.isRequired,
     submitState: requestStateProps.isRequired,
 
@@ -69,6 +73,7 @@ class Payments extends Component {
     }
     return null;
   }
+
   handleSubmit = () => {
     const { draft, submitState } = this.props;
     if (submitState.state !== RequestStates.Fetching) {
@@ -104,12 +109,11 @@ class Payments extends Component {
 
   handleUpdateComplete = () => {
     const { onNext } = this.props;
-    console.log(1);
     onNext();
   };
 
   render() {
-    const { submitState } = this.props;
+    const { submitState, user } = this.props;
     const { funding, dialog, errors } = this.state;
 
     const insufficent = false;
@@ -119,7 +123,7 @@ class Payments extends Component {
       <Form onSubmit={this.handleSubmit}>
         <Fieldset>
           <Description>Description about this step goes here.</Description>
-          <Hero value={200} title="gems available" />
+          <Hero value={user.gems.balance} title="gems available" />
           {!insufficent && (
             <>
               <Field tooltip="Pay for Task *">

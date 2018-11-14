@@ -21,6 +21,25 @@ export const notificationProps = PropTypes.shape({
   message: PropTypes.string,
 });
 
+export const userProps = PropTypes.shape({
+  id: PropTypes.number.isRequired,
+
+  email: PropTypes.string,
+  emailConfirmed: PropTypes.bool,
+
+  address: PropTypes.string,
+  addressConfirmed: PropTypes.bool,
+
+  isRequester: PropTypes.bool.isRequired,
+  score: PropTypes.number,
+
+  gems: PropTypes.shape({
+    balance: PropTypes.number,
+    reserved: PropTypes.number,
+    owned: PropTypes.number,
+  }),
+});
+
 export const draftProps = PropTypes.shape({
   id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
 });
