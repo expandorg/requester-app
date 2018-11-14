@@ -118,7 +118,7 @@ class Payments extends Component {
 
     const insufficent = false;
 
-    console.log(errors, submitState);
+    console.log(errors);
     return (
       <Form onSubmit={this.handleSubmit}>
         <Fieldset>

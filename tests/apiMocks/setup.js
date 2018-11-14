@@ -109,6 +109,13 @@ export default function setupMocks(app: Object) {
     });
   });
 
+  app.get('/api/v1/tasks/templates/:id', (req, res) => {
+    const template = taskTemplates[+req.params.id];
+    res.json({
+      template,
+    });
+  });
+
   app.post('/api/v1/whitelist/eligible', (req, res) => {
     const { conditions } = req.body;
     res.json({

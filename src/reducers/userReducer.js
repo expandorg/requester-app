@@ -1,6 +1,9 @@
 import { authActionTypes } from '../sagas/actionTypes';
 
 const initialState = {
+  id: 0,
+  isRequester: true,
+
   gems: {
     balance: 200,
   },

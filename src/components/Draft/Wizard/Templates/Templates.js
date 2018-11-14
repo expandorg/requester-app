@@ -18,13 +18,11 @@ import { hasTemplate } from '../../wizard';
 
 import { selectTemplate } from '../../../../sagas/draftsSagas';
 
-import { taskTemplatesSelector } from '../../../../selectors/tasksSelectors';
 import { selectDraftTemplateStateSelector } from '../../../../selectors/uiStateSelectors';
 
 import styles from './Templates.module.styl';
 
 const mapStateToProps = state => ({
-  templates: taskTemplatesSelector(state),
   submitState: selectDraftTemplateStateSelector(state),
 });
 

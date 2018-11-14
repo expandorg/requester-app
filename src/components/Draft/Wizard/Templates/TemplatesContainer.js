@@ -9,7 +9,7 @@ import Templates from '../../../shared/Templates/Templates';
 import { taskTemplateProps } from '../../../shared/propTypes';
 import { fetchTaskTemplates } from '../../../../sagas/tasksSagas';
 
-import { taskTemplatesSelector } from '../../../../selectors/tasksSelectors';
+import { taskTemplatesSelector } from '../../../../selectors/taskTemplatesSelectors';
 
 import styles from './Templates.module.styl';
 
@@ -39,6 +39,7 @@ class TemplatesContainer extends Component {
 
   render() {
     const { selected, templates, onSelect } = this.props;
+    console.log(templates);
     return (
       <Templates
         className={styles.templates}

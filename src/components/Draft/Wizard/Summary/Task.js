@@ -1,16 +1,57 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
 import Preview from '../../../shared/Templates/Preview';
-import mocks from '../../../shared/Templates/template-mocks';
+import { draftProps, taskTemplateProps } from '../../../shared/propTypes';
+import { hasTemplate } from '../../wizard';
+
+import { fetchTaskTemplate } from '../../../../sagas/tasksSagas';
+import { makeTaskTemplateSelector } from '../../../../selectors/taskTemplatesSelectors';
 
 import styles from './Task.module.styl';
 
-export default class Task extends Component {
+const makeMapStateToProps = () => {
+  const taskTemplateSelector = makeTaskTemplateSelector();
+  return (state, props) => ({
+    template: taskTemplateSelector(state, props.draft.templateId),
+  });
+};
+
+const mapDispatchToProps = dispatch =>
+  bindActionCreators({ fetchTaskTemplate }, dispatch);
+
+class TaskTemplate extends Component {
+  static propTypes = {
+    draft: draftProps.isRequired,
+    template: taskTemplateProps,
+    fetchTaskTemplate: PropTypes.func.isRequired,
+  };
+
+  static defaultProps = {
+    template: null,
+  };
+
+  componentDidMount() {
+    const { draft } = this.props;
+    if (hasTemplate(draft)) {
+      this.props.fetchTaskTemplate(draft.templateId);
+    }
+  }
+
   render() {
+    const { template } = this.props;
     return (
       <div className={styles.container}>
-        <Preview template={mocks[0]} className={styles.preview} />
+        {template && <Preview template={template} className={styles.preview} />}
       </div>
     );
   }
 }
+
+export default connect(
+  makeMapStateToProps,
+  mapDispatchToProps
+)(TaskTemplate);

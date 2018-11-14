@@ -2,8 +2,10 @@ import { combineReducers } from 'redux';
 
 import user from './userReducer';
 import dashboardTasks from './dashboardTasksReducer';
-import taskTemplates from './taskTemplatesReducer';
 import draftEntities from './drafts/draftEntitiesReducer';
+
+import taskTemplatesList from './taskTemplates/taskTemplatesListReducer';
+import taskTemplatesEntities from './taskTemplates/taskTemplatesEntitiesReducer';
 
 import dataEntities from './data/dataEntitiesReducer';
 import dataValues from './data/dataValuesReducer';
@@ -15,7 +17,10 @@ import ui from './ui';
 export default combineReducers({
   user,
   dashboardTasks,
-  taskTemplates,
+  taskTemplates: combineReducers({
+    list: taskTemplatesList,
+    entities: taskTemplatesEntities,
+  }),
   drafts: combineReducers({
     entities: draftEntities,
   }),

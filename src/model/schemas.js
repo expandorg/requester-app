@@ -4,6 +4,7 @@ import { schema } from 'normalizr';
 const draftSchema = new schema.Entity('drafts');
 
 const taskSchema = new schema.Entity('tasks');
+const taskTemplateSchema = new schema.Entity('taskTemplates');
 const dataSchema = new schema.Entity('data');
 
 const authResponseSchema = {};
@@ -18,4 +19,5 @@ export {
   draftResponseSchema,
   authResponseSchema,
   dataResponseSchema,
+  taskTemplateSchema,
 };

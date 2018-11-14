@@ -32,6 +32,10 @@ export const tasksActionTypes = createActionTypes('tasks', {
   FETCH_TEMPLATES: null,
   FETCH_TEMPLATES_COMPLETE: null,
   FETCH_TEMPLATES_FAILED: null,
+
+  FETCH_TEMPLATE: null,
+  FETCH_TEMPLATE_COMPLETE: null,
+  FETCH_TEMPLATE_FAILED: null,
 });
 
 export const draftsActionTypes = createActionTypes('drafts', {
