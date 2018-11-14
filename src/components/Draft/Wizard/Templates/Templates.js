@@ -65,11 +65,15 @@ class Templates extends Component {
   };
 
   handleSubmit = () => {
-    const { draft, submitState } = this.props;
+    const { draft, submitState, onNext } = this.props;
     const { selected } = this.state;
     if (submitState.state !== RequestStates.Fetching) {
       if (hasTemplate(draft)) {
-        this.setState({ confirmDialog: true });
+        if (draft.templateId === selected) {
+          onNext();
+        } else {
+          this.setState({ confirmDialog: true });
+        }
       } else {
         this.props.selectTemplate(draft.id, selected);
       }

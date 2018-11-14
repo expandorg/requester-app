@@ -12,12 +12,14 @@ const Hero = ({ className, value, title }) => (
 );
 
 Hero.propTypes = {
-  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
-  title: PropTypes.string.isRequired,
+  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  title: PropTypes.string,
   className: PropTypes.string,
 };
 
 Hero.defaultProps = {
+  value: null,
+  title: null,
   className: null,
 };
 

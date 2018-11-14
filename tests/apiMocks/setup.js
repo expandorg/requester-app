@@ -108,4 +108,11 @@ export default function setupMocks(app: Object) {
       templates: taskTemplates,
     });
   });
+
+  app.post('/api/v1/whitelist/eligible', (req, res) => {
+    const { conditions } = req.body;
+    res.json({
+      users: Math.max(1000 - 100 * conditions.length, 0),
+    });
+  });
 }

@@ -10,6 +10,16 @@ const getSettingsStatus = (draft: ?Object) => {
 export const hasTemplate = (draft: ?Object) =>
   draft && draft.templateId !== null && draft.templateId !== undefined;
 
+export const hasWhitelist = (draft: ?Object) =>
+  draft && draft.whitelist !== null && draft.whitelist !== undefined;
+
+const getWhitelistStatus = (draft: ?Object) => {
+  if (hasWhitelist(draft)) {
+    return 'complete';
+  }
+  return null;
+};
+
 const getTemplateStatus = (draft: ?Object) => {
   if (!draft) {
     return null;
@@ -37,7 +47,7 @@ export const getNavState = (draft: Object) => { // eslint-disable-line
     upload: { status: getUploadStatus(draft), disabled: !draft },
     templates: { status: getTemplateStatus(draft), disabled: !draft },
     task: { status: null, disabled: !t },
-    whitelist: { status: null, disabled: !t },
+    whitelist: { status: getWhitelistStatus(draft), disabled: !t },
     pay: { status: null, disabled: !t },
   };
 };

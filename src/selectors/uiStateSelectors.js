@@ -28,6 +28,11 @@ export const selectDraftTemplateStateSelector = createSelector(
   state => state.selectDraftTemplate
 );
 
+export const updateDraftWhitelistStateSelector = createSelector(
+  uiStateSelector,
+  state => state.updateDraftWhitelist
+);
+
 export const fetchDataStateSelector = createSelector(
   uiStateSelector,
   state => state.fetchData
@@ -41,4 +46,9 @@ export const uploadDataStateSelector = createSelector(
 export const removeDataStateSelector = createSelector(
   uiStateSelector,
   state => state.removeData
+);
+
+export const eligibleUsersStateSelector = createSelector(
+  uiStateSelector,
+  state => state.eligibleUsers
 );

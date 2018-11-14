@@ -5,6 +5,7 @@ import {
   authActionTypes,
   draftsActionTypes,
   dataActionTypes,
+  whitelistActionTypes,
 } from '../../sagas/actionTypes';
 
 import notification from './notificationsReducer';
@@ -14,12 +15,17 @@ export default combineReducers({
   auth: requestUiStateReducer(authActionTypes.GET_CURRENT),
 
   fetchDraft: requestUiStateReducer(draftsActionTypes.FETCH),
-  updateDraftSettings: requestUiStateReducer(draftsActionTypes.UPDATE_SETTINGS),
   createDraft: requestUiStateReducer(draftsActionTypes.CREATE, true),
+  updateDraftSettings: requestUiStateReducer(draftsActionTypes.UPDATE_SETTINGS),
+
+  selectDraftTemplate: requestUiStateReducer(draftsActionTypes.UPDATE_TEMPLATE),
+  updateDraftWhitelist: requestUiStateReducer(
+    draftsActionTypes.UPDATE_WHITELIST
+  ),
 
   fetchData: requestUiStateReducer(dataActionTypes.FETCH),
   uploadData: requestUiStateReducer(dataActionTypes.UPLOAD_DATA),
   removeData: requestUiStateReducer(dataActionTypes.REMOVE_DATA),
 
-  selectDraftTemplate: requestUiStateReducer(draftsActionTypes.UPDATE_TEMPLATE),
+  eligibleUsers: requestUiStateReducer(whitelistActionTypes.GET_ELIGIBLE),
 });

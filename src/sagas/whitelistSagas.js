@@ -6,11 +6,14 @@ import { whitelistActionTypes } from './actionTypes';
 
 import { whitelistApi } from '../api/WhitelistApi';
 
-export const getEliligibleUsers = conditions => ({
-  type: whitelistActionTypes.GET_ELIGIBLE,
-  payload: { conditions },
-  asyncCall: whitelistApi.eligible,
-});
+export const getEliligibleUsers = conditions => {
+  console.log(conditions);
+  return {
+    type: whitelistActionTypes.GET_ELIGIBLE,
+    payload: { conditions },
+    asyncCall: whitelistApi.eligible,
+  };
+};
 
 export function* whitelistSagas() {
   yield takeEvery(whitelistActionTypes.GET_ELIGIBLE, handleAsyncCall);
