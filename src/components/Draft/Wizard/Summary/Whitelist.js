@@ -18,12 +18,7 @@ export default class Whitelist extends Component {
   };
 
   static defaultProps = {
-    filters: [
-      { id: '0', param: 'Lives', op: 'in', value: 'London' },
-      { id: '1', param: 'Age', op: 'greater than', value: '35' },
-      { id: '2', param: 'Studies', op: 'in', value: 'SF' },
-      { id: '3', param: 'Gender', op: 'is', value: 'Female' },
-    ],
+    filters: [],
   };
 
   render() {

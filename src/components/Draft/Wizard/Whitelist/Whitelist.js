@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import cn from 'classnames';
-import debounce from 'debounce';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -16,55 +15,31 @@ import Hero from '../../../shared/Hero';
 
 import { Form, Description, Actions } from '../Form';
 import UserFilter from './UserFilter/UserFilter';
+import EligibleUsers from './EligibleUsers';
 
-import { getEliligibleUsers } from '../../../../sagas/whitelistSagas';
 import { updateWhitelist } from '../../../../sagas/draftsSagas';
-
-import { eliligibleUsersSelector } from '../../../../selectors/whitelistSelectors';
-import {
-  updateDraftWhitelistStateSelector,
-  eligibleUsersStateSelector,
-} from '../../../../selectors/uiStateSelectors';
+import { updateDraftWhitelistStateSelector } from '../../../../selectors/uiStateSelectors';
 
 import styles from './Whitelist.module.styl';
 
 const mapsStateToProps = state => ({
-  eliligibleUsers: eliligibleUsersSelector(state),
   updateState: updateDraftWhitelistStateSelector(state),
-  fetchState: eligibleUsersStateSelector(state),
 });
 
 const mapDispatchToProps = dispatch =>
-  bindActionCreators({ getEliligibleUsers, updateWhitelist }, dispatch);
-
-const DEBOUNCE_TIMEOUT = 400;
+  bindActionCreators({ updateWhitelist }, dispatch);
 
 class Whitelist extends Component {
   static propTypes = {
     draft: draftProps.isRequired,
-    eliligibleUsers: PropTypes.number,
-
     updateState: requestStateProps.isRequired,
-    fetchState: requestStateProps.isRequired,
-
     updateWhitelist: PropTypes.func.isRequired,
-    getEliligibleUsers: PropTypes.func.isRequired,
-
     onNext: PropTypes.func.isRequired,
     onBack: PropTypes.func.isRequired,
   };
 
-  static defaultProps = {
-    eliligibleUsers: null,
-  };
-
   constructor(props) {
     super(props);
-
-    this.getEliligibleUsers = debounce(
-      this.getEliligibleUsers,
-      DEBOUNCE_TIMEOUT
-    );
 
     this.state = {
       draft: props.draft, // eslint-disable-line react/no-unused-state
@@ -81,19 +56,6 @@ class Whitelist extends Component {
     }
     return null;
   }
-
-  componentDidMount() {
-    this.getEliligibleUsers();
-  }
-
-  componentWillUnmount() {
-    this.getEliligibleUsers.clear();
-  }
-
-  getEliligibleUsers = () => {
-    const { whitelist } = this.state;
-    this.props.getEliligibleUsers(whitelist);
-  };
 
   handleSubmit = () => {
     const { updateState, draft } = this.props;
@@ -116,14 +78,12 @@ class Whitelist extends Component {
   };
 
   handleChange = whitelist => {
-    this.setState({ whitelist }, this.getEliligibleUsers);
+    this.setState({ whitelist });
   };
 
   render() {
-    const { fetchState, updateState, eliligibleUsers } = this.props;
+    const { updateState } = this.props;
     const { whitelist } = this.state;
-
-    const isFetching = fetchState.state === RequestStates.Fetching;
 
     return (
       <SubmitStateEffect
@@ -136,11 +96,15 @@ class Whitelist extends Component {
               <Description>
                 The second step is uploading your data and assigning variables.
               </Description>
-              <Hero
-                className={cn({ [styles.fetching]: isFetching })}
-                value={eliligibleUsers}
-                title="users available"
-              />
+              <EligibleUsers whitelist={whitelist}>
+                {({ eligibleUsers, isFetching }) => (
+                  <Hero
+                    className={cn({ [styles.fetching]: isFetching })}
+                    value={eligibleUsers}
+                    title="users available"
+                  />
+                )}
+              </EligibleUsers>
               <UserFilter
                 className={styles.filters}
                 filters={whitelist}
