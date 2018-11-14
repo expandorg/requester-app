@@ -13,6 +13,9 @@ export const hasTemplate = (draft: ?Object) =>
 export const hasWhitelist = (draft: ?Object) =>
   draft && draft.whitelist !== null && draft.whitelist !== undefined;
 
+export const hasFunding = (draft: ?Object) =>
+  draft && draft.funding !== null && draft.funding !== undefined;
+
 const getWhitelistStatus = (draft: ?Object) => {
   if (hasWhitelist(draft)) {
     return 'complete';
@@ -25,6 +28,16 @@ const getTemplateStatus = (draft: ?Object) => {
     return null;
   }
   if (hasTemplate(draft)) {
+    return 'complete';
+  }
+  return 'required';
+};
+
+const getFundingStatus = (draft: ?Object) => {
+  if (!draft || !hasTemplate(draft)) {
+    return null;
+  }
+  if (hasFunding(draft)) {
     return 'complete';
   }
   return 'required';
@@ -48,6 +61,6 @@ export const getNavState = (draft: Object) => { // eslint-disable-line
     templates: { status: getTemplateStatus(draft), disabled: !draft },
     task: { status: null, disabled: !t },
     whitelist: { status: getWhitelistStatus(draft), disabled: !t },
-    pay: { status: null, disabled: !t },
+    pay: { status: getFundingStatus(draft), disabled: !t },
   };
 };

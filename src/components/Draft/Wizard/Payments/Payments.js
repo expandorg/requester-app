@@ -1,11 +1,19 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+
+import { requestStateProps, RequestStates } from '@gemsorg/app-utils';
+import { validateForm } from '@gemsorg/validation';
+
 import { ReactComponent as Card } from '../../../assets/creditcard.svg';
 
 import Input from '../../../common/Input';
 import Button from '../../../common/Button';
+import { SubmitStateEffect } from '../../../common/submitStateEffect';
 
+import { draftProps } from '../../../shared/propTypes';
 import DepositDialog from '../../../shared/Deposit/DepositDialog';
 
 import { Form, Description, Field, Fieldset, Actions } from '../Form';
@@ -13,23 +21,65 @@ import { Form, Description, Field, Fieldset, Actions } from '../Form';
 import Hero from '../../../shared/Hero';
 import HeroWarning from '../../../shared/HeroWarning';
 
+import { updateFunding } from '../../../../sagas/draftsSagas';
+import { updateDraftFundingStateSelector } from '../../../../selectors/uiStateSelectors';
+import { fundingRules } from '../../../../model/draft';
+
 import styles from './Payments.module.styl';
 
-export default class Payments extends Component {
+const mapsStateToProps = state => ({
+  submitState: updateDraftFundingStateSelector(state),
+});
+
+const mapDispatchToProps = dispatch =>
+  bindActionCreators({ updateFunding }, dispatch);
+
+const getInitialState = draft => ({
+  pay: (draft.funding && draft.funding.pay) || '',
+  earned: (draft.funding && draft.funding.earned) || '',
+});
+
+class Payments extends Component {
   static propTypes = {
+    draft: draftProps.isRequired,
+    submitState: requestStateProps.isRequired,
+
+    updateFunding: PropTypes.func.isRequired,
     onBack: PropTypes.func.isRequired,
     onNext: PropTypes.func.isRequired,
   };
 
-  state = {
-    pay: '',
-    earned: '',
-    dialog: false,
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      draft: props.draft, // eslint-disable-line react/no-unused-state
+      dialog: false,
+      errors: null,
+      funding: getInitialState(props.draft),
+    };
+  }
 
+  static getDerivedStateFromProps({ draft }, state) {
+    if (draft !== state.draft) {
+      return {
+        draft,
+        errors: null,
+        funding: getInitialState(draft),
+      };
+    }
+    return null;
+  }
   handleSubmit = () => {
-    const { onNext } = this.props;
-    onNext();
+    const { draft, submitState } = this.props;
+    if (submitState.state !== RequestStates.Fetching) {
+      const { funding } = this.state;
+      const errors = validateForm(funding, fundingRules);
+      if (errors) {
+        this.setState({ errors });
+      } else {
+        this.props.updateFunding(draft.id, funding);
+      }
+    }
   };
 
   handleBack = evt => {
@@ -40,9 +90,9 @@ export default class Payments extends Component {
   };
 
   handleInputChange = ({ target }) => {
-    this.setState({
-      [target.name]: target.value,
-    });
+    this.setState(({ funding }) => ({
+      funding: { ...funding, [target.name]: target.value },
+    }));
   };
 
   handleToggle = evt => {
@@ -52,9 +102,19 @@ export default class Payments extends Component {
     this.setState(({ dialog }) => ({ dialog: !dialog }));
   };
 
+  handleUpdateComplete = () => {
+    const { onNext } = this.props;
+    console.log(1);
+    onNext();
+  };
+
   render() {
-    const { pay, earned, dialog } = this.state;
+    const { submitState } = this.props;
+    const { funding, dialog, errors } = this.state;
+
     const insufficent = false;
+
+    console.log(errors, submitState);
     return (
       <Form onSubmit={this.handleSubmit}>
         <Fieldset>
@@ -66,7 +126,7 @@ export default class Payments extends Component {
                 <Input
                   placeholder="Pay for Task *"
                   name="pay"
-                  value={pay}
+                  value={funding.pay}
                   onChange={this.handleInputChange}
                 />
               </Field>
@@ -74,7 +134,7 @@ export default class Payments extends Component {
                 <Input
                   placeholder="Amount Earned per Task *"
                   name="earned"
-                  value={earned}
+                  value={funding.earned}
                   onChange={this.handleInputChange}
                 />
               </Field>
@@ -105,9 +165,18 @@ export default class Payments extends Component {
             Back
           </Button>
           <Button type="submit">Next</Button>
+          <SubmitStateEffect
+            submitState={submitState}
+            onComplete={this.handleUpdateComplete}
+          />
         </Actions>
         {dialog && <DepositDialog onHide={this.handleToggle} />}
       </Form>
     );
   }
 }
+
+export default connect(
+  mapsStateToProps,
+  mapDispatchToProps
+)(Payments);

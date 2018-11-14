@@ -43,9 +43,7 @@ export default class Settings extends Component {
       draft: props.draft, // eslint-disable-line react/no-unused-state
       logo: null,
       errors: null,
-      settings: {
-        ...getInitialState(props.draft),
-      },
+      settings: getInitialState(props.draft),
     };
   }
 
@@ -55,9 +53,7 @@ export default class Settings extends Component {
         draft,
         logo: null,
         errors: null,
-        settings: {
-          ...getInitialState(draft),
-        },
+        settings: getInitialState(draft),
       };
     }
     return null;

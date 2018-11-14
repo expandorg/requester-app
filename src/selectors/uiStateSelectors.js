@@ -33,6 +33,11 @@ export const updateDraftWhitelistStateSelector = createSelector(
   state => state.updateDraftWhitelist
 );
 
+export const updateDraftFundingStateSelector = createSelector(
+  uiStateSelector,
+  state => state.updateDraftFunding
+);
+
 export const fetchDataStateSelector = createSelector(
   uiStateSelector,
   state => state.fetchData
