@@ -64,3 +64,14 @@ export const getNavState = (draft: Object) => { // eslint-disable-line
     pay: { status: getFundingStatus(draft), disabled: !t },
   };
 };
+
+export const isDraftReady = (draft: Object) => {
+  if (!hasTemplate(draft)) {
+    return false;
+  }
+
+  if (!hasFunding(draft)) {
+    return false;
+  }
+  return true;
+};

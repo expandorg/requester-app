@@ -6,12 +6,12 @@ import HeroWarning from '../../../shared/HeroWarning';
 
 import { Actions, Section, Form, Description } from '../Form';
 import { draftProps } from '../../../shared/propTypes';
-import { getNavState } from '../../wizard';
+import { getNavState, isDraftReady } from '../../wizard';
 
 import { ReactComponent as Warning } from '../../../assets/warning.svg';
 
 import Settings from './Settings';
-import Data from './Data';
+import Data from './Data/Data';
 import Task from './Task';
 import Whitelist from './Whitelist';
 import Payout from './Payout';
@@ -43,6 +43,7 @@ export default class Summary extends Component {
   render() {
     const { draft } = this.props;
     const nav = getNavState(draft);
+    const draftReady = isDraftReady(draft);
     return (
       <Form onSubmit={this.handleSubmit} className={styles.form}>
         <Description className={styles.description}>
@@ -64,13 +65,15 @@ export default class Summary extends Component {
           <Payout draft={draft} />
         </Section>
         <Section>
-          <HeroWarning
-            icon={<Warning width="64px" height="64px" viewBox="0 0 42 42" />}
-          >
-            There are still some sections that need completing.
-            <br />
-            The task can not be published until all sections are complete.
-          </HeroWarning>
+          {!draftReady && (
+            <HeroWarning
+              icon={<Warning width="64px" height="64px" viewBox="0 0 42 42" />}
+            >
+              There are still some sections that need completing.
+              <br />
+              The task can not be published until all sections are complete.
+            </HeroWarning>
+          )}
         </Section>
         <Actions className={styles.actions}>
           <Button theme="secondary" onClick={this.handleBack}>
