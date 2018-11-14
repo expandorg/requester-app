@@ -1,11 +1,17 @@
 import React, { Component } from 'react';
 
 import { Fieldset } from '../Form';
+import { draftProps } from '../../../shared/propTypes';
 
 import styles from './Settings.module.styl';
 
 export default class Settings extends Component {
+  static propTypes = {
+    draft: draftProps.isRequired,
+  };
+
   render() {
+    const { draft } = this.props;
     return (
       <div className={styles.container}>
         <Fieldset>
@@ -15,9 +21,9 @@ export default class Settings extends Component {
                 <div className={styles.name}>Thumbnail</div>
                 <div className={styles.logo}>
                   <img
-                    src="/images/yc.png"
+                    src={draft.logoUrl}
                     className={styles.img}
-                    alt="Thumbnail"
+                    alt={draft.title}
                   />
                 </div>
               </div>
@@ -25,11 +31,15 @@ export default class Settings extends Component {
             <div className={styles.settings}>
               <div className={styles.filed}>
                 <div className={styles.name}>Start Date</div>
-                <div className={styles.value}>29/10/2018</div>
+                <div className={styles.value}>
+                  {draft.startDate || '--/--/--'}
+                </div>
               </div>
               <div className={styles.filed}>
                 <div className={styles.name}>End Date</div>
-                <div className={styles.value}>30/10/2018</div>
+                <div className={styles.value}>
+                  {draft.endDate || '--/--/--'}
+                </div>
               </div>
               <div className={styles.filed}>
                 <div className={styles.name}>HITs</div>
@@ -38,16 +48,8 @@ export default class Settings extends Component {
             </div>
           </div>
           <div className={styles.info}>
-            <div className={styles.title}>Task Title</div>
-            <div className={styles.description}>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-              reprehenderit in voluptate velit esse cillum dolore eu fugiat
-              nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-              sunt in culpa qui officia deserunt mollit anim id est laborum.
-            </div>
+            <div className={styles.title}>{draft.title}</div>
+            <div className={styles.description}>{draft.description}</div>
           </div>
         </Fieldset>
       </div>

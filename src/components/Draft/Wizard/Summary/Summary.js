@@ -5,6 +5,8 @@ import Button from '../../../common/Button';
 import HeroWarning from '../../../shared/HeroWarning';
 
 import { Actions, Section, Form, Description } from '../Form';
+import { draftProps } from '../../../shared/propTypes';
+import { getNavState } from '../../wizard';
 
 import { ReactComponent as Warning } from '../../../assets/warning.svg';
 
@@ -19,6 +21,7 @@ import styles from './Summary.module.styl';
 
 export default class Summary extends Component {
   static propTypes = {
+    draft: draftProps.isRequired,
     onBack: PropTypes.func.isRequired,
   };
 
@@ -38,25 +41,27 @@ export default class Summary extends Component {
   };
 
   render() {
+    const { draft } = this.props;
+    const nav = getNavState(draft);
     return (
       <Form onSubmit={this.handleSubmit} className={styles.form}>
         <Description className={styles.description}>
           Description about this step goes here.
         </Description>
-        <Section title="Settings" status="complete" blue>
-          <Settings />
+        <Section title="Settings" status={nav.settings.status} blue>
+          <Settings draft={draft} />
         </Section>
-        <Section title="Data" status="required">
-          <Data />
+        <Section title="Data" status={nav.upload.status}>
+          <Data draft={draft} />
         </Section>
-        <Section title="Task" blue>
-          <Task />
+        <Section title="Task" status={nav.templates.status} blue>
+          <Task draft={draft} />
         </Section>
-        <Section title="Whitelist">
-          <Whitelist />
+        <Section title="Whitelist" status={nav.whitelist.status}>
+          <Whitelist draft={draft} />
         </Section>
-        <Section title="Payout" blue>
-          <Payout />
+        <Section title="Payout" status={nav.pay.status} blue>
+          <Payout draft={draft} />
         </Section>
         <Section>
           <HeroWarning

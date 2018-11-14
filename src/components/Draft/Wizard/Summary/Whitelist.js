@@ -1,38 +1,28 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 
 import { Fieldset } from '../Form';
+import { draftProps } from '../../../shared/propTypes';
 
 import styles from './Whitelist.module.styl';
 
 export default class Whitelist extends Component {
   static propTypes = {
-    filters: PropTypes.arrayOf(
-      PropTypes.shape({
-        id: PropTypes.string,
-        param: PropTypes.string,
-        op: PropTypes.string,
-        value: PropTypes.string,
-      })
-    ),
-  };
-
-  static defaultProps = {
-    filters: [],
+    draft: draftProps.isRequired,
   };
 
   render() {
-    const { filters } = this.props;
+    const { draft } = this.props;
     return (
       <div className={styles.container}>
         <Fieldset>
-          {filters.map(condition => (
-            <div key={condition.id} className={styles.condition}>
-              <span className={styles.param}>{condition.param}</span>
-              <span className={styles.op}>{condition.op}</span>
-              <span className={styles.value}>{condition.value}</span>
-            </div>
-          ))}
+          {draft.whitelist &&
+            draft.whitelist.map(condition => (
+              <div key={condition.id} className={styles.condition}>
+                <span className={styles.param}>{condition.param}</span>
+                <span className={styles.op}>{condition.op}</span>
+                <span className={styles.value}>{condition.value}</span>
+              </div>
+            ))}
         </Fieldset>
       </div>
     );
