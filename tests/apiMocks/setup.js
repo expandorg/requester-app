@@ -1,7 +1,7 @@
 // @flow
 
 import bodyParser from 'body-parser';
-import { tasks, createTask, taskTemplates } from './tasksRepo';
+import { tasks, createTask, taskTemplates, formTemplates } from './tasksRepo';
 
 import { dataRepo, dataUpload, createData } from './dataRepos';
 
@@ -120,7 +120,22 @@ export default function setupMocks(app: Object) {
   });
 
   app.get('/api/v1/tasks/templates/:id', (req, res) => {
-    const template = taskTemplates[+req.params.id];
+    const id = +req.params.id;
+    const template = taskTemplates.find(t => t.id === id);
+    res.json({
+      template,
+    });
+  });
+
+  app.get('/api/v1/forms/templates', (req, res) => {
+    res.json({
+      templates: formTemplates,
+    });
+  });
+
+  app.get('/api/v1/forms/templates/:id', (req, res) => {
+    const id = +req.params.id;
+    const template = formTemplates.find(t => t.id === id);
     res.json({
       template,
     });
