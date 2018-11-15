@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+
 import { Dialog } from '@gemsorg/components';
 import Button from '../../common/Button';
 
@@ -8,13 +11,25 @@ import Templates from './Templates';
 
 import templateProps from './templateProps';
 
+import { fetchFormTemplates } from '../../../sagas/formTemplateSagas';
+import { formTemplatesSelector } from '../../../selectors/formTemplatesSelectors';
+
 import styles from './TemplatesDialog.module.styl';
 
-export default class TemplatesDialog extends Component {
+const mapStateToProps = state => ({
+  templates: formTemplatesSelector(state),
+});
+
+const mapDispatchToProps = dispatch =>
+  bindActionCreators({ fetchFormTemplates }, dispatch);
+
+class TemplatesDialog extends Component {
   static propTypes = {
+    templates: PropTypes.arrayOf(templateProps),
     title: PropTypes.string,
     description: PropTypes.string,
-    templates: PropTypes.arrayOf(templateProps),
+
+    fetchFormTemplates: PropTypes.func.isRequired,
     onHide: PropTypes.func.isRequired,
     onSelect: PropTypes.func.isRequired,
   };
@@ -28,6 +43,10 @@ export default class TemplatesDialog extends Component {
   state = {
     selected: null,
   };
+
+  componentDidMount() {
+    this.props.fetchFormTemplates();
+  }
 
   handleSelect = id => {
     this.setState({ selected: id });
@@ -77,3 +96,8 @@ export default class TemplatesDialog extends Component {
     );
   }
 }
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(TemplatesDialog);
