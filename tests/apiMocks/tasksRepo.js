@@ -50,6 +50,12 @@ export const tasks = [
     logo: '/images/yc.png',
   },
 ];
+export const createTask = draft => ({
+  id: tasks.length,
+  title: draft.title,
+  state: 'inprogress',
+  logo: draft.logoUrl,
+});
 
 export const taskTemplates = range(20).map(id => ({
   id,

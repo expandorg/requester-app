@@ -5,12 +5,14 @@ import { Dialog } from '@gemsorg/components';
 import Button from '../common/Button';
 
 import { ReactComponent as Warning } from '../assets/warning.svg';
+import { ReactComponent as Checkmark } from '../assets/checkmark-3.svg';
 
 import styles from './ConfirmationDialog.module.styl';
 
 export default class ConfirmationDialog extends Component {
   static propTypes = {
     title: PropTypes.string.isRequired,
+    icon: PropTypes.oneOf(['warning', 'success', 'none']),
     confirmation: PropTypes.string.isRequired,
     confirmCaption: PropTypes.string,
     hideCaption: PropTypes.string,
@@ -21,7 +23,34 @@ export default class ConfirmationDialog extends Component {
   static defaultProps = {
     confirmCaption: 'Yes, continue',
     hideCaption: 'No, go back',
+    icon: 'warning',
   };
+
+  renderIcon(icon) {
+    switch (icon) {
+      case 'warning':
+        return (
+          <Warning
+            className={styles.warning}
+            width={64}
+            height={64}
+            viewBox="0 0 42 42"
+          />
+        );
+      case 'success':
+        return (
+          <Checkmark
+            className={styles.success}
+            width={64}
+            height={48}
+            viewBox="0 0 64 48"
+          />
+        );
+      default:
+        break;
+    }
+    return null;
+  }
 
   render() {
     const {
@@ -29,6 +58,7 @@ export default class ConfirmationDialog extends Component {
       confirmation,
       confirmCaption,
       hideCaption,
+      icon,
       onHide,
       onConfirm,
     } = this.props;
@@ -41,9 +71,7 @@ export default class ConfirmationDialog extends Component {
         contentLabel="confirm-dialog"
       >
         <div className={styles.container}>
-          <div className={styles.icon}>
-            <Warning width={64} height={64} viewBox="0 0 42 42" />
-          </div>
+          <div className={styles.icon}>{this.renderIcon(icon)}</div>
           <div className={styles.title}>{title}</div>
           <div className={styles.confirmation}>{confirmation}</div>
           <div className={styles.actions}>

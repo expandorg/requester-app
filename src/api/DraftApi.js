@@ -8,7 +8,7 @@ export class DraftApi extends BaseApi {
   update = ({ id, params }) => this.patch(`/drafts/${id}`, params);
 
   publish = ({ id, schedule }) =>
-    this.patch(`/drafts/${id}/publish`, { schedule });
+    this.post(`/drafts/${id}/publish`, { schedule });
 }
 
 export const draftApi = new DraftApi();

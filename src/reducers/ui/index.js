@@ -23,7 +23,7 @@ export default combineReducers({
     draftsActionTypes.UPDATE_WHITELIST
   ),
   updateDraftFunding: requestUiStateReducer(draftsActionTypes.UPDATE_FUNDING),
-  publishDraft: requestUiStateReducer(draftsActionTypes.PUBLISH),
+  publishDraft: requestUiStateReducer(draftsActionTypes.PUBLISH, true),
 
   fetchData: requestUiStateReducer(dataActionTypes.FETCH),
   uploadData: requestUiStateReducer(dataActionTypes.UPLOAD_DATA),

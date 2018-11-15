@@ -7,10 +7,11 @@ import { bindActionCreators } from 'redux';
 import { requestStateProps, RequestStates } from '@gemsorg/app-utils';
 
 import { SubmitStateEffect } from '../../../common/submitStateEffect';
-import { LoadIndicator } from '../Form';
-
-import SummaryForm from './SummaryForm';
 import { draftProps } from '../../../shared/propTypes';
+
+import { LoadIndicator } from '../Form';
+import SummaryForm from './SummaryForm';
+import TaskPublishedDialog from './TaskPublishedDialog';
 
 import { publish } from '../../../../sagas/draftsSagas';
 import { publishDraftStateSelector } from '../../../../selectors/uiStateSelectors';
@@ -30,6 +31,10 @@ class Summary extends Component {
     onBack: PropTypes.func.isRequired,
   };
 
+  state = {
+    published: false,
+  };
+
   handleBack = evt => {
     const { onBack } = this.props;
     onBack();
@@ -37,33 +42,39 @@ class Summary extends Component {
     evt.preventDefault();
   };
 
-  handleSubmit = time => {
+  handleSubmit = schedule => {
     const { draft, submitState } = this.props;
     if (submitState.state !== RequestStates.Fetching) {
-      this.props.publish(draft.id, time);
+      this.props.publish(draft.id, schedule);
     }
   };
 
-  handlePublishComplete = () => {};
+  handlePublishComplete = () => {
+    this.setState({ published: true });
+  };
 
   render() {
     const { draft, submitState } = this.props;
-    const isSubmitting = submitState.state === RequestStates.Fetching;
+    const { published } = this.state;
+
     return (
       <SubmitStateEffect
         submitState={submitState}
         onComplete={this.handlePublishComplete}
       >
-        <LoadIndicator
-          isLoading={isSubmitting}
-          message="Publishing your task, please wait..."
-        >
-          <SummaryForm
-            draft={draft}
-            onBack={this.handleBack}
-            onSubmit={this.handleSubmit}
-          />
-        </LoadIndicator>
+        {!published && (
+          <LoadIndicator
+            isLoading={submitState.state === RequestStates.Fetching}
+            message="Publishing your task, please wait..."
+          >
+            <SummaryForm
+              draft={draft}
+              onBack={this.handleBack}
+              onSubmit={this.handleSubmit}
+            />
+          </LoadIndicator>
+        )}
+        {published && <TaskPublishedDialog submitState={submitState} />}
       </SubmitStateEffect>
     );
   }

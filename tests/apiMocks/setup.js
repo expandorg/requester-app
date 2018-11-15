@@ -1,7 +1,7 @@
 // @flow
 
 import bodyParser from 'body-parser';
-import { tasks, taskTemplates } from './tasksRepo';
+import { tasks, createTask, taskTemplates } from './tasksRepo';
 
 import { dataRepo, dataUpload, createData } from './dataRepos';
 
@@ -72,6 +72,17 @@ export default function setupMocks(app: Object) {
 
     dataRepo[draft.id] = createData(draft.id, draft.id);
     draft.dataId = draft.id;
+
+    res.json({
+      draft,
+    });
+  });
+
+  app.post('/api/v1/drafts/:id/publish', (req, res) => {
+    const draft = draftsRepo[+req.params.id];
+    const task = createTask(draft);
+    draft.taskId = task.id;
+    tasks.push(task);
 
     res.json({
       draft,
