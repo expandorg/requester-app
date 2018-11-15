@@ -37,8 +37,9 @@ class Notifications extends Component {
   render() {
     const { notification } = this.props;
     return (
-      <Transition from={from} enter={enter} leave={leave}>
-        {notification &&
+      <Transition items={notification} from={from} enter={enter} leave={leave}>
+        {n =>
+          n &&
           (style => (
             <animated.div style={style} className={styles.container}>
               <Notification
@@ -46,7 +47,8 @@ class Notifications extends Component {
                 onClear={this.props.clearNotification}
               />
             </animated.div>
-          ))}
+          ))
+        }
       </Transition>
     );
   }

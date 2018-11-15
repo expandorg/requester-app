@@ -30,13 +30,15 @@ export default class Drawer extends Component {
     const { enter } = this.state;
 
     return (
-      <Transition from={from} enter={enter} leave={leave}>
-        {visible &&
+      <Transition items={visible} from={from} enter={enter} leave={leave}>
+        {v =>
+          v &&
           (styles => (
             <animated.div style={styles} className={className}>
               {children}
             </animated.div>
-          ))}
+          ))
+        }
       </Transition>
     );
   }
