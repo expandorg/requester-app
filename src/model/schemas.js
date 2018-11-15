@@ -5,6 +5,8 @@ const draftSchema = new schema.Entity('drafts');
 
 const taskSchema = new schema.Entity('tasks');
 const taskTemplateSchema = new schema.Entity('taskTemplates');
+const formTemplateSchema = new schema.Entity('formTemplates');
+
 const dataSchema = new schema.Entity('data');
 
 const authResponseSchema = {};
@@ -20,4 +22,5 @@ export {
   authResponseSchema,
   dataResponseSchema,
   taskTemplateSchema,
+  formTemplateSchema,
 };

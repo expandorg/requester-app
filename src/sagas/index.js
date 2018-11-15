@@ -5,6 +5,7 @@ import { draftsSagas } from './draftsSagas';
 import { dataSagas } from './dataSagas';
 import { notificationsSagas } from './notificationsSagas';
 import { whitelistSagas } from './whitelistSagas';
+import { formTemplateSagas } from './formTemplateSagas';
 
 export default function* sagas() {
   yield fork(authSagas);
@@ -14,4 +15,5 @@ export default function* sagas() {
   yield fork(draftsSagas);
   yield fork(dataSagas);
   yield fork(whitelistSagas);
+  yield fork(formTemplateSagas);
 }

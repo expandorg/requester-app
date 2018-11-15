@@ -7,6 +7,9 @@ import draftEntities from './drafts/draftEntitiesReducer';
 import taskTemplatesList from './taskTemplates/taskTemplatesListReducer';
 import taskTemplatesEntities from './taskTemplates/taskTemplatesEntitiesReducer';
 
+import formTemplatesList from './formTemplates/formTemplatesListReducer';
+import formTemplatesEntities from './formTemplates/formTemplatesEntitiesReducer';
+
 import dataEntities from './data/dataEntitiesReducer';
 import dataValues from './data/dataValuesReducer';
 
@@ -20,6 +23,10 @@ export default combineReducers({
   taskTemplates: combineReducers({
     list: taskTemplatesList,
     entities: taskTemplatesEntities,
+  }),
+  formTemplates: combineReducers({
+    list: formTemplatesList,
+    entities: formTemplatesEntities,
   }),
   drafts: combineReducers({
     entities: draftEntities,

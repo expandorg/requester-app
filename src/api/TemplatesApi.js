@@ -5,9 +5,9 @@ export class TemplatesApi extends BaseApi {
 
   taskTemplate = ({ id }) => this.get(`/tasks/templates/${id}`);
 
-  onboardingTemplates = () => this.get('/onboarding/templates');
+  formTemplates = () => this.get('/forms/templates');
 
-  onboardingTemplate = ({ id }) => this.get(`/onboarding/templates/${id}`);
+  formTemplate = ({ id }) => this.get(`/forms/templates/${id}`);
 }
 
 export const templatesApi = new TemplatesApi();

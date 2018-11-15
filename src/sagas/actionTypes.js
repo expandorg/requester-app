@@ -98,7 +98,7 @@ export const dataActionTypes = createActionTypes('data', {
   REMOVE_DATA_FAILED: null,
 });
 
-export const onboardingActionTypes = createActionTypes('onboarding', {
+export const formActionTypes = createActionTypes('formTemplates', {
   FETCH_TEMPLATES: null,
   FETCH_TEMPLATES_COMPLETE: null,
   FETCH_TEMPLATES_FAILED: null,

@@ -83,10 +83,9 @@ export default function setupMocks(app: Object) {
     const task = createTask(draft);
     draft.taskId = task.id;
     tasks.push(task);
-
-    res.json({
-      draft,
-    });
+    setTimeout(() => {
+      res.json({ draft });
+    }, 1000);
   });
 
   app.get('/api/v1/drafts/:id/data/:dataId', (req, res) => {
