@@ -39,7 +39,6 @@ class TemplatesContainer extends Component {
 
   render() {
     const { selected, templates, onSelect } = this.props;
-    console.log(templates);
     return (
       <Templates
         className={styles.templates}

@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import TemplatesDialog from '../../../../shared/Templates/TemplatesDialog';
-import mocks from '../../../../shared/Templates/template-mocks';
 
 import styles from './AddNew.module.styl';
 
@@ -41,7 +40,6 @@ export default class AddNew extends Component {
         {dialog && (
           <TemplatesDialog
             title="Onboarding"
-            templates={mocks}
             description="Pick onboarding step template"
             onHide={this.handleToggle}
             onSelect={this.handleAdd}
