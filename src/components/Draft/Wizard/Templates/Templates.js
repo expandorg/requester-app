@@ -2,32 +2,23 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 
 import { requestStateProps, RequestStates } from '@gemsorg/app-utils';
 import { SubmitStateEffect } from '../../../common/submitStateEffect';
-import Button from '../../../common/Button';
 
-import ConfirmationDialog from '../../../shared/ConfirmationDialog';
 import { draftProps } from '../../../shared/propTypes';
 
-import { Form, Description, Actions, LoadIndicator } from '../Form';
-import TemplatesContainer from './TemplatesContainer';
+import { LoadIndicator } from '../Form';
+
+import TemplatesList from './TemplatesList';
+import TemplateSettings from './TemplateSettings';
 
 import { hasTemplate } from '../../wizard';
-
-import { selectTemplate } from '../../../../sagas/draftsSagas';
-
 import { selectDraftTemplateStateSelector } from '../../../../selectors/uiStateSelectors';
-
-import styles from './Templates.module.styl';
 
 const mapStateToProps = state => ({
   submitState: selectDraftTemplateStateSelector(state),
 });
-
-const mapDispatchToProps = dispatch =>
-  bindActionCreators({ selectTemplate }, dispatch);
 
 class Templates extends Component {
   static propTypes = {
@@ -36,8 +27,6 @@ class Templates extends Component {
 
     onNext: PropTypes.func.isRequired,
     onBack: PropTypes.func.isRequired,
-
-    selectTemplate: PropTypes.func.isRequired,
   };
 
   constructor(props) {
@@ -45,8 +34,8 @@ class Templates extends Component {
 
     this.state = {
       draft: props.draft, // eslint-disable-line react/no-unused-state
+      step: 0,
       selected: (props.draft && props.draft.templateId) || null,
-      confirmDialog: false,
     };
   }
 
@@ -62,26 +51,6 @@ class Templates extends Component {
     this.setState({ selected });
   };
 
-  handleSubmit = () => {
-    const { draft, submitState, onNext } = this.props;
-    const { selected } = this.state;
-    if (submitState.state !== RequestStates.Fetching) {
-      if (hasTemplate(draft)) {
-        if (draft.templateId === selected) {
-          onNext();
-        } else {
-          this.setState({ confirmDialog: true });
-        }
-      } else {
-        this.props.selectTemplate(draft.id, selected);
-      }
-    }
-  };
-
-  handleToggleConfirm = () => {
-    this.setState(({ confirmDialog }) => ({ confirmDialog: !confirmDialog }));
-  };
-
   handleBack = evt => {
     const { onBack } = this.props;
     onBack();
@@ -89,54 +58,39 @@ class Templates extends Component {
     evt.preventDefault();
   };
 
-  handleConfirm = () => {
-    const { draft } = this.props;
-    const { selected } = this.state;
-    this.setState({ confirmDialog: false });
-    this.props.selectTemplate(draft.id, selected);
+  handleChangeStep = step => {
+    this.setState({ step });
   };
 
   render() {
-    const { submitState, onNext } = this.props;
-    const { selected, confirmDialog } = this.state;
+    const { submitState, onNext, draft } = this.props;
+    const { selected, step } = this.state;
     return (
       <SubmitStateEffect submitState={submitState} onComplete={onNext}>
         <LoadIndicator
           isLoading={submitState.state === RequestStates.Fetching}
           message="Preparing your task, please wait..."
         >
-          <Form onSubmit={this.handleSubmit}>
-            <div className={styles.container}>
-              <Description>Description about this step goes here.</Description>
-              <TemplatesContainer
-                selected={selected}
-                onSelect={this.handleSelect}
-              />
-            </div>
-            <Actions>
-              <Button theme="secondary" onClick={this.handleBack}>
-                Back
-              </Button>
-              <Button type="submit" disabled={selected === null}>
-                Next
-              </Button>
-            </Actions>
-          </Form>
+          {step === 0 && (
+            <TemplatesList
+              selected={selected}
+              onSelect={this.handleSelect}
+              onBack={this.handleBack}
+              onNext={() => this.handleChangeStep(1)}
+            />
+          )}
+          {step === 1 && (
+            <TemplateSettings
+              draft={draft}
+              selected={selected}
+              submitState={submitState}
+              onBack={() => this.handleChangeStep(0)}
+            />
+          )}
         </LoadIndicator>
-        {confirmDialog && (
-          <ConfirmationDialog
-            title="You already have an active template. If you change it all data will be lost."
-            confirmation="Are you sure you want to continue?"
-            onHide={this.handleToggleConfirm}
-            onConfirm={this.handleConfirm}
-          />
-        )}
       </SubmitStateEffect>
     );
   }
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Templates);
+export default connect(mapStateToProps)(Templates);

@@ -7,6 +7,7 @@ import Fieldset from './Fieldset';
 import Description from './Description';
 import StatusIcon from './StatusIcon';
 import LoadIndicator from './LoadIndicator';
+import Toggle from './Toggle';
 
 import Actions from './Actions';
 
@@ -19,4 +20,5 @@ export {
   Section,
   StatusIcon,
   LoadIndicator,
+  Toggle,
 };
