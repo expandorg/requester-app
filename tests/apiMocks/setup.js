@@ -78,6 +78,22 @@ export default function setupMocks(app: Object) {
     });
   });
 
+  app.post('/api/v1/drafts/:id/onboarding', (req, res) => {
+    const draft = draftsRepo[+req.params.id];
+    draft.onboarding = req.body.onboarding;
+    res.json({
+      draft,
+    });
+  });
+
+  app.post('/api/v1/drafts/:id/task', (req, res) => {
+    const draft = draftsRepo[+req.params.id];
+    draft.task = req.body.task;
+    res.json({
+      draft,
+    });
+  });
+
   app.post('/api/v1/drafts/:id/publish', (req, res) => {
     const draft = draftsRepo[+req.params.id];
     const task = createTask(draft);
