@@ -16,13 +16,56 @@
   border-bottom-left-radius: 5px
 
 .header
-  box-sizing: border-box;
-
+  position: relative;
+  display: flex;
+  align-items: center;
   height: 75px
-  font(h2-title, false, false, 75px)
-  text-align: center;
 
+.title
+  font(h2-title)
   color: color-white
+
+  .searching &
+    display: none;
+
+.searchIcon
+  position: absolute;
+  top: calc(50% - 11px)
+  left: calc(100% - 15px)
+  cursor: pointer;
+
+  transition: left 100ms linear
+
+  path
+    fill: color-white
+
+  .searching &
+    left: 0
+
+.search
+  display: none;
+  box-sizing: border-box
+  font(body-bold, false, false, 32px)
+
+  width: 100%
+  padding: 0 0 3px 25px
+
+  background-color: transparent
+  color: color-primary-blue
+
+  border-bottom: 2px solid  color-white
+  transition: all 0.1s ease-out;
+
+  outline: none;
+  color: color-white
+
+  &:-webkit-autofill
+    transition: background-color 5000s ease-in-out 0s
+    &:hover, &:focus, &:active
+      transition: background-color 5000s ease-in-out 0s
+
+  .searching &
+    display: block;
 
 .list
   box-sizing: content-box;

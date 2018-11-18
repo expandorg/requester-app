@@ -1,8 +1,11 @@
 import React, { Component, createRef } from 'react';
 import PropTypes from 'prop-types';
+import cn from 'classnames';
 
 import debounce from 'debounce';
 import { DropTarget } from 'react-dnd';
+
+import { ReactComponent as SearchIcon } from '../../../assets/search.svg';
 
 import ModuleItem from './ModuleItem';
 
@@ -27,9 +30,12 @@ class AvailableModules extends Component {
 
     this.getOffset = debounce(this.getOffset, RESIZE_DEBOUNCE);
     this.container = createRef();
+    this.search = createRef();
 
     this.state = {
       preview: null,
+      searching: false,
+      search: '',
       top: 0,
     };
   }
@@ -66,14 +72,42 @@ class AvailableModules extends Component {
     }
   };
 
+  handleChangeSearch = ({ target }) => {
+    this.setState({ search: target.value });
+  };
+
+  handleToggeSearch = () => {
+    const { searching } = this.state;
+    this.setState({ searching: !searching, search: '' }, () =>
+      this.search.current.focus()
+    );
+  };
+
   render() {
     const { onEndDrag, moduleControls, connectDropTarget } = this.props;
+    const { preview, searching, search, top } = this.state;
 
-    const { preview, top } = this.state;
+    /* eslint-disable jsx-a11y/click-events-have-key-events */
+    /* eslint-disable jsx-a11y/no-static-element-interactions */
 
     return (
       <div className={styles.container} ref={this.container}>
-        <div className={styles.header}>Components</div>
+        <div className={cn(styles.header, { [styles.searching]: searching })}>
+          <div className={styles.title} onClick={this.handleToggeSearch}>
+            Components
+          </div>
+          <SearchIcon
+            className={styles.searchIcon}
+            onClick={this.handleToggeSearch}
+          />
+          <input
+            placeholder="Search..."
+            value={search}
+            onChange={this.handleChangeSearch}
+            ref={this.search}
+            className={styles.search}
+          />
+        </div>
         {connectDropTarget(
           <div className={styles.list} onScroll={this.handleScroll}>
             {moduleControls.map(C => (
