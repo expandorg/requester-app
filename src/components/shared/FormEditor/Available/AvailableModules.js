@@ -4,6 +4,7 @@ import cn from 'classnames';
 
 import debounce from 'debounce';
 import { DropTarget } from 'react-dnd';
+// import { getAvailableModulesTree, searchModulesTree } from './modulesTree';
 
 import { ReactComponent as SearchIcon } from '../../../assets/search.svg';
 
@@ -108,6 +109,7 @@ class AvailableModules extends Component {
             className={styles.search}
           />
         </div>
+
         {connectDropTarget(
           <div className={styles.list} onScroll={this.handleScroll}>
             {moduleControls.map(C => (
