@@ -11,27 +11,24 @@
 
   height: 46px
 
-  background-color: color-primary-blue
+  background-color: color-text-pink
   margin-bottom: 10px
 
   border-radius: 5px;
 
   cursor pointer
 
+  &:last-child
+    margin-bottom: 0
+
 .dragging
-  visibility: hidden;
+  opacity: 0.25;
   transform: translate(0, 0);
 
 .drag
-  background-color: color-white;
   min-width: 35px
   line-height: 46px
-
-  border-top-left-radius: 4px
-  border-bottom-left-radius: 4px
-
   text-align: center;
-
   cursor: grab;
 
 .dragIcon
@@ -39,7 +36,7 @@
   position: relative;
 
   path
-    fill color-primary-blue
+    fill color-white
 
 .name
   box-sizing: border-box;
@@ -48,9 +45,7 @@
   width: 100%;
 
   color: color-white;
-  font-family: Roboto;
-  font-size: 14px;
-  line-height: 46px
+  font(small-text, 500, false, 46px)
 
   white-space: nowrap
   overflow: hidden
@@ -67,7 +62,7 @@
 
   path
     transition: fill 0.15s ease-in-out
-    fill: color-text-heavy-blue
+    fill: color-white
 
   .container:hover &
     opacity: 1

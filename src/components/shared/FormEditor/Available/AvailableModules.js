@@ -4,17 +4,18 @@ import cn from 'classnames';
 
 import debounce from 'debounce';
 import { DropTarget } from 'react-dnd';
-// import { getAvailableModulesTree, searchModulesTree } from './modulesTree';
+import { getAvailableModulesTree, searchModulesTree } from './modulesTree';
 
 import { ReactComponent as SearchIcon } from '../../../assets/search.svg';
 
-import ModuleItem from './ModuleItem';
+import Category from './Category';
 
 import { availableTarget, FORM_DND_ID } from '../dnd';
 
 import styles from './AvailableModules.module.styl';
 
 const RESIZE_DEBOUNCE = 200;
+const INPUT_DEBOUNCE = 400;
 
 class AvailableModules extends Component {
   static propTypes = {
@@ -30,12 +31,17 @@ class AvailableModules extends Component {
     super(props);
 
     this.getOffset = debounce(this.getOffset, RESIZE_DEBOUNCE);
+    this.searchModule = debounce(this.searchModule, INPUT_DEBOUNCE);
+
     this.container = createRef();
     this.search = createRef();
 
+    const categories = getAvailableModulesTree(props.moduleControls);
     this.state = {
       preview: null,
       searching: false,
+      all: categories,
+      categories,
       search: '',
       top: 0,
     };
@@ -48,12 +54,19 @@ class AvailableModules extends Component {
 
   componentWillUnmount() {
     this.getOffset.clear();
+    this.searchModule.clear();
     window.removeEventListener('resize', this.getOffset);
   }
 
   getOffset = () => {
     const { top } = this.container.current.getBoundingClientRect();
     this.setState({ top });
+  };
+
+  searchModule = () => {
+    const { search, all } = this.state;
+    const categories = searchModulesTree(all, search);
+    this.setState({ categories });
   };
 
   handlePreview = type => {
@@ -74,7 +87,7 @@ class AvailableModules extends Component {
   };
 
   handleChangeSearch = ({ target }) => {
-    this.setState({ search: target.value });
+    this.setState({ search: target.value }, this.searchModule);
   };
 
   handleToggeSearch = () => {
@@ -85,12 +98,12 @@ class AvailableModules extends Component {
   };
 
   render() {
-    const { onEndDrag, moduleControls, connectDropTarget } = this.props;
-    const { preview, searching, search, top } = this.state;
+    const { onEndDrag, connectDropTarget } = this.props;
+    const { preview, categories, searching, search, top } = this.state;
 
     /* eslint-disable jsx-a11y/click-events-have-key-events */
     /* eslint-disable jsx-a11y/no-static-element-interactions */
-
+    const forceOpen = !!search;
     return (
       <div className={styles.container} ref={this.container}>
         <div className={cn(styles.header, { [styles.searching]: searching })}>
@@ -112,14 +125,16 @@ class AvailableModules extends Component {
 
         {connectDropTarget(
           <div className={styles.list} onScroll={this.handleScroll}>
-            {moduleControls.map(C => (
-              <ModuleItem
-                meta={C.module}
-                key={C.module.type}
+            {categories.map(({ category, modules }) => (
+              <Category
+                key={category}
+                forceOpen={forceOpen}
+                name={category}
+                modules={modules}
+                offset={top}
+                preview={preview}
                 onEndDrag={onEndDrag}
                 onAdd={this.handleAdd}
-                offset={top}
-                isHovered={C.module.type === preview}
                 onPreview={this.handlePreview}
               />
             ))}

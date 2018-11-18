@@ -1,0 +1,65 @@
+@import 'components/common/uikit/colors';
+@import 'components/common/uikit/font';
+
+
+.container
+  box-sizing: border-box;
+  margin-bottom: 10px
+  border-radius: 5px;
+  background-color: color-white;
+
+.inner
+  display: flex;
+  justify-content: flex-start;
+  align-items: stretch;
+  height: 46px;
+
+  cursor: pointer;
+
+.plus
+  min-width: 35px
+  line-height: 46px
+
+  text-align: center;
+
+.plusIcon
+  top: 3px
+  position: relative;
+  transform: rotate(45deg)
+  path
+    fill color-primary-blue
+
+.minusIcon
+  top: 3px
+  position: relative;
+  transform: scale(1.2);
+  path
+    fill color-blue-background
+
+.name
+  background-color: color-primary-blue
+  box-sizing: border-box;
+
+  padding: 0 6px
+  width: 100%;
+
+  color: color-white;
+  font(small-text, 500, false, 46px)
+
+  border-top-right-radius: 4px
+  border-bottom-right-radius: 4px
+
+  white-space: nowrap
+  overflow: hidden
+  text-overflow: ellipsis
+  user-select: none;
+
+  transition: background-color  100ms linear, color 100ms linear
+
+  .opened &
+    background-color: color-white
+    color: color-blue-background
+
+.list
+  box-sizing: border-box;
+  padding: 5px 10px 10px

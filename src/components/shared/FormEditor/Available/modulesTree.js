@@ -13,18 +13,16 @@ export const displayCategories = [
   ModuleCategories.Display,
   ModuleCategories.Image,
   ModuleCategories.Video,
-  ModuleCategories.Onboarding,
 ];
 
 export const getAvailableModulesTree = (
   controls: Array<Object>
 ): Array<ModuleCategoryItem> => {
   const grouped = groupModulesByCategory(controls);
-
   return displayCategories.map(category => ({
     category,
     // $FlowFixMe
-    modules: grouped[category],
+    modules: grouped[category].map(({ module }) => module),
   }));
 };
 
@@ -36,15 +34,13 @@ export const searchModulesTree = (
     return tree;
   }
   const lcTerm = term.toLowerCase();
+  // $FlowFixMe
   const result = tree.map(({ category, modules }) => {
     const filtered = modules.filter(
-      ({ module }) => module.title.toLowerCase().indexOf(lcTerm) !== -1
+      m => m.name.toLowerCase().indexOf(lcTerm) !== -1
     );
-    if (!filtered.length) {
-      return null;
-    }
     return { category, modules: filtered };
   });
-  // $FlowFixMe
-  return result.filter(c => c !== null);
+  console.log(term, result);
+  return result;
 };
