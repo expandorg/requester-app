@@ -118,7 +118,6 @@ class Payments extends Component {
 
     const insufficent = false;
 
-    console.log(errors);
     return (
       <Form onSubmit={this.handleSubmit}>
         <Fieldset>
@@ -126,19 +125,25 @@ class Payments extends Component {
           <Hero value={user.gems.balance} title="gems available" />
           {!insufficent && (
             <>
-              <Field tooltip="Pay for Task *">
+              <Field tooltip="Pay for Task *" name="pay" errors={errors}>
                 <Input
                   placeholder="Pay for Task *"
                   name="pay"
                   value={funding.pay}
+                  error={!!(errors && errors.pay)}
                   onChange={this.handleInputChange}
                 />
               </Field>
-              <Field tooltip="Amount Earned per Task *">
+              <Field
+                tooltip="Amount Earned per Task *"
+                name="earned"
+                errors={errors}
+              >
                 <Input
                   placeholder="Amount Earned per Task *"
                   name="earned"
                   value={funding.earned}
+                  error={!!(errors && errors.earned)}
                   onChange={this.handleInputChange}
                 />
               </Field>

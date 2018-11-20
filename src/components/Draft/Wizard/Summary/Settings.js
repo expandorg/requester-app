@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 import { Fieldset } from '../Form';
 import { draftProps } from '../../../shared/propTypes';
+import { formatDate } from '../../../../model/draft';
 
 import styles from './Settings.module.styl';
 
@@ -32,14 +33,12 @@ export default class Settings extends Component {
               <div className={styles.filed}>
                 <div className={styles.name}>Start Date</div>
                 <div className={styles.value}>
-                  {draft.startDate || '--/--/--'}
+                  {formatDate(draft.startDate)}
                 </div>
               </div>
               <div className={styles.filed}>
                 <div className={styles.name}>End Date</div>
-                <div className={styles.value}>
-                  {draft.endDate || '--/--/--'}
-                </div>
+                <div className={styles.value}>{formatDate(draft.endDate)}</div>
               </div>
               <div className={styles.filed}>
                 <div className={styles.name}>HITs</div>
