@@ -87,7 +87,6 @@ export default class Settings extends Component {
 
   render() {
     const { settings, logo, errors, isSubmitting } = this.state;
-    console.log(errors);
     return (
       <Form onSubmit={this.handleSubmit}>
         <Fieldset>
@@ -115,34 +114,38 @@ export default class Settings extends Component {
               )
             }
           </Upload>
-          <Field tooltip="Title">
+          <Field tooltip="Title" name="title" errors={errors}>
             <Input
               placeholder="Title *"
               name="title"
+              error={!!(errors && errors.title)}
               value={settings.title}
               onChange={this.handleInputChange}
             />
           </Field>
-          <Field tooltip="Description">
+          <Field tooltip="Description" name="description" errors={errors}>
             <Input
               placeholder="Description *"
               name="description"
+              error={!!(errors && errors.description)}
               value={settings.description}
               onChange={this.handleInputChange}
             />
           </Field>
-          <Field tooltip="Start Date">
+          <Field tooltip="Start Date" name="startDate" errors={errors}>
             <DateInput
               placeholder="Start Date *"
               name="startDate"
+              error={!!(errors && errors.startDate)}
               value={settings.startDate}
               onChange={this.handleInputChange}
             />
           </Field>
-          <Field tooltip="End Date">
+          <Field tooltip="End Date" name="endDate" errors={errors}>
             <DateInput
               placeholder="End Date *"
               name="endDate"
+              error={!!(errors && errors.endDate)}
               value={settings.endDate}
               onChange={this.handleInputChange}
             />

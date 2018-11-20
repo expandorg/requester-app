@@ -9,6 +9,7 @@ class Input extends Component {
     value: PropTypes.string,
     onChange: PropTypes.func,
     className: PropTypes.string,
+    error: PropTypes.bool, // eslint-disable-line
     forwardedRef: PropTypes.object, // eslint-disable-line
   };
 
@@ -17,6 +18,7 @@ class Input extends Component {
     forwardedRef: undefined,
     onChange: undefined,
     className: null,
+    error: false,
   };
 
   render() {
@@ -24,22 +26,25 @@ class Input extends Component {
       onChange,
       className,
       value,
+      error,
       placeholder,
       forwardedRef,
       ...rest
     } = this.props;
 
+    const classes = cn(styles.container, className, {
+      [styles.error]: error,
+    });
     /* eslint-disable jsx-a11y/label-has-associated-control */
     /* eslint-disable jsx-a11y/label-has-for */
 
     return (
-      <div className={cn(styles.container, className)}>
+      <div className={classes}>
         <input
-          className={styles.input}
+          className={cn(styles.input, { [styles.filled]: !!value })}
           value={value}
           onChange={onChange}
           ref={forwardedRef}
-          required
           {...rest}
         />
         {placeholder && (

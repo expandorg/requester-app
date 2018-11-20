@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import cn from 'classnames';
 
 import DayPickerInput from 'react-day-picker/DayPickerInput';
 import { DateUtils } from 'react-day-picker';
@@ -24,19 +25,24 @@ export default class DateInput extends Component {
     value: PropTypes.string,
     name: PropTypes.string.isRequired,
     placeholder: PropTypes.string,
+    error: PropTypes.bool,
     onChange: PropTypes.func.isRequired,
   };
 
   static defaultProps = {
     value: undefined,
     placeholder: null,
+    error: false,
   };
 
   render() {
-    const { onChange, name, placeholder, value } = this.props;
+    const { onChange, name, placeholder, value, error } = this.props;
     return (
       <DayPickerInput
         value={value}
+        inputProps={{
+          className: cn({ 'DayPickerInput-error': error }),
+        }}
         placeholder={placeholder}
         formatDate={formatDate}
         format="MM/DD/YYYY"
