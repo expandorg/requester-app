@@ -42,10 +42,10 @@ class Summary extends Component {
     evt.preventDefault();
   };
 
-  handleSubmit = schedule => {
+  handleSubmit = () => {
     const { draft, submitState } = this.props;
     if (submitState.state !== RequestStates.Fetching) {
-      this.props.publish(draft.id, schedule);
+      this.props.publish(draft.id);
     }
   };
 

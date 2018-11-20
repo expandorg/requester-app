@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { validateForm } from '@gemsorg/validation';
 
 import Input from '../../../common/Input';
-import DateInput from '../../../common/DateInput';
+import DateTimeInput from '../../../common/DateTime/DateTimeInput';
 import { Upload, ImagePreview } from '../../../common/Upload';
 
 import { draftProps } from '../../../shared/propTypes';
@@ -133,7 +133,7 @@ export default class Settings extends Component {
             />
           </Field>
           <Field tooltip="Start Date" name="startDate" errors={errors}>
-            <DateInput
+            <DateTimeInput
               placeholder="Start Date *"
               name="startDate"
               error={!!(errors && errors.startDate)}
@@ -142,7 +142,7 @@ export default class Settings extends Component {
             />
           </Field>
           <Field tooltip="End Date" name="endDate" errors={errors}>
-            <DateInput
+            <DateTimeInput
               placeholder="End Date *"
               name="endDate"
               error={!!(errors && errors.endDate)}

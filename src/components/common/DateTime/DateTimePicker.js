@@ -7,31 +7,49 @@ import DayPicker from 'react-day-picker';
 import TimePicker from './TimePicker';
 
 import styles from './DateTimePicker.module.styl';
+import '../DateInput.styl';
 
 export default class DateTimePicker extends Component {
   static propTypes = {
     className: PropTypes.string,
-    onDone: PropTypes.func.isRequired,
+    value: PropTypes.object, // eslint-disable-line
+    onChange: PropTypes.func.isRequired,
     onHide: PropTypes.func.isRequired,
   };
 
   static defaultProps = {
     className: null,
-  };
-
-  state = {
     value: undefined,
   };
+
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      initial: props.value, // eslint-disable-line react/no-unused-state
+      value: props.value,
+    };
+  }
+
+  static getDerivedStateFromProps({ value }, state) {
+    if (value !== state.initial) {
+      return {
+        value,
+        initial: value,
+      };
+    }
+    return null;
+  }
 
   handleChange = value => {
     this.setState({ value });
   };
 
   handleDone = evt => {
-    const { onDone } = this.props;
+    const { onChange } = this.props;
     const { value } = this.state;
     if (value) {
-      onDone(value);
+      onChange(value);
     }
     evt.preventDefault();
   };
