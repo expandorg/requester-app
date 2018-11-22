@@ -43,7 +43,7 @@ export default class Stats extends Component {
               <div className={styles.info}>
                 <div className={styles.details}>{taskStats.description}</div>
                 <div className={styles.action}>
-                  <Button>Download CSV</Button>
+                  <Button className={styles.button}>Download CSV</Button>
                 </div>
               </div>
               <div className={styles.stats}>
