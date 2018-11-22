@@ -25,6 +25,10 @@ export const authActionTypes = createActionTypes('auth', {
 });
 
 export const tasksActionTypes = createActionTypes('tasks', {
+  FETCH_STATS: null,
+  FETCH_STATS_COMPLETE: null,
+  FETCH_STATS_FAILED: null,
+
   FETCH_LIST: null,
   FETCH_LIST_COMPLETE: null,
   FETCH_LIST_FAILED: null,

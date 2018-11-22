@@ -6,6 +6,7 @@ import {
   draftsActionTypes,
   dataActionTypes,
   whitelistActionTypes,
+  tasksActionTypes,
 } from '../../sagas/actionTypes';
 
 import notification from './notificationsReducer';
@@ -30,4 +31,6 @@ export default combineReducers({
   removeData: requestUiStateReducer(dataActionTypes.REMOVE_DATA),
 
   eligibleUsers: requestUiStateReducer(whitelistActionTypes.GET_ELIGIBLE),
+
+  fetchTaskStats: requestUiStateReducer(tasksActionTypes.FETCH_STATS),
 });

@@ -1,7 +1,15 @@
 // @flow
 
 import bodyParser from 'body-parser';
-import { tasks, createTask, taskTemplates, formTemplates } from './tasksRepo';
+import {
+  tasks,
+  getDashboardTask,
+  createTask,
+  drafts,
+  getDashboardDraft,
+  taskTemplates,
+  formTemplates,
+} from './tasksRepo';
 
 import { dataRepo, dataUpload, createData } from './dataRepos';
 
@@ -16,30 +24,38 @@ const getPage = (array, page, pageSize = 10) => {
   return [result, pagination];
 };
 
-const draftsRepo = tasks
-  .filter(t => t.state === 'draft')
-  .reduce((all, d) => ({ ...all, [d.id]: d }), {});
-
 export default function setupMocks(app: Object) {
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({ extended: false }));
 
+  // TASKS
   app.get('/api/v1/tasks/list/:status*?', (req, res) => {
     const { status } = req.params;
+    const array = [
+      ...drafts.map(getDashboardDraft),
+      ...tasks.map(getDashboardTask),
+    ];
 
     res.json({
-      tasks: tasks.filter(t => !status || t.state === status),
+      tasks: array.filter(t => !status || t.state === status),
     });
   });
 
+  app.get('/api/v1/tasks/stats/:id', (req, res) => {
+    const { id } = req.params;
+
+    res.json({
+      task: tasks.find(t => t.id === +id),
+    });
+  });
+
+  // DRAFTS
   app.post('/api/v1/drafts', (req, res) => {
     const draft = {
-      id: tasks.length,
-      state: 'draft',
+      id: 10 + drafts.length,
       ...req.body,
     };
-    tasks.push(draft);
-    draftsRepo[+draft.id] = draft;
+    drafts.push(draft);
 
     setTimeout(() => {
       res.json({ draft });
@@ -47,11 +63,13 @@ export default function setupMocks(app: Object) {
   });
 
   app.patch('/api/v1/drafts/:id', (req, res) => {
+    const index = drafts.findIndex(d => d.id === +req.params.id);
     const draft = {
-      ...draftsRepo[+req.params.id],
+      ...drafts[index],
       ...req.body,
     };
-    draftsRepo[+req.params.id] = draft;
+
+    drafts[index] = draft;
     if (req.body.templateId) {
       setTimeout(() => {
         res.json({ draft });
@@ -63,12 +81,12 @@ export default function setupMocks(app: Object) {
 
   app.get('/api/v1/drafts/:id', (req, res) => {
     res.json({
-      draft: draftsRepo[req.params.id],
+      draft: drafts.find(d => d.id === +req.params.id),
     });
   });
 
   app.post('/api/v1/drafts/:id/data', dataUpload.single('data'), (req, res) => {
-    const draft = draftsRepo[+req.params.id];
+    const draft = drafts.find(d => d.id === +req.params.id);
 
     dataRepo[draft.id] = createData(draft.id, draft.id);
     draft.dataId = draft.id;
@@ -79,7 +97,7 @@ export default function setupMocks(app: Object) {
   });
 
   app.post('/api/v1/drafts/:id/onboarding', (req, res) => {
-    const draft = draftsRepo[+req.params.id];
+    const draft = drafts.find(d => d.id === +req.params.id);
     draft.onboarding = req.body.onboarding;
     res.json({
       draft,
@@ -87,7 +105,7 @@ export default function setupMocks(app: Object) {
   });
 
   app.post('/api/v1/drafts/:id/task', (req, res) => {
-    const draft = draftsRepo[+req.params.id];
+    const draft = drafts.find(d => d.id === +req.params.id);
     draft.task = req.body.task;
     res.json({
       draft,
@@ -95,15 +113,23 @@ export default function setupMocks(app: Object) {
   });
 
   app.post('/api/v1/drafts/:id/publish', (req, res) => {
-    const draft = draftsRepo[+req.params.id];
+    const index = drafts.findIndex(d => d.id === +req.params.id);
+    const draft = drafts[index];
     const task = createTask(draft);
+
     draft.taskId = task.id;
-    tasks.push(task);
+    draft.status = 'published';
+
+    drafts.splice(index, 1);
+
+    tasks.unshift(task);
+
     setTimeout(() => {
       res.json({ draft });
     }, 1000);
   });
 
+  // DATA
   app.get('/api/v1/drafts/:id/data/:dataId', (req, res) => {
     const current = +req.query.page || 0;
     const data = dataRepo[+req.params.id];
@@ -129,6 +155,7 @@ export default function setupMocks(app: Object) {
     });
   });
 
+  // TEMPLATES
   app.get('/api/v1/tasks/templates', (req, res) => {
     res.json({
       templates: taskTemplates,
@@ -157,6 +184,7 @@ export default function setupMocks(app: Object) {
     });
   });
 
+  // WHITELIST
   app.post('/api/v1/whitelist/eligible', (req, res) => {
     const { conditions } = req.body;
     res.json({

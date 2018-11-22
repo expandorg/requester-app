@@ -62,3 +62,8 @@ export const eligibleUsersStateSelector = createSelector(
   uiStateSelector,
   state => state.eligibleUsers
 );
+
+export const fetchTaskStatsStateSelector = createSelector(
+  uiStateSelector,
+  state => state.fetchTaskStats
+);

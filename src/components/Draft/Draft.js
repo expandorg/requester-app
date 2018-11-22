@@ -16,9 +16,9 @@ import { fetchDraftStateSelector } from '../../selectors/uiStateSelectors';
 import { fetch } from '../../sagas/draftsSagas';
 
 const makeMapStateToProps = () => {
-  const draftsSelector = makeDraftSelector();
+  const draftSelector = makeDraftSelector();
   return (state, props) => ({
-    draft: draftsSelector(state, +props.match.params.id),
+    draft: draftSelector(state, +props.match.params.id),
     loadState: fetchDraftStateSelector(state),
   });
 };

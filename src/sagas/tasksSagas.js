@@ -6,12 +6,19 @@ import { tasksActionTypes } from './actionTypes';
 
 import { tasksApi } from '../api/TasksApi';
 import { templatesApi } from '../api/TemplatesApi';
-import { taskTemplateSchema } from '../model/schemas';
+import { taskTemplateSchema, taskStatsSchema } from '../model/schemas';
 
 export const fetchTasks = status => ({
   type: tasksActionTypes.FETCH_LIST,
   payload: { status },
   asyncCall: tasksApi.list,
+});
+
+export const fetchTaskStats = id => ({
+  type: tasksActionTypes.FETCH_STATS,
+  payload: { id },
+  asyncCall: tasksApi.fetchStats,
+  meta: { schema: { task: taskStatsSchema } },
 });
 
 export const fetchTaskTemplates = () => ({
@@ -31,6 +38,7 @@ export const fetchTaskTemplate = id => ({
 export function* tasksSagas() {
   yield takeEvery(
     [
+      tasksActionTypes.FETCH_STATS,
       tasksActionTypes.FETCH_LIST,
       tasksActionTypes.FETCH_TEMPLATES,
       tasksActionTypes.FETCH_TEMPLATE,

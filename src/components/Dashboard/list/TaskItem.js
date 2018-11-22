@@ -8,6 +8,8 @@ import { Tooltip } from '@gemsorg/components';
 
 import { ReactComponent as CopyIcon } from '../../assets/copy.svg';
 
+import { TaskStateTitles } from '../../../model/i18n';
+
 import styles from './styles.module.styl';
 
 const Copy = Tooltip(({ children, ...props }) => (
@@ -29,12 +31,14 @@ export default class TaskItem extends Component {
 
   render() {
     const { task } = this.props;
-    const route = task.state === 'draft' ? 'draft' : 'task';
+
+    const to =
+      task.state === 'draft'
+        ? `/draft/${task.draftId}`
+        : `/task/${task.taskId}`;
+
     return (
-      <Link
-        className={cn(styles.container, styles.task)}
-        to={`/${route}/${task.id}`}
-      >
+      <Link className={cn(styles.container, styles.task)} to={to}>
         <div className={styles.copy}>
           <Copy onClick={this.handleCopyClick} tooltip="Copy" />
         </div>
@@ -42,7 +46,7 @@ export default class TaskItem extends Component {
           <img src={task.logo} className={styles.img} alt={task.title} />
         </div>
         <div className={styles.title}>{task.title}</div>
-        <div className={styles.state}>{task.state}</div>
+        <div className={styles.state}>{TaskStateTitles[task.state]}</div>
       </Link>
     );
   }

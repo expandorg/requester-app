@@ -7,11 +7,12 @@ export default class ImagePreview extends Component {
   static propTypes = {
     file: PropTypes.shape({
       name: PropTypes.string,
-    }).isRequired,
+    }),
     uploadedUrl: PropTypes.string,
   };
 
   static defaultProps = {
+    file: null,
     uploadedUrl: null,
   };
 

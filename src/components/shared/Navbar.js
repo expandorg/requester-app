@@ -10,13 +10,14 @@ import styles from './Navbar.module.styl';
 
 export default class Navbar extends Component {
   static propTypes = {
-    title: PropTypes.string.isRequired,
+    title: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
     className: PropTypes.string,
     top: PropTypes.bool,
   };
 
   static defaultProps = {
     className: null,
+    title: '',
     top: true,
   };
 

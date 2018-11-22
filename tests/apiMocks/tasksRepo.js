@@ -1,60 +1,42 @@
 const range = count => [...Array(count).keys()];
 
-export const tasks = [
-  {
-    id: 0,
-    title: 'Task Title',
-    state: 'draft',
-    logo: '/images/yc.png',
-  },
-  {
-    id: 1,
-    title: 'Task Title',
-    state: 'inprogress',
-    logo: '/images/yc.png',
-  },
-  {
-    id: 2,
-    title: 'Task Title',
-    state: 'draft',
-    logo: '/images/yc.png',
-  },
-  {
-    id: 3,
-    title: 'Task Title',
-    state: 'draft',
-    logo: '/images/yc.png',
-  },
-  {
-    id: 4,
-    title: 'Task Title',
-    state: 'inprogress',
-    logo: '/images/yc.png',
-  },
-  {
-    id: 5,
-    title: 'Task Title',
-    state: 'completed',
-    logo: '/images/yc.png',
-  },
-  {
-    id: 6,
-    title: 'Task Title',
-    state: 'draft',
-    logo: '/images/yc.png',
-  },
-  {
-    id: 7,
-    title: 'Task Title',
-    state: 'completed',
-    logo: '/images/yc.png',
-  },
-];
+export const tasks = range(10).map(id => ({
+  id,
+  title: 'Task Title',
+  state: Math.random() > 0.5 ? 'completed' : 'inprogress',
+  logoUrl: '/images/yc.png',
+}));
+
+export const drafts = range(5).map(id => ({
+  id: id + 10,
+  title: `Draft Title ${id}`,
+  logoUrl: '/images/yc.png',
+  description: 'Task description',
+  startDate: new Date(),
+  endDate: null,
+}));
+
+export const getDashboardTask = task => ({
+  taskId: task.id,
+  title: task.title,
+  logo: task.logoUrl,
+  state: task.state,
+});
+
+export const getDashboardDraft = draft => ({
+  draftId: draft.id,
+  title: draft.title,
+  logo: draft.logoUrl,
+  state: 'draft',
+});
+
 export const createTask = draft => ({
   id: tasks.length,
   title: draft.title,
   state: 'inprogress',
-  logo: draft.logoUrl,
+  logoUrl: draft.logoUrl,
+  startDate: draft.logoUrl,
+  endDate: draft.logoUrl,
 });
 
 export const taskTemplates = range(20).map(id => ({

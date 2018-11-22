@@ -40,6 +40,10 @@ export const userProps = PropTypes.shape({
   }),
 });
 
+export const taskStatsProps = PropTypes.shape({
+  id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+});
+
 export const draftProps = PropTypes.shape({
   id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
 });

@@ -10,7 +10,7 @@ import styles from './DateTimeInput.module.styl';
 
 export default class DateTimeInput extends Component {
   static propTypes = {
-    value: PropTypes.object, // eslint-disable-line
+    value: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
     name: PropTypes.string,
     className: PropTypes.string,
     readOnly: PropTypes.bool,

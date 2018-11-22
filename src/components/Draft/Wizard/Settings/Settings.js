@@ -98,7 +98,7 @@ export default class Settings extends Component {
             onSelect={this.handleUpload}
           >
             {({ file }) =>
-              file ? (
+              file || settings.logoUrl ? (
                 <ImagePreview uploadedUrl={settings.logoUrl} file={file} />
               ) : (
                 <div className={styles.placeholder}>
