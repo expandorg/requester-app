@@ -1,8 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+import Button from '../common/Button';
+
 import Content from '../shared/Content';
 import Navbar from '../shared/Navbar';
+import Hero from '../shared/Hero';
+
 import { taskStatsProps } from '../shared/propTypes';
 
 import { LoadIndicator } from '../Draft/Wizard/Form';
@@ -34,7 +38,22 @@ export default class Stats extends Component {
       >
         <Navbar title={<Title stats={taskStats} />} top={false} />
         <LoadIndicator isLoading={isLoading}>
-          <div />
+          {taskStats && (
+            <div className={styles.container}>
+              <div className={styles.info}>
+                <div className={styles.details}>{taskStats.description}</div>
+                <div className={styles.action}>
+                  <Button>Download CSV</Button>
+                </div>
+              </div>
+              <div className={styles.stats}>
+                <Hero className={styles.hero} value={1} title="results" />
+                <Hero className={styles.hero} value="2h38m" title="deadline" />
+                <Hero className={styles.hero} value={918} title="workers" />
+                <Hero className={styles.hero} value={2} title="warnings" />
+              </div>
+            </div>
+          )}
         </LoadIndicator>
       </Content>
     );

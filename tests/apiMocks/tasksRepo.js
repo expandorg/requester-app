@@ -4,6 +4,7 @@ export const tasks = range(10).map(id => ({
   id,
   title: 'Task Title',
   state: Math.random() > 0.5 ? 'completed' : 'inprogress',
+  description: 'Task description',
   logoUrl: '/images/yc.png',
 }));
 
@@ -11,7 +12,6 @@ export const drafts = range(5).map(id => ({
   id: id + 10,
   title: `Draft Title ${id}`,
   logoUrl: '/images/yc.png',
-  description: 'Task description',
   startDate: new Date(),
   endDate: null,
 }));
