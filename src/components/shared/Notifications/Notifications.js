@@ -43,7 +43,7 @@ class Notifications extends Component {
           (style => (
             <animated.div style={style} className={styles.container}>
               <Notification
-                notification={notification}
+                notification={n}
                 onClear={this.props.clearNotification}
               />
             </animated.div>

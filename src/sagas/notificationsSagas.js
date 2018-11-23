@@ -1,10 +1,17 @@
 // @flow
 
-import { takeLatest, call, put, take, race } from 'redux-saga/effects';
+import {
+  takeLatest,
+  takeEvery,
+  call,
+  put,
+  take,
+  race,
+} from 'redux-saga/effects';
 
 import { delay } from '@gemsorg/utils';
 
-import { appActionTypes } from './actionTypes';
+import { appActionTypes, draftsActionTypes } from './actionTypes';
 
 const NOTIFICATION_TIMEOUT = 3000;
 
@@ -30,12 +37,17 @@ function* handldNotificationAdded() {
   }
 }
 
-// function* handleReport({ type }) {
-//   yield put(addNotification('error', { type }));
-// }
+const successMessage = message => {
+  function* handler() {
+    yield put(addNotification('success', message));
+  }
+  return handler;
+};
 
 export function* notificationsSagas(): any {
   yield takeLatest(appActionTypes.NOTIFICATION_ADD, handldNotificationAdded);
-
-  // yield takeEvery(gemsActionTypes.TRANSACTION_FAILED, handleTxFailed);
+  yield takeEvery(
+    draftsActionTypes.UPDATE_TASK_COMPLETE,
+    successMessage('Task module edited!')
+  );
 }

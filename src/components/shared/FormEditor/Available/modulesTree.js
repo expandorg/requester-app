@@ -19,7 +19,6 @@ export const displayCategories = [
 export const getAvailableModulesTree = (
   controls: Array<Object>
 ): Array<ModuleCategoryItem> => {
-  console.log(controls);
   const grouped = groupModulesByCategory(controls);
   return displayCategories.map(category => ({
     category,
