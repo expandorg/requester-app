@@ -13,11 +13,13 @@ export const displayCategories = [
   ModuleCategories.Display,
   ModuleCategories.Image,
   ModuleCategories.Video,
+  ModuleCategories.Onboarding,
 ];
 
 export const getAvailableModulesTree = (
   controls: Array<Object>
 ): Array<ModuleCategoryItem> => {
+  console.log(controls);
   const grouped = groupModulesByCategory(controls);
   return displayCategories.map(category => ({
     category,

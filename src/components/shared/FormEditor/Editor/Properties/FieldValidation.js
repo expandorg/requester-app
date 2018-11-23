@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 
 import { moduleProps } from '@gemsorg/modules';
 
-import Input from '../../../../common/Input';
+// import Input from '../../../../common/Input';
+import Checkbox from '../../../../common/Checkbox';
 
 import styles from './FieldValidation.module.styl';
 
@@ -20,14 +21,14 @@ export default class FieldValidation extends Component {
     onChange: PropTypes.func.isRequired,
   };
 
-  handleInputChange = ({ target }) => {
+  handleInputChange = (value, name) => {
     const {
       onChange,
       module: { validation },
     } = this.props;
     onChange({
       ...(validation || {}),
-      [target.name]: target.value,
+      [name]: value,
     });
   };
 
@@ -36,15 +37,15 @@ export default class FieldValidation extends Component {
 
     return (
       <div className={styles.container}>
-        <div className={styles.title}>Validation Messages</div>
+        <div className={styles.title}>Validation</div>
         <div className={styles.list}>
           {Reflect.ownKeys(validation).map(name => (
-            <Input
+            <Checkbox
               key={name}
               className={styles.item}
               name={name}
-              placeholder={labels[name] || name}
-              value={(module.validation && module.validation[name]) || ''}
+              label={labels[name] || name}
+              value={(module.validation && !!module.validation[name]) || false}
               onChange={this.handleInputChange}
             />
           ))}
