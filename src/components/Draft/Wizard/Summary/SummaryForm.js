@@ -13,7 +13,7 @@ import { ReactComponent as Warning } from '../../../assets/warning.svg';
 import Settings from './Settings';
 import Data from './Data/Data';
 import Task from './Task';
-import Whitelist from './Whitelist';
+// import Whitelist from './Whitelist';
 import Payout from './Payout';
 import PublishButton from './PublishButton';
 
@@ -51,9 +51,9 @@ export default class SummaryForm extends Component {
         <Section title="Task" status={nav.templates.status} blue>
           <Task draft={draft} />
         </Section>
-        <Section title="Whitelist" status={nav.whitelist.status}>
+        {/* <Section title="Whitelist" status={nav.whitelist.status}>
           <Whitelist draft={draft} />
-        </Section>
+        </Section> */}
         <Section title="Payout" status={nav.pay.status} blue>
           <Payout draft={draft} />
         </Section>

@@ -15,7 +15,7 @@ import Settings from './Wizard/Settings/SettingsContainer';
 import Data from './Wizard/Data/Data';
 import Templates from './Wizard/Templates/Templates';
 import CreateTask from './Wizard/Task/CreateTask';
-import Whitelist from './Wizard/Whitelist/Whitelist';
+// import Whitelist from './Wizard/Whitelist/Whitelist';
 import Payments from './Wizard/Payments/Payments';
 
 import Summary from './Wizard/Summary/Summary';
@@ -77,7 +77,7 @@ export default class DraftWizard extends Component {
               <NavItem {...nav.upload}>Upload</NavItem>
               <NavItem {...nav.templates}>Templates</NavItem>
               <NavItem {...nav.task}>Create Task</NavItem>
-              <NavItem {...nav.whitelist}>Whitelist</NavItem>
+              {/* <NavItem {...nav.whitelist}>Whitelist</NavItem> */}
               <NavItem {...nav.pay}>Pay</NavItem>
             </Navigation>
           </Navbar>
@@ -108,21 +108,21 @@ export default class DraftWizard extends Component {
                     onBack={this.handleBack}
                   />
                 )}
-                {active === 4 && (
+                {/* {active === 4 && (
                   <Whitelist
                     draft={draft}
                     onNext={this.handleNext}
                     onBack={this.handleBack}
                   />
-                )}
-                {active === 5 && (
+                )} */}
+                {active === 4 && (
                   <Payments
                     draft={draft}
                     onNext={this.handleNext}
                     onBack={this.handleBack}
                   />
                 )}
-                {active === 6 && (
+                {active === 5 && (
                   <Summary draft={draft} onBack={this.handleBack} />
                 )}
               </div>
