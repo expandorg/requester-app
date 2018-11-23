@@ -1,73 +1,156 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import cn from 'classnames';
 
 import immer from 'immer';
+import { removeAtIndex, replaceAtIndex } from '@gemsorg/utils';
 
+import FormEditorDialog from '../../../../shared/FormEditor/FormEditorDialog';
 import Step from './Step';
 import AddNew from './AddNew';
 
+import {
+  draftTaskProps,
+  draftOnboardingProps,
+} from '../../../../shared/propTypes';
+
 import styles from './StepsForm.module.styl';
+
+const taskSelected = Symbol('taskSelected');
 
 export default class StepsForm extends Component {
   static propTypes = {
-    steps: PropTypes.arrayOf(PropTypes.object),
-    className: PropTypes.string,
-    onSelect: PropTypes.func.isRequired,
-    onUpdate: PropTypes.func.isRequired,
+    task: draftTaskProps.isRequired,
+    onboarding: draftOnboardingProps.isRequired,
+    onUpdateTask: PropTypes.func.isRequired,
+    onUpdateOnboarding: PropTypes.func.isRequired,
   };
 
-  static defaultProps = {
-    className: null,
-    steps: [],
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      onboarding: props.onboarding, // eslint-disable-line react/no-unused-state
+      steps: props.onboarding.steps,
+      selected: null,
+    };
+  }
+
+  static getDerivedStateFromProps({ onboarding }, state) {
+    if (onboarding !== state.onboarding) {
+      return {
+        onboarding,
+        steps: onboarding.steps,
+      };
+    }
+    return null;
+  }
+
+  handleUpdate = form => {
+    const { onUpdateTask, onUpdateOnboarding, onboarding, task } = this.props;
+    const { selected, steps } = this.state;
+
+    if (selected === taskSelected) {
+      onUpdateTask({ ...task, form });
+    } else {
+      const step = { ...steps[selected], form };
+      onUpdateOnboarding({
+        ...onboarding,
+        steps: replaceAtIndex(steps, selected, step),
+      });
+    }
+    this.handleDeselect();
   };
 
-  handleAdd = template => {
-    const { onUpdate, steps } = this.props;
-    const step = { ...template, modules: [], checked: false, id: steps.length };
-    onUpdate([step, ...steps]);
+  handleAddOnboarding = step => {
+    const { onUpdateOnboarding, onboarding } = this.props;
+    const { steps: prev } = this.state;
+    const steps = [step, ...prev];
+    this.setState({ steps });
+    onUpdateOnboarding({ ...onboarding, steps });
   };
 
-  handleDelete = stepId => {
-    const { onUpdate, steps } = this.props;
-    onUpdate(steps.filter(s => s.id !== stepId));
+  handleEndDrag = () => {
+    const { onUpdateOnboarding, onboarding } = this.props;
+    const { steps } = this.state;
+    onUpdateOnboarding({ ...onboarding, steps });
   };
 
-  handleMove = (dragId, hoverId) => {
-    const { onUpdate, steps } = this.props;
+  handleDeleteStep = order => {
+    const { onUpdateOnboarding, onboarding } = this.props;
+    const { steps } = this.state;
+    onUpdateOnboarding({
+      ...onboarding,
+      steps: removeAtIndex(steps, order),
+    });
+  };
+
+  handleMoveStep = (dragId, hoverId) => {
+    const { steps } = this.state;
 
     const dragIndex = steps.findIndex(m => m.id === dragId);
     const hoverIndex = steps.findIndex(m => m.id === hoverId);
 
     const dragged = steps[dragIndex];
     const hovered = steps[hoverIndex];
-    onUpdate(
-      immer(steps, draft => {
+
+    this.setState({
+      steps: immer(steps, draft => {
         draft[dragIndex] = hovered;
         draft[hoverIndex] = dragged;
-      })
-    );
+      }),
+    });
+  };
+
+  handleSelectStep = selected => {
+    this.setState({ selected });
+  };
+
+  handleSelectTask = () => {
+    this.setState({ selected: taskSelected });
+  };
+
+  handleDeselect = () => {
+    this.setState({ selected: null });
+  };
+
+  getSelectedForm = selected => {
+    if (selected === taskSelected) {
+      const { task } = this.props;
+      return task.form;
+    }
+    const { steps } = this.state;
+    return steps[selected].form;
   };
 
   render() {
-    const { steps, onSelect, className } = this.props;
-    const last = steps.length - 1;
+    const { task } = this.props;
+    const { steps, selected } = this.state;
+
     return (
-      <div className={cn(styles.container, className)}>
+      <div className={styles.container}>
         <div className={styles.list}>
-          <AddNew onAdd={this.handleAdd} />
+          <AddNew onAdd={this.handleAddOnboarding} />
           {steps.map((step, order) => (
             <Step
+              id={step.id}
               key={step.id}
-              step={step}
-              isTask={order === last}
+              name={step.name}
               order={order}
-              onSelect={onSelect}
-              onMove={this.handleMove}
-              onDelete={this.handleDelete}
+              onMove={this.handleMoveStep}
+              onDelete={this.handleDeleteStep}
+              onEndDrag={this.handleEndDrag}
+              onSelect={this.handleSelectStep}
             />
           ))}
+          <Step isTask name={task.name} onSelect={this.handleSelectTask} />
         </div>
+        {selected !== null && (
+          <FormEditorDialog
+            form={this.getSelectedForm(selected)}
+            onSave={this.handleUpdate}
+            onHide={this.handleDeselect}
+          />
+        )}
       </div>
     );
   }

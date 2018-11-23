@@ -20,6 +20,10 @@ export default combineReducers({
   updateDraftSettings: requestUiStateReducer(draftsActionTypes.UPDATE_SETTINGS),
 
   selectDraftTemplate: requestUiStateReducer(draftsActionTypes.UPDATE_TEMPLATE),
+  updateDraftTask: requestUiStateReducer(draftsActionTypes.UPDATE_TASK),
+  updateDraftOnboarding: requestUiStateReducer(
+    draftsActionTypes.UPDATE_ONBOARDING
+  ),
   updateDraftWhitelist: requestUiStateReducer(
     draftsActionTypes.UPDATE_WHITELIST
   ),

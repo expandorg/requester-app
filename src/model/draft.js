@@ -1,5 +1,6 @@
 // @flow
 import format from 'date-fns/format';
+import nanoid from 'nanoid';
 
 import { rules } from '@gemsorg/validation';
 
@@ -22,3 +23,9 @@ export const fundingRules = {
 
 export const formatDate = (date: ?Object | ?number) =>
   date ? format(date, 'MM/DD/YYYY HH:mm') : '--/--/--';
+
+export const getStepFromTemplate = ({ name, form }: Object) => ({
+  id: nanoid(),
+  name,
+  form,
+});

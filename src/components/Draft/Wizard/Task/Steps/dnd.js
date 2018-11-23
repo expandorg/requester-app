@@ -1,21 +1,24 @@
 export const STEPS_DND_ID = 'STEPS_DND_ID';
 
 export const source = {
-  beginDrag: ({ step, order }) => ({
-    id: step.id,
+  beginDrag: ({ id, order }) => ({
+    id,
     order,
   }),
   canDrag: ({ isTask }) => !isTask,
+  endDrag: ({ onEndDrag }) => {
+    onEndDrag();
+  },
 };
 
 export const target = {
-  hover: ({ step, order, onMove, isTask }, monitor, component) => {
+  hover: ({ id, order, onMove, isTask }, monitor, component) => {
     if (isTask) {
       return;
     }
 
     const { id: dragId, order: dragOrder } = monitor.getItem();
-    if (dragId === step.id) {
+    if (dragId === id) {
       return;
     }
 
@@ -34,7 +37,7 @@ export const target = {
       return;
     }
 
-    onMove(dragId, step.id);
+    onMove(dragId, id);
   },
   canDrop: ({ isTask }) => !isTask,
 };

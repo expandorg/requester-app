@@ -28,6 +28,16 @@ export const selectDraftTemplateStateSelector = createSelector(
   state => state.selectDraftTemplate
 );
 
+export const updateDraftTaskStateSelector = createSelector(
+  uiStateSelector,
+  state => state.updateDraftTask
+);
+
+export const updateDraftOnboardingStateSelector = createSelector(
+  uiStateSelector,
+  state => state.updateDraftOnboarding
+);
+
 export const updateDraftWhitelistStateSelector = createSelector(
   uiStateSelector,
   state => state.updateDraftWhitelist

@@ -62,7 +62,7 @@ export default class PropertiesForm extends Component {
     return (
       <aside className={styles.container}>
         <div className={styles.content}>
-          <div className={styles.title}>{name}</div>
+          <div className={styles.title}>{name} properties</div>
           {editor.properties && (
             <div className={styles.props}>
               {Reflect.ownKeys(editor.properties).map(propertyName => (

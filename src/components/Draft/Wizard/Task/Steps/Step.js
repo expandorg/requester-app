@@ -14,35 +14,50 @@ import styles from './Step.module.styl';
 
 class Step extends Component {
   static propTypes = {
-    step: PropTypes.object.isRequired, // eslint-disable-line
+    id: PropTypes.string, // eslint-disable-line
+    name: PropTypes.string.isRequired,
+    checked: PropTypes.bool,
     onSelect: PropTypes.func.isRequired,
 
-    isTask: PropTypes.bool.isRequired,
+    isTask: PropTypes.bool,
     isDragging: PropTypes.bool.isRequired,
-    order: PropTypes.number.isRequired, // eslint-disable-line
-    onMove: PropTypes.func.isRequired, // eslint-disable-line
-    onDelete: PropTypes.func.isRequired,
+    order: PropTypes.number,
+
+    onMove: PropTypes.func, // eslint-disable-line
+    onDelete: PropTypes.func,
+    onEndDrag: PropTypes.func, // eslint-disable-line
 
     connectDragSource: PropTypes.func.isRequired,
     connectDragPreview: PropTypes.func.isRequired,
     connectDropTarget: PropTypes.func.isRequired,
   };
 
-  handleClick = evt => {
-    evt.preventDefault();
-    const { step, onSelect } = this.props;
-    onSelect(step.id);
+  static defaultProps = {
+    id: null,
+    order: null,
+    isTask: false,
+    checked: false,
+    onMove: null,
+    onDelete: null,
+    onEndDrag: null,
   };
 
-  handleDeleteClick = evt => {
+  handleClick = evt => {
     evt.preventDefault();
-    const { step, onDelete } = this.props;
-    onDelete(step.id);
+    const { order, onSelect } = this.props;
+    onSelect(order);
+  };
+
+  handleDelete = evt => {
+    evt.preventDefault();
+    const { order, onDelete } = this.props;
+    onDelete(order);
   };
 
   render() {
     const {
-      step,
+      name,
+      checked,
       isTask,
       isDragging,
 
@@ -56,7 +71,7 @@ class Step extends Component {
     const classes = cn(styles.outer, {
       [styles.dragging]: isDragging,
     });
-    const iconClass = cn(styles.icon, { [styles.checked]: step.checked });
+    const iconClass = cn(styles.icon, { [styles.checked]: checked });
     return connectDragSource(
       connectDropTarget(
         <div className={classes}>
@@ -68,14 +83,14 @@ class Step extends Component {
                 this.containerRef = c;
               }}
             >
-              <div className={styles.name}>{step.name}</div>
+              <div className={styles.name}>{name}</div>
               <div className={iconClass}>
-                {step.checked ? <Checkmark /> : <Warning />}
+                {checked ? <Checkmark /> : <Warning />}
               </div>
             </div>
           )}
           {!isTask && (
-            <button className={styles.remove} onClick={this.handleDeleteClick}>
+            <button className={styles.remove} onClick={this.handleDelete}>
               <X />
             </button>
           )}

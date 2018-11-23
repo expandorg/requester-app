@@ -1,6 +1,8 @@
 // @flow
 import PropTypes from 'prop-types';
 
+import { moduleProps } from '@gemsorg/modules';
+
 export const historyProps = PropTypes.shape({
   replace: PropTypes.func.isRequired,
   push: PropTypes.func.isRequired,
@@ -44,8 +46,25 @@ export const taskStatsProps = PropTypes.shape({
   id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
 });
 
+export const formProps = PropTypes.shape({
+  modules: PropTypes.arrayOf(moduleProps),
+});
+
+export const draftTaskProps = PropTypes.shape({
+  name: PropTypes.string,
+  form: formProps,
+});
+
+export const draftOnboardingProps = PropTypes.shape({
+  id: PropTypes.string,
+  name: PropTypes.string,
+  steps: PropTypes.arrayOf(formProps),
+});
+
 export const draftProps = PropTypes.shape({
   id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+  task: draftTaskProps,
+  onboarding: draftOnboardingProps,
 });
 
 export const dataColumnProps = PropTypes.shape({
@@ -67,4 +86,5 @@ export const taskTemplateProps = PropTypes.shape({
   name: PropTypes.string.isRequired,
   logo: PropTypes.string,
   description: PropTypes.string,
+  form: formProps,
 });

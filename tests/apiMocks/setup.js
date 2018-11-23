@@ -64,17 +64,28 @@ export default function setupMocks(app: Object) {
 
   app.patch('/api/v1/drafts/:id', (req, res) => {
     const index = drafts.findIndex(d => d.id === +req.params.id);
-    const draft = {
+    let draft = {
       ...drafts[index],
       ...req.body,
     };
 
-    drafts[index] = draft;
     if (req.body.templateId) {
+      const { task, onboarding } = taskTemplates.find(
+        t => t.id === +req.body.templateId
+      );
+
+      draft = {
+        ...draft,
+        task,
+        onboarding,
+      };
+      drafts[index] = draft;
+
       setTimeout(() => {
         res.json({ draft });
       }, 1000);
     } else {
+      drafts[index] = draft;
       res.json({ draft });
     }
   });

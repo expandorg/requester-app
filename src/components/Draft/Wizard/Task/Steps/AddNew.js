@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 
 import TemplatesDialog from '../../../../shared/Templates/TemplatesDialog';
 
+import { getStepFromTemplate } from '../../../../../model/draft';
+
 import styles from './AddNew.module.styl';
 
 export default class AddNew extends Component {
@@ -20,12 +22,13 @@ export default class AddNew extends Component {
     this.setState(({ dialog }) => ({ dialog: !dialog }));
   };
 
-  handleAdd = (...args) => {
+  handleAdd = template => {
     const { onAdd } = this.props;
 
     this.setState({ dialog: false });
+    const step = getStepFromTemplate(template);
 
-    onAdd(...args);
+    onAdd(step);
   };
 
   render() {
