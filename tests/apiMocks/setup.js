@@ -29,15 +29,18 @@ export default function setupMocks(app: Object) {
   app.use(bodyParser.urlencoded({ extended: false }));
 
   // TASKS
-  app.get('/api/v1/tasks/list/:status*?', (req, res) => {
-    const { status } = req.params;
-    const array = [
-      ...drafts.map(getDashboardDraft),
-      ...tasks.map(getDashboardTask),
-    ];
-
+  // TEMPLATES
+  app.get('/api/v1/tasks/templates', (req, res) => {
     res.json({
-      tasks: array.filter(t => !status || t.state === status),
+      templates: taskTemplates,
+    });
+  });
+
+  app.get('/api/v1/tasks/templates/:id', (req, res) => {
+    const id = +req.params.id;
+    const template = taskTemplates.find(t => t.id === id);
+    res.json({
+      template,
     });
   });
 
@@ -46,6 +49,18 @@ export default function setupMocks(app: Object) {
 
     res.json({
       task: tasks.find(t => t.id === +id),
+    });
+  });
+
+  app.get('/api/v1/tasks/:status*?', (req, res) => {
+    const { status } = req.params;
+    const array = [
+      ...drafts.map(getDashboardDraft),
+      ...tasks.map(getDashboardTask),
+    ];
+
+    res.json({
+      tasks: array.filter(t => !status || t.state === status),
     });
   });
 
@@ -163,21 +178,6 @@ export default function setupMocks(app: Object) {
         draftId,
         columns,
       },
-    });
-  });
-
-  // TEMPLATES
-  app.get('/api/v1/tasks/templates', (req, res) => {
-    res.json({
-      templates: taskTemplates,
-    });
-  });
-
-  app.get('/api/v1/tasks/templates/:id', (req, res) => {
-    const id = +req.params.id;
-    const template = taskTemplates.find(t => t.id === id);
-    res.json({
-      template,
     });
   });
 
