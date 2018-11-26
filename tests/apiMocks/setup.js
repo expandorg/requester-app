@@ -52,7 +52,7 @@ export default function setupMocks(app: Object) {
     });
   });
 
-  app.get('/api/v1/tasks/:status*?', (req, res) => {
+  app.get('/api/v1/tasks/status/:status*?', (req, res) => {
     const { status } = req.params;
     const array = [
       ...drafts.map(getDashboardDraft),
