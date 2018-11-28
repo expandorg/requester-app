@@ -1,4 +1,5 @@
 import { BaseApi } from '@gemsorg/api-client';
+import apiClient from './apiClient';
 
 export class DataApi extends BaseApi {
   uploadData = ({ draftId, data, xhrCallbacks }) =>
@@ -13,4 +14,4 @@ export class DataApi extends BaseApi {
     });
 }
 
-export const dataApi = new DataApi();
+export const dataApi = new DataApi(apiClient);

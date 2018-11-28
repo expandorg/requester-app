@@ -1,20 +1,20 @@
-import { takeEvery } from 'redux-saga/effects';
+import { takeEvery, fork } from 'redux-saga/effects';
 
 import { handleAsyncCall } from '@gemsorg/app-utils';
 
-import { authActionTypes } from './actionTypes';
+import { authActionTypes } from '@gemsorg/app-auth';
+import { watchAppInit } from '@gemsorg/app-auth/sagas';
 
-import { authApi } from '../api/AuthApi';
-
-import { authResponseSchema } from '../model/schemas';
-
-export const getCurrentUser = () => ({
-  type: authActionTypes.GET_CURRENT,
-  payload: {},
-  asyncCall: authApi.getCurrentUser,
-  meta: { schema: authResponseSchema },
-});
+/* eslint-disable import/prefer-default-export */
 
 export function* authSagas() {
-  yield takeEvery(authActionTypes.GET_CURRENT, handleAsyncCall);
+  const actions = [
+    authActionTypes.GET_CURRENT,
+    authActionTypes.LOGIN,
+    authActionTypes.SIGNUP,
+    authActionTypes.LOGOUT,
+  ];
+  yield takeEvery(actions, handleAsyncCall);
+
+  yield fork(watchAppInit);
 }

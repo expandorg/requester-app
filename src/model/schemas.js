@@ -9,8 +9,6 @@ const formTemplateSchema = new schema.Entity('formTemplates');
 
 const dataSchema = new schema.Entity('data');
 
-const authResponseSchema = {};
-
 const draftResponseSchema = { draft: draftSchema };
 
 const dataResponseSchema = { data: dataSchema };
@@ -19,7 +17,6 @@ export {
   draftSchema,
   taskStatsSchema,
   draftResponseSchema,
-  authResponseSchema,
   dataResponseSchema,
   taskTemplateSchema,
   formTemplateSchema,

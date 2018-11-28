@@ -10,8 +10,9 @@ import {
 } from 'redux-saga/effects';
 
 import { delay } from '@gemsorg/utils';
+import { appActionTypes } from '@gemsorg/app-utils/app';
 
-import { appActionTypes, draftsActionTypes } from './actionTypes';
+import { draftsActionTypes } from './actionTypes';
 
 const NOTIFICATION_TIMEOUT = 3000;
 

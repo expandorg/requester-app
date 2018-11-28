@@ -1,4 +1,5 @@
 import { BaseApi } from '@gemsorg/api-client';
+import apiClient from './apiClient';
 
 export class TemplatesApi extends BaseApi {
   taskTemplates = () => this.get('/tasks/templates');
@@ -10,4 +11,4 @@ export class TemplatesApi extends BaseApi {
   formTemplate = ({ id }) => this.get(`/forms/templates/${id}`);
 }
 
-export const templatesApi = new TemplatesApi();
+export const templatesApi = new TemplatesApi(apiClient);

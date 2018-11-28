@@ -7,6 +7,8 @@ import { bindActionCreators } from 'redux';
 import { withRouter } from 'react-router-dom';
 
 import { matchProps } from '../shared/propTypes';
+import { authenticated } from '../shared/auth';
+
 import Content from '../shared/Content';
 import Navbar from '../shared/Navbar';
 import Sidebar from '../shared/Sidebar';
@@ -72,8 +74,10 @@ class Dashboard extends Component {
 }
 
 export default withRouter(
-  connect(
-    mapStateToProps,
-    mapDispatchToProps
-  )(Dashboard)
+  authenticated(
+    connect(
+      mapStateToProps,
+      mapDispatchToProps
+    )(Dashboard)
+  )
 );

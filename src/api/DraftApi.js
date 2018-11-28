@@ -1,4 +1,5 @@
 import { BaseApi } from '@gemsorg/api-client';
+import apiClient from './apiClient';
 
 export class DraftApi extends BaseApi {
   fetch = ({ id }) => this.get(`/drafts/${id}`);
@@ -10,4 +11,4 @@ export class DraftApi extends BaseApi {
   publish = ({ id }) => this.post(`/drafts/${id}/publish`);
 }
 
-export const draftApi = new DraftApi();
+export const draftApi = new DraftApi(apiClient);

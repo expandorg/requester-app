@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux';
 
-import user from './userReducer';
+import { userReducer as user } from '@gemsorg/app-auth';
+
 import dashboardTasks from './dashboardTasksReducer';
 import draftEntities from './drafts/draftEntitiesReducer';
 

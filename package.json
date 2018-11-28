@@ -30,6 +30,7 @@
   },
   "dependencies": {
     "@babel/polyfill": "^7.0.0",
+    "@gemsorg/app-auth": "^0.0.1",
     "@gemsorg/api-client": "^0.0.12",
     "@gemsorg/app-utils": "^0.0.14",
     "@gemsorg/components": "^0.1.9",

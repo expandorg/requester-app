@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux';
 import { requestUiStateReducer } from '@gemsorg/app-utils';
+import { authStateReducers } from '@gemsorg/app-auth';
 
 import {
-  authActionTypes,
   draftsActionTypes,
   dataActionTypes,
   whitelistActionTypes,
@@ -13,7 +13,7 @@ import notification from './notificationsReducer';
 
 export default combineReducers({
   notification,
-  auth: requestUiStateReducer(authActionTypes.GET_CURRENT),
+  ...authStateReducers,
 
   fetchDraft: requestUiStateReducer(draftsActionTypes.FETCH),
   createDraft: requestUiStateReducer(draftsActionTypes.CREATE, true),

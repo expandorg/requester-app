@@ -5,7 +5,12 @@ import { Provider } from 'react-redux';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import { ServiceProvider } from '@gemsorg/components';
 
+import { initSaga } from '@gemsorg/app-utils/app';
+
 import Dashboard from './components/Dashboard/Dashboard';
+
+import Login from './components/Auth/Login';
+import Signup from './components/Auth/Signup';
 
 import Create from './components/Create/Create';
 import Draft from './components/Draft/Draft';
@@ -23,12 +28,18 @@ import store from './reducers/store';
 
 import services from './services';
 
+store.dispatch(initSaga());
+
 const App = () => (
   <ServiceProvider services={services}>
     <Provider store={store}>
       <BrowserRouter>
         <Switch>
           <Route path="/" exact component={Dashboard} />
+
+          <Route path="/login" component={Login} />
+          <Route path="/signup" component={Signup} />
+
           <Route path="/tasks/:category" component={Dashboard} />
 
           <Route path="/draft/create" component={Create} />

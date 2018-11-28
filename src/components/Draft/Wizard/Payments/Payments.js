@@ -6,6 +6,7 @@ import { bindActionCreators } from 'redux';
 
 import { requestStateProps, RequestStates } from '@gemsorg/app-utils';
 import { validateForm } from '@gemsorg/validation';
+import { userSelector } from '@gemsorg/app-auth/selectors';
 
 import { ReactComponent as Card } from '../../../assets/creditcard.svg';
 
@@ -23,7 +24,6 @@ import HeroWarning from '../../../shared/HeroWarning';
 
 import { updateFunding } from '../../../../sagas/draftsSagas';
 import { updateDraftFundingStateSelector } from '../../../../selectors/uiStateSelectors';
-import { userSelector } from '../../../../selectors/userSelectors';
 
 import { fundingRules } from '../../../../model/draft';
 
