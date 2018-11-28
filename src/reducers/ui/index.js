@@ -1,6 +1,8 @@
 import { combineReducers } from 'redux';
 import { requestUiStateReducer } from '@gemsorg/app-utils';
+
 import { authStateReducers } from '@gemsorg/app-auth';
+import { web3ActionTypes } from '@gemsorg/app-web3';
 
 import {
   draftsActionTypes,
@@ -12,8 +14,9 @@ import {
 import notification from './notificationsReducer';
 
 export default combineReducers({
-  notification,
+  initGems: requestUiStateReducer(web3ActionTypes.INIT_GEMS),
   ...authStateReducers,
+  notification,
 
   fetchDraft: requestUiStateReducer(draftsActionTypes.FETCH),
   createDraft: requestUiStateReducer(draftsActionTypes.CREATE, true),

@@ -6,15 +6,14 @@ import { bindActionCreators } from 'redux';
 
 import { Button, ErrorMessage } from '@gemsorg/components';
 import { requestStateProps } from '@gemsorg/app-utils';
+
 import { loginMetamaskStateSelector } from '@gemsorg/app-auth/selectors';
+import { loginMetamask } from '@gemsorg/app-auth/sagas';
+
+import { metamaskStateSelector } from '@gemsorg/app-web3/selectors';
+import { MetamaskState } from '@gemsorg/app-web3';
 
 import MetamaskPromt from '../../shared/metamask/MetamaskPromt';
-
-import { metamaskStateSelector } from '../../../selectors/web3Selectors';
-
-import { loginMetamask } from '../../../sagas/authSagas';
-
-import { MetamaskState } from '../../../model/enums';
 
 import styles from './styles.module.styl';
 

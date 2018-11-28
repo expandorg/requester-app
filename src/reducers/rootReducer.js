@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux';
 
 import { userReducer as user } from '@gemsorg/app-auth';
+import { metamaskReducer as metamask } from '@gemsorg/app-web3';
 
 import dashboardTasks from './dashboardTasksReducer';
 import draftEntities from './drafts/draftEntitiesReducer';
@@ -44,5 +45,9 @@ export default combineReducers({
   whitelist: combineReducers({
     eligible,
   }),
+  web3: combineReducers({
+    metamask,
+  }),
+
   ui,
 });

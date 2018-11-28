@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 
 import { RequestStates, requestStateProps } from '@gemsorg/app-utils';
 
@@ -84,9 +84,9 @@ class LoginForm extends Component {
           </Button>
         </form>
         <div className={styles.footer}>
-          <Link className={styles.forgot} to="/password">
+          {/* <Link className={styles.forgot} to="/password">
             I forgot my password
-          </Link>
+          </Link> */}
           <button className={styles.toggle} onClick={onToggle}>
             Don’t have an account? Sign up!
           </button>
