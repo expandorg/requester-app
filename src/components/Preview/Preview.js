@@ -2,10 +2,11 @@ import React, { Component } from 'react';
 
 import Content from '../shared/Content';
 import PreviewForm from './PreviewForm';
+import { authenticated } from '../shared/auth';
 
 import styles from './Preview.module.styl';
 
-export default class Preview extends Component {
+class Preview extends Component {
   state = {
     form: null,
   };
@@ -44,3 +45,5 @@ export default class Preview extends Component {
     );
   }
 }
+
+export default authenticated(Preview);

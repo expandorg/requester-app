@@ -7,6 +7,7 @@ import { bindActionCreators } from 'redux';
 
 import { requestStateProps, RequestStates } from '@gemsorg/app-utils';
 import { matchProps, draftProps, locationProps } from '../shared/propTypes';
+import { authenticated } from '../shared/auth';
 
 import DraftWizard from './DraftWizard';
 
@@ -60,8 +61,10 @@ class Draft extends Component {
 }
 
 export default withRouter(
-  connect(
-    makeMapStateToProps,
-    mapDispatchToProps
-  )(Draft)
+  authenticated(
+    connect(
+      makeMapStateToProps,
+      mapDispatchToProps
+    )(Draft)
+  )
 );

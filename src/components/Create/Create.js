@@ -11,6 +11,7 @@ import { historyProps } from '../shared/propTypes';
 import { SubmitStateEffect } from '../common/submitStateEffect';
 import Content from '../shared/Content';
 import Navbar from '../shared/Navbar';
+import { authenticated } from '../shared/auth';
 
 import { Navigation, NavItem } from '../Draft/Wizard/Navigation';
 import { LoadIndicator } from '../Draft/Wizard/Form';
@@ -89,8 +90,10 @@ class Create extends Component {
   }
 }
 export default withRouter(
-  connect(
-    mapsStateToProps,
-    mapDispatchToProps
-  )(Create)
+  authenticated(
+    connect(
+      mapsStateToProps,
+      mapDispatchToProps
+    )(Create)
+  )
 );

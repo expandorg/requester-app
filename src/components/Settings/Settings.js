@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import Content from '../shared/Content';
 import Navbar from '../shared/Navbar';
 import Sidebar from '../shared/Sidebar';
+import { authenticated } from '../shared/auth';
 
 import Button from '../common/Button';
 import Input from '../common/Input';
@@ -12,7 +13,7 @@ import DepositDialog from '../shared/Deposit/DepositDialog';
 
 import styles from './Settings.module.styl';
 
-export default class Settings extends Component {
+class Settings extends Component {
   state = {
     email: '',
     address: '',
@@ -95,3 +96,5 @@ export default class Settings extends Component {
     );
   }
 }
+
+export default authenticated(Settings);

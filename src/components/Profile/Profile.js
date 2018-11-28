@@ -3,10 +3,11 @@ import React, { Component } from 'react';
 import Content from '../shared/Content';
 import Navbar from '../shared/Navbar';
 import Sidebar from '../shared/Sidebar';
+import { authenticated } from '../shared/auth';
 
 // import styles from './Profile.module.styl';
 
-export default class Profile extends Component {
+class Profile extends Component {
   render() {
     return (
       <Content title="Profile">
@@ -16,3 +17,5 @@ export default class Profile extends Component {
     );
   }
 }
+
+export default authenticated(Profile);

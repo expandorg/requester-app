@@ -7,6 +7,7 @@ import { bindActionCreators } from 'redux';
 
 import { requestStateProps, RequestStates } from '@gemsorg/app-utils';
 import { matchProps, taskStatsProps } from '../shared/propTypes';
+import { authenticated } from '../shared/auth';
 
 import Stats from './Stats';
 
@@ -58,8 +59,10 @@ class Draft extends Component {
 }
 
 export default withRouter(
-  connect(
-    makeMapStateToProps,
-    mapDispatchToProps
-  )(Draft)
+  authenticated(
+    connect(
+      makeMapStateToProps,
+      mapDispatchToProps
+    )(Draft)
+  )
 );
