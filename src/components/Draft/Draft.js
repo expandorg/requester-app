@@ -19,7 +19,7 @@ import { fetch } from '../../sagas/draftsSagas';
 const makeMapStateToProps = () => {
   const draftSelector = makeDraftSelector();
   return (state, props) => ({
-    draft: draftSelector(state, +props.match.params.id),
+    draft: draftSelector(state, props.match.params.id),
     loadState: fetchDraftStateSelector(state),
   });
 };
@@ -55,7 +55,6 @@ class Draft extends Component {
     const { draft, loadState, location } = this.props;
     const isLoading = !draft && loadState.state === RequestStates.Fetching;
     const tab = (location.state && location.state.tab) || 0;
-
     return <DraftWizard draft={draft} tab={tab} isLoading={isLoading} />;
   }
 }

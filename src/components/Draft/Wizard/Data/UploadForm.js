@@ -84,6 +84,7 @@ class UploadForm extends Component {
         </Description>
         <Upload
           file={data}
+          accept="text/csv"
           isUploading={uploading}
           className={styles.upload}
           onSelect={this.handleUpload}

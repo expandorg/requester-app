@@ -18,7 +18,7 @@ import { fetchTaskStats } from '../../sagas/tasksSagas';
 const makeMapStateToProps = () => {
   const raskStatsSelector = makeTaskStatsSelector();
   return (state, props) => ({
-    stats: raskStatsSelector(state, +props.match.params.id),
+    stats: raskStatsSelector(state, props.match.params.id),
     loadState: fetchTaskStatsStateSelector(state),
   });
 };

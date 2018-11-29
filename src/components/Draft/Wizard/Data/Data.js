@@ -30,7 +30,6 @@ export default class UploadData extends Component {
 
   render() {
     const { draft } = this.props;
-
     const hasData = draft.dataId !== null && draft.dataId !== undefined;
     return (
       <Form onSubmit={this.handleSubmit}>
