@@ -7,6 +7,7 @@ import { bindActionCreators } from 'redux';
 import { Input, ErrorMessage, Button } from '@gemsorg/components';
 
 import { RequestStates, requestStateProps } from '@gemsorg/app-utils';
+
 import { signupStateSelector } from '@gemsorg/app-auth/selectors';
 import { signup } from '@gemsorg/app-auth/sagas';
 
