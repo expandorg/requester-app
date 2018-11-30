@@ -30,7 +30,7 @@ const babelPlugins = [
 export default (env = {}) => {
   const dev = !!env.dev;
 
-  const port = env.port || 3010;
+  const port = env.port || 3000;
 
   Reflect.ownKeys(entry).forEach(name => {
     if (dev) {

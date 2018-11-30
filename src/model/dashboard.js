@@ -17,6 +17,14 @@ export const links = [
     href: '/tasks/completed',
     text: 'Completed',
   },
+  {
+    href: '/tasks/scheduled',
+    text: 'Scheduled',
+  },
+  {
+    href: '/tasks/pending',
+    text: 'Pending',
+  },
 ];
 
 export const isActive = (match: Object, localtion: Object): boolean => {
