@@ -14,6 +14,18 @@ import { TaskStateTitles } from '../../../model/i18n';
 
 import styles from './styles.module.styl';
 
+const canCopyStates = [
+  TaskState.draft,
+  TaskState.completed,
+  TaskState.scheduled,
+];
+
+const canDeleteStates = [
+  TaskState.draft,
+  TaskState.completed,
+  TaskState.scheduled,
+];
+
 const getStatusTitle = status => {
   if (status === TaskState.inprogress) {
     return (
@@ -75,6 +87,9 @@ export default class TaskItem extends Component {
         ? `/draft/${task.draftId}`
         : `/task/${task.taskId}`;
 
+    const canCopy = canCopyStates.includes(task.state);
+    const canDelete = canDeleteStates.includes(task.state);
+
     return (
       <Link className={cn(styles.container, styles.task)} to={to}>
         <div className={styles.actions}>
@@ -84,6 +99,8 @@ export default class TaskItem extends Component {
             </button>
             {menu && (
               <TaskItemMenu
+                canCopy={canCopy}
+                canDelete={canDelete}
                 onCopy={this.handleCopy}
                 onDelete={this.handleDelete}
                 onHide={this.handleHide}
