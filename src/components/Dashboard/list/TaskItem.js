@@ -4,33 +4,51 @@ import cn from 'classnames';
 
 import { Link } from 'react-router-dom';
 
-import { Tooltip } from '@gemsorg/components';
-
-import { ReactComponent as CopyIcon } from '../../assets/copy.svg';
+import { ReactComponent as MoreIcon } from '../../assets/more.svg';
+import TaskItemMenu from './TaskItemMenu';
 
 import { TaskStateTitles } from '../../../model/i18n';
 
 import styles from './styles.module.styl';
 
-const Copy = Tooltip(({ children, ...props }) => (
-  <button {...props} className={styles.copyBtn}>
-    <CopyIcon />
-    {children}
-  </button>
-));
-
 export default class TaskItem extends Component {
   static propTypes = {
     task: PropTypes.object.isRequired, // eslint-disable-line
+    onDelete: PropTypes.func,
+    onCopy: PropTypes.func,
   };
 
-  handleCopyClick = evt => {
+  static defaultProps = {
+    onDelete: Function.prototype,
+    onCopy: Function.prototype,
+  };
+
+  state = {
+    menu: false,
+  };
+
+  handleCopy = () => {
+    const { onCopy, task } = this.props;
+    onCopy(task);
+  };
+
+  handleDelete = () => {
+    const { onDelete, task } = this.props;
+    onDelete(task);
+  };
+
+  handleToggle = evt => {
     evt.preventDefault();
-    evt.stopPropagation();
+    this.setState(({ menu }) => ({ menu: !menu }));
+  };
+
+  handleHide = () => {
+    this.setState({ menu: false });
   };
 
   render() {
     const { task } = this.props;
+    const { menu } = this.state;
 
     const to =
       task.state === 'draft'
@@ -39,8 +57,19 @@ export default class TaskItem extends Component {
 
     return (
       <Link className={cn(styles.container, styles.task)} to={to}>
-        <div className={styles.copy}>
-          <Copy onClick={this.handleCopyClick} tooltip="Copy" />
+        <div className={styles.actions}>
+          <div className={styles.menuContainer}>
+            <button onClick={this.handleToggle} className={styles.more}>
+              <MoreIcon width="15" height="15" viewBox="0 0 15 4" />
+            </button>
+            {menu && (
+              <TaskItemMenu
+                onCopy={this.handleCopy}
+                onDelete={this.handleDelete}
+                onHide={this.handleHide}
+              />
+            )}
+          </div>
         </div>
         <div className={styles.logo}>
           <img src={task.logo} className={styles.img} alt={task.title} />

@@ -6,7 +6,7 @@ import { bindActionCreators } from 'redux';
 
 import { withRouter } from 'react-router-dom';
 
-import { matchProps } from '../shared/propTypes';
+import { matchProps } from '@gemsorg/app-utils';
 import { authenticated } from '../shared/auth';
 
 import Content from '../shared/Content';

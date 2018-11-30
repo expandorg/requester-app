@@ -3,43 +3,9 @@ import PropTypes from 'prop-types';
 
 import { moduleProps } from '@gemsorg/modules';
 
-export const historyProps = PropTypes.shape({
-  replace: PropTypes.func.isRequired,
-  push: PropTypes.func.isRequired,
-});
-
-export const locationProps = PropTypes.shape({
-  pathname: PropTypes.string.isRequired,
-  search: PropTypes.string.isRequired,
-  hash: PropTypes.string.isRequired,
-});
-
-export const matchProps = PropTypes.shape({
-  params: PropTypes.object,
-});
-
 export const notificationProps = PropTypes.shape({
   type: PropTypes.oneOf(['warning', 'message', 'success']).isRequired,
   message: PropTypes.string,
-});
-
-export const userProps = PropTypes.shape({
-  id: PropTypes.number.isRequired,
-
-  email: PropTypes.string,
-  emailConfirmed: PropTypes.bool,
-
-  address: PropTypes.string,
-  addressConfirmed: PropTypes.bool,
-
-  isRequester: PropTypes.bool.isRequired,
-  score: PropTypes.number,
-
-  gems: PropTypes.shape({
-    balance: PropTypes.number,
-    reserved: PropTypes.number,
-    owned: PropTypes.number,
-  }),
 });
 
 export const taskStatsProps = PropTypes.shape({

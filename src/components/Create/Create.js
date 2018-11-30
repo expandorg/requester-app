@@ -5,9 +5,12 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { requestStateProps, RequestStates } from '@gemsorg/app-utils';
+import {
+  requestStateProps,
+  RequestStates,
+  historyProps,
+} from '@gemsorg/app-utils';
 
-import { historyProps } from '../shared/propTypes';
 import { SubmitStateEffect } from '../common/submitStateEffect';
 import Content from '../shared/Content';
 import Navbar from '../shared/Navbar';

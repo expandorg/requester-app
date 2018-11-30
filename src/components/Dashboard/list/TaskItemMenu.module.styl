@@ -1,0 +1,36 @@
+@import 'components/common/uikit/colors'
+@import 'components/common/uikit/font'
+
+.container
+  position: absolute;
+  top: 100%
+  right: 0
+
+  box-sizing: border-box;
+
+  width: 170px
+
+  box-shadow: heavy-shadow
+
+.button
+  display: block;
+  box-sizing: border-box;
+
+  width: 100%
+  height: 46px
+  padding: 0 10px 0 25px
+
+  font(body-bold, false, false, 46px)
+  text-align: left;
+
+  color: color-blue-background
+  background-color: color-white
+
+  outline: 0
+  cursor: pointer;
+
+  &:hover
+    background-color: color-medium-blue
+
+.disabled
+  color: color-text-disabled

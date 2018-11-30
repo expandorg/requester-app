@@ -6,6 +6,7 @@ import { bindActionCreators } from 'redux';
 
 import { requestStateProps, RequestStates } from '@gemsorg/app-utils';
 import { validateForm } from '@gemsorg/validation';
+import { userProps } from '@gemsorg/app-auth';
 import { userSelector } from '@gemsorg/app-auth/selectors';
 
 import { ReactComponent as Card } from '../../../assets/creditcard.svg';
@@ -14,7 +15,7 @@ import Input from '../../../common/Input';
 import Button from '../../../common/Button';
 import { SubmitStateEffect } from '../../../common/submitStateEffect';
 
-import { userProps, draftProps } from '../../../shared/propTypes';
+import { draftProps } from '../../../shared/propTypes';
 import DepositDialog from '../../../shared/Deposit/DepositDialog';
 
 import { Form, Description, Field, Fieldset, Actions } from '../Form';

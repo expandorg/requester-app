@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router';
 
-import { requestStateProps } from '@gemsorg/app-utils';
+import { requestStateProps, historyProps } from '@gemsorg/app-utils';
 
-import { historyProps } from '../../../shared/propTypes';
 import ConfirmationDialog from '../../../shared/ConfirmationDialog';
 
 class Summary extends Component {

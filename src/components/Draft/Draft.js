@@ -5,8 +5,13 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { requestStateProps, RequestStates } from '@gemsorg/app-utils';
-import { matchProps, draftProps, locationProps } from '../shared/propTypes';
+import {
+  requestStateProps,
+  RequestStates,
+  matchProps,
+  locationProps,
+} from '@gemsorg/app-utils';
+import { draftProps } from '../shared/propTypes';
 import { authenticated } from '../shared/auth';
 
 import DraftWizard from './DraftWizard';

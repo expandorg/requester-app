@@ -5,8 +5,12 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { requestStateProps, RequestStates } from '@gemsorg/app-utils';
-import { matchProps, taskStatsProps } from '../shared/propTypes';
+import {
+  requestStateProps,
+  RequestStates,
+  matchProps,
+} from '@gemsorg/app-utils';
+import { taskStatsProps } from '../shared/propTypes';
 import { authenticated } from '../shared/auth';
 
 import Stats from './Stats';
