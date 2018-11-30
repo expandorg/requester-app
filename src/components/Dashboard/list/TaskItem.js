@@ -5,11 +5,31 @@ import cn from 'classnames';
 import { Link } from 'react-router-dom';
 
 import { ReactComponent as MoreIcon } from '../../assets/more.svg';
+import { ReactComponent as CheckIcon } from '../../assets/checkmark-3.svg';
+
 import TaskItemMenu from './TaskItemMenu';
 
+import { TaskState } from '../../../model/enums';
 import { TaskStateTitles } from '../../../model/i18n';
 
 import styles from './styles.module.styl';
+
+const getStatusTitle = status => {
+  if (status === TaskState.inprogress) {
+    return (
+      <span>
+        {TaskStateTitles[status]}
+        <CheckIcon
+          width="16"
+          height="12"
+          viewBox="0 0 64 48"
+          className={styles.check}
+        />
+      </span>
+    );
+  }
+  return TaskStateTitles[status];
+};
 
 export default class TaskItem extends Component {
   static propTypes = {
@@ -75,7 +95,7 @@ export default class TaskItem extends Component {
           <img src={task.logo} className={styles.img} alt={task.title} />
         </div>
         <div className={styles.title}>{task.title}</div>
-        <div className={styles.state}>{TaskStateTitles[task.state]}</div>
+        <div className={styles.state}>{getStatusTitle(task.state)}</div>
       </Link>
     );
   }
