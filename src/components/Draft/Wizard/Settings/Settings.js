@@ -4,24 +4,33 @@ import PropTypes from 'prop-types';
 import { validateForm } from '@gemsorg/validation';
 
 import Input from '../../../common/Input';
+import Button from '../../../common/Button';
+import Select from '../../../common/Select';
+
 import DateTimeInput from '../../../common/DateTime/DateTimeInput';
 import { Upload, ImagePreview } from '../../../common/Upload';
 
 import { draftProps } from '../../../shared/propTypes';
+
 import { Form, Description, Field, Fieldset, Actions } from '../Form';
-import Button from '../../../common/Button';
 
 import { ReactComponent as Placeholder } from '../../../assets/data.svg';
 
-import { settingsRules } from '../../../../model/draft';
+import { settingsRules, EndType } from '../../../../model/draft';
 
 import styles from './Settings.module.styl';
+
+const options = [
+  { value: EndType.ExceedTasks, label: 'Exceeded all tasks' },
+  { value: EndType.ResultCount, label: 'On Specific result count' },
+  { value: EndType.Date, label: 'On specific date' },
+];
 
 const getInitialState = draft => ({
   logoUrl: (draft && draft.logoUrl) || undefined,
   title: (draft && draft.title) || '',
   description: (draft && draft.description) || '',
-  startDate: (draft && draft.startDate) || undefined,
+  endWhen: (draft && draft.endWhen) || EndType.ExceedTasks,
   endDate: (draft && draft.endDate) || undefined,
 });
 
@@ -132,24 +141,36 @@ export default class Settings extends Component {
               onChange={this.handleInputChange}
             />
           </Field>
-          <Field tooltip="Start Date" name="startDate" errors={errors}>
-            <DateTimeInput
-              placeholder="Start Date *"
-              name="startDate"
-              error={!!(errors && errors.startDate)}
-              value={settings.startDate}
-              onChange={this.handleInputChange}
+          <div className={styles.end}>
+            <Select
+              value={settings.endWhen}
+              label="End Task When *"
+              options={options}
+              onChange={when =>
+                this.handleInputChange({
+                  target: { value: when, name: 'endWhen' },
+                })
+              }
             />
-          </Field>
-          <Field tooltip="End Date" name="endDate" errors={errors}>
-            <DateTimeInput
-              placeholder="End Date *"
-              name="endDate"
-              error={!!(errors && errors.endDate)}
-              value={settings.endDate}
-              onChange={this.handleInputChange}
-            />
-          </Field>
+            {settings.endWhen === EndType.Date && (
+              <DateTimeInput
+                placeholder="End Date"
+                name="endDate"
+                error={!!(errors && errors.endDate)}
+                value={settings.endDate}
+                onChange={this.handleInputChange}
+              />
+            )}
+            {settings.endWhen === EndType.ResultCount && (
+              <Input
+                placeholder="Count"
+                name="endResultCount"
+                error={!!(errors && errors.endResultCount)}
+                value={settings.endResultCount}
+                onChange={this.handleInputChange}
+              />
+            )}
+          </div>
         </Fieldset>
         <Actions>
           <Button disable={isSubmitting} type="submit">

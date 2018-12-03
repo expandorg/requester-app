@@ -35,8 +35,9 @@ export const createTask = draft => ({
   title: draft.title,
   state: 'inprogress',
   logoUrl: draft.logoUrl,
-  startDate: draft.logoUrl,
-  endDate: draft.logoUrl,
+  endWhen: draft.endWhen,
+  endResultCount: draft.endWhen,
+  endDate: draft.endDate,
 });
 
 export const taskTemplates = range(20).map(id => ({

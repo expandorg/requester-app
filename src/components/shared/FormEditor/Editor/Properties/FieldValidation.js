@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 
 import { moduleProps } from '@gemsorg/modules';
 
-// import Input from '../../../../common/Input';
 import Checkbox from '../../../../common/Checkbox';
 
 import styles from './FieldValidation.module.styl';

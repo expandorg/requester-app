@@ -8,7 +8,6 @@ export const settingsRules = {
   logo: [[rules.isRequired, 'Logo is required']],
   title: [[rules.isRequired, 'Title is required']],
   description: [[rules.isRequired, 'Description is required']],
-  startDate: [[rules.isRequired, 'Start date is required']],
 };
 
 const ge = (g: number = 0) => [
@@ -29,3 +28,9 @@ export const getStepFromTemplate = ({ name, form }: Object) => ({
   name,
   form,
 });
+
+export const EndType = {
+  Date: 'Date',
+  ResultCount: 'ResultCount',
+  ExceedTasks: 'ExceedTasks',
+};
