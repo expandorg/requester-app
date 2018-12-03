@@ -15,7 +15,7 @@ import Data from './Data/Data';
 import Task from './Task';
 // import Whitelist from './Whitelist';
 import Payout from './Payout';
-import PublishButton from './PublishButton';
+import PublishButton from './Publish/PublishButton';
 
 import styles from './SummaryForm.module.styl';
 
@@ -26,9 +26,9 @@ export default class SummaryForm extends Component {
     onSubmit: PropTypes.func.isRequired,
   };
 
-  handlePublishClick = () => {
+  handlePublishClick = schedule => {
     const { onSubmit } = this.props;
-    onSubmit();
+    onSubmit(schedule);
   };
 
   render() {

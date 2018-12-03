@@ -1,0 +1,41 @@
+@import 'components/common/uikit/colors'
+
+.group
+  position: relative;
+
+.menu
+  position: absolute;
+  bottom: 100%
+
+.menuItem
+  margin-bottom: 1px
+  width: 175px
+  border-radius: 0
+
+  &:first-child
+    border-top-left-radius: 5px
+    border-top-right-radius: 5px
+
+  &:last-child
+    border-bottom-left-radius: 5px
+    border-bottom-right-radius: 5px
+
+.toggle
+  position: relative;
+  width: 175px
+
+.arrow
+  right: 21px
+  top: 26px
+  position: absolute;
+  transform: rotate(180deg);
+
+  path
+    fill: color-white
+
+.picker
+  position: absolute;
+  right: 0
+  bottom: 0
+
+  min-width: 550px

@@ -63,9 +63,9 @@ export const updateWhitelist = (id, whitelist) => ({
   meta: { schema: draftResponseSchema },
 });
 
-export const publish = id => ({
+export const publish = (id, schedule) => ({
   type: draftsActionTypes.PUBLISH,
-  payload: { id },
+  payload: { id, schedule },
   asyncCall: draftApi.publish,
   meta: { schema: draftResponseSchema },
 });
