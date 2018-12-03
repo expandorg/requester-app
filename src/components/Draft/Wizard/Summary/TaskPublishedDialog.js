@@ -26,10 +26,10 @@ class Summary extends Component {
   render() {
     return (
       <ConfirmationDialog
-        icon="success"
-        title="Success! Your task has been published."
-        confirmation="Would you like to view the progress?"
-        confirmCaption="view progress"
+        icon="review"
+        title="Great! Your task has been sent for review."
+        confirmation="It typically takes up to 24 hours."
+        confirmCaption="review draft"
         hideCaption="take me home"
         onHide={this.handleHide}
         onConfirm={this.handleConfirm}

@@ -6,13 +6,14 @@ import Button from '../common/Button';
 
 import { ReactComponent as Warning } from '../assets/warning.svg';
 import { ReactComponent as Checkmark } from '../assets/checkmark-3.svg';
+import { ReactComponent as Eye } from '../assets/eye.svg';
 
 import styles from './ConfirmationDialog.module.styl';
 
 export default class ConfirmationDialog extends Component {
   static propTypes = {
     title: PropTypes.string.isRequired,
-    icon: PropTypes.oneOf(['warning', 'success', 'none']),
+    icon: PropTypes.oneOf(['warning', 'success', 'review', 'none']),
     confirmation: PropTypes.string.isRequired,
     confirmCaption: PropTypes.string,
     hideCaption: PropTypes.string,
@@ -46,6 +47,8 @@ export default class ConfirmationDialog extends Component {
             viewBox="0 0 64 48"
           />
         );
+      case 'review':
+        return <Eye className={styles.eye} />;
       default:
         break;
     }
