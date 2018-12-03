@@ -5,6 +5,7 @@ import { PropControlTypes } from '@gemsorg/modules';
 
 import NumberEditor from './NumberEditor';
 import StringEditor from './StringEditor';
+import RichTextEditor from './RichTextEditor';
 import SelectEditor from './SelectEditor';
 import BoolEditor from './BoolEditor';
 
@@ -15,7 +16,7 @@ const editorsMap = {
   [PropControlTypes.boolean]: BoolEditor,
   [PropControlTypes.string]: StringEditor,
   [PropControlTypes.text]: StringEditor,
-  [PropControlTypes.richText]: StringEditor,
+  [PropControlTypes.richText]: RichTextEditor,
   [PropControlTypes.enum]: SelectEditor,
   [PropControlTypes.modules]: null,
 };

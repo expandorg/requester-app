@@ -20,6 +20,7 @@ import NewTask from './list/NewTask';
 import TaskItem from './list/TaskItem';
 
 import { fetchTasks } from '../../sagas/tasksSagas';
+import { removeDraft, copyDraft } from '../../sagas/draftsSagas';
 import { dashboardTasksSelector } from '../../selectors/tasksSelectors';
 
 import styles from './Dashboard.module.styl';
@@ -29,13 +30,15 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch =>
-  bindActionCreators({ fetchTasks }, dispatch);
+  bindActionCreators({ fetchTasks, removeDraft, copyDraft }, dispatch);
 
 class Dashboard extends Component {
   static propTypes = {
     match: matchProps.isRequired,
     items: PropTypes.arrayOf(PropTypes.object),
     fetchTasks: PropTypes.func.isRequired,
+    removeDraft: PropTypes.func.isRequired,
+    copyDraft: PropTypes.func.isRequired,
   };
 
   static defaultProps = {
@@ -65,7 +68,12 @@ class Dashboard extends Component {
         <List className={styles.list}>
           <NewTask />
           {items.map(task => (
-            <TaskItem key={task.id} task={task} />
+            <TaskItem
+              key={task.id}
+              task={task}
+              onCopy={this.props.copyDraft}
+              onDelete={this.props.removeDraft}
+            />
           ))}
         </List>
       </Content>

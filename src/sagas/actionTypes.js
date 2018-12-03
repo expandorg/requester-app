@@ -55,6 +55,14 @@ export const draftsActionTypes = createActionTypes('drafts', {
   PUBLISH: null,
   PUBLISH_COMPLETE: null,
   PUBLISH_FAILED: null,
+
+  REMOVE: null,
+  REMOVE_COMPLETE: null,
+  REMOVE_FAILED: null,
+
+  COPY: null,
+  COPY_COMPLETE: null,
+  COPY_FAILED: null,
 });
 
 export const dataActionTypes = createActionTypes('data', {

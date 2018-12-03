@@ -10,6 +10,10 @@ export class DraftApi extends BaseApi {
 
   publish = ({ id, schedule }) =>
     this.post(`/drafts/${id}/publish`, { schedule });
+
+  remove = ({ id }) => this.delete(`/drafts/${id}`);
+
+  copy = ({ id }) => this.post(`/drafts/${id}/copy`);
 }
 
 export const draftApi = new DraftApi(apiClient);

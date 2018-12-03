@@ -70,6 +70,19 @@ export const publish = (id, schedule) => ({
   meta: { schema: draftResponseSchema },
 });
 
+export const removeDraft = id => ({
+  type: draftsActionTypes.REMOVE,
+  payload: { id },
+  asyncCall: draftApi.remove,
+});
+
+export const copyDraft = id => ({
+  type: draftsActionTypes.REMOVE,
+  payload: { id },
+  asyncCall: draftApi.copy,
+  meta: { schema: draftResponseSchema },
+});
+
 export function* draftsSagas() {
   const actions = [
     draftsActionTypes.FETCH,
@@ -81,6 +94,8 @@ export function* draftsSagas() {
     draftsActionTypes.UPDATE_FUNDING,
     draftsActionTypes.UPDATE_WHITELIST,
     draftsActionTypes.PUBLISH,
+    draftsActionTypes.REMOVE,
+    draftsActionTypes.COPY,
   ];
   yield takeEvery(actions, handleAsyncCall);
 }
