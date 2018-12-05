@@ -1,15 +1,17 @@
+import nanoid from 'nanoid';
+
 const range = count => [...Array(count).keys()];
 
 export const tasks = range(10).map(id => ({
   id,
   title: 'Task Title',
-  state: Math.random() > 0.5 ? 'completed' : 'inprogress',
+  state: Math.random() > 0.5 ? 'completed' : 'in-progress',
   description: 'Task description',
   logoUrl: '/images/yc.png',
 }));
 
 export const drafts = range(5).map(id => ({
-  id,
+  id: nanoid(),
   title: `Draft Title ${id}`,
   logoUrl: '/images/yc.png',
   startDate: new Date(),
@@ -33,7 +35,7 @@ export const getDashboardDraft = draft => ({
 export const createTask = draft => ({
   id: tasks.length,
   title: draft.title,
-  state: 'inprogress',
+  state: 'in-progress',
   logoUrl: draft.logoUrl,
   endWhen: draft.endWhen,
   endResultCount: draft.endWhen,

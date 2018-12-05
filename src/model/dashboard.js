@@ -10,7 +10,7 @@ export const links = [
     text: 'Drafts',
   },
   {
-    href: '/tasks/inprogress',
+    href: '/tasks/in-progress',
     text: 'In Progress',
   },
   {
