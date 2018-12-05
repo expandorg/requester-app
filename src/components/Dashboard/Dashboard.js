@@ -47,7 +47,7 @@ class Dashboard extends Component {
 
   componentDidMount() {
     const { match } = this.props;
-    this.props.fetchTasks(match.params.category || 'draft');
+    this.props.fetchTasks(match.params.category);
   }
 
   componentDidUpdate({ match: prevMatch }) {

@@ -1,6 +1,7 @@
 // @flow
 
 import bodyParser from 'body-parser';
+import nanoid from 'nanoid';
 import {
   tasks,
   getDashboardTask,
@@ -67,7 +68,7 @@ export default function setupMocks(app: Object) {
   // DRAFTS
   app.post('/api/v1/drafts', (req, res) => {
     const draft = {
-      id: 10 + drafts.length,
+      id: nanoid(),
       ...req.body,
     };
     drafts.push(draft);
@@ -78,7 +79,7 @@ export default function setupMocks(app: Object) {
   });
 
   app.patch('/api/v1/drafts/:id', (req, res) => {
-    const index = drafts.findIndex(d => d.id === +req.params.id);
+    const index = drafts.findIndex(d => d.id === req.params.id);
     let draft = {
       ...drafts[index],
       ...req.body,
@@ -107,12 +108,12 @@ export default function setupMocks(app: Object) {
 
   app.get('/api/v1/drafts/:id', (req, res) => {
     res.json({
-      draft: drafts.find(d => d.id === +req.params.id),
+      draft: drafts.find(d => d.id === req.params.id),
     });
   });
 
   app.post('/api/v1/drafts/:id/data', dataUpload.single('data'), (req, res) => {
-    const draft = drafts.find(d => d.id === +req.params.id);
+    const draft = drafts.find(d => d.id === req.params.id);
 
     dataRepo[draft.id] = createData(draft.id, draft.id);
     draft.dataId = draft.id;
@@ -123,7 +124,7 @@ export default function setupMocks(app: Object) {
   });
 
   app.post('/api/v1/drafts/:id/onboarding', (req, res) => {
-    const draft = drafts.find(d => d.id === +req.params.id);
+    const draft = drafts.find(d => d.id === req.params.id);
     draft.onboarding = req.body.onboarding;
     res.json({
       draft,
@@ -131,7 +132,7 @@ export default function setupMocks(app: Object) {
   });
 
   app.post('/api/v1/drafts/:id/task', (req, res) => {
-    const draft = drafts.find(d => d.id === +req.params.id);
+    const draft = drafts.find(d => d.id === req.params.id);
     draft.task = req.body.task;
     res.json({
       draft,
@@ -139,7 +140,7 @@ export default function setupMocks(app: Object) {
   });
 
   app.post('/api/v1/drafts/:id/publish', (req, res) => {
-    const index = drafts.findIndex(d => d.id === +req.params.id);
+    const index = drafts.findIndex(d => d.id === req.params.id);
     const draft = drafts[index];
     const task = createTask(draft);
 
@@ -158,7 +159,7 @@ export default function setupMocks(app: Object) {
   // DATA
   app.get('/api/v1/drafts/:id/data/:dataId', (req, res) => {
     const current = +req.query.page || 0;
-    const data = dataRepo[+req.params.id];
+    const data = dataRepo[req.params.id];
 
     const [values, pagination] = getPage(data.values, current, 10);
 
@@ -169,7 +170,7 @@ export default function setupMocks(app: Object) {
   });
 
   app.post('/api/v1/drafts/:id/data/:dataId/columns', (req, res) => {
-    const data = dataRepo[+req.params.id];
+    const data = dataRepo[req.params.id];
     data.columns = req.body.columns;
     const { columns, id, draftId } = data;
     res.json({
