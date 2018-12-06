@@ -3,6 +3,6 @@ import BaseChildWindow from './BaseChildWindow';
 
 export default class PreviewTab extends BaseChildWindow {
   constructor() {
-    super('_blank', '/preview');
+    super('_blank', '/preview/form');
   }
 }

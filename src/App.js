@@ -17,6 +17,7 @@ import Draft from './components/Draft/Draft';
 
 import Task from './components/Task/Task';
 import Preview from './components/Preview/Preview';
+import PreviewDraft from './components/Preview/PreviewDraft';
 
 import Api from './components/Api/Api';
 import Profile from './components/Profile/Profile';
@@ -47,7 +48,8 @@ const App = () => (
           <Route path="/draft/:id" component={Draft} />
           <Route path="/task/:id" component={Task} />
 
-          <Route path="/preview" component={Preview} />
+          <Route path="/preview/form" component={Preview} />
+          <Route path="/preview/draft/:id" component={PreviewDraft} />
 
           <Route path="/profile" component={Profile} />
           <Route path="/api" component={Api} />
