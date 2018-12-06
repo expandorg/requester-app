@@ -38,8 +38,7 @@ export default function setupMocks(app: Object) {
   });
 
   app.get('/api/v1/tasks/templates/:id', (req, res) => {
-    const id = +req.params.id;
-    const template = taskTemplates.find(t => t.id === id);
+    const template = taskTemplates.find(t => t.id === req.params.id);
     res.json({
       template,
     });
@@ -87,7 +86,7 @@ export default function setupMocks(app: Object) {
 
     if (req.body.templateId) {
       const { task, onboarding } = taskTemplates.find(
-        t => t.id === +req.body.templateId
+        t => t.id === req.body.templateId
       );
 
       draft = {
@@ -189,8 +188,7 @@ export default function setupMocks(app: Object) {
   });
 
   app.get('/api/v1/forms/templates/:id', (req, res) => {
-    const id = +req.params.id;
-    const template = formTemplates.find(t => t.id === id);
+    const template = formTemplates.find(t => t.id === req.params.id);
     res.json({
       template,
     });

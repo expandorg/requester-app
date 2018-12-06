@@ -5,7 +5,7 @@ import cn from 'classnames';
 import Item from './Item';
 import Preview from './Preview';
 
-import templateProps from './templateProps';
+import { taskTemplateProps } from '../propTypes';
 
 import I from '../../common/I';
 
@@ -16,8 +16,8 @@ export default class Templates extends Component {
     className: PropTypes.string,
     title: PropTypes.string,
     description: PropTypes.string,
-    templates: PropTypes.arrayOf(templateProps),
-    selected: PropTypes.number,
+    templates: PropTypes.arrayOf(taskTemplateProps),
+    selected: PropTypes.string,
     actions: PropTypes.element,
     onSelect: PropTypes.func.isRequired,
   };

@@ -9,7 +9,7 @@ import Button from '../../common/Button';
 
 import Templates from './Templates';
 
-import templateProps from './templateProps';
+import { taskTemplateProps } from '../propTypes';
 
 import { fetchFormTemplates } from '../../../sagas/formTemplateSagas';
 import { formTemplatesSelector } from '../../../selectors/formTemplatesSelectors';
@@ -25,7 +25,7 @@ const mapDispatchToProps = dispatch =>
 
 class TemplatesDialog extends Component {
   static propTypes = {
-    templates: PropTypes.arrayOf(templateProps),
+    templates: PropTypes.arrayOf(taskTemplateProps),
     title: PropTypes.string,
     description: PropTypes.string,
 

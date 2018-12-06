@@ -23,7 +23,7 @@ class TemplatesList extends Component {
   static propTypes = {
     draft: draftProps.isRequired,
     submitState: requestStateProps.isRequired,
-    selected: PropTypes.number,
+    selected: PropTypes.string,
 
     onBack: PropTypes.func.isRequired,
     selectTemplate: PropTypes.func.isRequired,

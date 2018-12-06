@@ -2,13 +2,13 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
 
-import templateProps from './templateProps';
+import { taskTemplateProps } from '../propTypes';
 
 import styles from './Preview.module.styl';
 
 export default class Preview extends Component {
   static propTypes = {
-    template: templateProps,
+    template: taskTemplateProps,
     className: PropTypes.string,
   };
 

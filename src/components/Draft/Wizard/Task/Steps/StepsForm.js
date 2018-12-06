@@ -19,10 +19,15 @@ const taskSelected = Symbol('taskSelected');
 
 export default class StepsForm extends Component {
   static propTypes = {
-    task: draftTaskProps.isRequired,
-    onboarding: draftOnboardingProps.isRequired,
+    task: draftTaskProps,
+    onboarding: draftOnboardingProps,
     onUpdateTask: PropTypes.func.isRequired,
     onUpdateOnboarding: PropTypes.func.isRequired,
+  };
+
+  static defaultProps = {
+    task: null,
+    onboarding: null,
   };
 
   constructor(props) {
@@ -30,7 +35,7 @@ export default class StepsForm extends Component {
 
     this.state = {
       onboarding: props.onboarding, // eslint-disable-line react/no-unused-state
-      steps: props.onboarding.steps,
+      steps: (props.onboarding && props.onboarding.steps) || [],
       selected: null,
     };
   }
@@ -39,7 +44,7 @@ export default class StepsForm extends Component {
     if (onboarding !== state.onboarding) {
       return {
         onboarding,
-        steps: onboarding.steps,
+        steps: (onboarding && onboarding.steps) || [],
       };
     }
     return null;
@@ -142,7 +147,9 @@ export default class StepsForm extends Component {
               onSelect={this.handleSelectStep}
             />
           ))}
-          <Step isTask name={task.name} onSelect={this.handleSelectTask} />
+          {task && (
+            <Step isTask name={task.name} onSelect={this.handleSelectTask} />
+          )}
         </div>
         {selected !== null && (
           <FormEditorDialog

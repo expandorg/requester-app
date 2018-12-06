@@ -26,7 +26,7 @@ class TemplatesList extends Component {
   static propTypes = {
     templates: PropTypes.arrayOf(taskTemplateProps),
 
-    selected: PropTypes.number,
+    selected: PropTypes.string,
     onSelect: PropTypes.func.isRequired,
 
     onNext: PropTypes.func.isRequired,

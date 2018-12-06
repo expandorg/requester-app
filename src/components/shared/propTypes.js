@@ -28,7 +28,7 @@ export const draftOnboardingProps = PropTypes.shape({
 });
 
 export const draftProps = PropTypes.shape({
-  id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+  id: PropTypes.string.isRequired,
   task: draftTaskProps,
   onboarding: draftOnboardingProps,
 });
@@ -41,14 +41,14 @@ export const dataColumnProps = PropTypes.shape({
 
 export const dataProps = PropTypes.shape({
   id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
-  draftId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+  draftId: PropTypes.string.isRequired,
   columns: PropTypes.arrayOf(dataColumnProps).isRequired,
   values: PropTypes.arrayOf(PropTypes.any),
   total: PropTypes.number,
 });
 
 export const taskTemplateProps = PropTypes.shape({
-  id: PropTypes.number.isRequired,
+  id: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   logo: PropTypes.string,
   description: PropTypes.string,

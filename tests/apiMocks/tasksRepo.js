@@ -43,7 +43,7 @@ export const createTask = draft => ({
 });
 
 export const taskTemplates = range(20).map(id => ({
-  id,
+  id: nanoid(),
   name:
     id === 0 ? `Template name very very long, ${id}` : `Template name, ${id}`,
   logo: 'https://portal.gems.org//images/complete-tasks.png',
@@ -62,7 +62,7 @@ export const taskTemplates = range(20).map(id => ({
 }));
 
 export const formTemplates = range(20).map(id => ({
-  id,
+  id: nanoid(),
   name: id === 0 ? `Form template name very very long, ${id}` : `form, ${id}`,
   logo: 'https://portal.gems.org//images/complete-tasks.png',
   form: {
