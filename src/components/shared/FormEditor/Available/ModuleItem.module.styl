@@ -11,7 +11,7 @@
 
   height: 46px
 
-  background-color: color-text-pink
+  background-color: color-white
   margin-bottom: 10px
 
   border-radius: 5px;
@@ -31,6 +31,10 @@
   text-align: center;
   cursor: grab;
 
+  background-color: color-blue-background
+  border-top-left-radius: 5px
+  border-bottom-left-radius: 5px
+
 .dragIcon
   top: 3px
   position: relative;
@@ -44,7 +48,7 @@
 
   width: 100%;
 
-  color: color-white;
+  color: color-text-dark;
   font(small-text, 500, false, 46px)
 
   white-space: nowrap
@@ -62,11 +66,11 @@
 
   path
     transition: fill 0.15s ease-in-out
-    fill: color-white
+    fill: lighten(color-blue-background, 30%)
 
   .container:hover &
     opacity: 1
 
   .markHover &
     path
-      fill: color-white
+      fill: color-blue-background

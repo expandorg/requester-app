@@ -6,7 +6,7 @@
   box-sizing: border-box;
   margin-bottom: 10px
   border-radius: 5px;
-  background-color: color-white;
+  background-color: color-primary-blue;
 
 .inner
   display: flex;
@@ -16,25 +16,22 @@
 
   cursor: pointer;
 
-.plus
+.toggle
   min-width: 35px
   line-height: 46px
 
   text-align: center;
 
-.plusIcon
-  top: 3px
+.arrowIcon
   position: relative;
-  transform: rotate(45deg)
-  path
-    fill color-primary-blue
+  transform: rotate(180deg)
 
-.minusIcon
-  top: 3px
-  position: relative;
-  transform: scale(1.2);
   path
-    fill color-blue-background
+    fill color-white
+
+  .opened &
+    transform: rotate(0)
+
 
 .name
   background-color: color-primary-blue
@@ -56,9 +53,6 @@
 
   transition: background-color  100ms linear, color 100ms linear
 
-  .opened &
-    background-color: color-white
-    color: color-blue-background
 
 .list
   box-sizing: border-box;

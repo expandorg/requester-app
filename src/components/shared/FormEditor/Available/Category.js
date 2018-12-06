@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
 
-import { ReactComponent as PlusIcon } from '../../../assets/x.svg';
-import { ReactComponent as MinusIcon } from '../../../assets/minus.svg';
+import { ReactComponent as Arrow } from '../../../assets/arrow-2.svg';
 
 import ModuleItem from './ModuleItem';
 
@@ -26,7 +25,7 @@ export default class Category extends Component {
   };
 
   state = {
-    expanded: false,
+    expanded: true,
   };
 
   handleClick = () => {
@@ -57,17 +56,13 @@ export default class Category extends Component {
     return (
       <div className={cn(styles.container, { [styles.opened]: opened })}>
         <div className={styles.inner} onClick={this.handleClick}>
-          <div className={styles.plus}>
-            {opened ? (
-              <MinusIcon
-                width="13"
-                height="13"
-                viewBox="0 0 13 4"
-                className={styles.minusIcon}
-              />
-            ) : (
-              <PlusIcon className={styles.plusIcon} />
-            )}
+          <div className={styles.toggle}>
+            <Arrow
+              width="13"
+              height="13"
+              viewBox="0 0 13 8"
+              className={styles.arrowIcon}
+            />
           </div>
           <div className={styles.name}>{name}</div>
         </div>
