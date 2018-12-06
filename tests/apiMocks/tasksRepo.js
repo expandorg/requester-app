@@ -14,8 +14,7 @@ export const drafts = range(5).map(id => ({
   id: nanoid(),
   title: `Draft Title ${id}`,
   logoUrl: '/images/yc.png',
-  startDate: new Date(),
-  endDate: null,
+  endWhen: 'ExceedTasks',
 }));
 
 export const getDashboardTask = task => ({

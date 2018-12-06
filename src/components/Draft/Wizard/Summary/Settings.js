@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 
 import { Fieldset } from '../Form';
 import { draftProps } from '../../../shared/propTypes';
-import { formatDate } from '../../../../model/draft';
+import { formatDate, EndType } from '../../../../model/draft';
+import { EndWhenTitles } from '../../../../model/i18n';
 
 import styles from './Settings.module.styl';
 
@@ -31,15 +32,25 @@ export default class Settings extends Component {
             </div>
             <div className={styles.settings}>
               <div className={styles.filed}>
-                <div className={styles.name}>Start Date</div>
+                <div className={styles.name}>End when</div>
                 <div className={styles.value}>
-                  {formatDate(draft.startDate)}
+                  {EndWhenTitles[draft.endWhen]}
                 </div>
               </div>
-              <div className={styles.filed}>
-                <div className={styles.name}>End Date</div>
-                <div className={styles.value}>{formatDate(draft.endDate)}</div>
-              </div>
+              {draft.endWhen === EndType.Date && (
+                <div className={styles.filed}>
+                  <div className={styles.name}>End Date</div>
+                  <div className={styles.value}>
+                    {formatDate(draft.endDate)}
+                  </div>
+                </div>
+              )}
+              {draft.endWhen === EndType.ResultCount && (
+                <div className={styles.filed}>
+                  <div className={styles.name}>End Result Count</div>
+                  <div className={styles.value}>{draft.endResultCount}</div>
+                </div>
+              )}
               <div className={styles.filed}>
                 <div className={styles.name}>HITs</div>
                 <div className={styles.value}>200</div>

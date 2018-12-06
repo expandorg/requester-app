@@ -17,13 +17,14 @@ import { Form, Description, Field, Fieldset, Actions } from '../Form';
 import { ReactComponent as Placeholder } from '../../../assets/data.svg';
 
 import { settingsRules, EndType } from '../../../../model/draft';
+import { EndWhenTitles } from '../../../../model/i18n';
 
 import styles from './Settings.module.styl';
 
 const options = [
-  { value: EndType.ExceedTasks, label: 'Exceeded all tasks' },
-  { value: EndType.ResultCount, label: 'On Specific result count' },
-  { value: EndType.Date, label: 'On specific date' },
+  { value: EndType.ExceedTasks, label: EndWhenTitles[EndType.ExceedTasks] },
+  { value: EndType.ResultCount, label: EndWhenTitles[EndType.ResultCount] },
+  { value: EndType.Date, label: EndWhenTitles[EndType.Date] },
 ];
 
 const getInitialState = draft => ({
