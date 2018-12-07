@@ -25,7 +25,7 @@ export const getDashboardTask = task => ({
 });
 
 export const getDashboardDraft = draft => ({
-  draftId: draft.id,
+  id: draft.id,
   title: draft.title,
   logo: draft.logoUrl,
   status: 'draft',

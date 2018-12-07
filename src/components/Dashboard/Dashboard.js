@@ -69,7 +69,7 @@ class Dashboard extends Component {
           <NewTask />
           {items.map(task => (
             <TaskItem
-              key={task.id}
+              key={task.key}
               task={task}
               onCopy={this.props.copyDraft}
               onDelete={this.props.removeDraft}

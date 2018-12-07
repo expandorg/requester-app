@@ -8,7 +8,7 @@ export const dashboardTasksSelector = createSelector(
   dashboardTasksListSelector,
   list =>
     list.map(item => ({
-      id: `${item.id}-${item.taskId}-${item.status}`,
+      key: `${item.id}-${item.taskId}-${item.status}`,
       ...item,
     }))
 );
