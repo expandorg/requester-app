@@ -16,8 +16,8 @@ const ge = (g: number = 0) => [
 ];
 
 export const fundingRules = {
-  pay: [[rules.isNumber, 'Should be a positive number'], ge(0)],
-  earned: [[rules.isNumber, 'Should be a positive number'], ge(0)],
+  requirement: [[rules.isNumber, 'Should be a positive number'], ge(0)],
+  reward: [[rules.isNumber, 'Should be a positive number'], ge(0)],
 };
 
 export const formatDate = (date: ?Object | ?number) =>
@@ -28,9 +28,3 @@ export const getStepFromTemplate = ({ name, form }: Object) => ({
   name,
   form,
 });
-
-export const EndType = {
-  Date: 'Date',
-  ResultCount: 'ResultCount',
-  ExceedTasks: 'ExceedTasks',
-};

@@ -5,7 +5,7 @@ const range = count => [...Array(count).keys()];
 export const tasks = range(10).map(id => ({
   id,
   title: 'Task Title',
-  state: Math.random() > 0.5 ? 'completed' : 'in-progress',
+  status: Math.random() > 0.5 ? 'completed' : 'in-progress',
   description: 'Task description',
   logoUrl: '/images/yc.png',
 }));
@@ -21,20 +21,20 @@ export const getDashboardTask = task => ({
   taskId: task.id,
   title: task.title,
   logo: task.logoUrl,
-  state: task.state,
+  status: task.status,
 });
 
 export const getDashboardDraft = draft => ({
   draftId: draft.id,
   title: draft.title,
   logo: draft.logoUrl,
-  state: 'draft',
+  status: 'draft',
 });
 
 export const createTask = draft => ({
   id: tasks.length,
   title: draft.title,
-  state: 'scheduled',
+  status: 'scheduled',
   logoUrl: draft.logoUrl,
   endWhen: draft.endWhen,
   endResultCount: draft.endWhen,

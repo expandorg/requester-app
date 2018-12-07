@@ -1,16 +1,15 @@
 // @flow
-import { TaskState } from './enums';
-import { EndType } from './draft';
+import { EndType, TaskStatus } from './enums';
 
 export const noop = {};
 
-export const TaskStateTitles = {
-  [TaskState.draft]: 'draft',
-  [TaskState.completed]: 'completed',
-  [TaskState.inprogress]: 'in progress',
-  [TaskState.pending]: 'pending',
-  [TaskState.inprogress]: 'in progress',
-  [TaskState.scheduled]: 'scheduled',
+export const TaskStatusTitles = {
+  [TaskStatus.draft]: 'draft',
+  [TaskStatus.completed]: 'completed',
+  [TaskStatus.inprogress]: 'in progress',
+  [TaskStatus.pending]: 'pending',
+  [TaskStatus.inprogress]: 'in progress',
+  [TaskStatus.scheduled]: 'scheduled',
 };
 
 export const EndWhenTitles = {

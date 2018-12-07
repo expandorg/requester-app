@@ -9,33 +9,33 @@ import I from '../../common/I';
 
 import TaskItemMenu from './TaskItemMenu';
 
-import { TaskState } from '../../../model/enums';
-import { TaskStateTitles } from '../../../model/i18n';
+import { TaskStatus } from '../../../model/enums';
+import { TaskStatusTitles } from '../../../model/i18n';
 import { formatDate } from '../../../model/draft';
 
 import styles from './styles.module.styl';
 
 const canCopyStates = [
-  TaskState.draft,
-  TaskState.completed,
-  TaskState.scheduled,
+  TaskStatus.draft,
+  TaskStatus.completed,
+  TaskStatus.scheduled,
 ];
 
 const canDeleteStates = [
-  TaskState.draft,
-  TaskState.completed,
-  TaskState.scheduled,
+  TaskStatus.draft,
+  TaskStatus.completed,
+  TaskStatus.scheduled,
 ];
 
 const getTaskTooltip = task => {
-  if (task.state === TaskState.inprogress) {
+  if (task.status === TaskStatus.inprogress) {
     if (task.endDate) {
       return `Still running. Task is due to end on ${formatDate(
         task.endDate
       )}.`;
     }
   }
-  if (task.state === TaskState.scheduled) {
+  if (task.state === TaskStatus.scheduled) {
     return `Scheduled for ${formatDate(task.startDate)}`;
   }
   return null;
@@ -47,7 +47,7 @@ const getStatusTitle = task => {
   if (tooltip) {
     return (
       <span>
-        {TaskStateTitles[task.state]}
+        {TaskStatusTitles[task.state]}
         <I
           className={styles.check}
           tooltip={tooltip}
@@ -56,7 +56,7 @@ const getStatusTitle = task => {
       </span>
     );
   }
-  return TaskStateTitles[task.state];
+  return TaskStatusTitles[task.status];
 };
 
 export default class TaskItem extends Component {
@@ -99,12 +99,12 @@ export default class TaskItem extends Component {
     const { menu } = this.state;
 
     const to =
-      task.state === TaskState.draft
-        ? `/draft/${task.draftId}`
+      task.status === TaskStatus.draft
+        ? `/draft/${task.id}`
         : `/task/${task.taskId}`;
 
-    const canCopy = canCopyStates.includes(task.state);
-    const canDelete = canDeleteStates.includes(task.state);
+    const canCopy = canCopyStates.includes(task.status);
+    const canDelete = canDeleteStates.includes(task.status);
 
     return (
       <Link className={cn(styles.container, styles.task)} to={to}>
@@ -128,7 +128,7 @@ export default class TaskItem extends Component {
           <img src={task.logo} className={styles.img} alt={task.title} />
         </div>
         <div className={styles.title}>{task.title}</div>
-        <div className={styles.state}>{getStatusTitle(task)}</div>
+        <div className={styles.status}>{getStatusTitle(task)}</div>
       </Link>
     );
   }

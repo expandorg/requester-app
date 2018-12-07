@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import cn from 'classnames';
 
 import { taskStatsProps } from '../shared/propTypes';
-import { TaskStateTitles } from '../../model/i18n';
+import { TaskStatusTitles } from '../../model/i18n';
 
 import styles from './Title.module.styl';
 
@@ -24,7 +24,7 @@ export default class Title extends Component {
       <div className={styles.title}>
         {stats.title}
         <span className={cn(styles.state, styles[stats.state])}>
-          {TaskStateTitles[stats.state]}
+          {TaskStatusTitles[stats.state]}
         </span>
       </div>
     );

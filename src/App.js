@@ -16,7 +16,7 @@ import Create from './components/Create/Create';
 import Draft from './components/Draft/Draft';
 
 import Task from './components/Task/Task';
-import Preview from './components/Preview/Preview';
+import PreviewForm from './components/Preview/PreviewForm';
 import PreviewDraft from './components/Preview/PreviewDraft';
 
 import Api from './components/Api/Api';
@@ -48,7 +48,7 @@ const App = () => (
           <Route path="/draft/:id" component={Draft} />
           <Route path="/task/:id" component={Task} />
 
-          <Route path="/preview/form" component={Preview} />
+          <Route path="/preview/form" component={PreviewForm} />
           <Route path="/preview/draft/:id" component={PreviewDraft} />
 
           <Route path="/profile" component={Profile} />

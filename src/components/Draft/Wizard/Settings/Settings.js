@@ -16,7 +16,8 @@ import { Form, Description, Field, Fieldset, Actions } from '../Form';
 
 import { ReactComponent as Placeholder } from '../../../assets/data.svg';
 
-import { settingsRules, EndType } from '../../../../model/draft';
+import { settingsRules } from '../../../../model/draft';
+import { EndType } from '../../../../model/enums';
 import { EndWhenTitles } from '../../../../model/i18n';
 
 import styles from './Settings.module.styl';

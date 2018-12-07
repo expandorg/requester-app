@@ -39,8 +39,8 @@ const mapDispatchToProps = dispatch =>
   bindActionCreators({ updateFunding }, dispatch);
 
 const getInitialState = draft => ({
-  pay: (draft.funding && draft.funding.pay) || '',
-  earned: (draft.funding && draft.funding.earned) || '',
+  requirement: (draft.funding && draft.funding.requirement) || '',
+  reward: (draft.funding && draft.funding.reward) || '',
 });
 
 class Payments extends Component {
@@ -78,8 +78,9 @@ class Payments extends Component {
   handleSubmit = () => {
     const { draft, submitState } = this.props;
     if (submitState.state !== RequestStates.Fetching) {
-      const { funding } = this.state;
-      const errors = validateForm(funding, fundingRules);
+      const { requirement, reward } = this.state.funding;
+      const funding = { requirement: +requirement, reward: +reward };
+      const errors = validateForm(this.state.funding, fundingRules);
       if (errors) {
         this.setState({ errors });
       } else {
@@ -126,25 +127,29 @@ class Payments extends Component {
           <Hero value={user.gems.balance} title="gems available" />
           {!insufficent && (
             <>
-              <Field tooltip="Pay for Task *" name="pay" errors={errors}>
+              <Field
+                tooltip="Pay for Task *"
+                name="requirement"
+                errors={errors}
+              >
                 <Input
                   placeholder="Pay for Task *"
-                  name="pay"
-                  value={funding.pay}
-                  error={!!(errors && errors.pay)}
+                  name="requirement"
+                  value={funding.requirement}
+                  error={!!(errors && errors.requirement)}
                   onChange={this.handleInputChange}
                 />
               </Field>
               <Field
                 tooltip="Amount Earned per Task *"
-                name="earned"
+                name="reward"
                 errors={errors}
               >
                 <Input
                   placeholder="Amount Earned per Task *"
-                  name="earned"
-                  value={funding.earned}
-                  error={!!(errors && errors.earned)}
+                  name="reward"
+                  value={funding.reward}
+                  error={!!(errors && errors.reward)}
                   onChange={this.handleInputChange}
                 />
               </Field>

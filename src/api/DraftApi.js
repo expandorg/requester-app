@@ -8,6 +8,9 @@ export class DraftApi extends BaseApi {
 
   update = ({ id, params }) => this.patch(`/drafts/${id}`, params);
 
+  template = ({ id, templateId, settings }) =>
+    this.post(`/drafts/${id}/template`, { templateId, settings });
+
   publish = ({ id, schedule }) =>
     this.post(`/drafts/${id}/publish`, { schedule });
 
