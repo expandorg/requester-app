@@ -60,7 +60,7 @@ export default function setupMocks(app: Object) {
     ];
 
     res.json({
-      tasks: array.filter(t => !status || t.state === status),
+      tasks: array.filter(t => !status || t.status === status),
     });
   });
 
