@@ -46,14 +46,14 @@ export default class TaskItemMenu extends Component {
           className={cn(styles.button, { [styles.disabled]: !canCopy })}
           disabled={!canCopy}
         >
-          Duplicate Task
+          Duplicate Job
         </button>
         <button
           onClick={this.handleDelete}
           className={cn(styles.button, { [styles.disabled]: !canDelete })}
           disabled={!canDelete}
         >
-          Remove Task
+          Remove Job
         </button>
       </div>
     );

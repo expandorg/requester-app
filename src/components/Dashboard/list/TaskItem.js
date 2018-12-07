@@ -5,12 +5,13 @@ import cn from 'classnames';
 import { Link } from 'react-router-dom';
 
 import { ReactComponent as MoreIcon } from '../../assets/more.svg';
-import { ReactComponent as CheckIcon } from '../../assets/checkmark-3.svg';
+import I from '../../common/I';
 
 import TaskItemMenu from './TaskItemMenu';
 
 import { TaskState } from '../../../model/enums';
 import { TaskStateTitles } from '../../../model/i18n';
+import { formatDate } from '../../../model/draft';
 
 import styles from './styles.module.styl';
 
@@ -26,21 +27,36 @@ const canDeleteStates = [
   TaskState.scheduled,
 ];
 
-const getStatusTitle = status => {
-  if (status === TaskState.inprogress) {
+const getTaskTooltip = task => {
+  if (task.state === TaskState.inprogress) {
+    if (task.endDate) {
+      return `Still running. Task is due to end on ${formatDate(
+        task.endDate
+      )}.`;
+    }
+  }
+  if (task.state === TaskState.scheduled) {
+    return `Scheduled for ${formatDate(task.startDate)}`;
+  }
+  return null;
+};
+
+const getStatusTitle = task => {
+  const tooltip = getTaskTooltip(task);
+
+  if (tooltip) {
     return (
       <span>
-        {TaskStateTitles[status]}
-        <CheckIcon
-          width="16"
-          height="12"
-          viewBox="0 0 64 48"
+        {TaskStateTitles[task.state]}
+        <I
           className={styles.check}
+          tooltip={tooltip}
+          tooltipOrientation="right"
         />
       </span>
     );
   }
-  return TaskStateTitles[status];
+  return TaskStateTitles[task.state];
 };
 
 export default class TaskItem extends Component {
@@ -83,7 +99,7 @@ export default class TaskItem extends Component {
     const { menu } = this.state;
 
     const to =
-      task.state === 'draft'
+      task.state === TaskState.draft
         ? `/draft/${task.draftId}`
         : `/task/${task.taskId}`;
 
@@ -112,7 +128,7 @@ export default class TaskItem extends Component {
           <img src={task.logo} className={styles.img} alt={task.title} />
         </div>
         <div className={styles.title}>{task.title}</div>
-        <div className={styles.state}>{getStatusTitle(task.state)}</div>
+        <div className={styles.state}>{getStatusTitle(task)}</div>
       </Link>
     );
   }

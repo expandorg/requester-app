@@ -34,7 +34,7 @@ export const getDashboardDraft = draft => ({
 export const createTask = draft => ({
   id: tasks.length,
   title: draft.title,
-  state: 'in-progress',
+  state: 'scheduled',
   logoUrl: draft.logoUrl,
   endWhen: draft.endWhen,
   endResultCount: draft.endWhen,
