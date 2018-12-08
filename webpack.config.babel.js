@@ -89,7 +89,13 @@ export default (env = {}) => {
           test: /^((?!\.module).)*\.styl$/,
           use: [
             dev ? 'style-loader' : MiniCssExtractPlugin.loader,
-            'css-loader?sourceMap&importLoaders=2',
+            {
+              loader: 'css-loader',
+              options: {
+                sourceMap: true,
+                importLoaders: 2,
+              },
+            },
             'postcss-loader?sourceMap',
             'stylus-loader?paths[]=src',
           ],
@@ -99,9 +105,17 @@ export default (env = {}) => {
           test: /\.module\.styl$/,
           use: [
             dev ? 'style-loader' : MiniCssExtractPlugin.loader,
-            `css-loader?sourceMap&importLoaders=2&modules&localIdentName=${
-              dev ? '[local]__[path][name]__' : ''
-            }[hash:base64:5]`,
+            {
+              loader: 'css-loader',
+              options: {
+                sourceMap: true,
+                importLoaders: 2,
+                modules: true,
+                localIdentName: dev
+                  ? '[local]__[path][name]__[hash:base64:5]'
+                  : '[hash:base64:5]',
+              },
+            },
             'postcss-loader?sourceMap',
             'stylus-loader?paths[]=src',
           ],
