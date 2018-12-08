@@ -16,6 +16,9 @@ export const hasWhitelist = (draft: ?Object) =>
 export const hasFunding = (draft: ?Object) =>
   draft && draft.funding !== null && draft.funding !== undefined;
 
+export const hasData = (draft: ?Object) =>
+  draft && draft.dataId !== null && draft.dataId !== undefined;
+
 // const getWhitelistStatus = (draft: ?Object) => {
 //   if (hasWhitelist(draft)) {
 //     return 'complete';
@@ -47,7 +50,7 @@ const getUploadStatus = (draft: ?Object) => {
   if (!draft) {
     return null;
   }
-  if (draft.dataId !== null && draft.dataId !== undefined) {
+  if (hasData(draft)) {
     return 'complete';
   }
   return null;

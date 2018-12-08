@@ -26,7 +26,7 @@ class Data extends Component {
   componentDidMount() {
     const { draft } = this.props;
     const { page } = this.state;
-    if (draft.dataid) {
+    if (draft.dataId) {
       this.props.fetch(draft.id, draft.dataId, page);
     }
   }

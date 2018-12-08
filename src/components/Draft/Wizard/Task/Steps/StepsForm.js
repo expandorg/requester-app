@@ -133,24 +133,26 @@ export default class StepsForm extends Component {
 
     return (
       <div className={styles.container}>
-        <div className={styles.list}>
-          <AddNew onAdd={this.handleAddOnboarding} />
-          {steps.map((step, order) => (
-            <Step
-              id={step.id}
-              key={step.id}
-              name={step.name}
-              order={order}
-              onMove={this.handleMoveStep}
-              onDelete={this.handleDeleteStep}
-              onEndDrag={this.handleEndDrag}
-              onSelect={this.handleSelectStep}
-            />
-          ))}
-          {task && (
-            <Step isTask name={task.name} onSelect={this.handleSelectTask} />
-          )}
-        </div>
+        {selected === null && (
+          <div className={styles.list}>
+            <AddNew onAdd={this.handleAddOnboarding} />
+            {steps.map((step, order) => (
+              <Step
+                id={step.id}
+                key={step.id}
+                name={step.name}
+                order={order}
+                onMove={this.handleMoveStep}
+                onDelete={this.handleDeleteStep}
+                onEndDrag={this.handleEndDrag}
+                onSelect={this.handleSelectStep}
+              />
+            ))}
+            {task && (
+              <Step isTask name={task.name} onSelect={this.handleSelectTask} />
+            )}
+          </div>
+        )}
         {selected !== null && (
           <FormEditorDialog
             form={this.getSelectedForm(selected)}

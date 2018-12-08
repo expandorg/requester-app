@@ -2,6 +2,10 @@ import { hot } from 'react-hot-loader';
 
 import React from 'react';
 import { Provider } from 'react-redux';
+
+import { DragDropContextProvider } from 'react-dnd';
+import HTML5Backend from 'react-dnd-html5-backend';
+
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import { ServiceProvider } from '@gemsorg/components';
 
@@ -33,32 +37,34 @@ store.dispatch(initSaga());
 
 const App = () => (
   <ServiceProvider services={services}>
-    <Provider store={store}>
-      <BrowserRouter>
-        <Switch>
-          <Route path="/" exact component={Dashboard} />
+    <DragDropContextProvider backend={HTML5Backend}>
+      <Provider store={store}>
+        <BrowserRouter>
+          <Switch>
+            <Route path="/" exact component={Dashboard} />
 
-          <Route path="/login" component={Login} />
-          <Route path="/signup" component={Signup} />
+            <Route path="/login" component={Login} />
+            <Route path="/signup" component={Signup} />
 
-          <Route path="/tasks/:category" component={Dashboard} />
+            <Route path="/tasks/:category" component={Dashboard} />
 
-          <Route path="/draft/create" component={Create} />
+            <Route path="/draft/create" component={Create} />
 
-          <Route path="/draft/:id" component={Draft} />
-          <Route path="/task/:id" component={Task} />
+            <Route path="/draft/:id" component={Draft} />
+            <Route path="/task/:id" component={Task} />
 
-          <Route path="/preview/form" component={PreviewForm} />
-          <Route path="/preview/draft/:id" component={PreviewDraft} />
+            <Route path="/preview/form" component={PreviewForm} />
+            <Route path="/preview/draft/:id" component={PreviewDraft} />
 
-          <Route path="/profile" component={Profile} />
-          <Route path="/api" component={Api} />
-          <Route path="/settings" component={Settings} />
+            <Route path="/profile" component={Profile} />
+            <Route path="/api" component={Api} />
+            <Route path="/settings" component={Settings} />
 
-          <Route component={NotFound} />
-        </Switch>
-      </BrowserRouter>
-    </Provider>
+            <Route component={NotFound} />
+          </Switch>
+        </BrowserRouter>
+      </Provider>
+    </DragDropContextProvider>
   </ServiceProvider>
 );
 
