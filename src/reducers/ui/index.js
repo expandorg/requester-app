@@ -1,8 +1,10 @@
 import { combineReducers } from 'redux';
 import { requestUiStateReducer } from '@gemsorg/app-utils';
+import { notificationReducer as notification } from '@gemsorg/app-utils/app';
 
-import { authStateReducers } from '@gemsorg/app-auth';
+import { authStateReducers as authState } from '@gemsorg/app-auth';
 import { web3ActionTypes } from '@gemsorg/app-web3';
+import { uiStateReducers as gemsState } from '@gemsorg/app-gemtokens';
 
 import {
   draftsActionTypes,
@@ -11,12 +13,11 @@ import {
   tasksActionTypes,
 } from '../../sagas/actionTypes';
 
-import notification from './notificationsReducer';
-
 export default combineReducers({
   initGems: requestUiStateReducer(web3ActionTypes.INIT_GEMS),
-  ...authStateReducers,
   notification,
+  ...authState,
+  ...gemsState,
 
   fetchDraft: requestUiStateReducer(draftsActionTypes.FETCH),
   createDraft: requestUiStateReducer(draftsActionTypes.CREATE, true),
