@@ -14,6 +14,8 @@ import {
 import Content from '../shared/Content';
 import { authenticated } from '../shared/auth';
 
+import { fetch } from '../../sagas/draftsSagas';
+
 import { makeDraftSelector } from '../../selectors/draftsSelectors';
 import { fetchDraftStateSelector } from '../../selectors/uiStateSelectors';
 import { draftProps } from '../shared/propTypes';
@@ -43,14 +45,31 @@ class PreviewDraft extends Component {
   };
 
   componentDidMount() {
+    window.addEventListener('message', this.handleMessage, false);
     const { match } = this.props;
     this.props.fetch(match.params.id);
   }
+
+  componentWillUnmount() {
+    window.removeEventListener('message', this.handleMessage);
+  }
+
+  handleMessage = ({ data }) => {
+    if (typeof data === 'object' && data.type === 'updateDraft') {
+      const { match, loadState } = this.props;
+      const isLoading = loadState.state === RequestStates.Fetching;
+
+      if (data.draft.id === match.params.id && !isLoading) {
+        this.props.fetch(match.params.id);
+      }
+    }
+  };
 
   render() {
     const { draft, loadState } = this.props;
     const isLoading = !draft && loadState.state === RequestStates.Fetching;
     console.log(isLoading);
+
     return (
       <Content
         title="Preview"

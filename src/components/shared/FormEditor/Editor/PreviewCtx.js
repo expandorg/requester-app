@@ -2,9 +2,9 @@ import { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import { moduleProps } from '@gemsorg/modules';
-import PreviewTab from '../../../../common/popups/PreviewTab';
+import PreviewFormTab from '../../../../common/popups/PreviewFormTab';
 
-export default class Editor extends Component {
+export default class PreviewCtx extends Component {
   static propTypes = {
     modules: PropTypes.arrayOf(moduleProps),
   };
@@ -48,7 +48,7 @@ export default class Editor extends Component {
 
   handlePreviewClick = () => {
     if (!this.tab) {
-      this.tab = new PreviewTab();
+      this.tab = new PreviewFormTab();
     }
     this.tab.open();
   };

@@ -7,6 +7,7 @@ import { Form, Actions, Description } from '../Form';
 import { draftProps } from '../../../shared/propTypes';
 
 import Steps from './Steps/Steps';
+import PreviewCtx from './PreviewCtx';
 
 import styles from './CreateTask.module.styl';
 
@@ -41,13 +42,17 @@ export default class CreateTask extends Component {
         <div className={styles.container}>
           <div className={styles.inner}>
             <div className={styles.header}>
-              <Button
-                className={styles.preview}
-                theme="aqua"
-                onClick={this.handlePreview}
-              >
-                Preview
-              </Button>
+              <PreviewCtx draft={draft}>
+                {({ onPreview }) => (
+                  <Button
+                    className={styles.preview}
+                    theme="aqua"
+                    onClick={onPreview}
+                  >
+                    Preview
+                  </Button>
+                )}
+              </PreviewCtx>
               <Description className={styles.desc}>
                 Description about this step goes here.
               </Description>
