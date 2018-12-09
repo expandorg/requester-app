@@ -70,15 +70,15 @@ export const publish = (id, schedule) => ({
   meta: { schema: draftResponseSchema },
 });
 
-export const removeDraft = id => ({
+export const removeDraft = draft => ({
   type: draftsActionTypes.REMOVE,
-  payload: { id },
+  payload: { id: draft.id },
   asyncCall: draftApi.remove,
 });
 
-export const copyDraft = id => ({
-  type: draftsActionTypes.REMOVE,
-  payload: { id },
+export const copyDraft = draft => ({
+  type: draftsActionTypes.COPY,
+  payload: { id: draft.id },
   asyncCall: draftApi.copy,
   meta: { schema: draftResponseSchema },
 });

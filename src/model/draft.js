@@ -28,3 +28,10 @@ export const getStepFromTemplate = ({ name, form }: Object) => ({
   name,
   form,
 });
+
+export const createDashboardEntity = (draft: Object) => ({
+  id: draft.id,
+  title: draft.title,
+  logo: draft.logoUrl,
+  status: draft.status || 'draft',
+});

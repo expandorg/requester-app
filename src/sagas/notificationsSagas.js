@@ -47,6 +47,17 @@ const successMessage = message => {
 
 export function* notificationsSagas(): any {
   yield takeLatest(appActionTypes.NOTIFICATION_ADD, handldNotificationAdded);
+
+  yield takeEvery(
+    draftsActionTypes.COPY_COMPLETE,
+    successMessage('Task copied!')
+  );
+
+  yield takeEvery(
+    draftsActionTypes.REMOVE_COMPLETE,
+    successMessage('Task successfully deleted!')
+  );
+
   yield takeEvery(
     draftsActionTypes.UPDATE_TASK_COMPLETE,
     successMessage('Task module edited!')

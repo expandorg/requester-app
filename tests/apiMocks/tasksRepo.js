@@ -41,6 +41,12 @@ export const createTask = draft => ({
   endDate: draft.endDate,
 });
 
+export const copyDraft = draft => ({
+  ...draft,
+  id: nanoid(),
+  title: `Copy of ${draft.title}`,
+});
+
 export const taskTemplates = range(20).map(id => ({
   id: nanoid(),
   name:

@@ -10,6 +10,7 @@ import {
   getDashboardDraft,
   taskTemplates,
   formTemplates,
+  copyDraft,
 } from './tasksRepo';
 
 import { dataRepo, dataUpload, createData } from './dataRepos';
@@ -65,6 +66,12 @@ export default function setupMocks(app: Object) {
   });
 
   // DRAFTS
+  app.get('/api/v1/drafts/:id', (req, res) => {
+    res.json({
+      draft: drafts.find(d => d.id === req.params.id),
+    });
+  });
+
   app.post('/api/v1/drafts', (req, res) => {
     const draft = {
       id: nanoid(),
@@ -110,10 +117,10 @@ export default function setupMocks(app: Object) {
     }, 1000);
   });
 
-  app.get('/api/v1/drafts/:id', (req, res) => {
-    res.json({
-      draft: drafts.find(d => d.id === req.params.id),
-    });
+  app.delete('/api/v1/drafts/:id', (req, res) => {
+    const index = drafts.findIndex(d => d.id === req.params.id);
+    drafts.splice(index, 1);
+    res.json({ draftId: req.params.id });
   });
 
   app.post('/api/v1/drafts/:id/data', dataUpload.single('data'), (req, res) => {
@@ -124,6 +131,15 @@ export default function setupMocks(app: Object) {
 
     res.json({
       draft,
+    });
+  });
+
+  app.post('/api/v1/drafts/:id/copy', (req, res) => {
+    const draft = drafts.find(d => d.id === req.params.id);
+    const copy = copyDraft(draft);
+    draft.unshift(copy);
+    res.json({
+      draft: copy,
     });
   });
 
