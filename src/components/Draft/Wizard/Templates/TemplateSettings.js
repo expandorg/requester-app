@@ -119,8 +119,8 @@ class TemplatesList extends Component {
         </Actions>
         {confirmDialog && (
           <ConfirmationDialog
-            title="You already have an active template. If you change it all data will be lost."
-            confirmation="Are you sure you want to continue?"
+            title="You already have an active template."
+            confirmation="If you change it all data will be lost. Are you sure you want to continue?"
             onHide={this.handleToggleConfirm}
             onConfirm={this.handleConfirm}
           />
