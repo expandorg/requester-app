@@ -1,15 +1,19 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import { moduleControls, formProps } from '@gemsorg/modules';
+import { moduleControls as defaultControls, formProps } from '@gemsorg/modules';
 
 import Editor from './Editor/Editor';
 import AvailableModules from './Available/AvailableModules';
+
+import RichText from './RichText';
 
 import { treeEditor } from './tree';
 import { scaffold } from './modules';
 
 import styles from './FormEditor.module.styl';
+
+const moduleControls = [...defaultControls, RichText];
 
 export default class FormEditor extends Component {
   static propTypes = {

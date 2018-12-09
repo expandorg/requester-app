@@ -1,0 +1,29 @@
+@import 'components/common/uikit/colors';
+@import 'components/common/uikit/font';
+
+.dropdown
+  width: 100%;
+
+.select
+  box-sizing: border-box
+  padding-bottom 8px
+  padding-right: 18px
+  min-width: 55px
+
+  font(body)
+  color: color-text-dark
+  border-bottom: 1px solid color-heavy-blue
+
+  &:after
+    position: absolute
+    content: ''
+    right: 0
+    top: 5px
+    width: 12px
+    height: 12px
+
+    background-color: transparent;
+    background-position: center;
+    background-origin: border-box
+    background-repeat: no-repeat
+    background-image: url(../../assets/arrow-down.svg)
