@@ -8,7 +8,7 @@ import I from '../I';
 
 import styles from './Upload.module.styl';
 
-export default class UploadImage extends Component {
+export default class Upload extends Component {
   static propTypes = {
     file: PropTypes.shape({
       name: PropTypes.string,
@@ -65,15 +65,23 @@ export default class UploadImage extends Component {
           </div>
         )}
         <Dropzone
-          className={cn(styles.dropzone, className, {
-            [styles.uploading]: isUploading,
-          })}
           accept={accept}
           multiple={false}
           disabled={isUploading}
           onDrop={this.handleDrop}
         >
-          {children({ file })}
+          {({ getRootProps, getInputProps, isDragActive }) => (
+            <div
+              {...getRootProps()}
+              className={cn(styles.dropzone, className, {
+                [styles.uploading]: isUploading,
+                [styles.active]: isDragActive,
+              })}
+            >
+              <input {...getInputProps()} className={styles.input} />
+              {children({ file })}
+            </div>
+          )}
         </Dropzone>
       </div>
     );
