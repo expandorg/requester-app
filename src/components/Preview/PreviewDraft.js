@@ -12,6 +12,9 @@ import {
 } from '@gemsorg/app-utils';
 
 import Content from '../shared/Content';
+
+import PreviewDraftSequence from './draft/PreviewDraftSequence';
+
 import { authenticated } from '../shared/auth';
 
 import { fetch } from '../../sagas/draftsSagas';
@@ -77,7 +80,7 @@ class PreviewDraft extends Component {
         sidebar={false}
         navbar={false}
       >
-        <div className={styles.container} />
+        {draft && <PreviewDraftSequence draft={draft} />}
       </Content>
     );
   }

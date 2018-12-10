@@ -2,13 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
 
-import deferVisible from '../../../common/deferVisibleRender';
+import { deferVisibleRender } from '@gemsorg/components/hoc';
 
 import { ReactComponent as DataIcon } from '../../../assets/data.svg';
 
 import styles from './PreviewTooltip.module.styl';
 
-const PreviewTooltip = deferVisible(({ visible, top }) => (
+const PreviewTooltip = deferVisibleRender(({ visible, top }) => (
   <div
     className={cn(styles.preview, { [styles.previewVisible]: visible })}
     style={{ top }}

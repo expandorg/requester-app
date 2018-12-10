@@ -1,17 +1,15 @@
 import React, { Component } from 'react';
 
-import { Panel } from '@gemsorg/components';
-import { Form, Module, FormDataProvider } from '@gemsorg/modules';
-
 import Content from '../shared/Content';
 import { authenticated } from '../shared/auth';
+
+import ModulesForm from './draft/ModulesForm';
 
 import styles from './PreviewForm.module.styl';
 
 class PreviewForm extends Component {
   state = {
     form: null,
-    formData: { allowedRetries: 3, currentTry: 1 },
   };
 
   componentDidMount() {
@@ -37,7 +35,7 @@ class PreviewForm extends Component {
   };
 
   render() {
-    const { form, formData } = this.state;
+    const { form } = this.state;
     if (!form) {
       return null;
     }
@@ -49,17 +47,7 @@ class PreviewForm extends Component {
         sidebar={false}
         navbar={false}
       >
-        <Panel className={styles.container}>
-          <FormDataProvider formData={formData}>
-            <Form
-              className={styles.form}
-              form={form}
-              onSubmit={this.handleSubmit}
-            >
-              {props => <Module {...props} />}
-            </Form>
-          </FormDataProvider>
-        </Panel>
+        <ModulesForm form={form} onSubmit={this.handleSubmit} />
       </Content>
     );
   }
