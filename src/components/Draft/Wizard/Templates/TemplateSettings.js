@@ -77,6 +77,16 @@ class TemplatesList extends Component {
     }));
   };
 
+  handleChangeStaking = value => {
+    this.setState(({ settings }) => ({
+      settings: {
+        ...settings,
+        staking: value,
+        stake: value ? settings.stake : '',
+      },
+    }));
+  };
+
   render() {
     const { selected, onBack } = this.props;
     const { confirmDialog, settings } = this.state;
@@ -87,19 +97,21 @@ class TemplatesList extends Component {
           <Field tooltip="How much to stake?">
             <Toggle
               value={settings.staking}
-              label="How much to stake?"
+              label="Staking"
               name="staking"
-              onChange={this.handleToggleChange}
+              onChange={this.handleChangeStaking}
             />
           </Field>
-          <Field tooltip="How much to stake?">
-            <Input
-              placeholder="How much to stake?"
-              name="stake"
-              value={settings.stake}
-              onChange={this.handleInputChange}
-            />
-          </Field>
+          {settings.staking && (
+            <Field tooltip="How much to stake?">
+              <Input
+                placeholder="How much to stake?"
+                name="stake"
+                value={settings.stake}
+                onChange={this.handleInputChange}
+              />
+            </Field>
+          )}
           <Field tooltip="How much to stake?">
             <Toggle
               label="Deduct stake if fail?"
