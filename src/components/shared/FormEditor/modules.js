@@ -1,5 +1,5 @@
 // @flow
-import nanoid from 'nanoid';
+import generate from 'nanoid/generate';
 
 export const supportNesting = (module: Object): boolean =>
   !!(module.editor.properties && module.editor.properties.modules);
@@ -7,7 +7,7 @@ export const supportNesting = (module: Object): boolean =>
 export const scaffold = (module: Object, isDragging: boolean) => ({
   ...module.editor.defaults,
   type: module.type,
-  name: `${module.type}-${nanoid()}`,
+  name: `${module.type}-${generate('1234567890abcdef', 4)}`,
   modules: supportNesting(module) ? [] : undefined,
   isDragging,
 });

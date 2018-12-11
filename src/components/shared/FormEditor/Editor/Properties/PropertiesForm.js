@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { moduleProps } from '@gemsorg/modules';
 
 import Button from '../../../../common/Button';
+import Input from '../../../../common/Input';
 
 import PropertyEditor from './PropertyEditor/PropertyEditor';
 import FieldValidation from './FieldValidation';
@@ -41,6 +42,12 @@ export default class PropertiesForm extends Component {
     this.setState(({ module }) => ({ module: { ...module, [name]: value } }));
   };
 
+  handleChangeName = ({ target }) => {
+    this.setState(({ module }) => ({
+      module: { ...module, name: target.value },
+    }));
+  };
+
   handleChangeValidation = validation => {
     this.setState(({ module }) => ({ module: { ...module, validation } }));
   };
@@ -63,6 +70,13 @@ export default class PropertiesForm extends Component {
       <aside className={styles.container}>
         <div className={styles.content}>
           <div className={styles.title}>{name} properties</div>
+          <Input
+            className={styles.name}
+            value={module.name}
+            placeholder="Component name"
+            required
+            onChange={this.handleChangeName}
+          />
           {editor.properties && (
             <div className={styles.props}>
               {Reflect.ownKeys(editor.properties).map(propertyName => (
