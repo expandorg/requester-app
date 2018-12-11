@@ -16,5 +16,5 @@ export const createData = (id, draftId) => ({
     type: 'string',
     skipped: false,
   })),
-  values: range(85).map(idx => range(9).map(j => idx * 10 + j)),
+  values: range(85).map(idx => range(9).map(j => `${idx * 10 + j}`)),
 });

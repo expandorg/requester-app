@@ -183,10 +183,12 @@ export default function setupMocks(app: Object) {
 
     const [values, pagination] = getPage(data.values, current, 10);
 
-    res.json({
-      data: { ...data, values },
-      pagination,
-    });
+    setTimeout(() => {
+      res.json({
+        data: { ...data, values },
+        pagination,
+      });
+    }, 1000);
   });
 
   app.post('/api/v1/drafts/:id/data/:dataId/columns', (req, res) => {

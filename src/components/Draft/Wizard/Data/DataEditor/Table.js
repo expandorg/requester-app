@@ -14,6 +14,8 @@ import {
 
 import { draftProps, dataProps } from '../../../../shared/propTypes';
 
+import { LoadIndicator } from '../../Form';
+
 import { uppdateColumns } from '../../../../../sagas/dataSagas';
 import { makeDataSelector } from '../../../../../selectors/dataSelectors';
 import { fetchDataStateSelector } from '../../../../../selectors/uiStateSelectors';
@@ -75,11 +77,13 @@ class Table extends Component {
           )
         }
       >
-        <DataTable
-          data={data}
-          isFetching={isFetching}
-          onChangeColumns={this.handleChangeColumn}
-        />
+        <LoadIndicator isLoading={isFetching}>
+          <DataTable
+            data={data}
+            isFetching={isFetching}
+            onChangeColumns={this.handleChangeColumn}
+          />
+        </LoadIndicator>
       </TableContainer>
     );
   }
