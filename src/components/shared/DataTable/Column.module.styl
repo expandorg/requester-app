@@ -18,11 +18,14 @@
 
   border-bottom: 1px solid color-heavy-blue
 
+.header
+  position: relative;
+
 .name
   box-sizing: border-box;
 
-  margin-bottom: 20px
-  padding: 0 10px
+  margin-bottom: 35px
+  padding: 10px 10px
 
   white-space: nowrap
   overflow: hidden
@@ -34,17 +37,23 @@
   color: color-text-dark
   text-align: center;
 
-.type
 .skipped
+  position: absolute;
+  top: 100%
+  left: 0
+  right: 0
+
+  color: color-text-pink
   box-sizing: border-box;
   font(body, false, false, 1)
   text-align: center;
 
 .type
+  box-sizing: border-box;
+  font(body, false, false, 1)
+  text-align: center;
   color: color-text-dark
 
-.skipped
-  color: color-text-pink
 
 .actions
   box-sizing: border-box;

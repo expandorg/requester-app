@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
 
-import { Dropdown } from '@gemsorg/components';
+// import { Dropdown } from '@gemsorg/components';
 
 import { dataColumnProps } from '../propTypes';
-import tableTypes from './table-types';
+// import tableTypes from './table-types';
 
 import styles from './Column.module.styl';
 
@@ -82,11 +82,11 @@ export default class Column extends Component {
     }));
   };
 
-  handleChangeType = type => {
-    this.setState(({ column }) => ({
-      column: { ...column, type },
-    }));
-  };
+  // handleChangeType = type => {
+  //   this.setState(({ column }) => ({
+  //     column: { ...column, type },
+  //   }));
+  // };
 
   render() {
     const { edit, column, original } = this.state;
@@ -96,13 +96,12 @@ export default class Column extends Component {
       <div className={styles.container}>
         {!edit && (
           <div className={styles.content}>
-            <div className={styles.name}>{column.name}</div>
-            {!column.skipped && (
-              <div className={styles.type}>{column.type}</div>
-            )}
-            {column.skipped && (
-              <div className={styles.skipped}>Will not be imported</div>
-            )}
+            <div className={styles.header}>
+              <div className={styles.name}>{column.name}</div>
+              {column.skipped && (
+                <div className={styles.skipped}>Will not be imported</div>
+              )}
+            </div>
             {!readOnly && (
               <div className={styles.actions}>
                 {!column.skipped && (
@@ -133,7 +132,7 @@ export default class Column extends Component {
                 onChange={this.handleChangeName}
                 className={styles.input}
               />
-              <Dropdown
+              {/* <Dropdown
                 options={tableTypes}
                 value={column.type}
                 onChange={this.handleChangeType}
@@ -142,7 +141,7 @@ export default class Column extends Component {
                 {({ formatted }) => (
                   <div className={styles.selectVal}>{formatted}</div>
                 )}
-              </Dropdown>
+              </Dropdown> */}
             </div>
             <div className={styles.actions}>
               <button
