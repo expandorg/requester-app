@@ -14,11 +14,15 @@ export default class DateTimePicker extends Component {
     className: PropTypes.string,
     value: PropTypes.object, // eslint-disable-line
     onChange: PropTypes.func.isRequired,
+    error: PropTypes.string,
+    disabledDays: PropTypes.any, // eslint-disable-line
     onHide: PropTypes.func.isRequired,
   };
 
   static defaultProps = {
+    disabledDays: undefined,
     className: null,
+    error: null,
     value: undefined,
   };
 
@@ -41,8 +45,10 @@ export default class DateTimePicker extends Component {
     return null;
   }
 
-  handleChange = value => {
-    this.setState({ value });
+  handleChange = (value, modifiers) => {
+    if (!modifiers || (modifiers && !modifiers.disabled)) {
+      this.setState({ value });
+    }
   };
 
   handleDone = evt => {
@@ -62,19 +68,24 @@ export default class DateTimePicker extends Component {
   };
 
   render() {
-    const { className } = this.props;
+    const { className, disabledDays, error } = this.props;
     const { value } = this.state;
 
     return (
       <div className={cn(styles.container, className)}>
         <div className={styles.content}>
           <div className={styles.date}>
-            <DayPicker selectedDays={value} onDayClick={this.handleChange} />
+            <DayPicker
+              disabledDays={disabledDays}
+              selectedDays={value}
+              onDayClick={this.handleChange}
+            />
           </div>
           <div className={styles.time}>
             <TimePicker value={value} onChange={this.handleChange} />
           </div>
         </div>
+        {error && <div className={styles.errorMessage}>{error}</div>}
         <div className={styles.actions}>
           <button
             className={cn(styles.button, styles.cancel)}

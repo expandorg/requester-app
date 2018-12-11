@@ -1,11 +1,15 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+import parse from 'date-fns/parse';
 import Button from '../../../../common/Button';
 
 import { ReactComponent as Arrow } from '../../../../assets/arrow-down.svg';
+import { draftProps } from '../../../../shared/propTypes';
 
 import DateTimePicker from '../../../../common/DateTime/DateTimePicker';
+
+import { formatDate } from '../../../../../model/draft';
 
 import Menu from './Menu';
 
@@ -13,6 +17,7 @@ import styles from './styles.module.styl';
 
 export default class PublishButton extends Component {
   static propTypes = {
+    draft: draftProps.isRequired,
     onPublish: PropTypes.func.isRequired,
     readOnly: PropTypes.bool.isRequired,
   };
@@ -31,9 +36,16 @@ export default class PublishButton extends Component {
   };
 
   handleSchedulePublish = dateTime => {
-    const { onPublish } = this.props;
-    onPublish(dateTime);
-    this.handleToggleSchedule();
+    const { onPublish, draft } = this.props;
+    if (draft.endDate && parse(draft.endDate) < dateTime) {
+      const endDate = formatDate(parse(draft.endDate));
+      this.setState({
+        error: `Task should not starts before ${endDate}`,
+      });
+    } else {
+      onPublish(dateTime);
+      this.handleToggleSchedule();
+    }
   };
 
   handleToggle = () => {
@@ -49,8 +61,13 @@ export default class PublishButton extends Component {
   };
 
   render() {
-    const { readOnly } = this.props;
-    const { menu, schedule } = this.state;
+    const { readOnly, draft } = this.props;
+    const { menu, schedule, error } = this.state;
+
+    const disabledDays = {
+      before: new Date(),
+      after: draft.endDate ? parse(draft.endDate) : undefined,
+    };
 
     return (
       <div className={styles.group}>
@@ -71,7 +88,9 @@ export default class PublishButton extends Component {
         )}
         {schedule && (
           <DateTimePicker
+            error={error}
             className={styles.picker}
+            disabledDays={disabledDays}
             onHide={this.handleToggleSchedule}
             onChange={this.handleSchedulePublish}
           />

@@ -157,6 +157,9 @@ export default class Settings extends Component {
             {settings.endWhen === EndType.Date && (
               <DateTimeInput
                 placeholder="End Date"
+                disabledDays={{
+                  before: new Date(),
+                }}
                 name="endDate"
                 error={!!(errors && errors.endDate)}
                 value={settings.endDate}

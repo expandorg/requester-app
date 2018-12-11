@@ -74,6 +74,7 @@ export default class SummaryForm extends Component {
           </Button>
           <PublishButton
             readOnly={!draftReady}
+            draft={draft}
             onPublish={this.handlePublishClick}
           />
         </Actions>

@@ -16,6 +16,7 @@ export default class DateTimeInput extends Component {
     readOnly: PropTypes.bool,
     error: PropTypes.bool,
     placeholder: PropTypes.string,
+    disabledDays: PropTypes.any, // eslint-disable-line
     formatter: PropTypes.func,
     onChange: PropTypes.func.isRequired,
   };
@@ -25,6 +26,7 @@ export default class DateTimeInput extends Component {
     name: null,
     error: false,
     placeholder: null,
+    disabledDays: undefined,
     readOnly: false,
     formatter: value => format(value, 'MM/DD/YYYY HH:mm'),
     value: undefined,
@@ -55,7 +57,14 @@ export default class DateTimeInput extends Component {
   };
 
   render() {
-    const { value, placeholder, formatter, className, error } = this.props;
+    const {
+      value,
+      placeholder,
+      disabledDays,
+      formatter,
+      className,
+      error,
+    } = this.props;
     const { picker } = this.state;
 
     /* eslint-disable jsx-a11y/click-events-have-key-events  */
@@ -78,6 +87,7 @@ export default class DateTimeInput extends Component {
         )}
         {picker && (
           <DateTimePicker
+            disabledDays={disabledDays}
             value={value}
             className={styles.picker}
             onChange={this.handleChange}
