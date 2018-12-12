@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import cn from 'classnames';
 
 import { moduleProps, getModuleControlsMap } from '@gemsorg/modules';
 
@@ -56,7 +57,7 @@ export default class Editor extends Component {
       selected,
     } = this.props;
     const { controls } = this.state;
-
+    const selectedModule = selected && treeEditor.findByPath(modules, selected);
     return (
       <div className={styles.container}>
         <div className={styles.content}>
@@ -71,6 +72,11 @@ export default class Editor extends Component {
               onRemoveModule={onRemoveModule}
             />
           </div>
+          <div
+            className={cn(styles.spacer, {
+              [styles.expanded]: !!selectedModule,
+            })}
+          />
         </div>
         <div className={styles.actions}>
           <div>
@@ -93,7 +99,7 @@ export default class Editor extends Component {
           </div>
         </div>
         <Properties
-          module={selected && treeEditor.findByPath(modules, selected)}
+          module={selectedModule}
           controls={controls}
           onEdit={this.handleEditModule}
           onCancel={this.handleCancel}
