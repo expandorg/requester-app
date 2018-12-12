@@ -5,9 +5,9 @@ import { validateForm } from '@gemsorg/validation';
 
 import Input from '../../../common/Input';
 import Button from '../../../common/Button';
-import Select from '../../../common/Select';
+// import Select from '../../../common/Select';
 
-import DateTimeInput from '../../../common/DateTime/DateTimeInput';
+// import DateTimeInput from '../../../common/DateTime/DateTimeInput';
 import { Upload, ImagePreview } from '../../../common/Upload';
 
 import { draftProps } from '../../../shared/propTypes';
@@ -18,15 +18,15 @@ import { ReactComponent as Placeholder } from '../../../assets/data.svg';
 
 import { settingsRules } from '../../../../model/draft';
 import { EndType } from '../../../../model/enums';
-import { EndWhenTitles } from '../../../../model/i18n';
+// import { EndWhenTitles } from '../../../../model/i18n';
 
 import styles from './Settings.module.styl';
 
-const options = [
-  { value: EndType.ExceedTasks, label: EndWhenTitles[EndType.ExceedTasks] },
-  { value: EndType.ResultCount, label: EndWhenTitles[EndType.ResultCount] },
-  { value: EndType.Date, label: EndWhenTitles[EndType.Date] },
-];
+// const options = [
+//   { value: EndType.ExceedTasks, label: EndWhenTitles[EndType.ExceedTasks] },
+//   { value: EndType.ResultCount, label: EndWhenTitles[EndType.ResultCount] },
+//   { value: EndType.Date, label: EndWhenTitles[EndType.Date] },
+// ];
 
 const getInitialState = draft => ({
   logoUrl: (draft && draft.logoUrl) || undefined,
@@ -143,7 +143,7 @@ export default class Settings extends Component {
               onChange={this.handleInputChange}
             />
           </Field>
-          <div className={styles.end}>
+          {/* <div className={styles.end}>
             <Select
               value={settings.endWhen}
               label="End Task When *"
@@ -175,7 +175,7 @@ export default class Settings extends Component {
                 onChange={this.handleInputChange}
               />
             )}
-          </div>
+          </div> */}
         </Fieldset>
         <Actions>
           <Button disable={isSubmitting} type="submit">
