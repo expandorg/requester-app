@@ -17,6 +17,7 @@ import { ReactComponent as Placeholder } from '../../../assets/data.svg';
 import { Description, Fieldset } from '../Form';
 
 import { uploadData } from '../../../../sagas/dataSagas';
+import { addNotification } from '../../../../sagas/notificationsSagas';
 import { uploadDataStateSelector } from '../../../../selectors/uiStateSelectors';
 
 import styles from './UploadForm.module.styl';
@@ -26,13 +27,14 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch =>
-  bindActionCreators({ uploadData }, dispatch);
+  bindActionCreators({ uploadData, addNotification }, dispatch);
 
 class UploadForm extends Component {
   static propTypes = {
     draft: draftProps.isRequired,
     uploadState: requestStateProps.isRequired,
     uploadData: PropTypes.func.isRequired,
+    addNotification: PropTypes.func.isRequired,
   };
 
   state = {
@@ -68,6 +70,11 @@ class UploadForm extends Component {
     }
   };
 
+  handleReject = () => {
+    const message = `Filetype is not supported. Only .csv are supported. Please try again.`;
+    this.props.addNotification('error', message);
+  };
+
   handleToggleApi = evt => {
     evt.prventDefault();
   };
@@ -88,6 +95,7 @@ class UploadForm extends Component {
           isUploading={uploading}
           className={styles.upload}
           onSelect={this.handleUpload}
+          onReject={this.handleReject}
         >
           {({ file }) =>
             file ? (

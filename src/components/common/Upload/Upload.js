@@ -19,6 +19,7 @@ export default class Upload extends Component {
     tooltip: PropTypes.string,
     isUploading: PropTypes.bool,
     onSelect: PropTypes.func.isRequired,
+    onReject: PropTypes.func,
   };
 
   static defaultProps = {
@@ -28,13 +29,18 @@ export default class Upload extends Component {
     accept: 'image/jpeg, image/png, image/gif',
     tooltip: null,
     isUploading: false,
+    onReject: Function.prototype,
   };
 
-  handleDrop = acceptedFiles => {
+  handleDrop = (acceptedFiles, rejectedFiles) => {
+    const { onSelect, onReject, accept } = this.props;
+    if (rejectedFiles.length) {
+      onReject(rejectedFiles, accept);
+      return;
+    }
     if (!acceptedFiles.length) {
       return;
     }
-    const { onSelect } = this.props;
 
     onSelect(acceptedFiles[0]);
   };
