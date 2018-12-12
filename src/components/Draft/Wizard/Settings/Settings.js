@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, createRef } from 'react';
 import PropTypes from 'prop-types';
 
 import { validateForm } from '@gemsorg/validation';
@@ -49,7 +49,7 @@ export default class Settings extends Component {
 
   constructor(props) {
     super(props);
-
+    this.titleInput = createRef();
     this.state = {
       draft: props.draft, // eslint-disable-line react/no-unused-state
       logo: null,
@@ -68,6 +68,10 @@ export default class Settings extends Component {
       };
     }
     return null;
+  }
+
+  componentDidMount() {
+    this.titleInput.current.focus();
   }
 
   handleSubmit = () => {
@@ -127,6 +131,7 @@ export default class Settings extends Component {
           </Upload>
           <Field tooltip="Title" name="title" errors={errors}>
             <Input
+              ref={this.titleInput}
               placeholder="Title *"
               name="title"
               error={!!(errors && errors.title)}
