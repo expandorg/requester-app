@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { moduleProps } from '@gemsorg/modules';
 
 export const notificationProps = PropTypes.shape({
-  type: PropTypes.oneOf(['warning', 'message', 'success']).isRequired,
+  type: PropTypes.oneOf(['warning', 'error', 'message', 'success']).isRequired,
   message: PropTypes.string,
 });
 

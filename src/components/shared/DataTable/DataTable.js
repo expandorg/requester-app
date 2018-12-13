@@ -29,10 +29,10 @@ export default class DataTable extends Component {
     onChangeColumns: Function.prototype,
   };
 
-  handleChangeColumn = (column, index) => {
+  handleChangeColumn = (column, index, isSkip) => {
     const { data, onChangeColumns, readOnly } = this.props;
     if (!readOnly) {
-      onChangeColumns(replaceAtIndex(data.columns, index, column));
+      onChangeColumns(replaceAtIndex(data.columns, index, column), isSkip);
     }
   };
 

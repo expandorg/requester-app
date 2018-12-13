@@ -46,7 +46,7 @@ export default class Column extends Component {
     evt.preventDefault();
 
     const { onChange, column, index } = this.props;
-    onChange({ ...column, skipped: true }, index);
+    onChange({ ...column, skipped: true }, index, true);
   };
 
   handleToggleEdit = evt => {

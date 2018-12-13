@@ -16,7 +16,7 @@ import { draftsActionTypes } from './actionTypes';
 
 const NOTIFICATION_TIMEOUT = 3000;
 
-declare type NotificationType = 'error' | 'success';
+declare type NotificationType = 'error' | 'success' | 'warning' | 'message';
 
 export const addNotification = (type: NotificationType, message: string) => ({
   type: appActionTypes.NOTIFICATION_ADD,

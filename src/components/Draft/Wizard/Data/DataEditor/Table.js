@@ -17,6 +17,7 @@ import { draftProps, dataProps } from '../../../../shared/propTypes';
 import { LoadIndicator } from '../../Form';
 
 import { uppdateColumns } from '../../../../../sagas/dataSagas';
+import { addNotification } from '../../../../../sagas/notificationsSagas';
 import { makeDataSelector } from '../../../../../selectors/dataSelectors';
 import { fetchDataStateSelector } from '../../../../../selectors/uiStateSelectors';
 
@@ -31,7 +32,7 @@ const makeMapStatetoProps = () => {
 };
 
 const mapDispatchToProps = dispatch =>
-  bindActionCreators({ uppdateColumns }, dispatch);
+  bindActionCreators({ uppdateColumns, addNotification }, dispatch);
 
 class Table extends Component {
   static propTypes = {
@@ -43,15 +44,21 @@ class Table extends Component {
     onDelete: PropTypes.func.isRequired,
     onChangePage: PropTypes.func.isRequired,
     uppdateColumns: PropTypes.func.isRequired,
+    addNotification: PropTypes.func.isRequired,
   };
 
   static defaultProps = {
     data: null,
   };
 
-  handleChangeColumn = columns => {
+  handleChangeColumn = (columns, isSkipping) => {
     const { draft } = this.props;
-    this.props.uppdateColumns(draft.id, draft.dataId, columns);
+    if (isSkipping && !columns.some(c => !c.skipped)) {
+      const message = 'You should import at least one column';
+      this.props.addNotification('error', message);
+    } else {
+      this.props.uppdateColumns(draft.id, draft.dataId, columns);
+    }
   };
 
   render() {
