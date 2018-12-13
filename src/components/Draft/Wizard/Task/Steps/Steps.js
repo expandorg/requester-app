@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { requestStateProps } from '@gemsorg/app-utils';
+// import { requestStateProps } from '@gemsorg/app-utils';
 
 import { draftProps } from '../../../../shared/propTypes';
 
@@ -29,8 +29,8 @@ class Steps extends Component {
   static propTypes = {
     draft: draftProps.isRequired,
 
-    submitTaskState: requestStateProps.isRequired,
-    submitOnboardingState: requestStateProps.isRequired,
+    // submitTaskState: requestStateProps.isRequired,
+    // submitOnboardingState: requestStateProps.isRequired,
 
     updateTask: PropTypes.func.isRequired,
     updateOnboarding: PropTypes.func.isRequired,
@@ -47,9 +47,7 @@ class Steps extends Component {
   };
 
   render() {
-    const { draft, submitTaskState, submitOnboardingState } = this.props;
-    console.log(submitTaskState, submitOnboardingState);
-
+    const { draft } = this.props;
     return (
       <StepsForm
         task={draft.task}

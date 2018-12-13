@@ -11,6 +11,8 @@ import Properties from './Properties/Properties';
 import PreviewCtx from './PreviewCtx';
 
 import { treeEditor } from '../tree';
+import { validateModuleProps } from '../modules';
+
 import styles from './Editor.module.styl';
 
 export default class Editor extends Component {
@@ -43,6 +45,17 @@ export default class Editor extends Component {
   handleEditModule = edited => {
     const { selected, onEditModule } = this.props;
     onEditModule(selected, edited);
+  };
+
+  validateModuleProps = (module, originalName) => {
+    const { modules } = this.props;
+    const { controls } = this.state;
+
+    const {
+      module: { editor },
+    } = controls[module.type];
+
+    return validateModuleProps(module, originalName, editor, modules);
   };
 
   render() {
@@ -102,6 +115,7 @@ export default class Editor extends Component {
           module={selectedModule}
           controls={controls}
           onEdit={this.handleEditModule}
+          onValidate={this.validateModuleProps}
           onCancel={this.handleCancel}
         />
       </div>

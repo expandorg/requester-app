@@ -7,6 +7,8 @@ import Button from '../../../../common/Button';
 import Input from '../../../../common/Input';
 
 import PropertyEditor from './PropertyEditor/PropertyEditor';
+import ErrorMessage from './PropertyEditor/ErrorMessage';
+
 import FieldValidation from './FieldValidation';
 
 import styles from './PropertiesForm.module.styl';
@@ -16,6 +18,7 @@ export default class PropertiesForm extends Component {
     module: moduleProps.isRequired,
     controls: PropTypes.object.isRequired, // eslint-disable-line
     onEdit: PropTypes.func.isRequired,
+    onValidate: PropTypes.func.isRequired,
     onCancel: PropTypes.func.isRequired,
   };
 
@@ -23,6 +26,7 @@ export default class PropertiesForm extends Component {
     super(props);
 
     this.state = {
+      errors: null,
       original: props.module, // eslint-disable-line react/no-unused-state
       module: props.module,
     };
@@ -32,6 +36,7 @@ export default class PropertiesForm extends Component {
     if (module !== state.original) {
       return {
         module,
+        errors: null,
         original: module,
       };
     }
@@ -53,40 +58,55 @@ export default class PropertiesForm extends Component {
   };
 
   handleSave = () => {
-    const { onEdit } = this.props;
-    const { module } = this.state;
+    const { onValidate, onEdit } = this.props;
+    const { module, original } = this.state;
 
-    onEdit(module);
+    const errors = onValidate(module, original.name);
+
+    if (errors) {
+      this.setState({ errors });
+    } else {
+      onEdit(module);
+    }
   };
 
   render() {
     const { controls, onCancel } = this.props;
-    const { module } = this.state;
+    const { module, errors } = this.state;
 
     const {
       module: { name, editor, validation },
     } = controls[module.type];
+
     return (
       <aside className={styles.container}>
         <div className={styles.content}>
           <div className={styles.title}>{name} properties</div>
-          <Input
-            className={styles.name}
-            value={module.name}
-            placeholder="Component name"
-            required
-            onChange={this.handleChangeName}
-          />
+          <ErrorMessage errors={errors} name="name">
+            <Input
+              className={styles.name}
+              value={module.name}
+              placeholder="Component name"
+              required
+              onChange={this.handleChangeName}
+            />
+          </ErrorMessage>
           {editor.properties && (
             <div className={styles.props}>
               {Reflect.ownKeys(editor.properties).map(propertyName => (
-                <PropertyEditor
-                  key={propertyName}
+                <ErrorMessage
+                  errors={errors}
                   name={propertyName}
-                  property={editor.properties[propertyName]}
-                  value={module[propertyName]}
-                  onChange={this.handleChangeProperty}
-                />
+                  key={propertyName}
+                >
+                  <PropertyEditor
+                    key={propertyName}
+                    name={propertyName}
+                    property={editor.properties[propertyName]}
+                    value={module[propertyName]}
+                    onChange={this.handleChangeProperty}
+                  />
+                </ErrorMessage>
               ))}
             </div>
           )}
