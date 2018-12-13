@@ -3,13 +3,18 @@ import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import cn from 'classnames';
 
-import { Input, ErrorMessage, Button } from '@gemsorg/components';
+import { ErrorMessage, Button } from '@gemsorg/components';
 
 import { RequestStates, requestStateProps } from '@gemsorg/app-utils';
 
 import { signupStateSelector } from '@gemsorg/app-auth/selectors';
 import { signup } from '@gemsorg/app-auth/sagas';
+
+import Input from '../../common/Input';
+
+import { ReactComponent as Logo } from '../../assets/logo.svg';
 
 import styles from './styles.module.styl';
 
@@ -19,7 +24,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => bindActionCreators({ signup }, dispatch);
 
-class SignupForm extends Component {
+class EmailSignup extends Component {
   static propTypes = {
     signupState: requestStateProps.isRequired,
     onToggle: PropTypes.func.isRequired,
@@ -53,14 +58,22 @@ class SignupForm extends Component {
   };
 
   render() {
-    const { onToggle, signupState } = this.props;
+    const { signupState, onToggle } = this.props;
     const { email, password, error } = this.state;
 
     const isFetching = signupState.state === RequestStates.Fetching;
 
     return (
       <div className={styles.container}>
-        <h2 className={styles.title}>Signup with email</h2>
+        <div className={styles.header}>
+          <Logo
+            width={40}
+            height={40}
+            viewBox="0 0 50 50"
+            className={styles.logo}
+          />
+          <h2 className={styles.title}>Sign up manually</h2>
+        </div>
         <form className={styles.form} onSubmit={this.handleSubmit}>
           <Input
             className={styles.input}
@@ -79,15 +92,16 @@ class SignupForm extends Component {
             onChange={evt => this.handleChangeField('password', evt)}
           />
           <ErrorMessage error={error} className={styles.error} />
-          <Button size="large" type="submit" className={styles.submit}>
+          <Button
+            type="submit"
+            className={cn(styles.submit, styles.signUpSubmit)}
+          >
             {isFetching ? 'Signing up...' : 'Sign up'}
           </Button>
         </form>
-        <div className={styles.footer}>
-          <button className={styles.toggle} onClick={onToggle}>
-            Sign in with existing account
-          </button>
-        </div>
+        <Button type="submit" className={styles.toggle} onClick={onToggle}>
+          Login
+        </Button>
       </div>
     );
   }
@@ -96,4 +110,4 @@ class SignupForm extends Component {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(SignupForm);
+)(EmailSignup);

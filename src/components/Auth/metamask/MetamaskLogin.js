@@ -4,11 +4,11 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { Button, ErrorMessage } from '@gemsorg/components';
-
+import { ErrorMessage } from '@gemsorg/components';
 import { requestStateProps } from '@gemsorg/app-utils';
-import { signupMetamaskStateSelector } from '@gemsorg/app-auth/selectors';
-import { signupMetamask } from '@gemsorg/app-auth/sagas';
+
+import { loginMetamaskStateSelector } from '@gemsorg/app-auth/selectors';
+import { loginMetamask } from '@gemsorg/app-auth/sagas';
 
 import { metamaskStateSelector } from '@gemsorg/app-web3/selectors';
 import { MetamaskState } from '@gemsorg/app-web3';
@@ -19,17 +19,17 @@ import styles from './styles.module.styl';
 
 const mapStateToProps = state => ({
   metamaskState: metamaskStateSelector(state),
-  signupState: signupMetamaskStateSelector(state),
+  loginState: loginMetamaskStateSelector(state),
 });
 
 const mapDispatchToProps = dispatch =>
-  bindActionCreators({ signupMetamask }, dispatch);
+  bindActionCreators({ loginMetamask }, dispatch);
 
-class MatamaskLogin extends Component {
+class MetamaskLogin extends Component {
   static propTypes = {
     metamaskState: PropTypes.string.isRequired,
-    signupState: requestStateProps.isRequired,
-    signupMetamask: PropTypes.func.isRequired,
+    loginState: requestStateProps.isRequired,
+    loginMetamask: PropTypes.func.isRequired,
   };
 
   state = {
@@ -37,9 +37,9 @@ class MatamaskLogin extends Component {
     error: null,
   };
 
-  componentWillReceiveProps({ signupState: nextState }) {
-    const { signupState } = this.props;
-    if (nextState.error && nextState.error !== signupState.error) {
+  componentWillReceiveProps({ loginState: nextState }) {
+    const { loginState } = this.props;
+    if (nextState.error && nextState.error !== loginState.error) {
       this.setState({ error: nextState.error });
     }
   }
@@ -52,7 +52,7 @@ class MatamaskLogin extends Component {
     if (this.props.metamaskState !== MetamaskState.Authorized) {
       this.setState({ metamaskDialog: true });
     } else {
-      this.props.signupMetamask();
+      this.props.loginMetamask();
     }
   };
 
@@ -61,20 +61,14 @@ class MatamaskLogin extends Component {
     const { metamaskDialog, error } = this.state;
     return (
       <div className={styles.container}>
-        <Button
-          theme="blue"
-          size="large"
-          className={styles.login}
-          onClick={this.handleClick}
-        >
-          <ins className={styles.fox} /> Signup with MetaMask
-        </Button>
+        <button className={styles.button} onClick={this.handleClick}>
+          <ins className={styles.fox} /> Sign in with MetaMask
+        </button>
         {metamaskDialog && (
           <MetamaskPromt
             metamaskState={metamaskState}
-            onLogin={this.props.signupMetamask}
+            onLogin={this.props.loginMetamask}
             onHide={this.handleHide}
-            action="Sign up"
             error={error}
           />
         )}
@@ -87,4 +81,4 @@ class MatamaskLogin extends Component {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(MatamaskLogin);
+)(MetamaskLogin);

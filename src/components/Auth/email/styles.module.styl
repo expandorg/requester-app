@@ -2,55 +2,85 @@
 @import 'components/common/uikit/font'
 
 .container
-  box-sizing: border-box;
-  padding-top: 13px;
+  padding: 18px 15px 20px
+  box-sizing: border-box
 
+  background: linear-gradient(color-medium-blue, color-white, color-white, color-white);
+  border-bottom-left-radius: 8px
+  border-bottom-right-radius: 8px
+
+.header
+  display: flex
+  align-items: center
+  height: 40px
+
+.logo
+  margin-right: 18px
 
 .title
-  font(font-preset[caption], 400)
-  text-align: center;
-  text-transform: uppercase;
-  letter-spacing: 0.9px;
-  color: color-text-1
+  font(h3-title)
+  color: color-text-dark
 
 .form
-  box-sizing: border-box;
-  padding-top: 5px;
+  box-sizing: border-box
+  padding: 10px 5px 0
 
 .error
-  margin-top: 10px;
+  margin-top: 10px
 
 .input
-  height: 57px
+  margin-top: 20px
+
   font-size: 18px
-  border-radius: 4px;
-  margin-top: 8px
+  border-radius: 4px
 
 .submit
   width: 100%
-  margin-top: 24px;
+  margin-top: 20px
 
-.footer
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  background: color-medium-blue
+  color: color-text-blue
+  border: 1px solid color-heavy-blue
+
+  &:hover
+    background: darken(color-medium-blue, 2%)
+
+.submit
+.toggle
+  height: 40px
+
+  font(body-bold, false, 15px, false)
+  letter-spacing: 0.15em;
 
 .forgot
-  text-align: center;
-  font(font-preset[normal])
-  letter-spacing: -0.2px;
-  color: color-text-1
-  background-color: transparent;
-  margin-top: 13px;
+  display: block
+  margin-top: 18px
+
+  text-align: right
+
+  font: body
+  color: color-text-grey
+  background-color: transparent
+  text-decoration: none
 
   outline: none
-  cursor: pointer;
+  cursor: pointer
 
 .toggle
-  margin-top: 23px;
-  font(font-preset[normal])
-  letter-spacing: -0.2px;
-  background-color: transparent;
-  color: color-pink
-  outline: none
-  cursor: pointer;
+  position: absolute
+  top: 30px
+  right: 30px
+
+  width: 117px
+
+  background-color: color-white
+  color: color-text-blue
+  border-radius: 0
+  text-transform: uppercase
+
+  &:hover
+    color: lighten(color-text-blue, 2%)
+    background: color-white
+
+.signUpSubmit
+  margin-top: 58px

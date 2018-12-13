@@ -3,14 +3,18 @@ import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-// import { Link } from 'react-router-dom';
+
+import { Link } from 'react-router-dom';
 
 import { RequestStates, requestStateProps } from '@gemsorg/app-utils';
 
-import { Button, Input, ErrorMessage } from '@gemsorg/components';
+import { Button, ErrorMessage } from '@gemsorg/components';
 
 import { loginStateSelector } from '@gemsorg/app-auth/selectors';
 import { login } from '@gemsorg/app-auth/sagas';
+import { ReactComponent as Logo } from '../../assets/logo.svg';
+
+import Input from '../../common/Input';
 
 import styles from './styles.module.styl';
 
@@ -20,7 +24,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => bindActionCreators({ login }, dispatch);
 
-class LoginForm extends Component {
+class EmailLogin extends Component {
   static propTypes = {
     loginState: requestStateProps.isRequired,
     onToggle: PropTypes.func.isRequired,
@@ -54,13 +58,21 @@ class LoginForm extends Component {
   };
 
   render() {
-    const { onToggle, loginState } = this.props;
+    const { loginState, onToggle } = this.props;
     const { email, password, error } = this.state;
     const isFetching = loginState.state === RequestStates.Fetching;
 
     return (
       <div className={styles.container}>
-        <h2 className={styles.title}>Login with email</h2>
+        <div className={styles.header}>
+          <Logo
+            width={40}
+            height={40}
+            viewBox="0 0 50 50"
+            className={styles.logo}
+          />
+          <h2 className={styles.title}>Sign in manually</h2>
+        </div>
         <form className={styles.form} onSubmit={this.handleSubmit}>
           <Input
             className={styles.input}
@@ -78,19 +90,17 @@ class LoginForm extends Component {
             value={password}
             onChange={evt => this.handleChangeField('password', evt)}
           />
+          <Link className={styles.forgot} to="/password">
+            Forgot password?
+          </Link>
           <ErrorMessage error={error} className={styles.error} />
-          <Button suze="large" type="submit" className={styles.submit}>
-            {isFetching ? 'Signing in...' : 'Sign in'}
+          <Button type="submit" className={styles.submit}>
+            {isFetching ? 'Signing in...' : 'Login'}
           </Button>
         </form>
-        <div className={styles.footer}>
-          {/* <Link className={styles.forgot} to="/password">
-            I forgot my password
-          </Link> */}
-          <button className={styles.toggle} onClick={onToggle}>
-            Don’t have an account? Sign up!
-          </button>
-        </div>
+        <Button type="submit" className={styles.toggle} onClick={onToggle}>
+          Sign up
+        </Button>
       </div>
     );
   }
@@ -99,4 +109,4 @@ class LoginForm extends Component {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(LoginForm);
+)(EmailLogin);

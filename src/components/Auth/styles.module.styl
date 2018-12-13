@@ -1,20 +1,52 @@
 @import 'components/common/uikit/colors'
+@import 'components/common/uikit/font'
 
 .container
-  display: flex;
-  justify-content: center;
+  display: flex
+  justify-content: center
+
+  min-height: 100vh
+  min-width: 100vw
+
   box-sizing: border-box
+  background: color-blue-background
 
 .panel
-  margin-top: 50px;
-  box-sizing: border-box;
-  background-color: color-white
-  display: flex;
-  justify-content: center;
+  display: flex
+  justify-content: center
 
-  width: 685px;
-  padding-top: 55px;
+  width: 685px
+  margin-top: 50px
+  padding-top: 55px
+
+  color: color-white
+  box-sizing: border-box;
 
   @media(max-width: 685px)
     margin-top: 0
     width: 100%
+
+.content
+  width: 323px
+  padding-top: 30px
+  padding-bottom: 40px
+
+  box-sizing: border-box
+
+  @media(max-width: 660px)
+    width: 100%
+
+.header
+  display: flex
+  flex-direction: column
+  align-items: center
+
+.title
+  font(h1)
+  margin-top: 20px
+
+.inner
+  box-sizing: border-box
+  border-radius: 8px
+  background: color-white
+  margin-top: 50px
