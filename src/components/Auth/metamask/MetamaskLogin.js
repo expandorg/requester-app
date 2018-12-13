@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { ErrorMessage } from '@gemsorg/components';
 import { requestStateProps } from '@gemsorg/app-utils';
 
 import { loginMetamaskStateSelector } from '@gemsorg/app-auth/selectors';
@@ -13,6 +12,7 @@ import { loginMetamask } from '@gemsorg/app-auth/sagas';
 import { metamaskStateSelector } from '@gemsorg/app-web3/selectors';
 import { MetamaskState } from '@gemsorg/app-web3';
 
+import ErrorMessage from '../../common/ErrorMessage';
 import MetamaskPromt from '../../shared/metamask/MetamaskPromt';
 
 import styles from './styles.module.styl';
@@ -72,7 +72,7 @@ class MetamaskLogin extends Component {
             error={error}
           />
         )}
-        <ErrorMessage error={error} className={styles.error} />
+        <ErrorMessage errors={error} className={styles.error} />
       </div>
     );
   }

@@ -5,13 +5,14 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import cn from 'classnames';
 
-import { ErrorMessage, Button } from '@gemsorg/components';
+import { Button } from '@gemsorg/components';
 
 import { RequestStates, requestStateProps } from '@gemsorg/app-utils';
 
 import { signupStateSelector } from '@gemsorg/app-auth/selectors';
 import { signup } from '@gemsorg/app-auth/sagas';
 
+import ErrorMessage from '../../common/ErrorMessage';
 import Input from '../../common/Input';
 
 import { ReactComponent as Logo } from '../../assets/logo.svg';
@@ -91,7 +92,7 @@ class EmailSignup extends Component {
             value={password}
             onChange={evt => this.handleChangeField('password', evt)}
           />
-          <ErrorMessage error={error} className={styles.error} />
+          <ErrorMessage errors={error} className={styles.error} />
           <Button
             type="submit"
             className={cn(styles.submit, styles.signUpSubmit)}

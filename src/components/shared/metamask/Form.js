@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import { Button, ErrorMessage } from '@gemsorg/components';
+import { Button } from '@gemsorg/components';
+import ErrorMessage from '../../common/ErrorMessage';
 
 import styles from './Form.module.styl';
 
@@ -30,7 +31,7 @@ export default class Form extends Component {
           <Button size="large" className={styles.login} onClick={onLogin}>
             {action}
           </Button>
-          <ErrorMessage error={error} className={styles.error} />
+          <ErrorMessage errors={error} className={styles.error} />
         </div>
       </div>
     );

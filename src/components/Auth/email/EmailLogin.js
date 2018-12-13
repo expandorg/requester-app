@@ -8,12 +8,13 @@ import { Link } from 'react-router-dom';
 
 import { RequestStates, requestStateProps } from '@gemsorg/app-utils';
 
-import { Button, ErrorMessage } from '@gemsorg/components';
+import { Button } from '@gemsorg/components';
 
 import { loginStateSelector } from '@gemsorg/app-auth/selectors';
 import { login } from '@gemsorg/app-auth/sagas';
 import { ReactComponent as Logo } from '../../assets/logo.svg';
 
+import ErrorMessage from '../../common/ErrorMessage';
 import Input from '../../common/Input';
 
 import styles from './styles.module.styl';
@@ -93,7 +94,7 @@ class EmailLogin extends Component {
           <Link className={styles.forgot} to="/password">
             Forgot password?
           </Link>
-          <ErrorMessage error={error} className={styles.error} />
+          <ErrorMessage errors={error} className={styles.error} />
           <Button type="submit" className={styles.submit}>
             {isFetching ? 'Signing in...' : 'Login'}
           </Button>

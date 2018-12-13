@@ -7,7 +7,7 @@ import Button from '../../../../common/Button';
 import Input from '../../../../common/Input';
 
 import PropertyEditor from './PropertyEditor/PropertyEditor';
-import ErrorMessage from './PropertyEditor/ErrorMessage';
+import ErrorContainer from './PropertyEditor/ErrorContainer';
 
 import FieldValidation from './FieldValidation';
 
@@ -82,7 +82,7 @@ export default class PropertiesForm extends Component {
       <aside className={styles.container}>
         <div className={styles.content}>
           <div className={styles.title}>{name} properties</div>
-          <ErrorMessage errors={errors} name="name">
+          <ErrorContainer errors={errors} field="name">
             <Input
               className={styles.name}
               value={module.name}
@@ -90,13 +90,13 @@ export default class PropertiesForm extends Component {
               required
               onChange={this.handleChangeName}
             />
-          </ErrorMessage>
+          </ErrorContainer>
           {editor.properties && (
             <div className={styles.props}>
               {Reflect.ownKeys(editor.properties).map(propertyName => (
-                <ErrorMessage
+                <ErrorContainer
                   errors={errors}
-                  name={propertyName}
+                  field={propertyName}
                   key={propertyName}
                 >
                   <PropertyEditor
@@ -106,7 +106,7 @@ export default class PropertiesForm extends Component {
                     value={module[propertyName]}
                     onChange={this.handleChangeProperty}
                   />
-                </ErrorMessage>
+                </ErrorContainer>
               ))}
             </div>
           )}
