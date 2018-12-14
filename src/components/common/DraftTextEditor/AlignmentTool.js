@@ -10,9 +10,9 @@ import { ReactComponent as IconRight } from './assets/align-right.svg';
 
 import styles from './AlignmentTool.module.styl';
 
-const getActive = () => 'left';
+import { applyAlignment } from './content';
 
-const applyAlignment = editorState => editorState;
+const getActive = () => 'left';
 
 const Btn = Tooltip(({ active, onClick, value, children, ...rest }) => (
   <button

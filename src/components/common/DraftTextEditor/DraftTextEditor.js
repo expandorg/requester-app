@@ -1,27 +1,27 @@
 import React, { Component, createRef } from 'react';
 import PropTypes from 'prop-types';
 
-import {
-  Editor,
-  ContentState,
-  RichUtils,
-  EditorState,
-  convertFromHTML,
-} from 'draft-js';
+import debounce from 'debounce';
+
+import { Editor, RichUtils, EditorState } from 'draft-js';
 
 import FontPresetTool from './FontPresetTool';
 import FontSizeTool from './FontSizeTool';
 import FontStyleTool from './FontStyleTool';
 import AlignmentTool from './AlignmentTool';
 
+import { getHtml, createContentState } from './content';
+
 import styles from './DraftTextEditor.module.styl';
 import './Draft.styl';
+
+const DEBOUNCE_TIMEOUT = 150;
 
 export default class DraftTextEditor extends Component {
   static propTypes = {
     value: PropTypes.string,
     placeholder: PropTypes.string,
-    // onChange: PropTypes.func.isRequired,
+    onChange: PropTypes.func.isRequired,
   };
 
   static defaultProps = {
@@ -34,15 +34,28 @@ export default class DraftTextEditor extends Component {
 
     this.editor = createRef();
 
-    const { contentBlocks, entityMap } = convertFromHTML(props.value);
-    const cstate = ContentState.createFromBlockArray(contentBlocks, entityMap);
+    this.saveChanges = debounce(this.saveChanges, DEBOUNCE_TIMEOUT);
 
+    const cstate = createContentState(props.value);
     this.state = {
       editorState: EditorState.createWithContent(cstate),
     };
   }
 
-  handleChange = editorState => this.setState({ editorState });
+  componentWillUnmount() {
+    this.saveChanges.clear();
+  }
+
+  saveChanges = contentState => {
+    const { onChange } = this.props;
+    const html = getHtml(contentState);
+    onChange(html);
+  };
+
+  handleChange = editorState => {
+    this.setState({ editorState });
+    this.saveChanges(editorState.getCurrentContent());
+  };
 
   handleKeyCommand = command => {
     const { editorState } = this.state;
@@ -57,6 +70,7 @@ export default class DraftTextEditor extends Component {
   render() {
     const { placeholder } = this.props;
     const { editorState } = this.state;
+
     return (
       <div className={styles.container}>
         <div className={styles.toolbar}>

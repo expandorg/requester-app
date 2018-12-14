@@ -5,11 +5,11 @@ import { Dropdown } from '@gemsorg/components';
 
 import styles from './dropdowns.module.styl';
 
+import { applyFontPreset } from './content';
+
 const presets = ['h1', 'h2', 'h3', 'body'];
 
 const getValue = () => 'body';
-
-const applyFontPresrt = editorState => editorState;
 
 export default class FontPresetTool extends Component {
   static propTypes = {
@@ -19,7 +19,7 @@ export default class FontPresetTool extends Component {
 
   handleChange = value => {
     const { editorState, onChange } = this.props;
-    onChange(applyFontPresrt(editorState, +value));
+    onChange(applyFontPreset(editorState, value));
   };
 
   render() {
