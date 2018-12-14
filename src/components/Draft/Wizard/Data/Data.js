@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+import deferComponentRender from '../../../common/deferComponentRender';
 import { draftProps } from '../../../shared/propTypes';
 
 import Button from '../../../common/Button';
 import DataEditor from './DataEditor/DataEditor';
-
 import UploadForm from './UploadForm';
 
 import { Form, Actions } from '../Form';
 
-export default class UploadData extends Component {
+class UploadData extends Component {
   static propTypes = {
     draft: draftProps.isRequired,
     onNext: PropTypes.func.isRequired,
@@ -45,3 +45,5 @@ export default class UploadData extends Component {
     );
   }
 }
+
+export default deferComponentRender(UploadData);
