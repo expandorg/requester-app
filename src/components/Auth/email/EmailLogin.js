@@ -91,9 +91,11 @@ class EmailLogin extends Component {
             value={password}
             onChange={evt => this.handleChangeField('password', evt)}
           />
-          <Link className={styles.forgot} to="/password">
-            Forgot password?
-          </Link>
+          <div className={styles.forgotContainer}>
+            <Link className={styles.forgot} to="/password">
+              Forgot password?
+            </Link>
+          </div>
           <ErrorMessage errors={error} className={styles.error} />
           <Button type="submit" className={styles.submit}>
             {isFetching ? 'Signing in...' : 'Login'}

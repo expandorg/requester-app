@@ -54,11 +54,12 @@
   font(body-bold, false, 15px, false)
   letter-spacing: 0.15em;
 
-.forgot
-  display: block
-  margin-top: 18px
+.forgotContainer
+  display: flex
+  justify-content: flex-end
 
-  text-align: right
+.forgot
+  margin-top: 18px
 
   font: body
   color: color-text-grey
@@ -83,6 +84,10 @@
   &:hover
     color: lighten(color-text-blue, 2%)
     background: color-white
+
+  @media(max-width: 480px)
+    top: 0
+    right: 0
 
 .signUpSubmit
   margin-top: 58px
