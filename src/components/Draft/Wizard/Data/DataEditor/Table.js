@@ -84,7 +84,7 @@ class Table extends Component {
           )
         }
       >
-        <LoadIndicator isLoading={isFetching}>
+        <LoadIndicator isLoading={!data && isFetching}>
           <DataTable
             data={data}
             isFetching={isFetching}

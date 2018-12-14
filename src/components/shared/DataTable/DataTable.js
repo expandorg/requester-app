@@ -8,7 +8,6 @@ import { dataProps } from '../propTypes';
 import Column from './Column';
 import ValuesRow from './ValuesRow';
 import Value from './Value';
-import Loading from './Loading';
 
 import styles from './DataTable.module.styl';
 
@@ -29,6 +28,23 @@ export default class DataTable extends Component {
     onChangeColumns: Function.prototype,
   };
 
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      original: props.data,
+    };
+  }
+
+  static getDerivedStateFromProps({ data, isFetching }, state) {
+    if (!isFetching && data && data.values.length && data !== state.original) {
+      return {
+        original: data,
+      };
+    }
+    return null;
+  }
+
   handleChangeColumn = (column, index, isSkip) => {
     const { data, onChangeColumns, readOnly } = this.props;
     if (!readOnly) {
@@ -38,11 +54,14 @@ export default class DataTable extends Component {
 
   render() {
     const { data, className, readOnly, isFetching } = this.props;
+    const { original } = this.state;
     if (!data) {
       return null;
     }
 
     const { columns, values } = data;
+
+    const array = isFetching && !values.length ? original.values : values;
 
     /* eslint-disable react/no-array-index-key */
     return (
@@ -59,15 +78,18 @@ export default class DataTable extends Component {
           ))}
         </div>
         <div className={styles.tbody}>
-          {!isFetching &&
-            values.map((row, i) => (
-              <ValuesRow key={i}>
-                {row.map((val, j) => (
-                  <Value key={j}>{val}</Value>
-                ))}
-              </ValuesRow>
-            ))}
-          {isFetching && <Loading columns={columns.length} />}
+          {array.map((row, i) => (
+            <ValuesRow
+              key={i}
+              className={cn({
+                [styles.fetching]: isFetching && !values.length,
+              })}
+            >
+              {row.map((val, j) => (
+                <Value key={j}>{val}</Value>
+              ))}
+            </ValuesRow>
+          ))}
         </div>
       </div>
     );
