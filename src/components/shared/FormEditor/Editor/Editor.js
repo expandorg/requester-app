@@ -5,13 +5,14 @@ import cn from 'classnames';
 import { moduleProps, getModuleControlsMap } from '@gemsorg/modules';
 
 import Button from '../../../common/Button';
+import ErrorMessage from '../../../common/ErrorMessage';
 
 import Form from './Form/Form';
 import Properties from './Properties/Properties';
 import PreviewCtx from './PreviewCtx';
 
 import { treeEditor } from '../tree';
-import { validateModuleProps } from '../modules';
+import { validateModuleProps, validationFormProps } from '../modules';
 
 import styles from './Editor.module.styl';
 
@@ -33,9 +34,25 @@ export default class Editor extends Component {
     selected: null,
   };
 
-  state = {
-    controls: getModuleControlsMap(this.props.moduleControls),
-  };
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      original: props.modules, // eslint-disable-line react/no-unused-state
+      controls: getModuleControlsMap(props.moduleControls),
+      errors: null,
+    };
+  }
+
+  static getDerivedStateFromProps({ modules }, state) {
+    if (modules !== state.original && state.errors) {
+      return {
+        original: modules,
+        errors: null,
+      };
+    }
+    return null;
+  }
 
   handleCancel = () => {
     const { selected, onSelectModule } = this.props;
@@ -58,18 +75,27 @@ export default class Editor extends Component {
     return validateModuleProps(module, originalName, editor, modules);
   };
 
+  handleSave = () => {
+    const { modules, onSave } = this.props;
+    const errors = validationFormProps(modules);
+    if (errors) {
+      this.setState({ errors });
+    } else {
+      onSave(modules);
+    }
+  };
+
   render() {
     const {
       modules,
       onMoveModule,
       onAddModule,
-      onSave,
       onSelectModule,
       onRemoveModule,
       onCancel,
       selected,
     } = this.props;
-    const { controls } = this.state;
+    const { controls, errors } = this.state;
     const selectedModule = selected && treeEditor.findByPath(modules, selected);
     return (
       <div className={styles.container}>
@@ -101,12 +127,16 @@ export default class Editor extends Component {
               )}
             </PreviewCtx>
           </div>
-          <div className={styles.title}>Edit Task Module</div>
+          {errors ? (
+            <ErrorMessage errors={errors} className={styles.errors} />
+          ) : (
+            <div className={styles.title}>Edit Task Module</div>
+          )}
           <div>
             <Button theme="grey" className={styles.btn} onClick={onCancel}>
               Cancel
             </Button>
-            <Button className={styles.btn} onClick={onSave}>
+            <Button className={styles.btn} onClick={this.handleSave}>
               Save
             </Button>
           </div>

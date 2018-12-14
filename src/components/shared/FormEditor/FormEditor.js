@@ -49,10 +49,8 @@ export default class FormEditor extends Component {
     return null;
   }
 
-  handleSave = () => {
+  handleSave = modules => {
     const { onSave, form } = this.props;
-    const { modules } = this.state;
-
     onSave({ ...form, modules });
   };
 
