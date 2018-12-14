@@ -9,9 +9,10 @@ import {
   convertFromHTML,
 } from 'draft-js';
 
-import AlignmentTool from './AlignmentTool';
+import FontPresetTool from './FontPresetTool';
 import FontSizeTool from './FontSizeTool';
 import FontStyleTool from './FontStyleTool';
+import AlignmentTool from './AlignmentTool';
 
 import styles from './DraftTextEditor.module.styl';
 import './Draft.styl';
@@ -59,11 +60,15 @@ export default class DraftTextEditor extends Component {
     return (
       <div className={styles.container}>
         <div className={styles.toolbar}>
-          <FontStyleTool
+          <FontPresetTool
             editorState={editorState}
             onChange={this.handleChange}
           />
           <FontSizeTool
+            editorState={editorState}
+            onChange={this.handleChange}
+          />
+          <FontStyleTool
             editorState={editorState}
             onChange={this.handleChange}
           />
