@@ -25,6 +25,14 @@ export const makeDataSelector = () =>
         return null;
       }
       const { total, pages } = valueEntites[id];
-      return { ...entity, total, values: pages[page] || [] };
+      const values = pages[page] || [];
+      return {
+        ...entity,
+        total,
+        values:
+          values.length > 500
+            ? values.filter((_, index) => index < 500)
+            : values,
+      };
     }
   );
