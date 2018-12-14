@@ -1,15 +1,26 @@
 @import 'components/common/uikit/colors'
 @import 'components/common/uikit/font'
+@import 'components/common/uikit/size'
 
 .form
-  box-sizing: border-box;
+  display: flex
+  flex-direction: column
+  justify-content: space-between
+
+  min-height: 'calc(100vh - %s)' % sz-navbar-height
   padding: 75px 15px 20px
 
-.fieldset
-  box-sizing: border-box;
+  box-sizing: border-box
 
-  margin: 0 auto;
+.fieldSet
+  width: 100%
+
+.innerFieldSet
+  box-sizing: border-box
+
   max-width: 520px
+  margin: 0 auto
+  height: 100%
 
 .field
   position: relative;
@@ -32,7 +43,7 @@
 
   margin-top: 50px
 
-  box-sizing: border-box;
+  box-sizing: border-box
 
   > *
     margin-left: 15px

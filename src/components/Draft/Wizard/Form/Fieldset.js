@@ -5,7 +5,9 @@ import cn from 'classnames';
 import styles from './styles.module.styl';
 
 const FieldSet = ({ children, className }) => (
-  <div className={cn(styles.fieldset, className)}>{children}</div>
+  <div className={cn(styles.fieldset, className)}>
+    <div className={styles.innerFieldSet}>{children}</div>
+  </div>
 );
 
 FieldSet.propTypes = {
