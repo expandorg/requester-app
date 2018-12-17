@@ -29,6 +29,7 @@ const settings = {
   staking: true,
   stake: 400,
   deduct: true,
+  callbackUrl: '',
 };
 
 export default class TemplateSettings extends Component {
@@ -58,6 +59,18 @@ export default class TemplateSettings extends Component {
           value={settings.deduct}
           type="bool"
         />
+        <Field
+          title="Deduct stake if fail?"
+          value={settings.deduct}
+          type="bool"
+        />
+        {settings.callbackUrl && (
+          <Field
+            title="Deduct stake if fail?"
+            value={settings.callbackUrl}
+            type="bool"
+          />
+        )}
       </div>
     );
   }

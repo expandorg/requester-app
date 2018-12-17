@@ -98,10 +98,7 @@ export default function setupMocks(app: Object) {
 
   app.post('/api/v1/drafts/:id/template', (req, res) => {
     const index = drafts.findIndex(d => d.id === req.params.id);
-    let draft = {
-      ...drafts[index],
-      ...req.body,
-    };
+    let draft = drafts[index];
 
     const { task, onboarding } = taskTemplates.find(
       t => t.id === req.body.templateId
@@ -111,6 +108,8 @@ export default function setupMocks(app: Object) {
       ...draft,
       task,
       onboarding,
+      templateId: req.body.templateId,
+      ...req.body.settings,
     };
     drafts[index] = draft;
 

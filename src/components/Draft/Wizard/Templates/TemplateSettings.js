@@ -39,6 +39,7 @@ class TemplatesList extends Component {
       staking: false,
       stake: '',
       deduct: false,
+      callbackUrl: '',
     },
   };
 
@@ -118,6 +119,14 @@ class TemplatesList extends Component {
               name="deduct"
               value={settings.deduct}
               onChange={this.handleToggleChange}
+            />
+          </Field>
+          <Field tooltip="callback Url">
+            <Input
+              placeholder="Callback Url"
+              name="callbackUrl"
+              value={settings.callbackUrl}
+              onChange={this.handleInputChange}
             />
           </Field>
         </Fieldset>
