@@ -52,7 +52,7 @@ class UploadForm extends Component {
 
   handleUpload = data => {
     const { draft, uploadState } = this.props;
-    if (uploadState !== RequestStates.Fetching) {
+    if (uploadState.state !== RequestStates.Fetching) {
       this.setState({ data, progress: 0 });
 
       this.progress = new ProgressPubSub(this.handleProgress);

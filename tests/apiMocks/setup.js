@@ -15,6 +15,8 @@ import {
 
 import { dataRepo, dataUpload, createData } from './dataRepos';
 
+const files = {};
+
 const getPage = (array, page, pageSize = 10) => {
   const from = (page || 0) * pageSize;
   const to = from + pageSize;
@@ -126,6 +128,8 @@ export default function setupMocks(app: Object) {
   app.post('/api/v1/drafts/:id/data', dataUpload.single('data'), (req, res) => {
     const draft = drafts.find(d => d.id === req.params.id);
 
+    files[123] = req.file;
+
     dataRepo[draft.id] = createData(draft.id, draft.id);
     draft.dataId = draft.id;
 
@@ -224,4 +228,30 @@ export default function setupMocks(app: Object) {
       users: Math.max(1000 - 100 * conditions.length, 0),
     });
   });
+
+  // thumbnails
+  app.get('/api/v1/thumbnails/:fileName', (req, res) => {
+    const { fileName } = req.params;
+    const f = files[fileName];
+    res.set({
+      'content-type': f.mimetype,
+      'content-length': f.size,
+    });
+    res.send(f.buffer);
+  });
+
+  app.post(
+    '/api/v1/thumbnails/upload/',
+    dataUpload.single('thumbnail'),
+    (req, res) => {
+      const id = nanoid();
+      const imageUrl = `/api/v1/thumbnails/${id}`;
+
+      files[id] = req.file;
+
+      res.json({
+        imageUrl,
+      });
+    }
+  );
 }

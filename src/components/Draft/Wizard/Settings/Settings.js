@@ -8,19 +8,14 @@ import Button from '../../../common/Button';
 // import Select from '../../../common/Select';
 
 // import DateTimeInput from '../../../common/DateTime/DateTimeInput';
-import { Upload, ImagePreview } from '../../../common/Upload';
-
+import UploadLogo from './UploadLogo';
 import { draftProps } from '../../../shared/propTypes';
 
 import { Form, Description, Field, Fieldset, Actions } from '../Form';
 
-import { ReactComponent as Placeholder } from '../../../assets/data.svg';
-
 import { settingsRules } from '../../../../model/draft';
 import { EndType } from '../../../../model/enums';
 // import { EndWhenTitles } from '../../../../model/i18n';
-
-import styles from './Settings.module.styl';
 
 // const options = [
 //   { value: EndType.ExceedTasks, label: EndWhenTitles[EndType.ExceedTasks] },
@@ -52,7 +47,6 @@ export default class Settings extends Component {
     this.titleInput = createRef();
     this.state = {
       draft: props.draft, // eslint-disable-line react/no-unused-state
-      logo: null,
       errors: null,
       settings: getInitialState(props.draft),
     };
@@ -62,7 +56,6 @@ export default class Settings extends Component {
     if (draft !== state.draft) {
       return {
         draft,
-        logo: null,
         errors: null,
         settings: getInitialState(draft),
       };
@@ -77,21 +70,20 @@ export default class Settings extends Component {
   handleSubmit = () => {
     const { onNext, isSubmitting } = this.props;
     if (!isSubmitting) {
-      const { settings, logo } = this.state;
-      const data = { ...settings, logo };
-      const errors = validateForm(data, settingsRules);
+      const { settings } = this.state;
+      const errors = validateForm(settings, settingsRules);
       if (errors) {
         this.setState({ errors });
       } else {
-        onNext(data);
+        onNext(settings);
       }
     }
   };
 
-  handleUpload = logo => {
-    this.setState({
-      logo,
-    });
+  handleChangeLogo = logoUrl => {
+    this.setState(({ settings }) => ({
+      settings: { ...settings, logoUrl },
+    }));
   };
 
   handleInputChange = ({ target }) => {
@@ -101,34 +93,15 @@ export default class Settings extends Component {
   };
 
   render() {
-    const { settings, logo, errors, isSubmitting } = this.state;
+    const { settings, errors, isSubmitting } = this.state;
     return (
       <Form onSubmit={this.handleSubmit}>
         <Fieldset>
           <Description>Description about this step goes here.</Description>
-          <Upload
-            file={logo}
-            label="Thumbnail *"
-            tooltip="Upload Image"
-            onSelect={this.handleUpload}
-          >
-            {({ file }) =>
-              file || settings.logoUrl ? (
-                <ImagePreview uploadedUrl={settings.logoUrl} file={file} />
-              ) : (
-                <div className={styles.placeholder}>
-                  <Placeholder
-                    viewBox="0 0 80 56"
-                    width={45}
-                    height={36}
-                    className={styles.hint}
-                  />
-                  <div className={styles.or}>Drag a file or</div>
-                  <div className={styles.browse}>Browse</div>
-                </div>
-              )
-            }
-          </Upload>
+          <UploadLogo
+            logo={settings.logoUrl}
+            onChangeLogo={this.handleChangeLogo}
+          />
           <Field tooltip="Title" name="title" errors={errors}>
             <Input
               ref={this.titleInput}
