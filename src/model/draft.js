@@ -5,7 +5,7 @@ import nanoid from 'nanoid';
 import { rules } from '@gemsorg/validation';
 
 export const settingsRules = {
-  logoUrl: [[rules.isRequired, 'Logo is required']],
+  // logoUrl: [[rules.isRequired, 'Logo is required']],
   title: [[rules.isRequired, 'Title is required']],
   description: [[rules.isRequired, 'Description is required']],
 };
