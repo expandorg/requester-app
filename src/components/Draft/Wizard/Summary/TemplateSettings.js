@@ -21,15 +21,12 @@ const Field = ({ title, value, type }) => (
 
 Field.propTypes = {
   title: PropTypes.string.isRequired,
-  value: PropTypes.oneOf([PropTypes.string, PropTypes.bool]).isRequired,
-  type: PropTypes.string.isRequired,
+  value: PropTypes.any.isRequired, // eslint-disable-line
+  type: PropTypes.string,
 };
 
-const settings = {
-  staking: true,
-  stake: 400,
-  deduct: true,
-  callbackUrl: '',
+Field.defaultProps = {
+  type: 'string',
 };
 
 export default class TemplateSettings extends Component {
@@ -39,37 +36,16 @@ export default class TemplateSettings extends Component {
 
   render() {
     const { draft } = this.props;
+    console.log(draft);
     return (
       <div className={styles.container}>
-        <Field
-          title="Staking"
-          value={settings.staking}
-          type="bool"
-          draft={draft}
-        />
-        {settings.staking && (
-          <Field
-            title="How much to stake?"
-            value={settings.stake}
-            type="number"
-          />
+        <Field title="Staking" value={draft.staking} type="bool" />
+        {draft.staking && (
+          <Field title="How much to stake?" value={draft.stake} />
         )}
-        <Field
-          title="Deduct stake if fail?"
-          value={settings.deduct}
-          type="bool"
-        />
-        <Field
-          title="Deduct stake if fail?"
-          value={settings.deduct}
-          type="bool"
-        />
-        {settings.callbackUrl && (
-          <Field
-            title="Deduct stake if fail?"
-            value={settings.callbackUrl}
-            type="bool"
-          />
+        <Field title="Deduct stake if fail?" value={draft.deduct} type="bool" />
+        {draft.callbackUrl && (
+          <Field title="Callback Url" value={draft.callbackUrl} />
         )}
       </div>
     );

@@ -39,8 +39,8 @@ const mapDispatchToProps = dispatch =>
   bindActionCreators({ updateFunding }, dispatch);
 
 const getInitialState = draft => ({
-  requirement: (draft.funding && draft.funding.requirement) || '',
-  reward: (draft.funding && draft.funding.reward) || '',
+  requirement: (draft.funding && `${draft.funding.requirement}`) || '',
+  reward: (draft.funding && `${draft.funding.reward}`) || '',
 });
 
 class Payments extends Component {
