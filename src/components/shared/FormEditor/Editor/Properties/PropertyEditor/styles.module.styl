@@ -37,15 +37,15 @@
     background-image: url(../../../../../assets/arrow-down.svg)
 
 .selectLabel
-  transition-property: transform font-size font-weight;
+  transition-property: transform font-size font-weight color;
+  color: color-text-dark
   transition-duration: 0.2s;
   transition-timing-function: ease-out;
   transform-origin: left center;
   white-space: nowrap;
 
 .selectVal
-  color: color-primary-blue
-  font-weight: 800
+  color: color-blue-background
   border-bottom-color: color-primary-blue
 
   .selectLabel
@@ -53,6 +53,6 @@
     top: -15px
     padding: 0
     pointer-events: none;
-    color: color-text-dark
     font-size: 11px
     font-weight: 800
+    color: color-primary-blue
