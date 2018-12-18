@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 
 import { ModuleCategories, PropControlTypes } from '@gemsorg/modules';
 
+import styles from './RichText.module.styl';
+
 export default class RichText extends Component {
   static propTypes = {
     content: PropTypes.string.isRequired,
@@ -31,6 +33,11 @@ export default class RichText extends Component {
     const { content } = this.props;
 
     /* eslint-disable react/no-danger */
-    return <div dangerouslySetInnerHTML={{ __html: content }} />;
+    return (
+      <div
+        className={styles.richText}
+        dangerouslySetInnerHTML={{ __html: content }}
+      />
+    );
   }
 }

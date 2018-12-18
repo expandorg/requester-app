@@ -2,9 +2,30 @@
 import { stateToHTML } from 'draft-js-export-html';
 import { Modifier, ContentState, EditorState, convertFromHTML } from 'draft-js';
 
+const htmlOptions = {
+  blockStyleFn: (block: any) => {
+    const data = block.getData();
+    if (data.get('ALIGNMENT')) {
+      return {
+        attributes: {
+          class: `align-${data.get('ALIGNMENT')}`,
+        },
+      };
+    }
+    return null;
+  },
+};
+
 export const getHtml = (contentState: ContentState): string => {
-  const html = stateToHTML(contentState);
+  const html = stateToHTML(contentState, htmlOptions);
   return html;
+};
+
+export const createContentState = (value: string): EditorState => {
+  // $FlowFixMe
+  const { contentBlocks, entityMap } = convertFromHTML(value);
+  // $FlowFixMe
+  return ContentState.createFromBlockArray(contentBlocks, entityMap);
 };
 
 export const getCurrentBlock = (editorState: EditorState) => {
@@ -41,13 +62,6 @@ export const applyFontPreset = (editorState: EditorState) => editorState;
 export const fontSizes = ['8', '12', '16', '20'];
 
 export const applyFontSize = (editorState: EditorState) => editorState;
-
-export const createContentState = (value: string): EditorState => {
-  // $FlowFixMe
-  const { contentBlocks, entityMap } = convertFromHTML(value);
-  // $FlowFixMe
-  return ContentState.createFromBlockArray(contentBlocks, entityMap);
-};
 
 export const blockStyleFn = (block: any) => {
   const data = block.getData();
