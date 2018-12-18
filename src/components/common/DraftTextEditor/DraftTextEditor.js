@@ -6,7 +6,7 @@ import debounce from 'debounce';
 import { Editor, RichUtils, EditorState } from 'draft-js';
 
 import FontPresetTool from './FontPresetTool';
-import FontSizeTool from './FontSizeTool';
+// import FontSizeTool from './FontSizeTool';
 import FontStyleTool from './FontStyleTool';
 import AlignmentTool from './AlignmentTool';
 
