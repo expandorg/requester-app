@@ -100,18 +100,25 @@ export default function setupMocks(app: Object) {
     const index = drafts.findIndex(d => d.id === req.params.id);
     let draft = drafts[index];
 
-    const { task, onboarding } = taskTemplates.find(
-      t => t.id === req.body.templateId
-    );
+    const { templateId, settings } = req.body;
+
+    const {
+      taskForm,
+      onboarding,
+      verificationForm,
+      logic,
+    } = taskTemplates.find(t => t.id === templateId);
 
     draft = {
       ...draft,
-      task,
-      ...req.body.settings,
-      templateId: req.body.templateId,
+      taskForm,
+      verificationForm,
+      logic,
+      ...settings,
+      templateId,
       onboarding: {
         ...onboarding,
-        ...req.body.settings.onboarding,
+        ...settings.onboarding,
       },
     };
     drafts[index] = draft;
@@ -152,14 +159,6 @@ export default function setupMocks(app: Object) {
   app.post('/api/v1/drafts/:id/onboarding', (req, res) => {
     const draft = drafts.find(d => d.id === req.params.id);
     draft.onboarding = req.body.onboarding;
-    res.json({
-      draft,
-    });
-  });
-
-  app.post('/api/v1/drafts/:id/task', (req, res) => {
-    const draft = drafts.find(d => d.id === req.params.id);
-    draft.task = req.body.task;
     res.json({
       draft,
     });

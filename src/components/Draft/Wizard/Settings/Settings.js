@@ -24,7 +24,7 @@ import { EndType } from '../../../../model/enums';
 // ];
 
 const getInitialState = draft => ({
-  logoUrl: (draft && draft.logoUrl) || undefined,
+  logo: (draft && draft.logo) || undefined,
   title: (draft && draft.title) || '',
   description: (draft && draft.description) || '',
   endWhen: (draft && draft.endWhen) || EndType.ExceedTasks,
@@ -80,9 +80,9 @@ export default class Settings extends Component {
     }
   };
 
-  handleChangeLogo = logoUrl => {
+  handleChangeLogo = logo => {
     this.setState(({ settings }) => ({
-      settings: { ...settings, logoUrl },
+      settings: { ...settings, logo },
     }));
   };
 
@@ -99,7 +99,7 @@ export default class Settings extends Component {
         <Fieldset>
           <Description>Description about this step goes here.</Description>
           <UploadLogo
-            logo={settings.logoUrl}
+            logo={settings.logo}
             onChangeLogo={this.handleChangeLogo}
           />
           <Field tooltip="Title" name="title" errors={errors}>

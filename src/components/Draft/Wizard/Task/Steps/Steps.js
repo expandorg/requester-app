@@ -41,16 +41,16 @@ class Steps extends Component {
     this.props.updateOnboarding(draft.id, onboarding);
   };
 
-  handleUpdateTask = task => {
+  handleUpdateTask = taskForm => {
     const { draft } = this.props;
-    this.props.updateTask(draft.id, task);
+    this.props.updateTask(draft.id, taskForm);
   };
 
   render() {
     const { draft } = this.props;
     return (
       <StepsForm
-        task={draft.task}
+        taskForm={draft.taskForm}
         onboarding={draft.onboarding}
         onUpdateTask={this.handleUpdateTask}
         onUpdateOnboarding={this.handleUpdateOnboarding}

@@ -35,9 +35,9 @@ export const selectTemplate = (id, templateId, settings) => ({
   meta: { schema: draftResponseSchema },
 });
 
-export const updateTask = (id, task) => ({
+export const updateTask = (id, taskForm) => ({
   type: draftsActionTypes.UPDATE_TASK,
-  payload: { id, params: { task } },
+  payload: { id, params: { taskForm } },
   asyncCall: draftApi.update,
   meta: { schema: draftResponseSchema },
 });

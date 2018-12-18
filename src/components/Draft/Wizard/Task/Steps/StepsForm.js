@@ -9,7 +9,7 @@ import Step from './Step';
 import AddNew from './AddNew';
 
 import {
-  draftTaskProps,
+  draftTaskFormProps,
   draftOnboardingProps,
 } from '../../../../shared/propTypes';
 
@@ -19,14 +19,14 @@ const taskSelected = Symbol('taskSelected');
 
 export default class StepsForm extends Component {
   static propTypes = {
-    task: draftTaskProps,
+    taskForm: draftTaskFormProps,
     onboarding: draftOnboardingProps,
     onUpdateTask: PropTypes.func.isRequired,
     onUpdateOnboarding: PropTypes.func.isRequired,
   };
 
   static defaultProps = {
-    task: null,
+    taskForm: null,
     onboarding: null,
   };
 
@@ -51,11 +51,16 @@ export default class StepsForm extends Component {
   }
 
   handleUpdate = form => {
-    const { onUpdateTask, onUpdateOnboarding, onboarding, task } = this.props;
+    const {
+      onUpdateTask,
+      onUpdateOnboarding,
+      onboarding,
+      taskForm,
+    } = this.props;
     const { selected, steps } = this.state;
 
     if (selected === taskSelected) {
-      onUpdateTask({ ...task, form });
+      onUpdateTask({ ...taskForm, form });
     } else {
       const step = { ...steps[selected], form };
       onUpdateOnboarding({
@@ -120,15 +125,15 @@ export default class StepsForm extends Component {
 
   getSelectedForm = selected => {
     if (selected === taskSelected) {
-      const { task } = this.props;
-      return task.form;
+      const { taskForm } = this.props;
+      return taskForm.form;
     }
     const { steps } = this.state;
     return steps[selected].form;
   };
 
   render() {
-    const { task } = this.props;
+    const { taskForm } = this.props;
     const { steps, selected } = this.state;
 
     return (
@@ -148,8 +153,12 @@ export default class StepsForm extends Component {
                 onSelect={this.handleSelectStep}
               />
             ))}
-            {task && (
-              <Step isTask name={task.name} onSelect={this.handleSelectTask} />
+            {taskForm && (
+              <Step
+                isTask
+                name={taskForm.name}
+                onSelect={this.handleSelectTask}
+              />
             )}
           </div>
         )}

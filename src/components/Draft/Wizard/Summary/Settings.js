@@ -24,7 +24,7 @@ export default class Settings extends Component {
                 <div className={styles.name}>Thumbnail</div>
                 <div className={styles.logo}>
                   <img
-                    src={draft.logoUrl}
+                    src={draft.logo}
                     className={styles.img}
                     alt={draft.title}
                   />
