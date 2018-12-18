@@ -23,13 +23,24 @@ const mapDispatchToProps = dispatch =>
 
 const getInitialState = draft => ({
   staking: (draft && draft.staking) || false,
-  stake: (draft && `${draft.stake}`) || '',
+  stake: (draft && `${draft.stake || 0}`) || '',
   deduct: (draft && draft.deduct) || false,
   callbackUrl: (draft && draft.callbackUrl) || '',
   onboardingSuccessMessage:
     (draft && draft.onboarding && draft.onboarding.successMessage) || '',
   onboardingFailureMessage:
     (draft && draft.onboarding && draft.onboarding.failureMessage) || '',
+});
+
+const getTempateSettings = settings => ({
+  staking: settings.staking,
+  stake: +settings.stake,
+  deduct: settings.deduct,
+  callbackUrl: settings.callbackUrl,
+  onboarding: {
+    successMessage: settings.onboardingSuccessMessage,
+    failureMessage: settings.onboardingFailureMessage,
+  },
 });
 
 class TemplateSettings extends Component {
@@ -72,7 +83,8 @@ class TemplateSettings extends Component {
       if (hasTemplate(draft) && draft.templateId !== selected) {
         this.setState({ confirmDialog: true });
       } else {
-        this.props.selectTemplate(draft.id, selected, settings);
+        const templateSettings = getTempateSettings(settings);
+        this.props.selectTemplate(draft.id, selected, templateSettings);
       }
     }
   };
@@ -80,19 +92,8 @@ class TemplateSettings extends Component {
   handleConfirm = () => {
     const { draft, selected } = this.props;
     const { settings } = this.state;
-
-    const templateSettings = {
-      staking: settings.staking,
-      stake: +settings.stake,
-      deduct: settings.deduct,
-      callbackUrl: settings.callbackUrl,
-      onboarding: {
-        successMessage: settings.onboardingSuccessMessage,
-        failureMessage: settings.onboardingFailureMessage,
-      },
-    };
-
     this.setState({ confirmDialog: false });
+    const templateSettings = getTempateSettings(settings);
     this.props.selectTemplate(draft.id, selected, templateSettings);
   };
 
