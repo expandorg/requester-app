@@ -7,6 +7,11 @@ import { Tooltip } from '@gemsorg/components';
 
 import styles from './FontStyleTool.module.styl';
 
+const hasStyle = (editorState, name) => {
+  const style = editorState.getCurrentInlineStyle();
+  return style.has(name);
+};
+
 const Btn = Tooltip(({ active, className, children, ...rest }) => (
   <button
     className={cn(styles.btn, className, { [styles.active]: active })}
@@ -31,13 +36,14 @@ export default class FontStyleTool extends Component {
   };
 
   render() {
+    const { editorState } = this.props;
     return (
       <div className={styles.container}>
         <Btn
           onClick={this.handleToggleStyle}
           className={styles.b}
           data-style="BOLD"
-          active
+          active={hasStyle(editorState, 'BOLD')}
           tooltip="Bold"
         >
           B
@@ -46,6 +52,7 @@ export default class FontStyleTool extends Component {
           onClick={this.handleToggleStyle}
           className={styles.i}
           data-style="ITALIC"
+          active={hasStyle(editorState, 'ITALIC')}
           tooltip="Italic"
         >
           I
@@ -54,6 +61,7 @@ export default class FontStyleTool extends Component {
           onClick={this.handleToggleStyle}
           className={styles.u}
           data-style="UNDERLINE"
+          active={hasStyle(editorState, 'UNDERLINE')}
           tooltip="Underline"
         >
           U
