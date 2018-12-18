@@ -16,10 +16,23 @@ import { hasTemplate } from '../../wizard';
 import { selectTemplate } from '../../../../sagas/draftsSagas';
 import { draftProps } from '../../../shared/propTypes';
 
+import styles from './TemplateSettings.module.styl';
+
 const mapDispatchToProps = dispatch =>
   bindActionCreators({ selectTemplate }, dispatch);
 
-class TemplatesList extends Component {
+const getInitialState = draft => ({
+  staking: (draft && draft.staking) || false,
+  stake: (draft && `${draft.stake}`) || '',
+  deduct: (draft && draft.deduct) || false,
+  callbackUrl: (draft && draft.callbackUrl) || '',
+  onboardingSuccessMessage:
+    (draft && draft.onboarding && draft.onboarding.successMessage) || '',
+  onboardingFailureMessage:
+    (draft && draft.onboarding && draft.onboarding.failureMessage) || '',
+});
+
+class TemplateSettings extends Component {
   static propTypes = {
     draft: draftProps.isRequired,
     submitState: requestStateProps.isRequired,
@@ -33,15 +46,24 @@ class TemplatesList extends Component {
     selected: null,
   };
 
-  state = {
-    confirmDialog: false,
-    settings: {
-      staking: false,
-      stake: '',
-      deduct: false,
-      callbackUrl: '',
-    },
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      confirmDialog: false,
+      draft: props.draft, // eslint-disable-line react/no-unused-state
+      settings: getInitialState(props.draft),
+    };
+  }
+
+  static getDerivedStateFromProps({ draft }, state) {
+    if (draft !== state.draft) {
+      return {
+        draft,
+        settings: getInitialState(draft),
+      };
+    }
+    return null;
+  }
 
   handleSubmit = () => {
     const { selected, draft, submitState } = this.props;
@@ -58,8 +80,20 @@ class TemplatesList extends Component {
   handleConfirm = () => {
     const { draft, selected } = this.props;
     const { settings } = this.state;
+
+    const templateSettings = {
+      staking: settings.staking,
+      stake: +settings.stake,
+      deduct: settings.deduct,
+      callbackUrl: settings.callbackUrl,
+      onboarding: {
+        successMessage: settings.onboardingSuccessMessage,
+        failureMessage: settings.onboardingFailureMessage,
+      },
+    };
+
     this.setState({ confirmDialog: false });
-    this.props.selectTemplate(draft.id, selected, settings);
+    this.props.selectTemplate(draft.id, selected, templateSettings);
   };
 
   handleToggleConfirm = () => {
@@ -129,6 +163,22 @@ class TemplatesList extends Component {
               onChange={this.handleInputChange}
             />
           </Field>
+          <Field tooltip="Onboarding Success Message" className={styles.br}>
+            <Input
+              placeholder="Onboarding Success Message"
+              name="onboardingSuccessMessage"
+              value={settings.onboardingSuccessMessage}
+              onChange={this.handleInputChange}
+            />
+          </Field>
+          <Field tooltip="Onboarding Failure Message">
+            <Input
+              placeholder="Onboarding Failure Message"
+              name="onboardingFailureMessage"
+              value={settings.onboardingFailureMessage}
+              onChange={this.handleInputChange}
+            />
+          </Field>
         </Fieldset>
         <Actions>
           <Button theme="secondary" onClick={onBack}>
@@ -154,4 +204,4 @@ class TemplatesList extends Component {
 export default connect(
   null,
   mapDispatchToProps
-)(TemplatesList);
+)(TemplateSettings);

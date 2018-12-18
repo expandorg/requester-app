@@ -47,6 +47,14 @@ export default class TemplateSettings extends Component {
         {draft.callbackUrl && (
           <Field title="Callback Url" value={draft.callbackUrl} />
         )}
+        <Field
+          title="Onboarding Success Message"
+          value={draft.onboarding.successMessage}
+        />
+        <Field
+          title="Onboarding Failure Message"
+          value={draft.onboarding.failureMessage}
+        />
       </div>
     );
   }

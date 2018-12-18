@@ -107,9 +107,12 @@ export default function setupMocks(app: Object) {
     draft = {
       ...draft,
       task,
-      onboarding,
-      templateId: req.body.templateId,
       ...req.body.settings,
+      templateId: req.body.templateId,
+      onboarding: {
+        ...onboarding,
+        ...req.body.settings.onboarding,
+      },
     };
     drafts[index] = draft;
 
