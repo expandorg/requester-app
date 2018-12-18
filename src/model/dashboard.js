@@ -7,7 +7,15 @@ export const links = [
   },
   {
     href: '/tasks/draft',
-    text: 'Drafts',
+    text: 'Draft',
+  },
+  {
+    href: '/tasks/pending',
+    text: 'Pending',
+  },
+  {
+    href: '/tasks/scheduled',
+    text: 'Scheduled',
   },
   {
     href: '/tasks/in-progress',
@@ -16,14 +24,6 @@ export const links = [
   {
     href: '/tasks/completed',
     text: 'Completed',
-  },
-  {
-    href: '/tasks/scheduled',
-    text: 'Scheduled',
-  },
-  {
-    href: '/tasks/pending',
-    text: 'Pending',
   },
 ];
 
