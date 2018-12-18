@@ -1,8 +1,10 @@
 // @flow
-import { stateToHTML } from 'draft-js-export-html';
-import { Modifier, ContentState, EditorState, convertFromHTML } from 'draft-js';
+import { Modifier, ContentState, EditorState } from 'draft-js';
 
-const htmlOptions = {
+import { stateToHTML } from 'draft-js-export-html';
+import { stateFromHTML } from 'draft-js-import-html';
+
+const toHtmlOptions = {
   blockStyleFn: (block: any) => {
     const data = block.getData();
     if (data.get('ALIGNMENT')) {
@@ -16,17 +18,25 @@ const htmlOptions = {
   },
 };
 
-export const getHtml = (contentState: ContentState): string => {
-  const html = stateToHTML(contentState, htmlOptions);
-  return html;
+const fromHtmlOptions = {
+  customBlockFn: (element: HTMLElement) => {
+    const alignCenter = element.classList.contains('align-center');
+    const alignRight = element.classList.contains('align-right');
+    if (alignCenter) {
+      return { data: { ALIGNMENT: 'center' } };
+    }
+    if (alignRight) {
+      return { data: { ALIGNMENT: 'right' } };
+    }
+    return null;
+  },
 };
 
-export const createContentState = (value: string): EditorState => {
-  // $FlowFixMe
-  const { contentBlocks, entityMap } = convertFromHTML(value);
-  // $FlowFixMe
-  return ContentState.createFromBlockArray(contentBlocks, entityMap);
-};
+export const getHtml = (contentState: ContentState): string =>
+  stateToHTML(contentState, toHtmlOptions);
+
+export const createContentState = (value: string): ContentState =>
+  stateFromHTML(value, fromHtmlOptions);
 
 export const getCurrentBlock = (editorState: EditorState) => {
   const selectionState = editorState.getSelection();
