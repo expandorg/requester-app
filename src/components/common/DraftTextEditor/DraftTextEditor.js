@@ -78,10 +78,10 @@ export default class DraftTextEditor extends Component {
             editorState={editorState}
             onChange={this.handleChange}
           />
-          <FontSizeTool
+          {/* <FontSizeTool
             editorState={editorState}
             onChange={this.handleChange}
-          />
+          /> */}
           <FontStyleTool
             editorState={editorState}
             onChange={this.handleChange}

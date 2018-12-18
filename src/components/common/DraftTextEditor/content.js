@@ -1,5 +1,5 @@
 // @flow
-import { Modifier, ContentState, EditorState } from 'draft-js';
+import { Modifier, ContentState, EditorState, RichUtils } from 'draft-js';
 
 import { stateToHTML } from 'draft-js-export-html';
 import { stateFromHTML } from 'draft-js-import-html';
@@ -67,7 +67,23 @@ export const applyAlignment = (editorState: EditorState, alignemnt: string) => {
   return EditorState.push(editorState, edited, 'change-block-data');
 };
 
-export const applyFontPreset = (editorState: EditorState) => editorState;
+export const fontPresets = [
+  { label: 'body', value: 'unstyled' },
+  { label: 'h1', value: 'header-one' },
+  { label: 'h2', value: 'header-two' },
+  { label: 'h3', value: 'header-three' },
+  { label: 'h4', value: 'header-four' },
+  { label: 'h5', value: 'header-five' },
+  { label: 'h6', value: 'header-six' },
+  { label: 'pre', value: 'code-block' },
+  { label: 'blockquote', value: 'blockquote' },
+];
+
+export const getCurrentFontPreset = (editorState: EditorState) =>
+  RichUtils.getCurrentBlockType(editorState);
+
+export const applyFontPreset = (editorState: EditorState, blockType: string) =>
+  RichUtils.toggleBlockType(editorState, blockType);
 
 export const fontSizes = ['8', '12', '16', '20'];
 
