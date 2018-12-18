@@ -10,7 +10,7 @@ import FontSizeTool from './FontSizeTool';
 import FontStyleTool from './FontStyleTool';
 import AlignmentTool from './AlignmentTool';
 
-import { getHtml, createContentState } from './content';
+import { getHtml, createContentState, blockStyleFn } from './content';
 
 import styles from './DraftTextEditor.module.styl';
 import './Draft.styl';
@@ -99,6 +99,7 @@ export default class DraftTextEditor extends Component {
             editorState={editorState}
             onChange={this.handleChange}
             handleKeyCommand={this.handleKeyCommand}
+            blockStyleFn={blockStyleFn}
           />
         </div>
       </div>

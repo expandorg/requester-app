@@ -1,13 +1,40 @@
 // @flow
 import { stateToHTML } from 'draft-js-export-html';
-import { ContentState, EditorState, convertFromHTML } from 'draft-js';
+import { Modifier, ContentState, EditorState, convertFromHTML } from 'draft-js';
 
 export const getHtml = (contentState: ContentState): string => {
   const html = stateToHTML(contentState);
   return html;
 };
 
-export const applyAlignment = (editorState: EditorState) => editorState;
+export const getCurrentBlock = (editorState: EditorState) => {
+  const selectionState = editorState.getSelection();
+  const anchorKey = selectionState.getAnchorKey();
+  const currentContent = editorState.getCurrentContent();
+  return currentContent.getBlockForKey(anchorKey);
+};
+
+export const getActiveAlignment = (editorState: EditorState): string => {
+  const currentBlock = getCurrentBlock(editorState);
+  const data = currentBlock.getData();
+  if (data) {
+    const alignemnt = data.get('ALIGNMENT');
+    if (alignemnt === 'right' || alignemnt === 'center') {
+      return alignemnt;
+    }
+  }
+  return 'left';
+};
+
+export const applyAlignment = (editorState: EditorState, alignemnt: string) => {
+  const content = editorState.getCurrentContent();
+  const selection = editorState.getSelection();
+
+  const edited = Modifier.mergeBlockData(content, selection, {
+    ALIGNMENT: alignemnt,
+  });
+  return EditorState.push(editorState, edited, 'change-block-data');
+};
 
 export const applyFontPreset = (editorState: EditorState) => editorState;
 
@@ -20,4 +47,13 @@ export const createContentState = (value: string): EditorState => {
   const { contentBlocks, entityMap } = convertFromHTML(value);
   // $FlowFixMe
   return ContentState.createFromBlockArray(contentBlocks, entityMap);
+};
+
+export const blockStyleFn = (block: any) => {
+  const data = block.getData();
+  const alignemnt = data.get('ALIGNMENT');
+  if (alignemnt) {
+    return `DraftEditor-align-${alignemnt}`;
+  }
+  return undefined;
 };
