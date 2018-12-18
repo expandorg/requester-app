@@ -130,8 +130,9 @@ class TemplateSettings extends Component {
       <Form onSubmit={this.handleSubmit}>
         <Fieldset>
           <Description>Description about this step goes here.</Description>
-          <Field tooltip="How much to stake?">
+          <Field>
             <Toggle
+              tooltip="How much to stake?"
               value={settings.staking}
               label="Staking"
               name="staking"
@@ -148,8 +149,9 @@ class TemplateSettings extends Component {
               />
             </Field>
           )}
-          <Field tooltip="How much to stake?">
+          <Field>
             <Toggle
+              tooltip="Deduct stake if fail?"
               label="Deduct stake if fail?"
               name="deduct"
               value={settings.deduct}

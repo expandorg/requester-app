@@ -8,8 +8,9 @@ import styles from './styles.module.styl';
 
 const Field = ({ children, tooltip, name, errors, className }) => {
   const error = name && errors && errors[name];
+  const classes = cn(styles.field, className);
   return (
-    <div className={cn(styles.field, className)}>
+    <div className={classes}>
       {children}
       {tooltip && (
         <I
