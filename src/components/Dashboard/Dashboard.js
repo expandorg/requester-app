@@ -18,6 +18,7 @@ import Navigation from './Navigation';
 import List from './list/List';
 import NewTask from './list/NewTask';
 import TaskItem from './list/TaskItem';
+import Empty from './list/Empty';
 
 import { fetchTasks } from '../../sagas/tasksSagas';
 import { removeDraft, copyDraft } from '../../sagas/draftsSagas';
@@ -59,23 +60,27 @@ class Dashboard extends Component {
 
   render() {
     const { items } = this.props;
+    const isEmpty = items.length === 0;
     return (
       <Content title="Dashboard">
         <Navbar title="Dashboard">
           <Navigation className={styles.nav} />
         </Navbar>
         <Sidebar />
-        <List className={styles.list}>
-          <NewTask />
-          {items.map(task => (
-            <TaskItem
-              key={task.key}
-              task={task}
-              onCopy={this.props.copyDraft}
-              onDelete={this.props.removeDraft}
-            />
-          ))}
-        </List>
+        {isEmpty && <Empty />}
+        {!isEmpty && (
+          <List className={styles.list}>
+            <NewTask />
+            {items.map(task => (
+              <TaskItem
+                key={task.key}
+                task={task}
+                onCopy={this.props.copyDraft}
+                onDelete={this.props.removeDraft}
+              />
+            ))}
+          </List>
+        )}
       </Content>
     );
   }

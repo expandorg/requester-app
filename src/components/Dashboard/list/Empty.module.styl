@@ -1,0 +1,30 @@
+
+@import 'components/common/uikit/colors'
+@import 'components/common/uikit/font'
+@import 'components/common/uikit/size'
+
+.container
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 'calc(100vh - %s)' % sz-navbar-height
+
+.new
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+
+  box-sizing: border-box;
+  text-decoration: none;
+
+  margin-bottom: 100px
+
+.plus
+  font(oversized, false, false, 120px)
+  color: color-text-heavy-blue
+
+.create
+  font(subtitle)
+  color: color-text-heavy-blue
+  text-align: center;
+  text-transform: uppercase;
