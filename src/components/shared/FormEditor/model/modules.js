@@ -1,8 +1,8 @@
 // @flow
 import generate from 'nanoid/generate';
 
-export const supportNesting = (module: Object): boolean =>
-  !!(module.editor.properties && module.editor.properties.modules);
+export const supportNesting = (meta: Object): boolean =>
+  !!(meta.editor.properties && meta.editor.properties.modules);
 
 export const scaffold = (module: Object, isDragging: boolean) => ({
   ...module.editor.defaults,

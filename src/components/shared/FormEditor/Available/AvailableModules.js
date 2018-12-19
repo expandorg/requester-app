@@ -4,7 +4,10 @@ import cn from 'classnames';
 
 import debounce from 'debounce';
 import { DropTarget } from 'react-dnd';
-import { getAvailableModulesTree, searchModulesTree } from './modulesTree';
+import {
+  getAvailableModulesTree,
+  searchModulesTree,
+} from '../model/modulesTree';
 
 import { ReactComponent as SearchIcon } from '../../../assets/search.svg';
 

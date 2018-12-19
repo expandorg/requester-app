@@ -8,8 +8,8 @@ import AvailableModules from './Available/AvailableModules';
 
 import RichText from './RichText';
 
-import { treeEditor } from './tree';
-import { scaffold } from './modules';
+import { treeEditor } from './dnd';
+import { scaffold } from './model/modules';
 
 import styles from './FormEditor.module.styl';
 

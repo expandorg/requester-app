@@ -1,4 +1,4 @@
-import { ModulesTreeEditor } from '../tree';
+import ModulesTreeEditor from '../dnd/ModulesTreeEditor';
 
 const getData = () => [
   {

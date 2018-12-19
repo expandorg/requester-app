@@ -42,6 +42,5 @@ export const searchModulesTree = (
     );
     return { category, modules: filtered };
   });
-  console.log(term, result);
   return result;
 };

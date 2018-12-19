@@ -7,8 +7,8 @@ import { ReactComponent as X } from '../../../../../assets/x.svg';
 
 import NestedModules from './NestedModules';
 
-import { supportNesting } from '../../../modules';
-import { treeEditor } from '../../../tree';
+import { supportNesting } from '../../../model/modules';
+import { treeEditor } from '../../../dnd';
 
 import styles from './DnDModule.module.styl';
 

@@ -11,7 +11,7 @@ import AddNew from './AddNew';
 import {
   validationFormProps,
   validationTaskFormProps,
-} from '../../../../shared/FormEditor/validation';
+} from '../../../../shared/FormEditor/model/validation';
 
 import {
   draftTaskFormProps,

@@ -11,8 +11,8 @@ import Form from './Form/Form';
 import Properties from './Properties/Properties';
 import PreviewCtx from './PreviewCtx';
 
-import { treeEditor } from '../tree';
-import { validateModuleProps } from '../validation';
+import { treeEditor } from '../dnd';
+import { validateModuleProps } from '../model/validation';
 
 import styles from './Editor.module.styl';
 
