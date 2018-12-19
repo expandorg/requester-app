@@ -12,7 +12,7 @@ import Properties from './Properties/Properties';
 import PreviewCtx from './PreviewCtx';
 
 import { treeEditor } from '../tree';
-import { validateModuleProps, validationFormProps } from '../modules';
+import { validateModuleProps } from '../validation';
 
 import styles from './Editor.module.styl';
 
@@ -21,6 +21,7 @@ export default class Editor extends Component {
     modules: PropTypes.arrayOf(moduleProps).isRequired,
     selected: PropTypes.arrayOf(PropTypes.number),
     moduleControls: PropTypes.arrayOf(PropTypes.func).isRequired,
+    validateForm: PropTypes.func.isRequired,
     onAddModule: PropTypes.func.isRequired,
     onEditModule: PropTypes.func.isRequired,
     onMoveModule: PropTypes.func.isRequired,
@@ -67,17 +68,16 @@ export default class Editor extends Component {
   validateModuleProps = (module, originalName) => {
     const { modules } = this.props;
     const { controls } = this.state;
-
-    const {
-      module: { editor },
-    } = controls[module.type];
+    const { editor } = controls[module.type].module;
 
     return validateModuleProps(module, originalName, editor, modules);
   };
 
   handleSave = () => {
-    const { modules, onSave } = this.props;
-    const errors = validationFormProps(modules);
+    const { modules, onSave, validateForm } = this.props;
+    const { controls } = this.state;
+
+    const errors = validateForm(modules, controls);
     if (errors) {
       this.setState({ errors });
     } else {

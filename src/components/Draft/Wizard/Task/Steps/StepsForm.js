@@ -9,6 +9,11 @@ import Step from './Step';
 import AddNew from './AddNew';
 
 import {
+  validationFormProps,
+  validationTaskFormProps,
+} from '../../../../shared/FormEditor/validation';
+
+import {
   draftTaskFormProps,
   draftOnboardingProps,
 } from '../../../../shared/propTypes';
@@ -165,6 +170,11 @@ export default class StepsForm extends Component {
         {selected !== null && (
           <FormEditorDialog
             form={this.getSelectedForm(selected)}
+            validateForm={
+              selected === taskSelected
+                ? validationTaskFormProps
+                : validationFormProps
+            }
             onSave={this.handleUpdate}
             onHide={this.handleDeselect}
           />
