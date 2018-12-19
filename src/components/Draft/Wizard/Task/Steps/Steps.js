@@ -11,6 +11,7 @@ import { draftProps } from '../../../../shared/propTypes';
 import StepsForm from './StepsForm';
 
 import { updateTask, updateOnboarding } from '../../../../../sagas/draftsSagas';
+import { fetch as fetchData } from '../../../../../sagas/dataSagas';
 
 import { makeDataColumnNamesSelector } from '../../../../../selectors/dataSelectors';
 import {
@@ -28,7 +29,7 @@ const makeMapStateToProps = () => {
 };
 
 const mapDispatchToProps = dispatch =>
-  bindActionCreators({ updateTask, updateOnboarding }, dispatch);
+  bindActionCreators({ updateTask, updateOnboarding, fetchData }, dispatch);
 
 class Steps extends Component {
   static propTypes = {
@@ -40,11 +41,19 @@ class Steps extends Component {
 
     updateTask: PropTypes.func.isRequired,
     updateOnboarding: PropTypes.func.isRequired,
+    fetchData: PropTypes.func.isRequired,
   };
 
   static defaultProps = {
     variables: [],
   };
+
+  componentDidMount() {
+    const { draft } = this.props;
+    if (draft.dataId) {
+      this.props.fetchData(draft.id, draft.dataId, 0);
+    }
+  }
 
   handleUpdateOnboarding = onboarding => {
     const { draft } = this.props;
