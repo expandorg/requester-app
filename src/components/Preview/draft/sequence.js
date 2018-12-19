@@ -7,9 +7,12 @@ export const REPEAT = Symbol('repeat');
 
 type ActiveId = ?number | ?Symbol;
 
-export const getActive = ({ task, onboarding }: Object, active: ActiveId) => {
+export const getActive = (
+  { taskForm, onboarding }: Object,
+  active: ActiveId
+) => {
   if (active === TASK) {
-    return { display: active, form: task.form };
+    return { display: active, form: taskForm.form };
   }
   if (active === ONBOARDING_FINISHED || active === REPEAT) {
     return { display: active, form: null };
