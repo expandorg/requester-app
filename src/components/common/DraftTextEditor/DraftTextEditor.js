@@ -9,6 +9,7 @@ import FontPresetTool from './FontPresetTool';
 // import FontSizeTool from './FontSizeTool';
 import FontStyleTool from './FontStyleTool';
 import AlignmentTool from './AlignmentTool';
+import TopPlaceholder from './TopPlaceholder';
 
 import { getHtml, createContentState, blockStyleFn } from './content';
 
@@ -70,6 +71,7 @@ export default class DraftTextEditor extends Component {
   render() {
     const { placeholder } = this.props;
     const { editorState } = this.state;
+    // const hasText = editorState.getCurrentContent().hasText();
 
     return (
       <div className={styles.container}>
