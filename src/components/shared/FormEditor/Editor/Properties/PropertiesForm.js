@@ -17,9 +17,14 @@ export default class PropertiesForm extends Component {
   static propTypes = {
     module: moduleProps.isRequired,
     controls: PropTypes.object.isRequired, // eslint-disable-line
+    variables: PropTypes.arrayOf(PropTypes.string),
     onEdit: PropTypes.func.isRequired,
     onValidate: PropTypes.func.isRequired,
     onCancel: PropTypes.func.isRequired,
+  };
+
+  static defaultProps = {
+    variables: [],
   };
 
   constructor(props) {
@@ -71,7 +76,7 @@ export default class PropertiesForm extends Component {
   };
 
   render() {
-    const { controls, onCancel } = this.props;
+    const { controls, onCancel, variables } = this.props;
     const { module, errors } = this.state;
 
     const {
@@ -102,6 +107,7 @@ export default class PropertiesForm extends Component {
                   <PropertyEditor
                     key={propertyName}
                     name={propertyName}
+                    variables={variables}
                     property={editor.properties[propertyName]}
                     value={module[propertyName]}
                     onChange={this.handleChangeProperty}

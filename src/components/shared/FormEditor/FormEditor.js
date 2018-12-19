@@ -18,12 +18,14 @@ const moduleControls = [...defaultControls, RichText];
 export default class FormEditor extends Component {
   static propTypes = {
     form: formProps,
+    variables: PropTypes.arrayOf(PropTypes.string),
     validateForm: PropTypes.func.isRequired,
     onSave: PropTypes.func.isRequired,
     onHide: PropTypes.func.isRequired,
   };
 
   static defaultProps = {
+    variables: [],
     form: null,
   };
 
@@ -111,8 +113,7 @@ export default class FormEditor extends Component {
   };
 
   render() {
-    const { onHide, validateForm } = this.props;
-
+    const { onHide, validateForm, variables } = this.props;
     const { modules, selected } = this.state;
 
     return (
@@ -131,6 +132,7 @@ export default class FormEditor extends Component {
             selected={selected}
             moduleControls={moduleControls}
             validateForm={validateForm}
+            variables={variables}
             onAddModule={this.handleAdd}
             onEditModule={this.handleEditModule}
             onMoveModule={this.handleMoveAt}

@@ -25,11 +25,13 @@ export default class PropertyEditor extends Component {
   static propTypes = {
     name: PropTypes.string.isRequired,
     property: PropTypes.object.isRequired, // eslint-disable-line
+    variables: PropTypes.arrayOf(PropTypes.string),
     value: PropTypes.any, // eslint-disable-line
     onChange: PropTypes.func.isRequired,
   };
 
   static defaultProps = {
+    variables: [],
     value: undefined,
   };
 
@@ -42,6 +44,7 @@ export default class PropertyEditor extends Component {
     const {
       property: { type, ...params },
       value,
+      variables,
     } = this.props;
 
     const Editor = editorsMap[type];
@@ -51,7 +54,12 @@ export default class PropertyEditor extends Component {
     }
     return (
       <div className={styles.container}>
-        <Editor value={value} onChange={this.handleChange} {...params} />
+        <Editor
+          variables={variables}
+          value={value}
+          onChange={this.handleChange}
+          {...params}
+        />
       </div>
     );
   }

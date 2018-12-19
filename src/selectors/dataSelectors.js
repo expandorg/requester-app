@@ -36,3 +36,16 @@ export const makeDataSelector = () =>
       };
     }
   );
+
+export const makeDataColumnNamesSelector = () =>
+  createSelector(
+    dataEntitiesSelector,
+    (state, id) => id,
+    (entities, id) => {
+      const entity = entities[id];
+      if (!entity) {
+        return null;
+      }
+      return entity.columns.filter(c => !c.skipped).map(c => c.name);
+    }
+  );

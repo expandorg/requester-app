@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import immer from 'immer';
 import { removeAtIndex, replaceAtIndex } from '@gemsorg/utils';
 
-import FormEditorDialog from '../../../../shared/FormEditor/FormEditorDialog';
+import FormEditorDialog from './FormEditorDialog';
 import Step from './Step';
 import AddNew from './AddNew';
 
@@ -26,11 +26,13 @@ export default class StepsForm extends Component {
   static propTypes = {
     taskForm: draftTaskFormProps,
     onboarding: draftOnboardingProps,
+    variables: PropTypes.arrayOf(PropTypes.string),
     onUpdateTask: PropTypes.func.isRequired,
     onUpdateOnboarding: PropTypes.func.isRequired,
   };
 
   static defaultProps = {
+    variables: [],
     taskForm: null,
     onboarding: null,
   };
@@ -128,19 +130,29 @@ export default class StepsForm extends Component {
     this.setState({ selected: null });
   };
 
-  getSelectedForm = selected => {
-    if (selected === taskSelected) {
-      const { taskForm } = this.props;
-      return taskForm.form;
-    }
+  renderEditor(selected) {
+    const { taskForm, variables } = this.props;
     const { steps } = this.state;
-    return steps[selected].form;
-  };
+
+    const task = selected === taskSelected;
+
+    const form = task ? taskForm.form : steps[selected].form;
+    const validate = task ? validationTaskFormProps : validationFormProps;
+
+    return (
+      <FormEditorDialog
+        form={form}
+        variables={variables}
+        validateForm={validate}
+        onSave={this.handleUpdate}
+        onHide={this.handleDeselect}
+      />
+    );
+  }
 
   render() {
     const { taskForm } = this.props;
     const { steps, selected } = this.state;
-
     return (
       <div className={styles.container}>
         {selected === null && (
@@ -167,18 +179,7 @@ export default class StepsForm extends Component {
             )}
           </div>
         )}
-        {selected !== null && (
-          <FormEditorDialog
-            form={this.getSelectedForm(selected)}
-            validateForm={
-              selected === taskSelected
-                ? validationTaskFormProps
-                : validationFormProps
-            }
-            onSave={this.handleUpdate}
-            onHide={this.handleDeselect}
-          />
-        )}
+        {selected !== null && this.renderEditor(selected)}
       </div>
     );
   }

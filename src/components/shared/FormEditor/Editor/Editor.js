@@ -20,6 +20,7 @@ export default class Editor extends Component {
   static propTypes = {
     modules: PropTypes.arrayOf(moduleProps).isRequired,
     selected: PropTypes.arrayOf(PropTypes.number),
+    variables: PropTypes.arrayOf(PropTypes.string),
     moduleControls: PropTypes.arrayOf(PropTypes.func).isRequired,
     validateForm: PropTypes.func.isRequired,
     onAddModule: PropTypes.func.isRequired,
@@ -32,6 +33,7 @@ export default class Editor extends Component {
   };
 
   static defaultProps = {
+    variables: [],
     selected: null,
   };
 
@@ -93,6 +95,7 @@ export default class Editor extends Component {
       onSelectModule,
       onRemoveModule,
       onCancel,
+      variables,
       selected,
     } = this.props;
     const { controls, errors } = this.state;
@@ -144,6 +147,7 @@ export default class Editor extends Component {
         <Properties
           module={selectedModule}
           controls={controls}
+          variables={variables}
           onEdit={this.handleEditModule}
           onValidate={this.validateModuleProps}
           onCancel={this.handleCancel}
