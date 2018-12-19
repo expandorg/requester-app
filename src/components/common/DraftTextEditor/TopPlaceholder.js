@@ -8,18 +8,26 @@ import styles from './TopPlaceholder.module.styl';
 class TopPlaceholder extends Component {
   static propTypes = {
     placeholder: PropTypes.string,
+    className: PropTypes.string,
     visible: PropTypes.bool,
   };
 
   static defaultProps = {
     placeholder: undefined,
+    className: undefined,
     visible: false,
   };
 
   render() {
-    const { visible, placeholder } = this.props;
+    const { visible, placeholder, className } = this.props;
     return (
-      <div className={cn(styles.container, { [styles.visible]: visible })}>
+      <div
+        className={cn(
+          styles.container,
+          { [styles.visible]: visible },
+          className
+        )}
+      >
         {placeholder}
       </div>
     );

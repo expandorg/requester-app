@@ -1,0 +1,27 @@
+@import 'components/common/uikit/colors';
+@import 'components/common/uikit/font';
+
+.container
+  position: relative;
+
+  box-sizing: border-box;
+
+  border: 1px solid transparent
+  padding: 0 15px 8px 0
+  border-bottom: 2px solid  color-heavy-blue
+
+.input
+  box-sizing: border-box;
+
+  font(body, false, false, normal)
+
+  background-color: transparent
+  color: color-blue-background
+
+  transition: all 0.2s ease-out;
+
+  :global(.public-DraftEditorPlaceholder-inner)
+    color: color-text-dark
+
+.focus
+  border-bottom-color color-primary-blue

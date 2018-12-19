@@ -1,4 +1,4 @@
-import React, { Component, createRef } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import debounce from 'debounce';
@@ -9,7 +9,6 @@ import FontPresetTool from './FontPresetTool';
 // import FontSizeTool from './FontSizeTool';
 import FontStyleTool from './FontStyleTool';
 import AlignmentTool from './AlignmentTool';
-import TopPlaceholder from './TopPlaceholder';
 
 import { getHtml, createContentState, blockStyleFn } from './content';
 
@@ -18,6 +17,7 @@ import './Draft.styl';
 
 const DEBOUNCE_TIMEOUT = 150;
 
+// FIXME: class is uncotrolled
 export default class DraftTextEditor extends Component {
   static propTypes = {
     value: PropTypes.string,
@@ -32,8 +32,6 @@ export default class DraftTextEditor extends Component {
 
   constructor(props) {
     super(props);
-
-    this.editor = createRef();
 
     this.saveChanges = debounce(this.saveChanges, DEBOUNCE_TIMEOUT);
 
@@ -95,7 +93,6 @@ export default class DraftTextEditor extends Component {
         </div>
         <div className={styles.content}>
           <Editor
-            ref={this.editor}
             placeholder={placeholder}
             className={styles.editor}
             editorState={editorState}

@@ -22,7 +22,9 @@ export default class Properties extends Component {
     const visible = !!module;
     return (
       <Drawer className={styles.container} width={540} visible={visible}>
-        {visible && <PropertiesForm module={module} {...rest} />}
+        {visible && (
+          <PropertiesForm key={module.name} module={module} {...rest} />
+        )}
       </Drawer>
     );
   }

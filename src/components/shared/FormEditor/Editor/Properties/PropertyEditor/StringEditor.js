@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import Input from '../../../../../common/Input';
+import DraftTextInput from '../../../../../common/DraftTextEditor/DraftTextInput';
 
 import styles from './styles.module.styl';
 
@@ -17,16 +17,16 @@ export default class StringEditor extends Component {
     placeholder: undefined,
   };
 
-  handleChange = ({ target }) => {
+  handleChange = value => {
     const { onChange } = this.props;
-    onChange(target.value);
+    onChange(value);
   };
 
   render() {
     const { value, placeholder } = this.props;
 
     return (
-      <Input
+      <DraftTextInput
         className={styles.input}
         value={value}
         placeholder={placeholder}
