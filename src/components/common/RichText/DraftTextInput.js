@@ -57,13 +57,12 @@ export default class DraftTextInput extends Component {
     });
   };
 
-  handleAddSuggest = () => {};
-
   render() {
     const { placeholder } = this.props;
     const { editorState, autocomplete } = this.state;
 
     const { MentionSuggestions } = this.mentionPlugin;
+
     const focus = hasFocus(editorState);
     return (
       <div className={cn(styles.container, { [styles.focus]: focus })}>
@@ -78,7 +77,6 @@ export default class DraftTextInput extends Component {
           onSearchChange={this.handleSearchChange}
           suggestions={autocomplete}
           entryComponent={SuggestionsEntry}
-          onAddMention={this.handleAddSuggest}
         />
         {!isEmpty(editorState) && (
           <TopPlaceholder

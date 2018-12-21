@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Entity = ({ className, children }) => (
+const Entity = ({ className, children, ...rest }) => (
   <span className={className}>{children}</span>
 );
 

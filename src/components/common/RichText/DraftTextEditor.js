@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import debounce from 'debounce';
 
-import { RichUtils, convertToRaw } from 'draft-js';
+import { RichUtils } from 'draft-js';
 
 import Editor from 'draft-js-plugins-editor';
 import createMentionPlugin from 'draft-js-mention-plugin';
@@ -85,16 +85,11 @@ export default class DraftTextEditor extends Component {
     });
   };
 
-  handleAddSuggest = (...args) => {
-    console.log(...args);
-  };
-
   render() {
     const { placeholder } = this.props;
     const { editorState, autocomplete } = this.state;
 
     const { MentionSuggestions } = this.mentionPlugin;
-    console.log(convertToRaw(editorState.getCurrentContent()));
 
     return (
       <div className={styles.container}>
@@ -126,7 +121,6 @@ export default class DraftTextEditor extends Component {
             onSearchChange={this.handleSearchChange}
             suggestions={autocomplete}
             entryComponent={SuggestionsEntry}
-            onAddMention={this.handleAddSuggest}
           />
         </div>
       </div>
