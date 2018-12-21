@@ -1,14 +1,23 @@
 // @flow
 
-export const formatSuggestions = (suggestions: Array<string>): Array<Object> =>
-  suggestions.map(name => ({ name: `(${name})`, suggestion: name }));
+export const formatSuggestions = (
+  suggestions: Array<string>
+): Array<Object> => {
+  if (!suggestions) {
+    return [];
+  }
+  return suggestions.map(name => ({ name: `(${name})`, suggestion: name }));
+};
 
 export const suggestionsFilter = (
   searchValue: string,
   suggestions: Array<string>
 ): Array<Object> => {
-  const v = searchValue.toLowerCase();
+  if (!suggestions) {
+    return [];
+  }
 
+  const v = searchValue.toLowerCase();
   const filtered = suggestions.filter(
     s => !v || s.toLowerCase().indexOf(v) > -1
   );
