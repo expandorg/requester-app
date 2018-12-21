@@ -5,11 +5,9 @@ import { Dropdown } from '@gemsorg/components';
 
 import styles from './dropdowns.module.styl';
 
-import { fontSizes, applyFontSize } from './content';
+import { fontPresets, applyFontPreset, getCurrentFontPreset } from '../content';
 
-const getValue = () => 16;
-
-export default class FontSizeTool extends Component {
+export default class FontPresetTool extends Component {
   static propTypes = {
     editorState: PropTypes.shape({}).isRequired,
     onChange: PropTypes.func.isRequired,
@@ -17,17 +15,17 @@ export default class FontSizeTool extends Component {
 
   handleChange = value => {
     const { editorState, onChange } = this.props;
-    onChange(applyFontSize(editorState, value));
+    onChange(applyFontPreset(editorState, value));
   };
 
   render() {
     const { editorState } = this.props;
-    const value = getValue(editorState);
+    const value = getCurrentFontPreset(editorState);
 
     return (
       <div className={styles.container}>
         <Dropdown
-          options={fontSizes}
+          options={fontPresets}
           value={value}
           onChange={this.handleChange}
           className={styles.dropdown}

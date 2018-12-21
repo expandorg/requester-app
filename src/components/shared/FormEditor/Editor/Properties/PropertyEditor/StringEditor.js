@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import DraftTextInput from '../../../../../common/DraftTextEditor/DraftTextInput';
+import { DraftTextInput } from '../../../../../common/RichText';
 
 import styles from './styles.module.styl';
 
@@ -9,11 +9,13 @@ export default class StringEditor extends Component {
   static propTypes = {
     value: PropTypes.string,
     placeholder: PropTypes.string,
+    variables: PropTypes.arrayOf(PropTypes.string),
     onChange: PropTypes.func.isRequired,
   };
 
   static defaultProps = {
     value: undefined,
+    variables: [],
     placeholder: undefined,
   };
 
@@ -23,11 +25,12 @@ export default class StringEditor extends Component {
   };
 
   render() {
-    const { value, placeholder } = this.props;
+    const { value, placeholder, variables } = this.props;
 
     return (
       <DraftTextInput
         className={styles.input}
+        autocomplete={variables}
         value={value}
         placeholder={placeholder}
         onChange={this.handleChange}

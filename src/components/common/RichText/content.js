@@ -4,39 +4,60 @@ import { Modifier, ContentState, EditorState, RichUtils } from 'draft-js';
 import { stateToHTML } from 'draft-js-export-html';
 import { stateFromHTML } from 'draft-js-import-html';
 
-const toHtmlOptions = {
-  blockStyleFn: (block: any) => {
-    const data = block.getData();
-    if (data.get('ALIGNMENT')) {
-      return {
-        attributes: {
-          class: `align-${data.get('ALIGNMENT')}`,
-        },
-      };
-    }
-    return null;
-  },
-};
-
-const fromHtmlOptions = {
-  customBlockFn: (element: HTMLElement) => {
-    const alignCenter = element.classList.contains('align-center');
-    const alignRight = element.classList.contains('align-right');
-    if (alignCenter) {
-      return { data: { ALIGNMENT: 'center' } };
-    }
-    if (alignRight) {
-      return { data: { ALIGNMENT: 'right' } };
-    }
-    return null;
-  },
-};
-
 export const getHtml = (contentState: ContentState): string =>
-  stateToHTML(contentState, toHtmlOptions);
+  stateToHTML(contentState, {
+    blockStyleFn: (block: any) => {
+      const data = block.getData();
+      if (data.get('ALIGNMENT')) {
+        return {
+          attributes: {
+            class: `align-${data.get('ALIGNMENT')}`,
+          },
+        };
+      }
+      return null;
+    },
+  });
 
-export const createContentState = (value: string): ContentState =>
-  stateFromHTML(value, fromHtmlOptions);
+export const getText = (editorState: EditorState): string =>
+  editorState.getCurrentContent().getPlainText();
+
+export const isEmpty = (editorState: EditorState): boolean =>
+  !editorState.getCurrentContent().hasText();
+
+export const hasFocus = (editorState: EditorState): boolean =>
+  editorState.getSelection().getHasFocus();
+
+export const editorStateFromText = (value: string, decorator: any) => {
+  if (!value) {
+    return EditorState.createEmpty(decorator);
+  }
+  return EditorState.createWithContent(
+    ContentState.createFromText(value),
+    decorator
+  );
+};
+
+export const editorStateFromHtml = (html: string, decorator: any) => {
+  if (!html) {
+    return EditorState.createEmpty(decorator);
+  }
+
+  const content = stateFromHTML(html, {
+    customBlockFn: (element: HTMLElement) => {
+      const alignCenter = element.classList.contains('align-center');
+      const alignRight = element.classList.contains('align-right');
+      if (alignCenter) {
+        return { data: { ALIGNMENT: 'center' } };
+      }
+      if (alignRight) {
+        return { data: { ALIGNMENT: 'right' } };
+      }
+      return null;
+    },
+  });
+  return EditorState.createWithContent(content, decorator);
+};
 
 export const getCurrentBlock = (editorState: EditorState) => {
   const selectionState = editorState.getSelection();

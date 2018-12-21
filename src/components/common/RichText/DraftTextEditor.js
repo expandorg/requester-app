@@ -3,17 +3,17 @@ import PropTypes from 'prop-types';
 
 import debounce from 'debounce';
 
-import { Editor, RichUtils, EditorState } from 'draft-js';
+import { RichUtils } from 'draft-js';
 
-import FontPresetTool from './FontPresetTool';
-// import FontSizeTool from './FontSizeTool';
-import FontStyleTool from './FontStyleTool';
-import AlignmentTool from './AlignmentTool';
+import Editor from 'draft-js-plugins-editor';
+import createMentionPlugin from 'draft-js-mention-plugin';
 
-import { getHtml, createContentState, blockStyleFn } from './content';
+import { FontStyleTool, AlignmentTool, FontPresetTool } from './toolbar';
+
+import { suggestionsOptions, suggestionsFilter } from './suggest';
+import { getHtml, editorStateFromHtml, blockStyleFn } from './content';
 
 import styles from './DraftTextEditor.module.styl';
-import './Draft.styl';
 
 const DEBOUNCE_TIMEOUT = 150;
 
@@ -22,22 +22,26 @@ export default class DraftTextEditor extends Component {
   static propTypes = {
     value: PropTypes.string,
     placeholder: PropTypes.string,
+    autocomplete: PropTypes.arrayOf(PropTypes.string),
     onChange: PropTypes.func.isRequired,
   };
 
   static defaultProps = {
     value: undefined,
+    autocomplete: [],
     placeholder: undefined,
   };
 
   constructor(props) {
     super(props);
 
+    this.mentionPlugin = createMentionPlugin(suggestionsOptions);
+
     this.saveChanges = debounce(this.saveChanges, DEBOUNCE_TIMEOUT);
 
-    const cstate = createContentState(props.value);
     this.state = {
-      editorState: EditorState.createWithContent(cstate),
+      autocomplete: props.autocomplete,
+      editorState: editorStateFromHtml(props.value),
     };
   }
 
@@ -66,10 +70,22 @@ export default class DraftTextEditor extends Component {
     return 'not-handled';
   };
 
+  handleSearchChange = ({ value }) => {
+    const { autocomplete } = this.props;
+    this.setState({
+      autocomplete: suggestionsFilter(value, autocomplete),
+    });
+  };
+
+  handleAddSuggest = (...args) => {
+    console.log(...args);
+  };
+
   render() {
     const { placeholder } = this.props;
-    const { editorState } = this.state;
-    // const hasText = editorState.getCurrentContent().hasText();
+    const { editorState, autocomplete } = this.state;
+
+    const { MentionSuggestions } = this.mentionPlugin;
 
     return (
       <div className={styles.container}>
@@ -78,10 +94,6 @@ export default class DraftTextEditor extends Component {
             editorState={editorState}
             onChange={this.handleChange}
           />
-          {/* <FontSizeTool
-            editorState={editorState}
-            onChange={this.handleChange}
-          /> */}
           <FontStyleTool
             editorState={editorState}
             onChange={this.handleChange}
@@ -96,9 +108,15 @@ export default class DraftTextEditor extends Component {
             placeholder={placeholder}
             className={styles.editor}
             editorState={editorState}
+            plugins={[this.mentionPlugin]}
             onChange={this.handleChange}
             handleKeyCommand={this.handleKeyCommand}
             blockStyleFn={blockStyleFn}
+          />
+          <MentionSuggestions
+            onSearchChange={this.handleSearchChange}
+            suggestions={autocomplete}
+            onAddMention={this.handleAddSuggest}
           />
         </div>
       </div>
