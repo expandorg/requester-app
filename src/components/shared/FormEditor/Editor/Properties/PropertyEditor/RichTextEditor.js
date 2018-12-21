@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import { DraftTextEditor } from '../../../../../common/RichText';
+import { restoreVariables } from './restoreVariables';
 
 export default class RichTextEditor extends Component {
   static propTypes = {
@@ -28,6 +29,7 @@ export default class RichTextEditor extends Component {
       <DraftTextEditor
         value={value}
         autocomplete={variables}
+        resotreEntities={restoreVariables}
         onChange={this.handleChange}
         placeholder={placeholder}
       />

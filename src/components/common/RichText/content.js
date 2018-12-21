@@ -1,36 +1,47 @@
 // @flow
-import { Modifier, ContentState, EditorState, RichUtils } from 'draft-js';
+import {
+  Modifier,
+  ContentState,
+  EditorState,
+  RichUtils,
+  ContentBlock,
+  SelectionState,
+} from 'draft-js';
 
 import { stateToHTML } from 'draft-js-export-html';
 import { stateFromHTML } from 'draft-js-import-html';
 
-// export const applyEntitiesByRegex = (contentState: ContentState, data) => {
-//   const AT_REGEX = /\B\@[\w]+/g;
-//
-//   contentState.getBlockMap().map(block => {
-//     const blockKey = block.getKey();
-//     const ranges = findRangesWithRegex(AT_REGEX, block);
-//
-//     ranges.map(range => {
-//       const { start, end } = range.start;
-//
-//       const selection = new SelectionState({
-//         anchorKey: blockKey,
-//         anchorOffset: start,
-//         focusKey: blockKey,
-//         focusOffset: end,
-//       });
-//
-//       const entityKey = block.getEntityAt(start);
-//       if (entityKey === null) {
-//         editorState = getStateWithEntity(editorState, selection, data);
-//       }
-//     });
-//     if (editorState !== getEditorState()) {
-//       setEditorState(editorState);
-//     }
-//   });
-// };
+export const restoreEntities = (
+  contentState: ContentState,
+  type: string,
+  mutability: string,
+  rangeFinder: (block: ContentBlock) => Array<Object>,
+  getEntityData: Object => Object
+): ContentState => {
+  let result = contentState;
+
+  contentState.getBlockMap().forEach(block => {
+    const blockKey = block.getKey();
+    const ranges = rangeFinder(block);
+    ranges.forEach(range => {
+      const { start, end } = range;
+
+      const selection = new SelectionState({
+        anchorKey: blockKey,
+        anchorOffset: start,
+        focusKey: blockKey,
+        focusOffset: end,
+      });
+      // $FlowFixMe
+      result = result.createEntity(type, mutability, getEntityData(range));
+      const entityKey = result.getLastCreatedEntityKey();
+
+      result = Modifier.applyEntity(result, selection, entityKey);
+    });
+  });
+
+  return result;
+};
 
 export const getHtml = (contentState: ContentState): string =>
   stateToHTML(contentState, {
@@ -56,22 +67,29 @@ export const isEmpty = (editorState: EditorState): boolean =>
 export const hasFocus = (editorState: EditorState): boolean =>
   editorState.getSelection().getHasFocus();
 
-export const editorStateFromText = (value: string, decorator: any) => {
+export const editorStateFromText = (
+  value: string,
+  resotreEntities: (c: ContentState) => ContentState = c => c,
+  decorator: any = null
+) => {
   if (!value) {
     return EditorState.createEmpty(decorator);
   }
-  return EditorState.createWithContent(
-    ContentState.createFromText(value),
-    decorator
-  );
+  let content = ContentState.createFromText(value);
+  content = resotreEntities(content);
+  return EditorState.createWithContent(content, decorator);
 };
 
-export const editorStateFromHtml = (html: string, decorator: any) => {
+export const editorStateFromHtml = (
+  html: string,
+  resotreEntities: (c: ContentState) => ContentState = c => c,
+  decorator: any = null
+) => {
   if (!html) {
     return EditorState.createEmpty(decorator);
   }
 
-  const content = stateFromHTML(html, {
+  let content = stateFromHTML(html, {
     customBlockFn: (element: HTMLElement) => {
       const alignCenter = element.classList.contains('align-center');
       const alignRight = element.classList.contains('align-right');
@@ -84,6 +102,7 @@ export const editorStateFromHtml = (html: string, decorator: any) => {
       return null;
     },
   });
+  content = resotreEntities(content);
   return EditorState.createWithContent(content, decorator);
 };
 
@@ -133,10 +152,6 @@ export const getCurrentFontPreset = (editorState: EditorState) =>
 
 export const applyFontPreset = (editorState: EditorState, blockType: string) =>
   RichUtils.toggleBlockType(editorState, blockType);
-
-export const fontSizes = ['8', '12', '16', '20'];
-
-export const applyFontSize = (editorState: EditorState) => editorState;
 
 export const blockStyleFn = (block: any) => {
   const data = block.getData();

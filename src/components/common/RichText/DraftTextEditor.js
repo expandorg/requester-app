@@ -29,12 +29,14 @@ export default class DraftTextEditor extends Component {
     value: PropTypes.string,
     placeholder: PropTypes.string,
     autocomplete: PropTypes.arrayOf(PropTypes.string),
+    resotreEntities: PropTypes.func,
     onChange: PropTypes.func.isRequired,
   };
 
   static defaultProps = {
     value: undefined,
     autocomplete: [],
+    resotreEntities: undefined,
     placeholder: undefined,
   };
 
@@ -47,7 +49,7 @@ export default class DraftTextEditor extends Component {
 
     this.state = {
       autocomplete: formatSuggestions(props.autocomplete),
-      editorState: editorStateFromHtml(props.value),
+      editorState: editorStateFromHtml(props.value, props.resotreEntities),
     };
   }
 

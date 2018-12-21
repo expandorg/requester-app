@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import { DraftTextInput } from '../../../../../common/RichText';
+import { restoreVariables } from './restoreVariables';
 
 import styles from './styles.module.styl';
 
@@ -32,6 +33,7 @@ export default class StringEditor extends Component {
         className={styles.input}
         autocomplete={variables}
         value={value}
+        resotreEntities={restoreVariables}
         placeholder={placeholder}
         onChange={this.handleChange}
       />

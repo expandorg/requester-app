@@ -23,12 +23,14 @@ export default class DraftTextInput extends Component {
     value: PropTypes.string,
     placeholder: PropTypes.string,
     autocomplete: PropTypes.arrayOf(PropTypes.string),
+    resotreEntities: PropTypes.func,
     onChange: PropTypes.func.isRequired,
   };
 
   static defaultProps = {
     value: undefined,
     autocomplete: [],
+    resotreEntities: undefined,
     placeholder: undefined,
   };
 
@@ -38,7 +40,7 @@ export default class DraftTextInput extends Component {
 
     this.state = {
       autocomplete: formatSuggestions(props.autocomplete),
-      editorState: editorStateFromText(props.value),
+      editorState: editorStateFromText(props.value, props.resotreEntities),
     };
   }
 
@@ -62,7 +64,6 @@ export default class DraftTextInput extends Component {
     const { editorState, autocomplete } = this.state;
 
     const { MentionSuggestions } = this.mentionPlugin;
-
     const focus = hasFocus(editorState);
     return (
       <div className={cn(styles.container, { [styles.focus]: focus })}>
