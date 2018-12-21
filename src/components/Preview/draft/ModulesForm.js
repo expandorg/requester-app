@@ -9,7 +9,12 @@ import styles from './ModulesForm.module.styl';
 export default class ModulesForm extends Component {
   static propTypes = {
     form: formProps.isRequired,
+    variables: PropTypes.object, // eslint-disable-line
     onSubmit: PropTypes.func.isRequired,
+  };
+
+  static defaultProps = {
+    variables: null,
   };
 
   state = {
@@ -17,13 +22,18 @@ export default class ModulesForm extends Component {
   };
 
   render() {
-    const { form, onSubmit } = this.props;
+    const { form, onSubmit, variables } = this.props;
     const { formData } = this.state;
 
     return (
       <Panel className={styles.container}>
         <FormDataProvider formData={formData}>
-          <Form className={styles.form} form={form} onSubmit={onSubmit}>
+          <Form
+            variables={variables}
+            className={styles.form}
+            form={form}
+            onSubmit={onSubmit}
+          >
             {props => <Module {...props} />}
           </Form>
         </FormDataProvider>

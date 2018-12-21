@@ -1,11 +1,20 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
 import OnboardingComplete from './OnboardingComplete';
 import TaskComplete from './TaskComplete';
 
 import ModulesForm from './ModulesForm';
+import { hasData } from '../../Draft/wizard';
 
 import { draftProps } from '../../shared/propTypes';
+
+import { fetch as fetchData } from '../../../sagas/dataSagas';
+
+import { makeDataVarsSampleSelector } from '../../../selectors/dataSelectors';
 
 import {
   getActive,
@@ -16,9 +25,25 @@ import {
   REPEAT,
 } from './sequence';
 
-export default class PreviewDraftSequence extends Component {
+const makeMapStateToProps = () => {
+  const dataVarsSampleSelector = makeDataVarsSampleSelector();
+  return (state, props) => ({
+    variables: dataVarsSampleSelector(state, props.draft.dataId),
+  });
+};
+
+const mapDispatchToProps = dispatch =>
+  bindActionCreators({ fetchData }, dispatch);
+
+class PreviewDraftSequence extends Component {
   static propTypes = {
     draft: draftProps.isRequired,
+    variables: PropTypes.object, // eslint-disable-line
+    fetchData: PropTypes.func.isRequired,
+  };
+
+  static defaultProps = {
+    variables: null,
   };
 
   constructor(props) {
@@ -39,6 +64,20 @@ export default class PreviewDraftSequence extends Component {
     return null;
   }
 
+  componentDidMount() {
+    const { draft } = this.props;
+    if (draft.dataId) {
+      this.props.fetchData(draft.id, draft.dataId, 0);
+    }
+  }
+
+  componentDidUpdate({ draft: prev }) {
+    const { draft } = this.props;
+    if (hasData(draft) && draft.dataId !== prev.dataId) {
+      this.props.fetchData(draft.id, draft.dataId, 0);
+    }
+  }
+
   handleSubmit = () => {
     const { draft } = this.props;
     const { active } = this.state;
@@ -48,7 +87,7 @@ export default class PreviewDraftSequence extends Component {
   };
 
   render() {
-    const { draft } = this.props;
+    const { draft, variables } = this.props;
     const { active } = this.state;
 
     const { form, display } = getActive(draft, active);
@@ -60,7 +99,11 @@ export default class PreviewDraftSequence extends Component {
           <OnboardingComplete draft={draft} onSubmit={this.handleSubmit} />
         )}
         {displayForm && (
-          <ModulesForm form={form} onSubmit={this.handleSubmit} />
+          <ModulesForm
+            form={form}
+            variables={variables}
+            onSubmit={this.handleSubmit}
+          />
         )}
         {display === REPEAT && (
           <TaskComplete draft={draft} onSubmit={this.handleSubmit} />
@@ -69,3 +112,8 @@ export default class PreviewDraftSequence extends Component {
     );
   }
 }
+
+export default connect(
+  makeMapStateToProps,
+  mapDispatchToProps
+)(PreviewDraftSequence);

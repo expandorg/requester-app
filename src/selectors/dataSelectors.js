@@ -49,3 +49,26 @@ export const makeDataColumnNamesSelector = () =>
       return entity.columns.filter(c => !c.skipped).map(c => c.name);
     }
   );
+
+export const makeDataVarsSampleSelector = () =>
+  createSelector(
+    dataEntitiesSelector,
+    dataValuesSelector,
+    (state, id) => id,
+    (entities, valueEntites, id) => {
+      const entity = entities[id];
+      if (!entity) {
+        return null;
+      }
+      const samplePage = valueEntites[id].pages[0];
+      if (!samplePage) {
+        return null;
+      }
+      return entity.columns.reduce((all, col, index) => {
+        if (col.skipped) {
+          return all;
+        }
+        return { ...all, [col.name]: samplePage[0][index] };
+      }, {});
+    }
+  );
