@@ -4,6 +4,34 @@ import { Modifier, ContentState, EditorState, RichUtils } from 'draft-js';
 import { stateToHTML } from 'draft-js-export-html';
 import { stateFromHTML } from 'draft-js-import-html';
 
+// export const applyEntitiesByRegex = (contentState: ContentState, data) => {
+//   const AT_REGEX = /\B\@[\w]+/g;
+//
+//   contentState.getBlockMap().map(block => {
+//     const blockKey = block.getKey();
+//     const ranges = findRangesWithRegex(AT_REGEX, block);
+//
+//     ranges.map(range => {
+//       const { start, end } = range.start;
+//
+//       const selection = new SelectionState({
+//         anchorKey: blockKey,
+//         anchorOffset: start,
+//         focusKey: blockKey,
+//         focusOffset: end,
+//       });
+//
+//       const entityKey = block.getEntityAt(start);
+//       if (entityKey === null) {
+//         editorState = getStateWithEntity(editorState, selection, data);
+//       }
+//     });
+//     if (editorState !== getEditorState()) {
+//       setEditorState(editorState);
+//     }
+//   });
+// };
+
 export const getHtml = (contentState: ContentState): string =>
   stateToHTML(contentState, {
     blockStyleFn: (block: any) => {

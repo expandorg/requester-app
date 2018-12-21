@@ -1,0 +1,26 @@
+@import 'components/common/uikit/colors'
+@import 'components/common/uikit/font'
+
+.container
+  padding: 0 7px 0 25px
+  box-sizing: border-box;
+  height: 40px
+  transition: background-color 0.4s cubic-bezier(.27,1.27,.48,.56);
+
+  &:active
+    background-color: color-medium-blue;
+
+.focused
+  background-color: color-medium-blue;
+
+.text
+  display: inline-block;
+
+  max-width: 368px;
+
+  color: color-text-dark
+  font(body, false, false, 40px)
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;

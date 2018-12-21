@@ -1,6 +1,14 @@
 // @flow
 
-import suggestionsOptions from './plugin';
-import suggestionsFilter from './filter';
+import SuggestionsEntry from './SuggestionsEntry';
 
-export { suggestionsFilter, suggestionsOptions };
+import suggestionsOptions from './plugin';
+
+import { suggestionsFilter, formatSuggestions } from './filter';
+
+export {
+  suggestionsFilter,
+  SuggestionsEntry,
+  formatSuggestions,
+  suggestionsOptions,
+};

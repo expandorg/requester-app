@@ -1,6 +1,9 @@
 // @flow
 
-const suggestFilter = (
+export const formatSuggestions = (suggestions: Array<string>): Array<Object> =>
+  suggestions.map(name => ({ name: `$(${name})`, suggestion: name }));
+
+export const suggestionsFilter = (
   searchValue: string,
   suggestions: Array<string>
 ): Array<Object> => {
@@ -12,7 +15,5 @@ const suggestFilter = (
 
   const length = filtered.length < 10 ? filtered.length : 10;
 
-  return filtered.slice(0, length).map(name => ({ name }));
+  return formatSuggestions(filtered.slice(0, length));
 };
-
-export default suggestFilter;

@@ -7,7 +7,12 @@ import createMentionPlugin from 'draft-js-mention-plugin';
 
 import TopPlaceholder from './TopPlaceholder';
 
-import { suggestionsOptions, suggestionsFilter } from './suggest';
+import {
+  suggestionsOptions,
+  formatSuggestions,
+  suggestionsFilter,
+  SuggestionsEntry,
+} from './suggest';
 import { getText, hasFocus, isEmpty, editorStateFromText } from './content';
 
 import styles from './DraftTextInput.module.styl';
@@ -32,7 +37,7 @@ export default class DraftTextInput extends Component {
     this.mentionPlugin = createMentionPlugin(suggestionsOptions);
 
     this.state = {
-      autocomplete: props.autocomplete.map(name => ({ name })),
+      autocomplete: formatSuggestions(props.autocomplete),
       editorState: editorStateFromText(props.value),
     };
   }
@@ -50,9 +55,7 @@ export default class DraftTextInput extends Component {
     });
   };
 
-  handleAddSuggest = (...args) => {
-    console.log(...args);
-  };
+  handleAddSuggest = () => {};
 
   render() {
     const { placeholder } = this.props;
@@ -73,6 +76,7 @@ export default class DraftTextInput extends Component {
         <MentionSuggestions
           onSearchChange={this.handleSearchChange}
           suggestions={autocomplete}
+          entryComponent={SuggestionsEntry}
           onAddMention={this.handleAddSuggest}
         />
         {!isEmpty(editorState) && (
