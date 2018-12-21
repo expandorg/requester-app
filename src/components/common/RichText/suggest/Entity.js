@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Entity = ({ className, mention }) => (
-  <span className={className}>{mention.suggestion}</span>
+const Entity = ({ className, children }) => (
+  <span className={className}>{children}</span>
 );
 
 Entity.propTypes = {

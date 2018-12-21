@@ -6,6 +6,7 @@ const options = {
   mentionComponent: Entity,
   entityMutability: 'IMMUTABLE',
   mentionTrigger: '$',
+  mentionPrefix: '$',
 };
 
 export default options;

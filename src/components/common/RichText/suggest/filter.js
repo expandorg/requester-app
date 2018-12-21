@@ -1,7 +1,7 @@
 // @flow
 
 export const formatSuggestions = (suggestions: Array<string>): Array<Object> =>
-  suggestions.map(name => ({ name: `$(${name})`, suggestion: name }));
+  suggestions.map(name => ({ name: `(${name})`, suggestion: name }));
 
 export const suggestionsFilter = (
   searchValue: string,
