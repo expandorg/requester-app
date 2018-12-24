@@ -109,7 +109,10 @@ class AvailableModules extends Component {
     const forceOpen = !!search;
     return (
       <div className={styles.container} ref={this.container}>
-        <div className={cn(styles.header, { [styles.searching]: searching })}>
+        <div
+          className={cn(styles.header, { [styles.searching]: searching })}
+          id="gems-search"
+        >
           <div className={styles.title} onClick={this.handleToggeSearch}>
             Components
           </div>
@@ -127,7 +130,11 @@ class AvailableModules extends Component {
         </div>
 
         {connectDropTarget(
-          <div className={styles.list} onScroll={this.handleScroll}>
+          <div
+            className={styles.list}
+            onScroll={this.handleScroll}
+            id="gems-components"
+          >
             {categories.map(({ category, modules }) => (
               <Category
                 key={category}

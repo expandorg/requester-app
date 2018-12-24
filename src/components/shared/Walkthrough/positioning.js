@@ -27,7 +27,7 @@ export const getHintPositionByOrientation = (
       };
     case 'top':
       return {
-        top: top - HINT_WIDTH / 2,
+        top: top - height,
         left: left - HINT_WIDTH / 2,
       };
     case 'bottom':

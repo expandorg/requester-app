@@ -25,6 +25,10 @@ class WalkthroughProvider extends Component {
     position: null,
     presence: [],
     enabled: false,
+    screen: {
+      width: window.innerWidth,
+      height: window.innerHeight,
+    },
   };
 
   handleActiveChange = active => {
@@ -63,16 +67,22 @@ class WalkthroughProvider extends Component {
 
   handleResize = () => {
     const { settings } = this.props;
-    const { active } = this.state;
-    if (active) {
+    const { active, enabled } = this.state;
+    if (enabled && active) {
       const position = getPositionById(settings[active].htmlId);
-      this.handlePositionChange(position);
+      this.setState({
+        screen: {
+          width: window.innerWidth,
+          height: window.innerHeight,
+        },
+        position,
+      });
     }
   };
 
   render() {
     const { children, settings } = this.props;
-    const { active, position, presence, enabled } = this.state;
+    const { active, position, presence, enabled, screen } = this.state;
 
     const value = {
       settings,
@@ -89,11 +99,12 @@ class WalkthroughProvider extends Component {
         {children}
         {active && (
           <Portal>
-            <Overlay position={position} />
+            <Overlay position={position} screen={screen} />
             <Hint
               settings={settings}
               active={active}
               position={position}
+              screen={screen}
               presence={presence}
               onActiveChange={this.handleActiveChange}
               onHide={this.handleHide}

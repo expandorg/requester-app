@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import windowResize from '../../common/windowResize';
-
 import styles from './Overlay.module.styl';
 
-class Overlay extends Component {
+export default class Overlay extends Component {
   static propTypes = {
     position: PropTypes.shape({
       width: PropTypes.number.isRequired,
@@ -13,27 +11,19 @@ class Overlay extends Component {
       top: PropTypes.number.isRequired,
       left: PropTypes.number.isRequired,
     }),
+    screen: PropTypes.shape({
+      width: PropTypes.number.isRequired,
+      height: PropTypes.number.isRequired,
+    }).isRequired,
   };
 
   static defaultProps = {
     position: null,
   };
 
-  state = {
-    width: window.innerWidth,
-    height: window.innerHeight,
-  };
-
-  handleResize = () => {
-    this.setState({
-      width: window.innerWidth,
-      height: window.innerHeight,
-    });
-  };
-
   render() {
-    const { position } = this.props;
-    const { width, height } = this.state;
+    const { position, screen } = this.props;
+    const { width, height } = screen;
 
     return (
       <svg className={styles.svg} viewBox={`0 0 ${width} ${height}`}>
@@ -47,10 +37,10 @@ class Overlay extends Component {
           />
           {position && (
             <rect
-              x={position.left}
-              y={position.top}
-              width={position.width}
-              height={position.height}
+              x={position.left - 5}
+              y={position.top - 5}
+              width={position.width + 10}
+              height={position.height + 10}
               fill="black"
             />
           )}
@@ -60,5 +50,3 @@ class Overlay extends Component {
     );
   }
 }
-
-export default windowResize(Overlay);

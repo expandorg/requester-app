@@ -12,7 +12,7 @@ import Properties from './Properties/Properties';
 import PreviewCtx from './PreviewCtx';
 
 import { ReactComponent as Bulb } from '../../../assets/bulb.svg';
-import { ToggleWalkthrough } from '../../Walkthrough';
+import { ToggleWalkthrough, WalkthroughPin } from '../../Walkthrough';
 
 import { treeEditor } from '../dnd';
 import { validateModuleProps } from '../model/validation';
@@ -124,14 +124,20 @@ export default class Editor extends Component {
           />
         </div>
         <div className={styles.actions}>
-          <div>
+          <div className={styles.previewContainer}>
             <PreviewCtx modules={modules}>
               {({ onPreview }) => (
-                <Button theme="aqua" className={styles.btn} onClick={onPreview}>
+                <Button
+                  theme="aqua"
+                  className={styles.btn}
+                  onClick={onPreview}
+                  id="gems-preview"
+                >
                   Preview
                 </Button>
               )}
             </PreviewCtx>
+            <WalkthroughPin id="preview" className={styles.previewPin} />
           </div>
           {errors ? (
             <ErrorMessage errors={errors} className={styles.errors} />
@@ -144,11 +150,13 @@ export default class Editor extends Component {
                 <button
                   className={cn(styles.toggle, { [styles.enabled]: enabled })}
                   onClick={onToggle}
+                  id="gems-toggle"
                 >
                   <Bulb width={13} height={15} viewBox="0 0 9 15" />
                 </button>
               )}
             </ToggleWalkthrough>
+            <WalkthroughPin id="toggle" className={styles.togglePin} />
             <Button theme="grey" className={styles.btn} onClick={onCancel}>
               Cancel
             </Button>

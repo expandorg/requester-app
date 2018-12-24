@@ -17,7 +17,6 @@ export default class Hint extends Component {
       top: PropTypes.number.isRequired,
       left: PropTypes.number.isRequired,
     }),
-
     onActiveChange: PropTypes.func.isRequired,
     onHide: PropTypes.func.isRequired,
   };
@@ -37,15 +36,13 @@ export default class Hint extends Component {
 
     return (
       <div
-        className={cn(styles.hint, styles[item.orientation])}
-        style={getHintPositionByOrientation(
-          position,
-          item.orientation,
-          item.customHintPosition
-        )}
+        style={getHintPositionByOrientation(position, item.orientation)}
+        className={styles.container}
       >
-        <div>{item.hint}</div>
-        <Actions {...this.props} />
+        <div className={cn(styles.hint, styles[item.orientation])}>
+          <div>{item.hint}</div>
+          <Actions {...this.props} />
+        </div>
       </div>
     );
   }

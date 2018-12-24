@@ -10,6 +10,7 @@ class WalkthroughPin extends Component {
   static propTypes = {
     id: PropTypes.string.isRequired,
     className: PropTypes.string,
+    active: PropTypes.string,
 
     enabled: PropTypes.bool.isRequired,
     settings: PropTypes.shape({
@@ -24,6 +25,7 @@ class WalkthroughPin extends Component {
 
   static defaultProps = {
     className: null,
+    active: null,
   };
 
   componentDidMount() {
@@ -48,8 +50,8 @@ class WalkthroughPin extends Component {
   };
 
   render() {
-    const { className, id, settings, enabled } = this.props;
-    if (!enabled || !settings[id]) {
+    const { className, id, settings, enabled, active } = this.props;
+    if (!enabled || !settings[id] || active) {
       return null;
     }
     return (

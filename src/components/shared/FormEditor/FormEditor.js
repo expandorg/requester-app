@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import { moduleControls as defaultControls, formProps } from '@gemsorg/modules';
 
-import { WalkthroughProvider } from '../Walkthrough';
+import { WalkthroughProvider, WalkthroughPin } from '../Walkthrough';
 
 import Editor from './Editor/Editor';
 import AvailableModules from './Available/AvailableModules';
@@ -148,6 +148,8 @@ export default class FormEditor extends Component {
             />
           </div>
         </div>
+        <WalkthroughPin id="search" className={styles.serachPin} />
+        <WalkthroughPin id="components" className={styles.componentsPin} />
       </WalkthroughProvider>
     );
   }
