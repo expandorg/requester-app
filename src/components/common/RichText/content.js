@@ -8,6 +8,8 @@ import {
   SelectionState,
 } from 'draft-js';
 
+import cn from 'classnames';
+
 import { stateToHTML } from 'draft-js-export-html';
 import { stateFromHTML } from 'draft-js-import-html';
 
@@ -136,15 +138,12 @@ export const applyAlignment = (editorState: EditorState, alignemnt: string) => {
 };
 
 export const fontPresets = [
-  { label: 'body', value: 'unstyled' },
   { label: 'h1', value: 'header-one' },
   { label: 'h2', value: 'header-two' },
   { label: 'h3', value: 'header-three' },
   { label: 'h4', value: 'header-four' },
-  { label: 'h5', value: 'header-five' },
-  { label: 'h6', value: 'header-six' },
   { label: 'pre', value: 'code-block' },
-  { label: 'blockquote', value: 'blockquote' },
+  { label: 'body', value: 'unstyled' },
 ];
 
 export const getCurrentFontPreset = (editorState: EditorState) =>
@@ -153,11 +152,13 @@ export const getCurrentFontPreset = (editorState: EditorState) =>
 export const applyFontPreset = (editorState: EditorState, blockType: string) =>
   RichUtils.toggleBlockType(editorState, blockType);
 
-export const blockStyleFn = (block: any) => {
+export const blockStyleFn = (block: ContentBlock) => {
   const data = block.getData();
+
+  const type = block.getType();
   const alignemnt = data.get('ALIGNMENT');
-  if (alignemnt) {
-    return `DraftEditor-align-${alignemnt}`;
-  }
-  return undefined;
+  return cn({
+    [`DraftEditor-align-${alignemnt}`]: data.get('ALIGNMENT'),
+    [`DraftEditor-block-type-${type}`]: type,
+  });
 };

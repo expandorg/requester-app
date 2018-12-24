@@ -1,37 +1,29 @@
 @import 'components/common/uikit/colors';
 
-.DraftEditor-editorContainer, .DraftEditor-root, .public-DraftEditor-content
-  height: inherit;
-  text-align: initial
+.DraftEditor
 
-.public-DraftEditor-content[contenteditable=true]
-  -webkit-user-modify: read-write-plaintext-only
+  &-content
+    height: inherit;
+    text-align: initial
 
-.DraftEditor-root
-  position: relative
+    &[contenteditable=true]
+      -webkit-user-modify: read-write-plaintext-only
 
-.DraftEditor-editorContainer
-  background-color: rgba(255, 255, 255, 0);
-  border-left: .1px solid transparent;
-  position: relative;
-  z-index: 1
+  &-root
+    height: inherit;
+    text-align: initial
+    position: relative
+
+  &-editorContainer
+    height: inherit;
+    text-align: initial
+    background-color: rgba(255, 255, 255, 0);
+    border-left: .1px solid transparent;
+    position: relative;
+    z-index: 1
 
 .public-DraftEditor-block
   position: relative
-
-.DraftEditor-alignLeft
-  .public-DraftStyleDefault-block
-    text-align: left
-
-.DraftEditor-alignCenter
-  .public-DraftStyleDefault-block
-    text-align: center
-
-
-.DraftEditor-alignRight
-  .public-DraftStyleDefault-block
-    text-align: right
-
 
 .public-DraftEditorPlaceholder
   &-root
@@ -47,126 +39,151 @@
 .DraftEditorPlaceholder-hidden
   display: none
 
+.public-DraftStyleDefault
+  &-ltr
+    direction: ltr;
+    text-align: left
 
-.public-DraftStyleDefault-block
-  position: relative;
-  white-space: pre-wrap
+  &-rtl
+    direction: rtl;
+    text-align: right
 
+  &-listLTR
+    direction: ltr
 
-.public-DraftStyleDefault-ltr
-  direction: ltr;
-  text-align: left
+  &-listRTL
+    direction: rtl
 
+  &-ol, &-ul
+    margin: 16px 0;
+    padding: 0
 
-.public-DraftStyleDefault-rtl
-  direction: rtl;
-  text-align: right
+  &-depth0&-listLTR
+    margin-left: 1.5em
 
-.public-DraftStyleDefault-listLTR
-  direction: ltr
+  &-depth0&-listRTL
+    margin-right: 1.5em
 
-.public-DraftStyleDefault-listRTL
-  direction: rtl
+  &-depth1&-listLTR
+    margin-left: 3em
 
-.public-DraftStyleDefault-ol, .public-DraftStyleDefault-ul
-  margin: 16px 0;
-  padding: 0
+  &-depth1&-listRTL
+    margin-right: 3em
 
-.public-DraftStyleDefault-depth0.public-DraftStyleDefault-listLTR
-  margin-left: 1.5em
+  &-depth2&-listLTR
+    margin-left: 4.5em
 
-.public-DraftStyleDefault-depth0.public-DraftStyleDefault-listRTL
-  margin-right: 1.5em
+  &-depth2&-listRTL
+    margin-right: 4.5em
 
-.public-DraftStyleDefault-depth1.public-DraftStyleDefault-listLTR
-  margin-left: 3em
+  &-depth3&-listLTR
+    margin-left: 6em
 
-.public-DraftStyleDefault-depth1.public-DraftStyleDefault-listRTL
-  margin-right: 3em
+  &-depth3&-listRTL
+    margin-right: 6em
 
-.public-DraftStyleDefault-depth2.public-DraftStyleDefault-listLTR
-  margin-left: 4.5em
+  &-depth4&-listLTR
+    margin-left: 7.5em
 
-.public-DraftStyleDefault-depth2.public-DraftStyleDefault-listRTL
-  margin-right: 4.5em
+  &-depth4&-listRTL
+    margin-right: 7.5em
 
-.public-DraftStyleDefault-depth3.public-DraftStyleDefault-listLTR
-  margin-left: 6em
+  &-unorderedListItem
+    list-style-type: square;
+    position: relative
 
-.public-DraftStyleDefault-depth3.public-DraftStyleDefault-listRTL
-  margin-right: 6em
+  &-unorderedListItem&-depth0
+    list-style-type: disc
 
-.public-DraftStyleDefault-depth4.public-DraftStyleDefault-listLTR
-  margin-left: 7.5em
+  &-unorderedListItem&-depth1
+    list-style-type: circle
 
-.public-DraftStyleDefault-depth4.public-DraftStyleDefault-listRTL
-  margin-right: 7.5em
+  &-orderedListItem
+    list-style-type: none;
+    position: relative
 
-.public-DraftStyleDefault-unorderedListItem
-  list-style-type: square;
-  position: relative
+  &-orderedListItem&-listLTR:before
+    left: -36px;
+    position: absolute;
+    text-align: right;
+    width: 30px
 
-.public-DraftStyleDefault-unorderedListItem.public-DraftStyleDefault-depth0
-  list-style-type: disc
+  &-orderedListItem&-listRTL:before
+    position: absolute;
+    right: -36px;
+    text-align: left;
+    width: 30px
 
-.public-DraftStyleDefault-unorderedListItem.public-DraftStyleDefault-depth1
-  list-style-type: circle
+  &-orderedListItem:before
+    content: counter(ol0) ". ";
+    counter-increment: ol0
 
-.public-DraftStyleDefault-orderedListItem
-  list-style-type: none;
-  position: relative
+  &-orderedListItem&-depth1:before
+    content: counter(ol1) ". ";
+    counter-increment: ol1
 
-.public-DraftStyleDefault-orderedListItem.public-DraftStyleDefault-listLTR:before
-  left: -36px;
-  position: absolute;
-  text-align: right;
-  width: 30px
+  &-orderedListItem&-depth2:before
+    content: counter(ol2) ". ";
+    counter-increment: ol2
 
-.public-DraftStyleDefault-orderedListItem.public-DraftStyleDefault-listRTL:before
-  position: absolute;
-  right: -36px;
-  text-align: left;
-  width: 30px
+  &-orderedListItem&-depth3:before
+    content: counter(ol3) ". ";
+    counter-increment: ol3
 
-.public-DraftStyleDefault-orderedListItem:before
-  content: counter(ol0) ". ";
-  counter-increment: ol0
+  &-orderedListItem&-depth4:before
+    content: counter(ol4) ". ";
+    counter-increment: ol4
 
-.public-DraftStyleDefault-orderedListItem.public-DraftStyleDefault-depth1:before
-  content: counter(ol1) ". ";
-  counter-increment: ol1
+  &-depth0&-reset
+    counter-reset: ol0
 
-.public-DraftStyleDefault-orderedListItem.public-DraftStyleDefault-depth2:before
-  content: counter(ol2) ". ";
-  counter-increment: ol2
+  &-depth1&-reset
+    counter-reset: ol1
 
-.public-DraftStyleDefault-orderedListItem.public-DraftStyleDefault-depth3:before
-  content: counter(ol3) ". ";
-  counter-increment: ol3
+  &-depth2&-reset
+    counter-reset: ol2
 
-.public-DraftStyleDefault-orderedListItem.public-DraftStyleDefault-depth4:before
-  content: counter(ol4) ". ";
-  counter-increment: ol4
+  &-depth3&-reset
+    counter-reset: ol3
 
-.public-DraftStyleDefault-depth0.public-DraftStyleDefault-reset
-  counter-reset: ol0
+  &-depth4&-reset
+    counter-reset: ol4
 
-.public-DraftStyleDefault-depth1.public-DraftStyleDefault-reset
-  counter-reset: ol1
+  &-block
+    position: relative;
+    white-space: pre-wrap
 
-.public-DraftStyleDefault-depth2.public-DraftStyleDefault-reset
-  counter-reset: ol2
+    .DraftEditor-alignLeft &
+      text-align: left
 
-.public-DraftStyleDefault-depth3.public-DraftStyleDefault-reset
-  counter-reset: ol3
+    .DraftEditor-alignCenter &
+      text-align: center
 
-.public-DraftStyleDefault-depth4.public-DraftStyleDefault-reset
-  counter-reset: ol4
+    .DraftEditor-alignRight &
+      text-align: right
 
+    .DraftEditor-align-center &
+      text-align: center
 
-.DraftEditor-align-center .public-DraftStyleDefault-block
-  text-align: center
+    .DraftEditor-align-right &
+      text-align: right
 
+    .DraftEditor-block-type-header-one &
+      font-size: 36px
+      font-weight: 300
 
-.DraftEditor-align-right .public-DraftStyleDefault-block
-  text-align: right
+    .DraftEditor-block-type-header-two &
+      font-size: 24px
+      font-weight: 400
+
+    .DraftEditor-block-type-header-three &
+      font-size: 18px
+      font-weight: 400
+
+    .DraftEditor-block-type-header-four &
+      font-size: 16px
+      font-weight: 500
+
+    .DraftEditor-block-type-header-unstyled &
+      font-size: 16px
+      font-weight: 400

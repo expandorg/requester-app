@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import windowResize from '../../common/windowResize';
+import { windowResize } from '@gemsorg/components/hoc';
 
 import WalkthroughContext from './WalkthroughContext';
 import Portal from './Portal';
