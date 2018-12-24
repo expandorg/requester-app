@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import cn from 'classnames';
 
 import Button from '../../../common/Button';
+import { ReactComponent as Arrow } from '../../../assets/arrow-2.svg';
 
 import { findActive, isPrevActive, isNextActive } from '../settings';
 
@@ -54,7 +55,7 @@ export default class Actions extends Component {
             theme="grey"
             disabled={!prev}
           >
-            ⮃
+            <Arrow />
           </Button>
           <Button
             onClick={() => this.handleClick(settings[active].order + 1)}
@@ -62,7 +63,7 @@ export default class Actions extends Component {
             theme="grey"
             disabled={!next}
           >
-            ⮁
+            <Arrow />
           </Button>
         </div>
       </div>

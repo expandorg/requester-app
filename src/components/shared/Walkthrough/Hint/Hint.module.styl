@@ -77,6 +77,9 @@ border-offset = -12px
 
   box-sizing: border-box
 
+  path
+    fill: color-text-blue
+
   &:hover
     background: darken(color-medium-blue, 3%)
 
@@ -86,8 +89,14 @@ border-offset = -12px
   &:hover
     background: lighten(color-grey-background, 10%);
 
+.next
+  svg
+    transform: rotate(90deg);
+
 .prev
   margin-right: 8px
+  svg
+    transform: rotate(-90deg)
 
 .top
   bottom: 0
