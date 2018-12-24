@@ -11,6 +11,9 @@ import Form from './Form/Form';
 import Properties from './Properties/Properties';
 import PreviewCtx from './PreviewCtx';
 
+import { ReactComponent as Bulb } from '../../../assets/bulb.svg';
+import { ToggleWalkthrough } from '../../Walkthrough';
+
 import { treeEditor } from '../dnd';
 import { validateModuleProps } from '../model/validation';
 
@@ -135,7 +138,17 @@ export default class Editor extends Component {
           ) : (
             <div className={styles.title}>Edit Task Module</div>
           )}
-          <div>
+          <div className={styles.buttons}>
+            <ToggleWalkthrough>
+              {({ onToggle, enabled }) => (
+                <button
+                  className={cn(styles.toggle, { [styles.enabled]: enabled })}
+                  onClick={onToggle}
+                >
+                  <Bulb width={13} height={15} viewBox="0 0 9 15" />
+                </button>
+              )}
+            </ToggleWalkthrough>
             <Button theme="grey" className={styles.btn} onClick={onCancel}>
               Cancel
             </Button>

@@ -2,11 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
 
-import windowResize from '../../common/windowResize';
-
 import { withWalkthroughContext } from './WalkthroughContext';
-
-import { getItemPositionByRef } from './positioning';
 
 import styles from './WalkthroughPin.module.styl';
 
@@ -14,9 +10,8 @@ class WalkthroughPin extends Component {
   static propTypes = {
     id: PropTypes.string.isRequired,
     className: PropTypes.string,
-    item: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
 
-    active: PropTypes.string,
+    enabled: PropTypes.bool.isRequired,
     settings: PropTypes.shape({
       order: PropTypes.number,
       orientation: PropTypes.string,
@@ -24,12 +19,10 @@ class WalkthroughPin extends Component {
     }).isRequired,
 
     onActiveChange: PropTypes.func.isRequired,
-    onPosition: PropTypes.func.isRequired,
     onTogglePresence: PropTypes.func.isRequired,
   };
 
   static defaultProps = {
-    active: null,
     className: null,
   };
 
@@ -40,28 +33,12 @@ class WalkthroughPin extends Component {
     }
   }
 
-  componentDidUpdate({ active: prevActive }) {
-    const { active } = this.props;
-
-    if (!!active && prevActive !== active) {
-      this.handleResize();
-    }
-  }
-
   componentWillUnmount() {
     const { settings, onTogglePresence, id } = this.props;
     if (settings[id]) {
       onTogglePresence(id, false);
     }
   }
-
-  handleResize = () => {
-    const { item, onPosition, active, id } = this.props;
-    if (active === id) {
-      const pos = getItemPositionByRef(item.current);
-      onPosition(pos);
-    }
-  };
 
   handleClick = evt => {
     evt.preventDefault();
@@ -71,9 +48,8 @@ class WalkthroughPin extends Component {
   };
 
   render() {
-    const { className, id, settings, active } = this.props;
-
-    if (!settings[id] || active) {
+    const { className, id, settings, enabled } = this.props;
+    if (!enabled || !settings[id]) {
       return null;
     }
     return (
@@ -84,4 +60,4 @@ class WalkthroughPin extends Component {
   }
 }
 
-export default withWalkthroughContext(windowResize(WalkthroughPin));
+export default withWalkthroughContext(WalkthroughPin);

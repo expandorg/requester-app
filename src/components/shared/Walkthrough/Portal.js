@@ -18,6 +18,9 @@ export default class Portal extends Component {
   render() {
     const { children } = this.props;
 
-    return createPortal(<div style={styles.portal}>{children}</div>, this.el);
+    return createPortal(
+      <div className={styles.portal}>{children}</div>,
+      this.el
+    );
   }
 }

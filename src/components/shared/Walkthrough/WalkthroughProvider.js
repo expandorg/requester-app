@@ -1,13 +1,17 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+import windowResize from '../../common/windowResize';
+
 import WalkthroughContext from './WalkthroughContext';
 import Portal from './Portal';
+
+import { getPositionById } from './positioning';
 
 import Hint from './Hint/Hint';
 import Overlay from './Overlay';
 
-export default class WalkthroughProvider extends Component {
+class WalkthroughProvider extends Component {
   static propTypes = {
     settings: PropTypes.shape({
       order: PropTypes.number,
@@ -20,11 +24,14 @@ export default class WalkthroughProvider extends Component {
     active: null,
     position: null,
     presence: [],
+    enabled: false,
   };
 
   handleActiveChange = active => {
+    const { settings } = this.props;
     this.setState({
       active,
+      position: getPositionById(settings[active].htmlId),
     });
   };
 
@@ -47,17 +54,34 @@ export default class WalkthroughProvider extends Component {
     }));
   };
 
+  handleToggleWalkThrough = () => {
+    const { enabled } = this.state;
+    this.setState({
+      enabled: !enabled,
+    });
+  };
+
+  handleResize = () => {
+    const { settings } = this.props;
+    const { active } = this.state;
+    if (active) {
+      const position = getPositionById(settings[active].htmlId);
+      this.handlePositionChange(position);
+    }
+  };
+
   render() {
     const { children, settings } = this.props;
-    const { active, position, presence } = this.state;
+    const { active, position, presence, enabled } = this.state;
 
     const value = {
       settings,
       active,
+      enabled,
       position,
       onActiveChange: this.handleActiveChange,
-      onPosition: this.handlePositionChange,
       onTogglePresence: this.handleTogglePresence,
+      onToggle: this.handleToggleWalkThrough,
     };
 
     return (
@@ -80,3 +104,5 @@ export default class WalkthroughProvider extends Component {
     );
   }
 }
+
+export default windowResize(WalkthroughProvider);

@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 
 import { moduleControls as defaultControls, formProps } from '@gemsorg/modules';
 
+import { WalkthroughProvider } from '../Walkthrough';
+
 import Editor from './Editor/Editor';
 import AvailableModules from './Available/AvailableModules';
 
@@ -10,6 +12,8 @@ import RichText from './RichText';
 
 import { treeEditor } from './dnd';
 import { scaffold } from './model/modules';
+
+import help from './help';
 
 import styles from './FormEditor.module.styl';
 
@@ -117,32 +121,34 @@ export default class FormEditor extends Component {
     const { modules, selected } = this.state;
 
     return (
-      <div className={styles.container}>
-        <div className={styles.left}>
-          <AvailableModules
-            moduleControls={moduleControls}
-            onEndDrag={this.handleEndDrag}
-            onAddModule={this.handleAdd}
-            onRemoveModule={this.handleRemove}
-          />
+      <WalkthroughProvider settings={help}>
+        <div className={styles.container}>
+          <div className={styles.left}>
+            <AvailableModules
+              moduleControls={moduleControls}
+              onEndDrag={this.handleEndDrag}
+              onAddModule={this.handleAdd}
+              onRemoveModule={this.handleRemove}
+            />
+          </div>
+          <div className={styles.editor}>
+            <Editor
+              modules={modules}
+              selected={selected}
+              moduleControls={moduleControls}
+              validateForm={validateForm}
+              variables={variables}
+              onAddModule={this.handleAdd}
+              onEditModule={this.handleEditModule}
+              onMoveModule={this.handleMoveAt}
+              onRemoveModule={this.handleRemove}
+              onSelectModule={this.handleSelectModule}
+              onSave={this.handleSave}
+              onCancel={onHide}
+            />
+          </div>
         </div>
-        <div className={styles.editor}>
-          <Editor
-            modules={modules}
-            selected={selected}
-            moduleControls={moduleControls}
-            validateForm={validateForm}
-            variables={variables}
-            onAddModule={this.handleAdd}
-            onEditModule={this.handleEditModule}
-            onMoveModule={this.handleMoveAt}
-            onRemoveModule={this.handleRemove}
-            onSelectModule={this.handleSelectModule}
-            onSave={this.handleSave}
-            onCancel={onHide}
-          />
-        </div>
-      </div>
+      </WalkthroughProvider>
     );
   }
 }

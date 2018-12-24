@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import windowResize from '../../../common/windowResize';
+import windowResize from '../../common/windowResize';
 
 import styles from './Overlay.module.styl';
 

@@ -1,7 +1,11 @@
 // @flow
 import { getElementOffset } from '@gemsorg/components/src/common/dom';
 
-export const getItemPositionByRef = (el: HTMLElement) => {
+export const getPositionById = (id: string) => {
+  const el = document.getElementById(id);
+  if (!el) {
+    return null;
+  }
   const { width, height } = el.getBoundingClientRect();
   const { top, left } = getElementOffset(el);
 
