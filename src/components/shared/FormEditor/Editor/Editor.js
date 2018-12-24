@@ -24,6 +24,7 @@ export default class Editor extends Component {
     modules: PropTypes.arrayOf(moduleProps).isRequired,
     selected: PropTypes.arrayOf(PropTypes.number),
     variables: PropTypes.arrayOf(PropTypes.string),
+    varsSample: PropTypes.object, // eslint-disable-line
     moduleControls: PropTypes.arrayOf(PropTypes.func).isRequired,
     validateForm: PropTypes.func.isRequired,
     onAddModule: PropTypes.func.isRequired,
@@ -37,6 +38,7 @@ export default class Editor extends Component {
 
   static defaultProps = {
     variables: [],
+    varsSample: null,
     selected: null,
   };
 
@@ -99,6 +101,7 @@ export default class Editor extends Component {
       onRemoveModule,
       onCancel,
       variables,
+      varsSample,
       selected,
     } = this.props;
     const { controls, errors } = this.state;
@@ -125,7 +128,7 @@ export default class Editor extends Component {
         </div>
         <div className={styles.actions}>
           <div className={styles.previewContainer}>
-            <PreviewCtx modules={modules}>
+            <PreviewCtx modules={modules} variables={varsSample}>
               {({ onPreview }) => (
                 <Button
                   theme="aqua"

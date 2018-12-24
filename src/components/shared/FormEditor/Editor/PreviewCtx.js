@@ -7,10 +7,12 @@ import PreviewFormTab from '../../../../common/popups/PreviewFormTab';
 export default class PreviewCtx extends Component {
   static propTypes = {
     modules: PropTypes.arrayOf(moduleProps),
+    variables: PropTypes.object, // eslint-disable-line
   };
 
   static defaultProps = {
     modules: [],
+    variables: null,
   };
 
   tab = null;
@@ -37,11 +39,11 @@ export default class PreviewCtx extends Component {
   };
 
   updatePreview = () => {
-    const { modules } = this.props;
+    const { modules, variables } = this.props;
     if (this.tab) {
       const wnd = this.tab.getWindow();
       if (wnd) {
-        wnd.postMessage({ type: 'updateForm', form: { modules } });
+        wnd.postMessage({ type: 'updateForm', form: { modules }, variables });
       }
     }
   };

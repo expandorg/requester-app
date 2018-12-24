@@ -1,14 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import { moduleControls as defaultControls, formProps } from '@gemsorg/modules';
+import { moduleControls, formProps } from '@gemsorg/modules';
 
 import { WalkthroughProvider, WalkthroughPin } from '../Walkthrough';
 
 import Editor from './Editor/Editor';
 import AvailableModules from './Available/AvailableModules';
-
-import RichText from './RichText';
 
 import { treeEditor } from './dnd';
 import { scaffold } from './model/modules';
@@ -17,12 +15,11 @@ import help from './help';
 
 import styles from './FormEditor.module.styl';
 
-const moduleControls = [...defaultControls, RichText];
-
 export default class FormEditor extends Component {
   static propTypes = {
     form: formProps,
     variables: PropTypes.arrayOf(PropTypes.string),
+    varsSample: PropTypes.object, // eslint-disable-line
     validateForm: PropTypes.func.isRequired,
     onSave: PropTypes.func.isRequired,
     onHide: PropTypes.func.isRequired,
@@ -30,6 +27,7 @@ export default class FormEditor extends Component {
 
   static defaultProps = {
     variables: [],
+    varsSample: null,
     form: null,
   };
 
@@ -117,7 +115,7 @@ export default class FormEditor extends Component {
   };
 
   render() {
-    const { onHide, validateForm, variables } = this.props;
+    const { onHide, validateForm, variables, varsSample } = this.props;
     const { modules, selected } = this.state;
 
     return (
@@ -138,6 +136,7 @@ export default class FormEditor extends Component {
               moduleControls={moduleControls}
               validateForm={validateForm}
               variables={variables}
+              varsSample={varsSample}
               onAddModule={this.handleAdd}
               onEditModule={this.handleEditModule}
               onMoveModule={this.handleMoveAt}

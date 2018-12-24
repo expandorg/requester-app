@@ -10,6 +10,7 @@ import styles from './PreviewForm.module.styl';
 class PreviewForm extends Component {
   state = {
     form: null,
+    variables: null,
   };
 
   componentDidMount() {
@@ -26,7 +27,7 @@ class PreviewForm extends Component {
 
   handleMessage = ({ data }) => {
     if (typeof data === 'object' && data.type === 'updateForm') {
-      this.setState({ form: data.form });
+      this.setState({ form: data.form, variables: data.variables });
     }
   };
 
@@ -35,7 +36,7 @@ class PreviewForm extends Component {
   };
 
   render() {
-    const { form } = this.state;
+    const { form, variables } = this.state;
     if (!form) {
       return null;
     }
@@ -47,7 +48,11 @@ class PreviewForm extends Component {
         sidebar={false}
         navbar={false}
       >
-        <ModulesForm form={form} onSubmit={this.handleSubmit} />
+        <ModulesForm
+          form={form}
+          variables={variables}
+          onSubmit={this.handleSubmit}
+        />
       </Content>
     );
   }

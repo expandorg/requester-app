@@ -13,7 +13,10 @@ import StepsForm from './StepsForm';
 import { updateTask, updateOnboarding } from '../../../../../sagas/draftsSagas';
 import { fetch as fetchData } from '../../../../../sagas/dataSagas';
 
-import { makeDataColumnNamesSelector } from '../../../../../selectors/dataSelectors';
+import {
+  makeDataColumnNamesSelector,
+  makeDataVarsSampleSelector,
+} from '../../../../../selectors/dataSelectors';
 import {
   updateDraftTaskStateSelector,
   updateDraftOnboardingStateSelector,
@@ -21,9 +24,12 @@ import {
 
 const makeMapStateToProps = () => {
   const dataVariablesSelector = makeDataColumnNamesSelector();
+  const varsSampleSelector = makeDataVarsSampleSelector();
+
   return (state, props) => ({
     submitTaskState: updateDraftTaskStateSelector(state),
     variables: dataVariablesSelector(state, props.draft.dataId),
+    varsSample: varsSampleSelector(state, props.draft.dataId),
     submitOnboardingState: updateDraftOnboardingStateSelector(state),
   });
 };
@@ -35,7 +41,7 @@ class Steps extends Component {
   static propTypes = {
     draft: draftProps.isRequired,
     variables: PropTypes.arrayOf(PropTypes.string),
-
+    varsSample: PropTypes.object, // eslint-disable-line
     // submitTaskState: requestStateProps.isRequired,
     // submitOnboardingState: requestStateProps.isRequired,
 
@@ -46,6 +52,7 @@ class Steps extends Component {
 
   static defaultProps = {
     variables: [],
+    varsSample: null,
   };
 
   componentDidMount() {
@@ -66,11 +73,12 @@ class Steps extends Component {
   };
 
   render() {
-    const { draft, variables } = this.props;
+    const { draft, variables, varsSample } = this.props;
     return (
       <StepsForm
         taskForm={draft.taskForm}
         variables={variables}
+        varsSample={varsSample}
         onboarding={draft.onboarding}
         onUpdateTask={this.handleUpdateTask}
         onUpdateOnboarding={this.handleUpdateOnboarding}

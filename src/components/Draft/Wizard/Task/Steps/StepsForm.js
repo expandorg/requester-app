@@ -27,12 +27,14 @@ export default class StepsForm extends Component {
     taskForm: draftTaskFormProps,
     onboarding: draftOnboardingProps,
     variables: PropTypes.arrayOf(PropTypes.string),
+    varsSample: PropTypes.object, // eslint-disable-line
     onUpdateTask: PropTypes.func.isRequired,
     onUpdateOnboarding: PropTypes.func.isRequired,
   };
 
   static defaultProps = {
     variables: [],
+    varsSample: null,
     taskForm: null,
     onboarding: null,
   };
@@ -131,7 +133,7 @@ export default class StepsForm extends Component {
   };
 
   renderEditor(selected) {
-    const { taskForm, variables } = this.props;
+    const { taskForm, variables, varsSample } = this.props;
     const { steps } = this.state;
 
     const task = selected === taskSelected;
@@ -143,6 +145,7 @@ export default class StepsForm extends Component {
       <FormEditorDialog
         form={form}
         variables={variables}
+        varsSample={varsSample}
         validateForm={validate}
         onSave={this.handleUpdate}
         onHide={this.handleDeselect}
