@@ -41,6 +41,7 @@ class Settings extends Component {
 
   render() {
     const { user } = this.props;
+
     const { email, address, password } = this.state;
     return (
       <Content title="Settings">

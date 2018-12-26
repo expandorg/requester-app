@@ -58,7 +58,6 @@ class Payments extends Component {
     super(props);
     this.state = {
       draft: props.draft, // eslint-disable-line react/no-unused-state
-      dialog: false,
       errors: null,
       funding: getInitialState(props.draft),
     };
