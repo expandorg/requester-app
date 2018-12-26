@@ -9,6 +9,7 @@ import { ReactComponent as Checkmark } from '../assets/checkmark-3.svg';
 import { ReactComponent as Eye } from '../assets/eye.svg';
 
 import styles from './ConfirmationDialog.module.styl';
+import dstyles from '../common/dialog.module.styl';
 
 export default class ConfirmationDialog extends Component {
   static propTypes = {
@@ -69,8 +70,8 @@ export default class ConfirmationDialog extends Component {
       <Dialog
         visible
         onHide={onHide}
-        overlayClass={styles.overlay}
-        modalClass={styles.modal}
+        overlayClass={dstyles.overlay}
+        modalClass={dstyles.modal}
         contentLabel="confirm-dialog"
       >
         <div className={styles.container}>

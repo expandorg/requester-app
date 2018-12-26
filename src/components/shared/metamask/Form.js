@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import { Button } from '@gemsorg/components';
 import ErrorMessage from '../../common/ErrorMessage';
+import Button from '../../common/Button';
+
+import Actions from './Actions';
 
 import styles from './Form.module.styl';
 
@@ -21,18 +23,16 @@ export default class Form extends Component {
     const { onLogin, action, error } = this.props;
     return (
       <div className={styles.container}>
+        <div className={styles.description}>
+          (similar to the above). Click below to log in.
+        </div>
+        <ErrorMessage errors={error} className={styles.error} />
         <div className={styles.screenshot} />
-        <div className={styles.info}>
-          <div className={styles.instructions}>
-            You’ll need to sign in using MetaMask
-            <br />
-            (similar to the above). Click below to log in.
-          </div>
-          <Button size="large" className={styles.login} onClick={onLogin}>
+        <Actions className={styles.actions}>
+          <Button className={styles.login} onClick={onLogin}>
             {action}
           </Button>
-          <ErrorMessage errors={error} className={styles.error} />
-        </div>
+        </Actions>
       </div>
     );
   }

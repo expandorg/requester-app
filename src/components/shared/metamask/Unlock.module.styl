@@ -3,21 +3,27 @@
 
 .container
   box-sizing: border-box;
-  text-align: center;
-  padding: 0 50px 50px
-
-  @media(max-width: 660px)
-    padding-left: 10px
-    padding-right: 10px
 
 .description
-  font(font-preset[menu])
-  color: color-text-blue
+  font(body)
+  color: color-text-dark
   text-align: center;
-  margin-top: 50px
+  margin-top: 20px
 
 .screenshot
   display: block
   max-width: 800px;
   width: 100%;
-  margin-top: 50px
+  margin-top: 20px
+
+.actions
+  margin-top: 35px
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  > *
+    margin: 0 5px
+
+.back
+  width: 200px

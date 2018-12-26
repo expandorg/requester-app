@@ -8,6 +8,7 @@ import Input from '../../common/Input';
 import { ReactComponent as Card } from '../../assets/creditcard.svg';
 
 import styles from './DepositDialog.module.styl';
+import dstyles from '../../common/dialog.module.styl';
 
 export default class DepositDialog extends Component {
   static propTypes = {
@@ -40,8 +41,8 @@ export default class DepositDialog extends Component {
       <Dialog
         visible
         onHide={onHide}
-        overlayClass={styles.overlay}
-        modalClass={styles.modal}
+        overlayClass={dstyles.overlay}
+        modalClass={dstyles.modal}
         contentLabel="depoist-dialog"
         hideButton
       >
