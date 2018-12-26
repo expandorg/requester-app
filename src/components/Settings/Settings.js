@@ -14,7 +14,7 @@ import Button from '../common/Button';
 import Input from '../common/Input';
 
 import Hero from '../shared/Hero';
-import DepositDialog from '../shared/Deposit/DepositDialog';
+import Deposit from './Deposit/Deposit';
 
 import styles from './Settings.module.styl';
 
@@ -31,15 +31,9 @@ class Settings extends Component {
     email: '',
     address: '',
     password: '',
-
-    deposit: false,
   };
 
   handleWithdrawClick = () => {};
-
-  handleToggleDeposit = () => {
-    this.setState(({ deposit }) => ({ deposit: !deposit }));
-  };
 
   handleInputChange = ({ target }) => {
     this.setState({ [target.name]: target.value });
@@ -47,7 +41,7 @@ class Settings extends Component {
 
   render() {
     const { user } = this.props;
-    const { email, address, password, deposit } = this.state;
+    const { email, address, password } = this.state;
     return (
       <Content title="Settings">
         <Navbar title="Settings" />
@@ -60,12 +54,7 @@ class Settings extends Component {
               title="Gems available"
             />
             <div className={styles.actions}>
-              <Button
-                className={styles.moneyBtn}
-                onClick={this.handleToggleDeposit}
-              >
-                Deposit
-              </Button>
+              <Deposit user={user} />
               <Button
                 theme="secondary"
                 className={styles.moneyBtn}
@@ -109,7 +98,6 @@ class Settings extends Component {
             </div>
           </div>
         </div>
-        {deposit && <DepositDialog onHide={this.handleToggleDeposit} />}
       </Content>
     );
   }
