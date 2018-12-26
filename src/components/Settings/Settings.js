@@ -14,7 +14,7 @@ import Button from '../common/Button';
 import Input from '../common/Input';
 
 import Hero from '../shared/Hero';
-import Deposit from './Deposit/Deposit';
+import Deposit from '../shared/Deposit/Deposit';
 
 import styles from './Settings.module.styl';
 
@@ -54,10 +54,16 @@ class Settings extends Component {
               title="Gems available"
             />
             <div className={styles.actions}>
-              <Deposit user={user} />
+              <Deposit user={user}>
+                {({ onToggleDepsoit }) => (
+                  <Button className={styles.deposit} onClick={onToggleDepsoit}>
+                    Deposit
+                  </Button>
+                )}
+              </Deposit>
               <Button
                 theme="secondary"
-                className={styles.moneyBtn}
+                className={styles.withdraw}
                 onClick={this.handleWithdrawClick}
               >
                 Withdraw

@@ -16,7 +16,7 @@ import Button from '../../../common/Button';
 import { SubmitStateEffect } from '../../../common/submitStateEffect';
 
 import { draftProps } from '../../../shared/propTypes';
-import DepositDialog from '../../../shared/Deposit/DepositDialog';
+import Deposit from '../../../shared/Deposit/Deposit';
 
 import { Form, Description, Field, Fieldset, Actions } from '../Form';
 
@@ -102,13 +102,6 @@ class Payments extends Component {
     }));
   };
 
-  handleToggle = evt => {
-    if (evt) {
-      evt.preventDefault();
-    }
-    this.setState(({ dialog }) => ({ dialog: !dialog }));
-  };
-
   handleUpdateComplete = () => {
     const { onNext } = this.props;
     onNext();
@@ -116,7 +109,7 @@ class Payments extends Component {
 
   render() {
     const { submitState, user } = this.props;
-    const { funding, dialog, errors } = this.state;
+    const { funding, errors } = this.state;
 
     const insufficent = false;
 
@@ -166,13 +159,17 @@ class Payments extends Component {
             </HeroWarning>
           )}
           <Field>
-            <button
-              type="button"
-              className={styles.deposit}
-              onClick={this.handleToggle}
-            >
-              deposit gems
-            </button>
+            <Deposit user={user}>
+              {({ onToggleDepsoit }) => (
+                <button
+                  type="button"
+                  className={styles.deposit}
+                  onClick={onToggleDepsoit}
+                >
+                  deposit gems
+                </button>
+              )}
+            </Deposit>
           </Field>
         </Fieldset>
         <Actions>
@@ -185,7 +182,6 @@ class Payments extends Component {
             onComplete={this.handleUpdateComplete}
           />
         </Actions>
-        {dialog && <DepositDialog onHide={this.handleToggle} />}
       </Form>
     );
   }

@@ -14,12 +14,8 @@ import {
 
 import { fetchGemsBalance } from '@gemsorg/app-gemtokens/sagas';
 
-import Button from '../../common/Button';
-
-import DepositDialog from '../../shared/Deposit/DepositDialog';
+import DepositDialog from './DepositDialog';
 import AddressDialog from '../Address/AddressDialog';
-
-import styles from './Deposit.module.styl';
 
 const mapStateToProps = state => ({
   fetchState: fetchBalanceStateSelector(state),
@@ -80,12 +76,11 @@ class Deposit extends Component {
   };
 
   render() {
+    const { children } = this.props;
     const { dialog, address } = this.state;
     return (
       <>
-        <Button className={styles.moneyBtn} onClick={this.handleToggle}>
-          Deposit
-        </Button>
+        {children({ onToggleDepsoit: this.handleToggle })}
         {address && <AddressDialog onHide={this.handleToggle} />}
         {dialog && <DepositDialog onHide={this.handleToggle} />}
       </>
