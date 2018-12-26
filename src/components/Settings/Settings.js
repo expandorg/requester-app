@@ -1,5 +1,10 @@
 import React, { Component } from 'react';
 
+import { connect } from 'react-redux';
+
+import { userProps } from '@gemsorg/app-auth';
+import { userSelector } from '@gemsorg/app-auth/selectors';
+
 import Content from '../shared/Content';
 import Navbar from '../shared/Navbar';
 import Sidebar from '../shared/Sidebar';
@@ -13,7 +18,15 @@ import DepositDialog from '../shared/Deposit/DepositDialog';
 
 import styles from './Settings.module.styl';
 
+const mapStateToProps = state => ({
+  user: userSelector(state),
+});
+
 class Settings extends Component {
+  static propTypes = {
+    user: userProps.isRequired,
+  };
+
   state = {
     email: '',
     address: '',
@@ -33,6 +46,7 @@ class Settings extends Component {
   };
 
   render() {
+    const { user } = this.props;
     const { email, address, password, deposit } = this.state;
     return (
       <Content title="Settings">
@@ -40,7 +54,11 @@ class Settings extends Component {
         <Sidebar />
         <div className={styles.container}>
           <div className={styles.form}>
-            <Hero value={200} title="Gems available" className={styles.hero} />
+            <Hero
+              className={styles.hero}
+              value={user.gems.balance}
+              title="Gems available"
+            />
             <div className={styles.actions}>
               <Button
                 className={styles.moneyBtn}
@@ -97,4 +115,4 @@ class Settings extends Component {
   }
 }
 
-export default authenticated(Settings);
+export default authenticated(connect(mapStateToProps)(Settings));
