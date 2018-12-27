@@ -11,8 +11,10 @@ import styles from './Form.module.styl';
 export default class Form extends Component {
   static propTypes = {
     action: PropTypes.string.isRequired,
+    headline: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
     error: PropTypes.string,
-    onLogin: PropTypes.func.isRequired,
+    onAction: PropTypes.func.isRequired,
   };
 
   static defaultProps = {
@@ -20,16 +22,15 @@ export default class Form extends Component {
   };
 
   render() {
-    const { onLogin, action, error } = this.props;
+    const { onAction, action, headline, description, error } = this.props;
     return (
       <div className={styles.container}>
-        <div className={styles.description}>
-          (similar to the above). Click below to log in.
-        </div>
+        <div className={styles.headline}>{headline}</div>
+        <div className={styles.description}>{description}- </div>
         <ErrorMessage errors={error} className={styles.error} />
         <div className={styles.screenshot} />
         <Actions className={styles.actions}>
-          <Button className={styles.login} onClick={onLogin}>
+          <Button className={styles.action} onClick={onAction}>
             {action}
           </Button>
         </Actions>

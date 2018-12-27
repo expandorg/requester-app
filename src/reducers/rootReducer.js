@@ -1,8 +1,9 @@
 import { combineReducers } from 'redux';
 
-import { userReducer as user } from '@gemsorg/app-auth';
 import { metamaskReducer as metamask } from '@gemsorg/app-web3';
 import { gemsBalanceReducer as gemsBalance } from '@gemsorg/app-gemtokens';
+
+import user from './userReducer';
 
 import dashboardTasks from './dashboardTasksReducer';
 import draftEntities from './drafts/draftEntitiesReducer';

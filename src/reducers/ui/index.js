@@ -11,6 +11,7 @@ import {
   dataActionTypes,
   whitelistActionTypes,
   tasksActionTypes,
+  userActionTypes,
 } from '../../sagas/actionTypes';
 
 export default combineReducers({
@@ -18,6 +19,8 @@ export default combineReducers({
   notification,
   ...authState,
   ...gemsState,
+
+  assignAddress: requestUiStateReducer(userActionTypes.ASSIGN_ADDRESS),
 
   fetchDraft: requestUiStateReducer(draftsActionTypes.FETCH),
   createDraft: requestUiStateReducer(draftsActionTypes.CREATE, true),

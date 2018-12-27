@@ -56,7 +56,6 @@ class Deposit extends Component {
 
     if (txState !== RequestStates.Fetching) {
       const { dialog } = this.state;
-
       if (!dialog && !user.address) {
         this.setState({ address: true });
       } else {
@@ -67,22 +66,22 @@ class Deposit extends Component {
 
   handleHideAddress = () => {
     const { user } = this.props;
-
     this.setState({ address: false });
-
     if (user.address) {
       this.handleToggle();
     }
   };
 
   render() {
-    const { children } = this.props;
+    const { user, children } = this.props;
     const { dialog, address } = this.state;
     return (
       <>
         {children({ onToggleDepsoit: this.handleToggle })}
-        {address && <AddressDialog onHide={this.handleToggle} />}
-        {dialog && <DepositDialog onHide={this.handleToggle} />}
+        {address && (
+          <AddressDialog user={user} onHide={this.handleHideAddress} />
+        )}
+        {dialog && <DepositDialog user={user} onHide={this.handleToggle} />}
       </>
     );
   }

@@ -12,16 +12,12 @@ import Form from './Form';
 
 import styles from './MetamaskPromt.module.styl';
 
-const headers = {
-  [MetamaskState.NotInstalled]: 'Please Install MetaMask',
-  [MetamaskState.NotAuthorized]: 'Please Unlock MetaMask',
-  [MetamaskState.Authorized]: 'You’ll need to sign in using MetaMask',
-};
-
 export default class MetamaskPromt extends Component {
   static propTypes = {
     metamaskState: PropTypes.string.isRequired,
     action: PropTypes.string,
+    headline: PropTypes.string,
+    description: PropTypes.string,
     error: PropTypes.string,
     onLogin: PropTypes.func.isRequired,
     onHide: PropTypes.func.isRequired,
@@ -30,10 +26,20 @@ export default class MetamaskPromt extends Component {
   static defaultProps = {
     action: 'Sign in',
     error: null,
+    headline: 'You’ll need to sign in using MetaMask',
+    description: '(similar to the above). Click below to log in.',
   };
 
   render() {
-    const { metamaskState, onLogin, onHide, action, error } = this.props;
+    const {
+      metamaskState,
+      onLogin,
+      onHide,
+      action,
+      error,
+      headline,
+      description,
+    } = this.props;
     return (
       <Dialog
         overlayClass={dstyles.overlay}
@@ -44,7 +50,6 @@ export default class MetamaskPromt extends Component {
         contentLabel="matamask"
       >
         <div className={styles.container}>
-          <div className={styles.headline}>{headers[metamaskState]}</div>
           {metamaskState === MetamaskState.NotInstalled && (
             <Install onHide={onHide} />
           )}
@@ -52,7 +57,13 @@ export default class MetamaskPromt extends Component {
             <Unlock onHide={onHide} />
           )}
           {metamaskState === MetamaskState.Authorized && (
-            <Form onLogin={onLogin} action={action} error={error} />
+            <Form
+              onAction={onLogin}
+              description={description}
+              headline={headline}
+              action={action}
+              error={error}
+            />
           )}
         </div>
       </Dialog>

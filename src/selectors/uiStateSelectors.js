@@ -3,6 +3,11 @@ import { createSelector } from 'reselect';
 
 export const uiStateSelector = (state: Object) => state.ui;
 
+export const assignAddressStateSelector = createSelector(
+  uiStateSelector,
+  state => state.assignAddress
+);
+
 export const notificationSelector = createSelector(
   uiStateSelector,
   state => state.notification

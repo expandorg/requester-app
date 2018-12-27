@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
 import { userProps } from '@gemsorg/app-auth';
+import { logout } from '@gemsorg/app-auth/sagas';
 import { userSelector } from '@gemsorg/app-auth/selectors';
 
 import Content from '../shared/Content';
@@ -10,11 +13,11 @@ import Navbar from '../shared/Navbar';
 import Sidebar from '../shared/Sidebar';
 import { authenticated } from '../shared/auth';
 
-import Button from '../common/Button';
-import Input from '../common/Input';
+import AddressDialog from '../shared/Address/AddressDialog';
 
-import Hero from '../shared/Hero';
-import Deposit from '../shared/Deposit/Deposit';
+import Field from './Field';
+import Form from './Form';
+import Gems from './Gems';
 
 import styles from './Settings.module.styl';
 
@@ -22,92 +25,87 @@ const mapStateToProps = state => ({
   user: userSelector(state),
 });
 
+const mapDispatchToProps = dispatch => bindActionCreators({ logout }, dispatch);
+
 class Settings extends Component {
   static propTypes = {
     user: userProps.isRequired,
+    logout: PropTypes.func.isRequired,
   };
 
   state = {
-    email: '',
-    address: '',
-    password: '',
+    address: false,
+    email: false,
+    password: false,
   };
 
-  handleWithdrawClick = () => {};
+  handleLogoutClick = () => {
+    this.props.logout();
+  };
 
-  handleInputChange = ({ target }) => {
-    this.setState({ [target.name]: target.value });
+  handleToggleAddress = () => {
+    this.setState(({ address }) => ({ address: !address }));
+  };
+
+  handleToggleEmail = () => {
+    this.setState(({ email }) => ({ email: !email }));
+  };
+
+  handleTogglePassword = () => {
+    this.setState(({ password }) => ({ password: !password }));
   };
 
   render() {
     const { user } = this.props;
+    const { address, password, email } = this.state;
 
-    const { email, address, password } = this.state;
     return (
       <Content title="Settings">
         <Navbar title="Settings" />
         <Sidebar />
         <div className={styles.container}>
-          <div className={styles.form}>
-            <Hero
-              className={styles.hero}
-              value={user.gems.balance}
-              title="Gems available"
+          <Gems user={user} />
+          <Form>
+            <div className={styles.title}>Account Details</div>
+            <Field
+              title="Account address"
+              placeholder="No ethereum address found"
+              value={user.address}
+              onToggle={this.handleToggleAddress}
+            />
+            <Field
+              title="Email address"
+              placeholder="No email found"
+              value={user.email}
+              onToggle={this.handleToggleEmail}
+            />
+            <Field
+              title="Change password"
+              onToggle={this.handleTogglePassword}
             />
             <div className={styles.actions}>
-              <Deposit user={user}>
-                {({ onToggleDepsoit }) => (
-                  <Button className={styles.deposit} onClick={onToggleDepsoit}>
-                    Deposit
-                  </Button>
-                )}
-              </Deposit>
-              <Button
-                theme="secondary"
-                className={styles.withdraw}
-                onClick={this.handleWithdrawClick}
+              <button
+                className={styles.logout}
+                onClick={this.handleLogoutClick}
               >
-                Withdraw
-              </Button>
+                Logout
+              </button>
             </div>
-          </div>
-          <div className={styles.form}>
-            <div className={styles.title}>Account Details</div>
-            <div className={styles.field}>
-              <Input
-                value={address}
-                className={styles.input}
-                placeholder="Account address"
-                name="address"
-                onChange={this.handleInputChange}
-              />
-              <button className={styles.updateBtn}>Update</button>
-            </div>
-            <div className={styles.field}>
-              <Input
-                value={email}
-                className={styles.input}
-                placeholder="Email address"
-                name="email"
-                onChange={this.handleInputChange}
-              />
-              <button className={styles.updateBtn}>Update</button>
-            </div>
-            <div className={styles.field}>
-              <Input
-                value={password}
-                className={styles.input}
-                placeholder="New password"
-                name="password"
-                onChange={this.handleInputChange}
-              />
-              <button className={styles.updateBtn}>Update</button>
-            </div>
-          </div>
+          </Form>
         </div>
+        {address && (
+          <AddressDialog user={user} onHide={this.handleToggleAddress} />
+        )}
+        {email}
+        {password}
       </Content>
     );
   }
 }
 
-export default authenticated(connect(mapStateToProps)(Settings));
+export default authenticated(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(Settings)
+);

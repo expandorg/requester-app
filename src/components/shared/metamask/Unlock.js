@@ -7,6 +7,7 @@ import styles from './Unlock.module.styl';
 
 const Unlock = ({ onHide }) => (
   <div className={styles.container}>
+    <div className={styles.headline}>Please Unlock MetaMask</div>
     <div className={styles.description}>Unlock MetaMask. Here is how:</div>
     <img
       className={styles.screenshot}

@@ -1,6 +1,12 @@
 // @flow
 import { createActionTypes } from '@gemsorg/app-utils';
 
+export const userActionTypes = createActionTypes('user', {
+  ASSIGN_ADDRESS: null,
+  ASSIGN_ADDRESS_COMPLETE: null,
+  ASSIGN_ADDRESS_FAILED: null,
+});
+
 export const tasksActionTypes = createActionTypes('tasks', {
   FETCH_STATS: null,
   FETCH_STATS_COMPLETE: null,
