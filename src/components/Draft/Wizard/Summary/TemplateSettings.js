@@ -36,7 +36,6 @@ export default class TemplateSettings extends Component {
 
   render() {
     const { draft } = this.props;
-    console.log(draft);
     return (
       <div className={styles.container}>
         <Field title="Staking" value={draft.staking} type="bool" />

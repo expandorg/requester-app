@@ -2,56 +2,55 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 
-import Preview from '../../../shared/Templates/Preview';
-import { draftProps, taskTemplateProps } from '../../../shared/propTypes';
-import { hasTemplate } from '../../wizard';
+import { Form, Module, FormDataProvider, formProps } from '@gemsorg/modules';
 
-import { fetchTaskTemplate } from '../../../../sagas/tasksSagas';
-import { makeTaskTemplateSelector } from '../../../../selectors/taskTemplatesSelectors';
+import { makeDataVarsSampleSelector } from '../../../../selectors/dataSelectors';
 
 import styles from './Task.module.styl';
 
 const makeMapStateToProps = () => {
-  const taskTemplateSelector = makeTaskTemplateSelector();
+  const dataVarsSampleSelector = makeDataVarsSampleSelector();
   return (state, props) => ({
-    template: taskTemplateSelector(state, props.draft.templateId),
+    variables: dataVarsSampleSelector(state, props.draft.dataId),
   });
 };
 
-const mapDispatchToProps = dispatch =>
-  bindActionCreators({ fetchTaskTemplate }, dispatch);
-
-class TaskTemplate extends Component {
+class Task extends Component {
   static propTypes = {
-    draft: draftProps.isRequired,
-    template: taskTemplateProps,
-    fetchTaskTemplate: PropTypes.func.isRequired,
+    form: formProps.isRequired,
+    variables: PropTypes.shape({}),
   };
 
   static defaultProps = {
-    template: null,
+    variables: null,
   };
 
-  componentDidMount() {
-    const { draft } = this.props;
-    if (hasTemplate(draft)) {
-      this.props.fetchTaskTemplate(draft.templateId);
-    }
-  }
+  state = {
+    formData: { allowedRetries: 3, currentTry: 1 },
+  };
 
   render() {
-    const { template } = this.props;
+    const { form, variables } = this.props;
+    const { formData } = this.state;
+
+    if (!form || !form.modules || !form.modules.length) {
+      return <div className={styles.empty}>Lorem ipsum dolor sit amet</div>;
+    }
+
     return (
-      <div className={styles.container}>
-        {template && <Preview template={template} className={styles.preview} />}
-      </div>
+      <FormDataProvider formData={formData}>
+        <Form
+          variables={variables}
+          className={styles.form}
+          form={form}
+          onSubmit={() => {}}
+        >
+          {props => <Module {...props} />}
+        </Form>
+      </FormDataProvider>
     );
   }
 }
 
-export default connect(
-  makeMapStateToProps,
-  mapDispatchToProps
-)(TaskTemplate);
+export default connect(makeMapStateToProps)(Task);

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import Button from '../../../common/Button';
 import HeroWarning from '../../../shared/HeroWarning';
 
-import { Actions, Section, Form, Description } from '../Form';
+import { Actions, Section, Description } from '../Form';
 import { draftProps } from '../../../shared/propTypes';
 import { getNavState, isDraftReady } from '../../wizard';
 
@@ -12,13 +12,19 @@ import { ReactComponent as Warning } from '../../../assets/warning.svg';
 
 import Settings from './Settings';
 import Data from './Data/Data';
-import Task from './Task';
-import TemplateSettings from './TemplateSettings';
+// import TaskTemplate from './TaskTemplate';
 // import Whitelist from './Whitelist';
+import TemplateSettings from './TemplateSettings';
+import Task from './Task';
 import Payout from './Payout';
 import PublishButton from './Publish/PublishButton';
 
 import styles from './SummaryForm.module.styl';
+
+const getTaskStatus = ({ taskForm }) =>
+  taskForm && taskForm.form.modules && taskForm.form.modules.length > 0
+    ? 'complete'
+    : 'required';
 
 export default class SummaryForm extends Component {
   static propTypes = {
@@ -39,7 +45,7 @@ export default class SummaryForm extends Component {
     const draftReady = isDraftReady(draft);
 
     return (
-      <Form className={styles.form}>
+      <div className={styles.form}>
         <Description className={styles.description}>
           Description about this step goes here.
         </Description>
@@ -49,8 +55,11 @@ export default class SummaryForm extends Component {
         <Section title="Data" status={nav.upload.status}>
           <Data draft={draft} />
         </Section>
-        <Section title="Task" status={nav.templates.status} blue>
-          <Task draft={draft} />
+        {/* <Section title="Task" status={nav.templates.status} blue>
+          <TaskTemplate draft={draft} />
+        </Section> */}
+        <Section title="Task" status={getTaskStatus(draft)} blue>
+          <Task form={draft.taskForm.form} draft={draft} />
         </Section>
         <Section title="Template Settings" status="complete">
           <TemplateSettings draft={draft} />
@@ -82,7 +91,7 @@ export default class SummaryForm extends Component {
             onPublish={this.handlePublishClick}
           />
         </Actions>
-      </Form>
+      </div>
     );
   }
 }
