@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import { Panel } from '@gemsorg/components';
-import { Form, Module, FormDataProvider, formProps } from '@gemsorg/modules';
+import { formProps } from '@gemsorg/modules';
+
+import FormPreview from '../../shared/FormPreview';
 
 import styles from './ModulesForm.module.styl';
 
@@ -17,26 +19,17 @@ export default class ModulesForm extends Component {
     variables: null,
   };
 
-  state = {
-    formData: { allowedRetries: 3, currentTry: 1 },
-  };
-
   render() {
     const { form, onSubmit, variables } = this.props;
-    const { formData } = this.state;
 
     return (
       <Panel className={styles.container}>
-        <FormDataProvider formData={formData}>
-          <Form
-            variables={variables}
-            className={styles.form}
-            form={form}
-            onSubmit={onSubmit}
-          >
-            {props => <Module {...props} />}
-          </Form>
-        </FormDataProvider>
+        <FormPreview
+          className={styles.form}
+          variables={variables}
+          form={form}
+          onSubmit={onSubmit}
+        />
       </Panel>
     );
   }

@@ -4,6 +4,8 @@ import cn from 'classnames';
 
 import { taskTemplateProps } from '../propTypes';
 
+import FormPreview from '../FormPreview';
+
 import styles from './Preview.module.styl';
 
 export default class Preview extends Component {
@@ -26,10 +28,7 @@ export default class Preview extends Component {
     return (
       <div className={cn(styles.container, className)}>
         <div className={styles.title}>{template.name}</div>
-        <div className={styles.logo}>
-          <img className={styles.img} src={template.logo} alt={template.name} />
-        </div>
-        <div className={styles.description}>{template.description}</div>
+        <FormPreview form={template.taskForm.form} className={styles.form} />
       </div>
     );
   }

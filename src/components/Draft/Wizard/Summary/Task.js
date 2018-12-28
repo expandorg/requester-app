@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
 
-import { Form, Module, FormDataProvider, formProps } from '@gemsorg/modules';
+import { formProps } from '@gemsorg/modules';
+
+import FormPreview from '../../../shared/FormPreview';
 
 import { makeDataVarsSampleSelector } from '../../../../selectors/dataSelectors';
-
-import styles from './Task.module.styl';
 
 const makeMapStateToProps = () => {
   const dataVarsSampleSelector = makeDataVarsSampleSelector();
@@ -26,30 +26,10 @@ class Task extends Component {
     variables: null,
   };
 
-  state = {
-    formData: { allowedRetries: 3, currentTry: 1 },
-  };
-
   render() {
     const { form, variables } = this.props;
-    const { formData } = this.state;
 
-    if (!form || !form.modules || !form.modules.length) {
-      return <div className={styles.empty}>Lorem ipsum dolor sit amet</div>;
-    }
-
-    return (
-      <FormDataProvider formData={formData}>
-        <Form
-          variables={variables}
-          className={styles.form}
-          form={form}
-          onSubmit={() => {}}
-        >
-          {props => <Module {...props} />}
-        </Form>
-      </FormDataProvider>
-    );
+    return <FormPreview variables={variables} form={form} />;
   }
 }
 
