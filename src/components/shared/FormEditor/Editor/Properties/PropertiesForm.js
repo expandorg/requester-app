@@ -91,6 +91,7 @@ export default class PropertiesForm extends Component {
             <Input
               className={styles.name}
               value={module.name}
+              readOnly
               placeholder="Component name"
               required
               onChange={this.handleChangeName}
