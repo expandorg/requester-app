@@ -18,7 +18,7 @@ export default class MetamaskPromt extends Component {
     action: PropTypes.string,
     headline: PropTypes.string,
     description: PropTypes.string,
-    error: PropTypes.string,
+    error: PropTypes.object, // eslint-disable-line react/forbid-prop-types
     onLogin: PropTypes.func.isRequired,
     onHide: PropTypes.func.isRequired,
   };

@@ -27,8 +27,8 @@ export default class Form extends Component {
       <div className={styles.container}>
         <div className={styles.headline}>{headline}</div>
         <div className={styles.description}>{description}- </div>
-        <ErrorMessage errors={error} className={styles.error} />
         <div className={styles.screenshot} />
+        <ErrorMessage errors={error} className={styles.error} />
         <Actions className={styles.actions}>
           <Button className={styles.action} onClick={onAction}>
             {action}
