@@ -24,7 +24,7 @@ import PreviewForm from './components/Preview/PreviewForm';
 import PreviewDraft from './components/Preview/PreviewDraft';
 
 import Api from './components/Api/Api';
-import Profile from './components/Profile/Profile';
+// import Profile from './components/Profile/Profile';
 import Settings from './components/Settings/Settings';
 
 import NotFound from './components/shared/NotFound';
@@ -56,7 +56,7 @@ const App = () => (
             <Route path="/preview/form" component={PreviewForm} />
             <Route path="/preview/draft/:id" component={PreviewDraft} />
 
-            <Route path="/profile" component={Profile} />
+            {/* <Route path="/profile" component={Profile} /> */}
             <Route path="/api" component={Api} />
             <Route path="/settings" component={Settings} />
 

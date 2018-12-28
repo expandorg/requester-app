@@ -5,7 +5,7 @@ import { withRouter, NavLink } from 'react-router-dom';
 
 import { ReactComponent as ApiIcon } from '../assets/api.svg';
 import { ReactComponent as DashboardIcon } from '../assets/dashboard.svg';
-import { ReactComponent as ProfileIcon } from '../assets/profile.svg';
+// import { ReactComponent as ProfileIcon } from '../assets/profile.svg';
 import { ReactComponent as SettingsIcon } from '../assets/settings.svg';
 
 import { isActive } from '../../model/dashboard';
@@ -42,11 +42,11 @@ class Sidebar extends Component {
 
   static defaultProps = {
     navigation: [
-      {
-        link: '/profile',
-        title: 'Profile',
-        icon: ProfileIcon,
-      },
+      // {
+      //   link: '/profile',
+      //   title: 'Profile',
+      //   icon: ProfileIcon,
+      // },
       {
         link: '/api',
         title: 'API',

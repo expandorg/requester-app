@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import { moduleControls, formProps } from '@gemsorg/modules';
+import { formProps } from '@gemsorg/modules';
 
 import { WalkthroughProvider, WalkthroughPin } from '../Walkthrough';
 
@@ -9,7 +9,7 @@ import Editor from './Editor/Editor';
 import AvailableModules from './Available/AvailableModules';
 
 import { treeEditor } from './dnd';
-import { scaffold } from './model/modules';
+import { scaffold, availableModules } from './model/modules';
 
 import help from './help';
 
@@ -123,7 +123,7 @@ export default class FormEditor extends Component {
         <div className={styles.container}>
           <div className={styles.left}>
             <AvailableModules
-              moduleControls={moduleControls}
+              moduleControls={availableModules}
               onEndDrag={this.handleEndDrag}
               onAddModule={this.handleAdd}
               onRemoveModule={this.handleRemove}
@@ -133,7 +133,7 @@ export default class FormEditor extends Component {
             <Editor
               modules={modules}
               selected={selected}
-              moduleControls={moduleControls}
+              moduleControls={availableModules}
               validateForm={validateForm}
               variables={variables}
               varsSample={varsSample}
