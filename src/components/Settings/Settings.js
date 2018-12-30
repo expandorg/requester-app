@@ -14,6 +14,8 @@ import Sidebar from '../shared/Sidebar';
 import { authenticated } from '../shared/auth';
 
 import AddressDialog from '../shared/Address/AddressDialog';
+import EmailDialog from '../shared/Email/EmailDialog';
+import PasswordDialog from '../shared/Password/PasswordDialog';
 
 import Field from './Field';
 import Form from './Form';
@@ -96,8 +98,10 @@ class Settings extends Component {
         {address && (
           <AddressDialog user={user} onHide={this.handleToggleAddress} />
         )}
-        {email}
-        {password}
+        {email && <EmailDialog user={user} onHide={this.handleToggleEmail} />}
+        {password && (
+          <PasswordDialog user={user} onHide={this.handleTogglePassword} />
+        )}
       </Content>
     );
   }

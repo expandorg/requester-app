@@ -9,8 +9,6 @@ import { userProps } from '@gemsorg/app-auth';
 import { MetamaskState } from '@gemsorg/app-web3';
 import { metamaskStateSelector } from '@gemsorg/app-web3/selectors';
 
-import { assignAddress } from '../../../sagas/userSagas';
-
 import Button from '../../common/Button';
 import Input from '../../common/Input';
 import ErrorMessage from '../../common/ErrorMessage';
@@ -18,9 +16,11 @@ import { submitStateEffect } from '../../common/submitStateEffect';
 
 import MetamaskPromt from '../metamask/MetamaskPromt';
 
+import { assignAddress } from '../../../sagas/userSagas';
 import { assignAddressStateSelector } from '../../../selectors/uiStateSelectors';
 
-import styles from './AddressForm.module.styl';
+import styles from '../serviceForms.module.styl';
+import mstyles from './metamask.module.styl';
 
 const AssignAddressEffect = submitStateEffect(assignAddressStateSelector);
 
@@ -91,43 +91,45 @@ class AddressForm extends Component {
 
     return (
       <div className={styles.container}>
-        <div className={styles.title}>Edit Address.</div>
-        <div className={styles.metamask}>
-          <button className={styles.assign} onClick={this.handleAssign}>
-            <ins className={styles.fox} /> Use Metamask Address
-          </button>
-          {dialog && (
-            <MetamaskPromt
-              metamaskState={metamaskState}
-              action="Assign address"
-              headline=""
-              description=""
-              onLogin={this.props.assignAddress}
-              onHide={this.handleHide}
+        <div className={styles.inner}>
+          <div className={styles.title}>Change Account Address</div>
+          <div className={mstyles.metamask}>
+            <button className={mstyles.assign} onClick={this.handleAssign}>
+              <ins className={mstyles.fox} /> Use Metamask Address
+            </button>
+            {dialog && (
+              <MetamaskPromt
+                metamaskState={metamaskState}
+                action="Assign address"
+                headline=""
+                description=""
+                onLogin={this.props.assignAddress}
+                onHide={this.handleHide}
+              />
+            )}
+          </div>
+          <div className={styles.description}>Enter address manually</div>
+          <div className={styles.field}>
+            <Input
+              placeholder="Account Address"
+              value={address}
+              onChange={this.handleInputChange}
             />
-          )}
-        </div>
-        <div className={styles.description}>Enter address manually</div>
-        <div className={styles.field}>
-          <Input
-            placeholder="Etherium address"
-            value={address}
-            onChange={this.handleInputChange}
+            <ErrorMessage errors={errors} className={styles.error} />
+          </div>
+          <div className={styles.actions}>
+            <Button className={styles.button} onClick={this.handleSave}>
+              Save
+            </Button>
+            <Button className={styles.button} theme="grey" onClick={onHide}>
+              go back
+            </Button>
+          </div>
+          <AssignAddressEffect
+            onComplete={this.handleAssignComplete}
+            onFailed={this.handleAssignFailed}
           />
-          <ErrorMessage errors={errors} className={styles.error} />
         </div>
-        <div className={styles.actions}>
-          <Button className={styles.button} onClick={this.handleSave}>
-            Save
-          </Button>
-          <Button className={styles.button} theme="grey" onClick={onHide}>
-            go back
-          </Button>
-        </div>
-        <AssignAddressEffect
-          onComplete={this.handleAssignComplete}
-          onFailed={this.handleAssignFailed}
-        />
       </div>
     );
   }

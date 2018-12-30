@@ -1,5 +1,7 @@
 import { takeEvery, call, put, getContext } from 'redux-saga/effects';
 
+import { handleAsyncCall } from '@gemsorg/app-utils';
+
 import { userActionTypes } from './actionTypes';
 
 import { userApi } from '../api/UserApi';
@@ -31,6 +33,23 @@ function* handleAssignAddress({ payload: { user, address } }) {
   }
 }
 
+export const editEmail = (user, email) => ({
+  type: userActionTypes.EDIT_EMAIL,
+  payload: { userId: user.id, email },
+  asyncCall: userApi.editEmail,
+});
+
+export const changePassword = (user, newPassword, oldPassword) => ({
+  type: userActionTypes.CHANGE_PASSWORD,
+  payload: { userId: user.id, newPassword, oldPassword },
+  asyncCall: userApi.changePassword,
+});
+
 export function* userSagas() {
   yield takeEvery(userActionTypes.ASSIGN_ADDRESS, handleAssignAddress);
+
+  yield takeEvery(
+    [userActionTypes.EDIT_EMAIL, userActionTypes.CHANGE_PASSWORD],
+    handleAsyncCall
+  );
 }

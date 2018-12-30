@@ -8,6 +8,16 @@ export const assignAddressStateSelector = createSelector(
   state => state.assignAddress
 );
 
+export const editEmailStateSelector = createSelector(
+  uiStateSelector,
+  state => state.editEmail
+);
+
+export const changePasswordStateSelector = createSelector(
+  uiStateSelector,
+  state => state.changePassword
+);
+
 export const notificationSelector = createSelector(
   uiStateSelector,
   state => state.notification

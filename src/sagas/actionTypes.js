@@ -5,6 +5,14 @@ export const userActionTypes = createActionTypes('user', {
   ASSIGN_ADDRESS: null,
   ASSIGN_ADDRESS_COMPLETE: null,
   ASSIGN_ADDRESS_FAILED: null,
+
+  EDIT_EMAIL: null,
+  EDIT_EMAIL_COMPLETE: null,
+  EDIT_EMAIL_FAILED: null,
+
+  CHANGE_PASSWORD: null,
+  CHANGE_PASSWORD_COMPLETE: null,
+  CHANGE_PASSWORD_FAILED: null,
 });
 
 export const tasksActionTypes = createActionTypes('tasks', {
