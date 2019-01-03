@@ -26,6 +26,8 @@ const middleware = (middlewares => {
 
 const store = createStore(rootReducer, window.initialState || {}, middleware);
 
+services.resolve('eventSources').configure(store.dispatch);
+
 sagaMiddleware.run(sagas);
 
 export default store;

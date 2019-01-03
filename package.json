@@ -32,7 +32,7 @@
     "@babel/polyfill": "^7.2.5",
     "@gemsorg/api-client": "^0.0.13",
     "@gemsorg/app-auth": "^0.0.9",
-    "@gemsorg/app-gemtokens": "^0.0.5",
+    "@gemsorg/app-gemtokens": "^0.0.6",
     "@gemsorg/app-utils": "^0.0.20",
     "@gemsorg/app-web3": "^0.0.10",
     "@gemsorg/components": "^0.1.14",

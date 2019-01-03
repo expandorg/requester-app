@@ -10,7 +10,8 @@ import {
 } from 'redux-saga/effects';
 
 import { delay } from '@gemsorg/utils';
-import { appActionTypes } from '@gemsorg/app-utils/app';
+import { appActionTypes, userActionTypes } from '@gemsorg/app-utils/app';
+import { gemsActionTypes } from '@gemsorg/app-gemtokens';
 
 import { draftsActionTypes } from './actionTypes';
 
@@ -45,8 +46,31 @@ const successMessage = message => {
   return handler;
 };
 
+function* handleUserUpdated({ payload }) {
+  if (payload.params && payload.params.source) {
+    const {
+      params: { source },
+      data: { user },
+    } = payload;
+
+    yield put(
+      addNotification(
+        'success',
+        `Your ${source} has succeeded. Your new balance is ${user.gems.balance}`
+      )
+    );
+  }
+}
+
+function handleTxFailed({ payload }) {
+  console.log(payload);
+}
+
 export function* notificationsSagas(): any {
   yield takeLatest(appActionTypes.NOTIFICATION_ADD, handldNotificationAdded);
+
+  yield takeEvery(userActionTypes.UPDATED, handleUserUpdated);
+  yield takeEvery(gemsActionTypes.TRANSACTION_FAILED, handleTxFailed);
 
   yield takeEvery(
     draftsActionTypes.COPY_COMPLETE,

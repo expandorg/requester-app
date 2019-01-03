@@ -1,6 +1,9 @@
-import { takeEvery, call, put, getContext } from 'redux-saga/effects';
+import { takeEvery, call, put, select, getContext } from 'redux-saga/effects';
 
 import { handleAsyncCall } from '@gemsorg/app-utils';
+import { authActionTypes } from '@gemsorg/app-auth';
+import { userSelector } from '@gemsorg/app-auth/selectors';
+import { gemsActionTypes } from '@gemsorg/app-gemtokens';
 
 import { userActionTypes } from './actionTypes';
 
@@ -45,8 +48,35 @@ export const changePassword = (user, newPassword, oldPassword) => ({
   asyncCall: userApi.changePassword,
 });
 
+function* handleUserChangedSaga() {
+  const user = yield select(userSelector);
+  if (user.pendingTx) {
+    const services = yield getContext('services');
+    const eventSources = services.resolve('eventSources');
+    eventSources.subscribe('tx', {
+      tx: user.pendingTx.hash,
+      source: user.pendingTx.type,
+    });
+  }
+}
+
+const actionsThatChangesUser = [
+  authActionTypes.GET_CURRENT_COMPLETE,
+  authActionTypes.LOGIN_COMPLETE,
+  authActionTypes.SIGNUP_COMPLETE,
+  authActionTypes.LOGIN_METAMASK_COMPLETE,
+  authActionTypes.SIGNUP_METAMASK_COMPLETE,
+
+  userActionTypes.ASSIGN_ADDRESS_COMPLETE,
+  userActionTypes.EDIT_EMAIL_COMPLETE,
+  gemsActionTypes.WITHDRAW_COMPLETE,
+  gemsActionTypes.DEPOSIT_COMPLETE,
+];
+
 export function* userSagas() {
   yield takeEvery(userActionTypes.ASSIGN_ADDRESS, handleAssignAddress);
+
+  yield takeEvery(actionsThatChangesUser, handleUserChangedSaga);
 
   yield takeEvery(
     [userActionTypes.EDIT_EMAIL, userActionTypes.CHANGE_PASSWORD],
