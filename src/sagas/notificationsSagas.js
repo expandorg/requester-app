@@ -62,8 +62,11 @@ function* handleUserUpdated({ payload }) {
   }
 }
 
-function handleTxFailed({ payload }) {
-  console.log(payload);
+function* handleTxFailed({ payload }) {
+  if (payload.params && payload.params.source) {
+    const op = payload.params.source === 'withdraw' ? 'withdrawal' : 'deposit';
+    yield put(addNotification('error', `Your ${op} has failed`));
+  }
 }
 
 export function* notificationsSagas(): any {
