@@ -1,59 +1,143 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+import { Prompt } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+
+import { RequestStates, requestStateProps } from '@gemsorg/app-utils';
+import { userBalance, DEPOSIT_MIN, DEPOSIT_MAX } from '@gemsorg/app-gemtokens';
+import { depositGems } from '@gemsorg/app-gemtokens/sagas';
+import {
+  // depositStageSelector,
+  depositStateSelector,
+  gemBalanceSelector,
+} from '@gemsorg/app-gemtokens/selectors';
+
+import { submitStateEffect } from '../../common/submitStateEffect';
+
 import Button from '../../common/Button';
 import Input from '../../common/Input';
+import ErrorMessage from '../../common/ErrorMessage';
 
 import { ReactComponent as Card } from '../../assets/creditcard.svg';
 
-import styles from './DepositForm.module.styl';
+import Description from './Description';
 
-export default class DepositForm extends Component {
+import styles from '../serviceForms.module.styl';
+import fstyles from './form.module.styl';
+
+const DepositEffect = submitStateEffect(depositStateSelector);
+
+const message = () =>
+  'Please do not navigate away while your deposit is being processed (click cancel).';
+
+const mapStateToProps = state => ({
+  // stage: depositStageSelector(state),
+  submitState: depositStateSelector(state),
+  balance: gemBalanceSelector(state),
+});
+
+const mapDispatchToProps = dispatch =>
+  bindActionCreators({ depositGems }, dispatch);
+
+class DepositForm extends Component {
   static propTypes = {
+    balance: PropTypes.number,
+    // stage: PropTypes.number.isRequired,
+    submitState: requestStateProps.isRequired,
     onHide: PropTypes.func.isRequired,
+    depositGems: PropTypes.func.isRequired,
+  };
+
+  static defaultProps = {
+    balance: 0,
   };
 
   state = {
     amount: '',
+    errors: null,
   };
 
   handleInputChange = ({ target }) => {
     this.setState({ amount: target.value });
   };
 
-  handleDeposit = evt => {
+  handleSubmit = evt => {
     evt.preventDefault();
+
+    const { submitState, balance } = this.props;
+    const { amount } = this.state;
+
+    if (submitState.state !== RequestStates.Fetching) {
+      if (!userBalance.canDeposit(+amount, balance)) {
+        this.setState({
+          errors: {
+            commonMessage: `Amount of Gems to deposit between ${DEPOSIT_MIN} and ${DEPOSIT_MAX}`,
+          },
+        });
+      } else {
+        this.props.depositGems(+amount);
+      }
+    }
+  };
+
+  handleDepositComplete = () => {
+    const { onHide } = this.props;
+    onHide();
+  };
+
+  handleDepositFailed = ({ error }) => {
+    this.setState({ errors: error });
   };
 
   render() {
-    const { onHide } = this.props;
-    const { amount } = this.state;
+    const { onHide, balance, submitState } = this.props;
+    const { amount, errors } = this.state;
+
+    const isSubmitting = submitState.state === RequestStates.Fetching;
+
+    const disabled = isSubmitting || Number.isNaN(+amount);
+    console.log(disabled);
 
     return (
       <div className={styles.container}>
-        <div className={styles.icon}>
-          <Card width={72} height={64} viewBox="0 0 72 56" />
-        </div>
-        <div className={styles.title}>Deposit more gems.</div>
-        <div className={styles.description}>
-          You have 500 available in your account.
-        </div>
-        <div className={styles.field}>
-          <Input
-            placeholder="Amount of gems to deposit"
-            value={amount}
-            onChange={this.handleInputChange}
-          />
-        </div>
-        <div className={styles.actions}>
-          <Button className={styles.button} onClick={this.handleDeposit}>
-            Deposit
-          </Button>
-          <Button className={styles.button} theme="grey" onClick={onHide}>
-            go back
-          </Button>
-        </div>
+        <form className={styles.inner} onSubmit={this.handleSubmit}>
+          <div className={fstyles.icon}>
+            <Card width={72} height={64} viewBox="0 0 72 56" />
+          </div>
+          <div className={styles.title}>Deposit more gems.</div>
+          <div className={styles.description}>
+            <Description balance={balance} />
+          </div>
+          <div className={styles.field}>
+            <Input
+              placeholder="Amount of gems to deposit"
+              value={amount}
+              onChange={this.handleInputChange}
+            />
+            <ErrorMessage errors={errors} className={fstyles.error} />
+          </div>
+          <div className={styles.actions}>
+            <Button className={styles.button} type="submit" disabled={disabled}>
+              Deposit
+            </Button>
+            <Button className={styles.button} theme="grey" onClick={onHide}>
+              go back
+            </Button>
+          </div>
+        </form>
+        <DepositEffect
+          onComplete={this.handleDepositComplete}
+          onFailed={this.handleDepositFailed}
+        />
+        <Prompt when={isSubmitting} message={message} />
       </div>
     );
   }
 }
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(DepositForm);
