@@ -25,7 +25,11 @@ const Description = ({ balance }) => (
 );
 
 Description.propTypes = {
-  balance: PropTypes.number.isRequired,
+  balance: PropTypes.number,
+};
+
+Description.defaultProps = {
+  balance: 0,
 };
 
 export default Description;

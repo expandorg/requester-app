@@ -53,7 +53,6 @@ class Deposit extends Component {
 
   handleToggle = () => {
     const { user, txState } = this.props;
-
     if (txState !== RequestStates.Fetching) {
       const { dialog } = this.state;
       if (!dialog && !user.address) {

@@ -84,6 +84,7 @@ class DepositForm extends Component {
 
   handleDepositComplete = () => {
     const { onHide } = this.props;
+    console.log(1);
     onHide();
   };
 
@@ -98,7 +99,6 @@ class DepositForm extends Component {
     const isSubmitting = submitState.state === RequestStates.Fetching;
 
     const disabled = isSubmitting || Number.isNaN(+amount);
-    console.log(disabled);
 
     return (
       <div className={styles.container}>
