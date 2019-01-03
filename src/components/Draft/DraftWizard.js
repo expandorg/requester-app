@@ -67,7 +67,7 @@ export default class DraftWizard extends Component {
         sidebar={false}
         navbar={false}
       >
-        <Navbar title="Create a task" top={false}>
+        <Navbar title="Create a task" top={false} logout={false}>
           <Navigation onChange={this.handleChangeActive} active={active}>
             <NavItem {...nav.settings}>Settings</NavItem>
             <NavItem {...nav.upload}>Upload</NavItem>

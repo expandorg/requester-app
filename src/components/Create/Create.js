@@ -63,7 +63,7 @@ class Create extends Component {
         sidebar={false}
         navbar={false}
       >
-        <Navbar title="Create a task" top={false}>
+        <Navbar title="Create a task" top={false} logout={false}>
           <Navigation active={0}>
             <NavItem>Settings</NavItem>
             <NavItem disabled>Upload</NavItem>

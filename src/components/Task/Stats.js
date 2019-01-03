@@ -36,7 +36,11 @@ export default class Stats extends Component {
         navbar={false}
         className={styles.content}
       >
-        <Navbar title={<Title stats={taskStats} />} top={false} />
+        <Navbar
+          title={<Title stats={taskStats} />}
+          top={false}
+          logout={false}
+        />
         <LoadIndicator isLoading={isLoading}>
           {taskStats && (
             <div className={styles.container}>
