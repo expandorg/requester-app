@@ -4,7 +4,7 @@ import cn from 'classnames';
 
 import DocumentTitle from 'react-document-title';
 
-import Notifications from './Notifications/Notifications';
+import { Notifications } from './Notifications';
 
 import './Content.styl';
 

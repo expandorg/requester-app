@@ -1,9 +1,16 @@
 import React, { Component } from 'react';
 import { createPortal } from 'react-dom';
-
-import styles from './Portal.module.styl';
+import PropTypes from 'prop-types';
 
 export default class Portal extends Component {
+  static propTypes = {
+    className: PropTypes.string,
+  };
+
+  static defaultProps = {
+    className: null,
+  };
+
   portal = document.getElementById('portal');
   el = document.createElement('div');
 
@@ -16,11 +23,8 @@ export default class Portal extends Component {
   }
 
   render() {
-    const { children } = this.props;
+    const { children, className } = this.props;
 
-    return createPortal(
-      <div className={styles.portal}>{children}</div>,
-      this.el
-    );
+    return createPortal(<div className={className}>{children}</div>, this.el);
   }
 }

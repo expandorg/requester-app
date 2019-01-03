@@ -4,12 +4,14 @@ import PropTypes from 'prop-types';
 import { windowResize } from '@gemsorg/components/hoc';
 
 import WalkthroughContext from './WalkthroughContext';
-import Portal from './Portal';
+import Portal from '../Portal';
 
 import { getPositionById } from './positioning';
 
 import Hint from './Hint/Hint';
 import Overlay from './Overlay';
+
+import styles from './WalkthroughProvider.module.styl';
 
 class WalkthroughProvider extends Component {
   static propTypes = {
@@ -98,7 +100,7 @@ class WalkthroughProvider extends Component {
       <WalkthroughContext.Provider value={value}>
         {children}
         {active && (
-          <Portal>
+          <Portal className={styles.portal}>
             <Overlay position={position} screen={screen} />
             <Hint
               settings={settings}

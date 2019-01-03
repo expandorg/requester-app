@@ -5,7 +5,6 @@ import cn from 'classnames';
 import { moduleProps, getModuleControlsMap } from '@gemsorg/modules';
 
 import Button from '../../../common/Button';
-import ErrorMessage from '../../../common/ErrorMessage';
 
 import Form from './Form/Form';
 import Properties from './Properties/Properties';
@@ -13,6 +12,8 @@ import PreviewCtx from './PreviewCtx';
 
 import { ReactComponent as Bulb } from '../../../assets/bulb.svg';
 import { ToggleWalkthrough, WalkthroughPin } from '../../Walkthrough';
+
+import { NotificationAnimated } from '../../Notifications';
 
 import { treeEditor } from '../dnd';
 import { validateModuleProps } from '../model/validation';
@@ -46,20 +47,8 @@ export default class Editor extends Component {
     super(props);
 
     this.state = {
-      original: props.modules, // eslint-disable-line react/no-unused-state
       controls: getModuleControlsMap(props.moduleControls),
-      errors: null,
     };
-  }
-
-  static getDerivedStateFromProps({ modules }, state) {
-    if (modules !== state.original && state.errors) {
-      return {
-        original: modules,
-        errors: null,
-      };
-    }
-    return null;
   }
 
   handleCancel = () => {
@@ -86,10 +75,19 @@ export default class Editor extends Component {
 
     const errors = validateForm(modules, controls);
     if (errors) {
-      this.setState({ errors });
+      this.setState({
+        error: {
+          type: 'error',
+          message: errors.commonMessage,
+        },
+      });
     } else {
       onSave(modules);
     }
+  };
+
+  handleClearError = () => {
+    this.setState({ error: null });
   };
 
   render() {
@@ -104,8 +102,10 @@ export default class Editor extends Component {
       varsSample,
       selected,
     } = this.props;
-    const { controls, errors } = this.state;
+    const { controls, error } = this.state;
+    console.log(error);
     const selectedModule = selected && treeEditor.findByPath(modules, selected);
+
     return (
       <div className={styles.container}>
         <div className={styles.content}>
@@ -142,11 +142,7 @@ export default class Editor extends Component {
             </PreviewCtx>
             <WalkthroughPin id="preview" className={styles.previewPin} />
           </div>
-          {errors ? (
-            <ErrorMessage errors={errors} className={styles.errors} />
-          ) : (
-            <div className={styles.title}>Edit Task Module</div>
-          )}
+          <div className={styles.title}>Edit Task Module</div>
           <div className={styles.buttons}>
             <ToggleWalkthrough>
               {({ onToggle, enabled }) => (
@@ -175,6 +171,11 @@ export default class Editor extends Component {
           onEdit={this.handleEditModule}
           onValidate={this.validateModuleProps}
           onCancel={this.handleCancel}
+        />
+        <NotificationAnimated
+          className={styles.notifications}
+          notification={error}
+          onClear={this.handleClearError}
         />
       </div>
     );
