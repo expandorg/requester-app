@@ -69,6 +69,7 @@ const actionsThatChangesUser = [
 
   userActionTypes.ASSIGN_ADDRESS_COMPLETE,
   userActionTypes.EDIT_EMAIL_COMPLETE,
+
   gemsActionTypes.WITHDRAW_COMPLETE,
   gemsActionTypes.DEPOSIT_COMPLETE,
 ];
