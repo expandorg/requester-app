@@ -21,7 +21,7 @@ export const findVars = (text: string): Array<Object> => {
 export const findVarsRanges = (block: ContentBlock): Array<Object> =>
   findVars(block.getText());
 
-const getVariableData = ({ name }) => ({
+export const getVariableData = ({ name }: Object) => ({
   mention: {
     name,
     suggestion: name.slice(2, name.length - 1),

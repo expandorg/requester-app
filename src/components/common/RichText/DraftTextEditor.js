@@ -8,7 +8,12 @@ import { RichUtils } from 'draft-js';
 import Editor from 'draft-js-plugins-editor';
 import createMentionPlugin from 'draft-js-mention-plugin';
 
-import { FontStyleTool, AlignmentTool, FontPresetTool } from './toolbar';
+import {
+  FontStyleTool,
+  AlignmentTool,
+  FontPresetTool,
+  VariablesTool,
+} from './toolbar';
 
 import {
   suggestionsOptions,
@@ -86,7 +91,7 @@ export default class DraftTextEditor extends Component {
   };
 
   render() {
-    const { placeholder } = this.props;
+    const { placeholder, autocomplete: allVars } = this.props;
     const { editorState, autocomplete } = this.state;
 
     const { MentionSuggestions } = this.mentionPlugin;
@@ -104,6 +109,11 @@ export default class DraftTextEditor extends Component {
           />
           <AlignmentTool
             editorState={editorState}
+            onChange={this.handleChange}
+          />
+          <VariablesTool
+            editorState={editorState}
+            variables={allVars}
             onChange={this.handleChange}
           />
         </div>

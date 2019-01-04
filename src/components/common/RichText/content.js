@@ -162,3 +162,32 @@ export const blockStyleFn = (block: ContentBlock) => {
     [`DraftEditor-block-type-${type}`]: type,
   });
 };
+
+export const insertVariable = (editorState: EditorState, value: string) => {
+  let contentState = editorState.getCurrentContent();
+  const selection = editorState.getSelection();
+
+  // $FlowFixMe
+  contentState = contentState.createEntity('$mention', 'IMMUTABLE', {
+    mention: {
+      name: `$(${value})`,
+      suggestion: value,
+    },
+  });
+
+  const entityKey = contentState.getLastCreatedEntityKey();
+
+  const modifierFn = selection.isCollapsed()
+    ? Modifier.insertText
+    : Modifier.replaceText;
+
+  contentState = modifierFn(
+    contentState,
+    selection,
+    `$(${value})`,
+    null,
+    entityKey
+  );
+
+  return EditorState.push(editorState, contentState, 'apply-entity');
+};
