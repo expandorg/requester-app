@@ -5,6 +5,7 @@ import Button from '../common/Button';
 
 import Hero from '../shared/Hero';
 import Deposit from '../shared/Deposit/Deposit';
+import Withdraw from '../shared/Withdraw/Withdraw';
 
 import Form from './Form';
 
@@ -14,8 +15,6 @@ export default class Gems extends Component {
   static propTypes = {
     user: userProps.isRequired,
   };
-
-  handleWithdrawClick = () => {};
 
   handleInputChange = ({ target }) => {
     this.setState({ [target.name]: target.value });
@@ -38,13 +37,17 @@ export default class Gems extends Component {
               </Button>
             )}
           </Deposit>
-          <Button
-            theme="secondary"
-            className={styles.withdraw}
-            onClick={this.handleWithdrawClick}
-          >
-            Withdraw
-          </Button>
+          <Withdraw user={user}>
+            {({ onToggleWithdraw }) => (
+              <Button
+                theme="secondary"
+                className={styles.withdraw}
+                onClick={onToggleWithdraw}
+              >
+                Withdraw
+              </Button>
+            )}
+          </Withdraw>
         </div>
       </Form>
     );

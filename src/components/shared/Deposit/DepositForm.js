@@ -60,7 +60,7 @@ class DepositForm extends Component {
   };
 
   handleInputChange = ({ target }) => {
-    this.setState({ amount: target.value });
+    this.setState({ amount: target.value, errors: null });
   };
 
   handleSubmit = evt => {
@@ -73,7 +73,7 @@ class DepositForm extends Component {
       if (!userBalance.canDeposit(+amount, balance)) {
         this.setState({
           errors: {
-            commonMessage: `Amount of Gems to deposit between ${DEPOSIT_MIN} and ${DEPOSIT_MAX}`,
+            commonMessage: `Amount of Gems to deposit should be between ${DEPOSIT_MIN} and ${DEPOSIT_MAX}`,
           },
         });
       } else {

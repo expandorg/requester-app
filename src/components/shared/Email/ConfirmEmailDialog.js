@@ -2,11 +2,10 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import { Dialog } from '@gemsorg/components';
-import DepositForm from './DepositForm';
 
 import dstyles from '../../common/dialog.module.styl';
 
-export default class DepositDialog extends Component {
+export default class ConfirmEmailDialog extends Component {
   static propTypes = {
     onHide: PropTypes.func.isRequired,
   };
@@ -20,11 +19,9 @@ export default class DepositDialog extends Component {
         onHide={onHide}
         overlayClass={dstyles.overlay}
         modalClass={dstyles.modal}
-        contentLabel="deposit-dialog"
+        contentLabel="confirm-email-dialog"
         hideButton
-      >
-        <DepositForm {...this.props} />
-      </Dialog>
+      />
     );
   }
 }
