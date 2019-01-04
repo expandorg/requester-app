@@ -6,7 +6,7 @@ import { bindActionCreators } from 'redux';
 
 import Button from '../../../common/Button';
 import Templates from '../../../shared/Templates/Templates';
-import { Form, Description, Actions } from '../Form';
+import { Description, Actions } from '../Form';
 
 import { taskTemplateProps } from '../../../shared/propTypes';
 import { fetchTaskTemplates } from '../../../../sagas/tasksSagas';
@@ -47,7 +47,7 @@ class TemplatesList extends Component {
   render() {
     const { templates, selected, onBack, onNext, onSelect } = this.props;
     return (
-      <Form onSubmit={onNext}>
+      <div className={styles.outer}>
         <div className={styles.container}>
           <Description>Description about this step goes here.</Description>
           <Templates
@@ -63,11 +63,11 @@ class TemplatesList extends Component {
           <Button theme="secondary" onClick={onBack}>
             Back
           </Button>
-          <Button type="submit" disabled={selected === null}>
+          <Button disabled={selected === null} onClick={onNext}>
             Next
           </Button>
         </Actions>
-      </Form>
+      </div>
     );
   }
 }

@@ -10,7 +10,7 @@ import Button from '../../../common/Button';
 import Input from '../../../common/Input';
 
 import ConfirmationDialog from '../../../shared/ConfirmationDialog';
-import { Form, Description, Actions, Field, Fieldset, Toggle } from '../Form';
+import { Description, Actions, Field, Fieldset, Toggle } from '../Form';
 
 import { hasTemplate } from '../../wizard';
 import { selectTemplate } from '../../../../sagas/draftsSagas';
@@ -127,7 +127,7 @@ class TemplateSettings extends Component {
     const { selected, onBack } = this.props;
     const { confirmDialog, settings } = this.state;
     return (
-      <Form onSubmit={this.handleSubmit}>
+      <div className={styles.outer}>
         <Fieldset>
           <Description>Description about this step goes here.</Description>
           <Field>
@@ -187,7 +187,7 @@ class TemplateSettings extends Component {
           <Button theme="secondary" onClick={onBack}>
             Back
           </Button>
-          <Button type="submit" disabled={selected === null}>
+          <Button disabled={selected === null} onClick={this.handleSubmit}>
             Next
           </Button>
         </Actions>
@@ -199,7 +199,7 @@ class TemplateSettings extends Component {
             onConfirm={this.handleConfirm}
           />
         )}
-      </Form>
+      </div>
     );
   }
 }
