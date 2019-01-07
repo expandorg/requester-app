@@ -12,7 +12,7 @@ export const getActive = (
   active: ActiveId
 ) => {
   if (active === TASK) {
-    return { display: active, form: taskForm.form };
+    return { display: active, form: taskForm };
   }
   if (active === ONBOARDING_FINISHED || active === REPEAT) {
     return { display: active, form: null };

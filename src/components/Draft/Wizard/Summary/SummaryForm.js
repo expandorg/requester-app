@@ -22,7 +22,7 @@ import PublishButton from './Publish/PublishButton';
 import styles from './SummaryForm.module.styl';
 
 const getTaskStatus = ({ taskForm }) =>
-  taskForm && taskForm.form.modules && taskForm.form.modules.length > 0
+  taskForm && taskForm.modules && taskForm.modules.length > 0
     ? 'complete'
     : 'required';
 
@@ -59,7 +59,7 @@ export default class SummaryForm extends Component {
           <TaskTemplate draft={draft} />
         </Section> */}
         <Section title="Task" status={getTaskStatus(draft)} blue>
-          <Task form={draft.taskForm.form} draft={draft} />
+          <Task form={draft.taskForm} draft={draft} />
         </Section>
         <Section title="Template Settings" status="complete">
           <TemplateSettings draft={draft} />
