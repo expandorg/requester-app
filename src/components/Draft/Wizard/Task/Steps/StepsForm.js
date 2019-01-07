@@ -60,16 +60,11 @@ export default class StepsForm extends Component {
   }
 
   handleUpdate = form => {
-    const {
-      onUpdateTask,
-      onUpdateOnboarding,
-      onboarding,
-      taskForm,
-    } = this.props;
+    const { onUpdateTask, onUpdateOnboarding, onboarding } = this.props;
     const { selected, steps } = this.state;
 
     if (selected === taskSelected) {
-      onUpdateTask({ ...taskForm, form });
+      onUpdateTask(form);
     } else {
       const step = { ...steps[selected], form };
       onUpdateOnboarding({
