@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import { Dialog } from '@gemsorg/components';
-import WithdrawForm from './WithdrawForm';
+import WithdrawForm, { WithdrawEffect } from './WithdrawForm';
+import TxForm from '../TxForm';
 
 import dstyles from '../../common/dialog.module.styl';
 
@@ -11,8 +12,17 @@ export default class WithdrawDialog extends Component {
     onHide: PropTypes.func.isRequired,
   };
 
+  state = {
+    complete: null,
+  };
+
+  handleComplete = response => {
+    this.setState({ complete: response.payload });
+  };
+
   render() {
     const { onHide } = this.props;
+    const { complete } = this.state;
 
     return (
       <Dialog
@@ -23,7 +33,15 @@ export default class WithdrawDialog extends Component {
         contentLabel="withdraw-dialog"
         hideButton
       >
-        <WithdrawForm {...this.props} />
+        {!complete && <WithdrawForm {...this.props} />}
+        {complete && (
+          <TxForm
+            title="Success! Your Gems have been withdrawn."
+            tx={complete.user.pendingTx.hash}
+            onHide={onHide}
+          />
+        )}
+        <WithdrawEffect onComplete={this.handleComplete} />
       </Dialog>
     );
   }

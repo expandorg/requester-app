@@ -26,7 +26,7 @@ import { ReactComponent as Card } from '../../assets/creditcard.svg';
 import styles from '../serviceForms.module.styl';
 import fstyles from './form.module.styl';
 
-const WithdrawEffect = submitStateEffect(withdrawStateSelector);
+export const WithdrawEffect = submitStateEffect(withdrawStateSelector);
 
 const mapStateToProps = state => ({
   submitState: withdrawStateSelector(state),
@@ -73,11 +73,6 @@ class WithdrawForm extends Component {
         this.props.withdrawPayments(user, +amount);
       }
     }
-  };
-
-  handleWithdrawComplete = () => {
-    const { onHide } = this.props;
-    onHide();
   };
 
   handleWithdrawFailed = ({ error }) => {
@@ -136,10 +131,7 @@ class WithdrawForm extends Component {
             </Button>
           </div>
         </form>
-        <WithdrawEffect
-          onComplete={this.handleWithdrawComplete}
-          onFailed={this.handleWithdrawFailed}
-        />
+        <WithdrawEffect onFailed={this.handleWithdrawFailed} />
       </div>
     );
   }
