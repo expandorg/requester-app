@@ -39,8 +39,9 @@ const mapDispatchToProps = dispatch =>
   bindActionCreators({ updateFunding }, dispatch);
 
 const getInitialState = draft => ({
-  requirement: (draft.funding && `${draft.funding.requirement}`) || '',
-  reward: (draft.funding && `${draft.funding.reward}`) || '',
+  requirement:
+    (draft.logic.funding && `${draft.logic.funding.requirement}`) || '',
+  reward: (draft.logic.funding && `${draft.logic.funding.reward}`) || '',
 });
 
 class Payments extends Component {
@@ -83,7 +84,7 @@ class Payments extends Component {
       if (errors) {
         this.setState({ errors });
       } else {
-        this.props.updateFunding(draft.id, funding);
+        this.props.updateFunding(draft.id, { ...draft.logic, funding });
       }
     }
   };

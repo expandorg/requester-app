@@ -12,8 +12,12 @@ export default class Payout extends Component {
 
   render() {
     const { draft } = this.props;
-    const pay = (draft.funding && draft.funding.requirement) || '--';
-    const earned = (draft.funding && draft.funding.reward) || '--';
+    const pay =
+      (draft.logic && draft.logic.funding && draft.logic.funding.requirement) ||
+      '--';
+    const earned =
+      (draft.logic && draft.logic.funding && draft.logic.funding.reward) ||
+      '--';
     return (
       <div className={styles.container}>
         <Hero className={styles.hero} value={pay} title="payout" />
