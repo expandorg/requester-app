@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { moduleProps } from '@gemsorg/modules';
 
 import Button from '../../../../common/Button';
-import Input from '../../../../common/Input';
+// import Input from '../../../../common/Input';
 
 import PropertyEditor from './PropertyEditor/PropertyEditor';
 import ErrorContainer from './PropertyEditor/ErrorContainer';
@@ -88,14 +88,15 @@ export default class PropertiesForm extends Component {
         <div className={styles.content}>
           <div className={styles.title}>{name} properties</div>
           <ErrorContainer errors={errors} field="name">
-            <Input
+            <div className={styles.name}>{module.name}</div>
+            {/* <Input
               className={styles.name}
               value={module.name}
               readOnly
               placeholder="Component name"
               required
               onChange={this.handleChangeName}
-            />
+            /> */}
           </ErrorContainer>
           {editor.properties && (
             <div className={styles.props}>

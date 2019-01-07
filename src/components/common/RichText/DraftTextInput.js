@@ -22,6 +22,7 @@ export default class DraftTextInput extends Component {
   static propTypes = {
     value: PropTypes.string,
     placeholder: PropTypes.string,
+    className: PropTypes.string,
     autocomplete: PropTypes.arrayOf(PropTypes.string),
     resotreEntities: PropTypes.func,
     onChange: PropTypes.func.isRequired,
@@ -32,6 +33,7 @@ export default class DraftTextInput extends Component {
     autocomplete: [],
     resotreEntities: undefined,
     placeholder: undefined,
+    className: undefined,
   };
 
   constructor(props) {
@@ -58,14 +60,16 @@ export default class DraftTextInput extends Component {
   };
 
   render() {
-    const { placeholder } = this.props;
+    const { placeholder, className } = this.props;
     const { editorState, autocomplete } = this.state;
 
     const { MentionSuggestions } = this.mentionPlugin;
 
     const focus = hasFocus(editorState);
     return (
-      <div className={cn(styles.container, { [styles.focus]: focus })}>
+      <div
+        className={cn(styles.container, className, { [styles.focus]: focus })}
+      >
         <Editor
           className={styles.editor}
           placeholder={placeholder}

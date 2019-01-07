@@ -1,0 +1,65 @@
+@import 'components/common/uikit/colors';
+@import 'components/common/uikit/font';
+
+.container
+  margin-top: 40px
+
+.item
+  display: flex
+  justify-content: space-between
+  align-items: center
+
+  margin-top: 30px
+
+.option
+  width: 100%
+
+.default
+  margin-bottom: 20px
+
+.remove
+  width: 16px
+  height: 16px
+
+  padding: 3px
+  box-sizing: border-box;
+
+  margin-left: 25px
+
+  cursor: pointer;
+  outline: none;
+  background-color: transparent;
+
+  path
+    fill: color-text-disabled
+
+  &:hover
+    path
+      fill: lighten(color-text-disabled, 30%)
+
+.addContainer
+  display: flex
+  justify-content: flex-end
+
+  width: 100%
+
+  margin-top: 35px
+
+.add
+  width: 16px
+  height: 16px
+
+  padding: 3px
+  box-sizing: border-box;
+
+  cursor: pointer;
+  outline: none;
+  background-color: transparent;
+  transform: rotate(45deg)
+
+  path
+    fill: color-primary-blue
+
+  &:hover
+    path
+      fill: lighten(color-primary-blue, 30%)

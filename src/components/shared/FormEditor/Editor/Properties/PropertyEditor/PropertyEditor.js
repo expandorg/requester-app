@@ -7,6 +7,7 @@ import StringEditor from './StringEditor';
 import RichTextEditor from './RichTextEditor';
 import SelectEditor from './SelectEditor';
 import BoolEditor from './BoolEditor';
+import OptionsEditor from './OptionsEditor';
 
 import styles from './styles.module.styl';
 
@@ -18,6 +19,7 @@ const editorsMap = {
   [PropControlTypes.richText]: RichTextEditor,
   [PropControlTypes.enum]: SelectEditor,
   [PropControlTypes.modules]: null,
+  options: OptionsEditor,
 };
 
 export default class PropertyEditor extends Component {

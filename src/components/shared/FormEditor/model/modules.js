@@ -28,7 +28,29 @@ import {
   ImageTiles,
   TagVideo,
   MultipleTagVideo,
+  // ModuleCategories,
 } from '@gemsorg/modules';
+
+// class Dropdown2 extends Dropdown {
+//   static module = {
+//     type: 'dropdown',
+//     name: 'Dropdown  - 2',
+//     isInput: true,
+//     validation: {},
+//     editor: {
+//       category: ModuleCategories.Input,
+//       properties: {
+//         content: {
+//           type: 'options',
+//         },
+//       },
+//       defaults: {
+//         placeholder: 'Select one',
+//         options: ['Option 1', 'Option 2', 'Option 3', 'Option 4'],
+//       },
+//     },
+//   };
+// }
 
 export const supportNesting = (meta: Object): boolean =>
   !!(meta.editor.properties && meta.editor.properties.modules);
