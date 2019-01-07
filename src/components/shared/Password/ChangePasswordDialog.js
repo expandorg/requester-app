@@ -3,14 +3,12 @@ import PropTypes from 'prop-types';
 
 import { Dialog } from '@gemsorg/components';
 
-import ConfirmEmailForm from './ConfirmEmailForm';
+import PasswordForm, { ChangePasswordEffect } from './ChangePasswordForm';
 import SuccessForm from '../SuccessForm';
-
-import { ConfirmEmailEffect } from './stateEffects';
 
 import dstyles from '../../common/dialog.module.styl';
 
-export default class ConfirmEmailDialog extends Component {
+export default class ChangePasswordDialog extends Component {
   static propTypes = {
     onHide: PropTypes.func.isRequired,
   };
@@ -33,17 +31,17 @@ export default class ConfirmEmailDialog extends Component {
         onHide={onHide}
         overlayClass={dstyles.overlay}
         modalClass={dstyles.modal}
-        contentLabel="confirm-email-dialog"
+        contentLabel="edit-password-dialog"
         hideButton
       >
-        {!complete && <ConfirmEmailForm {...this.props} />}
+        {!complete && <PasswordForm {...this.props} />}
         {complete && (
           <SuccessForm
             onHide={onHide}
-            title="Success! Email address updated!"
+            title="Success! Password has been changed!"
           />
         )}
-        <ConfirmEmailEffect onComplete={this.handleComplete} />
+        <ChangePasswordEffect onComplete={this.handleComplete} />
       </Dialog>
     );
   }

@@ -18,7 +18,9 @@ import { changePasswordStateSelector } from '../../../selectors/uiStateSelectors
 
 import styles from '../serviceForms.module.styl';
 
-const ChangePasswordEffect = submitStateEffect(changePasswordStateSelector);
+export const ChangePasswordEffect = submitStateEffect(
+  changePasswordStateSelector
+);
 
 const mapStateToProps = state => ({
   editState: changePasswordStateSelector(state),
@@ -27,7 +29,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch =>
   bindActionCreators({ changePassword }, dispatch);
 
-class PasswordForm extends Component {
+class ChangePasswordForm extends Component {
   static propTypes = {
     user: userProps.isRequired,
     editState: requestStateProps.isRequired,
@@ -64,11 +66,6 @@ class PasswordForm extends Component {
 
   handleInputChange = ({ target }) => {
     this.setState({ [target.name]: target.value, errors: null });
-  };
-
-  handleEditComplete = () => {
-    const { onHide } = this.props;
-    onHide();
   };
 
   handleEditFailed = ({ error }) => {
@@ -122,10 +119,7 @@ class PasswordForm extends Component {
               go back
             </Button>
           </div>
-          <ChangePasswordEffect
-            onComplete={this.handleEditComplete}
-            onFailed={this.handleEditFailed}
-          />
+          <ChangePasswordEffect onFailed={this.handleEditFailed} />
         </form>
       </div>
     );
@@ -135,4 +129,4 @@ class PasswordForm extends Component {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(PasswordForm);
+)(ChangePasswordForm);

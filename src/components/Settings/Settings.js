@@ -15,7 +15,7 @@ import { authenticated } from '../shared/auth';
 
 import AddressDialog from '../shared/Address/AddressDialog';
 import EditEmailDialog from '../shared/Email/EditEmailDialog';
-import PasswordDialog from '../shared/Password/PasswordDialog';
+import ChangePasswordDialog from '../shared/Password/ChangePasswordDialog';
 
 import ToggleEmailConfirm from './ToggleEmailConfirm';
 import Field from './Field';
@@ -105,7 +105,10 @@ class Settings extends Component {
           <EditEmailDialog user={user} onHide={this.handleToggleEmail} />
         )}
         {password && (
-          <PasswordDialog user={user} onHide={this.handleTogglePassword} />
+          <ChangePasswordDialog
+            user={user}
+            onHide={this.handleTogglePassword}
+          />
         )}
       </Content>
     );
