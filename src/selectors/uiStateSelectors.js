@@ -13,6 +13,16 @@ export const editEmailStateSelector = createSelector(
   state => state.editEmail
 );
 
+export const confirmEmailStateSelector = createSelector(
+  uiStateSelector,
+  state => state.confirmEmail
+);
+
+export const resendConfirmEmailStateSelector = createSelector(
+  uiStateSelector,
+  state => state.resendConfirmEmail
+);
+
 export const changePasswordStateSelector = createSelector(
   uiStateSelector,
   state => state.changePassword

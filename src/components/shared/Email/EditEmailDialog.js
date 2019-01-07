@@ -3,17 +3,29 @@ import PropTypes from 'prop-types';
 
 import { Dialog } from '@gemsorg/components';
 
-import EmailForm from './EmailForm';
+import EditEmailForm from './EditEmailForm';
+import EditEmailComplete from './EditEmailComplete';
 
 import dstyles from '../../common/dialog.module.styl';
 
-export default class EmailDialog extends Component {
+import { EditEmailEffect } from './stateEffects';
+
+export default class EditEmailDialog extends Component {
   static propTypes = {
     onHide: PropTypes.func.isRequired,
   };
 
+  state = {
+    complete: false,
+  };
+
+  handleComplete = () => {
+    this.setState({ complete: true });
+  };
+
   render() {
     const { onHide } = this.props;
+    const { complete } = this.state;
 
     return (
       <Dialog
@@ -24,7 +36,9 @@ export default class EmailDialog extends Component {
         contentLabel="email-dialog"
         hideButton
       >
-        <EmailForm {...this.props} />
+        {!complete && <EditEmailForm {...this.props} />}
+        {complete && <EditEmailComplete {...this.props} />}
+        <EditEmailEffect onComplete={this.handleComplete} />
       </Dialog>
     );
   }

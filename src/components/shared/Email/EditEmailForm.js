@@ -10,14 +10,13 @@ import { userProps } from '@gemsorg/app-auth';
 import Button from '../../common/Button';
 import Input from '../../common/Input';
 import ErrorMessage from '../../common/ErrorMessage';
-import { submitStateEffect } from '../../common/submitStateEffect';
+
+import { EditEmailEffect } from './stateEffects';
 
 import { editEmail } from '../../../sagas/userSagas';
 import { editEmailStateSelector } from '../../../selectors/uiStateSelectors';
 
 import styles from '../serviceForms.module.styl';
-
-const EditEmailEffect = submitStateEffect(editEmailStateSelector);
 
 const mapStateToProps = state => ({
   editState: editEmailStateSelector(state),
@@ -26,7 +25,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch =>
   bindActionCreators({ editEmail }, dispatch);
 
-class EmailForm extends Component {
+class EditEmailForm extends Component {
   static propTypes = {
     user: userProps.isRequired,
     editState: requestStateProps.isRequired,
@@ -60,11 +59,6 @@ class EmailForm extends Component {
 
   handleInputChange = ({ target }) => {
     this.setState({ [target.name]: target.value, errors: null });
-  };
-
-  handleEditComplete = () => {
-    const { onHide } = this.props;
-    onHide();
   };
 
   handleEditFailed = ({ error }) => {
@@ -109,10 +103,7 @@ class EmailForm extends Component {
               go back
             </Button>
           </div>
-          <EditEmailEffect
-            onComplete={this.handleEditComplete}
-            onFailed={this.handleEditFailed}
-          />
+          <EditEmailEffect onFailed={this.handleEditFailed} />
         </form>
       </div>
     );
@@ -122,4 +113,4 @@ class EmailForm extends Component {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(EmailForm);
+)(EditEmailForm);

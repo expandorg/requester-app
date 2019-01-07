@@ -21,7 +21,13 @@ export default combineReducers({
   ...gemsState,
 
   assignAddress: requestUiStateReducer(userActionTypes.ASSIGN_ADDRESS),
+
   editEmail: requestUiStateReducer(userActionTypes.EDIT_EMAIL),
+  confirmEmail: requestUiStateReducer(userActionTypes.CONFIRM_EMAIL),
+  resendConfirmEmail: requestUiStateReducer(
+    userActionTypes.RESEND_CONFIRM_EMAIL
+  ),
+
   changePassword: requestUiStateReducer(userActionTypes.CHANGE_PASSWORD),
 
   fetchDraft: requestUiStateReducer(draftsActionTypes.FETCH),

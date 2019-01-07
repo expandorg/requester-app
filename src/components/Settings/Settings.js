@@ -14,9 +14,10 @@ import Sidebar from '../shared/Sidebar';
 import { authenticated } from '../shared/auth';
 
 import AddressDialog from '../shared/Address/AddressDialog';
-import EmailDialog from '../shared/Email/EmailDialog';
+import EditEmailDialog from '../shared/Email/EditEmailDialog';
 import PasswordDialog from '../shared/Password/PasswordDialog';
 
+import ToggleEmailConfirm from './ToggleEmailConfirm';
 import Field from './Field';
 import Form from './Form';
 import Gems from './Gems';
@@ -80,7 +81,9 @@ class Settings extends Component {
               placeholder="No email found"
               value={user.email}
               onToggle={this.handleToggleEmail}
-            />
+            >
+              <ToggleEmailConfirm user={user} />
+            </Field>
             <Field
               title="Change password"
               onToggle={this.handleTogglePassword}
@@ -98,7 +101,9 @@ class Settings extends Component {
         {address && (
           <AddressDialog user={user} onHide={this.handleToggleAddress} />
         )}
-        {email && <EmailDialog user={user} onHide={this.handleToggleEmail} />}
+        {email && (
+          <EditEmailDialog user={user} onHide={this.handleToggleEmail} />
+        )}
         {password && (
           <PasswordDialog user={user} onHide={this.handleTogglePassword} />
         )}

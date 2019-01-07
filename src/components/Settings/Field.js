@@ -19,12 +19,15 @@ export default class Field extends Component {
   };
 
   render() {
-    const { title, onToggle, value, placeholder } = this.props;
+    const { title, onToggle, value, placeholder, children } = this.props;
     return (
       <div className={styles.container}>
         <div className={styles.field}>
           <div className={styles.title}>{title}</div>
-          <div className={styles.value}>{value || placeholder}</div>
+          <div className={styles.value}>
+            <div className={styles.text}>{value || placeholder}</div>
+            {children}
+          </div>
         </div>
         <button className={styles.edit} onClick={onToggle}>
           <EditIcon />

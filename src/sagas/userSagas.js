@@ -42,6 +42,18 @@ export const editEmail = (user, email) => ({
   asyncCall: userApi.editEmail,
 });
 
+export const confirmEmail = (user, code) => ({
+  type: userActionTypes.CONFIRM_EMAIL,
+  payload: { userId: user.id, code },
+  asyncCall: userApi.confirmEmail,
+});
+
+export const resendConfirmEmail = user => ({
+  type: userActionTypes.RESEND_CONFIRM_EMAIL,
+  payload: { userId: user.id },
+  asyncCall: userApi.resendConfirmEmail,
+});
+
 export const changePassword = (user, newPassword, oldPassword) => ({
   type: userActionTypes.CHANGE_PASSWORD,
   payload: { userId: user.id, newPassword, oldPassword },
@@ -80,7 +92,12 @@ export function* userSagas() {
   yield takeEvery(actionsThatChangesUser, handleUserChangedSaga);
 
   yield takeEvery(
-    [userActionTypes.EDIT_EMAIL, userActionTypes.CHANGE_PASSWORD],
+    [
+      userActionTypes.EDIT_EMAIL,
+      userActionTypes.CONFIRM_EMAIL,
+      userActionTypes.RESEND_CONFIRM_EMAIL,
+      userActionTypes.CHANGE_PASSWORD,
+    ],
     handleAsyncCall
   );
 }

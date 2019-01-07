@@ -68,7 +68,10 @@ export class SubmitStateEffect extends Component<Props> {
 
   render() {
     const { children } = this.props;
-    return children || null;
+    if (!children) {
+      return null;
+    }
+    return children;
   }
 }
 
