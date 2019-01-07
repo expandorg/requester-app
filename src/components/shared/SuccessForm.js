@@ -7,7 +7,7 @@ import Button from '../common/Button';
 
 import styles from './serviceForms.module.styl';
 
-export default class EditEmailComplete extends Component {
+export default class SuccessForm extends Component {
   static propTypes = {
     title: PropTypes.string.isRequired,
     button: PropTypes.string,

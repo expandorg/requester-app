@@ -27,7 +27,7 @@ import Description from './Description';
 import styles from '../serviceForms.module.styl';
 import fstyles from './form.module.styl';
 
-const DepositEffect = submitStateEffect(depositStateSelector);
+export const DepositEffect = submitStateEffect(depositStateSelector);
 
 const message = () =>
   'Please do not navigate away while your deposit is being processed (click cancel).';
@@ -82,12 +82,6 @@ class DepositForm extends Component {
     }
   };
 
-  handleDepositComplete = () => {
-    const { onHide } = this.props;
-    console.log(1);
-    onHide();
-  };
-
   handleDepositFailed = ({ error }) => {
     this.setState({ errors: error });
   };
@@ -127,10 +121,7 @@ class DepositForm extends Component {
             </Button>
           </div>
         </form>
-        <DepositEffect
-          onComplete={this.handleDepositComplete}
-          onFailed={this.handleDepositFailed}
-        />
+        <DepositEffect onFailed={this.handleDepositFailed} />
         <Prompt when={isSubmitting} message={message} />
       </div>
     );

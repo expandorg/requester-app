@@ -24,7 +24,7 @@ class Withdraw extends Component {
 
   state = {
     dialog: false,
-    email: false,
+    confirm: false,
     address: false,
   };
 
@@ -38,7 +38,7 @@ class Withdraw extends Component {
     try {
       if (!dialog) {
         if (!user.emailConfirmed) {
-          throw new Error('email');
+          throw new Error('confirm');
         }
         if (!user.address) {
           throw new Error('address');
@@ -58,9 +58,9 @@ class Withdraw extends Component {
     }
   };
 
-  handleHideEmail = () => {
+  handleHideConfirm = () => {
     const { user } = this.props;
-    this.setState({ email: false });
+    this.setState({ confirm: false });
     if (user.emailConfirmed) {
       this.handleToggle();
     }
@@ -68,12 +68,12 @@ class Withdraw extends Component {
 
   render() {
     const { user, children } = this.props;
-    const { dialog, address, email } = this.state;
+    const { dialog, address, confirm } = this.state;
     return (
       <>
         {children({ onToggleWithdraw: this.handleToggle })}
-        {email && (
-          <ConfirmEmailDialog user={user} onHide={this.handleHideEmail} />
+        {confirm && (
+          <ConfirmEmailDialog user={user} onHide={this.handleHideConfirm} />
         )}
         {address && (
           <AddressDialog user={user} onHide={this.handleHideAddress} />
