@@ -27,7 +27,6 @@ export default class AddNew extends Component {
 
     this.setState({ dialog: false });
     const step = getStepFromTemplate(template);
-
     onAdd(step);
   };
 

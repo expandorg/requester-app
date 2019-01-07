@@ -23,10 +23,10 @@ export const fundingRules = {
 export const formatDate = (date: ?Object | ?number) =>
   date ? format(date, 'MM/DD/YYYY HH:mm') : '--/--/--';
 
-export const getStepFromTemplate = ({ name, form }: Object) => ({
+export const getStepFromTemplate = ({ name, taskForm }: Object) => ({
   id: nanoid(),
   name,
-  form,
+  form: taskForm,
 });
 
 export const createDashboardEntity = (draft: Object) => ({
