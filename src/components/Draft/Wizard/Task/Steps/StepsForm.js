@@ -138,7 +138,7 @@ export default class StepsForm extends Component {
 
     const task = selected === taskSelected;
 
-    const form = task ? taskForm.form : steps[selected].form;
+    const form = task ? taskForm : steps[selected].form;
     const validate = task ? validationTaskFormProps : validationFormProps;
 
     return (
@@ -174,11 +174,7 @@ export default class StepsForm extends Component {
               />
             ))}
             {taskForm && (
-              <Step
-                isTask
-                name={taskForm.name}
-                onSelect={this.handleSelectTask}
-              />
+              <Step isTask name="Task" onSelect={this.handleSelectTask} />
             )}
           </div>
         )}

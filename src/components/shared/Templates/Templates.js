@@ -41,7 +41,6 @@ export default class Templates extends Component {
       onSelect,
       actions,
     } = this.props;
-
     return (
       <div className={cn(styles.container, className)}>
         <div className={styles.sidebar}>
