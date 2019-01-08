@@ -63,10 +63,9 @@ class Dashboard extends Component {
     const isEmpty = items.length === 0;
     return (
       <Content title="Dashboard">
-        <Navbar title="Dashboard">
-          <Navigation className={styles.nav} />
-        </Navbar>
+        <Navbar title="Dashboard" />
         <Sidebar />
+        <Navigation />
         {isEmpty && <Empty />}
         {!isEmpty && (
           <List className={styles.list}>
