@@ -6,7 +6,7 @@ import { rules } from '@expandorg/validation';
 
 export const settingsRules = {
   // logo: [[rules.isRequired, 'Logo is required']],
-  title: [[rules.isRequired, 'Title is required']],
+  name: [[rules.isRequired, 'Title is required']],
   description: [[rules.isRequired, 'Description is required']],
 };
 
@@ -31,7 +31,7 @@ export const getStepFromTemplate = ({ name, taskForm }: Object) => ({
 
 export const createDashboardEntity = (draft: Object) => ({
   id: draft.id,
-  title: draft.title,
+  name: draft.name,
   logo: draft.logo,
   status: draft.status || 'draft',
 });

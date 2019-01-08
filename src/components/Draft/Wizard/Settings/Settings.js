@@ -25,7 +25,7 @@ import { EndType } from '../../../../model/enums';
 
 const getInitialState = draft => ({
   logo: (draft && draft.logo) || undefined,
-  title: (draft && draft.title) || '',
+  name: (draft && draft.name) || '',
   description: (draft && draft.description) || '',
   endWhen: (draft && draft.endWhen) || EndType.ExceedTasks,
   endDate: (draft && draft.endDate) || undefined,
@@ -44,7 +44,7 @@ export default class Settings extends Component {
 
   constructor(props) {
     super(props);
-    this.titleInput = createRef();
+    this.nameInput = createRef();
     this.state = {
       draft: props.draft, // eslint-disable-line react/no-unused-state
       errors: null,
@@ -64,7 +64,7 @@ export default class Settings extends Component {
   }
 
   componentDidMount() {
-    this.titleInput.current.focus();
+    this.nameInput.current.focus();
   }
 
   handleSubmit = () => {
@@ -102,13 +102,13 @@ export default class Settings extends Component {
             logo={settings.logo}
             onChangeLogo={this.handleChangeLogo}
           />
-          <Field tooltip="Title" name="title" errors={errors}>
+          <Field tooltip="Title" name="name" errors={errors}>
             <Input
-              ref={this.titleInput}
+              ref={this.nameInput}
               placeholder="Title *"
-              name="title"
-              error={!!(errors && errors.title)}
-              value={settings.title}
+              name="name"
+              error={!!(errors && errors.name)}
+              value={settings.name}
               onChange={this.handleInputChange}
             />
           </Field>

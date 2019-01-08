@@ -26,7 +26,7 @@ export default class Settings extends Component {
                   <img
                     src={draft.logo}
                     className={styles.img}
-                    alt={draft.title}
+                    alt={draft.name}
                   />
                 </div>
               </div>
@@ -59,7 +59,7 @@ export default class Settings extends Component {
             </div>
           </div>
           <div className={styles.info}>
-            <div className={styles.title}>{draft.title}</div>
+            <div className={styles.title}>{draft.name}</div>
             <div className={styles.description}>{draft.description}</div>
           </div>
         </Fieldset>
