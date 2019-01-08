@@ -42,10 +42,9 @@ const mapsStateToProps = state => ({
 const mapDispatchToProps = dispatch =>
   bindActionCreators({ updateFunding }, dispatch);
 
-const getInitialState = draft => ({
-  requirement:
-    (draft.logic.funding && `${draft.logic.funding.requirement}`) || '',
-  reward: (draft.logic.funding && `${draft.logic.funding.reward}`) || '',
+const getInitialState = ({ logic }) => ({
+  requirement: (logic.funding && `${logic.funding.requirement || 0}`) || '',
+  reward: (logic.funding && `${logic.funding.reward || 0}`) || '',
 });
 
 class Payments extends Component {
@@ -114,7 +113,6 @@ class Payments extends Component {
   render() {
     const { submitState, user } = this.props;
     const { funding, errors } = this.state;
-
     const insufficent = false;
 
     return (
