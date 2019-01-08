@@ -2,10 +2,14 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import parse from 'date-fns/parse';
+
+import { userProps } from '@expandorg/app-auth';
+
 import Button from '../../../../common/Button';
 
 import { ReactComponent as Arrow } from '../../../../assets/arrow-down.svg';
 import { draftProps } from '../../../../shared/propTypes';
+import EmailConfirmed from '../../../../shared/EmailConfirmed';
 
 import DateTimePicker from '../../../../common/DateTime/DateTimePicker';
 
@@ -17,13 +21,13 @@ import styles from './styles.module.styl';
 
 export default class PublishButton extends Component {
   static propTypes = {
+    user: userProps.isRequired,
     draft: draftProps.isRequired,
     onPublish: PropTypes.func.isRequired,
     readOnly: PropTypes.bool.isRequired,
   };
 
   state = {
-    menu: false,
     schedule: false,
   };
 
@@ -48,21 +52,13 @@ export default class PublishButton extends Component {
     }
   };
 
-  handleToggle = () => {
-    this.setState(({ menu }) => ({ menu: !menu }));
-  };
-
-  handleHide = () => {
-    this.setState({ menu: false });
-  };
-
   handleToggleSchedule = () => {
     this.setState(({ schedule }) => ({ schedule: !schedule }));
   };
 
   render() {
-    const { readOnly, draft } = this.props;
-    const { menu, schedule, error } = this.state;
+    const { readOnly, user, draft } = this.props;
+    const { schedule, error } = this.state;
 
     const disabledDays = {
       before: new Date(),
@@ -71,21 +67,27 @@ export default class PublishButton extends Component {
 
     return (
       <div className={styles.group}>
-        <Button
-          className={styles.toggle}
-          disabled={readOnly}
-          onClick={this.handleToggle}
-        >
-          Publish
-          <Arrow className={styles.arrow} />
-        </Button>
-        {menu && (
-          <Menu
-            onPublish={this.handlePublishClick}
-            onSchedule={this.handleToggleSchedule}
-            onToggle={this.handleHide}
-          />
-        )}
+        <EmailConfirmed user={user}>
+          {({ onToggle, dialog }) => (
+            <>
+              <Button
+                className={styles.toggle}
+                disabled={readOnly}
+                onClick={onToggle}
+              >
+                Publish
+                <Arrow className={styles.arrow} />
+              </Button>
+              {dialog && (
+                <Menu
+                  onPublish={this.handlePublishClick}
+                  onSchedule={this.handleToggleSchedule}
+                  onToggle={onToggle}
+                />
+              )}
+            </>
+          )}
+        </EmailConfirmed>
         {schedule && (
           <DateTimePicker
             error={error}

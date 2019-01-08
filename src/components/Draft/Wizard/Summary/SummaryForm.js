@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+import { userProps } from '@expandorg/app-auth';
+
 import Button from '../../../common/Button';
 import HeroWarning from '../../../shared/HeroWarning';
 
@@ -28,6 +30,7 @@ const getTaskStatus = ({ taskForm }) =>
 
 export default class SummaryForm extends Component {
   static propTypes = {
+    user: userProps.isRequired,
     draft: draftProps.isRequired,
     onBack: PropTypes.func.isRequired,
     onSubmit: PropTypes.func.isRequired,
@@ -39,7 +42,7 @@ export default class SummaryForm extends Component {
   };
 
   render() {
-    const { draft, onBack } = this.props;
+    const { draft, user, onBack } = this.props;
 
     const nav = getNavState(draft);
     const draftReady = isDraftReady(draft);
@@ -86,6 +89,7 @@ export default class SummaryForm extends Component {
             Back
           </Button>
           <PublishButton
+            user={user}
             readOnly={!draftReady}
             draft={draft}
             onPublish={this.handlePublishClick}

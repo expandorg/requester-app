@@ -10,6 +10,9 @@ import {
   SubmitStateEffect,
 } from '@expandorg/app-utils';
 
+import { userProps } from '@expandorg/app-auth';
+import { userSelector } from '@expandorg/app-auth/selectors';
+
 import { draftProps } from '../../../shared/propTypes';
 
 import { LoadIndicator } from '../Form';
@@ -20,6 +23,7 @@ import { publish } from '../../../../sagas/draftsSagas';
 import { publishDraftStateSelector } from '../../../../selectors/uiStateSelectors';
 
 const mapsStateToProps = state => ({
+  user: userSelector(state),
   submitState: publishDraftStateSelector(state),
 });
 
@@ -28,6 +32,7 @@ const mapDispatchToProps = dispatch =>
 
 class Summary extends Component {
   static propTypes = {
+    user: userProps.isRequired,
     draft: draftProps.isRequired,
     submitState: requestStateProps.isRequired,
     publish: PropTypes.func.isRequired,
@@ -57,7 +62,7 @@ class Summary extends Component {
   };
 
   render() {
-    const { draft, submitState } = this.props;
+    const { draft, user, submitState } = this.props;
     const { published } = this.state;
 
     return (
@@ -71,6 +76,7 @@ class Summary extends Component {
             message="Publishing your task, please wait..."
           >
             <SummaryForm
+              user={user}
               draft={draft}
               onBack={this.handleBack}
               onSubmit={this.handleSubmit}
