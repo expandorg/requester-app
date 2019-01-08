@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
 
-import { moduleProps, getModuleControlsMap } from '@gemsorg/modules';
+import { moduleProps, getModuleControlsMap } from '@expandorg/modules';
 
 import Button from '../../../common/Button';
 

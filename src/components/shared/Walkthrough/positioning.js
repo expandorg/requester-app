@@ -1,5 +1,5 @@
 // @flow
-import { getElementOffset } from '@gemsorg/components/src/common/dom';
+import { getElementOffset } from '@expandorg/components/src/common/dom';
 
 export const getPositionById = (id: string) => {
   const el = document.getElementById(id);

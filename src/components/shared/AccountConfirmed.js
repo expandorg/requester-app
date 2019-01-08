@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
 
-import { RequestStates } from '@gemsorg/app-utils';
-import { userProps } from '@gemsorg/app-auth';
+import { RequestStates } from '@expandorg/app-utils';
+import { userProps } from '@expandorg/app-auth';
 
-import { transactionStateSelector } from '@gemsorg/app-gemtokens/selectors';
+import { transactionStateSelector } from '@expandorg/app-gemtokens/selectors';
 
 import AddressDialog from './Address/AddressDialog';
 import EditEmailDialog from './Email/EditEmailDialog';

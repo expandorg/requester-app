@@ -1,7 +1,7 @@
 import React, { Component, createRef } from 'react';
 import PropTypes from 'prop-types';
 
-import { validateForm } from '@gemsorg/validation';
+import { validateForm } from '@expandorg/validation';
 
 import Input from '../../../common/Input';
 import Button from '../../../common/Button';

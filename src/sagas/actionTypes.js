@@ -1,5 +1,5 @@
 // @flow
-import { createActionTypes } from '@gemsorg/app-utils';
+import { createActionTypes } from '@expandorg/app-utils';
 
 export const userActionTypes = createActionTypes('user', {
   ASSIGN_ADDRESS: null,

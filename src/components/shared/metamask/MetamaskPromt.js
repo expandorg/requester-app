@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import { Dialog } from '@gemsorg/components';
-import { MetamaskState } from '@gemsorg/app-web3';
+import { Dialog } from '@expandorg/components';
+import { MetamaskState } from '@expandorg/app-web3';
 
 import dstyles from '../../common/dialog.module.styl';
 

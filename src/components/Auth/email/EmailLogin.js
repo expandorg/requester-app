@@ -6,12 +6,12 @@ import { bindActionCreators } from 'redux';
 
 import { Link } from 'react-router-dom';
 
-import { RequestStates, requestStateProps } from '@gemsorg/app-utils';
+import { RequestStates, requestStateProps } from '@expandorg/app-utils';
 
-import { Button } from '@gemsorg/components';
+import { Button } from '@expandorg/components';
 
-import { loginStateSelector } from '@gemsorg/app-auth/selectors';
-import { login } from '@gemsorg/app-auth/sagas';
+import { loginStateSelector } from '@expandorg/app-auth/selectors';
+import { login } from '@expandorg/app-auth/sagas';
 import { ReactComponent as Logo } from '../../assets/logo.svg';
 
 import ErrorMessage from '../../common/ErrorMessage';

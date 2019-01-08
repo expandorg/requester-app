@@ -1,6 +1,6 @@
 import { takeEvery } from 'redux-saga/effects';
 
-import { handleAsyncCall } from '@gemsorg/app-utils';
+import { handleAsyncCall } from '@expandorg/app-utils';
 
 import { whitelistActionTypes } from './actionTypes';
 

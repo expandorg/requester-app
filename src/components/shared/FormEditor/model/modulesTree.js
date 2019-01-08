@@ -1,6 +1,6 @@
 // @flow
 
-import { groupModulesByCategory, ModuleCategories } from '@gemsorg/modules';
+import { groupModulesByCategory, ModuleCategories } from '@expandorg/modules';
 
 declare type ModuleCategoryItem = {
   category: string,

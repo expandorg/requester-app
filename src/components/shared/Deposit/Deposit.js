@@ -4,10 +4,10 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { userProps } from '@gemsorg/app-auth';
+import { userProps } from '@expandorg/app-auth';
 
-import { fetchBalanceStateSelector } from '@gemsorg/app-gemtokens/selectors';
-import { fetchGemsBalance } from '@gemsorg/app-gemtokens/sagas';
+import { fetchBalanceStateSelector } from '@expandorg/app-gemtokens/selectors';
+import { fetchGemsBalance } from '@expandorg/app-gemtokens/sagas';
 
 import DepositDialog from './DepositDialog';
 import AccountConfirmed from '../AccountConfirmed';

@@ -9,7 +9,7 @@ import {
   requestStateProps,
   RequestStates,
   matchProps,
-} from '@gemsorg/app-utils';
+} from '@expandorg/app-utils';
 
 import Content from '../shared/Content';
 

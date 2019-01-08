@@ -11,6 +11,7 @@ export default class Toggle extends Component {
     className: PropTypes.string,
     value: PropTypes.bool,
     tooltip: PropTypes.string,
+    label: PropTypes.string,
     name: PropTypes.string,
     onChange: PropTypes.func.isRequired,
   };
@@ -18,6 +19,7 @@ export default class Toggle extends Component {
   static defaultProps = {
     value: false,
     tooltip: null,
+    label: null,
     className: null,
     name: undefined,
   };

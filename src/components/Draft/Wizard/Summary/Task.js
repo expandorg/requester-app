@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
 
-import { formProps } from '@gemsorg/modules';
+import { formProps } from '@expandorg/modules';
 
 import FormPreview from '../../../shared/FormPreview';
 

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import { DragSource, DropTarget } from 'react-dnd';
 
-import { moduleProps } from '@gemsorg/modules';
+import { moduleProps } from '@expandorg/modules';
 
 import Placeholder from './Placeholder';
 import ModulePreview from './ModulePreview';

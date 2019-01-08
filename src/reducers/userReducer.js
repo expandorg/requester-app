@@ -1,6 +1,6 @@
-import { userReducer as reducer } from '@gemsorg/app-auth';
-import { gemsActionTypes } from '@gemsorg/app-gemtokens';
-import { userActionTypes as baseUserActions } from '@gemsorg/app-utils/app';
+import { userReducer as reducer } from '@expandorg/app-auth';
+import { gemsActionTypes } from '@expandorg/app-gemtokens';
+import { userActionTypes as baseUserActions } from '@expandorg/app-utils/app';
 
 import { userActionTypes } from '../sagas/actionTypes';
 

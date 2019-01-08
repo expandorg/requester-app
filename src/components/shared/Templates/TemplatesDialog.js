@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { Dialog } from '@gemsorg/components';
+import { Dialog } from '@expandorg/components';
 import Button from '../../common/Button';
 
 import Templates from './Templates';

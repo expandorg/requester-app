@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import { moduleProps } from '@gemsorg/modules';
+import { moduleProps } from '@expandorg/modules';
 
 import Checkbox from '../../../../common/Checkbox';
 

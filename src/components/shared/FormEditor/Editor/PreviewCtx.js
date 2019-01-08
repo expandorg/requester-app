@@ -1,7 +1,7 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import { moduleProps } from '@gemsorg/modules';
+import { moduleProps } from '@expandorg/modules';
 import PreviewFormTab from '../../../../common/popups/PreviewFormTab';
 
 export default class PreviewCtx extends Component {

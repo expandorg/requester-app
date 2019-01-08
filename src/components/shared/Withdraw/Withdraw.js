@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { userProps } from '@gemsorg/app-auth';
+import { userProps } from '@expandorg/app-auth';
 
 import WithdrawDialog from './WithdrawDialog';
 import AccountConfirmed from '../AccountConfirmed';

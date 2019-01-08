@@ -4,9 +4,12 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { requestStateProps, RequestStates } from '@gemsorg/app-utils';
+import {
+  requestStateProps,
+  RequestStates,
+  SubmitStateEffect,
+} from '@expandorg/app-utils';
 
-import { SubmitStateEffect } from '../../../common/submitStateEffect';
 import { draftProps } from '../../../shared/propTypes';
 
 import { updateSettings } from '../../../../sagas/draftsSagas';

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import { removeAtIndex, replaceAtIndex } from '@gemsorg/utils';
+import { removeAtIndex, replaceAtIndex } from '@expandorg/utils';
 
 import { DraftTextInput } from '../../../../../common/RichText';
 

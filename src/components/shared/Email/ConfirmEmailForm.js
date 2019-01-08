@@ -4,8 +4,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { requestStateProps, RequestStates } from '@gemsorg/app-utils';
-import { userProps } from '@gemsorg/app-auth';
+import { requestStateProps, RequestStates } from '@expandorg/app-utils';
+import { userProps } from '@expandorg/app-auth';
 
 import Button from '../../common/Button';
 import Input from '../../common/Input';

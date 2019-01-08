@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import { Dialog } from '@gemsorg/components';
+import { Dialog } from '@expandorg/components';
 import WithdrawForm, { WithdrawEffect } from './WithdrawForm';
 import TxForm from '../TxForm';
 

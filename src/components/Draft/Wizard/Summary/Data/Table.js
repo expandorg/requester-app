@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
 
-import { requestStateProps, RequestStates } from '@gemsorg/app-utils';
+import { requestStateProps, RequestStates } from '@expandorg/app-utils';
 
 import {
   DataTable,

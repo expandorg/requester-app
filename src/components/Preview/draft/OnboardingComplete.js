@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import { Panel, Button } from '@gemsorg/components';
+import { Panel, Button } from '@expandorg/components';
 
 import styles from './OnboardingComplete.module.styl';
 

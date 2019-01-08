@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { moduleProps } from '@gemsorg/modules';
+import { moduleProps } from '@expandorg/modules';
 
 import Drawer from '../../../../common/Drawer';
 

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
 
-import { Form, Module, FormDataProvider, formProps } from '@gemsorg/modules';
+import { Form, Module, FormDataProvider, formProps } from '@expandorg/modules';
 
 import styles from './FormPreview.module.styl';
 

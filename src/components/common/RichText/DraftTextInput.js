@@ -49,7 +49,7 @@ export default class DraftTextInput extends Component {
   handleChange = editorState => {
     const { onChange } = this.props;
     const value = getText(editorState);
-    this.setState(() => ({ editorState, value }), () => onChange(value));
+    this.setState(() => ({ editorState }), () => onChange(value));
   };
 
   handleSearchChange = ({ value }) => {

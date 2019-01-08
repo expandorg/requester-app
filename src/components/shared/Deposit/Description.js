@@ -1,7 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { WITHDRAW_MIN, DEPOSIT_MAX, DEPOSIT_MIN } from '@gemsorg/app-gemtokens';
+import {
+  WITHDRAW_MIN,
+  DEPOSIT_MAX,
+  DEPOSIT_MIN,
+} from '@expandorg/app-gemtokens';
 
 import styles from './Description.module.styl';
 

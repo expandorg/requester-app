@@ -2,7 +2,7 @@
 import format from 'date-fns/format';
 import nanoid from 'nanoid';
 
-import { rules } from '@gemsorg/validation';
+import { rules } from '@expandorg/validation';
 
 export const settingsRules = {
   // logo: [[rules.isRequired, 'Logo is required']],

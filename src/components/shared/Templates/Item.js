@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
 
-import { Tooltip } from '@gemsorg/components';
+import { Tooltip } from '@expandorg/components';
 
 import { taskTemplateProps } from '../propTypes';
 

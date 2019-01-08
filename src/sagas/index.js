@@ -1,7 +1,7 @@
 import { fork } from 'redux-saga/effects';
 
-import { web3Sagas } from '@gemsorg/app-web3';
-import { gemsSagas } from '@gemsorg/app-gemtokens/sagas';
+import { web3Sagas } from '@expandorg/app-web3';
+import { gemsSagas } from '@expandorg/app-gemtokens/sagas';
 
 import { userSagas } from './userSagas';
 

@@ -1,13 +1,13 @@
 // @flow
 
-import { ServiceLocator } from '@gemsorg/components';
+import { ServiceLocator } from '@expandorg/components';
 
-import { EventSourceService } from '@gemsorg/app-utils';
-import { TxEventSource } from '@gemsorg/app-gemtokens';
-import { GoogleTagManager } from '@gemsorg/app-utils/gtm';
-import { ScriptsLoader } from '@gemsorg/utils';
-import { GemsService } from '@gemsorg/app-web3';
-import { validateForm } from '@gemsorg/validation';
+import { EventSourceService } from '@expandorg/app-utils';
+import { TxEventSource } from '@expandorg/app-gemtokens';
+import { GoogleTagManager } from '@expandorg/app-utils/gtm';
+import { ScriptsLoader } from '@expandorg/utils';
+import { GemsService } from '@expandorg/app-web3';
+import { validateForm } from '@expandorg/validation';
 
 import settings from '../common/settings';
 

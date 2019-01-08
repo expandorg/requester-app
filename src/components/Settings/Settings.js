@@ -4,9 +4,9 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { userProps } from '@gemsorg/app-auth';
-import { logout } from '@gemsorg/app-auth/sagas';
-import { userSelector } from '@gemsorg/app-auth/selectors';
+import { userProps } from '@expandorg/app-auth';
+import { logout } from '@expandorg/app-auth/sagas';
+import { userSelector } from '@expandorg/app-auth/selectors';
 
 import Content from '../shared/Content';
 import Navbar from '../shared/Navbar';

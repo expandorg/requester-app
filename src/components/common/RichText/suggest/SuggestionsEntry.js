@@ -22,15 +22,19 @@ const SuggestionsEntry = ({
 );
 
 SuggestionsEntry.propTypes = {
+  className: PropTypes.string,
   mention: PropTypes.shape({
     name: PropTypes.string,
     suggestion: PropTypes.string,
   }).isRequired,
+  theme: PropTypes.string,
   searchValue: PropTypes.string,
   isFocused: PropTypes.bool,
 };
 
 SuggestionsEntry.defaultProps = {
+  className: null,
+  theme: null,
   isFocused: false,
   searchValue: undefined,
 };

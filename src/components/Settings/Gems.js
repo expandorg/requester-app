@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { userProps } from '@gemsorg/app-auth';
+import { userProps } from '@expandorg/app-auth';
 import Button from '../common/Button';
 
 import Hero from '../shared/Hero';

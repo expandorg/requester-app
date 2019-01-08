@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
 
-import { Tooltip } from '@gemsorg/components';
+import { Tooltip } from '@expandorg/components';
 
 import { ReactComponent as IconLeft } from '../../assets/align-left.svg';
 import { ReactComponent as IconCenter } from '../../assets/align-center.svg';

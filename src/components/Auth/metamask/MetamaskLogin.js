@@ -4,13 +4,13 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { requestStateProps } from '@gemsorg/app-utils';
+import { requestStateProps } from '@expandorg/app-utils';
 
-import { loginMetamaskStateSelector } from '@gemsorg/app-auth/selectors';
-import { loginMetamask } from '@gemsorg/app-auth/sagas';
+import { loginMetamaskStateSelector } from '@expandorg/app-auth/selectors';
+import { loginMetamask } from '@expandorg/app-auth/sagas';
 
-import { metamaskStateSelector } from '@gemsorg/app-web3/selectors';
-import { MetamaskState } from '@gemsorg/app-web3';
+import { metamaskStateSelector } from '@expandorg/app-web3/selectors';
+import { MetamaskState } from '@expandorg/app-web3';
 
 import ErrorMessage from '../../common/ErrorMessage';
 import MetamaskPromt from '../../shared/metamask/MetamaskPromt';

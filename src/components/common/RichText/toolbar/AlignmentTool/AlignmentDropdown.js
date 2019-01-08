@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
 
-import { clickOutside } from '@gemsorg/components/hoc';
+import { clickOutside } from '@expandorg/components/hoc';
 
 import { ReactComponent as IconLeft } from '../../assets/align-left.svg';
 import { ReactComponent as IconCenter } from '../../assets/align-center.svg';
@@ -21,6 +21,12 @@ const Btn = ({ active, onClick, value, children, ...rest }) => (
     {children}
   </button>
 );
+
+Btn.propTypes = {
+  value: PropTypes.string.isRequired,
+  active: PropTypes.bool.isRequired,
+  onClick: PropTypes.func.isRequired,
+};
 
 class AlignmentDropdown extends Component {
   static propTypes = {

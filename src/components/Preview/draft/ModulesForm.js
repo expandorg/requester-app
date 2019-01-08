@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import { Panel } from '@gemsorg/components';
-import { formProps } from '@gemsorg/modules';
+import { Panel } from '@expandorg/components';
+import { formProps } from '@expandorg/modules';
 
 import FormPreview from '../../shared/FormPreview';
 

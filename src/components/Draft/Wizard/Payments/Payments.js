@@ -4,16 +4,20 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { requestStateProps, RequestStates } from '@gemsorg/app-utils';
-import { validateForm } from '@gemsorg/validation';
-import { userProps } from '@gemsorg/app-auth';
-import { userSelector } from '@gemsorg/app-auth/selectors';
+import {
+  requestStateProps,
+  RequestStates,
+  SubmitStateEffect,
+} from '@expandorg/app-utils';
+
+import { validateForm } from '@expandorg/validation';
+import { userProps } from '@expandorg/app-auth';
+import { userSelector } from '@expandorg/app-auth/selectors';
 
 import { ReactComponent as Card } from '../../../assets/creditcard.svg';
 
 import Input from '../../../common/Input';
 import Button from '../../../common/Button';
-import { SubmitStateEffect } from '../../../common/submitStateEffect';
 
 import { draftProps } from '../../../shared/propTypes';
 import Deposit from '../../../shared/Deposit/Deposit';

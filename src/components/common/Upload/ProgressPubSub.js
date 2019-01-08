@@ -1,6 +1,6 @@
 // @flow
 
-import { PubSub } from '@gemsorg/utils';
+import { PubSub } from '@expandorg/utils';
 
 export default class ProgressPubSub {
   unsubscribeCallback: ?Function = null;

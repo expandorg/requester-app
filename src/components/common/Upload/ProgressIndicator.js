@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
 
-import { RequestStates } from '@gemsorg/app-utils';
+import { RequestStates } from '@expandorg/app-utils';
 
 import styles from './ProgressIndicator.module.styl';
 

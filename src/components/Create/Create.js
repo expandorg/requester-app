@@ -8,10 +8,10 @@ import { bindActionCreators } from 'redux';
 import {
   requestStateProps,
   RequestStates,
+  SubmitStateEffect,
   historyProps,
-} from '@gemsorg/app-utils';
+} from '@expandorg/app-utils';
 
-import { SubmitStateEffect } from '../common/submitStateEffect';
 import Content from '../shared/Content';
 import Navbar from '../shared/Navbar';
 import { authenticated } from '../shared/auth';

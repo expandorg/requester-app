@@ -1,4 +1,4 @@
-import { BaseApi } from '@gemsorg/api-client';
+import { BaseApi } from '@expandorg/api-client';
 import apiClient from './apiClient';
 
 export class DraftApi extends BaseApi {

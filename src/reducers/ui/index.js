@@ -1,10 +1,10 @@
 import { combineReducers } from 'redux';
-import { requestUiStateReducer } from '@gemsorg/app-utils';
-import { notificationReducer as notification } from '@gemsorg/app-utils/app';
+import { requestUiStateReducer } from '@expandorg/app-utils';
+import { notificationReducer as notification } from '@expandorg/app-utils/app';
 
-import { authStateReducers as authState } from '@gemsorg/app-auth';
-import { web3ActionTypes } from '@gemsorg/app-web3';
-import { uiStateReducers as gemsState } from '@gemsorg/app-gemtokens';
+import { authStateReducers as authState } from '@expandorg/app-auth';
+import { web3ActionTypes } from '@expandorg/app-web3';
+import { uiStateReducers as gemsState } from '@expandorg/app-gemtokens';
 
 import {
   draftsActionTypes,

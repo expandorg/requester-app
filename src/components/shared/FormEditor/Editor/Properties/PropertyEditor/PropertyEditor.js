@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import { PropControlTypes } from '@gemsorg/modules';
+import { PropControlTypes } from '@expandorg/modules';
 
 import StringEditor from './StringEditor';
 import RichTextEditor from './RichTextEditor';

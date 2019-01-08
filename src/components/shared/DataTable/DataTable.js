@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
 
-import { replaceAtIndex } from '@gemsorg/utils/src/immutable';
+import { replaceAtIndex } from '@expandorg/utils/src/immutable';
 import { dataProps } from '../propTypes';
 
 import Column from './Column';

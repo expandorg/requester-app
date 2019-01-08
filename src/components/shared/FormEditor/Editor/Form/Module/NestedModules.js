@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import { DropTarget } from 'react-dnd';
 
-import { moduleProps } from '@gemsorg/modules';
+import { moduleProps } from '@expandorg/modules';
 
 import EmptyDroppable from './EmptyDroppable';
 import DnDModule from './DnDModule';

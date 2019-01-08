@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import { DropTarget } from 'react-dnd';
-import { moduleProps, FormDataProvider } from '@gemsorg/modules';
+import { moduleProps, FormDataProvider } from '@expandorg/modules';
 
 import { dropAreaTarget, FORM_DND_ID } from '../../dnd';
 

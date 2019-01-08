@@ -29,7 +29,7 @@ import {
   TagVideo,
   MultipleTagVideo,
   // ModuleCategories,
-} from '@gemsorg/modules';
+} from '@expandorg/modules';
 
 // class Dropdown2 extends Dropdown {
 //   static module = {

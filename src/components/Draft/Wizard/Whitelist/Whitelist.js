@@ -6,10 +6,13 @@ import cn from 'classnames';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { requestStateProps, RequestStates } from '@gemsorg/app-utils';
+import {
+  requestStateProps,
+  RequestStates,
+  SubmitStateEffect
+} from '@expandorg/app-utils';
 
 import Button from '../../../common/Button';
-import { SubmitStateEffect } from '../../../common/submitStateEffect';
 import { draftProps } from '../../../shared/propTypes';
 import Hero from '../../../shared/Hero';
 

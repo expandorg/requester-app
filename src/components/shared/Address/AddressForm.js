@@ -4,15 +4,15 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { userProps } from '@gemsorg/app-auth';
+import { submitStateEffect } from '@expandorg/app-utils';
+import { userProps } from '@expandorg/app-auth';
 
-import { MetamaskState } from '@gemsorg/app-web3';
-import { metamaskStateSelector } from '@gemsorg/app-web3/selectors';
+import { MetamaskState } from '@expandorg/app-web3';
+import { metamaskStateSelector } from '@expandorg/app-web3/selectors';
 
 import Button from '../../common/Button';
 import Input from '../../common/Input';
 import ErrorMessage from '../../common/ErrorMessage';
-import { submitStateEffect } from '../../common/submitStateEffect';
 
 import MetamaskPromt from '../metamask/MetamaskPromt';
 

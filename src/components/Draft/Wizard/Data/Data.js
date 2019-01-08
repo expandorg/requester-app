@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import { deferComponentRender } from '@gemsorg/components/hoc';
+import { deferComponentRender } from '@expandorg/components/hoc';
 import { draftProps } from '../../../shared/propTypes';
 
 import Button from '../../../common/Button';

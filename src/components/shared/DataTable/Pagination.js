@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
 
-import { range } from '@gemsorg/utils/src/immutable';
+import { range } from '@expandorg/utils/src/immutable';
 
 import styles from './Pagination.module.styl';
 

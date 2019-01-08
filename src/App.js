@@ -7,9 +7,9 @@ import { DragDropContextProvider } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import { ServiceProvider } from '@gemsorg/components';
+import { ServiceProvider } from '@expandorg/components';
 
-import { initSaga } from '@gemsorg/app-utils/app';
+import { initSaga } from '@expandorg/app-utils/app';
 
 import Dashboard from './components/Dashboard/Dashboard';
 

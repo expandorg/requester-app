@@ -83,7 +83,7 @@ export default (env = {}) => {
               ? babelPlugins.concat('react-hot-loader/babel')
               : babelPlugins,
           },
-          exclude: /node_modules\/(?!(@gemsorg)\/).*/,
+          exclude: /node_modules\/(?!(@expandorg)\/).*/,
         },
         {
           test: /^((?!\.module).)*\.styl$/,
@@ -99,7 +99,7 @@ export default (env = {}) => {
             'postcss-loader?sourceMap',
             'stylus-loader?paths[]=src',
           ],
-          exclude: /node_modules\/(?!(@gemsorg)\/).*/,
+          exclude: /node_modules\/(?!(@expandorg)\/).*/,
         },
         {
           test: /\.module\.styl$/,
@@ -119,7 +119,7 @@ export default (env = {}) => {
             'postcss-loader?sourceMap',
             'stylus-loader?paths[]=src',
           ],
-          exclude: /node_modules\/(?!(@gemsorg)\/).*/,
+          exclude: /node_modules\/(?!(@expandorg)\/).*/,
         },
         {
           test: /\.svg$/,
@@ -148,7 +148,7 @@ export default (env = {}) => {
         },
         gemsBuildInfo: {
           components: JSON.stringify(
-            packageJson.dependencies['@gemsorg/components']
+            packageJson.dependencies['@expandorg/components']
           ),
           buildDate: JSON.stringify(new Date().toUTCString()),
         },

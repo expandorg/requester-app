@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router';
 
-import { requestStateProps, historyProps } from '@gemsorg/app-utils';
+import { requestStateProps, historyProps } from '@expandorg/app-utils';
 
 import ConfirmationDialog from '../../../shared/ConfirmationDialog';
 

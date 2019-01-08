@@ -1,5 +1,5 @@
 // @flow
-import { rules, validateForm } from '@gemsorg/validation';
+import { rules, validateForm } from '@expandorg/validation';
 
 const getModuleNames = (root: Object) => {
   let names = root.name ? [root.name] : [];

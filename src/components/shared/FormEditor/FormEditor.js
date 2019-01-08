@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import { formProps } from '@gemsorg/modules';
+import { formProps } from '@expandorg/modules';
 
 import { WalkthroughProvider, WalkthroughPin } from '../Walkthrough';
 

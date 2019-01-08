@@ -5,16 +5,23 @@ import { Prompt } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { RequestStates, requestStateProps } from '@gemsorg/app-utils';
-import { userBalance, DEPOSIT_MIN, DEPOSIT_MAX } from '@gemsorg/app-gemtokens';
-import { depositGems } from '@gemsorg/app-gemtokens/sagas';
+import {
+  RequestStates,
+  requestStateProps,
+  submitStateEffect,
+} from '@expandorg/app-utils';
+
+import {
+  userBalance,
+  DEPOSIT_MIN,
+  DEPOSIT_MAX,
+} from '@expandorg/app-gemtokens';
+import { depositGems } from '@expandorg/app-gemtokens/sagas';
 import {
   // depositStageSelector,
   depositStateSelector,
   gemBalanceSelector,
-} from '@gemsorg/app-gemtokens/selectors';
-
-import { submitStateEffect } from '../../common/submitStateEffect';
+} from '@expandorg/app-gemtokens/selectors';
 
 import Button from '../../common/Button';
 import Input from '../../common/Input';

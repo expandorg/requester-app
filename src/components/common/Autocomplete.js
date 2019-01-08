@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
 
-import { AutocompleteInput } from '@gemsorg/components';
+import { AutocompleteInput } from '@expandorg/components';
 
 import styles from './Autocomplete.module.styl';
 

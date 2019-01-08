@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
 
-import { deferVisibleRender } from '@gemsorg/components/hoc';
+import { deferVisibleRender } from '@expandorg/components/hoc';
+
 import styles from './TopPlaceholder.module.styl';
 
 class TopPlaceholder extends Component {

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import cn from 'classnames';
 
 import { RichUtils } from 'draft-js';
-import { Tooltip } from '@gemsorg/components';
+import { Tooltip } from '@expandorg/components';
 
 import styles from './FontStyleTool.module.styl';
 

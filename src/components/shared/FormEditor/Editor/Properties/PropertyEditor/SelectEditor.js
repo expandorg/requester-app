@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
 
-import { Dropdown } from '@gemsorg/components';
+import { Dropdown } from '@expandorg/components';
 
 import styles from './styles.module.styl';
 

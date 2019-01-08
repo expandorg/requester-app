@@ -1,4 +1,4 @@
-import { ApiClient, ApiRequest } from '@gemsorg/api-client';
+import { ApiClient, ApiRequest } from '@expandorg/api-client';
 
 import settings from '../common/settings';
 

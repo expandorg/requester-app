@@ -1,7 +1,7 @@
 import { takeEvery, put, call } from 'redux-saga/effects';
 import { normalize } from 'normalizr';
 
-import { handleAsyncCall } from '@gemsorg/app-utils';
+import { handleAsyncCall } from '@expandorg/app-utils';
 
 import { dataActionTypes } from './actionTypes';
 

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
-import { Tooltip } from '@gemsorg/components';
-import { userProps } from '@gemsorg/app-auth';
+import { Tooltip } from '@expandorg/components';
+import { userProps } from '@expandorg/app-auth';
 
 import { ReactComponent as I } from '../assets/i.svg';
 

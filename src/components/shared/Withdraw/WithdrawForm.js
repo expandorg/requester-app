@@ -4,18 +4,21 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { RequestStates, requestStateProps } from '@gemsorg/app-utils';
-import { userProps } from '@gemsorg/app-auth';
+import {
+  RequestStates,
+  requestStateProps,
+  submitStateEffect,
+} from '@expandorg/app-utils';
+
+import { userProps } from '@expandorg/app-auth';
 import {
   userBalance,
   WITHDRAW_MAX,
   WITHDRAW_MIN,
-} from '@gemsorg/app-gemtokens';
-import { withdrawPayments } from '@gemsorg/app-gemtokens/sagas';
+} from '@expandorg/app-gemtokens';
+import { withdrawPayments } from '@expandorg/app-gemtokens/sagas';
 
-import { withdrawStateSelector } from '@gemsorg/app-gemtokens/selectors';
-
-import { submitStateEffect } from '../../common/submitStateEffect';
+import { withdrawStateSelector } from '@expandorg/app-gemtokens/selectors';
 
 import Button from '../../common/Button';
 import Input from '../../common/Input';

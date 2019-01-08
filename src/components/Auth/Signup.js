@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import DocumentTitle from 'react-document-title';
-import { historyProps } from '@gemsorg/app-utils';
+import { historyProps } from '@expandorg/app-utils';
 
 import { ReactComponent as Logo } from '../assets/logo.svg';
 
@@ -30,7 +30,7 @@ class Signup extends Component {
             <div className={styles.content}>
               <div className={styles.header}>
                 <Logo width={100} height={100} viewBox="0 0 50 50" />
-                <h2 className={styles.title}>Gems</h2>
+                <h2 className={styles.title}>Expand</h2>
               </div>
               <div className={styles.inner}>
                 <MetamaskSignup />

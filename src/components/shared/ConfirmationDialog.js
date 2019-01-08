@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import { Dialog } from '@gemsorg/components';
+import { Dialog } from '@expandorg/components';
 import Button from '../common/Button';
 
 import { ReactComponent as Warning } from '../assets/warning.svg';

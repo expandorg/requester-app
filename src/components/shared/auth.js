@@ -1,8 +1,8 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
 
-import { RequestStates } from '@gemsorg/app-utils';
-import { authContainer } from '@gemsorg/app-auth';
+import { RequestStates } from '@expandorg/app-utils';
+import { authContainer } from '@expandorg/app-auth';
 
 const notAuthenticatedPredicat = ({ user }) => {
   if (user) {

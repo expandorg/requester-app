@@ -38,6 +38,7 @@ class Button extends Component {
   }
 }
 
+/* eslint-disable */
 export default forwardRef((props, ref) => (
   <Button {...props} forwardedRef={ref} />
 ));

@@ -1,4 +1,4 @@
-import { submitStateEffect } from '../../common/submitStateEffect';
+import { submitStateEffect } from '@expandorg/app-utils';
 
 import {
   editEmailStateSelector,

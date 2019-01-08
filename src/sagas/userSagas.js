@@ -1,9 +1,9 @@
 import { takeEvery, call, put, select, getContext } from 'redux-saga/effects';
 
-import { handleAsyncCall } from '@gemsorg/app-utils';
-import { authActionTypes } from '@gemsorg/app-auth';
-import { userSelector } from '@gemsorg/app-auth/selectors';
-import { gemsActionTypes } from '@gemsorg/app-gemtokens';
+import { handleAsyncCall } from '@expandorg/app-utils';
+import { authActionTypes } from '@expandorg/app-auth';
+import { userSelector } from '@expandorg/app-auth/selectors';
+import { gemsActionTypes } from '@expandorg/app-gemtokens';
 
 import { userActionTypes } from './actionTypes';
 

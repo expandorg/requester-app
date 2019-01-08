@@ -9,12 +9,14 @@ class Input extends Component {
     value: PropTypes.string,
     onChange: PropTypes.func,
     className: PropTypes.string,
+    placeholder: PropTypes.string,
     error: PropTypes.bool, // eslint-disable-line
     forwardedRef: PropTypes.object, // eslint-disable-line
   };
 
   static defaultProps = {
     value: undefined,
+    placeholder: undefined,
     forwardedRef: undefined,
     onChange: undefined,
     className: null,
@@ -55,6 +57,7 @@ class Input extends Component {
   }
 }
 
+/* eslint-disable */
 export default forwardRef((props, ref) => (
   <Input {...props} forwardedRef={ref} />
 ));

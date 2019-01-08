@@ -9,9 +9,9 @@ import {
   race,
 } from 'redux-saga/effects';
 
-import { delay } from '@gemsorg/utils';
-import { appActionTypes, userActionTypes } from '@gemsorg/app-utils/app';
-import { gemsActionTypes } from '@gemsorg/app-gemtokens';
+import { delay } from '@expandorg/utils';
+import { appActionTypes, userActionTypes } from '@expandorg/app-utils/app';
+import { gemsActionTypes } from '@expandorg/app-gemtokens';
 
 import { draftsActionTypes } from './actionTypes';
 

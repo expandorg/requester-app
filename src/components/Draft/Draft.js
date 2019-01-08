@@ -10,7 +10,7 @@ import {
   RequestStates,
   matchProps,
   locationProps,
-} from '@gemsorg/app-utils';
+} from '@expandorg/app-utils';
 import { draftProps } from '../shared/propTypes';
 import { authenticated } from '../shared/auth';
 
