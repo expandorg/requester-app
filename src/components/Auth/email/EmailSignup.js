@@ -54,8 +54,8 @@ class EmailSignup extends Component {
     }
   };
 
-  handleChangeField = (field, { target }) => {
-    this.setState({ [field]: target.value, error: null });
+  handleChange = ({ target }) => {
+    this.setState({ [target.name]: target.value, error: null });
   };
 
   render() {
@@ -82,7 +82,8 @@ class EmailSignup extends Component {
             required
             placeholder="Email address"
             value={email}
-            onChange={evt => this.handleChangeField('email', evt)}
+            name="email"
+            onChange={this.handleChange}
           />
           <Input
             className={styles.input}
@@ -90,7 +91,8 @@ class EmailSignup extends Component {
             required
             placeholder="Password"
             value={password}
-            onChange={evt => this.handleChangeField('password', evt)}
+            name="password"
+            onChange={this.handleChange}
           />
           <ErrorMessage errors={error} className={styles.error} />
           <Button

@@ -54,8 +54,8 @@ class EmailLogin extends Component {
     }
   };
 
-  handleChangeField = (field, { target }) => {
-    this.setState({ [field]: target.value, error: null });
+  handleChange = ({ target }) => {
+    this.setState({ [target.name]: target.value, error: null });
   };
 
   render() {
@@ -81,15 +81,17 @@ class EmailLogin extends Component {
             required
             placeholder="Email address"
             value={email}
-            onChange={evt => this.handleChangeField('email', evt)}
+            name="email"
+            onChange={this.handleChange}
           />
           <Input
             className={styles.input}
             type="password"
             required
             placeholder="Password"
+            name="password"
             value={password}
-            onChange={evt => this.handleChangeField('password', evt)}
+            onChange={this.handleChange}
           />
           <div className={styles.forgotContainer}>
             <Link className={styles.forgot} to="/password">
