@@ -5,15 +5,15 @@ export const source = {
     id,
     order,
   }),
-  canDrag: ({ isTask }) => !isTask,
+  canDrag: ({ isOnboarding }) => isOnboarding,
   endDrag: ({ onEndDrag }) => {
     onEndDrag();
   },
 };
 
 export const target = {
-  hover: ({ id, order, onMove, isTask }, monitor, component) => {
-    if (isTask) {
+  hover: ({ id, order, onMove, isOnboarding }, monitor, component) => {
+    if (!isOnboarding) {
       return;
     }
 
@@ -39,5 +39,5 @@ export const target = {
 
     onMove(dragId, id);
   },
-  canDrop: ({ isTask }) => !isTask,
+  canDrop: ({ isOnboarding }) => isOnboarding,
 };

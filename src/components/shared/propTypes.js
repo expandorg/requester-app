@@ -16,11 +16,6 @@ export const formProps = PropTypes.shape({
   modules: PropTypes.arrayOf(moduleProps),
 });
 
-export const draftTaskFormProps = PropTypes.shape({
-  name: PropTypes.string,
-  form: formProps,
-});
-
 export const draftOnboardingProps = PropTypes.shape({
   id: PropTypes.string,
   name: PropTypes.string,
@@ -29,8 +24,10 @@ export const draftOnboardingProps = PropTypes.shape({
 
 export const draftProps = PropTypes.shape({
   id: PropTypes.string.isRequired,
-  taskForm: draftTaskFormProps,
+  taskForm: formProps,
+  verificationForm: formProps,
   onboarding: draftOnboardingProps,
+  logic: PropTypes.shape({}),
 });
 
 export const dataColumnProps = PropTypes.shape({

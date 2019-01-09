@@ -6,6 +6,7 @@ import { moduleProps, Module } from '@expandorg/modules';
 import { ReactComponent as X } from '../../../../../assets/x.svg';
 
 import NestedModules from './NestedModules';
+import Placeholder from './Placeholder';
 
 import { supportNesting } from '../../../model/modules';
 import { treeEditor } from '../../../dnd';
@@ -54,25 +55,34 @@ export default class ModulePreview extends Component {
       onSelect,
     } = this.props;
 
-    const { module: meta } = controls[module.type];
+    const ControlType = controls[module.type];
+    if (!ControlType) {
+      return (
+        <Placeholder
+          className={styles.notSupported}
+          title={`${module.type} is not supported`}
+        />
+      );
+    }
+    const { module: meta } = ControlType;
+
     const isSelected = treeEditor.getIdByPath(path) === selected;
-
-    const containerClasses = cn(styles.container, {
-      [styles.selected]: isSelected,
-    });
-
-    const innerClasses = cn(styles.inner, {
-      [styles.dimmed]: selected !== null && !isSelected,
-    });
 
     /* eslint-disable jsx-a11y/click-events-have-key-events */
     /* eslint-disable jsx-a11y/no-static-element-interactions */
-
     return (
       <div className={styles.outer}>
         {connectDragPreview(
-          <div className={containerClasses}>
-            <div className={innerClasses}>
+          <div
+            className={cn(styles.container, {
+              [styles.selected]: isSelected,
+            })}
+          >
+            <div
+              className={cn(styles.inner, {
+                [styles.dimmed]: selected !== null && !isSelected,
+              })}
+            >
               <Module
                 isSubmitting={false}
                 module={module}

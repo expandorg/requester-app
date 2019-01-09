@@ -62,6 +62,10 @@ export const draftsActionTypes = createActionTypes('drafts', {
   UPDATE_TASK_COMPLETE: null,
   UPDATE_TASK_FAILED: null,
 
+  UPDATE_VERIFICATION: null,
+  UPDATE_VERIFICATION_COMPLETE: null,
+  UPDATE_VERIFICATION_FAILED: null,
+
   UPDATE_ONBOARDING: null,
   UPDATE_ONBOARDING_COMPLETE: null,
   UPDATE_ONBOARDING_FAILED: null,

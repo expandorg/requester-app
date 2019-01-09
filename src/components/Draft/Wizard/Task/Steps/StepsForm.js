@@ -13,29 +13,35 @@ import {
   validationTaskFormProps,
 } from '../../../../shared/FormEditor/model/validation';
 
-import {
-  draftTaskFormProps,
-  draftOnboardingProps,
-} from '../../../../shared/propTypes';
+import { formProps, draftOnboardingProps } from '../../../../shared/propTypes';
 
 import styles from './StepsForm.module.styl';
 
 const taskSelected = Symbol('taskSelected');
+const verificationSelected = Symbol('verificationSelected');
+
+const validators = {
+  [taskSelected]: validationTaskFormProps,
+  [verificationSelected]: validationTaskFormProps,
+};
 
 export default class StepsForm extends Component {
   static propTypes = {
-    taskForm: draftTaskFormProps,
+    taskForm: formProps,
+    verificationForm: formProps,
     onboarding: draftOnboardingProps,
     variables: PropTypes.arrayOf(PropTypes.string),
     varsSample: PropTypes.object, // eslint-disable-line
-    onUpdateTask: PropTypes.func.isRequired,
     onUpdateOnboarding: PropTypes.func.isRequired,
+    onUpdateTask: PropTypes.func.isRequired,
+    onUpdateVerification: PropTypes.func.isRequired,
   };
 
   static defaultProps = {
     variables: [],
     varsSample: null,
     taskForm: null,
+    verificationForm: null,
     onboarding: null,
   };
 
@@ -60,11 +66,18 @@ export default class StepsForm extends Component {
   }
 
   handleUpdate = form => {
-    const { onUpdateTask, onUpdateOnboarding, onboarding } = this.props;
+    const {
+      onUpdateTask,
+      onUpdateVerification,
+      onUpdateOnboarding,
+      onboarding,
+    } = this.props;
     const { selected, steps } = this.state;
 
     if (selected === taskSelected) {
       onUpdateTask(form);
+    } else if (selected === verificationSelected) {
+      onUpdateVerification(form);
     } else {
       const step = { ...steps[selected], form };
       onUpdateOnboarding({
@@ -115,7 +128,7 @@ export default class StepsForm extends Component {
     });
   };
 
-  handleSelectStep = selected => {
+  handleSelectOnboarding = selected => {
     this.setState({ selected });
   };
 
@@ -123,25 +136,36 @@ export default class StepsForm extends Component {
     this.setState({ selected: taskSelected });
   };
 
+  handleSelectVerification = () => {
+    this.setState({ selected: verificationSelected });
+  };
+
   handleDeselect = () => {
     this.setState({ selected: null });
   };
 
-  renderEditor(selected) {
-    const { taskForm, variables, varsSample } = this.props;
-    const { steps } = this.state;
+  renderEditor() {
+    const { taskForm, verificationForm, variables, varsSample } = this.props;
+    const { steps, selected } = this.state;
+    if (selected === null) {
+      return null;
+    }
 
-    const task = selected === taskSelected;
-
-    const form = task ? taskForm : steps[selected].form;
-    const validate = task ? validationTaskFormProps : validationFormProps;
+    let selectedForm = null;
+    if (selected === taskSelected) {
+      selectedForm = taskForm;
+    } else if (selected === verificationSelected) {
+      selectedForm = verificationForm;
+    } else {
+      selectedForm = steps[selected].form;
+    }
 
     return (
       <FormEditorDialog
-        form={form}
+        form={selectedForm}
         variables={variables}
         varsSample={varsSample}
-        validateForm={validate}
+        validateForm={validators[selected] || validationFormProps}
         onSave={this.handleUpdate}
         onHide={this.handleDeselect}
       />
@@ -149,7 +173,7 @@ export default class StepsForm extends Component {
   }
 
   render() {
-    const { taskForm } = this.props;
+    const { taskForm, verificationForm } = this.props;
     const { steps, selected } = this.state;
     return (
       <div className={styles.container}>
@@ -165,15 +189,26 @@ export default class StepsForm extends Component {
                 onMove={this.handleMoveStep}
                 onDelete={this.handleDeleteStep}
                 onEndDrag={this.handleEndDrag}
-                onSelect={this.handleSelectStep}
+                onSelect={this.handleSelectOnboarding}
               />
             ))}
             {taskForm && (
-              <Step isTask name="Task" onSelect={this.handleSelectTask} />
+              <Step
+                isOnboarding={false}
+                name="Task"
+                onSelect={this.handleSelectTask}
+              />
+            )}
+            {verificationForm && (
+              <Step
+                isOnboarding={false}
+                name="Verification"
+                onSelect={this.handleSelectVerification}
+              />
             )}
           </div>
         )}
-        {selected !== null && this.renderEditor(selected)}
+        {this.renderEditor()}
       </div>
     );
   }

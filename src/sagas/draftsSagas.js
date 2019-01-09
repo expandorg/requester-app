@@ -35,9 +35,16 @@ export const selectTemplate = (id, templateId, settings) => ({
   meta: { schema: draftResponseSchema },
 });
 
-export const updateTask = (id, taskForm) => ({
+export const updateTaskForm = (id, taskForm) => ({
   type: draftsActionTypes.UPDATE_TASK,
   payload: { id, params: { taskForm } },
+  asyncCall: draftApi.update,
+  meta: { schema: draftResponseSchema },
+});
+
+export const updateVerificationForm = (id, verificationForm) => ({
+  type: draftsActionTypes.UPDATE_VERIFICATION,
+  payload: { id, params: { verificationForm } },
   asyncCall: draftApi.update,
   meta: { schema: draftResponseSchema },
 });
@@ -90,6 +97,7 @@ export function* draftsSagas() {
     draftsActionTypes.UPDATE_SETTINGS,
     draftsActionTypes.UPDATE_TEMPLATE,
     draftsActionTypes.UPDATE_TASK,
+    draftsActionTypes.UPDATE_VERIFICATION,
     draftsActionTypes.UPDATE_ONBOARDING,
     draftsActionTypes.UPDATE_FUNDING,
     draftsActionTypes.UPDATE_WHITELIST,

@@ -4,17 +4,19 @@ import cn from 'classnames';
 
 import styles from './Placeholder.module.styl';
 
-const Placeholder = ({ className, connectDropTarget }) =>
+const Placeholder = ({ title, className, connectDropTarget }) =>
   connectDropTarget(
-    <div className={cn(styles.placehoder, className)}>Drop here</div>
+    <div className={cn(styles.placehoder, className)}>{title}</div>
   );
 
 Placeholder.propTypes = {
+  title: PropTypes.string,
   className: PropTypes.string,
   connectDropTarget: PropTypes.func,
 };
 
 Placeholder.defaultProps = {
+  title: 'Drop here',
   className: null,
   connectDropTarget: f => f,
 };

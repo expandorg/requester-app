@@ -19,7 +19,7 @@ class Step extends Component {
     checked: PropTypes.bool,
     onSelect: PropTypes.func.isRequired,
 
-    isTask: PropTypes.bool,
+    isOnboarding: PropTypes.bool,
     isDragging: PropTypes.bool.isRequired,
     order: PropTypes.number,
 
@@ -35,7 +35,7 @@ class Step extends Component {
   static defaultProps = {
     id: null,
     order: null,
-    isTask: false,
+    isOnboarding: true,
     checked: false,
     onMove: null,
     onDelete: null,
@@ -58,7 +58,7 @@ class Step extends Component {
     const {
       name,
       checked,
-      isTask,
+      isOnboarding,
       isDragging,
 
       connectDragSource,
@@ -89,7 +89,7 @@ class Step extends Component {
               </div>
             </div>
           )}
-          {!isTask && (
+          {isOnboarding && (
             <button className={styles.remove} onClick={this.handleDelete}>
               <X />
             </button>
