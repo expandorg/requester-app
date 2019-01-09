@@ -25,6 +25,7 @@ export default class Editor extends Component {
     modules: PropTypes.arrayOf(moduleProps).isRequired,
     selected: PropTypes.arrayOf(PropTypes.number),
     variables: PropTypes.arrayOf(PropTypes.string),
+    title: PropTypes.string.isRequired,
     varsSample: PropTypes.object, // eslint-disable-line
     moduleControls: PropTypes.arrayOf(PropTypes.func).isRequired,
     validateForm: PropTypes.func.isRequired,
@@ -93,6 +94,7 @@ export default class Editor extends Component {
   render() {
     const {
       modules,
+      title,
       onMoveModule,
       onAddModule,
       onSelectModule,
@@ -103,7 +105,7 @@ export default class Editor extends Component {
       selected,
     } = this.props;
     const { controls, error } = this.state;
-    console.log(error);
+
     const selectedModule = selected && treeEditor.findByPath(modules, selected);
 
     return (
@@ -142,7 +144,7 @@ export default class Editor extends Component {
             </PreviewCtx>
             <WalkthroughPin id="preview" className={styles.previewPin} />
           </div>
-          <div className={styles.title}>Edit Task Module</div>
+          <div className={styles.title}>Edit {title} Module</div>
           <div className={styles.buttons}>
             <ToggleWalkthrough>
               {({ onToggle, enabled }) => (

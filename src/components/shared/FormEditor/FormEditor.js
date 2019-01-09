@@ -18,6 +18,7 @@ import styles from './FormEditor.module.styl';
 export default class FormEditor extends Component {
   static propTypes = {
     form: formProps,
+    title: PropTypes.string,
     variables: PropTypes.arrayOf(PropTypes.string),
     varsSample: PropTypes.object, // eslint-disable-line
     validateForm: PropTypes.func.isRequired,
@@ -27,6 +28,7 @@ export default class FormEditor extends Component {
 
   static defaultProps = {
     variables: [],
+    title: 'Task',
     varsSample: null,
     form: null,
   };
@@ -115,7 +117,7 @@ export default class FormEditor extends Component {
   };
 
   render() {
-    const { onHide, validateForm, variables, varsSample } = this.props;
+    const { onHide, validateForm, variables, varsSample, title } = this.props;
     const { modules, selected } = this.state;
 
     return (
@@ -132,6 +134,7 @@ export default class FormEditor extends Component {
           <div className={styles.editor}>
             <Editor
               modules={modules}
+              title={title}
               selected={selected}
               moduleControls={availableModules}
               validateForm={validateForm}

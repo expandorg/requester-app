@@ -25,6 +25,11 @@ const validators = {
   [verificationSelected]: validationTaskFormProps,
 };
 
+const editorTitles = {
+  [taskSelected]: 'Task',
+  [verificationSelected]: 'Verification',
+};
+
 export default class StepsForm extends Component {
   static propTypes = {
     taskForm: formProps,
@@ -165,6 +170,7 @@ export default class StepsForm extends Component {
         form={selectedForm}
         variables={variables}
         varsSample={varsSample}
+        title={editorTitles[selected] || 'Onboarding'}
         validateForm={validators[selected] || validationFormProps}
         onSave={this.handleUpdate}
         onHide={this.handleDeselect}
