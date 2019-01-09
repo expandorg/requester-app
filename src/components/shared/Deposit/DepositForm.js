@@ -80,7 +80,7 @@ class DepositForm extends Component {
       if (!userBalance.canDeposit(+amount, balance)) {
         this.setState({
           errors: {
-            commonMessage: `Amount of Gems to deposit should be between ${DEPOSIT_MIN} and ${DEPOSIT_MAX}`,
+            commonMessage: `Amount of XPN to deposit should be between ${DEPOSIT_MIN} and ${DEPOSIT_MAX}`,
           },
         });
       } else {
@@ -107,7 +107,7 @@ class DepositForm extends Component {
           <div className={fstyles.icon}>
             <Card width={72} height={64} viewBox="0 0 72 56" />
           </div>
-          <div className={styles.title}>Deposit more gems.</div>
+          <div className={styles.title}>Deposit more XPN.</div>
           <div className={styles.description}>
             <Description balance={balance} />
           </div>
