@@ -10,8 +10,8 @@ import Form from './Form/Form';
 import Properties from './Properties/Properties';
 import PreviewCtx from './PreviewCtx';
 
-import { ReactComponent as Bulb } from '../../../assets/bulb.svg';
-import { ToggleWalkthrough, WalkthroughPin } from '../../Walkthrough';
+import { WalkthroughPin } from '../../Walkthrough';
+import Walkthrough from './Walkthrough';
 
 import { NotificationAnimated } from '../../Notifications';
 
@@ -146,17 +146,7 @@ export default class Editor extends Component {
           </div>
           <div className={styles.title}>Edit {title} Module</div>
           <div className={styles.buttons}>
-            <ToggleWalkthrough>
-              {({ onToggle, enabled }) => (
-                <button
-                  className={cn(styles.toggle, { [styles.enabled]: enabled })}
-                  onClick={onToggle}
-                  id="gems-toggle"
-                >
-                  <Bulb width={13} height={15} viewBox="0 0 9 15" />
-                </button>
-              )}
-            </ToggleWalkthrough>
+            <Walkthrough />
             <WalkthroughPin id="toggle" className={styles.togglePin} />
             <Button theme="grey" className={styles.btn} onClick={onCancel}>
               Cancel
