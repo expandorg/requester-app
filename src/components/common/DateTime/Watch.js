@@ -5,7 +5,7 @@ import cn from 'classnames';
 import setHours from 'date-fns/set_hours';
 import getHours from 'date-fns/get_hours';
 
-import { range } from '@expandorg/utils/src/immutable';
+import { range } from '@expandorg/utils';
 
 import styles from './Watch.module.styl';
 

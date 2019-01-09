@@ -4,7 +4,7 @@ import cn from 'classnames';
 
 import nanoid from 'nanoid';
 
-import { removeAtIndex, replaceAtIndex } from '@expandorg/utils/src/immutable';
+import { removeAtIndex, replaceAtIndex } from '@expandorg/utils';
 
 import Condition from './Condition';
 
