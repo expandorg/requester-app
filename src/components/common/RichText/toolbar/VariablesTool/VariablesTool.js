@@ -47,7 +47,7 @@ export default class VariablesTool extends Component {
         <button
           className={styles.button}
           onClick={this.handleToggle}
-          disabled={!variables.length}
+          disabled={!(variables && variables.length)}
         >
           add variable
         </button>
