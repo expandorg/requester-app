@@ -79,7 +79,6 @@ class Steps extends Component {
 
   render() {
     const { draft, variables, varsSample } = this.props;
-    console.log(draft);
     return (
       <StepsForm
         taskForm={draft.taskForm}
