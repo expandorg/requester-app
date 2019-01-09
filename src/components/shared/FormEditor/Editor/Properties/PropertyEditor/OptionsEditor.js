@@ -38,7 +38,6 @@ export default class OptionsEditor extends Component {
 
   render() {
     const { value, variables } = this.props;
-
     /* eslint-disable react/no-array-index-key */
     return (
       <div className={styles.container}>
@@ -49,18 +48,18 @@ export default class OptionsEditor extends Component {
           onChange={v => this.handleChangeValue(v, 0)}
           className={styles.default}
         />
-        {value.slice(1, value.length - 1).map((o, idx) => (
+        {value.slice(1, value.length).map((o, idx) => (
           <div className={styles.item} key={idx}>
             <DraftTextInput
               value={o}
               autocomplete={variables}
               placeholder={`Option ${idx + 2}`}
               className={styles.option}
-              onChange={v => this.handleChangeValue(v, idx)}
+              onChange={v => this.handleChangeValue(v, idx + 1)}
             />
             <button
               className={styles.remove}
-              onClick={() => this.handleRemoveClick(idx)}
+              onClick={() => this.handleRemoveClick(idx + 1)}
             >
               <X />
             </button>
