@@ -1,5 +1,5 @@
 // @flow
-import BaseChildWindow from './BaseChildWindow';
+import { BaseChildWindow } from '@expandorg/app-utils';
 
 export default class PreviewFormTab extends BaseChildWindow {
   constructor() {
