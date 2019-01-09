@@ -82,7 +82,7 @@
     "@babel/preset-flow": "^7.0.0",
     "@babel/preset-react": "^7.0.0",
     "@babel/register": "^7.0.0",
-    "@expandorg/eslint-config": "^0.2.0",
+    "@expandorg/eslint-config": "^0.3.0",
     "@svgr/webpack": "^4.1.0",
     "babel-core": "^7.0.0-bridge.0",
     "babel-eslint": "^10.0.1",
