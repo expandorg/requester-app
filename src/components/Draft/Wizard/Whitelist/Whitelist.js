@@ -9,7 +9,7 @@ import { bindActionCreators } from 'redux';
 import {
   requestStateProps,
   RequestStates,
-  SubmitStateEffect
+  SubmitStateEffect,
 } from '@expandorg/app-utils';
 
 import Button from '../../../common/Button';
