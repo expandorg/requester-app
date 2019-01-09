@@ -88,7 +88,6 @@ class Payments extends Component {
         requirement: +requirement,
         reward: +reward,
       };
-      console.log('UPDATE', this.state.funding);
       const errors = validateForm(this.state.funding, fundingRules);
       if (errors) {
         this.setState({ errors });
