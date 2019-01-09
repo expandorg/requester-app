@@ -19,7 +19,7 @@ const editorsMap = {
   [PropControlTypes.richText]: RichTextEditor,
   [PropControlTypes.enum]: SelectEditor,
   [PropControlTypes.modules]: null,
-  options: OptionsEditor,
+  [PropControlTypes.options]: OptionsEditor,
 };
 
 export default class PropertyEditor extends Component {
