@@ -113,7 +113,7 @@ class DepositForm extends Component {
           </div>
           <div className={styles.field}>
             <Input
-              placeholder="Amount of gems to deposit"
+              placeholder="Amount of XPN to deposit"
               value={amount}
               onChange={this.handleInputChange}
             />

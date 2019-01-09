@@ -124,7 +124,7 @@ class Payments extends Component {
       <Form onSubmit={this.handleSubmit}>
         <Fieldset>
           <Description>Description about this step goes here.</Description>
-          <Hero value={user.gems.balance} title="gems available" />
+          <Hero value={user.gems.balance} title="XPN available" />
           {!insufficent && (
             <>
               <Field
@@ -160,9 +160,9 @@ class Payments extends Component {
               className={styles.warning}
               icon={<Card width="82px" height="64px" viewBox="0 0 72 56" />}
             >
-              You do not have enough gems.
+              You do not have enough XPN.
               <br />
-              Would you like to deposit some gems?
+              Would you like to deposit some XPN?
             </HeroWarning>
           )}
           <Field>
@@ -173,7 +173,7 @@ class Payments extends Component {
                   className={styles.deposit}
                   onClick={onToggleDepsoit}
                 >
-                  deposit gems
+                  deposit XPN
                 </button>
               )}
             </Deposit>

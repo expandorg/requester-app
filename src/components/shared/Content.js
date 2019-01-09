@@ -9,7 +9,7 @@ import { Notifications } from './Notifications';
 import './Content.styl';
 
 const Content = ({ children, title, className, sidebar, navbar }) => (
-  <DocumentTitle title={`${title} - Gems`}>
+  <DocumentTitle title={`${title} - Expand`}>
     <div className="gem-page">
       <div
         className={cn(

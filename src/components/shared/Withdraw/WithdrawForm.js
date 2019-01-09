@@ -69,7 +69,7 @@ class WithdrawForm extends Component {
       if (!userBalance.canWithdraw(user, +amount)) {
         this.setState({
           errors: {
-            commonMessage: `Amount of Gems to withdraw should be between ${WITHDRAW_MIN} and ${WITHDRAW_MAX}`,
+            commonMessage: `Amount of XPN to withdraw should be between ${WITHDRAW_MIN} and ${WITHDRAW_MAX}`,
           },
         });
       } else {
@@ -97,7 +97,7 @@ class WithdrawForm extends Component {
           <div className={fstyles.icon}>
             <Card width={72} height={64} viewBox="0 0 72 56" />
           </div>
-          <div className={styles.title}>Withdaw Gems</div>
+          <div className={styles.title}>Withdaw XPN</div>
           <div className={styles.description}>
             <p className={fstyles.p}>
               Due to high demand, we require a minimum withdrawal of
@@ -107,14 +107,14 @@ class WithdrawForm extends Component {
             </p>
             {!available && (
               <p className={fstyles.p}>
-                You don&#39;t have enough gems to withdraw. You current balance
+                You don&#39;t have enough XPN to withdraw. You current balance
                 is<span className={styles.gems}>{balance}</span>tokens.
               </p>
             )}
           </div>
           <div className={styles.field}>
             <Input
-              placeholder="Amount of Gems to withdraw"
+              placeholder="Amount of XPN to withdraw"
               type="number"
               value={amount}
               onChange={this.handleInputChange}

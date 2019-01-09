@@ -36,7 +36,7 @@ export default class DepositDialog extends Component {
         {!complete && <DepositForm {...this.props} />}
         {complete && (
           <TxForm
-            title="Success! Your Gems have been depositied."
+            title="Success! Your XPN have been depositied."
             tx={complete.user.pendingTx.hash}
             onHide={onHide}
           />

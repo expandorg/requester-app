@@ -9,7 +9,7 @@ const Install = ({ onHide }) => (
   <div className={styles.container}>
     <div className={styles.headline}>Please Install MetaMask</div>
     <div className={styles.description}>
-      To complete tasks on Gems you will need the MetaMask Chrome Extension.
+      To complete tasks on Expand you will need the MetaMask Chrome Extension.
       Here is how:
     </div>
     <div className={styles.video}>

@@ -27,7 +27,7 @@ export default class Gems extends Component {
         <Hero
           className={styles.hero}
           value={user.gems.balance}
-          title="Gems available"
+          title="XPN available"
         />
         <div className={styles.actions}>
           <Deposit user={user}>
