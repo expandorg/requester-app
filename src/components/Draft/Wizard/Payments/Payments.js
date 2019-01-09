@@ -45,6 +45,7 @@ const mapDispatchToProps = dispatch =>
 const getInitialState = ({ logic }) => ({
   requirement: (logic.funding && `${logic.funding.requirement || 0}`) || '',
   reward: (logic.funding && `${logic.funding.reward || 0}`) || '',
+  module: logic.funding && `${logic.funding.module || ''}`,
 });
 
 class Payments extends Component {
@@ -81,8 +82,13 @@ class Payments extends Component {
   handleSubmit = () => {
     const { draft, submitState } = this.props;
     if (submitState.state !== RequestStates.Fetching) {
-      const { requirement, reward } = this.state.funding;
-      const funding = { requirement: +requirement, reward: +reward };
+      const { requirement, reward, module } = this.state.funding;
+      const funding = {
+        module,
+        requirement: +requirement,
+        reward: +reward,
+      };
+      console.log('UPDATE', this.state.funding);
       const errors = validateForm(this.state.funding, fundingRules);
       if (errors) {
         this.setState({ errors });
