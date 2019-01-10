@@ -6,7 +6,7 @@ case $1 in
 esac
 
 url=gs://${subdomain}.expand.org
-old_hash=$(gsutil ls $url | sed -nE "s,${url}/app-(.+)\.js$,\1,p")
+old_hash=$(gsutil ls $url | sed -nE "s,${url}/portal-(.+)\.js$,\1,p")
 
 rm -rf ./public/static ./public/portal-* ./public/index.html
 npm install
