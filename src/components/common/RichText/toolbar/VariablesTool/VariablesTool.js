@@ -42,13 +42,14 @@ export default class VariablesTool extends Component {
   render() {
     const { variables } = this.props;
     const { opened } = this.state;
+
+    if (!(variables && variables.length)) {
+      return null;
+    }
+
     return (
       <div className={styles.container}>
-        <button
-          className={styles.button}
-          onClick={this.handleToggle}
-          disabled={!(variables && variables.length)}
-        >
+        <button className={styles.button} onClick={this.handleToggle}>
           add variable
         </button>
         {opened && (

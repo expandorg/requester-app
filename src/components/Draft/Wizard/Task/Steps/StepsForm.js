@@ -8,27 +8,11 @@ import FormEditorDialog from './FormEditorDialog';
 import Step from './Step';
 import AddNew from './AddNew';
 
-import {
-  validationFormProps,
-  validationTaskFormProps,
-} from '../../../../shared/FormEditor/model/validation';
-
 import { formProps, draftOnboardingProps } from '../../../../shared/propTypes';
 
+import { taskSelected, verificationSelected, getFormEditorProps } from './form';
+
 import styles from './StepsForm.module.styl';
-
-const taskSelected = Symbol('taskSelected');
-const verificationSelected = Symbol('verificationSelected');
-
-const validators = {
-  [taskSelected]: validationTaskFormProps,
-  [verificationSelected]: validationTaskFormProps,
-};
-
-const editorTitles = {
-  [taskSelected]: 'Task',
-  [verificationSelected]: 'Verification',
-};
 
 export default class StepsForm extends Component {
   static propTypes = {
@@ -149,35 +133,6 @@ export default class StepsForm extends Component {
     this.setState({ selected: null });
   };
 
-  renderEditor() {
-    const { taskForm, verificationForm, variables, varsSample } = this.props;
-    const { steps, selected } = this.state;
-    if (selected === null) {
-      return null;
-    }
-
-    let selectedForm = null;
-    if (selected === taskSelected) {
-      selectedForm = taskForm;
-    } else if (selected === verificationSelected) {
-      selectedForm = verificationForm;
-    } else {
-      selectedForm = steps[selected].form;
-    }
-
-    return (
-      <FormEditorDialog
-        form={selectedForm}
-        variables={variables}
-        varsSample={varsSample}
-        title={editorTitles[selected] || 'Onboarding'}
-        validateForm={validators[selected] || validationFormProps}
-        onSave={this.handleUpdate}
-        onHide={this.handleDeselect}
-      />
-    );
-  }
-
   render() {
     const { taskForm, verificationForm } = this.props;
     const { steps, selected } = this.state;
@@ -214,7 +169,13 @@ export default class StepsForm extends Component {
             )}
           </div>
         )}
-        {this.renderEditor()}
+        {selected !== null && (
+          <FormEditorDialog
+            {...getFormEditorProps(this.props, this.state)}
+            onSave={this.handleUpdate}
+            onHide={this.handleDeselect}
+          />
+        )}
       </div>
     );
   }
