@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { requestStateProps } from '@expandorg/app-utils';
+import { requestStateProps, SubmitStateEffect } from '@expandorg/app-utils';
 
 import { loginMetamaskStateSelector } from '@expandorg/app-auth/selectors';
 import { loginMetamask } from '@expandorg/app-auth/sagas';
@@ -37,13 +37,6 @@ class MetamaskLogin extends Component {
     error: null,
   };
 
-  componentWillReceiveProps({ loginState: nextState }) {
-    const { loginState } = this.props;
-    if (nextState.error && nextState.error !== loginState.error) {
-      this.setState({ error: nextState.error });
-    }
-  }
-
   handleHide = () => {
     this.setState({ metamaskDialog: false });
   };
@@ -56,8 +49,12 @@ class MetamaskLogin extends Component {
     }
   };
 
+  handleFailed = ({ error }) => {
+    this.setState({ error });
+  };
+
   render() {
-    const { metamaskState } = this.props;
+    const { metamaskState, loginState } = this.props;
     const { metamaskDialog, error } = this.state;
     return (
       <div className={styles.container}>
@@ -73,6 +70,10 @@ class MetamaskLogin extends Component {
           />
         )}
         <ErrorMessage errors={error} className={styles.error} />
+        <SubmitStateEffect
+          submitState={loginState}
+          onFailed={this.handleFailed}
+        />
       </div>
     );
   }

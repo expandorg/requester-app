@@ -6,7 +6,11 @@ import { bindActionCreators } from 'redux';
 
 import { Link } from 'react-router-dom';
 
-import { RequestStates, requestStateProps } from '@expandorg/app-utils';
+import {
+  RequestStates,
+  requestStateProps,
+  SubmitStateEffect,
+} from '@expandorg/app-utils';
 
 import { Button } from '@expandorg/components';
 
@@ -37,13 +41,6 @@ class EmailLogin extends Component {
     error: null,
   };
 
-  componentWillReceiveProps({ loginState: nextState }) {
-    const { loginState } = this.props;
-    if (nextState.error && nextState.error !== loginState.error) {
-      this.setState({ error: nextState.error });
-    }
-  }
-
   handleSubmit = evt => {
     evt.preventDefault();
     if (this.props.loginState.state !== RequestStates.Fetching) {
@@ -55,6 +52,10 @@ class EmailLogin extends Component {
 
   handleChange = ({ target }) => {
     this.setState({ [target.name]: target.value, error: null });
+  };
+
+  handleFailed = ({ error }) => {
+    this.setState({ error });
   };
 
   render() {
@@ -102,6 +103,10 @@ class EmailLogin extends Component {
             {isFetching ? 'Signing in...' : 'Login'}
           </Button>
         </form>
+        <SubmitStateEffect
+          submitState={loginState}
+          onFailed={this.handleFailed}
+        />
       </div>
     );
   }

@@ -7,7 +7,11 @@ import cn from 'classnames';
 
 import { Button } from '@expandorg/components';
 
-import { RequestStates, requestStateProps } from '@expandorg/app-utils';
+import {
+  RequestStates,
+  requestStateProps,
+  SubmitStateEffect,
+} from '@expandorg/app-utils';
 
 import { signupStateSelector } from '@expandorg/app-auth/selectors';
 import { signup } from '@expandorg/app-auth/sagas';
@@ -37,13 +41,6 @@ class EmailSignup extends Component {
     error: null,
   };
 
-  componentWillReceiveProps({ signupState: nextState }) {
-    const { signupState } = this.props;
-    if (nextState.error && nextState.error !== signupState.error) {
-      this.setState({ error: nextState.error });
-    }
-  }
-
   handleSubmit = evt => {
     evt.preventDefault();
     if (this.props.signupState.state !== RequestStates.Fetching) {
@@ -55,6 +52,10 @@ class EmailSignup extends Component {
 
   handleChange = ({ target }) => {
     this.setState({ [target.name]: target.value, error: null });
+  };
+
+  handleFailed = ({ error }) => {
+    this.setState({ error });
   };
 
   render() {
@@ -101,6 +102,10 @@ class EmailSignup extends Component {
             {isFetching ? 'Signing up...' : 'Sign up'}
           </Button>
         </form>
+        <SubmitStateEffect
+          submitState={signupState}
+          onFailed={this.handleFailed}
+        />
       </div>
     );
   }
