@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 
+import I from '../common/I';
+
 import Content from '../shared/Content';
 import Navbar from '../shared/Navbar';
 import Sidebar from '../shared/Sidebar';
@@ -13,13 +15,28 @@ export default class Stats extends Component {
     const pending = 18;
     const accepted = 20;
     const rejected = 5;
+
     return (
       <Content title="Stats">
         <Navbar title="Stats" />
         <Sidebar />
         <div className={styles.container}>
           <div className={styles.content}>
-            <Hero value={pending} title="Pending" className={styles.item} />
+            <Hero
+              value={pending}
+              title={
+                <div className={styles.pendingTitle}>
+                  Pending
+                  <I
+                    tooltip="Tasks are pending acceptance."
+                    tooltipPosition="right"
+                    tooltipOrientation="right"
+                    className={styles.i}
+                  />
+                </div>
+              }
+              className={styles.item}
+            />
             <Hero value={accepted} title="Accepted" className={styles.item} />
             <Hero value={rejected} title="Rejected" className={styles.item} />
           </div>

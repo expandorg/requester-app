@@ -13,7 +13,7 @@ const Hero = ({ className, value, title }) => (
 
 Hero.propTypes = {
   value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  title: PropTypes.string,
+  title: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
   className: PropTypes.string,
 };
 

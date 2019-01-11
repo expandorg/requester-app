@@ -1,13 +1,20 @@
 @import 'components/common/uikit/colors'
 @import 'components/common/uikit/font'
+@import 'components/common/uikit/size'
+
+.container
+  height: 'calc(100vh - %s)' % sz-navbar-height
+  width: 100%
+
+  display: flex
+  justify-content: center
+  align-items: center
 
 .content
   width: 512px
   height: 214px
 
-  //FIXME margin
-  margin: 180px auto 0
-
+  margin-bottom: 60px
   padding: 0 40px
 
   display: flex
@@ -21,3 +28,20 @@
 
 .item
   margin-top: 0
+
+.pendingTitle
+  position: relative
+
+  :global(.gem-tooltip)
+    width: 270px
+
+    padding: 20px 30px
+    text-transform: none
+    text-align: left
+    white-space: pre-wrap
+
+    top: -39px
+
+.i
+  margin-left: 4px
+  cursor: pointer
