@@ -20,6 +20,8 @@ export const getFormEditorProps = (
       form: taskForm,
       title: 'Task',
       validateForm: validationTaskFormProps,
+      variables,
+      varsSample,
     };
   }
   if (selected === verificationSelected) {
@@ -27,13 +29,13 @@ export const getFormEditorProps = (
       form: verificationForm,
       title: 'Verification',
       validateForm: validationTaskFormProps,
+      variables,
+      varsSample,
     };
   }
   return {
     form: steps[selected].form,
     title: 'Onboarding',
     validateForm: validationFormProps,
-    variables,
-    varsSample,
   };
 };
