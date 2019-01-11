@@ -28,7 +28,6 @@ const mapDispatchToProps = dispatch => bindActionCreators({ login }, dispatch);
 class EmailLogin extends Component {
   static propTypes = {
     loginState: requestStateProps.isRequired,
-    onToggle: PropTypes.func.isRequired,
     login: PropTypes.func.isRequired,
   };
 
@@ -59,7 +58,7 @@ class EmailLogin extends Component {
   };
 
   render() {
-    const { loginState, onToggle } = this.props;
+    const { loginState } = this.props;
     const { email, password, error } = this.state;
     const isFetching = loginState.state === RequestStates.Fetching;
 
@@ -103,9 +102,6 @@ class EmailLogin extends Component {
             {isFetching ? 'Signing in...' : 'Login'}
           </Button>
         </form>
-        <Button type="submit" className={styles.toggle} onClick={onToggle}>
-          Sign up
-        </Button>
       </div>
     );
   }

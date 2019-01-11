@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import DocumentTitle from 'react-document-title';
-import { historyProps } from '@expandorg/app-utils';
+import { Link } from 'react-router-dom';
 
 import { ReactComponent as Logo } from '../assets/logo.svg';
 
@@ -13,15 +13,6 @@ import { notAuthenticated } from '../shared/auth';
 import styles from './styles.module.styl';
 
 class Signup extends Component {
-  static propTypes = {
-    history: historyProps.isRequired,
-  };
-
-  handleRedirect = () => {
-    const { history } = this.props;
-    history.push('/login');
-  };
-
   render() {
     return (
       <DocumentTitle title="Signup">
@@ -34,7 +25,13 @@ class Signup extends Component {
               </div>
               <div className={styles.inner}>
                 <MetamaskSignup />
-                <EmailSignup onToggle={this.handleRedirect} />
+                <EmailSignup />
+              </div>
+              <div className={styles.toggle}>
+                Already have an account?
+                <Link to="/login" className={styles.link}>
+                  Sign in here.
+                </Link>
               </div>
             </div>
           </div>
