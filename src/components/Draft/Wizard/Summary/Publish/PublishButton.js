@@ -34,7 +34,7 @@ export default class PublishButton extends Component {
   handlePublishClick = evt => {
     const { onPublish } = this.props;
     onPublish();
-    this.handleHide();
+    this.handleToggleSchedule();
 
     evt.preventDefault();
   };

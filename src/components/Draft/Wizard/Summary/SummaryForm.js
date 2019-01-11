@@ -31,9 +31,14 @@ const getTaskStatus = ({ taskForm }) =>
 export default class SummaryForm extends Component {
   static propTypes = {
     user: userProps.isRequired,
+    errors: PropTypes.shape({}),
     draft: draftProps.isRequired,
     onBack: PropTypes.func.isRequired,
     onSubmit: PropTypes.func.isRequired,
+  };
+
+  static defaultProps = {
+    errors: null,
   };
 
   handlePublishClick = schedule => {
@@ -42,8 +47,7 @@ export default class SummaryForm extends Component {
   };
 
   render() {
-    const { draft, user, onBack } = this.props;
-
+    const { draft, user, onBack, errors } = this.props;
     const nav = getNavState(draft);
     const draftReady = isDraftReady(draft);
 
@@ -61,11 +65,11 @@ export default class SummaryForm extends Component {
         {/* <Section title="Task" status={nav.templates.status} blue>
           <TaskTemplate draft={draft} />
         </Section> */}
-        <Section title="Task" status={getTaskStatus(draft)} blue>
-          <Task form={draft.taskForm} draft={draft} />
-        </Section>
-        <Section title="Template Settings" status="complete">
+        <Section title="Template Settings" status="complete" blue>
           <TemplateSettings draft={draft} />
+        </Section>
+        <Section title="Task" status={getTaskStatus(draft)}>
+          <Task form={draft.taskForm} draft={draft} />
         </Section>
         {/* <Section title="Whitelist" status={nav.whitelist.status}>
           <Whitelist draft={draft} />
@@ -81,6 +85,13 @@ export default class SummaryForm extends Component {
               There are still some sections that need completing.
               <br />
               The task can not be published until all sections are complete.
+            </HeroWarning>
+          )}
+          {errors && (
+            <HeroWarning
+              icon={<Warning width="64px" height="64px" viewBox="0 0 42 42" />}
+            >
+              {errors.commonMessage}
             </HeroWarning>
           )}
         </Section>

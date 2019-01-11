@@ -69,9 +69,8 @@ class PreviewDraft extends Component {
   };
 
   render() {
-    const { draft, loadState } = this.props;
-    const isLoading = !draft && loadState.state === RequestStates.Fetching;
-    console.log(isLoading);
+    const { draft } = this.props;
+    // const isLoading = !draft && loadState.state === RequestStates.Fetching;
 
     return (
       <Content

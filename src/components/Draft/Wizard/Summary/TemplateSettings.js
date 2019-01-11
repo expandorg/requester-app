@@ -21,11 +21,12 @@ const Field = ({ title, value, type }) => (
 
 Field.propTypes = {
   title: PropTypes.string.isRequired,
-  value: PropTypes.any.isRequired, // eslint-disable-line
+  value: PropTypes.any, // eslint-disable-line
   type: PropTypes.string,
 };
 
 Field.defaultProps = {
+  value: null,
   type: 'string',
 };
 
@@ -46,14 +47,18 @@ export default class TemplateSettings extends Component {
         {draft.callbackUrl && (
           <Field title="Callback Url" value={draft.callbackUrl} />
         )}
-        <Field
-          title="Onboarding Success Message"
-          value={draft.onboarding.successMessage}
-        />
-        <Field
-          title="Onboarding Failure Message"
-          value={draft.onboarding.failureMessage}
-        />
+        {draft.onboarding && (
+          <>
+            <Field
+              title="Onboarding Success Message"
+              value={draft.onboarding.successMessage}
+            />
+            <Field
+              title="Onboarding Failure Message"
+              value={draft.onboarding.failureMessage}
+            />
+          </>
+        )}
       </div>
     );
   }

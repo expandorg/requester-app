@@ -41,6 +41,7 @@ class Summary extends Component {
 
   state = {
     published: false,
+    errors: null,
   };
 
   handleBack = evt => {
@@ -61,14 +62,19 @@ class Summary extends Component {
     this.setState({ published: true });
   };
 
+  handlePublishFailed = ({ error }) => {
+    this.setState({ errors: error });
+  };
+
   render() {
     const { draft, user, submitState } = this.props;
-    const { published } = this.state;
+    const { published, errors } = this.state;
 
     return (
       <SubmitStateEffect
         submitState={submitState}
         onComplete={this.handlePublishComplete}
+        onFailed={this.handlePublishFailed}
       >
         {!published && (
           <LoadIndicator
@@ -78,6 +84,7 @@ class Summary extends Component {
             <SummaryForm
               user={user}
               draft={draft}
+              errors={errors}
               onBack={this.handleBack}
               onSubmit={this.handleSubmit}
             />

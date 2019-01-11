@@ -36,10 +36,10 @@ class Menu extends Component {
 
     return (
       <div className={styles.menu} ref={forwardedRef}>
-        <Button className={styles.menuItem} onClick={onSchedule}>
+        <Button className={styles.menuItem} onClick={onSchedule} role="button">
           schedule
         </Button>
-        <Button className={styles.menuItem} onClick={onPublish}>
+        <Button className={styles.menuItem} onClick={onPublish} role="button">
           Publish now
         </Button>
       </div>
