@@ -1,0 +1,33 @@
+@import 'components/common/uikit/colors'
+@import 'components/common/uikit/font'
+
+.container
+  position: relative;
+
+
+.button
+  display: flex
+  justify-content: center
+  align-items: center
+
+  height: 30px
+  padding: 0 10px
+
+  color: color-text-blue
+  text-transform: uppercase
+  background: color-light-blue
+  border: 1px solid color-heavy-blue
+  font(body-bold, false, 15px, false)
+  line-height: 30px
+  letter-spacing: 0.1em
+
+  outline: 0
+  cursor: pointer
+
+  &:disabled
+    cursor: default;
+
+    color: color-text-disabled
+    background-color: transparent;
+    font-weight: normal
+    border-color: color-text-disabled

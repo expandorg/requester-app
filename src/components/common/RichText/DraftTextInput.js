@@ -5,6 +5,10 @@ import cn from 'classnames';
 import Editor from 'draft-js-plugins-editor';
 import createMentionPlugin from 'draft-js-mention-plugin';
 
+import { ReactComponent as Arrow } from '../../assets/arrow-down.svg';
+
+import { VariablesTool } from './toolbar';
+
 import TopPlaceholder from './TopPlaceholder';
 
 import {
@@ -60,7 +64,7 @@ export default class DraftTextInput extends Component {
   };
 
   render() {
-    const { placeholder, className } = this.props;
+    const { placeholder, className, autocomplete: allVars } = this.props;
     const { editorState, autocomplete } = this.state;
 
     const { MentionSuggestions } = this.mentionPlugin;
@@ -87,6 +91,20 @@ export default class DraftTextInput extends Component {
             className={styles.placeholder}
             placeholder={placeholder}
           />
+        )}
+        {allVars && allVars.length > 0 && (
+          <VariablesTool
+            className={styles.dropdown}
+            variables={allVars}
+            editorState={editorState}
+            onChange={this.handleChange}
+          >
+            {({ onToggle }) => (
+              <button className={styles.vars} onClick={onToggle}>
+                <Arrow />
+              </button>
+            )}
+          </VariablesTool>
         )}
       </div>
     );

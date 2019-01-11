@@ -1,25 +1,25 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import Dropdown from './VariablesDropdown';
+import VariablesDropdown from './VariablesDropdown';
 
 import { insertVariable } from '../../content';
 
-import styles from './VariablesTool.module.styl';
-
 export default class VariablesTool extends Component {
   static propTypes = {
+    className: PropTypes.string,
     editorState: PropTypes.shape({}).isRequired,
     variables: PropTypes.arrayOf(PropTypes.string),
     onChange: PropTypes.func.isRequired,
   };
 
-  state = {
-    opened: false,
-  };
-
   static defaultProps = {
     variables: [],
+    className: null,
+  };
+
+  state = {
+    opened: false,
   };
 
   handleChange = value => {
@@ -40,7 +40,7 @@ export default class VariablesTool extends Component {
   };
 
   render() {
-    const { variables } = this.props;
+    const { children, variables, className } = this.props;
     const { opened } = this.state;
 
     if (!(variables && variables.length)) {
@@ -48,18 +48,17 @@ export default class VariablesTool extends Component {
     }
 
     return (
-      <div className={styles.container}>
-        <button className={styles.button} onClick={this.handleToggle}>
-          add variable
-        </button>
+      <>
+        {children({ onToggle: this.handleToggle })}
         {opened && (
-          <Dropdown
+          <VariablesDropdown
+            className={className}
             variables={variables}
             onClick={this.handleChange}
             onHide={this.handleHide}
           />
         )}
-      </div>
+      </>
     );
   }
 }

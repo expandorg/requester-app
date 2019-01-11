@@ -1,16 +1,22 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import cn from 'classnames';
 
 import { clickOutside } from '@expandorg/components/hoc';
 
-import styles from './VariablesTool.module.styl';
+import styles from './VariablesDropdown.module.styl';
 
 class VariablesDropdown extends Component {
   static propTypes = {
     variables: PropTypes.arrayOf(PropTypes.string).isRequired,
+    className: PropTypes.string,
     forwardedRef: PropTypes.object.isRequired, // eslint-disable-line
     onHide: PropTypes.func.isRequired,
     onClick: PropTypes.func.isRequired,
+  };
+
+  static defaultProps = {
+    className: null,
   };
 
   handleClickOutside = evt => {
@@ -28,9 +34,9 @@ class VariablesDropdown extends Component {
   };
 
   render() {
-    const { forwardedRef, variables } = this.props;
+    const { forwardedRef, variables, className } = this.props;
     return (
-      <div className={styles.dropdown} ref={forwardedRef}>
+      <div className={cn(styles.dropdown, className)} ref={forwardedRef}>
         {variables.map(v => (
           <button
             className={styles.item}
