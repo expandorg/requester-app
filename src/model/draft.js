@@ -16,7 +16,7 @@ const ge = (g: number = 0) => [
 ];
 
 export const fundingRules = {
-  requirement: [[rules.isNumber, 'Should be a positive number'], ge(0)],
+  balance: [[rules.isNumber, 'Should be a positive number'], ge(0)],
   reward: [[rules.isNumber, 'Should be a positive number'], ge(0)],
 };
 
