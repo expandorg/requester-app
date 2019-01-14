@@ -104,7 +104,7 @@ export const taskTemplates = range(20).map(i => ({
     },
     funding: {
       module: null,
-      requirement: 0,
+      balance: 0,
       reward: 0,
       verificationReward: 0,
     },

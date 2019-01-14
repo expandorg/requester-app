@@ -43,7 +43,7 @@ const mapDispatchToProps = dispatch =>
   bindActionCreators({ updateFunding }, dispatch);
 
 const getInitialState = ({ logic }) => ({
-  requirement: (logic.funding && `${logic.funding.requirement || 0}`) || '',
+  balance: (logic.funding && `${logic.funding.balance || 0}`) || '',
   reward: (logic.funding && `${logic.funding.reward || 0}`) || '',
   module: logic.funding && `${logic.funding.module || ''}`,
 });
@@ -82,10 +82,10 @@ class Payments extends Component {
   handleSubmit = () => {
     const { draft, submitState } = this.props;
     if (submitState.state !== RequestStates.Fetching) {
-      const { requirement, reward, module } = this.state.funding;
+      const { balance, reward, module } = this.state.funding;
       const funding = {
         module,
-        requirement: +requirement,
+        balance: +balance,
         reward: +reward,
       };
       const errors = validateForm(this.state.funding, fundingRules);
@@ -127,16 +127,12 @@ class Payments extends Component {
           <Hero value={user.gems.balance} title="XPN available" />
           {!insufficent && (
             <>
-              <Field
-                tooltip="Pay for Task *"
-                name="requirement"
-                errors={errors}
-              >
+              <Field tooltip="Pay for Task *" name="balance" errors={errors}>
                 <Input
                   placeholder="Pay for Task *"
-                  name="requirement"
-                  value={funding.requirement}
-                  error={!!(errors && errors.requirement)}
+                  name="balance"
+                  value={funding.balance}
+                  error={!!(errors && errors.balance)}
                   onChange={this.handleInputChange}
                 />
               </Field>
