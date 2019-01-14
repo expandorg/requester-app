@@ -24,7 +24,7 @@ import styles from './DraftTextInput.module.styl';
 // FIXME: class is uncotrolled
 export default class DraftTextInput extends Component {
   static propTypes = {
-    value: PropTypes.string,
+    value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     placeholder: PropTypes.string,
     className: PropTypes.string,
     autocomplete: PropTypes.arrayOf(PropTypes.string),
@@ -43,7 +43,6 @@ export default class DraftTextInput extends Component {
   constructor(props) {
     super(props);
     this.mentionPlugin = createMentionPlugin(suggestionsOptions);
-
     this.state = {
       autocomplete: formatSuggestions(props.autocomplete),
       editorState: editorStateFromText(props.value, props.resotreEntities),

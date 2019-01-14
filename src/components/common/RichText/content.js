@@ -70,14 +70,14 @@ export const hasFocus = (editorState: EditorState): boolean =>
   editorState.getSelection().getHasFocus();
 
 export const editorStateFromText = (
-  value: string,
+  value: string | number,
   resotreEntities: (c: ContentState) => ContentState = c => c,
   decorator: any = null
 ) => {
-  if (!value) {
+  if (value == null || value === undefined) {
     return EditorState.createEmpty(decorator);
   }
-  let content = ContentState.createFromText(value);
+  let content = ContentState.createFromText(`${value}`);
   content = resotreEntities(content);
   return EditorState.createWithContent(content, decorator);
 };
