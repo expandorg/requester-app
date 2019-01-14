@@ -3,6 +3,7 @@ import { requestUiStateReducer } from '@expandorg/app-utils';
 import { notificationReducer as notification } from '@expandorg/app-utils/app';
 
 import { authStateReducers as authState } from '@expandorg/app-auth';
+import { uiStateReducers as accountState } from '@expandorg/app-account';
 import { web3ActionTypes } from '@expandorg/app-web3';
 import { uiStateReducers as gemsState } from '@expandorg/app-gemtokens';
 
@@ -11,7 +12,6 @@ import {
   dataActionTypes,
   whitelistActionTypes,
   tasksActionTypes,
-  userActionTypes,
 } from '../sagas/actionTypes';
 
 export default combineReducers({
@@ -19,16 +19,7 @@ export default combineReducers({
   notification,
   ...authState,
   ...gemsState,
-
-  assignAddress: requestUiStateReducer(userActionTypes.ASSIGN_ADDRESS),
-
-  editEmail: requestUiStateReducer(userActionTypes.EDIT_EMAIL),
-  confirmEmail: requestUiStateReducer(userActionTypes.CONFIRM_EMAIL),
-  resendConfirmEmail: requestUiStateReducer(
-    userActionTypes.RESEND_CONFIRM_EMAIL
-  ),
-
-  changePassword: requestUiStateReducer(userActionTypes.CHANGE_PASSWORD),
+  ...accountState,
 
   fetchDraft: requestUiStateReducer(draftsActionTypes.FETCH),
   createDraft: requestUiStateReducer(draftsActionTypes.CREATE, true),

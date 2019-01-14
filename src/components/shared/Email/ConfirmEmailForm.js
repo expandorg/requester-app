@@ -7,16 +7,15 @@ import { bindActionCreators } from 'redux';
 import { requestStateProps, RequestStates } from '@expandorg/app-utils';
 import { userProps } from '@expandorg/app-auth';
 
-import Button from '../../common/Button';
-import Input from '../../common/Input';
-import ErrorMessage from '../../common/ErrorMessage';
-
-import { confirmEmail, resendConfirmEmail } from '../../../sagas/userSagas';
-
+import { confirmEmail, resendConfirmEmail } from '@expandorg/app-account/sagas';
 import {
   confirmEmailStateSelector,
   resendConfirmEmailStateSelector,
-} from '../../../selectors/uiStateSelectors';
+} from '@expandorg/app-account/selectors';
+
+import Button from '../../common/Button';
+import Input from '../../common/Input';
+import ErrorMessage from '../../common/ErrorMessage';
 
 import { ConfirmEmailEffect, ResendEffect } from './stateEffects';
 

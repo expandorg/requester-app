@@ -4,7 +4,7 @@ import {
   editEmailStateSelector,
   confirmEmailStateSelector,
   resendConfirmEmailStateSelector,
-} from '../../../selectors/uiStateSelectors';
+} from '@expandorg/app-account/selectors';
 
 export const ConfirmEmailEffect = submitStateEffect(confirmEmailStateSelector);
 export const ResendEffect = submitStateEffect(resendConfirmEmailStateSelector);

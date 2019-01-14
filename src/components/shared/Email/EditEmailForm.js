@@ -7,14 +7,14 @@ import { bindActionCreators } from 'redux';
 import { requestStateProps, RequestStates } from '@expandorg/app-utils';
 import { userProps } from '@expandorg/app-auth';
 
+import { editEmail } from '@expandorg/app-account/sagas';
+import { editEmailStateSelector } from '@expandorg/app-account/selectors';
+
 import Button from '../../common/Button';
 import Input from '../../common/Input';
 import ErrorMessage from '../../common/ErrorMessage';
 
 import { EditEmailEffect } from './stateEffects';
-
-import { editEmail } from '../../../sagas/userSagas';
-import { editEmailStateSelector } from '../../../selectors/uiStateSelectors';
 
 import styles from '../serviceForms.module.styl';
 

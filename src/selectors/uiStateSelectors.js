@@ -3,31 +3,6 @@ import { createSelector } from 'reselect';
 
 export const uiStateSelector = (state: Object) => state.ui;
 
-export const assignAddressStateSelector = createSelector(
-  uiStateSelector,
-  state => state.assignAddress
-);
-
-export const editEmailStateSelector = createSelector(
-  uiStateSelector,
-  state => state.editEmail
-);
-
-export const confirmEmailStateSelector = createSelector(
-  uiStateSelector,
-  state => state.confirmEmail
-);
-
-export const resendConfirmEmailStateSelector = createSelector(
-  uiStateSelector,
-  state => state.resendConfirmEmail
-);
-
-export const changePasswordStateSelector = createSelector(
-  uiStateSelector,
-  state => state.changePassword
-);
-
 export const notificationSelector = createSelector(
   uiStateSelector,
   state => state.notification

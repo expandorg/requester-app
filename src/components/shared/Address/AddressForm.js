@@ -10,14 +10,14 @@ import { userProps } from '@expandorg/app-auth';
 import { MetamaskState } from '@expandorg/app-web3';
 import { metamaskStateSelector } from '@expandorg/app-web3/selectors';
 
+import { assignAddress } from '@expandorg/app-account/sagas';
+import { assignAddressStateSelector } from '@expandorg/app-account/selectors';
+
 import Button from '../../common/Button';
 import Input from '../../common/Input';
 import ErrorMessage from '../../common/ErrorMessage';
 
 import MetamaskPromt from '../metamask/MetamaskPromt';
-
-import { assignAddress } from '../../../sagas/userSagas';
-import { assignAddressStateSelector } from '../../../selectors/uiStateSelectors';
 
 import styles from '../serviceForms.module.styl';
 import mstyles from './metamask.module.styl';
