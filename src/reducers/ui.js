@@ -12,7 +12,7 @@ import {
   whitelistActionTypes,
   tasksActionTypes,
   userActionTypes,
-} from '../../sagas/actionTypes';
+} from '../sagas/actionTypes';
 
 export default combineReducers({
   initGems: requestUiStateReducer(web3ActionTypes.INIT_GEMS),

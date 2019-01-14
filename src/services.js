@@ -1,5 +1,4 @@
 // @flow
-
 import { ServiceLocator } from '@expandorg/components';
 
 import { EventSourceService } from '@expandorg/app-utils';
@@ -9,7 +8,7 @@ import { ScriptsLoader } from '@expandorg/utils';
 import { GemsService } from '@expandorg/app-web3';
 import { validateForm } from '@expandorg/validation';
 
-import settings from '../common/settings';
+import settings from './common/settings';
 
 const eventSources = new EventSourceService(settings.apiUrl).definition(
   'tx',
