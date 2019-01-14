@@ -2,12 +2,27 @@
 @import 'components/common/uikit/font'
 
 .tx
-  box-sizing: border-box;
+  display: flex
+  align-items: center
+  justify-content: space-between
 
-  margin: 15px
+  margin-top: 15px
+
+.copy
+  margin-left: 10px
+  background-color: transparent;
+  font(small-text)
+  text-transform: uppercase
+  color: color-text-disabled
+
+  cursor pointer
+  outline 0
+
+.value
+  box-sizing: border-box;
   font(body, 800)
   color: color-text-grey
-
+  max-width calc(100% - 30px)
   white-space: nowrap
   overflow: hidden
   text-overflow: ellipsis
