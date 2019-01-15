@@ -2,11 +2,38 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
 
-import { range } from '@expandorg/utils';
+import { ReactComponent as Arrow } from '../../assets/arrow-2.svg';
+
+import getPages from './getPages';
 
 import styles from './Pagination.module.styl';
 
-const getPages = total => range(total);
+const Page = ({ page, onClick, children, active, disabled }) => (
+  <button
+    className={cn(styles.page, {
+      [styles.active]: active,
+      [styles.disabled]: disabled,
+    })}
+    disabled={disabled}
+    data-page={page}
+    onClick={onClick}
+  >
+    {children}
+  </button>
+);
+
+Page.propTypes = {
+  page: PropTypes.number.isRequired,
+  active: PropTypes.bool,
+  disabled: PropTypes.bool,
+  onClick: PropTypes.func,
+};
+
+Page.defaultProps = {
+  disabled: false,
+  active: false,
+  onClick: undefined,
+};
 
 export default class Pagination extends Component {
   static propTypes = {
@@ -34,20 +61,46 @@ export default class Pagination extends Component {
     if (!total) {
       return null;
     }
-    const pages = getPages(total, current, display);
+    const pages = getPages(current, total - 1, display);
 
     return (
       <div className={styles.container}>
+        <Page page={0} disabled={current === 0} onClick={this.handleClick}>
+          <Arrow className={styles.left} />
+          <Arrow className={styles.left} />
+        </Page>
+        <Page
+          page={current - 1}
+          disabled={current === 0}
+          onClick={this.handleClick}
+        >
+          <Arrow className={styles.left} />
+        </Page>
         {pages.map(p => (
-          <button
+          <Page
             key={p}
-            className={cn(styles.page, { [styles.active]: p === current })}
-            data-page={p}
+            page={p}
+            active={p === current}
             onClick={this.handleClick}
           >
             {p + 1}
-          </button>
+          </Page>
         ))}
+        <Page
+          page={current + 1}
+          disabled={current === total - 1}
+          onClick={this.handleClick}
+        >
+          <Arrow className={styles.right} />
+        </Page>
+        <Page
+          page={total - 1}
+          disabled={current === total - 1}
+          onClick={this.handleClick}
+        >
+          <Arrow className={styles.right} />
+          <Arrow className={styles.right} />
+        </Page>
       </div>
     );
   }

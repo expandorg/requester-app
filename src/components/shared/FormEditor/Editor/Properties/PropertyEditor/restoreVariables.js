@@ -1,5 +1,5 @@
 // @flow
-import { ContentState, ContentBlock } from 'draft-js';
+import type { ContentState, ContentBlock } from 'draft-js';
 
 import { restoreEntities } from '../../../../../common/RichText';
 

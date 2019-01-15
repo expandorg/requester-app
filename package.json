@@ -12,7 +12,7 @@
     "dev": "NODE_ENV=ropsten webpack-dev-server --progress --env.dev",
     "build": "NODE_ENV=production webpack",
     "lint": "node_modules/.bin/eslint --ext .js ./src/",
-    "test": "jest --config jest.config.json",
+    "test": "NODE_ENV=test jest --config jest.config.js",
     "coverage": "jest --collectCoverage --coverageDirectory ./coverage"
   },
   "keywords": [
@@ -87,6 +87,7 @@
     "@svgr/webpack": "^4.1.0",
     "babel-core": "^7.0.0-bridge.0",
     "babel-eslint": "^10.0.1",
+    "babel-jest": "^23.6.0",
     "babel-loader": "^8.0.4",
     "body-parser": "^1.18.3",
     "css-loader": "^2.1.0",
