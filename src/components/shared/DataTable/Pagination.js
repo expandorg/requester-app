@@ -15,8 +15,7 @@ const Page = ({ page, onClick, children, active, disabled }) => (
       [styles.disabled]: disabled,
     })}
     disabled={disabled}
-    data-page={page}
-    onClick={onClick}
+    onClick={evt => onClick(page, disabled, evt)}
   >
     {children}
   </button>
@@ -49,11 +48,12 @@ export default class Pagination extends Component {
     display: 5,
   };
 
-  handleClick = evt => {
+  handleClick = (page, disabled, evt) => {
     evt.preventDefault();
-
-    const { onChange } = this.props;
-    onChange(+evt.target.dataset.page);
+    if (!disabled) {
+      const { onChange } = this.props;
+      onChange(page);
+    }
   };
 
   render() {
