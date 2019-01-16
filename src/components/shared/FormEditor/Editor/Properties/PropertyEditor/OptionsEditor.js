@@ -31,8 +31,6 @@ export default class OptionsEditor extends Component {
     super(props);
 
     this.state = {
-      // eslint-disable-next-line react/no-unused-state
-      original: props.value,
       options: getOptions(props.value),
     };
   }
