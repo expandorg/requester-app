@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+import nanoid from 'nanoid';
+
 import { removeAtIndex, replaceAtIndex } from '@expandorg/utils';
 
 import { DraftTextInput } from '../../../../../common/RichText';
@@ -8,6 +10,10 @@ import { DraftTextInput } from '../../../../../common/RichText';
 import { ReactComponent as X } from '../../../../../assets/x.svg';
 
 import styles from './OptionsEditor.module.styl';
+
+const getOptions = values => values.map(value => ({ value, id: nanoid() }));
+
+const getValues = options => options.map(({ value }) => value);
 
 export default class OptionsEditor extends Component {
   static propTypes = {
@@ -21,37 +27,61 @@ export default class OptionsEditor extends Component {
     variables: [],
   };
 
-  handleChangeValue = (v, idx) => {
-    const { onChange, value } = this.props;
-    onChange(replaceAtIndex(value, idx, v));
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      // eslint-disable-next-line react/no-unused-state
+      original: props.value,
+      options: getOptions(props.value),
+    };
+  }
+
+  handleChangeValue = (value, idx) => {
+    const { onChange } = this.props;
+    const { options } = this.state;
+    const { id } = options[idx];
+
+    const modified = replaceAtIndex(options, idx, { id, value });
+    this.setState({ options: modified });
+    onChange(getValues(modified));
   };
 
   handleRemoveClick = idx => {
-    const { onChange, value } = this.props;
-    onChange(removeAtIndex(value, idx));
+    const { onChange } = this.props;
+    const { options } = this.state;
+
+    const modified = removeAtIndex(options, idx);
+    this.setState({ options: modified });
+    onChange(getValues(modified));
   };
 
   handleAddClick = () => {
-    const { onChange, value } = this.props;
-    onChange([...value, '']);
+    const { onChange } = this.props;
+    const { options } = this.state;
+
+    const modified = [...options, { value: '', id: nanoid() }];
+    this.setState({ options: modified });
+    onChange(getValues(modified));
   };
 
   render() {
-    const { value, variables } = this.props;
+    const { variables } = this.props;
+    const { options } = this.state;
     /* eslint-disable react/no-array-index-key */
     return (
       <div className={styles.container}>
         <DraftTextInput
-          value={value[0]}
+          value={options[0].value}
           autocomplete={variables}
           placeholder="Default Option 1"
           onChange={v => this.handleChangeValue(v, 0)}
           className={styles.default}
         />
-        {value.slice(1, value.length).map((o, idx) => (
-          <div className={styles.item} key={idx}>
+        {options.slice(1, options.length).map((o, idx) => (
+          <div className={styles.item} key={o.id}>
             <DraftTextInput
-              value={o}
+              value={o.value}
               autocomplete={variables}
               placeholder={`Option ${idx + 2}`}
               className={styles.option}
