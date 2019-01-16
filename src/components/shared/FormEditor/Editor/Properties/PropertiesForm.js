@@ -82,7 +82,6 @@ export default class PropertiesForm extends Component {
     const {
       module: { name, editor, validation },
     } = controls[module.type];
-
     return (
       <aside className={styles.container}>
         <div className={styles.content}>
@@ -111,7 +110,7 @@ export default class PropertiesForm extends Component {
                     name={propertyName}
                     variables={variables}
                     property={editor.properties[propertyName]}
-                    value={module[propertyName]}
+                    moduleValues={module}
                     onChange={this.handleChangeProperty}
                   />
                 </ErrorContainer>

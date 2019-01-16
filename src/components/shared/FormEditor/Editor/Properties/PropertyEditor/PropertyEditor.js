@@ -8,10 +8,11 @@ import RichTextEditor from './RichTextEditor';
 import SelectEditor from './SelectEditor';
 import BoolEditor from './BoolEditor';
 import OptionsEditor from './OptionsEditor';
+import ModuleProperyOptionsEditor from './ModuleProperyOptionsEditor';
 
 import styles from './styles.module.styl';
 
-const editorsMap = {
+const editors = {
   [PropControlTypes.number]: StringEditor,
   [PropControlTypes.boolean]: BoolEditor,
   [PropControlTypes.string]: StringEditor,
@@ -20,6 +21,7 @@ const editorsMap = {
   [PropControlTypes.enum]: SelectEditor,
   [PropControlTypes.modules]: null,
   [PropControlTypes.options]: OptionsEditor,
+  [PropControlTypes.moduleProperyOptions]: ModuleProperyOptionsEditor,
 };
 
 export default class PropertyEditor extends Component {
@@ -27,13 +29,13 @@ export default class PropertyEditor extends Component {
     name: PropTypes.string.isRequired,
     property: PropTypes.object.isRequired, // eslint-disable-line
     variables: PropTypes.arrayOf(PropTypes.string),
-    value: PropTypes.any, // eslint-disable-line
+    moduleValues: PropTypes.any, // eslint-disable-line
     onChange: PropTypes.func.isRequired,
   };
 
   static defaultProps = {
     variables: [],
-    value: undefined,
+    moduleValues: undefined,
   };
 
   handleChange = value => {
@@ -43,12 +45,13 @@ export default class PropertyEditor extends Component {
 
   render() {
     const {
+      name,
       property: { type, ...params },
-      value,
+      moduleValues,
       variables,
     } = this.props;
 
-    const Editor = editorsMap[type];
+    const Editor = editors[type];
 
     if (!Editor) {
       return null;
@@ -57,8 +60,9 @@ export default class PropertyEditor extends Component {
       <div className={styles.container}>
         <Editor
           variables={variables}
-          value={value}
+          value={moduleValues[name]}
           onChange={this.handleChange}
+          moduleValues={Editor.withModuleValues ? moduleValues : undefined}
           {...params}
         />
       </div>

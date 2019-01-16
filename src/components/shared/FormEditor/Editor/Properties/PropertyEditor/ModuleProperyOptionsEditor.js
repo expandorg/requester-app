@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
 
@@ -6,23 +6,23 @@ import { Dropdown } from '@expandorg/components';
 
 import styles from './styles.module.styl';
 
-export default class SelectEditor extends Component {
+export default class ModuleProperyOptionsEditor extends PureComponent {
   static propTypes = {
     value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    options: PropTypes.arrayOf(
-      PropTypes.oneOfType([PropTypes.string, PropTypes.number])
-    ),
+    moduleValues: PropTypes.shape({}),
     label: PropTypes.string,
+    dependency: PropTypes.string,
     onChange: PropTypes.func.isRequired,
-    formatter: PropTypes.func,
   };
 
   static defaultProps = {
     value: undefined,
-    options: [],
+    moduleValues: [],
     label: null,
-    formatter: Function.prototype,
+    dependency: null,
   };
+
+  static withModuleValues = true;
 
   handleChange = value => {
     const { onChange } = this.props;
@@ -30,14 +30,14 @@ export default class SelectEditor extends Component {
   };
 
   render() {
-    const { value, options, label, formatter } = this.props;
+    const { value, label, moduleValues, dependency } = this.props;
+    const options = [...new Set(moduleValues[dependency])];
     return (
       <Dropdown
         options={options}
         value={value}
         onChange={this.handleChange}
         className={styles.dropdown}
-        formatter={formatter}
       >
         {({ formatted }) => (
           <div className={cn(styles.select, { [styles.selectVal]: formatted })}>
