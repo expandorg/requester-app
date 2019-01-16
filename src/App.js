@@ -12,6 +12,7 @@ import { ServiceProvider } from '@expandorg/components';
 import { initSaga } from '@expandorg/app-utils/app';
 
 import Dashboard from './components/Dashboard/Dashboard';
+import Choice from './components/Choice/Choice';
 
 import Login from './components/Auth/Login';
 import Signup from './components/Auth/Signup';
@@ -43,6 +44,7 @@ const App = () => (
         <BrowserRouter>
           <Switch>
             <Route path="/" exact component={Dashboard} />
+            <Route path="/choice" exact component={Choice} />
 
             <Route path="/login" component={Login} />
             <Route path="/signup" component={Signup} />

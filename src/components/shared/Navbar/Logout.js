@@ -6,7 +6,7 @@ import { bindActionCreators } from 'redux';
 
 import { logout } from '@expandorg/app-auth/sagas';
 
-import styles from './Navbar.module.styl';
+import './Logout.styl';
 
 const mapDispatchToProps = dispatch => bindActionCreators({ logout }, dispatch);
 
@@ -21,7 +21,7 @@ class Logout extends Component {
 
   render() {
     return (
-      <button className={styles.logout} onClick={this.handleClick}>
+      <button className="gem-logout" onClick={this.handleClick}>
         Logout
       </button>
     );

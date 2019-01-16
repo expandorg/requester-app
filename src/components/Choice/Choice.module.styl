@@ -1,0 +1,48 @@
+@import 'components/common/uikit/colors'
+@import 'components/common/uikit/font'
+@import 'components/common/uikit/size'
+
+.container
+  min-height: 100vh
+  min-width: 100vw
+
+  box-sizing: border-box
+  background-color: color-blue-background
+
+.content
+  display: flex
+
+.panel
+  margin: 130px auto 0 auto
+  width 600px
+
+.icon
+  path
+    fill color-text-heavy-blue
+
+.header
+  font(h2-title)
+  color: color-light-blue
+  text-align: center
+
+.options
+  display flex
+  justify-content: space-between
+  margin-top: 100px
+
+.option
+  width: 100%;
+
+.icon
+  text-align: center
+
+.actions
+  margin-top: 36px
+  text-align: center
+
+.link
+  composes button from '../common/Button.module.styl'
+  display inline-block
+  text-decoration: none;
+  line-height: 60px
+  width: 200px
