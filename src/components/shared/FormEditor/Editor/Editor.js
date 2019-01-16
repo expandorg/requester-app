@@ -10,7 +10,7 @@ import Form from './Form/Form';
 import Properties from './Properties/Properties';
 import PreviewCtx from './PreviewCtx';
 
-import { WalkthroughPin } from '../../Walkthrough';
+import { WalkthroughPin } from '../../../common/Walkthrough';
 import Walkthrough from './Walkthrough';
 
 import { NotificationAnimated } from '../../Notifications';

@@ -4,9 +4,7 @@ import cn from 'classnames';
 
 import { Link } from 'react-router-dom';
 
-import { ReactComponent as Logo } from '../../assets/logo.svg';
-
-import Logout from './Logout';
+import { ReactComponent as Logo } from '../assets/logo.svg';
 
 import './Navbar.styl';
 
@@ -15,7 +13,7 @@ export default class Navbar extends Component {
     title: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
     className: PropTypes.string,
     top: PropTypes.bool,
-    logout: PropTypes.bool,
+    menu: PropTypes.element,
     theme: PropTypes.oneOf(['dark', 'light']),
   };
 
@@ -24,11 +22,11 @@ export default class Navbar extends Component {
     title: '',
     theme: 'light',
     top: true,
-    logout: true,
+    menu: null,
   };
 
   render() {
-    const { children, title, top, logout, theme, className } = this.props;
+    const { children, title, top, menu, theme, className } = this.props;
 
     const classes = cn(
       'gem-navbar',
@@ -44,7 +42,7 @@ export default class Navbar extends Component {
         </Link>
         <h1 className="gem-navbar-title">{title}</h1>
         <div className="gem-navbar-content">{children}</div>
-        {logout && <Logout />}
+        {menu}
       </div>
     );
   }
