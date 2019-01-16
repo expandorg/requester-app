@@ -11,7 +11,7 @@ import {
   matchProps,
 } from '@expandorg/app-utils';
 
-import Content from '../shared/Content';
+import Page from '../shared/Page';
 
 import PreviewDraftSequence from './draft/PreviewDraftSequence';
 
@@ -73,14 +73,14 @@ class PreviewDraft extends Component {
     // const isLoading = !draft && loadState.state === RequestStates.Fetching;
 
     return (
-      <Content
+      <Page
         title="Preview"
         className={styles.page}
         sidebar={false}
         navbar={false}
       >
         {draft && <PreviewDraftSequence draft={draft} />}
-      </Content>
+      </Page>
     );
   }
 }

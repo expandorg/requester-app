@@ -12,7 +12,7 @@ import {
   historyProps,
 } from '@expandorg/app-utils';
 
-import Content from '../shared/Content';
+import Page from '../shared/Page';
 import Navbar from '../shared/Navbar';
 import { authenticated } from '../shared/auth';
 
@@ -57,7 +57,7 @@ class Create extends Component {
     const { requestState } = this.props;
     const isSubmitting = requestState.state === RequestStates.Fetching;
     return (
-      <Content
+      <Page
         title="Create a task"
         className={styles.content}
         sidebar={false}
@@ -88,7 +88,7 @@ class Create extends Component {
             onComplete={this.handleCreateComplete}
           />
         </div>
-      </Content>
+      </Page>
     );
   }
 }

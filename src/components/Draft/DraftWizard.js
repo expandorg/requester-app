@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import Content from '../shared/Content';
+import Page from '../shared/Page';
 import Navbar from '../shared/Navbar';
 import { draftProps } from '../shared/propTypes';
 
@@ -61,7 +61,7 @@ export default class DraftWizard extends Component {
     const nav = getNavState(draft);
 
     return (
-      <Content
+      <Page
         title="Create a task"
         className={styles.content}
         sidebar={false}
@@ -124,7 +124,7 @@ export default class DraftWizard extends Component {
             </div>
           )}
         </LoadIndicator>
-      </Content>
+      </Page>
     );
   }
 }

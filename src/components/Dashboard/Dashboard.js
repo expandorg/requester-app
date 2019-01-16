@@ -9,7 +9,7 @@ import { withRouter } from 'react-router-dom';
 import { matchProps } from '@expandorg/app-utils';
 import { authenticated } from '../shared/auth';
 
-import Content from '../shared/Content';
+import Page from '../shared/Page';
 import Navbar from '../shared/Navbar';
 import Sidebar from '../shared/Sidebar';
 
@@ -62,7 +62,7 @@ class Dashboard extends Component {
     const { items } = this.props;
     const isEmpty = items.length === 0;
     return (
-      <Content title="Dashboard">
+      <Page title="Dashboard">
         <Navbar title="Dashboard" />
         <Sidebar />
         <Navigation />
@@ -80,7 +80,7 @@ class Dashboard extends Component {
             ))}
           </List>
         )}
-      </Content>
+      </Page>
     );
   }
 }

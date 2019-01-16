@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import I from '../common/I';
 
-import Content from '../shared/Content';
+import Page from '../shared/Page';
 import Navbar from '../shared/Navbar';
 import Sidebar from '../shared/Sidebar';
 
@@ -17,7 +17,7 @@ export default class Stats extends Component {
     const rejected = 5;
 
     return (
-      <Content title="Stats">
+      <Page title="Stats">
         <Navbar title="Stats" />
         <Sidebar />
         <div className={styles.container}>
@@ -41,7 +41,7 @@ export default class Stats extends Component {
             <Hero value={rejected} title="Rejected" className={styles.item} />
           </div>
         </div>
-      </Content>
+      </Page>
     );
   }
 }

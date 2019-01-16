@@ -8,7 +8,7 @@ import { userProps } from '@expandorg/app-auth';
 import { logout } from '@expandorg/app-auth/sagas';
 import { userSelector } from '@expandorg/app-auth/selectors';
 
-import Content from '../shared/Content';
+import Page from '../shared/Page';
 import Navbar from '../shared/Navbar';
 import Sidebar from '../shared/Sidebar';
 import { authenticated } from '../shared/auth';
@@ -63,7 +63,7 @@ class Settings extends Component {
     const { address, password, email } = this.state;
 
     return (
-      <Content title="Settings">
+      <Page title="Settings">
         <Navbar title="Settings" />
         <Sidebar />
         <div className={styles.container}>
@@ -110,7 +110,7 @@ class Settings extends Component {
             onHide={this.handleTogglePassword}
           />
         )}
-      </Content>
+      </Page>
     );
   }
 }

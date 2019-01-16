@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import Content from '../shared/Content';
+import Page from '../shared/Page';
 import Navbar from '../shared/Navbar';
 import Sidebar from '../shared/Sidebar';
 import { authenticated } from '../shared/auth';
@@ -10,10 +10,10 @@ import { authenticated } from '../shared/auth';
 class Profile extends Component {
   render() {
     return (
-      <Content title="Profile">
+      <Page title="Profile">
         <Navbar title="Profile" />
         <Sidebar />
-      </Content>
+      </Page>
     );
   }
 }

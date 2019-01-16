@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import { formProps } from '@expandorg/modules';
 
-import { WalkthroughProvider, WalkthroughPin } from '../Walkthrough';
+import { WalkthroughProvider, WalkthroughPin } from '../../common/Walkthrough';
 
 import Editor from './Editor/Editor';
 import AvailableModules from './Available/AvailableModules';

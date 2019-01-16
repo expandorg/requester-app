@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import Content from '../shared/Content';
+import Page from '../shared/Page';
 import Navbar from '../shared/Navbar';
 import Sidebar from '../shared/Sidebar';
 
@@ -9,10 +9,10 @@ import Sidebar from '../shared/Sidebar';
 export default class Api extends Component {
   render() {
     return (
-      <Content title="API">
+      <Page title="API">
         <Navbar title="API" />
         <Sidebar />
-      </Content>
+      </Page>
     );
   }
 }

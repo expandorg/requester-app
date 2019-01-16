@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import Button from '../common/Button';
 
-import Content from '../shared/Content';
+import Page from '../shared/Page';
 import Navbar from '../shared/Navbar';
 import Hero from '../shared/Hero';
 
@@ -30,7 +30,7 @@ export default class Stats extends Component {
     const { taskStats, isLoading } = this.props;
     const title = (taskStats && taskStats.title) || '';
     return (
-      <Content
+      <Page
         title={title}
         sidebar={false}
         navbar={false}
@@ -59,7 +59,7 @@ export default class Stats extends Component {
             </div>
           )}
         </LoadIndicator>
-      </Content>
+      </Page>
     );
   }
 }

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import Content from '../shared/Content';
+import Page from '../shared/Page';
 import { authenticated } from '../shared/auth';
 
 import ModulesForm from './draft/ModulesForm';
@@ -42,7 +42,7 @@ class PreviewForm extends Component {
     }
 
     return (
-      <Content
+      <Page
         title="Preview"
         className={styles.page}
         sidebar={false}
@@ -53,7 +53,7 @@ class PreviewForm extends Component {
           variables={variables}
           onSubmit={this.handleSubmit}
         />
-      </Content>
+      </Page>
     );
   }
 }
