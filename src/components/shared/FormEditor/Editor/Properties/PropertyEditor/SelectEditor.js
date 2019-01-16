@@ -21,7 +21,7 @@ export default class SelectEditor extends Component {
     value: undefined,
     options: [],
     label: null,
-    formatter: Function.prototype,
+    formatter: undefined,
   };
 
   handleChange = value => {
