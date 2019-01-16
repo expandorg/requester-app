@@ -41,9 +41,10 @@ class VariablesDropdown extends Component {
           <button
             className={styles.item}
             key={v}
+            alt={v}
             onClick={() => this.handleClick(v)}
           >
-            + {v}
+            {v}
           </button>
         ))}
       </div>
