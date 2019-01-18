@@ -14,12 +14,13 @@ import { validateForm } from '@expandorg/validation';
 import { userProps } from '@expandorg/app-auth';
 import { userSelector } from '@expandorg/app-auth/selectors';
 
+import { Deposit } from '@expandorg/app-gemtokens/components';
+
 import { Input, Button } from '@expandorg/components';
 
 import { ReactComponent as Card } from '@expandorg/uikit/assets/creditcard.svg';
 
 import { draftProps } from '../../../shared/propTypes';
-import Deposit from '../../../shared/Deposit/Deposit';
 
 import { Form, Description, Field, Fieldset, Actions } from '../Form';
 

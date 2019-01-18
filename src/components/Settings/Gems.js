@@ -3,9 +3,9 @@ import React, { Component } from 'react';
 import { userProps } from '@expandorg/app-auth';
 import { Button } from '@expandorg/components';
 
+import { Deposit, Withdraw } from '@expandorg/app-gemtokens/components';
+
 import Hero from '../shared/Hero';
-import Deposit from '../shared/Deposit/Deposit';
-import Withdraw from '../shared/Withdraw/Withdraw';
 
 import Form from './Form';
 
