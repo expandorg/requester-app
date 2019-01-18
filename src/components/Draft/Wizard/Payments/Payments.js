@@ -14,10 +14,9 @@ import { validateForm } from '@expandorg/validation';
 import { userProps } from '@expandorg/app-auth';
 import { userSelector } from '@expandorg/app-auth/selectors';
 
-import { ReactComponent as Card } from '../../../assets/creditcard.svg';
+import { Input, Button } from '@expandorg/components';
 
-import Input from '../../../common/Input';
-import Button from '../../../common/Button';
+import { ReactComponent as Card } from '../../../assets/creditcard.svg';
 
 import { draftProps } from '../../../shared/propTypes';
 import Deposit from '../../../shared/Deposit/Deposit';

@@ -6,8 +6,7 @@ import { bindActionCreators } from 'redux';
 
 import { requestStateProps, RequestStates } from '@expandorg/app-utils';
 
-import Button from '../../../common/Button';
-import Input from '../../../common/Input';
+import { Input, Button } from '@expandorg/components';
 
 import ConfirmationDialog from '../../../shared/ConfirmationDialog';
 import { Description, Actions, Field, Fieldset, Toggle } from '../Form';

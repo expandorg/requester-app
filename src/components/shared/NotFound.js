@@ -2,12 +2,10 @@ import React from 'react';
 
 import { Link } from 'react-router-dom';
 
-import { Panel } from '@expandorg/components';
-
 const NotFound = () => (
-  <Panel>
+  <div>
     <Link to="/">Dashboard</Link>
-  </Panel>
+  </div>
 );
 
 export default NotFound;

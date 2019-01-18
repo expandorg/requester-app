@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import Checkbox from '../../../../../common/Checkbox';
+import { Checkbox } from '@expandorg/components';
 
 import styles from './styles.module.styl';
 

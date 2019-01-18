@@ -5,8 +5,6 @@ import { Dialog } from '@expandorg/components';
 import DepositForm, { DepositEffect } from './DepositForm';
 import TxForm from '../TxForm';
 
-import dstyles from '../../common/dialog.module.styl';
-
 export default class DepositDialog extends Component {
   static propTypes = {
     onHide: PropTypes.func.isRequired,
@@ -25,14 +23,7 @@ export default class DepositDialog extends Component {
     const { complete } = this.state;
 
     return (
-      <Dialog
-        visible
-        onHide={onHide}
-        overlayClass={dstyles.overlay}
-        modalClass={dstyles.modal}
-        contentLabel="deposit-dialog"
-        hideButton
-      >
+      <Dialog visible onHide={onHide} contentLabel="deposit-dialog" hideButton>
         {!complete && <DepositForm {...this.props} />}
         {complete && (
           <TxForm

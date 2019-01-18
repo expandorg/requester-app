@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+import { Button } from '@expandorg/components';
 import { ReactComponent as Checkmark } from '../assets/checkmark-3.svg';
-
-import Button from '../common/Button';
 
 import styles from './serviceForms.module.styl';
 

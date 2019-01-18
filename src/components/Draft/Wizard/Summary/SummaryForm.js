@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 
 import { userProps } from '@expandorg/app-auth';
 
-import Button from '../../../common/Button';
+import { Button } from '@expandorg/components';
+
 import HeroWarning from '../../../shared/HeroWarning';
 
 import { Actions, Section, Description } from '../Form';

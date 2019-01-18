@@ -1,15 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import { Dialog } from '@expandorg/components';
-import Button from '../common/Button';
+import { Button, Dialog } from '@expandorg/components';
 
 import { ReactComponent as Warning } from '../assets/warning.svg';
 import { ReactComponent as Checkmark } from '../assets/checkmark-3.svg';
 import { ReactComponent as Eye } from '../assets/eye.svg';
 
 import styles from './ConfirmationDialog.module.styl';
-import dstyles from '../common/dialog.module.styl';
 
 export default class ConfirmationDialog extends Component {
   static propTypes = {
@@ -67,13 +65,7 @@ export default class ConfirmationDialog extends Component {
       onConfirm,
     } = this.props;
     return (
-      <Dialog
-        visible
-        onHide={onHide}
-        overlayClass={dstyles.overlay}
-        modalClass={dstyles.modal}
-        contentLabel="confirm-dialog"
-      >
+      <Dialog visible onHide={onHide} contentLabel="confirm-dialog">
         <div className={styles.container}>
           <div className={styles.icon}>{this.renderIcon(icon)}</div>
           <div className={styles.title}>{title}</div>

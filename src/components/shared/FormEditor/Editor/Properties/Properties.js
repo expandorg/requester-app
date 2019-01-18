@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 
 import { moduleProps } from '@expandorg/modules';
-
-import Drawer from '../../../../common/Drawer';
+import { Drawer } from '@expandorg/components';
 
 import PropertiesForm from './PropertiesForm';
 

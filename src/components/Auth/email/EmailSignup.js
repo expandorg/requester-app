@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import cn from 'classnames';
 
-import { Button } from '@expandorg/components';
+import { Button, ErrorMessage, Input } from '@expandorg/components';
 
 import {
   RequestStates,
@@ -15,9 +15,6 @@ import {
 
 import { signupStateSelector } from '@expandorg/app-auth/selectors';
 import { signup } from '@expandorg/app-auth/sagas';
-
-import ErrorMessage from '../../common/ErrorMessage';
-import Input from '../../common/Input';
 
 import { ReactComponent as Logo } from '../../assets/logo.svg';
 

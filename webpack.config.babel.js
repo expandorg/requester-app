@@ -131,7 +131,7 @@ export default (env = {}) => {
         {
           test: /\.jpe?g$|\.gif$|\.svg|\.png$|\.woff2?$|\.eot$|\.otf$|\.ttf$/,
           loader: 'file-loader?name=static/[hash].[ext]',
-          exclude: /node_modules/,
+          exclude: /node_modules\/(?!(@expandorg)\/).*/,
         },
       ],
     },

@@ -6,7 +6,6 @@ import { Dialog } from '@expandorg/components';
 import FormEditor from '../../../../shared/FormEditor/FormEditor';
 
 import styles from './FormEditorDialog.module.styl';
-import dstyles from '../../../../common/dialog.module.styl';
 
 export default class FormEditorDialog extends Component {
   static propTypes = {
@@ -21,7 +20,6 @@ export default class FormEditorDialog extends Component {
         visible
         onHide={onHide}
         modalClass={styles.modal}
-        overlayClass={dstyles.overlay}
         contentLabel="form-editor-dialog"
         hideButton
         shouldCloseOnEsc={false}

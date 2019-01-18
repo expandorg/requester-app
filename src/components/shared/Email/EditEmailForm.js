@@ -10,9 +10,7 @@ import { userProps } from '@expandorg/app-auth';
 import { editEmail } from '@expandorg/app-account/sagas';
 import { editEmailStateSelector } from '@expandorg/app-account/selectors';
 
-import Button from '../../common/Button';
-import Input from '../../common/Input';
-import ErrorMessage from '../../common/ErrorMessage';
+import { Button, Input, ErrorMessage } from '@expandorg/components';
 
 import { EditEmailEffect } from './stateEffects';
 

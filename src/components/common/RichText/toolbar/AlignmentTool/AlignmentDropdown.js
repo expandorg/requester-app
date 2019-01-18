@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
 
-import { clickOutside } from '@expandorg/components/hoc';
+import { clickOutside } from '@expandorg/components';
 
 import { ReactComponent as IconLeft } from '../../assets/align-left.svg';
 import { ReactComponent as IconCenter } from '../../assets/align-center.svg';

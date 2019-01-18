@@ -15,9 +15,7 @@ import { userProps } from '@expandorg/app-auth';
 import { changePassword } from '@expandorg/app-account/sagas';
 import { changePasswordStateSelector } from '@expandorg/app-account/selectors';
 
-import Button from '../../common/Button';
-import Input from '../../common/Input';
-import ErrorMessage from '../../common/ErrorMessage';
+import { Button, Input, ErrorMessage } from '@expandorg/components';
 
 import styles from '../serviceForms.module.styl';
 

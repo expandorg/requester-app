@@ -13,9 +13,7 @@ import { metamaskStateSelector } from '@expandorg/app-web3/selectors';
 import { assignAddress } from '@expandorg/app-account/sagas';
 import { assignAddressStateSelector } from '@expandorg/app-account/selectors';
 
-import Button from '../../common/Button';
-import Input from '../../common/Input';
-import ErrorMessage from '../../common/ErrorMessage';
+import { Button, Input, ErrorMessage } from '@expandorg/components';
 
 import MetamaskPromt from '../metamask/MetamaskPromt';
 

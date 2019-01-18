@@ -12,14 +12,11 @@ import {
   SubmitStateEffect,
 } from '@expandorg/app-utils';
 
-import { Button } from '@expandorg/components';
+import { Button, ErrorMessage, Input } from '@expandorg/components';
 
 import { loginStateSelector } from '@expandorg/app-auth/selectors';
 import { login } from '@expandorg/app-auth/sagas';
 import { ReactComponent as Logo } from '../../assets/logo.svg';
-
-import ErrorMessage from '../../common/ErrorMessage';
-import Input from '../../common/Input';
 
 import styles from './styles.module.styl';
 

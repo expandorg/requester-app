@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Button from '../../common/Button';
+import { Button } from '@expandorg/components';
 
 import styles from './Unlock.module.styl';
 

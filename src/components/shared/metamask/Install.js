@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import cn from 'classnames';
 
 import Actions from './Actions';
 
@@ -25,7 +26,7 @@ const Install = ({ onHide }) => (
     </div>
     <Actions onHide={onHide}>
       <a
-        className={styles.install}
+        className={cn('gem-button', styles.install)}
         href="https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn?hl=en"
         rel="noopener noreferrer"
         target="_blank"

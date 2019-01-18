@@ -4,13 +4,12 @@ import cn from 'classnames';
 
 import { moduleProps, getModuleControlsMap } from '@expandorg/modules';
 
-import Button from '../../../common/Button';
+import { WalkthroughPin, Button } from '@expandorg/components';
 
 import Form from './Form/Form';
 import Properties from './Properties/Properties';
 import PreviewCtx from './PreviewCtx';
 
-import { WalkthroughPin } from '../../../common/Walkthrough';
 import Walkthrough from './Walkthrough';
 
 import { NotificationAnimated } from '../../Notifications';

@@ -23,7 +23,9 @@ export const getAvailableModulesTree = (
   return displayCategories.map(category => ({
     category,
     // $FlowFixMe
-    modules: grouped[category].map(({ module }) => module),
+    modules: grouped[category]
+      ? grouped[category].map(({ module }) => module)
+      : [],
   }));
 };
 

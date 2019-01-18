@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import cn from 'classnames';
 
 import { ReactComponent as Icon } from '../assets/preview.svg';
 
@@ -26,7 +27,7 @@ export default class Choice extends Component {
                   <Icon width="144" height="144" viewBox="0 0 64 48" />
                 </div>
                 <div className={styles.actions}>
-                  <a href="#" className={styles.link}>
+                  <a href="#" className={cn('gem-button', styles.link)}>
                     Requester
                   </a>
                 </div>
@@ -36,7 +37,7 @@ export default class Choice extends Component {
                   <Icon width="144" height="144" viewBox="0 0 64 48" />
                 </div>
                 <div className={styles.actions}>
-                  <a href="#" className={styles.link}>
+                  <a href="#" className={cn('gem-button', styles.link)}>
                     Worker
                   </a>
                 </div>

@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+import { Checkbox } from '@expandorg/components';
 import { moduleProps } from '@expandorg/modules';
-
-import Checkbox from '../../../../common/Checkbox';
 
 import styles from './FieldValidation.module.styl';
 

@@ -5,8 +5,6 @@ import { Dialog } from '@expandorg/components';
 import WithdrawForm, { WithdrawEffect } from './WithdrawForm';
 import TxForm from '../TxForm';
 
-import dstyles from '../../common/dialog.module.styl';
-
 export default class WithdrawDialog extends Component {
   static propTypes = {
     onHide: PropTypes.func.isRequired,
@@ -25,14 +23,7 @@ export default class WithdrawDialog extends Component {
     const { complete } = this.state;
 
     return (
-      <Dialog
-        visible
-        onHide={onHide}
-        overlayClass={dstyles.overlay}
-        modalClass={dstyles.modal}
-        contentLabel="withdraw-dialog"
-        hideButton
-      >
+      <Dialog visible onHide={onHide} contentLabel="withdraw-dialog" hideButton>
         {!complete && <WithdrawForm {...this.props} />}
         {complete && (
           <TxForm

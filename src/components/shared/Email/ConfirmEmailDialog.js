@@ -8,8 +8,6 @@ import SuccessForm from '../SuccessForm';
 
 import { ConfirmEmailEffect } from './stateEffects';
 
-import dstyles from '../../common/dialog.module.styl';
-
 export default class ConfirmEmailDialog extends Component {
   static propTypes = {
     onHide: PropTypes.func.isRequired,
@@ -31,8 +29,6 @@ export default class ConfirmEmailDialog extends Component {
       <Dialog
         visible
         onHide={onHide}
-        overlayClass={dstyles.overlay}
-        modalClass={dstyles.modal}
         contentLabel="confirm-email-dialog"
         hideButton
       >

@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 
-import Page from '../shared/Page';
 import Navbar from '../shared/Navbar';
 import Sidebar from '../shared/Sidebar';
+
+import Page from '../shared/Page';
 
 // import styles from './Api.module.styl';
 

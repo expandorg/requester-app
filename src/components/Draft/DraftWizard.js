@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import Page from '../shared/Page';
 import Navbar from '../shared/Navbar';
+
+import Page from '../shared/Page';
+
 import { draftProps } from '../shared/propTypes';
 
 import { Navigation, NavItem } from './Wizard/Navigation';

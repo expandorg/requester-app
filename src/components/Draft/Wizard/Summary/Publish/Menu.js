@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import { clickOutside } from '@expandorg/components/hoc';
-
-import Button from '../../../../common/Button';
+import { clickOutside, Button } from '@expandorg/components';
 
 import styles from './styles.module.styl';
 

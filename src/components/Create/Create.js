@@ -12,8 +12,9 @@ import {
   historyProps,
 } from '@expandorg/app-utils';
 
-import Page from '../shared/Page';
 import Navbar from '../shared/Navbar';
+import Page from '../shared/Page';
+
 import { authenticated } from '../shared/auth';
 
 import { Navigation, NavItem } from '../Draft/Wizard/Navigation';

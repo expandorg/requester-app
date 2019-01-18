@@ -3,9 +3,7 @@ import PropTypes from 'prop-types';
 
 import { validateForm } from '@expandorg/validation';
 
-import Input from '../../../common/Input';
-import Button from '../../../common/Button';
-// import Select from '../../../common/Select';
+import { Input, Button } from '@expandorg/components';
 
 // import DateTimeInput from '../../../common/DateTime/DateTimeInput';
 import UploadLogo from './UploadLogo';
@@ -122,7 +120,7 @@ export default class Settings extends Component {
             />
           </Field>
           {/* <div className={styles.end}>
-            <Select
+            <Dropdown
               value={settings.endWhen}
               label="End Task When *"
               options={options}

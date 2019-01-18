@@ -5,8 +5,6 @@ import { Dialog } from '@expandorg/components';
 
 import AddressForm from './AddressForm';
 
-import dstyles from '../../common/dialog.module.styl';
-
 export default class AddressDialog extends Component {
   static propTypes = {
     onHide: PropTypes.func.isRequired,
@@ -16,14 +14,7 @@ export default class AddressDialog extends Component {
     const { onHide } = this.props;
 
     return (
-      <Dialog
-        visible
-        onHide={onHide}
-        overlayClass={dstyles.overlay}
-        modalClass={dstyles.modal}
-        contentLabel="addres-dialog"
-        hideButton
-      >
+      <Dialog visible onHide={onHide} contentLabel="addres-dialog" hideButton>
         <AddressForm {...this.props} />
       </Dialog>
     );

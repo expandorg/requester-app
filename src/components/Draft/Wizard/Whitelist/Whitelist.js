@@ -12,7 +12,8 @@ import {
   SubmitStateEffect,
 } from '@expandorg/app-utils';
 
-import Button from '../../../common/Button';
+import { Button } from '@expandorg/components';
+
 import { draftProps } from '../../../shared/propTypes';
 import Hero from '../../../shared/Hero';
 

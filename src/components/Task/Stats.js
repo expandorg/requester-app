@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import Button from '../common/Button';
+import { Button } from '@expandorg/components';
 
 import Page from '../shared/Page';
 import Navbar from '../shared/Navbar';

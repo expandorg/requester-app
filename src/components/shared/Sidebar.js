@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import { Sidebar, SidebarLink } from '../common/Sidebar';
+import { Sidebar as UISidebar, SidebarLink } from '@expandorg/components';
 
 import { ReactComponent as ApiIcon } from '../assets/api.svg';
 import { ReactComponent as DashboardIcon } from '../assets/dashboard.svg';
@@ -11,7 +11,7 @@ import { ReactComponent as SettingsIcon } from '../assets/settings.svg';
 
 import { isActive } from '../../model/dashboard';
 
-export default class AppSidebar extends Component {
+export default class Sidebar extends Component {
   static propTypes = {
     navigation: PropTypes.arrayOf(
       PropTypes.shape({
@@ -57,11 +57,11 @@ export default class AppSidebar extends Component {
     const { navigation } = this.props;
 
     return (
-      <Sidebar className="gem-sidebar">
+      <UISidebar>
         {navigation.map(item => (
           <SidebarLink key={item.link} item={item} />
         ))}
-      </Sidebar>
+      </UISidebar>
     );
   }
 }

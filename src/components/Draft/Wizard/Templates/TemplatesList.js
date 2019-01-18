@@ -4,7 +4,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import Button from '../../../common/Button';
+import { Button } from '@expandorg/components';
+
 import Templates from '../../../shared/Templates/Templates';
 import { Description, Actions } from '../Form';
 

@@ -8,9 +8,11 @@ import { userProps } from '@expandorg/app-auth';
 import { logout } from '@expandorg/app-auth/sagas';
 import { userSelector } from '@expandorg/app-auth/selectors';
 
-import Page from '../shared/Page';
 import Navbar from '../shared/Navbar';
 import Sidebar from '../shared/Sidebar';
+
+import Page from '../shared/Page';
+
 import { authenticated } from '../shared/auth';
 
 import AddressDialog from '../shared/Address/AddressDialog';

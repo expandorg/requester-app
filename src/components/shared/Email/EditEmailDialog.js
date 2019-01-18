@@ -6,8 +6,6 @@ import { Dialog } from '@expandorg/components';
 import EditEmailForm from './EditEmailForm';
 import EditEmailComplete from './EditEmailComplete';
 
-import dstyles from '../../common/dialog.module.styl';
-
 import { EditEmailEffect } from './stateEffects';
 
 export default class EditEmailDialog extends Component {
@@ -28,14 +26,7 @@ export default class EditEmailDialog extends Component {
     const { complete } = this.state;
 
     return (
-      <Dialog
-        visible
-        onHide={onHide}
-        overlayClass={dstyles.overlay}
-        modalClass={dstyles.modal}
-        contentLabel="email-dialog"
-        hideButton
-      >
+      <Dialog visible onHide={onHide} contentLabel="email-dialog" hideButton>
         {!complete && <EditEmailForm {...this.props} />}
         {complete && <EditEmailComplete {...this.props} />}
         <EditEmailEffect onComplete={this.handleComplete} />

@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import { deferComponentRender } from '@expandorg/components/hoc';
+import { Button, deferComponentRender } from '@expandorg/components';
+
 import { draftProps } from '../../../shared/propTypes';
 
-import Button from '../../../common/Button';
 import DataEditor from './DataEditor/DataEditor';
 import UploadForm from './UploadForm';
 

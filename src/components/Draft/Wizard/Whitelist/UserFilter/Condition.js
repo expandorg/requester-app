@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import Autocomplete from '../../../../common/Autocomplete';
+import { Autocomplete } from '@expandorg/components';
 
 import { ReactComponent as X } from '../../../../assets/x.svg';
 

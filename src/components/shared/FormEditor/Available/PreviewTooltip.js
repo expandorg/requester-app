@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
 
-import { deferVisibleRender } from '@expandorg/components/hoc';
+import { deferVisibleRender } from '@expandorg/components';
 
 import { ReactComponent as DataIcon } from '../../../assets/data.svg';
 

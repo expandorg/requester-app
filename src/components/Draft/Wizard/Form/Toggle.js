@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import Switch from '../../../common/Switch';
+import { Switch } from '@expandorg/components';
 import I from '../../../common/I';
 
 import styles from './Toggle.module.styl';

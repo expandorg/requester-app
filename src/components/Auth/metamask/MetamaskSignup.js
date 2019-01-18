@@ -4,6 +4,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
+import { ErrorMessage } from '@expandorg/components';
+
 import { requestStateProps, SubmitStateEffect } from '@expandorg/app-utils';
 import { signupMetamaskStateSelector } from '@expandorg/app-auth/selectors';
 import { signupMetamask } from '@expandorg/app-auth/sagas';
@@ -11,7 +13,6 @@ import { signupMetamask } from '@expandorg/app-auth/sagas';
 import { metamaskStateSelector } from '@expandorg/app-web3/selectors';
 import { MetamaskState } from '@expandorg/app-web3';
 
-import ErrorMessage from '../../common/ErrorMessage';
 import MetamaskPromt from '../../shared/metamask/MetamaskPromt';
 
 import styles from './styles.module.styl';

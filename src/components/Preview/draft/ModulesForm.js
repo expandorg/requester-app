@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import { Panel } from '@expandorg/components';
 import { formProps } from '@expandorg/modules';
 
 import FormPreview from '../../shared/FormPreview';
@@ -23,14 +22,14 @@ export default class ModulesForm extends Component {
     const { form, onSubmit, variables } = this.props;
 
     return (
-      <Panel className={styles.container}>
+      <div className={styles.container}>
         <FormPreview
           className={styles.form}
           variables={variables}
           form={form}
           onSubmit={onSubmit}
         />
-      </Panel>
+      </div>
     );
   }
 }

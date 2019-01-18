@@ -3,8 +3,7 @@ import PropTypes from 'prop-types';
 
 import { moduleProps } from '@expandorg/modules';
 
-import Button from '../../../../common/Button';
-// import Input from '../../../../common/Input';
+import { Button } from '@expandorg/components';
 
 import PropertyEditor from './PropertyEditor/PropertyEditor';
 import ErrorContainer from './PropertyEditor/ErrorContainer';

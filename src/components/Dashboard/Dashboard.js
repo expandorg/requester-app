@@ -7,11 +7,12 @@ import { bindActionCreators } from 'redux';
 import { withRouter } from 'react-router-dom';
 
 import { matchProps } from '@expandorg/app-utils';
+import Navbar from '../shared/Navbar';
+import Sidebar from '../shared/Sidebar';
+
 import { authenticated } from '../shared/auth';
 
 import Page from '../shared/Page';
-import Navbar from '../shared/Navbar';
-import Sidebar from '../shared/Sidebar';
 
 import Navigation from './Navigation';
 

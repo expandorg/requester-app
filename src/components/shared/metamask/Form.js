@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import ErrorMessage from '../../common/ErrorMessage';
-import Button from '../../common/Button';
-
+import { Button, ErrorMessage } from '@expandorg/components';
 import Actions from './Actions';
 
 import styles from './Form.module.styl';

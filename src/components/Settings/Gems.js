@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import { userProps } from '@expandorg/app-auth';
-import Button from '../common/Button';
+import { Button } from '@expandorg/components';
 
 import Hero from '../shared/Hero';
 import Deposit from '../shared/Deposit/Deposit';

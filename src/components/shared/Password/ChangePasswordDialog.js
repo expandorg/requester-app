@@ -6,8 +6,6 @@ import { Dialog } from '@expandorg/components';
 import PasswordForm, { ChangePasswordEffect } from './ChangePasswordForm';
 import SuccessForm from '../SuccessForm';
 
-import dstyles from '../../common/dialog.module.styl';
-
 export default class ChangePasswordDialog extends Component {
   static propTypes = {
     onHide: PropTypes.func.isRequired,
@@ -29,8 +27,6 @@ export default class ChangePasswordDialog extends Component {
       <Dialog
         visible
         onHide={onHide}
-        overlayClass={dstyles.overlay}
-        modalClass={dstyles.modal}
         contentLabel="edit-password-dialog"
         hideButton
       >

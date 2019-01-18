@@ -1,6 +1,6 @@
 import React from 'react';
 
-import ErrorMessage from '../../../../../common/ErrorMessage';
+import { ErrorMessage } from '@expandorg/components';
 
 import styles from './styles.module.styl';
 

@@ -4,14 +4,11 @@ import PropTypes from 'prop-types';
 import parse from 'date-fns/parse';
 
 import { userProps } from '@expandorg/app-auth';
-
-import Button from '../../../../common/Button';
+import { Button, DateTimePicker } from '@expandorg/components';
 
 import { ReactComponent as Arrow } from '../../../../assets/arrow-down.svg';
 import { draftProps } from '../../../../shared/propTypes';
 import EmailConfirmed from '../../../../shared/EmailConfirmed';
-
-import DateTimePicker from '../../../../common/DateTime/DateTimePicker';
 
 import { formatDate } from '../../../../../model/draft';
 

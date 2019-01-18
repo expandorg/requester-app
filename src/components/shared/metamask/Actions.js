@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
 
-import Button from '../../common/Button';
+import { Button } from '@expandorg/components';
 
 import styles from './Actions.module.styl';
 

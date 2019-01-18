@@ -4,8 +4,6 @@ import PropTypes from 'prop-types';
 import { Dialog } from '@expandorg/components';
 import { MetamaskState } from '@expandorg/app-web3';
 
-import dstyles from '../../common/dialog.module.styl';
-
 import Install from './Install';
 import Unlock from './Unlock';
 import Form from './Form';
@@ -41,14 +39,7 @@ export default class MetamaskPromt extends Component {
       description,
     } = this.props;
     return (
-      <Dialog
-        overlayClass={dstyles.overlay}
-        modalClass={dstyles.modal}
-        onHide={onHide}
-        hideButton
-        visible
-        contentLabel="matamask"
-      >
+      <Dialog onHide={onHide} hideButton visible contentLabel="matamask">
         <div className={styles.container}>
           {metamaskState === MetamaskState.NotInstalled && (
             <Install onHide={onHide} />

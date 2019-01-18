@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
 
-import { clickOutside } from '@expandorg/components/hoc';
+import { clickOutside } from '@expandorg/components';
 
 import styles from './VariablesDropdown.module.styl';
 
