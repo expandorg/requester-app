@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import { formProps } from '@expandorg/modules';
-import { WalkthroughProvider, WalkthroughPin } from '@expandorg/components';
+import { WalkthroughProvider, WalkthroughPin } from '@expandorg/components/app';
 
 import Editor from './Editor/Editor';
 import AvailableModules from './Available/AvailableModules';

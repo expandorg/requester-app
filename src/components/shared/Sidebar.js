@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import { Sidebar as UISidebar, SidebarLink } from '@expandorg/components';
+import { Sidebar as UISidebar, SidebarLink } from '@expandorg/components/app';
 
 import { ReactComponent as ApiIcon } from '../assets/api.svg';
 import { ReactComponent as DashboardIcon } from '../assets/dashboard.svg';

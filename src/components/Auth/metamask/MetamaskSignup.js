@@ -11,9 +11,8 @@ import { signupMetamaskStateSelector } from '@expandorg/app-auth/selectors';
 import { signupMetamask } from '@expandorg/app-auth/sagas';
 
 import { metamaskStateSelector } from '@expandorg/app-web3/selectors';
+import { MetamaskPromt } from '@expandorg/app-web3/components';
 import { MetamaskState } from '@expandorg/app-web3';
-
-import MetamaskPromt from '../../shared/metamask/MetamaskPromt';
 
 import styles from './styles.module.styl';
 

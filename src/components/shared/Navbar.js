@@ -6,7 +6,7 @@ import { bindActionCreators } from 'redux';
 
 import { logout as logoutSaga } from '@expandorg/app-auth/sagas';
 
-import { Navbar as UINavbar } from '@expandorg/components';
+import { Navbar as UINavbar } from '@expandorg/components/app';
 
 import './Navbar.styl';
 

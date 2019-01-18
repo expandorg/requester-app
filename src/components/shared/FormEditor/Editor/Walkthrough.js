@@ -1,7 +1,7 @@
 import React from 'react';
 import cn from 'classnames';
 
-import { ToggleWalkthrough } from '@expandorg/components';
+import { ToggleWalkthrough } from '@expandorg/components/app';
 import { ReactComponent as Bulb } from '../../../assets/bulb.svg';
 
 import styles from './Walkthrough.module.styl';

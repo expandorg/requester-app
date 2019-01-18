@@ -1,6 +1,6 @@
 import React from 'react';
 
-import UIPage from '../common/Page';
+import { Page as UIPage } from '@expandorg/components/app';
 import { Notifications } from './Notifications';
 
 export default function Page({ children, ...rest }) {

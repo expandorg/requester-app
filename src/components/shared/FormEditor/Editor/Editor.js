@@ -4,7 +4,8 @@ import cn from 'classnames';
 
 import { moduleProps, getModuleControlsMap } from '@expandorg/modules';
 
-import { WalkthroughPin, Button } from '@expandorg/components';
+import { Button } from '@expandorg/components';
+import { WalkthroughPin } from '@expandorg/components/app';
 
 import Form from './Form/Form';
 import Properties from './Properties/Properties';

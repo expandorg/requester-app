@@ -10,10 +10,10 @@ import { ErrorMessage } from '@expandorg/components';
 import { loginMetamaskStateSelector } from '@expandorg/app-auth/selectors';
 import { loginMetamask } from '@expandorg/app-auth/sagas';
 
-import { metamaskStateSelector } from '@expandorg/app-web3/selectors';
 import { MetamaskState } from '@expandorg/app-web3';
+import { metamaskStateSelector } from '@expandorg/app-web3/selectors';
 
-import MetamaskPromt from '../../shared/metamask/MetamaskPromt';
+import { MetamaskPromt } from '@expandorg/app-web3/components';
 
 import styles from './styles.module.styl';
 
