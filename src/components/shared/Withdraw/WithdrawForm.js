@@ -22,7 +22,7 @@ import { withdrawStateSelector } from '@expandorg/app-gemtokens/selectors';
 
 import { Button, Input, ErrorMessage } from '@expandorg/components';
 
-import { ReactComponent as Card } from '../../assets/creditcard.svg';
+import { ReactComponent as Card } from '@expandorg/uikit/assets/creditcard.svg';
 
 import styles from '../serviceForms.module.styl';
 import fstyles from './form.module.styl';

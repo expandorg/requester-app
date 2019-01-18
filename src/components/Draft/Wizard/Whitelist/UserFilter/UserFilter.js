@@ -6,10 +6,10 @@ import nanoid from 'nanoid';
 
 import { removeAtIndex, replaceAtIndex } from '@expandorg/utils';
 
-import Condition from './Condition';
+import { ReactComponent as X } from '@expandorg/uikit/assets/x.svg';
+import { ReactComponent as Preview } from '@expandorg/uikit/assets/preview.svg';
 
-import { ReactComponent as X } from '../../../../assets/x.svg';
-import { ReactComponent as Preview } from '../../../../assets/preview.svg';
+import Condition from './Condition';
 
 import styles from './UserFilter.module.styl';
 

@@ -5,9 +5,9 @@ import nanoid from 'nanoid';
 
 import { removeAtIndex, replaceAtIndex } from '@expandorg/utils';
 
-import { DraftTextInput } from '../../../../../common/RichText';
+import { ReactComponent as X } from '@expandorg/uikit/assets/x.svg';
 
-import { ReactComponent as X } from '../../../../../assets/x.svg';
+import { DraftTextInput } from '../../../../../common/RichText';
 
 import styles from './OptionsEditor.module.styl';
 

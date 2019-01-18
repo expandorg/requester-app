@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import { Autocomplete } from '@expandorg/components';
 
-import { ReactComponent as X } from '../../../../assets/x.svg';
+import { ReactComponent as X } from '@expandorg/uikit/assets/x.svg';
 
 import { params, ops } from './filters';
 

@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import { RequestStates, requestStateProps } from '@expandorg/app-utils';
+import { ReactComponent as Placeholder } from '@expandorg/uikit/assets/data.svg';
 import {
   Upload,
   ProgressIndicator,
@@ -12,7 +13,6 @@ import {
 } from '../../../common/Upload';
 
 import { draftProps } from '../../../shared/propTypes';
-import { ReactComponent as Placeholder } from '../../../assets/data.svg';
 
 import { Description, Fieldset } from '../Form';
 

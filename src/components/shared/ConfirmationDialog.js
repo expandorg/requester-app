@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 
 import { Button, Dialog } from '@expandorg/components';
 
-import { ReactComponent as Warning } from '../assets/warning.svg';
-import { ReactComponent as Checkmark } from '../assets/checkmark-3.svg';
-import { ReactComponent as Eye } from '../assets/eye.svg';
+import { ReactComponent as Warning } from '@expandorg/uikit/assets/warning.svg';
+import { ReactComponent as Checkmark } from '@expandorg/uikit/assets/checkmark-3.svg';
+import { ReactComponent as Eye } from '@expandorg/uikit/assets/eye.svg';
 
 import styles from './ConfirmationDialog.module.styl';
 

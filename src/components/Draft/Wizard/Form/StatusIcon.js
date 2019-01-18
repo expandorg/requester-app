@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
 
-import { ReactComponent as Checkmark } from '../../../assets/checkmark.svg';
-import { ReactComponent as I } from '../../../assets/i.svg';
+import { ReactComponent as Checkmark } from '@expandorg/uikit/assets/checkmark.svg';
+import { ReactComponent as I } from '@expandorg/uikit/assets/i.svg';
 
 import styles from './StatusIcon.module.styl';
 

@@ -5,13 +5,12 @@ import { userProps } from '@expandorg/app-auth';
 
 import { Button } from '@expandorg/components';
 
+import { ReactComponent as Warning } from '@expandorg/uikit/assets/warning.svg';
 import HeroWarning from '../../../shared/HeroWarning';
 
 import { Actions, Section, Description } from '../Form';
 import { draftProps } from '../../../shared/propTypes';
 import { getNavState, isDraftReady } from '../../wizard';
-
-import { ReactComponent as Warning } from '../../../assets/warning.svg';
 
 import Settings from './Settings';
 import Data from './Data/Data';

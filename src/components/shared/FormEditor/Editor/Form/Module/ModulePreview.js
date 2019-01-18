@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import cn from 'classnames';
 
 import { moduleProps, Module } from '@expandorg/modules';
-import { ReactComponent as X } from '../../../../../assets/x.svg';
+import { ReactComponent as X } from '@expandorg/uikit/assets/x.svg';
 
 import NestedModules from './NestedModules';
 import Placeholder from './Placeholder';

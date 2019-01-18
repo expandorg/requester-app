@@ -3,9 +3,8 @@ import PropTypes from 'prop-types';
 
 import cn from 'classnames';
 
+import { ReactComponent as X } from '@expandorg/uikit/assets/x.svg';
 import { notificationProps } from '../propTypes';
-
-import { ReactComponent as X } from '../../assets/x.svg';
 
 import styles from './Notification.module.styl';
 

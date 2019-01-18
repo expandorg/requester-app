@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
 
-import { ReactComponent as Arrow } from '../../../assets/arrow-2.svg';
+import { ReactComponent as Arrow } from '@expandorg/uikit/assets/arrow-2.svg';
 
 import ModuleItem from './ModuleItem';
 

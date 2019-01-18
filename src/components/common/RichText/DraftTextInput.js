@@ -5,7 +5,7 @@ import cn from 'classnames';
 import Editor from 'draft-js-plugins-editor';
 import createMentionPlugin from 'draft-js-mention-plugin';
 
-import { ReactComponent as Arrow } from '../../assets/arrow-down.svg';
+import { ReactComponent as Arrow } from '@expandorg/uikit/assets/arrow-down.svg';
 
 import { VariablesTool } from './toolbar';
 

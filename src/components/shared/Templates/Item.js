@@ -4,9 +4,8 @@ import cn from 'classnames';
 
 import { Tooltip } from '@expandorg/components';
 
+import { ReactComponent as Checkmark } from '@expandorg/uikit/assets/checkmark.svg';
 import { taskTemplateProps } from '../propTypes';
-
-import { ReactComponent as Checkmark } from '../../assets/checkmark.svg';
 
 import styles from './Item.module.styl';
 

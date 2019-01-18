@@ -25,7 +25,7 @@ import {
 
 import { Button, Input, ErrorMessage } from '@expandorg/components';
 
-import { ReactComponent as Card } from '../../assets/creditcard.svg';
+import { ReactComponent as Card } from '@expandorg/uikit/assets/creditcard.svg';
 
 import Description from './Description';
 

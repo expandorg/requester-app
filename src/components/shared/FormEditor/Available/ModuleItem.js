@@ -4,12 +4,12 @@ import cn from 'classnames';
 
 import { DragSource } from 'react-dnd';
 
+import { ReactComponent as DragIcon } from '@expandorg/uikit/assets/dragcursor.svg';
+import { ReactComponent as InfoMark } from '@expandorg/uikit/assets/i.svg';
+
 import PreviewTooltip from './PreviewTooltip';
 
 import { metaSource, FORM_DND_ID } from '../dnd';
-
-import { ReactComponent as DragIcon } from '../../../assets/dragcursor.svg';
-import { ReactComponent as InfoMark } from '../../../assets/i.svg';
 
 import styles from './ModuleItem.module.styl';
 

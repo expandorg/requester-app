@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { Tooltip } from '@expandorg/components';
 import { userProps } from '@expandorg/app-auth';
 
-import { ReactComponent as I } from '../assets/i.svg';
+import { ReactComponent as I } from '@expandorg/uikit/assets/i.svg';
 
 import ConfirmEmailDialog from '../shared/Email/ConfirmEmailDialog';
 

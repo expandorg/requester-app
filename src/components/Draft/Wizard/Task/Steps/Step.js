@@ -4,9 +4,9 @@ import cn from 'classnames';
 
 import { DragSource, DropTarget } from 'react-dnd';
 
-import { ReactComponent as X } from '../../../../assets/x.svg';
-import { ReactComponent as Checkmark } from '../../../../assets/checkmark-2.svg';
-import { ReactComponent as Warning } from '../../../../assets/warning.svg';
+import { ReactComponent as X } from '@expandorg/uikit/assets/x.svg';
+import { ReactComponent as Checkmark } from '@expandorg/uikit/assets/checkmark-2.svg';
+import { ReactComponent as Warning } from '@expandorg/uikit/assets/warning.svg';
 
 import { STEPS_DND_ID, source, target } from './dnd';
 

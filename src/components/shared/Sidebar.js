@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 
 import { Sidebar as UISidebar, SidebarLink } from '@expandorg/components/app';
 
-import { ReactComponent as ApiIcon } from '../assets/api.svg';
-import { ReactComponent as DashboardIcon } from '../assets/dashboard.svg';
-import { ReactComponent as StatsIcon } from '../assets/stats.svg';
-// import { ReactComponent as ProfileIcon } from '../assets/profile.svg';
-import { ReactComponent as SettingsIcon } from '../assets/settings.svg';
+import { ReactComponent as ApiIcon } from '@expandorg/uikit/assets/api.svg';
+import { ReactComponent as DashboardIcon } from '@expandorg/uikit/assets/dashboard.svg';
+import { ReactComponent as StatsIcon } from '@expandorg/uikit/assets/stats.svg';
+// import { ReactComponent as ProfileIcon } from '@expandorg/uikit/assets/profile.svg';
+import { ReactComponent as SettingsIcon } from '@expandorg/uikit/assets/settings.svg';
 
 import { isActive } from '../../model/dashboard';
 

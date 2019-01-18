@@ -4,7 +4,7 @@ import cn from 'classnames';
 
 import { Tooltip } from '@expandorg/components';
 
-import { ReactComponent as InfoMark } from '../assets/i.svg';
+import { ReactComponent as InfoMark } from '@expandorg/uikit/assets/i.svg';
 
 import styles from './I.module.styl';
 

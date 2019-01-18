@@ -6,14 +6,13 @@ import { bindActionCreators } from 'redux';
 
 import { RequestStates } from '@expandorg/app-utils';
 
+import { ReactComponent as Placeholder } from '@expandorg/uikit/assets/data.svg';
 import {
   Upload,
   ImagePreview,
   ProgressIndicator,
   ProgressPubSub,
 } from '../../../common/Upload';
-
-import { ReactComponent as Placeholder } from '../../../assets/data.svg';
 
 import { addNotification } from '../../../../sagas/notificationsSagas';
 

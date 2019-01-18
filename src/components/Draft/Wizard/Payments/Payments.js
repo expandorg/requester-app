@@ -16,7 +16,7 @@ import { userSelector } from '@expandorg/app-auth/selectors';
 
 import { Input, Button } from '@expandorg/components';
 
-import { ReactComponent as Card } from '../../../assets/creditcard.svg';
+import { ReactComponent as Card } from '@expandorg/uikit/assets/creditcard.svg';
 
 import { draftProps } from '../../../shared/propTypes';
 import Deposit from '../../../shared/Deposit/Deposit';

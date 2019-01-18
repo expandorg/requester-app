@@ -4,7 +4,7 @@ import cn from 'classnames';
 
 import { deferVisibleRender } from '@expandorg/components';
 
-import { ReactComponent as DataIcon } from '../../../assets/data.svg';
+import { ReactComponent as DataIcon } from '@expandorg/uikit/assets/data.svg';
 
 import styles from './PreviewTooltip.module.styl';
 

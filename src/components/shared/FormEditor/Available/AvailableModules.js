@@ -4,12 +4,11 @@ import cn from 'classnames';
 
 import debounce from 'debounce';
 import { DropTarget } from 'react-dnd';
+import { ReactComponent as SearchIcon } from '@expandorg/uikit/assets/search.svg';
 import {
   getAvailableModulesTree,
   searchModulesTree,
 } from '../model/modulesTree';
-
-import { ReactComponent as SearchIcon } from '../../../assets/search.svg';
 
 import Category from './Category';
 

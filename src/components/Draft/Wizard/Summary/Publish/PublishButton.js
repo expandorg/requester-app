@@ -6,7 +6,7 @@ import parse from 'date-fns/parse';
 import { userProps } from '@expandorg/app-auth';
 import { Button, DateTimePicker } from '@expandorg/components';
 
-import { ReactComponent as Arrow } from '../../../../assets/arrow-down.svg';
+import { ReactComponent as Arrow } from '@expandorg/uikit/assets/arrow-down.svg';
 import { draftProps } from '../../../../shared/propTypes';
 import EmailConfirmed from '../../../../shared/EmailConfirmed';
 

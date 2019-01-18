@@ -4,7 +4,7 @@ import cn from 'classnames';
 
 import { Link } from 'react-router-dom';
 
-import { ReactComponent as MoreIcon } from '../../assets/more.svg';
+import { ReactComponent as MoreIcon } from '@expandorg/uikit/assets/more.svg';
 import I from '../../common/I';
 
 import TaskItemMenu from './TaskItemMenu';

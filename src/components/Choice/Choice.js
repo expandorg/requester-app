@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import cn from 'classnames';
 
-import { ReactComponent as Icon } from '../assets/preview.svg';
+import { ReactComponent as Icon } from '@expandorg/uikit/assets/preview.svg';
 
 import Navbar from '../shared/Navbar';
 
