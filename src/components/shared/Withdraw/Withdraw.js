@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 
 import { userProps } from '@expandorg/app-auth';
 
+import { AccountConfirmed } from '@expandorg/app-account/components';
+
 import WithdrawDialog from './WithdrawDialog';
-import AccountConfirmed from '../AccountConfirmed';
 
 export default class Withdraw extends Component {
   static propTypes = {

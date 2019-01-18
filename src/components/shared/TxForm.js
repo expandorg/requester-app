@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import { ClipboardButton } from '@expandorg/components';
 
-import SuccessForm from './SuccessForm';
+import { SuccessForm } from '@expandorg/app-account/components';
 
 import styles from './TxForm.module.styl';
 

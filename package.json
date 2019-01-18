@@ -31,7 +31,7 @@
   "dependencies": {
     "@babel/polyfill": "^7.2.5",
     "@expandorg/api-client": "^0.0.15",
-    "@expandorg/app-account": "^0.0.3",
+    "@expandorg/app-account": "^0.0.4",
     "@expandorg/app-auth": "^0.0.18",
     "@expandorg/app-gemtokens": "^0.0.16",
     "@expandorg/app-utils": "^0.0.27",

@@ -9,8 +9,9 @@ import { userProps } from '@expandorg/app-auth';
 import { fetchBalanceStateSelector } from '@expandorg/app-gemtokens/selectors';
 import { fetchGemsBalance } from '@expandorg/app-gemtokens/sagas';
 
+import { AccountConfirmed } from '@expandorg/app-account/components';
+
 import DepositDialog from './DepositDialog';
-import AccountConfirmed from '../AccountConfirmed';
 
 const mapStateToProps = state => ({
   fetchState: fetchBalanceStateSelector(state),

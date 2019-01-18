@@ -8,16 +8,18 @@ import { userProps } from '@expandorg/app-auth';
 import { logout } from '@expandorg/app-auth/sagas';
 import { userSelector } from '@expandorg/app-auth/selectors';
 
+import {
+  AddressDialog,
+  EditEmailDialog,
+  ChangePasswordDialog,
+} from '@expandorg/app-account/components';
+
 import Navbar from '../shared/Navbar';
 import Sidebar from '../shared/Sidebar';
 
 import Page from '../shared/Page';
 
 import { authenticated } from '../shared/auth';
-
-import AddressDialog from '../shared/Address/AddressDialog';
-import EditEmailDialog from '../shared/Email/EditEmailDialog';
-import ChangePasswordDialog from '../shared/Password/ChangePasswordDialog';
 
 import ToggleEmailConfirm from './ToggleEmailConfirm';
 import Field from './Field';

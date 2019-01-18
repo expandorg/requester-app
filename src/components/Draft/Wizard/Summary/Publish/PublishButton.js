@@ -7,8 +7,9 @@ import { userProps } from '@expandorg/app-auth';
 import { Button, DateTimePicker } from '@expandorg/components';
 
 import { ReactComponent as Arrow } from '@expandorg/uikit/assets/arrow-down.svg';
+import { EmailConfirmed } from '@expandorg/app-account/components';
+
 import { draftProps } from '../../../../shared/propTypes';
-import EmailConfirmed from '../../../../shared/EmailConfirmed';
 
 import { formatDate } from '../../../../../model/draft';
 

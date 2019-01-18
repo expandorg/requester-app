@@ -5,7 +5,7 @@ import { userProps } from '@expandorg/app-auth';
 
 import { ReactComponent as I } from '@expandorg/uikit/assets/i.svg';
 
-import ConfirmEmailDialog from '../shared/Email/ConfirmEmailDialog';
+import { ConfirmEmailDialog } from '@expandorg/app-account/components';
 
 import styles from './ToggleEmailConfirm.module.styl';
 

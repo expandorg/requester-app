@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import { ReactComponent as EditIcon } from '../assets/edit-2.svg';
+import { ReactComponent as EditIcon } from '@expandorg/uikit/assets/edit-2.svg';
 
 import styles from './Field.module.styl';
 
