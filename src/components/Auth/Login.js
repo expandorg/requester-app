@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 import { PageDark } from '@expandorg/components/app';
 
-import { ReactComponent as Logo } from '../assets/logo.svg';
+import { ReactComponent as Logo } from '@expandorg/uikit/assets/logo.svg';
 
 import MetamaskLogin from './metamask/MetamaskLogin';
 import EmailLogin from './email/EmailLogin';

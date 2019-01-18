@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
 
-import { ReactComponent as Logo } from '../../../assets/logo.svg';
+import { ReactComponent as Logo } from '@expandorg/uikit/assets/logo.svg';
 
 import styles from './LoadIndicator.module.styl';
 

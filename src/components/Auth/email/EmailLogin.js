@@ -16,7 +16,7 @@ import { Button, ErrorMessage, Input } from '@expandorg/components';
 
 import { loginStateSelector } from '@expandorg/app-auth/selectors';
 import { login } from '@expandorg/app-auth/sagas';
-import { ReactComponent as Logo } from '../../assets/logo.svg';
+import { ReactComponent as Logo } from '@expandorg/uikit/assets/logo.svg';
 
 import styles from './styles.module.styl';
 
