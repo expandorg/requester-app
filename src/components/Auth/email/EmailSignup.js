@@ -59,8 +59,6 @@ class EmailSignup extends Component {
     const { signupState } = this.props;
     const { email, password, error } = this.state;
 
-    const isFetching = signupState.state === RequestStates.Fetching;
-
     return (
       <div className={styles.container}>
         <div className={styles.header}>
@@ -94,9 +92,10 @@ class EmailSignup extends Component {
           <ErrorMessage errors={error} className={styles.error} />
           <Button
             type="submit"
+            theme="blue"
             className={cn(styles.submit, styles.signUpSubmit)}
           >
-            {isFetching ? 'Signing up...' : 'Sign up'}
+            Sign up
           </Button>
         </form>
         <SubmitStateEffect
