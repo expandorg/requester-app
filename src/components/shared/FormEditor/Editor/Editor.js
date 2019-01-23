@@ -5,15 +5,17 @@ import cn from 'classnames';
 import { moduleProps, getModuleControlsMap } from '@expandorg/modules';
 
 import { Button } from '@expandorg/components';
-import { WalkthroughPin } from '@expandorg/components/app';
+
+import {
+  WalkthroughPin,
+  NotificationAnimated,
+} from '@expandorg/components/app';
 
 import Form from './Form/Form';
 import Properties from './Properties/Properties';
 import PreviewCtx from './PreviewCtx';
 
 import Walkthrough from './Walkthrough';
-
-import { NotificationAnimated } from '../../Notifications';
 
 import { treeEditor } from '../dnd';
 import { validateModuleProps } from '../model/validation';

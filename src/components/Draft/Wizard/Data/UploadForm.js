@@ -5,6 +5,8 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import { RequestStates, requestStateProps } from '@expandorg/app-utils';
+import { addNotification } from '@expandorg/app-utils/app';
+
 import { ReactComponent as Placeholder } from '@expandorg/uikit/assets/data.svg';
 import {
   Upload,
@@ -17,7 +19,6 @@ import { draftProps } from '../../../shared/propTypes';
 import { Description, Fieldset } from '../Form';
 
 import { uploadData } from '../../../../sagas/dataSagas';
-import { addNotification } from '../../../../sagas/notificationsSagas';
 import { uploadDataStateSelector } from '../../../../selectors/uiStateSelectors';
 
 import styles from './UploadForm.module.styl';

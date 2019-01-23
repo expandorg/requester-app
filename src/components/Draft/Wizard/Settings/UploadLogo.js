@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import { RequestStates } from '@expandorg/app-utils';
+import { addNotification } from '@expandorg/app-utils/app';
 
 import { ReactComponent as Placeholder } from '@expandorg/uikit/assets/data.svg';
 import {
@@ -13,8 +14,6 @@ import {
   ProgressIndicator,
   ProgressPubSub,
 } from '../../../common/Upload';
-
-import { addNotification } from '../../../../sagas/notificationsSagas';
 
 import { imagesApi } from '../../../../api/ImagesApi';
 

@@ -3,11 +3,6 @@ import PropTypes from 'prop-types';
 
 import { moduleProps } from '@expandorg/modules';
 
-export const notificationProps = PropTypes.shape({
-  type: PropTypes.oneOf(['warning', 'error', 'message', 'success']).isRequired,
-  message: PropTypes.string,
-});
-
 export const taskStatsProps = PropTypes.shape({
   id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
 });

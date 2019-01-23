@@ -6,6 +6,7 @@ import { bindActionCreators } from 'redux';
 
 import { requestStateProps, RequestStates } from '@expandorg/app-utils';
 
+import { addNotification } from '@expandorg/app-utils/app';
 import {
   DataTable,
   TableContainer,
@@ -17,7 +18,6 @@ import { draftProps, dataProps } from '../../../../shared/propTypes';
 import { LoadIndicator } from '../../Form';
 
 import { uppdateColumns } from '../../../../../sagas/dataSagas';
-import { addNotification } from '../../../../../sagas/notificationsSagas';
 import { makeDataSelector } from '../../../../../selectors/dataSelectors';
 import { fetchDataStateSelector } from '../../../../../selectors/uiStateSelectors';
 
