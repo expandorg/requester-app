@@ -132,16 +132,6 @@ export default class Column extends Component {
                 onChange={this.handleChangeName}
                 className={styles.input}
               />
-              {/* <Dropdown
-                options={tableTypes}
-                value={column.type}
-                onChange={this.handleChangeType}
-                className={styles.select}
-              >
-                {({ formatted }) => (
-                  <div className={styles.selectVal}>{formatted}</div>
-                )}
-              </Dropdown> */}
             </div>
             <div className={styles.actions}>
               <button

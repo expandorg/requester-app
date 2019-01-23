@@ -30,11 +30,11 @@ class Navbar extends Component {
       <UINavbar
         {...rest}
         menu={
-          logout && (
+          logout ? (
             <button className="gem-logout" onClick={onLogout}>
               Logout
             </button>
-          )
+          ) : null
         }
       >
         {children}

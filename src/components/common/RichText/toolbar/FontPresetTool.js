@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 
 import { Dropdown } from '@expandorg/components';
 
-import styles from './dropdowns.module.styl';
-
 import { fontPresets, applyFontPreset, getCurrentFontPreset } from '../content';
+
+import styles from './FontPresetTool.module.styl';
 
 export default class FontPresetTool extends Component {
   static propTypes = {
@@ -29,9 +29,7 @@ export default class FontPresetTool extends Component {
           value={value}
           onChange={this.handleChange}
           className={styles.dropdown}
-        >
-          {({ formatted }) => <div className={styles.select}>{formatted}</div>}
-        </Dropdown>
+        />
       </div>
     );
   }

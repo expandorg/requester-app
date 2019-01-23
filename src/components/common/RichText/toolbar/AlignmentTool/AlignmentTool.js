@@ -10,7 +10,7 @@ import { ReactComponent as IconRight } from '../../assets/align-right.svg';
 
 import { applyAlignment, getActiveAlignment } from '../../content';
 
-import Dropdown from './AlignmentDropdown';
+import AlignmentDropdown from './AlignmentDropdown';
 
 import styles from './AlignmentTool.module.styl';
 
@@ -68,7 +68,7 @@ export default class AlignmentTool extends Component {
           <Icon />
         </Btn>
         {opened && (
-          <Dropdown
+          <AlignmentDropdown
             active={active}
             onClick={this.handleChange}
             onHide={this.handleHide}

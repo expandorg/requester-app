@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import cn from 'classnames';
 
 import { Dropdown } from '@expandorg/components';
 
@@ -35,17 +34,11 @@ export default class SelectEditor extends Component {
       <Dropdown
         options={options}
         value={value}
+        label={label}
         onChange={this.handleChange}
         className={styles.dropdown}
         formatter={formatter}
-      >
-        {({ formatted }) => (
-          <div className={cn(styles.select, { [styles.selectVal]: formatted })}>
-            {label && <div className={styles.selectLabel}>{label}</div>}
-            {formatted}
-          </div>
-        )}
-      </Dropdown>
+      />
     );
   }
 }

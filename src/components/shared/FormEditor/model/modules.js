@@ -30,6 +30,8 @@ import generate from 'nanoid/generate';
 // MultipleTagVideo,
 // } from '@expandorg/modules';
 
+import { moduleControls } from '@expandorg/modules';
+
 export const supportNesting = (meta: Object): boolean =>
   !!(meta.editor.properties && meta.editor.properties.modules);
 
@@ -41,31 +43,32 @@ export const scaffold = (module: Object, isDragging: boolean) => ({
   isDragging,
 });
 
-export const availableModules = [
-  // Input,
-  // Title,
-  // Text,
-  // RichText,
-  // Article,
-  // Paragraph,
-  // SelectModule,
-  // MultiSelectModule,
-  // Checkbox,
-  // ClipboardText,
-  // Submit,
-  // Video,
-  // Image,
-  // Description,
-  // Question,
-  // Instructions,
-  // InstructionsItem,
-  // Agreement,
-  // Collapsable,
-  // Progress,
-  // Dropdown,
-  // RegionSelect,
-  // RegionMultiselect,
-  // ImageTiles,
-  // TagVideo,
-  // MultipleTagVideo,
-];
+export const availableModules = moduleControls;
+// [
+// Input,
+// Title,
+// Text,
+// RichText,
+// Article,
+// Paragraph,
+// SelectModule,
+// MultiSelectModule,
+// Checkbox,
+// ClipboardText,
+// Submit,
+// Video,
+// Image,
+// Description,
+// Question,
+// Instructions,
+// InstructionsItem,
+// Agreement,
+// Collapsable,
+// Progress,
+// Dropdown,
+// RegionSelect,
+// RegionMultiselect,
+// ImageTiles,
+// TagVideo,
+// MultipleTagVideo,
+// ];

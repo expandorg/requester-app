@@ -1,6 +1,5 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import cn from 'classnames';
 
 import { Dropdown } from '@expandorg/components';
 
@@ -35,17 +34,11 @@ export default class ModuleProperyOptionsEditor extends PureComponent {
     return (
       <Dropdown
         options={options}
+        label={label}
         value={value}
         onChange={this.handleChange}
         className={styles.dropdown}
-      >
-        {({ formatted }) => (
-          <div className={cn(styles.select, { [styles.selectVal]: formatted })}>
-            {label && <div className={styles.selectLabel}>{label}</div>}
-            {formatted}
-          </div>
-        )}
-      </Dropdown>
+      />
     );
   }
 }
