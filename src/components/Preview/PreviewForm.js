@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
 
+import { Sidebar, Navbar } from '@expandorg/components/app';
+import { Panel } from '@expandorg/components';
+
 import Page from '../shared/Page';
 import { authenticated } from '../shared/auth';
 
 import ModulesForm from './draft/ModulesForm';
 
-import styles from './PreviewForm.module.styl';
+import styles from './styles.module.styl';
 
 class PreviewForm extends Component {
   state = {
@@ -42,17 +45,18 @@ class PreviewForm extends Component {
     }
 
     return (
-      <Page
-        title="Preview"
-        className={styles.page}
-        sidebar={false}
-        navbar={false}
-      >
-        <ModulesForm
-          form={form}
-          variables={variables}
-          onSubmit={this.handleSubmit}
-        />
+      <Page title="Preview" className={styles.page}>
+        <Navbar />
+        <Sidebar />
+        <div className={styles.container}>
+          <Panel className={styles.panel}>
+            <ModulesForm
+              form={form}
+              variables={variables}
+              onSubmit={this.handleSubmit}
+            />
+          </Panel>
+        </div>
       </Page>
     );
   }

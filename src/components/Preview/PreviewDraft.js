@@ -5,6 +5,9 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
+import { Sidebar, Navbar } from '@expandorg/components/app';
+import { Panel } from '@expandorg/components';
+
 import {
   requestStateProps,
   RequestStates,
@@ -23,7 +26,7 @@ import { makeDraftSelector } from '../../selectors/draftsSelectors';
 import { fetchDraftStateSelector } from '../../selectors/uiStateSelectors';
 import { draftProps } from '../shared/propTypes';
 
-import styles from './PreviewDraft.module.styl';
+import styles from './styles.module.styl';
 
 const makeMapStateToProps = () => {
   const draftSelector = makeDraftSelector();
@@ -73,13 +76,14 @@ class PreviewDraft extends Component {
     // const isLoading = !draft && loadState.state === RequestStates.Fetching;
 
     return (
-      <Page
-        title="Preview"
-        className={styles.page}
-        sidebar={false}
-        navbar={false}
-      >
-        {draft && <PreviewDraftSequence draft={draft} />}
+      <Page title="Preview" className={styles.page}>
+        <Navbar title={draft ? draft.name : ''} />
+        <Sidebar />
+        <div className={styles.container}>
+          <Panel className={styles.panel}>
+            {draft && <PreviewDraftSequence draft={draft} />}
+          </Panel>
+        </div>
       </Page>
     );
   }
