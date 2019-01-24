@@ -1,38 +1,51 @@
 @import '~@expandorg/uikit/colors'
 @import '~@expandorg/uikit/font'
 
-.form
-  box-sizing: border-box;
-  min-height: calc(100vh - 230px);
-  margin: 0 auto;
-  max-width: 800px;
+.container
+  height: 'calc(100vh - %s)' % sz-navbar-height
+  width: 100%
+
+  display: flex
+  justify-content: center
+  align-items: center
+
+.panel
+  box-sizing: border-box
+  box-shadow: none
+  border: 0
 
 .heading
-  font-size: 32px;
-  font-weight: 500
-  color: color-text-1
-  text-align: center;
+  text-align: center
+  font(h1)
+  color: color-text-dark
 
-  margin-top: 40px
+.title
+  margin-top: 30px
+  text-align: center
+  font(h3-bold)
+  color: color-text-dark
 
 .description
-  box-sizing: border-box;
-
-  margin-top: 40px;
-
-  text-align: center;
-
-  font(font-preset[subheader])
-  color: #939393
+  margin-top: 5px
+  font(body)
+  text-align: center
+  color: color-text-dark
 
 .actions
+  display: flex
+  align-items: center
+  justify-content: center
+
   margin-top: 50px
-  display: flex;
-  justify-content: center;
+
+  > *
+    margin: 0 10px
 
 .start
-  padding: 0 70px
+  width: 200px
 
 .back
-  border: none;
-  margin-right: 10px
+  display: inline-block
+  line-height: 60px
+  text-decoration: none
+  width: 230px
