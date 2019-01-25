@@ -18,11 +18,12 @@ export default class OnboardingForm extends Component {
 
   render() {
     const { onChangeStep, group } = this.props;
+    console.log(group);
+
     return (
       <div className={styles.container}>
         <Header
           title="Quiz Module"
-          group={group}
           onChangeStep={onChangeStep}
           active={WizardSteps.Quiz}
         />

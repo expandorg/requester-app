@@ -10,11 +10,12 @@ export default class Header extends Component {
   static propTypes = {
     title: PropTypes.string.isRequired,
     active: PropTypes.string,
-    onChangeStep: PropTypes.func.isRequired,
+    onChangeStep: PropTypes.func,
   };
 
   static defaultProps = {
     active: null,
+    onChangeStep: Function.prototype,
   };
 
   render() {
