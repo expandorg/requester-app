@@ -1,0 +1,40 @@
+@import '~@expandorg/uikit/colors';
+@import '~@expandorg/uikit/font';
+
+.container
+  display: flex
+  align-items: center
+  justify-content: space-between
+
+  box-sizing: border-box
+  padding-left: 30px
+
+  width: 100%
+  height 100px
+
+.title
+  color: color-text-dark
+  font(h2-title)
+
+.nav
+  background-color: color-blue-background
+
+.navItem
+  height 100px
+  width: 150px
+
+  box-sizing: border-box
+
+  background-color: transparent
+  color: color-white
+
+  text-align: center
+  font(h4-bold, false, false, 100px)
+
+  outline: none
+  cursor: pointer
+  border: none
+
+  &.active
+    background-color: color-primary-blue
+

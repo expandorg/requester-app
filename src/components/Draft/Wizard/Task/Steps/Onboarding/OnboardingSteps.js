@@ -4,11 +4,9 @@ import PropTypes from 'prop-types';
 import immer from 'immer';
 import { removeAtIndex, replaceAtIndex } from '@expandorg/utils';
 
-import FormEditorDialog from '../FormEditor/FormEditorDialog';
-
 import Step from '../Step';
 import AddNew from './AddNew';
-
+import FormEditorDialog from '../FormEditor/FormEditorDialog';
 import EditOnboardingGroupDialog from '../OnboardingGroup/EditOnboardingGroupDialog';
 
 import { validationFormProps } from '../../../../../shared/FormEditor/model/validation';
