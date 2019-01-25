@@ -4,11 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-// import { requestStateProps } from '@expandorg/app-utils';
-
 import { draftProps } from '../../../../shared/propTypes';
-
-import StepsForm from './StepsForm';
 
 import {
   updateTaskForm,
@@ -21,6 +17,13 @@ import {
   makeDataColumnNamesSelector,
   makeDataVarsSampleSelector,
 } from '../../../../../selectors/dataSelectors';
+
+import FormEditorToggle from './FormEditorToggle';
+import OnboardingSteps from './Onboarding/OnboardingSteps';
+
+import { validationTaskFormProps } from '../../../../shared/FormEditor/model/validation';
+
+import styles from './Steps.module.styl';
 
 const makeMapStateToProps = () => {
   const dataVariablesSelector = makeDataColumnNamesSelector();
@@ -79,17 +82,32 @@ class Steps extends Component {
 
   render() {
     const { draft, variables, varsSample } = this.props;
+
     return (
-      <StepsForm
-        taskForm={draft.taskForm}
-        verificationForm={draft.verificationForm}
-        variables={variables}
-        varsSample={varsSample}
-        onboarding={draft.onboarding}
-        onUpdateOnboarding={this.handleUpdateOnboarding}
-        onUpdateTask={this.handleUpdateTask}
-        onUpdateVerification={this.handleUpdateVerification}
-      />
+      <div className={styles.container}>
+        <div className={styles.list}>
+          <OnboardingSteps
+            onboarding={draft.onboarding}
+            onUpdateOnboarding={this.handleUpdateOnboarding}
+          />
+          <FormEditorToggle
+            form={draft.taskForm}
+            title="Task"
+            variables={variables}
+            varsSample={varsSample}
+            validateForm={validationTaskFormProps}
+            onUpdate={this.handleUpdateTask}
+          />
+          <FormEditorToggle
+            form={draft.verificationForm}
+            title="Verification"
+            variables={variables}
+            varsSample={varsSample}
+            validateForm={validationTaskFormProps}
+            onUpdate={this.handleUpdateVerification}
+          />
+        </div>
+      </div>
     );
   }
 }

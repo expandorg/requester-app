@@ -35,7 +35,7 @@ class Step extends Component {
   static defaultProps = {
     id: null,
     order: null,
-    isOnboarding: true,
+    isOnboarding: false,
     checked: false,
     onMove: null,
     onDelete: null,

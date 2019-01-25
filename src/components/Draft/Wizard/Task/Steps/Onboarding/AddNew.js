@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import TemplatesDialog from '../../../../shared/Templates/TemplatesDialog';
-
-import { getStepFromTemplate } from '../../../../../model/draft';
+import TemplatesDialog from '../../../../../shared/Templates/TemplatesDialog';
 
 import styles from './AddNew.module.styl';
 
@@ -26,8 +24,7 @@ export default class AddNew extends Component {
     const { onAdd } = this.props;
 
     this.setState({ dialog: false });
-    const step = getStepFromTemplate(template);
-    onAdd(step);
+    onAdd(template);
   };
 
   render() {
