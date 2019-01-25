@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import { Dialog } from '@expandorg/components';
 
-import FormEditor from '../../../../shared/FormEditor/FormEditor';
+import FormEditor from '../../../../../shared/FormEditor/FormEditor';
 
 import styles from './FormEditorDialog.module.styl';
 

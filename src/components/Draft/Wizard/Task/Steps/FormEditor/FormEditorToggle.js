@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import FormEditorDialog from './FormEditorDialog';
-import Step from './Step';
+import Step from '../Step';
 
-import { formProps } from '../../../../shared/propTypes';
+import { formProps } from '../../../../../shared/propTypes';
 
 export default class FormEditorToggle extends Component {
   static propTypes = {

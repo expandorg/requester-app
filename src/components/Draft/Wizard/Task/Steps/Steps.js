@@ -18,7 +18,7 @@ import {
   makeDataVarsSampleSelector,
 } from '../../../../../selectors/dataSelectors';
 
-import FormEditorToggle from './FormEditorToggle';
+import FormEditorToggle from './FormEditor/FormEditorToggle';
 import OnboardingSteps from './Onboarding/OnboardingSteps';
 
 import { validationTaskFormProps } from '../../../../shared/FormEditor/model/validation';

@@ -4,7 +4,8 @@ import PropTypes from 'prop-types';
 import immer from 'immer';
 import { removeAtIndex, replaceAtIndex } from '@expandorg/utils';
 
-import FormEditorDialog from '../FormEditorDialog';
+import FormEditorDialog from '../FormEditor/FormEditorDialog';
+
 import Step from '../Step';
 import AddNew from './AddNew';
 
