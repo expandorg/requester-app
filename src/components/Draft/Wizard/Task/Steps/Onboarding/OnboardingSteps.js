@@ -9,6 +9,8 @@ import FormEditorDialog from '../FormEditor/FormEditorDialog';
 import Step from '../Step';
 import AddNew from './AddNew';
 
+import EditOnboardingGroupDialog from '../OnboardingGroup/EditOnboardingGroupDialog';
+
 import { validationFormProps } from '../../../../../shared/FormEditor/model/validation';
 
 import { draftOnboardingProps } from '../../../../../shared/propTypes';
@@ -127,12 +129,19 @@ export default class OnboardingSteps extends Component {
             onSelect={this.handleSelect}
           />
         ))}
-        {selected !== null && (
+        {selected !== null && !steps[selected].isGroup && (
           <FormEditorDialog
             title="Onboarding"
             form={steps[selected].form}
             validateForm={validationFormProps}
             onSave={this.handleUpdate}
+            onHide={this.handleDeselect}
+          />
+        )}
+        {selected !== null && steps[selected].isGroup && (
+          <EditOnboardingGroupDialog
+            group={steps[selected].form}
+            onUpdate={this.handleUpdate}
             onHide={this.handleDeselect}
           />
         )}

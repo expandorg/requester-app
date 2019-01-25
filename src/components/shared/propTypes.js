@@ -11,10 +11,18 @@ export const formProps = PropTypes.shape({
   modules: PropTypes.arrayOf(moduleProps),
 });
 
+export const draftOnboardingStepProps = PropTypes.shape({
+  id: PropTypes.string,
+  name: PropTypes.string,
+  isGroup: PropTypes.bool,
+  data: PropTypes.any,
+  form: formProps,
+});
+
 export const draftOnboardingProps = PropTypes.shape({
   id: PropTypes.string,
   name: PropTypes.string,
-  steps: PropTypes.arrayOf(formProps),
+  steps: PropTypes.arrayOf(draftOnboardingStepProps),
 });
 
 export const draftProps = PropTypes.shape({
