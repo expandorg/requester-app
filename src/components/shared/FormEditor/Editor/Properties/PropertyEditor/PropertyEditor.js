@@ -8,6 +8,7 @@ import RichTextEditor from './RichTextEditor';
 import SelectEditor from './SelectEditor';
 import BoolEditor from './BoolEditor';
 import OptionsEditor from './OptionsEditor';
+import ModulesEditor from './ModulesEditor';
 import ModuleProperyOptionsEditor from './ModuleProperyOptionsEditor';
 
 import styles from './styles.module.styl';
@@ -19,7 +20,7 @@ const editors = {
   [PropControlTypes.text]: StringEditor,
   [PropControlTypes.richText]: RichTextEditor,
   [PropControlTypes.enum]: SelectEditor,
-  [PropControlTypes.modules]: null,
+  [PropControlTypes.modules]: ModulesEditor,
   [PropControlTypes.options]: OptionsEditor,
   [PropControlTypes.moduleProperyOptions]: ModuleProperyOptionsEditor,
 };
