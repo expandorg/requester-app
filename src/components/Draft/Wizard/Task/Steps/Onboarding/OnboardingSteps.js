@@ -60,10 +60,9 @@ export default class OnboardingSteps extends Component {
     const { onUpdateOnboarding, onboarding } = this.props;
     const { selected, steps } = this.state;
 
-    const step = { ...steps[selected], group };
     onUpdateOnboarding({
       ...onboarding,
-      steps: replaceAtIndex(steps, selected, step),
+      steps: replaceAtIndex(steps, selected, group),
     });
   };
 
