@@ -14,11 +14,7 @@
 
 .panel
   margin: 130px auto 0 auto
-  width 600px
-
-.icon
-  path
-    fill color-text-heavy-blue
+  width 756px
 
 .header
   font(h2-title)
@@ -28,20 +24,44 @@
 .options
   display flex
   justify-content: space-between
-  margin-top: 100px
-
-.option
-  width: 100%;
-
-.icon
-  text-align: center
-
-.actions
-  margin-top: 36px
-  text-align: center
+  margin-top: 160px
 
 .link
-  display inline-block
+  position: relative
+  display block
   text-decoration: none;
   line-height: 60px
   width: 200px
+
+.spacer
+  position: relative
+  flex-grow: 1
+  background-color: transparent
+
+  &::before
+    position: absolute
+    content: ' '
+
+    top: 50%
+    left: 0
+    right: 0
+    height: 1px
+    background-color: color-white;
+
+
+.or
+  margin: 0 auto
+  position: relative
+  box-sizing: border-box
+  width: 60px
+  height 60px
+  background-color: color-blue-background
+
+  font(body, false, false, 58px)
+  text-align: center
+  text-transform: uppercase
+
+  color: color-white
+  border: 1px solid color-white;
+  border-radius: 30px
+

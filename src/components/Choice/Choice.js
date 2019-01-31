@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import cn from 'classnames';
 
-import { ReactComponent as Icon } from '@expandorg/uikit/assets/preview.svg';
-
 import Navbar from '../shared/Navbar';
 
 import styles from './Choice.module.styl';
@@ -22,26 +20,15 @@ export default class Choice extends Component {
           <div className={styles.panel}>
             <div className={styles.header}>Choose a role.</div>
             <div className={styles.options}>
-              <div className={styles.option}>
-                <div className={styles.icon}>
-                  <Icon width="144" height="144" viewBox="0 0 64 48" />
-                </div>
-                <div className={styles.actions}>
-                  <a href="#" className={cn('gem-button', styles.link)}>
-                    Requester
-                  </a>
-                </div>
+              <a href="#" className={cn('gem-button', styles.link)}>
+                Requester
+              </a>
+              <div className={styles.spacer}>
+                <div className={styles.or}>or</div>
               </div>
-              <div className={styles.option}>
-                <div className={styles.icon}>
-                  <Icon width="144" height="144" viewBox="0 0 64 48" />
-                </div>
-                <div className={styles.actions}>
-                  <a href="#" className={cn('gem-button', styles.link)}>
-                    Worker
-                  </a>
-                </div>
-              </div>
+              <a href="#" className={cn('gem-button', styles.link)}>
+                Worker
+              </a>
             </div>
           </div>
         </div>
