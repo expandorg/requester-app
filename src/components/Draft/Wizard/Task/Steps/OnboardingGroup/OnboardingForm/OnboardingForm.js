@@ -9,7 +9,7 @@ import { draftOnboardingStepProps } from '../../../../../../shared/propTypes';
 import Header from '../Header';
 import { WizardSteps } from '../wizard';
 
-import styles from './OnboardingForm.module.styl';
+import styles from '../styles.module.styl';
 
 export default class OnboardingForm extends Component {
   static propTypes = {
@@ -28,7 +28,9 @@ export default class OnboardingForm extends Component {
           active={WizardSteps.Quiz}
         />
         <div className={styles.content}>
-          <FormPreview form={group.form} className={styles.form} />
+          <div className={styles.formInner}>
+            <FormPreview form={group.form} className={styles.form} />
+          </div>
         </div>
         <div className={styles.actions}>
           <Button

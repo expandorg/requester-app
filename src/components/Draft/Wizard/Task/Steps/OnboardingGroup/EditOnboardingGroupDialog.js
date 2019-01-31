@@ -8,9 +8,9 @@ import { draftOnboardingStepProps } from '../../../../../shared/propTypes';
 import FormEditor from '../../../../../shared/FormEditor/FormEditor';
 import { validationFormProps } from '../../../../../shared/FormEditor/model/validation';
 
-import OnboardingGroupData from './Data/OnboardingGroupData';
-import OnboardingForm from './Form/OnboardingForm';
-import OnboardingGroupPreview from './Preview/OnboardingGroupPreview';
+import Data from './Data/Data';
+import OnboardingForm from './OnboardingForm/OnboardingForm';
+import Summary from './Summary/Summary';
 
 import { WizardSteps } from './wizard';
 
@@ -59,7 +59,7 @@ export default class EditOnboardingGroupDialog extends Component {
         shouldCloseOnEsc={false}
       >
         {step === WizardSteps.Data && (
-          <OnboardingGroupData
+          <Data
             group={group}
             onUpdate={this.handleUpdateData}
             onChangeStep={this.handleChangeStep}
@@ -78,10 +78,7 @@ export default class EditOnboardingGroupDialog extends Component {
           />
         )}
         {step === WizardSteps.Preview && (
-          <OnboardingGroupPreview
-            group={group}
-            onChangeStep={this.handleChangeStep}
-          />
+          <Summary group={group} onChangeStep={this.handleChangeStep} />
         )}
       </Dialog>
     );

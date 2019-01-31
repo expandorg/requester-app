@@ -8,7 +8,7 @@ import Header from '../Header';
 import { draftOnboardingStepProps } from '../../../../../../shared/propTypes';
 import { WizardSteps } from '../wizard';
 
-import styles from './OnboardingGroupData.module.styl';
+import styles from '../styles.module.styl';
 
 export default class OnboardingGroupData extends Component {
   static propTypes = {
