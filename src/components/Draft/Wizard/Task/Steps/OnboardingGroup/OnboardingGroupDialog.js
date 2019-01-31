@@ -14,9 +14,9 @@ import Summary from './Summary/Summary';
 
 import { WizardSteps } from './wizard';
 
-import styles from './EditOnboardingGroupDialog.module.styl';
+import styles from './OnboardingGroupDialog.module.styl';
 
-export default class EditOnboardingGroupDialog extends Component {
+export default class OnboardingGroupDialog extends Component {
   static propTypes = {
     group: draftOnboardingStepProps.isRequired,
     onUpdate: PropTypes.func.isRequired,
@@ -34,7 +34,10 @@ export default class EditOnboardingGroupDialog extends Component {
     this.handleChangeStep(WizardSteps.Quiz);
   };
 
-  handleUpdateData = () => {};
+  handleUpdateData = data => {
+    const { onUpdate, group } = this.props;
+    onUpdate({ ...group, data });
+  };
 
   handleChangeStep = step => {
     const { onHide } = this.props;

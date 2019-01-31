@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 
 import { Button } from '@expandorg/components';
 
-import Header from '../Header';
-
 import { draftOnboardingStepProps } from '../../../../../../shared/propTypes';
+
+import Header from '../Header';
 import { WizardSteps } from '../wizard';
 
 import styles from '../styles.module.styl';
