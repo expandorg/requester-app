@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 
 import { Button } from '@expandorg/components';
 
-import Header from './Header';
+import Header from '../Header';
 
-import { draftOnboardingStepProps } from '../../../../../shared/propTypes';
-import { WizardSteps } from './wizard';
+import { draftOnboardingStepProps } from '../../../../../../shared/propTypes';
+import { WizardSteps } from '../wizard';
 
 import styles from './OnboardingGroupData.module.styl';
 

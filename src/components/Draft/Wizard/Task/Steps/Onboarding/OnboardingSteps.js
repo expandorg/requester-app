@@ -56,6 +56,17 @@ export default class OnboardingSteps extends Component {
     this.handleDeselect();
   };
 
+  handleUpdateGroup = group => {
+    const { onUpdateOnboarding, onboarding } = this.props;
+    const { selected, steps } = this.state;
+
+    const step = { ...steps[selected], group };
+    onUpdateOnboarding({
+      ...onboarding,
+      steps: replaceAtIndex(steps, selected, step),
+    });
+  };
+
   handleAdd = template => {
     const { onUpdateOnboarding, onboarding } = this.props;
     const { steps: prev } = this.state;
@@ -138,8 +149,8 @@ export default class OnboardingSteps extends Component {
         )}
         {selected !== null && steps[selected].isGroup && (
           <EditOnboardingGroupDialog
-            group={steps[selected].form}
-            onUpdate={this.handleUpdate}
+            group={steps[selected]}
+            onUpdate={this.handleUpdateGroup}
             onHide={this.handleDeselect}
           />
         )}

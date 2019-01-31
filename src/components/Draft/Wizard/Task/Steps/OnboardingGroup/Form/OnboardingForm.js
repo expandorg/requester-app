@@ -3,10 +3,11 @@ import PropTypes from 'prop-types';
 
 import { Button } from '@expandorg/components';
 
-import Header from './Header';
+import FormPreview from '../../../../../../shared/FormPreview';
+import { draftOnboardingStepProps } from '../../../../../../shared/propTypes';
 
-import { draftOnboardingStepProps } from '../../../../../shared/propTypes';
-import { WizardSteps } from './wizard';
+import Header from '../Header';
+import { WizardSteps } from '../wizard';
 
 import styles from './OnboardingForm.module.styl';
 
@@ -18,7 +19,6 @@ export default class OnboardingForm extends Component {
 
   render() {
     const { onChangeStep, group } = this.props;
-    console.log(group);
 
     return (
       <div className={styles.container}>
@@ -28,9 +28,15 @@ export default class OnboardingForm extends Component {
           active={WizardSteps.Quiz}
         />
         <div className={styles.content}>
-          <div>Description about this step goes here.</div>
+          <FormPreview form={group.form} className={styles.form} />
         </div>
         <div className={styles.actions}>
+          <Button
+            theme="blue"
+            onClick={() => onChangeStep(WizardSteps.FormEditor)}
+          >
+            Edit quiz
+          </Button>
           <Button
             theme="secondary"
             onClick={() => onChangeStep(WizardSteps.Data)}

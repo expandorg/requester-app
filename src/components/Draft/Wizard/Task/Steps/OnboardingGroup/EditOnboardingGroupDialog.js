@@ -8,9 +8,9 @@ import { draftOnboardingStepProps } from '../../../../../shared/propTypes';
 import FormEditor from '../../../../../shared/FormEditor/FormEditor';
 import { validationFormProps } from '../../../../../shared/FormEditor/model/validation';
 
-import OnboardingGroupData from './OnboardingGroupData';
-import OnboardingForm from './OnboardingForm';
-import OnboardingGroupPreview from './OnboardingGroupPreview';
+import OnboardingGroupData from './Data/OnboardingGroupData';
+import OnboardingForm from './Form/OnboardingForm';
+import OnboardingGroupPreview from './Preview/OnboardingGroupPreview';
 
 import { WizardSteps } from './wizard';
 
@@ -19,7 +19,7 @@ import styles from './EditOnboardingGroupDialog.module.styl';
 export default class EditOnboardingGroupDialog extends Component {
   static propTypes = {
     group: draftOnboardingStepProps.isRequired,
-    // onUpdate: PropTypes.func.isRequired,
+    onUpdate: PropTypes.func.isRequired,
     onHide: PropTypes.func.isRequired,
   };
 
@@ -27,7 +27,13 @@ export default class EditOnboardingGroupDialog extends Component {
     step: WizardSteps.Data,
   };
 
-  handleUpdateForm = () => {};
+  handleUpdateForm = form => {
+    const { onUpdate, group } = this.props;
+
+    onUpdate({ ...group, form });
+    this.handleChangeStep(WizardSteps.Quiz);
+  };
+
   handleUpdateData = () => {};
 
   handleChangeStep = step => {

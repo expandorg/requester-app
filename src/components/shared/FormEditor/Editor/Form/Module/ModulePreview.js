@@ -85,6 +85,7 @@ export default class ModulePreview extends Component {
             >
               <Module
                 isSubmitting={false}
+                value={module.initial || undefined}
                 module={module}
                 controls={controls}
               />
