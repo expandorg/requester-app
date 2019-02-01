@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
-import { Row, Cell } from '../../../../../../common/Table';
+import { Table as T } from '@expandorg/components';
 
 import Value from './Value';
 
@@ -31,7 +31,7 @@ export default class ValuesRow extends PureComponent {
   render() {
     const { row, readOnly } = this.props;
     return (
-      <Row classname={styles.row}>
+      <T.Row className={styles.row}>
         {row.map((value, index) => (
           <Value
             value={value}
@@ -41,13 +41,13 @@ export default class ValuesRow extends PureComponent {
           />
         ))}
         {!readOnly && (
-          <Cell className={styles.cellDelete}>
+          <T.Cell className={styles.cellDelete}>
             <button className={styles.delete} onClick={this.handleDelete}>
               ✕
             </button>
-          </Cell>
+          </T.Cell>
         )}
-      </Row>
+      </T.Row>
     );
   }
 }

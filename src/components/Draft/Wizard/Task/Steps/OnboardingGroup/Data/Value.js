@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
 
-import { Cell } from '../../../../../../common/Table';
+import { Table as T } from '@expandorg/components';
 
 import styles from './DataTable.module.styl';
 
@@ -22,17 +22,19 @@ export default class Value extends PureComponent {
   render() {
     const { value, readOnly } = this.props;
     return (
-      <Cell className={styles.val}>
+      <T.Cell className={styles.val}>
         {readOnly && value}
         {!readOnly && (
           <input
             type="text"
             value={value}
+            required
+            placeholder="value..."
             className={cn(styles.input, styles.inputVal)}
             onChange={this.handleChange}
           />
         )}
-      </Cell>
+      </T.Cell>
     );
   }
 }

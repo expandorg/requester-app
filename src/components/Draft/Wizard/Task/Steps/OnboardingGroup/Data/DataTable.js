@@ -4,14 +4,7 @@ import PropTypes from 'prop-types';
 import immer from 'immer';
 import { removeAtIndex, replaceAtIndex, range } from '@expandorg/utils';
 
-import {
-  ScrollContainer,
-  Table,
-  Header,
-  HeaderCell,
-  Row,
-  Cell,
-} from '../../../../../../common/Table';
+import { Table as T } from '@expandorg/components';
 
 import Variable from './Variable';
 import ValuesRow from './ValuesRow';
@@ -70,9 +63,9 @@ export default class DataTable extends Component {
     const { data, readOnly } = this.props;
     /* eslint-disable react/no-array-index-key */
     return (
-      <ScrollContainer className={styles.scroll}>
-        <Table>
-          <Header>
+      <T.ScrollContainer className={styles.scroll}>
+        <T.Table>
+          <T.Header>
             {data.columns.map((column, index) => (
               <Variable
                 readOnly={readOnly}
@@ -82,8 +75,8 @@ export default class DataTable extends Component {
                 onChange={this.handleChangeVar}
               />
             ))}
-            {!readOnly && <HeaderCell>Delete</HeaderCell>}
-          </Header>
+            {!readOnly && <T.HeaderCell>Delete</T.HeaderCell>}
+          </T.Header>
 
           {data.values.map((row, index) => (
             <ValuesRow
@@ -96,17 +89,17 @@ export default class DataTable extends Component {
             />
           ))}
           {!readOnly && (
-            <Row>
-              <Cell className={styles.spacer} colSpan={data.columns.length} />
-              <Cell className={styles.cellAdd}>
+            <T.Row>
+              <T.Cell className={styles.spacer} colSpan={data.columns.length} />
+              <T.Cell className={styles.cellAdd}>
                 <button className={styles.add} onClick={this.handleAddRow}>
                   +
                 </button>
-              </Cell>
-            </Row>
+              </T.Cell>
+            </T.Row>
           )}
-        </Table>
-      </ScrollContainer>
+        </T.Table>
+      </T.ScrollContainer>
     );
   }
 }

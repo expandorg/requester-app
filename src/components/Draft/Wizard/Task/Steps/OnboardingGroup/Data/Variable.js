@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
 
-import { HeaderCell } from '../../../../../../common/Table';
+import { Table as T } from '@expandorg/components';
 
 import styles from './DataTable.module.styl';
 
@@ -22,17 +22,19 @@ export default class Variable extends Component {
   render() {
     const { column, readOnly } = this.props;
     return (
-      <HeaderCell className={styles.var}>
+      <T.HeaderCell className={styles.var}>
         {readOnly && column}
         {!readOnly && (
           <input
             type="text"
             value={column}
+            required
+            placeholder="variable name"
             className={cn(styles.input, styles.inputVar)}
             onChange={this.handleChange}
           />
         )}
-      </HeaderCell>
+      </T.HeaderCell>
     );
   }
 }
