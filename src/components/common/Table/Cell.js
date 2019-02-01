@@ -17,9 +17,9 @@ export default class Header extends Component {
     const { children, className, ...rest } = this.props;
 
     return (
-      <tr className={cn(styles.cell, className)} {...rest}>
+      <td className={cn(styles.cell, className)} {...rest}>
         {children}
-      </tr>
+      </td>
     );
   }
 }

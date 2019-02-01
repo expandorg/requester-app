@@ -5,7 +5,7 @@ import { Button } from '@expandorg/components';
 
 import { Section, Description } from '../../../../Form';
 
-import Header from '../Header';
+import Nav from '../Nav';
 
 import FormPreview from '../../../../../../shared/FormPreview';
 import { draftOnboardingStepProps } from '../../../../../../shared/propTypes';
@@ -30,7 +30,7 @@ export default class Summary extends Component {
     const { onChangeStep, group } = this.props;
     return (
       <div className={styles.container}>
-        <Header title="Preview" />
+        <Nav title="Preview" />
         <div className={styles.content}>
           <Description>Description about this step goes here.</Description>
           <Section title="Data" status={getDataStatus(group.data)}>

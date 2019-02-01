@@ -115,7 +115,15 @@ const quizForm = {
   id: nanoid(),
   name: 'Quiz',
   isGroup: true,
-  data: [],
+  data: {
+    columns: ['varname1', 'varname2', 'varname3'],
+    values: [
+      ['11', '12', '13'],
+      ['21', '22', '23'],
+      ['31', '32', '33'],
+      ['41', '42', '43'],
+    ],
+  },
   logo: 'https://portal.gems.org//images/complete-tasks.png',
   taskForm: {
     modules: [

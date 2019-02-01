@@ -4,7 +4,7 @@ import cn from 'classnames';
 
 import styles from './Table.module.styl';
 
-export default class Table extends Component {
+export default class ScrollContainer extends Component {
   static propTypes = {
     className: PropTypes.string,
   };
@@ -17,9 +17,9 @@ export default class Table extends Component {
     const { children, className } = this.props;
 
     return (
-      <table className={cn(styles.table, className)}>
-        <tbody className={styles.body}>{children}</tbody>
-      </table>
+      <div className={cn(styles.scroll, className)}>
+        <div className={styles.inner}>{children}</div>
+      </div>
     );
   }
 }

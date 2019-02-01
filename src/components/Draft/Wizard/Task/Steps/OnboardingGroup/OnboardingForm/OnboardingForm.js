@@ -6,7 +6,7 @@ import { Button } from '@expandorg/components';
 import FormPreview from '../../../../../../shared/FormPreview';
 import { draftOnboardingStepProps } from '../../../../../../shared/propTypes';
 
-import Header from '../Header';
+import Nav from '../Nav';
 import { WizardSteps } from '../wizard';
 
 import styles from '../styles.module.styl';
@@ -22,7 +22,7 @@ export default class OnboardingForm extends Component {
 
     return (
       <div className={styles.container}>
-        <Header
+        <Nav
           title="Quiz Module"
           onChangeStep={onChangeStep}
           active={WizardSteps.Quiz}

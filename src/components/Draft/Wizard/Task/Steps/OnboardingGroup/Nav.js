@@ -4,9 +4,9 @@ import cn from 'classnames';
 
 import { WizardSteps } from './wizard';
 
-import styles from './Header.module.styl';
+import styles from './Nav.module.styl';
 
-export default class Header extends Component {
+export default class Nav extends Component {
   static propTypes = {
     title: PropTypes.string.isRequired,
     active: PropTypes.string,
