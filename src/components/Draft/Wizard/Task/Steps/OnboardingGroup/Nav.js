@@ -20,7 +20,6 @@ export default class Nav extends Component {
 
   render() {
     const { title, active, onChangeStep } = this.props;
-
     return (
       <div className={styles.container}>
         <div className={styles.title}>{title}</div>
