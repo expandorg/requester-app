@@ -5,7 +5,7 @@ import { Row, Cell } from '../../../../../../common/Table';
 
 import Value from './Value';
 
-import styles from './Data.module.styl';
+import styles from './DataTable.module.styl';
 
 export default class ValuesRow extends PureComponent {
   static propTypes = {
@@ -13,6 +13,7 @@ export default class ValuesRow extends PureComponent {
       PropTypes.oneOfType(PropTypes.string, PropTypes.number)
     ).isRequired,
     index: PropTypes.number.isRequired,
+    readOnly: PropTypes.bool.isRequired,
     onChange: PropTypes.func.isRequired,
     onDelete: PropTypes.func.isRequired,
   };
@@ -28,17 +29,24 @@ export default class ValuesRow extends PureComponent {
   };
 
   render() {
-    const { row } = this.props;
+    const { row, readOnly } = this.props;
     return (
       <Row classname={styles.row}>
         {row.map((value, index) => (
-          <Value value={value} column={index} onChange={this.handleChange} />
+          <Value
+            value={value}
+            column={index}
+            readOnly={readOnly}
+            onChange={this.handleChange}
+          />
         ))}
-        <Cell className={styles.cellDelete}>
-          <button className={styles.delete} onClick={this.handleDelete}>
-            ✕
-          </button>
-        </Cell>
+        {!readOnly && (
+          <Cell className={styles.cellDelete}>
+            <button className={styles.delete} onClick={this.handleDelete}>
+              ✕
+            </button>
+          </Cell>
+        )}
       </Row>
     );
   }
