@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import { Button, Dialog } from '@expandorg/components';
+import { Button, Dialog, DialogForm as DF } from '@expandorg/components';
 
 import { ReactComponent as Warning } from '@expandorg/uikit/assets/warning.svg';
 import { ReactComponent as Checkmark } from '@expandorg/uikit/assets/checkmark-3.svg';
@@ -68,16 +68,20 @@ export default class ConfirmationDialog extends Component {
       <Dialog visible onHide={onHide} contentLabel="confirm-dialog">
         <div className={styles.container}>
           <div className={styles.icon}>{this.renderIcon(icon)}</div>
-          <div className={styles.title}>{title}</div>
+          <DF.Title>{title}</DF.Title>
           <div className={styles.confirmation}>{confirmation}</div>
-          <div className={styles.actions}>
-            <Button className={styles.button} onClick={onConfirm}>
+          <DF.Actions>
+            <Button className="gem-dialogform-button" onClick={onConfirm}>
               {confirmCaption}
             </Button>
-            <Button className={styles.button} theme="grey" onClick={onHide}>
+            <Button
+              className="gem-dialogform-button"
+              theme="grey"
+              onClick={onHide}
+            >
               {hideCaption}
             </Button>
-          </div>
+          </DF.Actions>
         </div>
       </Dialog>
     );

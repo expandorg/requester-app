@@ -10,7 +10,7 @@ import styles from './DataTable.module.styl';
 export default class ValuesRow extends PureComponent {
   static propTypes = {
     row: PropTypes.arrayOf(
-      PropTypes.oneOfType(PropTypes.string, PropTypes.number)
+      PropTypes.oneOfType([PropTypes.string, PropTypes.number])
     ).isRequired,
     index: PropTypes.number.isRequired,
     readOnly: PropTypes.bool.isRequired,

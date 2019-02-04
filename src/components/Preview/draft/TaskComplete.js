@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import { Dialog, Button } from '@expandorg/components';
-
-import styles from '../../shared/serviceForms.module.styl';
+import { Dialog, Button, DialogForm as DF } from '@expandorg/components';
 
 export default class TaskComplete extends Component {
   static propTypes = {
@@ -23,24 +21,25 @@ export default class TaskComplete extends Component {
   render() {
     return (
       <Dialog visible hideButton contentLabel="submit task">
-        <div className={styles.container}>
-          <div className={styles.inner}>
-            <div className={styles.title}>Task Submitted</div>
-            <div className={styles.description}>Submission successful!</div>
-            <div className={styles.actions}>
-              <Button
-                theme="secondary"
-                className={styles.button}
-                onClick={this.handleClose}
-              >
-                Browse jobs
-              </Button>
-              <Button className={styles.button} onClick={this.handleSubmit}>
-                Start this task
-              </Button>
-            </div>
-          </div>
-        </div>
+        <DF.Container>
+          <DF.Title>Task Submitted</DF.Title>
+          <DF.Description>Submission successful!</DF.Description>
+          <DF.Actions>
+            <Button
+              theme="secondary"
+              className="gem-dialogform-button"
+              onClick={this.handleClose}
+            >
+              Browse jobs
+            </Button>
+            <Button
+              className="gem-dialogform-button"
+              onClick={this.handleSubmit}
+            >
+              Start this task
+            </Button>
+          </DF.Actions>
+        </DF.Container>
       </Dialog>
     );
   }
