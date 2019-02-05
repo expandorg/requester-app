@@ -51,6 +51,7 @@ export default class OnboardingSteps extends Component {
     const step = { ...steps[selected], form };
     onUpdateOnboarding({
       ...onboarding,
+      enabled: steps.length > 0,
       steps: replaceAtIndex(steps, selected, step),
     });
     this.handleDeselect();
@@ -62,6 +63,7 @@ export default class OnboardingSteps extends Component {
 
     onUpdateOnboarding({
       ...onboarding,
+      enabled: steps.length > 0,
       steps: replaceAtIndex(steps, selected, group),
     });
   };
@@ -75,7 +77,7 @@ export default class OnboardingSteps extends Component {
 
     this.setState({ steps });
 
-    onUpdateOnboarding({ ...onboarding, steps });
+    onUpdateOnboarding({ ...onboarding, enabled: steps.length > 0, steps });
   };
 
   handleEndDrag = () => {
@@ -89,6 +91,7 @@ export default class OnboardingSteps extends Component {
     const { steps } = this.state;
     onUpdateOnboarding({
       ...onboarding,
+      enabled: steps.length - 1 > 0,
       steps: removeAtIndex(steps, order),
     });
   };

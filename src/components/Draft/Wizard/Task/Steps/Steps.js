@@ -82,7 +82,6 @@ class Steps extends Component {
 
   render() {
     const { draft, variables, varsSample } = this.props;
-
     return (
       <div className={styles.container}>
         <div className={styles.list}>

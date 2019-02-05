@@ -78,7 +78,7 @@ export const taskTemplates = range(20).map(i => ({
     ],
   },
   onboarding: {
-    enabled: true,
+    enabled: false,
     successMessage: '',
     failureMessage: '',
     steps: [],
