@@ -34,6 +34,7 @@ export default class Stats extends Component {
         title={title}
         sidebar={false}
         navbar={false}
+        footer={false}
         className={styles.content}
       >
         <Navbar

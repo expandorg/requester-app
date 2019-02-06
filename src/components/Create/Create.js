@@ -63,6 +63,7 @@ class Create extends Component {
         className={styles.content}
         sidebar={false}
         navbar={false}
+        footer={false}
       >
         <Navbar title="Create a task" top={false} logout={false}>
           <Navigation active={0}>
