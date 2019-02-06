@@ -139,24 +139,26 @@ class TemplateSettings extends Component {
             />
           </Field>
           {settings.staking && (
-            <Field tooltip="How much to stake?">
-              <Input
-                placeholder="How much to stake?"
-                name="stake"
-                value={settings.stake}
-                onChange={this.handleInputChange}
-              />
-            </Field>
+            <>
+              <Field tooltip="How much to stake?">
+                <Input
+                  placeholder="How much to stake?"
+                  name="stake"
+                  value={settings.stake}
+                  onChange={this.handleInputChange}
+                />
+              </Field>
+              <Field>
+                <Toggle
+                  tooltip="Deduct stake if fail?"
+                  label="Deduct stake if fail?"
+                  name="deduct"
+                  value={settings.deduct}
+                  onChange={this.handleToggleChange}
+                />
+              </Field>
+            </>
           )}
-          <Field>
-            <Toggle
-              tooltip="Deduct stake if fail?"
-              label="Deduct stake if fail?"
-              name="deduct"
-              value={settings.deduct}
-              onChange={this.handleToggleChange}
-            />
-          </Field>
           <Field tooltip="callback Url">
             <Input
               placeholder="Callback Url"
