@@ -1,12 +1,24 @@
 @import '~@expandorg/uikit/colors';
 @import '~@expandorg/uikit/font';
+@import '~@expandorg/uikit/size';
 
 .container
   box-sizing: border-box;
-  margin: 0 auto 0
   padding: 50px 0
 
+  @media(max-width: breakpoint-mobile-sm)
+    padding: 20px 18px
+
+.panel
+  box-sizing: border-box;
+  padding: 30px 30px
+  margin: 0 auto 50px auto
   width: 512px
+
+  @media(max-width: breakpoint-mobile-sm)
+    width: 100%
+    margin: 0 0 20px 0
+    padding: 30px 20px
 
 .title
   color: color-black
@@ -20,20 +32,9 @@
 
 .logout
   box-sizing: border-box;
-
   height: 40px
-  padding: 0 25px
-
-  font(subtitle, false, false, 38px)
-  text-align: center;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-
-  color: color-text-blue
-  background-color: color-white
-  border: 1px solid color-heavy-blue
-
+  line-height: 38px
   border-radius: 2px;
 
-  outline: none
-  cursor: pointer;
+  @media(max-width: breakpoint-mobile-sm)
+      width: 100%

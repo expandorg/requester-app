@@ -7,11 +7,9 @@ import { Deposit, Withdraw } from '@expandorg/app-gemtokens/components';
 
 import Hero from '../shared/Hero';
 
-import Form from './Form';
+import styles from './XPN.module.styl';
 
-import styles from './Gems.module.styl';
-
-export default class Gems extends Component {
+export default class XPN extends Component {
   static propTypes = {
     user: userProps.isRequired,
   };
@@ -23,7 +21,7 @@ export default class Gems extends Component {
   render() {
     const { user } = this.props;
     return (
-      <Form>
+      <div className={styles.container}>
         <Hero
           className={styles.hero}
           value={user.gems.balance}
@@ -49,7 +47,7 @@ export default class Gems extends Component {
             )}
           </Withdraw>
         </div>
-      </Form>
+      </div>
     );
   }
 }

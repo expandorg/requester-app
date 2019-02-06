@@ -14,6 +14,8 @@ import {
   ChangePasswordDialog,
 } from '@expandorg/app-account/components';
 
+import { Panel, Button } from '@expandorg/components';
+
 import Navbar from '../shared/Navbar';
 import Sidebar from '../shared/Sidebar';
 
@@ -22,9 +24,9 @@ import Page from '../shared/Page';
 import { authenticated } from '../shared/auth';
 
 import ToggleEmailConfirm from './ToggleEmailConfirm';
+
 import Field from './Field';
-import Form from './Form';
-import Gems from './Gems';
+import XPN from './XPN';
 
 import styles from './Settings.module.styl';
 
@@ -71,8 +73,10 @@ class Settings extends Component {
         <Navbar title="Settings" />
         <Sidebar />
         <div className={styles.container}>
-          <Gems user={user} />
-          <Form>
+          <Panel className={styles.panel}>
+            <XPN user={user} />
+          </Panel>
+          <Panel className={styles.panel}>
             <div className={styles.title}>Account Details</div>
             <Field
               title="Account address"
@@ -93,14 +97,15 @@ class Settings extends Component {
               onToggle={this.handleTogglePassword}
             />
             <div className={styles.actions}>
-              <button
+              <Button
                 className={styles.logout}
+                theme="white-blue"
                 onClick={this.handleLogoutClick}
               >
                 Logout
-              </button>
+              </Button>
             </div>
-          </Form>
+          </Panel>
         </div>
         {address && (
           <AddressDialog user={user} onHide={this.handleToggleAddress} />

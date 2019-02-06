@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 
+import { Panel } from '@expandorg/components';
 import I from '../common/I';
 
 import Page from '../shared/Page';
@@ -21,7 +22,7 @@ export default class Stats extends Component {
         <Navbar title="Stats" />
         <Sidebar />
         <div className={styles.container}>
-          <div className={styles.content}>
+          <Panel className={styles.panel}>
             <Hero
               value={pending}
               title={
@@ -39,7 +40,7 @@ export default class Stats extends Component {
             />
             <Hero value={accepted} title="Accepted" className={styles.item} />
             <Hero value={rejected} title="Rejected" className={styles.item} />
-          </div>
+          </Panel>
         </div>
       </Page>
     );

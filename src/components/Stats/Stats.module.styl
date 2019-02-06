@@ -3,28 +3,33 @@
 @import '~@expandorg/uikit/size'
 
 .container
-  height: 'calc(100vh - %s)' % sz-navbar-height
+  box-sizing: border-box
+  height: 'calc(100vh - %s - 60px)' % sz-navbar-height
   width: 100%
+  padding: 20px 20px
 
   display: flex
   justify-content: center
   align-items: center
 
-.content
-  width: 512px
-  height: 214px
+  @media(max-width: breakpoint-mobile-sm)
+    height: 100%
+    align-items: flex-start
 
-  margin-bottom: 60px
-  padding: 0 40px
-
-  display: flex
-  justify-content: space-between
-  align-items: center
-
-  background: color-white
-
+.panel
   box-sizing: border-box
-  box-shadow: light-shadow
+  width: 512px
+  margin-bottom: 60px
+  padding: 40px 10px
+  display: flex
+  justify-content: space-around
+
+  @media(max-width: breakpoint-mobile-sm)
+    width: 100%
+
+.item
+  margin-top: 0
+  padding: 0 10px
 
 .item
   margin-top: 0
