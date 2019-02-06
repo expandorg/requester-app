@@ -3,8 +3,6 @@ import PropTypes from 'prop-types';
 
 import { Button } from '@expandorg/components';
 
-import { Description } from '../../../../Form';
-
 import { draftOnboardingStepProps } from '../../../../../../shared/propTypes';
 
 import DataTable from './DataTable';
@@ -54,7 +52,7 @@ export default class OnboardingGroupData extends Component {
     if (isDirty) {
       onUpdate(data);
     }
-    onChangeStep(WizardSteps.Quiz);
+    onChangeStep(WizardSteps.Settings);
   };
 
   render() {
@@ -69,7 +67,7 @@ export default class OnboardingGroupData extends Component {
           active={WizardSteps.Data}
         />
         <div className={styles.content}>
-          <Description>Description about this step goes here.</Description>
+          <div className={styles.description}>Quiz data</div>
           <DataTable data={data} onUpdate={this.handleUpdateData} />
         </div>
         <div className={styles.actions}>

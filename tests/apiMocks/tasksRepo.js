@@ -115,6 +115,9 @@ const quizForm = {
   id: nanoid(),
   name: 'Quiz',
   isGroup: true,
+  scoreThreshold: 1,
+  retries: 3,
+  failureMessage: 'Quiz failed',
   data: {
     columns: ['varname1', 'varname2', 'varname3'],
     values: [

@@ -15,6 +15,9 @@ export const draftOnboardingStepProps = PropTypes.shape({
   id: PropTypes.string,
   name: PropTypes.string,
   isGroup: PropTypes.bool,
+  retries: PropTypes.number,
+  scoreThreashold: PropTypes.number,
+  failureMessage: PropTypes.string,
   data: PropTypes.any,
   form: formProps,
 });

@@ -4,17 +4,18 @@ import cn from 'classnames';
 
 import styles from './styles.module.styl';
 
-const FieldSet = ({ children, className }) => (
+const Fieldset = ({ children, className }) => (
   <div className={cn(styles.fieldset, className)}>
     <div className={styles.innerFieldSet}>{children}</div>
   </div>
 );
 
-FieldSet.propTypes = {
+Fieldset.propTypes = {
   className: PropTypes.string,
 };
 
-FieldSet.defaultProps = {
+Fieldset.defaultProps = {
   className: null,
 };
-export default FieldSet;
+
+export default Fieldset;

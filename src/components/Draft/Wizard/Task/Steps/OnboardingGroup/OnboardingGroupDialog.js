@@ -12,6 +12,7 @@ import FormEditor from '../../../../../shared/FormEditor/FormEditor';
 import { validationFormProps } from '../../../../../shared/FormEditor/model/validation';
 
 import Data from './Data/Data';
+import Settings from './Settings/Settings';
 import OnboardingForm from './OnboardingForm/OnboardingForm';
 import Summary from './Summary/Summary';
 
@@ -45,16 +46,22 @@ export default class OnboardingGroupDialog extends Component {
 
   changeStep = step => this.setState({ step, loading: null });
 
+  handleUpdateData = data => {
+    const { onUpdate, group } = this.props;
+    onUpdate({ ...group, data });
+  };
+
+  handleUpdateSettings = settings => {
+    const { onUpdate, group } = this.props;
+    onUpdate({ ...group, ...settings });
+    this.handleChangeStep(WizardSteps.Quiz);
+  };
+
   handleUpdateForm = form => {
     const { onUpdate, group } = this.props;
 
     onUpdate({ ...group, form });
     this.handleChangeStep(WizardSteps.Quiz);
-  };
-
-  handleUpdateData = data => {
-    const { onUpdate, group } = this.props;
-    onUpdate({ ...group, data });
   };
 
   handleChangeStep = step => {
@@ -89,6 +96,13 @@ export default class OnboardingGroupDialog extends Component {
             <Data
               group={group}
               onUpdate={this.handleUpdateData}
+              onChangeStep={this.handleChangeStep}
+            />
+          )}
+          {step === WizardSteps.Settings && (
+            <Settings
+              group={group}
+              onUpdate={this.handleUpdateSettings}
               onChangeStep={this.handleChangeStep}
             />
           )}

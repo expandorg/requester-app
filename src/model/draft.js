@@ -20,6 +20,12 @@ export const fundingRules = {
   reward: [[rules.isNumber, 'Should be a positive number'], ge(0)],
 };
 
+export const onboardingGroupSettingsRules = {
+  retries: [[rules.isNumber, 'Should be a positive number'], ge(0)],
+  scoreThreshold: [[rules.isNumber, 'Should be a positive number'], ge(0)],
+  failureMessage: [[rules.isRequired, 'Failure Message is required']],
+};
+
 export const formatDate = (date: ?Object | ?number) =>
   date ? format(date, 'MM/DD/YYYY HH:mm') : '--/--/--';
 
@@ -27,11 +33,17 @@ export const getStepFromTemplate = ({
   name,
   taskForm,
   isGroup,
+  scoreThreshold,
+  retries,
+  failureMessage,
   data,
 }: Object) => ({
   id: nanoid(),
   name,
   isGroup,
+  scoreThreshold,
+  retries,
+  failureMessage,
   data,
   form: taskForm,
 });

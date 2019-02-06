@@ -41,7 +41,7 @@ export default class OnboardingForm extends Component {
           </Button>
           <Button
             theme="secondary"
-            onClick={() => onChangeStep(WizardSteps.Data)}
+            onClick={() => onChangeStep(WizardSteps.Settings)}
           >
             Back
           </Button>

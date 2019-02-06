@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import { Button } from '@expandorg/components';
 
-import { Section, Description } from '../../../../Form';
+import { Section, Description, SummaryField } from '../../../../Form';
 
 import Nav from '../Nav';
 
@@ -33,7 +33,20 @@ export default class Summary extends Component {
           <Section title="Data" status={getStatus(hasData(group.data))}>
             <DataTable data={group.data} readOnly />
           </Section>
-          <Section title="Task" blue status={getStatus(hasModules(group.form))}>
+          <Section title="Settings" blue status="complete">
+            <div className={styles.settings}>
+              <SummaryField title="Number of tries" value={group.retries} />
+              <SummaryField
+                title="Score threshold"
+                value={group.scoreThreshold}
+              />
+              <SummaryField
+                title="Failure Message"
+                value={group.failureMessage}
+              />
+            </div>
+          </Section>
+          <Section title="Task" status={getStatus(hasModules(group.form))}>
             <FormPreview form={group.form} className={styles.form} />
           </Section>
         </div>

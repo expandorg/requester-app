@@ -3,6 +3,7 @@
 export const WizardSteps = {
   Data: 'Data',
   Quiz: 'Quiz',
+  Settings: 'Settings',
   FormEditor: 'FormEditor',
   Preview: 'Preview',
 };
@@ -10,6 +11,7 @@ export const WizardSteps = {
 export const LoadingMessages = {
   [WizardSteps.Data]: null,
   [WizardSteps.Quiz]: null,
+  [WizardSteps.Settings]: null,
   [WizardSteps.FormEditor]: 'Preparing the quiz editor, please wait...',
   [WizardSteps.Preview]: null,
 };

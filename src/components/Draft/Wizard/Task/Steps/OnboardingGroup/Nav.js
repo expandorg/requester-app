@@ -34,6 +34,14 @@ export default class Nav extends Component {
               Data
             </button>
             <button
+              onClick={() => onChangeStep(WizardSteps.Settings)}
+              className={cn(styles.navItem, {
+                [styles.active]: active === WizardSteps.Settings,
+              })}
+            >
+              Settings
+            </button>
+            <button
               onClick={() => onChangeStep(WizardSteps.Quiz)}
               className={cn(styles.navItem, {
                 [styles.active]: active === WizardSteps.Quiz,

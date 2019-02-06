@@ -1,34 +1,10 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 
 import { draftProps } from '../../../shared/propTypes';
 
+import { SummaryField } from '../Form';
+
 import styles from './TemplateSettings.module.styl';
-
-const getValue = (type, value) => {
-  if (type === 'bool') {
-    return value ? 'True' : 'False';
-  }
-  return value;
-};
-
-const Field = ({ title, value, type }) => (
-  <div className={styles.item}>
-    <div className={styles.title}>{title}</div>
-    <div>{getValue(type, value)}</div>
-  </div>
-);
-
-Field.propTypes = {
-  title: PropTypes.string.isRequired,
-  value: PropTypes.any, // eslint-disable-line
-  type: PropTypes.string,
-};
-
-Field.defaultProps = {
-  value: null,
-  type: 'string',
-};
 
 export default class TemplateSettings extends Component {
   static propTypes = {
@@ -39,21 +15,25 @@ export default class TemplateSettings extends Component {
     const { draft } = this.props;
     return (
       <div className={styles.container}>
-        <Field title="Staking" value={draft.staking} type="bool" />
+        <SummaryField title="Staking" value={draft.staking} type="bool" />
         {draft.staking && (
-          <Field title="How much to stake?" value={draft.stake} />
+          <SummaryField title="How much to stake?" value={draft.stake} />
         )}
-        <Field title="Deduct stake if fail?" value={draft.deduct} type="bool" />
+        <SummaryField
+          title="Deduct stake if fail?"
+          value={draft.deduct}
+          type="bool"
+        />
         {draft.callbackUrl && (
-          <Field title="Callback Url" value={draft.callbackUrl} />
+          <SummaryField title="Callback Url" value={draft.callbackUrl} />
         )}
         {draft.onboarding && (
           <>
-            <Field
+            <SummaryField
               title="Onboarding Success Message"
               value={draft.onboarding.successMessage}
             />
-            <Field
+            <SummaryField
               title="Onboarding Failure Message"
               value={draft.onboarding.failureMessage}
             />
