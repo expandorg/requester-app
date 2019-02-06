@@ -93,6 +93,7 @@ export default class ModulePreview extends Component {
             </div>
             {supportNesting(meta) && (
               <NestedModules
+                caption={meta.editor.properties.modules.caption}
                 modules={module.modules}
                 path={path}
                 controls={controls}

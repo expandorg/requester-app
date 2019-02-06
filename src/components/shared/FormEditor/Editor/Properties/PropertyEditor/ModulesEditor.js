@@ -1,12 +1,38 @@
 import React, { Component } from 'react';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
+
+import styles from './ModulesEditor.module.styl';
 
 export default class ModulesEditor extends Component {
-  static defaultProps = {};
+  static propTypes = {
+    caption: PropTypes.string.isRequired,
+    value: PropTypes.arrayOf(PropTypes.object),
+  };
+
+  static defaultProps = {
+    value: [],
+  };
 
   render() {
-    console.log(this.props);
+    const { caption, value } = this.props;
+    if (true) {
+      return null;
+    }
 
-    return <div>Modules!!</div>;
+    return (
+      <div className={styles.container}>
+        <div className={styles.title}>Modules</div>
+        {(!value || !value.length) && (
+          <div className={styles.empty}>{caption}</div>
+        )}
+        {value && (
+          <div className={styles.modules}>
+            {value.map(v => (
+              <div key={v.name}>{v.name}</div>
+            ))}
+          </div>
+        )}
+      </div>
+    );
   }
 }

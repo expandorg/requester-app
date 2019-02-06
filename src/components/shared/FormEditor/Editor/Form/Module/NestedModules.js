@@ -14,6 +14,7 @@ import styles from './DnDModule.module.styl';
 
 class NestedModules extends Component {
   static propTypes = {
+    caption: PropTypes.string,
     modules: PropTypes.arrayOf(moduleProps),
     path: PropTypes.arrayOf(PropTypes.number).isRequired,
     controls: PropTypes.object.isRequired, // eslint-disable-line
@@ -26,12 +27,14 @@ class NestedModules extends Component {
   };
 
   static defaultProps = {
+    caption: null,
     modules: null,
     selected: null,
   };
 
   render() {
     const {
+      caption,
       connectDropTarget,
       modules,
       selected,
@@ -60,7 +63,11 @@ class NestedModules extends Component {
             />
           ))
         ) : (
-          <EmptyDroppable path={path} onMove={onMove} />
+          <EmptyDroppable
+            title={caption || 'Drop here'}
+            path={path}
+            onMove={onMove}
+          />
         )}
       </div>
     );
