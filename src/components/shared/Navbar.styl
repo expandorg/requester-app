@@ -1,5 +1,6 @@
 @import '~@expandorg/uikit/colors'
 @import '~@expandorg/uikit/font'
+@import '~@expandorg/uikit/size'
 
 .gem-logout
   box-sizing: border-box;
@@ -21,3 +22,7 @@
 
   outline: none
   cursor: pointer;
+
+
+  @media(max-width: breakpoint-mobile-sm)
+    display: none

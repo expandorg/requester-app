@@ -75,7 +75,9 @@ export default class DataTable extends Component {
                 onChange={this.handleChangeVar}
               />
             ))}
-            {!readOnly && <T.HeaderCell>Delete</T.HeaderCell>}
+            {!readOnly && (
+              <T.HeaderCell className={styles.varDelete}>Delete</T.HeaderCell>
+            )}
           </T.Header>
 
           {data.values.map((row, index) => (

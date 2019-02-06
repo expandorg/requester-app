@@ -30,10 +30,13 @@ export default class ValuesRow extends PureComponent {
 
   render() {
     const { row, readOnly } = this.props;
+
+    /* eslint-disable react/no-array-index-key */
     return (
       <T.Row className={styles.row}>
         {row.map((value, index) => (
           <Value
+            key={index}
             value={value}
             column={index}
             readOnly={readOnly}

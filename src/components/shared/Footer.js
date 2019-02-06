@@ -18,7 +18,7 @@ export default class Footer extends Component {
     links: [
       {
         link: 'https://expand.org',
-        text: 'Expand 2018',
+        text: 'Expand 2019',
         isExternal: true,
       },
       {

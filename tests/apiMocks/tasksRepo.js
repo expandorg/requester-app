@@ -119,12 +119,17 @@ const quizForm = {
   retries: 3,
   failureMessage: 'Quiz failed',
   data: {
-    columns: ['varname1', 'varname2', 'varname3'],
+    columns: [
+      { name: 'varname1' },
+      { name: 'varname2' },
+      { name: 'varname3' },
+      { name: 'answer', isAnswer: true },
+    ],
     values: [
-      ['11', '12', '13'],
-      ['21', '22', '23'],
-      ['31', '32', '33'],
-      ['41', '42', '43'],
+      ['11', '12', '13', '14'],
+      ['21', '22', '23', '14'],
+      ['31', '32', '33', '14'],
+      ['41', '42', '43', '15'],
     ],
   },
   logo: 'https://portal.gems.org//images/complete-tasks.png',

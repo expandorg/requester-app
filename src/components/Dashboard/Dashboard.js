@@ -7,14 +7,15 @@ import { bindActionCreators } from 'redux';
 import { withRouter } from 'react-router-dom';
 
 import { matchProps } from '@expandorg/app-utils';
+import { ListNav } from '@expandorg/components/app';
+
 import Navbar from '../shared/Navbar';
 import Sidebar from '../shared/Sidebar';
 
 import { authenticated } from '../shared/auth';
+import { links } from '../../model/dashboard';
 
 import Page from '../shared/Page';
-
-import Navigation from './Navigation';
 
 import List from './list/List';
 import NewTask from './list/NewTask';
@@ -66,7 +67,7 @@ class Dashboard extends Component {
       <Page title="Dashboard">
         <Navbar title="Dashboard" />
         <Sidebar />
-        <Navigation />
+        <ListNav navs={links} />
         {isEmpty && <Empty />}
         {!isEmpty && (
           <List className={styles.list}>
