@@ -43,6 +43,21 @@ function* handleTxFailed({ payload }) {
   }
 }
 
+function* handleDraftActionFailed({ payload }) {
+  yield put(addNotification('error', `Update failed: ${payload.message}`));
+}
+
+const draftFailedActions = [
+  draftsActionTypes.UPDATE_SETTINGS_FAILED,
+  draftsActionTypes.UPDATE_TEMPLATE_FAILED,
+  draftsActionTypes.UPDATE_TASK_FAILED,
+  draftsActionTypes.UPDATE_VERIFICATION_FAILED,
+  draftsActionTypes.UPDATE_ONBOARDING_FAILED,
+  draftsActionTypes.UPDATE_FUNDING_FAILED,
+  draftsActionTypes.UPDATE_WHITELIST_FAILED,
+  draftsActionTypes.PUBLISH_FAILED,
+];
+
 export function* notificationsSagas(): any {
   yield takeLatest(appActionTypes.NOTIFICATION_ADD, handldNotificationAdded);
 
@@ -63,4 +78,6 @@ export function* notificationsSagas(): any {
     draftsActionTypes.UPDATE_TASK_COMPLETE,
     successMessage('Task module edited!')
   );
+
+  yield takeEvery(draftFailedActions, handleDraftActionFailed);
 }

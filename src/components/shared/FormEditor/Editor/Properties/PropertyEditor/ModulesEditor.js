@@ -15,6 +15,7 @@ export default class ModulesEditor extends Component {
 
   render() {
     const { caption, value } = this.props;
+    // eslint-disable-next-line no-constant-condition
     if (true) {
       return null;
     }
