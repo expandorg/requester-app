@@ -4,6 +4,7 @@ import cn from 'classnames';
 
 import { moduleProps, Module } from '@expandorg/modules';
 import { ReactComponent as X } from '@expandorg/uikit/assets/x.svg';
+import { ReactComponent as Copy } from '@expandorg/uikit/assets/copy.svg';
 
 import NestedModules from './NestedModules';
 import Placeholder from './Placeholder';
@@ -22,6 +23,7 @@ export default class ModulePreview extends Component {
     onMove: PropTypes.func.isRequired, // eslint-disable-line
     onSelect: PropTypes.func.isRequired,
     onRemove: PropTypes.func.isRequired,
+    onCopy: PropTypes.func.isRequired,
 
     connectDragPreview: PropTypes.func.isRequired,
   };
@@ -43,6 +45,12 @@ export default class ModulePreview extends Component {
     evt.preventDefault();
   };
 
+  handleCopyClick = evt => {
+    const { module, path, onCopy } = this.props;
+    onCopy(path, module);
+    evt.preventDefault();
+  };
+
   render() {
     const {
       connectDragPreview,
@@ -52,6 +60,7 @@ export default class ModulePreview extends Component {
       path,
       onMove,
       onRemove,
+      onCopy,
       onSelect,
     } = this.props;
 
@@ -67,6 +76,8 @@ export default class ModulePreview extends Component {
     const { module: meta } = ControlType;
 
     const isSelected = treeEditor.getIdByPath(path) === selected;
+
+    const canCopy = module.type !== 'submit';
 
     /* eslint-disable jsx-a11y/click-events-have-key-events */
     /* eslint-disable jsx-a11y/no-static-element-interactions */
@@ -101,13 +112,21 @@ export default class ModulePreview extends Component {
                 onMove={onMove}
                 onSelect={onSelect}
                 onRemove={onRemove}
+                onCopy={onCopy}
               />
             )}
           </div>
         )}
-        <button className={styles.remove} onClick={this.handleRemoveClick}>
-          <X />
-        </button>
+        <div className={styles.actions}>
+          <button className={styles.remove} onClick={this.handleRemoveClick}>
+            <X />
+          </button>
+          {canCopy && (
+            <button className={styles.copy} onClick={this.handleCopyClick}>
+              <Copy />
+            </button>
+          )}
+        </div>
       </div>
     );
   }

@@ -22,6 +22,7 @@ class DnDModule extends Component {
     onMove: PropTypes.func.isRequired, // eslint-disable-line
     onSelect: PropTypes.func.isRequired,
     onRemove: PropTypes.func.isRequired,
+    onCopy: PropTypes.func.isRequired,
 
     connectDragSource: PropTypes.func.isRequired,
     connectDragPreview: PropTypes.func.isRequired,
@@ -45,6 +46,7 @@ class DnDModule extends Component {
       onMove,
       onRemove,
       onSelect,
+      onCopy,
     } = this.props;
 
     const dragging = isDragging || module.isDragging;
@@ -67,6 +69,7 @@ class DnDModule extends Component {
               onMove={onMove}
               onSelect={onSelect}
               onRemove={onRemove}
+              onCopy={onCopy}
             />
           ) : (
             <Placeholder className={styles.placeholder} />

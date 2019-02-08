@@ -8,7 +8,7 @@ import Editor from './Editor/Editor';
 import AvailableModules from './Available/AvailableModules';
 
 import { treeEditor } from './dnd';
-import { scaffold, availableModules } from './model/modules';
+import { scaffold, deepCopy, availableModules } from './model/modules';
 
 import help from './help';
 
@@ -74,6 +74,14 @@ export default class FormEditor extends Component {
         modules: treeEditor.removeAt(modules, path),
       }));
     }
+  };
+
+  handleCopyModule = (path, module) => {
+    const { modules } = this.state;
+    this.setState({
+      selected: null,
+      modules: treeEditor.insertAt(modules, path, deepCopy(module, true)),
+    });
   };
 
   handleMoveAt = (dragPath, hoverPath, meta) => {
@@ -144,6 +152,7 @@ export default class FormEditor extends Component {
               onMoveModule={this.handleMoveAt}
               onRemoveModule={this.handleRemove}
               onSelectModule={this.handleSelectModule}
+              onCopyModule={this.handleCopyModule}
               onSave={this.handleSave}
               onCancel={onHide}
             />

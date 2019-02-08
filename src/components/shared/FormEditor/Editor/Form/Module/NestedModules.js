@@ -22,6 +22,7 @@ class NestedModules extends Component {
     onMove: PropTypes.func.isRequired, // eslint-disable-line
     onSelect: PropTypes.func.isRequired,
     onRemove: PropTypes.func.isRequired,
+    onCopy: PropTypes.func.isRequired,
 
     connectDropTarget: PropTypes.func.isRequired,
   };
@@ -43,6 +44,7 @@ class NestedModules extends Component {
       onMove,
       onRemove,
       onSelect,
+      onCopy,
     } = this.props;
 
     const hasNested = modules && modules.length > 0;
@@ -60,6 +62,7 @@ class NestedModules extends Component {
               onMove={onMove}
               onRemove={onRemove}
               onSelect={onSelect}
+              onCopy={onCopy}
             />
           ))
         ) : (

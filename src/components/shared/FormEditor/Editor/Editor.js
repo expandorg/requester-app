@@ -36,6 +36,7 @@ export default class Editor extends Component {
     onMoveModule: PropTypes.func.isRequired,
     onRemoveModule: PropTypes.func.isRequired,
     onSelectModule: PropTypes.func.isRequired,
+    onCopyModule: PropTypes.func.isRequired,
     onSave: PropTypes.func.isRequired,
     onCancel: PropTypes.func.isRequired,
   };
@@ -101,6 +102,7 @@ export default class Editor extends Component {
       onAddModule,
       onSelectModule,
       onRemoveModule,
+      onCopyModule,
       onCancel,
       variables,
       varsSample,
@@ -122,6 +124,7 @@ export default class Editor extends Component {
               onMoveModule={onMoveModule}
               onSelectModule={onSelectModule}
               onRemoveModule={onRemoveModule}
+              onCopyModule={onCopyModule}
             />
           </div>
           <div

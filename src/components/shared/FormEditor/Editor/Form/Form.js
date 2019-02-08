@@ -25,6 +25,7 @@ class Form extends Component {
     onMoveModule: PropTypes.func.isRequired,
     onSelectModule: PropTypes.func.isRequired,
     onRemoveModule: PropTypes.func.isRequired,
+    onCopyModule: PropTypes.func.isRequired,
     connectDropTarget: PropTypes.func.isRequired,
   };
 
@@ -40,6 +41,7 @@ class Form extends Component {
       onSelectModule,
       onRemoveModule,
       onMoveModule,
+      onCopyModule,
       selected,
       controls,
       connectDropTarget,
@@ -61,6 +63,7 @@ class Form extends Component {
                   onMove={onMoveModule}
                   onRemove={onRemoveModule}
                   onSelect={onSelectModule}
+                  onCopy={onCopyModule}
                 />
               ))}
             </FormDataProvider>

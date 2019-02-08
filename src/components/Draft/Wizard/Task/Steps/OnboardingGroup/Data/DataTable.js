@@ -14,7 +14,7 @@ import styles from './DataTable.module.styl';
 export default class DataTable extends Component {
   static propTypes = {
     data: PropTypes.shape({
-      columns: PropTypes.arrayOf(PropTypes.string),
+      columns: PropTypes.arrayOf(PropTypes.object),
       values: PropTypes.arrayOf(PropTypes.array),
     }).isRequired,
     readOnly: PropTypes.bool,
