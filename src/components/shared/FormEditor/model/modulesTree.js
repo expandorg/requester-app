@@ -12,7 +12,7 @@ export const displayCategories = [
   ModuleCategories.Input,
   ModuleCategories.Display,
   ModuleCategories.Image,
-  ModuleCategories.Video,
+  ModuleCategories.Media,
   ModuleCategories.Onboarding,
 ];
 
