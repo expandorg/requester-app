@@ -3,17 +3,16 @@ import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import {
+  UploadImagePreview,
+  UploadProgressIndicator,
+} from '@expandorg/components/app';
 
 import { RequestStates } from '@expandorg/app-utils';
 import { addNotification } from '@expandorg/app-utils/app';
 
 import { ReactComponent as Placeholder } from '@expandorg/uikit/assets/data.svg';
-import {
-  Upload,
-  ImagePreview,
-  ProgressIndicator,
-  ProgressPubSub,
-} from '../../../common/Upload';
+import { Upload, ProgressPubSub } from '../../../common/Upload';
 
 import { imagesApi } from '../../../../api/ImagesApi';
 
@@ -86,9 +85,11 @@ class UploadLogo extends Component {
   render() {
     const { logo } = this.props;
     const { uploadState, progress } = this.state;
-    const uploading =
+
+    const indicator =
       uploadState === RequestStates.Fetching ||
       uploadState === RequestStates.FetchError;
+
     return (
       <Upload
         label="Thumbnail *"
@@ -98,16 +99,18 @@ class UploadLogo extends Component {
       >
         {() => (
           <>
-            {uploading && (
-              <ProgressIndicator
-                uploadState={uploadState}
+            {indicator && (
+              <UploadProgressIndicator
+                isUploading={uploadState === RequestStates.Fetching}
+                isUploaded={uploadState === RequestStates.Fetched}
+                isUploadError={uploadState === RequestStates.FetchError}
                 progress={progress}
                 onAbort={this.handleAbort}
               />
             )}
-            {!uploading &&
+            {!indicator &&
               (logo ? (
-                <ImagePreview uploadedUrl={logo} />
+                <UploadImagePreview uploadedUrl={logo} />
               ) : (
                 <div className={styles.placeholder}>
                   <Placeholder

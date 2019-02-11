@@ -36,8 +36,8 @@
     "@expandorg/app-gemtokens": "^0.0.33",
     "@expandorg/app-utils": "^0.0.30",
     "@expandorg/app-web3": "^0.0.25",
-    "@expandorg/components": "^0.2.33",
-    "@expandorg/modules": "^0.2.47",
+    "@expandorg/components": "^0.2.35",
+    "@expandorg/modules": "^0.2.49",
     "@expandorg/uikit": "^0.2.12",
     "@expandorg/utils": "^0.0.7",
     "@expandorg/validation": "^0.2.2",
@@ -54,7 +54,7 @@
     "immer": "^2.0.0",
     "nanoid": "^2.0.1",
     "normalizr": "^3.3.0",
-    "prop-types": "^15.6.2",
+    "prop-types": "^15.7.1",
     "query-string": "^6.2.0",
     "react": "^16.8.1",
     "react-day-picker": "^7.2.4",
@@ -85,7 +85,6 @@
     "@babel/register": "^7.0.0",
     "@expandorg/eslint-config": "^0.3.0",
     "@svgr/webpack": "^4.1.0",
-    "ajv": "6.8.1",
     "babel-core": "^7.0.0-bridge.0",
     "babel-eslint": "^10.0.1",
     "babel-jest": "^24.1.0",
@@ -113,8 +112,5 @@
     "webpack": "^4.29.3",
     "webpack-cli": "^3.2.3",
     "webpack-dev-server": "^3.1.14"
-  },
-  "resolutions": {
-    "ajv": "6.8.1"
   }
 }

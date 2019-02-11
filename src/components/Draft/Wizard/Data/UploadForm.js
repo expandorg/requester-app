@@ -4,15 +4,12 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
+import { UploadProgressIndicator } from '@expandorg/components/app';
 import { RequestStates, requestStateProps } from '@expandorg/app-utils';
 import { addNotification } from '@expandorg/app-utils/app';
 
 import { ReactComponent as Placeholder } from '@expandorg/uikit/assets/data.svg';
-import {
-  Upload,
-  ProgressIndicator,
-  ProgressPubSub,
-} from '../../../common/Upload';
+import { Upload, ProgressPubSub } from '../../../common/Upload';
 
 import { draftProps } from '../../../shared/propTypes';
 
@@ -100,8 +97,10 @@ class UploadForm extends Component {
         >
           {({ file }) =>
             file ? (
-              <ProgressIndicator
-                uploadState={uploadState.state}
+              <UploadProgressIndicator
+                isUploading={uploadState.state === RequestStates.Fetching}
+                isUploaded={uploadState.state === RequestStates.Fetched}
+                isUploadError={uploadState.state === RequestStates.FetchError}
                 progress={progress}
                 onAbort={this.handleAbort}
               />
