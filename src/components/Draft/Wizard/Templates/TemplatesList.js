@@ -50,7 +50,7 @@ class TemplatesList extends Component {
     return (
       <div className={styles.outer}>
         <div className={styles.container}>
-          <Description>Description about this step goes here.</Description>
+          <Description>Select a template to begin task creation.</Description>
           <Templates
             className={styles.templates}
             title="Templates"

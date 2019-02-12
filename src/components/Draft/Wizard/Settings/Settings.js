@@ -95,12 +95,19 @@ export default class Settings extends Component {
     return (
       <Form onSubmit={this.handleSubmit}>
         <Fieldset>
-          <Description>Description about this step goes here.</Description>
+          <Description>
+            Helpful Hint: name your project in a way that helps workers
+            understand the task at first glance.
+          </Description>
           <UploadLogo
             logo={settings.logo}
             onChangeLogo={this.handleChangeLogo}
           />
-          <Field tooltip="Title" name="name" errors={errors}>
+          <Field
+            tooltip="Choose a title which helps the workers understand the task"
+            name="name"
+            errors={errors}
+          >
             <Input
               ref={this.nameInput}
               placeholder="Title *"
@@ -110,7 +117,11 @@ export default class Settings extends Component {
               onChange={this.handleInputChange}
             />
           </Field>
-          <Field tooltip="Description" name="description" errors={errors}>
+          <Field
+            tooltip="Make sure to include info which will support the worker in determining if she/he is the right person for the task"
+            name="description"
+            errors={errors}
+          >
             <Input
               placeholder="Description *"
               name="description"

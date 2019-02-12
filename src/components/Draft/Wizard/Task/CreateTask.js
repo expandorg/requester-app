@@ -54,7 +54,8 @@ export default class CreateTask extends Component {
                 )}
               </PreviewCtx>
               <Description className={styles.desc}>
-                Description about this step goes here.
+                Build your task including the on-boarding, verification and a
+                quiz
               </Description>
             </div>
             <Steps draft={draft} />

@@ -53,7 +53,10 @@ class DataEditor extends Component {
 
     return (
       <div className={styles.container}>
-        <Description>Description about this step goes here.</Description>
+        <Description>
+          Once the file uploads, skip the columns you don&#39;t wish to use as
+          variables in your task.
+        </Description>
         <Table
           draft={draft}
           page={page}

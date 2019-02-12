@@ -93,7 +93,7 @@ class UploadLogo extends Component {
     return (
       <Upload
         label="Thumbnail *"
-        tooltip="Upload Image"
+        tooltip="Select a thumbnail for your request. It'll be visible to workers."
         onSelect={this.handleSelect}
         onReject={this.handleReject}
       >
