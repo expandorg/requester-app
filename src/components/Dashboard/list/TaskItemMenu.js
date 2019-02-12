@@ -53,7 +53,7 @@ export default class TaskItemMenu extends Component {
           className={cn(styles.button, { [styles.disabled]: !canDelete })}
           disabled={!canDelete}
         >
-          Remove Job
+          Delete
         </button>
       </div>
     );
