@@ -1,4 +1,10 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+
+import { addNotification } from '@expandorg/app-utils/app';
 
 import { Sidebar, Navbar } from '@expandorg/components/app';
 import { Panel } from '@expandorg/components';
@@ -10,7 +16,14 @@ import ModulesForm from './draft/ModulesForm';
 
 import styles from './styles.module.styl';
 
+const mapDispatchToProps = dispatch =>
+  bindActionCreators({ addNotification }, dispatch);
+
 class PreviewForm extends Component {
+  static propTypes = {
+    addNotification: PropTypes.func.isRequired,
+  };
+
   state = {
     form: null,
     variables: null,
@@ -38,6 +51,10 @@ class PreviewForm extends Component {
     console.log(JSON.stringify(values, undefined, 2));
   };
 
+  handleNotify = (type, message) => {
+    this.props.addNotification(type, message);
+  };
+
   render() {
     const { form, variables } = this.state;
     if (!form) {
@@ -54,6 +71,7 @@ class PreviewForm extends Component {
               form={form}
               variables={variables}
               onSubmit={this.handleSubmit}
+              onNotify={this.handleNotify}
             />
           </Panel>
         </div>
@@ -62,4 +80,9 @@ class PreviewForm extends Component {
   }
 }
 
-export default authenticated(PreviewForm);
+export default authenticated(
+  connect(
+    null,
+    mapDispatchToProps
+  )(PreviewForm)
+);

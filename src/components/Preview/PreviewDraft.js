@@ -5,6 +5,8 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
+import { addNotification } from '@expandorg/app-utils/app';
+
 import { Sidebar, Navbar } from '@expandorg/components/app';
 import { Panel } from '@expandorg/components';
 
@@ -36,7 +38,8 @@ const makeMapStateToProps = () => {
   });
 };
 
-const mapDispatchToProps = dispatch => bindActionCreators({ fetch }, dispatch);
+const mapDispatchToProps = dispatch =>
+  bindActionCreators({ fetch, addNotification }, dispatch);
 
 class PreviewDraft extends Component {
   static propTypes = {
@@ -44,6 +47,7 @@ class PreviewDraft extends Component {
     draft: draftProps,
     loadState: requestStateProps.isRequired,
     fetch: PropTypes.func.isRequired,
+    addNotification: PropTypes.func.isRequired,
   };
 
   static defaultProps = {
@@ -71,6 +75,10 @@ class PreviewDraft extends Component {
     }
   };
 
+  handleNotify = (type, message) => {
+    this.props.addNotification(type, message);
+  };
+
   render() {
     const { draft } = this.props;
     // const isLoading = !draft && loadState.state === RequestStates.Fetching;
@@ -81,7 +89,12 @@ class PreviewDraft extends Component {
         <Sidebar />
         <div className={styles.container}>
           <Panel className={styles.panel}>
-            {draft && <PreviewDraftSequence draft={draft} />}
+            {draft && (
+              <PreviewDraftSequence
+                draft={draft}
+                onNotify={this.handleNotify}
+              />
+            )}
           </Panel>
         </div>
       </Page>

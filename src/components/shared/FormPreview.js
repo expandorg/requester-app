@@ -19,6 +19,7 @@ export default class FormPreview extends Component {
     }),
     className: PropTypes.string,
     onSubmit: PropTypes.func,
+    onNotify: PropTypes.func,
   };
 
   static defaultProps = {
@@ -26,11 +27,19 @@ export default class FormPreview extends Component {
     variables: null,
     className: null,
     onSubmit: Function.prototype,
+    onNotify: Function.prototype,
     formData: { allowedRetries: 3, currentTry: 1, fileUploadService },
   };
 
   render() {
-    const { formData, form, variables, className, onSubmit } = this.props;
+    const {
+      formData,
+      form,
+      variables,
+      className,
+      onSubmit,
+      onNotify,
+    } = this.props;
 
     if (!form || !form.modules || !form.modules.length) {
       return <div className={styles.empty}>Form is empty</div>;
@@ -43,6 +52,7 @@ export default class FormPreview extends Component {
           variables={variables}
           form={form}
           onSubmit={onSubmit}
+          onNotify={onNotify}
         >
           {props => <Module {...props} />}
         </Form>

@@ -12,14 +12,16 @@ export default class ModulesForm extends Component {
     form: formProps.isRequired,
     variables: PropTypes.object, // eslint-disable-line
     onSubmit: PropTypes.func.isRequired,
+    onPreview: PropTypes.func,
   };
 
   static defaultProps = {
     variables: null,
+    onPreview: Function.prototype,
   };
 
   render() {
-    const { form, onSubmit, variables } = this.props;
+    const { form, onSubmit, onPreview, variables } = this.props;
 
     return (
       <div className={styles.container}>
@@ -28,6 +30,7 @@ export default class ModulesForm extends Component {
           variables={variables}
           form={form}
           onSubmit={onSubmit}
+          onPreview={onPreview}
         />
       </div>
     );

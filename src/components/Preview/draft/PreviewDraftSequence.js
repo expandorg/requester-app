@@ -40,10 +40,12 @@ class PreviewDraftSequence extends Component {
     draft: draftProps.isRequired,
     variables: PropTypes.object, // eslint-disable-line
     fetchData: PropTypes.func.isRequired,
+    onNotify: PropTypes.func,
   };
 
   static defaultProps = {
     variables: null,
+    onNotify: Function.prototype,
   };
 
   constructor(props) {
@@ -87,7 +89,7 @@ class PreviewDraftSequence extends Component {
   };
 
   render() {
-    const { draft, variables } = this.props;
+    const { draft, variables, onNotify } = this.props;
     const { active } = this.state;
 
     const { form, display } = getActive(draft, active);
@@ -103,6 +105,7 @@ class PreviewDraftSequence extends Component {
             form={form}
             variables={variables}
             onSubmit={this.handleSubmit}
+            onNotify={onNotify}
           />
         )}
         {display === REPEAT && (
