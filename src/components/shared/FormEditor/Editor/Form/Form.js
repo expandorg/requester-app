@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import { DropTarget } from 'react-dnd';
 import { moduleProps, FormDataProvider } from '@expandorg/modules';
+import FileUploadServiceMock from '@expandorg/modules/src/form/ModulesPlayground/FileUploadServiceMock';
 
 import { dropAreaTarget, FORM_DND_ID } from '../../dnd';
 
@@ -14,6 +15,7 @@ import styles from './Form.module.styl';
 const formData = {
   allowedRetries: 3,
   currentTry: 1,
+  fileUploadService: new FileUploadServiceMock(),
 };
 
 class Form extends Component {

@@ -3,8 +3,11 @@ import PropTypes from 'prop-types';
 import cn from 'classnames';
 
 import { Form, Module, FormDataProvider, formProps } from '@expandorg/modules';
+import FileUploadServiceMock from '@expandorg/modules/src/form/ModulesPlayground/FileUploadServiceMock';
 
 import styles from './FormPreview.module.styl';
+
+const fileUploadService = new FileUploadServiceMock();
 
 export default class FormPreview extends Component {
   static propTypes = {
@@ -23,7 +26,7 @@ export default class FormPreview extends Component {
     variables: null,
     className: null,
     onSubmit: Function.prototype,
-    formData: { allowedRetries: 3, currentTry: 1 },
+    formData: { allowedRetries: 3, currentTry: 1, fileUploadService },
   };
 
   render() {
