@@ -7,7 +7,7 @@ import { bindActionCreators } from 'redux';
 import { Button } from '@expandorg/components';
 
 import Templates from '../../../shared/Templates/Templates';
-import { Description, Actions } from '../Form';
+import { Actions } from '../Form';
 
 import { taskTemplateProps } from '../../../shared/propTypes';
 import { fetchTaskTemplates } from '../../../../sagas/tasksSagas';
@@ -50,7 +50,6 @@ class TemplatesList extends Component {
     return (
       <div className={styles.outer}>
         <div className={styles.container}>
-          <Description>Select a template to begin task creation.</Description>
           <Templates
             className={styles.templates}
             title="Templates"

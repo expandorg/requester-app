@@ -5,7 +5,7 @@ import { Button, Dialog, DialogForm as DF } from '@expandorg/components';
 
 import { ReactComponent as Warning } from '@expandorg/uikit/assets/warning.svg';
 import { ReactComponent as Checkmark } from '@expandorg/uikit/assets/checkmark-3.svg';
-import { ReactComponent as Eye } from '@expandorg/uikit/assets/eye.svg';
+import { ReactComponent as Review } from '@expandorg/uikit/assets/review.svg';
 
 import styles from './ConfirmationDialog.module.styl';
 
@@ -47,7 +47,7 @@ export default class ConfirmationDialog extends Component {
           />
         );
       case 'review':
-        return <Eye className={styles.eye} />;
+        return <Review className={styles.eye} />;
       default:
         break;
     }
@@ -68,7 +68,7 @@ export default class ConfirmationDialog extends Component {
       <Dialog visible onHide={onHide} contentLabel="confirm-dialog">
         <div className={styles.container}>
           <div className={styles.icon}>{this.renderIcon(icon)}</div>
-          <DF.Title>{title}</DF.Title>
+          <DF.Title className={styles.title}>{title}</DF.Title>
           <div className={styles.confirmation}>{confirmation}</div>
           <DF.Actions>
             <Button className="gem-dialogform-button" onClick={onConfirm}>
