@@ -62,7 +62,41 @@ export const validateModuleProps = (
   return validateForm(module, propRules);
 };
 
-export const validationFormProps = (modules: Array<Object>) => {
+const formConditionalVisitor = (
+  modules: Array<Object>,
+  validator: Function
+) => {
+  // eslint-disable-next-line no-restricted-syntax
+  for (const mod of modules) {
+    const error = validator(mod);
+    if (error) {
+      return error;
+    }
+    if (mod.modules) {
+      const nestedError = formConditionalVisitor(mod.modules, validator);
+      if (nestedError) {
+        return nestedError;
+      }
+    }
+  }
+  return false;
+};
+
+export const validationFormProps = (
+  modules: Array<Object>,
+  controls: Array<Object>
+) => {
+  const notSuportedType = formConditionalVisitor(
+    modules,
+    m => !controls[m.type] && m.type
+  );
+
+  if (notSuportedType) {
+    return {
+      commonMessage: `Form includes deprecated module: ${notSuportedType}`,
+    };
+  }
+
   if (!modules.some(module => module.type === 'submit')) {
     return { commonMessage: 'Form should have submit button' };
   }
@@ -73,10 +107,11 @@ export const validationTaskFormProps = (
   modules: Array<Object>,
   controls: Object
 ) => {
-  const errors = validationFormProps(modules);
+  const errors = validationFormProps(modules, controls);
   if (errors) {
     return errors;
   }
+
   // TODO: add nesting
   if (!modules.some(m => !!controls[m.type].module.isInput)) {
     return { commonMessage: 'Form should have at least one input module' };

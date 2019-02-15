@@ -3,16 +3,16 @@ import PropTypes from 'prop-types';
 import cn from 'classnames';
 
 import { moduleProps, Module } from '@expandorg/modules';
-import { ReactComponent as X } from '@expandorg/uikit/assets/x.svg';
-import { ReactComponent as Copy } from '@expandorg/uikit/assets/copy.svg';
 
-import NestedModules from './NestedModules';
-import Placeholder from './Placeholder';
+import NestedModules from '../NestedModules';
+import Outer from './Outer';
+import ModuleActions from './ModuleActions';
+import NotSupported from './NotSupported';
 
-import { supportNesting } from '../../../model/modules';
-import { treeEditor } from '../../../dnd';
+import { supportNesting } from '../../../../model/modules';
+import { treeEditor } from '../../../../dnd';
 
-import styles from './DnDModule.module.styl';
+import styles from './ModulePreview.module.styl';
 
 export default class ModulePreview extends Component {
   static propTypes = {
@@ -39,7 +39,7 @@ export default class ModulePreview extends Component {
     evt.preventDefault();
   };
 
-  handleRemoveClick = evt => {
+  handleRemove = evt => {
     const { onRemove, path } = this.props;
     onRemove(path);
     evt.preventDefault();
@@ -66,13 +66,9 @@ export default class ModulePreview extends Component {
 
     const ControlType = controls[module.type];
     if (!ControlType) {
-      return (
-        <Placeholder
-          className={styles.notSupported}
-          title={`${module.type} is not supported`}
-        />
-      );
+      return <NotSupported type={module.type} onRemove={this.handleRemove} />;
     }
+
     const { module: meta } = ControlType;
 
     const isSelected = treeEditor.getIdByPath(path) === selected;
@@ -82,7 +78,7 @@ export default class ModulePreview extends Component {
     /* eslint-disable jsx-a11y/click-events-have-key-events */
     /* eslint-disable jsx-a11y/no-static-element-interactions */
     return (
-      <div className={styles.outer}>
+      <Outer>
         {connectDragPreview(
           <div
             className={cn(styles.container, {
@@ -117,17 +113,12 @@ export default class ModulePreview extends Component {
             )}
           </div>
         )}
-        <div className={styles.actions}>
-          <button className={styles.remove} onClick={this.handleRemoveClick}>
-            <X />
-          </button>
-          {canCopy && (
-            <button className={styles.copy} onClick={this.handleCopyClick}>
-              <Copy />
-            </button>
-          )}
-        </div>
-      </div>
+        <ModuleActions
+          canCopy={canCopy}
+          onRemove={this.handleRemove}
+          onCopy={this.handleCopyClick}
+        />
+      </Outer>
     );
   }
 }

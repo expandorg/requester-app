@@ -5,8 +5,8 @@ import { DragSource, DropTarget } from 'react-dnd';
 
 import { moduleProps } from '@expandorg/modules';
 
-import Placeholder from './Placeholder';
-import ModulePreview from './ModulePreview';
+import { Placeholder } from './Placeholders';
+import ModulePreview from './Preview/ModulePreview';
 
 import { moduleSource, moduleTarget, FORM_DND_ID } from '../../../dnd';
 
@@ -54,7 +54,7 @@ class DnDModule extends Component {
     return connectDragSource(
       connectDropTarget(
         <div
-          className={styles.dndContainer}
+          className={styles.container}
           ref={c => {
             this.containerRef = c;
           }}

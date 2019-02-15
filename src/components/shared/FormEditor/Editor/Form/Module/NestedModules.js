@@ -5,12 +5,12 @@ import { DropTarget } from 'react-dnd';
 
 import { moduleProps } from '@expandorg/modules';
 
-import EmptyDroppable from './EmptyDroppable';
+import { EmptyDroppable } from './Placeholders';
 import DnDModule from './DnDModule';
 
 import { nestedModuleTarget, FORM_DND_ID } from '../../../dnd';
 
-import styles from './DnDModule.module.styl';
+import styles from './NestedModules.module.styl';
 
 class NestedModules extends Component {
   static propTypes = {
