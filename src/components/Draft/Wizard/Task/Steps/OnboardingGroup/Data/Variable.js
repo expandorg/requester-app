@@ -2,14 +2,17 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
 
-import { Table as T } from '@expandorg/components';
+import { Table as T, Button, Dropdown } from '@expandorg/components';
 
-import styles from './DataTable.module.styl';
+import styles from './Variable.module.styl';
+
+import { columnTypes } from './quizData';
 
 export default class Variable extends Component {
   static propTypes = {
     column: PropTypes.shape({
       name: PropTypes.string,
+      type: PropTypes.oneOf(columnTypes),
       isAnswer: PropTypes.bool,
     }).isRequired,
     index: PropTypes.number.isRequired,
@@ -17,27 +20,124 @@ export default class Variable extends Component {
     onChange: PropTypes.func.isRequired,
   };
 
-  handleChange = ({ target }) => {
-    const { onChange, column, index } = this.props;
-    onChange(index, { ...column, name: target.value });
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      original: props.column, // eslint-disable-line react/no-unused-state
+      column: props.column,
+      edit: false,
+    };
+  }
+
+  static getDerivedStateFromProps({ column }, state) {
+    if (column !== state.original) {
+      return {
+        column,
+        original: column,
+        edit: false,
+      };
+    }
+    return null;
+  }
+
+  handleToggleEdit = evt => {
+    evt.preventDefault();
+
+    const { edit, original } = this.state;
+
+    this.setState({
+      edit: !edit,
+      column: original,
+    });
+  };
+
+  handleChangeName = ({ target }) => {
+    this.setState(({ column }) => ({
+      column: { ...column, name: target.value },
+    }));
+  };
+
+  handleChangeType = type => {
+    this.setState(({ column }) => ({
+      column: { ...column, type },
+    }));
+  };
+
+  handleSave = evt => {
+    evt.preventDefault();
+
+    const { onChange, index } = this.props;
+    const { column } = this.state;
+
+    this.setState({ edit: false });
+    onChange(index, column);
   };
 
   render() {
-    const { column, readOnly } = this.props;
+    const { readOnly } = this.props;
+    const { column, edit } = this.state;
+
     const readonly = column.isAnswer || readOnly;
+
     return (
       <T.HeaderCell className={styles.var}>
-        {readonly && column.name}
-        {!readonly && (
-          <input
-            type="text"
-            value={column.name}
-            required
-            placeholder="variable name"
-            className={cn(styles.input, styles.inputVar)}
-            onChange={this.handleChange}
-          />
-        )}
+        <div className={styles.container}>
+          {!edit && (
+            <div className={styles.content}>
+              <div className={styles.name}>{column.name}</div>
+              <div className={styles.type}>{column.type}</div>
+              {!readonly && (
+                <div className={styles.actions}>
+                  <Button
+                    size="small"
+                    theme="white-blue"
+                    className={styles.edit}
+                    onClick={this.handleToggleEdit}
+                  >
+                    edit
+                  </Button>
+                </div>
+              )}
+            </div>
+          )}
+          {edit && (
+            <div className={cn(styles.content, styles.absolute)}>
+              <div className={styles.fields}>
+                <input
+                  type="text"
+                  value={column.name}
+                  placeholder="Variable name"
+                  onChange={this.handleChangeName}
+                  className={styles.input}
+                />
+                <Dropdown
+                  className={styles.dropdown}
+                  options={columnTypes}
+                  value={column.type}
+                  onChange={this.handleChangeType}
+                />
+              </div>
+              <div className={styles.actions}>
+                <Button
+                  size="small"
+                  theme="white-blue"
+                  className={styles.skip}
+                  onClick={this.handleToggleEdit}
+                >
+                  Cancel
+                </Button>
+                <Button
+                  size="small"
+                  className={styles.save}
+                  onClick={this.handleSave}
+                >
+                  Save
+                </Button>
+              </div>
+            </div>
+          )}
+        </div>
       </T.HeaderCell>
     );
   }

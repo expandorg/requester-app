@@ -2,12 +2,14 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import immer from 'immer';
-import { removeAtIndex, replaceAtIndex, range } from '@expandorg/utils';
+import { removeAtIndex, replaceAtIndex } from '@expandorg/utils';
 
 import { Table as T } from '@expandorg/components';
 
 import Variable from './Variable';
 import ValuesRow from './ValuesRow';
+
+import { updateValuesType, createNewRow } from './quizData';
 
 import styles from './DataTable.module.styl';
 
@@ -38,15 +40,20 @@ export default class DataTable extends Component {
     const { data, onUpdate } = this.props;
     onUpdate({
       ...data,
-      values: [...data.values, range(data.columns.length).map(() => '')],
+      values: [...data.values, createNewRow(data.columns)],
     });
   };
 
-  handleChangeVar = (index, value) => {
+  handleChangeVar = (index, column) => {
     const { data, onUpdate } = this.props;
+
+    const typeChanged = data.columns[index].type !== column.type;
     onUpdate({
       ...data,
-      columns: replaceAtIndex(data.columns, index, value),
+      values: typeChanged
+        ? updateValuesType(data.values, index, column.type)
+        : data.values,
+      columns: replaceAtIndex(data.columns, index, column),
     });
   };
 
@@ -85,6 +92,7 @@ export default class DataTable extends Component {
               key={index}
               index={index}
               row={row}
+              columns={data.columns}
               readOnly={readOnly}
               onChange={this.handleChangeValue}
               onDelete={this.handleDeleteRow}

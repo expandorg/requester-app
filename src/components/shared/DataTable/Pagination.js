@@ -58,7 +58,7 @@ export default class Pagination extends Component {
 
   render() {
     const { current, total, display } = this.props;
-    if (!total) {
+    if (!total || total === 1) {
       return null;
     }
     const pages = getPages(current, total - 1, display);

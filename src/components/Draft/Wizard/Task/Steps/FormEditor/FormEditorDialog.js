@@ -18,7 +18,6 @@ export default class FormEditorDialog extends Component {
     return (
       <Dialog
         visible
-        onHide={onHide}
         modalClass={styles.modal}
         contentLabel="form-editor-dialog"
         hideButton

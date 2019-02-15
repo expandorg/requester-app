@@ -10,8 +10,9 @@ import styles from './DataTable.module.styl';
 export default class ValuesRow extends PureComponent {
   static propTypes = {
     row: PropTypes.arrayOf(
-      PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+      PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.bool])
     ).isRequired,
+    columns: PropTypes.arrayOf(PropTypes.object).isRequired,
     index: PropTypes.number.isRequired,
     readOnly: PropTypes.bool.isRequired,
     onChange: PropTypes.func.isRequired,
@@ -29,7 +30,7 @@ export default class ValuesRow extends PureComponent {
   };
 
   render() {
-    const { row, readOnly } = this.props;
+    const { row, readOnly, columns } = this.props;
 
     /* eslint-disable react/no-array-index-key */
     return (
@@ -38,7 +39,8 @@ export default class ValuesRow extends PureComponent {
           <Value
             key={index}
             value={value}
-            column={index}
+            columnIndex={index}
+            type={columns[index].type}
             readOnly={readOnly}
             onChange={this.handleChange}
           />

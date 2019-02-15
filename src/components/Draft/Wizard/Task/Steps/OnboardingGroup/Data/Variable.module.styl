@@ -1,0 +1,112 @@
+@import '~@expandorg/uikit/colors'
+@import '~@expandorg/uikit/font'
+
+.container
+  box-sizing: border-box;
+  position relative
+  min-height: 160px
+
+.content
+  box-sizing: border-box;
+  padding: 20px 0
+  background-color: color-light-blue
+
+.name
+  box-sizing: border-box;
+  padding: 0 10px
+
+  white-space: nowrap
+  overflow: hidden
+  text-overflow: ellipsis
+
+  font(h3-bold)
+
+  color: color-text-dark
+  text-align: center;
+
+.absolute
+  position absolute
+  left: 0
+  right: 0
+  top: 0
+  border-bottom: 1px solid color-heavy-blue
+
+.type
+  box-sizing: border-box;
+  padding: 0 10px
+
+  margin-top: 20px
+
+  font(body)
+
+  color: color-text-dark
+  text-align: center;
+
+
+.actions
+  box-sizing: border-box;
+  margin-top: 20px
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  > *
+    margin: 0 5px
+
+.edit
+.skip
+.save
+  padding: 0 10px
+  min-width: 100px
+
+.skip
+  background-color: color-white
+
+.edit
+  background-color: color-medium-blue
+
+  &:hover
+    background-color: lighten(color-medium-blue, 10%)
+
+.fields
+  box-sizing: border-box;
+  padding: 0 16px 0 25px
+
+
+.input
+  box-sizing: border-box
+  display: inline-block;
+
+  width: 100%
+
+  padding: 0 15px 10px 0
+
+  font(body)
+  color: color-text-dark
+
+  background-color: transparent
+  border-bottom: 1px solid color-heavy-blue
+
+  transition: all 0.2s ease-out;
+
+  outline: none
+  resize: none;
+
+  &:focus
+    border-bottom-color color-primary-blue
+
+  &:-webkit-autofill
+    transition: background-color 5000s ease-in-out 0s
+    &:hover, &:focus, &:active
+      transition: background-color 5000s ease-in-out 0s
+
+.dropdown
+  margin-top: 15px
+  text-align: left
+
+  :global(.gem-dropdown-content)
+    line-height: 23px
+    padding-bottom: 5px
+
+  :global(.gem-dropdown-content-val)
+    color: color-text-dark
