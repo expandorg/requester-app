@@ -5,8 +5,10 @@ import nanoid from 'nanoid';
 import { rules } from '@expandorg/validation';
 
 export const settingsRules = {
-  // logo: [[rules.isRequired, 'Logo is required']],
-  name: [[rules.isRequired, 'Title is required']],
+  name: [
+    [rules.isRequired, 'Title is required'],
+    [x => x && x.length <= 40, 'Title can be a maximum of 40 characters'],
+  ],
   description: [[rules.isRequired, 'Description is required']],
 };
 
