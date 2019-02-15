@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import parse from 'date-fns/parse';
+import { parse, startOfHour, addHours } from 'date-fns';
 
 import { userProps } from '@expandorg/app-auth';
 import { Button, DateTimePicker } from '@expandorg/components';
@@ -27,6 +27,7 @@ export default class PublishButton extends Component {
 
   state = {
     schedule: false,
+    initialDate: addHours(startOfHour(new Date()), 1),
   };
 
   handlePublishClick = evt => {
@@ -56,7 +57,7 @@ export default class PublishButton extends Component {
 
   render() {
     const { readOnly, user, draft } = this.props;
-    const { schedule, error } = this.state;
+    const { schedule, error, initialDate } = this.state;
 
     const disabledDays = {
       before: new Date(),
@@ -89,6 +90,7 @@ export default class PublishButton extends Component {
         {schedule && (
           <DateTimePicker
             error={error}
+            value={initialDate}
             className={styles.picker}
             disabledDays={disabledDays}
             onHide={this.handleToggleSchedule}
