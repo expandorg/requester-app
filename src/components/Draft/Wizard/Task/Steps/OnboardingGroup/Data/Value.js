@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import { Table as T, Switch } from '@expandorg/components';
 
-import { columnTypes } from './quizData';
+import { columnTypes } from '../../../../../../../model/onboardingData';
 
 import styles from './Value.module.styl';
 

@@ -126,8 +126,8 @@ const quizForm = {
       { name: 'answer', type: 'text', isAnswer: true },
     ],
     values: [
-      ['text-11', 12, false, '14'],
-      ['text-21', 22, false, '14'],
+      ['Type your name', 12, false, '14'],
+      ['Your favorite book', 22, false, '14'],
       ['text-31', 32, false, '14'],
       ['text-41', 42, false, '15'],
     ],
@@ -139,8 +139,7 @@ const quizForm = {
         name: 'input',
         type: 'input',
         inputType: 'text',
-        label: 'input label',
-        placeholder: 'type something...',
+        placeholder: '$(varname1)...',
       },
       {
         name: 'test',

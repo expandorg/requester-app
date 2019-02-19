@@ -6,15 +6,35 @@ type ColumnType = 'text' | 'number' | 'bool';
 
 export const columnTypes = ['text', 'number', 'bool'];
 
-type Column = {
+export type Column = {
   name: string,
   type: ColumnType,
   isAnswer: boolean,
 };
 
-type ColumnValue = string | number | boolean;
+export type ColumnValue = string | number | boolean;
 
-type Values = Array<Array<ColumnValue>>;
+export type OnboardingGroupData = {
+  columns: Array<Column>,
+  values: Array<Array<ColumnValue>>,
+};
+
+export const dataToVars = ({
+  values,
+  columns,
+}: OnboardingGroupData): Array<Object> =>
+  values.map(row => {
+    let answer = null;
+    const variables = columns.reduce((set, col, index) => {
+      if (!col.isAnswer) {
+        set[col.name] = row[index];
+      } else {
+        answer = row[index];
+      }
+      return set;
+    }, {});
+    return { variables, answer };
+  });
 
 const getDefaultValue = (type: ColumnType): ColumnValue => {
   switch (type) {
@@ -52,7 +72,7 @@ const convertType = (val: ColumnValue, type: ColumnType): ColumnValue => {
 };
 
 export const updateValuesType = (
-  values: Values,
+  values: Array<Array<ColumnValue>>,
   col: number,
   type: ColumnType
 ) =>

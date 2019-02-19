@@ -17,13 +17,9 @@ import { fetch as fetchData } from '../../../sagas/dataSagas';
 import { makeDataVarsSampleSelector } from '../../../selectors/dataSelectors';
 
 import {
-  getActive,
-  getNextStep,
-  ONBOARDING,
-  ONBOARDING_FINISHED,
-  TASK,
-  REPEAT,
-} from './sequence';
+  TaskWorkflowBackend,
+  TaskWorkflowState,
+} from '../../../model/workflow';
 
 const makeMapStateToProps = () => {
   const dataVarsSampleSelector = makeDataVarsSampleSelector();
@@ -35,7 +31,7 @@ const makeMapStateToProps = () => {
 const mapDispatchToProps = dispatch =>
   bindActionCreators({ fetchData }, dispatch);
 
-class PreviewDraftSequence extends Component {
+class PreviewDraftWorkflow extends Component {
   static propTypes = {
     draft: draftProps.isRequired,
     variables: PropTypes.object, // eslint-disable-line
@@ -50,9 +46,10 @@ class PreviewDraftSequence extends Component {
 
   constructor(props) {
     super(props);
+
     this.state = {
       draft: props.draft, // eslint-disable-line react/no-unused-state
-      active: getNextStep(props.draft),
+      workflow: TaskWorkflowBackend.getNextState(props.draft),
     };
   }
 
@@ -60,7 +57,7 @@ class PreviewDraftSequence extends Component {
     if (draft !== state.draft) {
       return {
         draft,
-        active: getNextStep(draft),
+        workflow: TaskWorkflowBackend.getNextState(draft),
       };
     }
     return null;
@@ -80,35 +77,38 @@ class PreviewDraftSequence extends Component {
     }
   }
 
-  handleSubmit = () => {
+  handleSubmit = (...args) => {
     const { draft } = this.props;
-    const { active } = this.state;
-    this.setState({
-      active: getNextStep(draft, active),
-    });
+    this.setState(({ workflow }) => ({
+      workflow: TaskWorkflowBackend.getNextState(draft, workflow, ...args),
+    }));
   };
 
   render() {
     const { draft, variables, onNotify } = this.props;
-    const { active } = this.state;
+    const { workflow } = this.state;
 
-    const { form, display } = getActive(draft, active);
-
-    const displayForm = (form && display === ONBOARDING) || display === TASK;
     return (
       <>
-        {display === ONBOARDING_FINISHED && (
+        {workflow.state === TaskWorkflowState.ONBOARDING_PASSED && (
           <OnboardingComplete draft={draft} onSubmit={this.handleSubmit} />
         )}
-        {displayForm && (
+        {workflow.state === TaskWorkflowState.ONBOARDING_GROUP && (
           <ModulesForm
-            form={form}
+            form={workflow.form}
+            onSubmit={this.handleSubmit}
+            onNotify={onNotify}
+          />
+        )}
+        {workflow.state === TaskWorkflowState.TASK && (
+          <ModulesForm
+            form={workflow.form}
             variables={variables}
             onSubmit={this.handleSubmit}
             onNotify={onNotify}
           />
         )}
-        {display === REPEAT && (
+        {workflow.state === TaskWorkflowState.REPEAT && (
           <TaskComplete draft={draft} onSubmit={this.handleSubmit} />
         )}
       </>
@@ -119,4 +119,4 @@ class PreviewDraftSequence extends Component {
 export default connect(
   makeMapStateToProps,
   mapDispatchToProps
-)(PreviewDraftSequence);
+)(PreviewDraftWorkflow);

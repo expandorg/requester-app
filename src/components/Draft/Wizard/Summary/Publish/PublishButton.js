@@ -10,7 +10,6 @@ import { ReactComponent as Arrow } from '@expandorg/uikit/assets/arrow-down.svg'
 import { EmailConfirmed } from '@expandorg/app-account/components';
 
 import { draftProps } from '../../../../shared/propTypes';
-
 import { formatDate } from '../../../../../model/draft';
 
 import Menu from './Menu';

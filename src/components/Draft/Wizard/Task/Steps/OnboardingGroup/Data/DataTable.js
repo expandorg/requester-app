@@ -9,7 +9,10 @@ import { Table as T } from '@expandorg/components';
 import Variable from './Variable';
 import ValuesRow from './ValuesRow';
 
-import { updateValuesType, createNewRow } from './quizData';
+import {
+  updateValuesType,
+  createNewRow,
+} from '../../../../../../../model/onboardingData';
 
 import styles from './DataTable.module.styl';
 

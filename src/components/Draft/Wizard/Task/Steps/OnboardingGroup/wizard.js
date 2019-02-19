@@ -16,7 +16,8 @@ export const LoadingMessages = {
   [WizardSteps.Preview]: null,
 };
 
-export const hasData = data => data && data.values && data.values.length > 0;
+export const hasData = (data: Object) =>
+  data && data.values && data.values.length > 0;
 
-export const hasModules = form =>
+export const hasModules = (form: Object) =>
   form && form.modules && form.modules.length > 0;

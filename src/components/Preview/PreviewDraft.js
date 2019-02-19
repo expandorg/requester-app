@@ -18,7 +18,7 @@ import {
 
 import Page from '../shared/Page';
 
-import PreviewDraftSequence from './draft/PreviewDraftSequence';
+import PreviewDraftWorkflow from './draft/PreviewDraftWorkflow';
 
 import { authenticated } from '../shared/auth';
 
@@ -90,7 +90,7 @@ class PreviewDraft extends Component {
         <div className={styles.container}>
           <Panel className={styles.panel}>
             {draft && (
-              <PreviewDraftSequence
+              <PreviewDraftWorkflow
                 draft={draft}
                 onNotify={this.handleNotify}
               />

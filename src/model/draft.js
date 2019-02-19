@@ -7,7 +7,10 @@ import { rules } from '@expandorg/validation';
 export const settingsRules = {
   name: [
     [rules.isRequired, 'Title is required'],
-    [x => x && x.length <= 40, 'Title can be a maximum of 40 characters'],
+    [
+      (x: string) => x && x.length <= 40,
+      'Title can be a maximum of 40 characters',
+    ],
   ],
   description: [[rules.isRequired, 'Description is required']],
 };
@@ -31,7 +34,14 @@ export const onboardingGroupSettingsRules = {
 export const formatDate = (date: ?Object | ?number) =>
   date ? format(date, 'MM/DD/YYYY HH:mm') : '--/--/--';
 
-export const getStepFromTemplate = ({
+export const createDashboardEntity = (draft: Object) => ({
+  id: draft.id,
+  name: draft.name,
+  logo: draft.logo,
+  status: draft.status || 'draft',
+});
+
+export const getOnboardingStepFromTemplate = ({
   name,
   taskForm,
   isGroup,
@@ -48,11 +58,4 @@ export const getStepFromTemplate = ({
   failureMessage,
   data,
   form: taskForm,
-});
-
-export const createDashboardEntity = (draft: Object) => ({
-  id: draft.id,
-  name: draft.name,
-  logo: draft.logo,
-  status: draft.status || 'draft',
 });
