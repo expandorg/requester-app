@@ -5,6 +5,7 @@ import cn from 'classnames';
 import debounce from 'debounce';
 import { DropTarget } from 'react-dnd';
 import { ReactComponent as SearchIcon } from '@expandorg/uikit/assets/search.svg';
+import { ReactComponent as X } from '@expandorg/uikit/assets/x.svg';
 import {
   getAvailableModulesTree,
   searchModulesTree,
@@ -94,9 +95,18 @@ class AvailableModules extends Component {
 
   handleToggeSearch = () => {
     const { searching } = this.state;
-    this.setState({ searching: !searching, search: '' }, () =>
-      this.search.current.focus()
-    );
+    this.setState({ searching: !searching, search: '' }, () => {
+      this.search.current.focus();
+    });
+  };
+
+  handleClearSearch = evt => {
+    evt.preventDefault();
+
+    this.setState({ search: '' }, () => {
+      this.search.current.focus();
+      this.searchModule();
+    });
   };
 
   render() {
@@ -126,6 +136,11 @@ class AvailableModules extends Component {
             ref={this.search}
             className={styles.search}
           />
+          {searching && search && (
+            <button className={styles.clear} onClick={this.handleClearSearch}>
+              <X />
+            </button>
+          )}
         </div>
 
         {connectDropTarget(
