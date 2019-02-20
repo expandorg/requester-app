@@ -63,6 +63,12 @@ export const taskTemplates = range(20).map(i => ({
         placeholder: 'type something...',
       },
       {
+        type: 'richText',
+        name: 'rt-1',
+        content:
+          '<h1>Task</h1> In this task you will have to do x Please remember to do y',
+      },
+      {
         name: 'test',
         type: 'text',
         style: 'body',

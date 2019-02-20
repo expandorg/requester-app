@@ -82,6 +82,11 @@ export const editorStateFromText = (
   return EditorState.createWithContent(content, decorator);
 };
 
+const clearHtml = (text: string) =>
+  text.replace(/([^>]*)(?![^<]*>|[^<>]*<\/)/g, full =>
+    !full || full === ' ' ? full : `<p>${full}</p>`
+  );
+
 export const editorStateFromHtml = (
   html: string,
   resotreEntities: (c: ContentState) => ContentState = c => c,
@@ -91,7 +96,7 @@ export const editorStateFromHtml = (
     return EditorState.createEmpty(decorator);
   }
 
-  let content = stateFromHTML(html, {
+  let content = stateFromHTML(clearHtml(html), {
     customBlockFn: (element: HTMLElement) => {
       const alignCenter = element.classList.contains('align-center');
       const alignRight = element.classList.contains('align-right');
@@ -104,6 +109,7 @@ export const editorStateFromHtml = (
       return null;
     },
   });
+
   content = resotreEntities(content);
   return EditorState.createWithContent(content, decorator);
 };

@@ -25,7 +25,7 @@ const Field = ({ children, tooltip, name, errors, className }) => {
 };
 
 Field.propTypes = {
-  tooltip: PropTypes.string,
+  tooltip: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
   name: PropTypes.string,
   className: PropTypes.string,
   errors: PropTypes.object, // eslint-disable-line
