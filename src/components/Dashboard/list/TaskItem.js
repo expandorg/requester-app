@@ -99,7 +99,7 @@ export default class TaskItem extends Component {
     const { menu } = this.state;
 
     const to =
-      task.status === TaskStatus.draft
+      task.status === TaskStatus.draft || task.status === TaskStatus.pending
         ? `/draft/${task.id}`
         : `/task/${task.taskId}`;
 
