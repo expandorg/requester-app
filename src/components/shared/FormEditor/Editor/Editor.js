@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
 
-import { moduleProps, getModuleControlsMap } from '@expandorg/modules';
+import { moduleProps } from '@expandorg/modules';
+import { getModuleControlsMap } from '@expandorg/modules/model';
 
 import { Button } from '@expandorg/components';
 

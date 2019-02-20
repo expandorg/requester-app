@@ -1,36 +1,7 @@
 // @flow
 import generate from 'nanoid/generate';
 
-// import {
-// Input,
-// Title,
-// Text,
-// RichText,
-// Article,
-// Paragraph,
-// SelectModule,
-// MultiSelectModule,
-// Checkbox,
-// ClipboardText,
-// Submit,
-// Video,
-// Image,
-// Description,
-// Question,
-// Instructions,
-// InstructionsItem,
-// Agreement,
-// Collapsable,
-// Progress,
-// Dropdown,
-// RegionSelect,
-// RegionMultiselect,
-// ImageTiles,
-// TagVideo,
-// MultipleTagVideo,
-// } from '@expandorg/modules';
-
-import { moduleControls } from '@expandorg/modules';
+import { moduleControls } from '@expandorg/modules/app';
 
 export const supportNesting = (meta: Object): boolean =>
   !!(meta.editor.properties && meta.editor.properties.modules);

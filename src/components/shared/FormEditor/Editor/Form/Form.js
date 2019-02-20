@@ -2,8 +2,11 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import { DropTarget } from 'react-dnd';
-import { moduleProps, FormDataProvider } from '@expandorg/modules';
-import FileUploadServiceMock from '@expandorg/modules/src/form/ModulesPlayground/FileUploadServiceMock';
+import {
+  moduleProps,
+  FormDataProvider,
+  FileUploadServiceMock,
+} from '@expandorg/modules';
 
 import { dropAreaTarget, FORM_DND_ID } from '../../dnd';
 

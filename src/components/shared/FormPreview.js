@@ -2,8 +2,13 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
 
-import { Form, Module, FormDataProvider, formProps } from '@expandorg/modules';
-import FileUploadServiceMock from '@expandorg/modules/src/form/ModulesPlayground/FileUploadServiceMock';
+import {
+  Form,
+  Module,
+  FormDataProvider,
+  formProps,
+  FileUploadServiceMock,
+} from '@expandorg/modules';
 
 import styles from './FormPreview.module.styl';
 

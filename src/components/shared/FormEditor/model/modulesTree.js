@@ -1,6 +1,7 @@
 // @flow
 
-import { groupModulesByCategory, ModuleCategories } from '@expandorg/modules';
+import { ModuleCategories } from '@expandorg/modules';
+import { groupModulesByCategory } from '@expandorg/modules/model';
 
 declare type ModuleCategoryItem = {
   category: string,

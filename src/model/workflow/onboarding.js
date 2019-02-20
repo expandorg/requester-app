@@ -1,5 +1,5 @@
 // @flow
-import { overrideFormVars } from '@expandorg/modules';
+import { overrideFormVars } from '@expandorg/modules/model';
 
 import { dataToVars } from '../onboardingData';
 
