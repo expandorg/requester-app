@@ -91,6 +91,7 @@ export default class ModulePreview extends Component {
               })}
             >
               <Module
+                isFormBuilder
                 isSubmitting={false}
                 value={module.initial || undefined}
                 module={module}
