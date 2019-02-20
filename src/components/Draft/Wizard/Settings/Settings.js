@@ -104,7 +104,12 @@ export default class Settings extends Component {
             onChangeLogo={this.handleChangeLogo}
           />
           <Field
-            tooltip="Choose a title which helps the workers understand the task"
+            tooltip={
+              <span>
+                Choose a title which helps the
+                <br /> workers understand the task
+              </span>
+            }
             name="name"
             errors={errors}
           >
@@ -118,7 +123,13 @@ export default class Settings extends Component {
             />
           </Field>
           <Field
-            tooltip="Make sure to include info which will support the worker in determining if she/he is the right person for the task"
+            tooltip={
+              <span>
+                Make sure to include info which will support the worker in
+                <br />
+                determining if she/he is the right person for the task
+              </span>
+            }
             name="description"
             errors={errors}
           >
