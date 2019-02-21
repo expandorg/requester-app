@@ -1,22 +1,12 @@
 // @flow
 import { rules, validateForm } from '@expandorg/validation';
-
-const getModuleNames = (root: Object) => {
-  let names = root.name ? [root.name] : [];
-  if (root.modules) {
-    names = root.modules.reduce(
-      (all, m) => all.concat(getModuleNames(m)),
-      names
-    );
-  }
-  return names;
-};
+import { getFormModulesNames } from '@expandorg/modules/model';
 
 const nameIsUniq = (modules: Array<Object>, originalName: string) => name => {
   if (name === originalName) {
     return true;
   }
-  const names = new Set(getModuleNames({ modules }));
+  const names = new Set(getFormModulesNames({ modules }));
   return !names.has(name);
 };
 

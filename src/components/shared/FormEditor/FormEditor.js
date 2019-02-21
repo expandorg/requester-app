@@ -2,13 +2,14 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import { formProps } from '@expandorg/modules';
+import { deepCopyModule } from '@expandorg/modules/model';
 import { WalkthroughProvider, WalkthroughPin } from '@expandorg/components/app';
 
 import Editor from './Editor/Editor';
 import AvailableModules from './Available/AvailableModules';
 
 import { treeEditor } from './dnd';
-import { scaffold, deepCopy, availableModules } from './model/modules';
+import { scaffold, getUniqId, availableModules } from './model/modules';
 
 import help from './help';
 
@@ -80,7 +81,11 @@ export default class FormEditor extends Component {
     const { modules } = this.state;
     this.setState({
       selected: null,
-      modules: treeEditor.insertAt(modules, path, deepCopy(module, true)),
+      modules: treeEditor.insertAt(
+        modules,
+        path,
+        deepCopyModule(module, getUniqId)
+      ),
     });
   };
 

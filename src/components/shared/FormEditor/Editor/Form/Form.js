@@ -6,6 +6,7 @@ import {
   moduleProps,
   FormDataProvider,
   FileUploadServiceMock,
+  ValuesContextProvider,
 } from '@expandorg/modules';
 
 import { dropAreaTarget, FORM_DND_ID } from '../../dnd';
@@ -57,21 +58,23 @@ class Form extends Component {
         {connectDropTarget(
           <div className={styles.form}>
             {modules.length === 0 && <Empty onAdd={onAddModule} />}
-            <FormDataProvider formData={formData}>
-              {modules.map((module, order) => (
-                <DnDModule
-                  key={module.name}
-                  path={[order]}
-                  controls={controls}
-                  selected={selected}
-                  module={module}
-                  onMove={onMoveModule}
-                  onRemove={onRemoveModule}
-                  onSelect={onSelectModule}
-                  onCopy={onCopyModule}
-                />
-              ))}
-            </FormDataProvider>
+            <ValuesContextProvider form={{ modules }}>
+              <FormDataProvider formData={formData}>
+                {modules.map((module, order) => (
+                  <DnDModule
+                    key={module.name}
+                    path={[order]}
+                    controls={controls}
+                    selected={selected}
+                    module={module}
+                    onMove={onMoveModule}
+                    onRemove={onRemoveModule}
+                    onSelect={onSelectModule}
+                    onCopy={onCopyModule}
+                  />
+                ))}
+              </FormDataProvider>
+            </ValuesContextProvider>
           </div>
         )}
       </div>

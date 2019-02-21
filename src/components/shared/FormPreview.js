@@ -10,6 +10,8 @@ import {
   FileUploadServiceMock,
 } from '@expandorg/modules';
 
+import { moduleControls } from '@expandorg/modules/app';
+
 import styles from './FormPreview.module.styl';
 
 const fileUploadService = new FileUploadServiceMock();
@@ -53,6 +55,7 @@ export default class FormPreview extends Component {
     return (
       <FormDataProvider formData={formData}>
         <Form
+          controls={moduleControls}
           className={cn(styles.form, className)}
           variables={variables}
           form={form}
