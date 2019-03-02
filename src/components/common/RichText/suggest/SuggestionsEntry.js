@@ -27,7 +27,7 @@ SuggestionsEntry.propTypes = {
     name: PropTypes.string,
     suggestion: PropTypes.string,
   }).isRequired,
-  theme: PropTypes.string,
+  theme: PropTypes.any, // eslint-disable-line
   searchValue: PropTypes.string,
   isFocused: PropTypes.bool,
 };

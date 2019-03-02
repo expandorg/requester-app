@@ -13,8 +13,8 @@ import { gemsActionTypes } from '@expandorg/app-gemtokens';
 
 import { draftsActionTypes } from './actionTypes';
 
-export const successMessage = message => {
-  function* handler() {
+export const successMessage = (message: string) => {
+  function* handler(): any {
     yield put(addNotification('success', message));
   }
   return handler;

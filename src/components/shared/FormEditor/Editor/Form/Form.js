@@ -6,7 +6,7 @@ import {
   moduleProps,
   FormDataProvider,
   FileUploadServiceMock,
-  ValuesContextProvider,
+  ExecutionContextProvider,
 } from '@expandorg/modules';
 
 import { dropAreaTarget, FORM_DND_ID } from '../../dnd';
@@ -19,8 +19,9 @@ import styles from './Form.module.styl';
 const formData = {
   allowedRetries: 3,
   currentTry: 1,
-  fileUploadService: new FileUploadServiceMock(),
 };
+
+const services = new Map([['fileUpload', new FileUploadServiceMock()]]);
 
 class Form extends Component {
   static propTypes = {
@@ -58,8 +59,13 @@ class Form extends Component {
         {connectDropTarget(
           <div className={styles.form}>
             {modules.length === 0 && <Empty onAdd={onAddModule} />}
-            <ValuesContextProvider form={{ modules }}>
-              <FormDataProvider formData={formData}>
+
+            <FormDataProvider formData={formData}>
+              <ExecutionContextProvider
+                form={{ modules }}
+                controls={controls}
+                services={services}
+              >
                 {modules.map((module, order) => (
                   <DnDModule
                     key={module.name}
@@ -73,8 +79,8 @@ class Form extends Component {
                     onCopy={onCopyModule}
                   />
                 ))}
-              </FormDataProvider>
-            </ValuesContextProvider>
+              </ExecutionContextProvider>
+            </FormDataProvider>
           </div>
         )}
       </div>

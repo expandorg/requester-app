@@ -14,7 +14,7 @@ import { moduleControls } from '@expandorg/modules/app';
 
 import styles from './FormPreview.module.styl';
 
-const fileUploadService = new FileUploadServiceMock();
+const services = new Map([['fileUpload', new FileUploadServiceMock()]]);
 
 export default class FormPreview extends Component {
   static propTypes = {
@@ -35,7 +35,7 @@ export default class FormPreview extends Component {
     className: null,
     onSubmit: Function.prototype,
     onNotify: Function.prototype,
-    formData: { allowedRetries: 3, currentTry: 1, fileUploadService },
+    formData: { allowedRetries: 3, currentTry: 1 },
   };
 
   render() {
@@ -56,6 +56,7 @@ export default class FormPreview extends Component {
       <FormDataProvider formData={formData}>
         <Form
           controls={moduleControls}
+          services={services}
           className={cn(styles.form, className)}
           variables={variables}
           form={form}
