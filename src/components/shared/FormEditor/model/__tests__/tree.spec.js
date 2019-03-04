@@ -1,4 +1,4 @@
-import ModulesTreeEditor from '../model/ModulesTreeEditor';
+import ModulesTreeEditor from '../ModulesTreeEditor';
 
 const getData = () => [
   {

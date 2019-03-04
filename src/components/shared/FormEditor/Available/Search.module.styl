@@ -1,0 +1,69 @@
+@import '~@expandorg/uikit/colors';
+@import '~@expandorg/uikit/font';
+
+.container
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: 75px
+
+.title
+  font(h2-title)
+  color: color-white
+
+  .searching &
+    display: none;
+
+.icon
+  position: absolute;
+  top: calc(50% - 11px)
+  left: calc(100% - 15px)
+  cursor: pointer;
+
+  transition: left 100ms linear
+
+  path
+    fill: color-white
+
+  .searching &
+    left: 0
+
+.search
+  display: none;
+  box-sizing: border-box
+  font(body-bold, false, false, 32px)
+
+  width: 100%
+  padding: 0 0 3px 25px
+
+  background-color: transparent
+  color: color-primary-blue
+
+  border-bottom: 2px solid  color-white
+  transition: all 0.1s ease-out;
+
+  outline: none;
+  color: color-white
+
+  &:-webkit-autofill
+    transition: background-color 5000s ease-in-out 0s
+    &:hover, &:focus, &:active
+      transition: background-color 5000s ease-in-out 0s
+
+  .searching &
+    display: block;
+
+.clear
+  position absolute
+  right: 0
+  top: calc(50% - 8px)
+  font-size: 14px
+  font-weight: 600
+
+  background-color: transparent;
+
+  outline: 0
+  cursor pointer
+
+  path
+    fill: color-white
