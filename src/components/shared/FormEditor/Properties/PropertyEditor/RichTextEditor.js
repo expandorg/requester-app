@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import { DraftTextInput } from '../../../../../common/RichText';
+import { DraftTextEditor } from '../../../../common/RichText';
 import { restoreVariables } from './restoreVariables';
 
-import styles from './styles.module.styl';
-
-export default class StringEditor extends Component {
+export default class RichTextEditor extends Component {
   static propTypes = {
     value: PropTypes.string,
     placeholder: PropTypes.string,
@@ -26,16 +24,14 @@ export default class StringEditor extends Component {
   };
 
   render() {
-    const { value, placeholder, variables } = this.props;
-
+    const { placeholder, value, variables } = this.props;
     return (
-      <DraftTextInput
-        className={styles.input}
-        autocomplete={variables}
+      <DraftTextEditor
         value={value}
+        autocomplete={variables}
         resotreEntities={restoreVariables}
-        placeholder={placeholder}
         onChange={this.handleChange}
+        placeholder={placeholder}
       />
     );
   }

@@ -9,7 +9,7 @@ import { ReactComponent as InfoMark } from '@expandorg/uikit/assets/i.svg';
 
 import PreviewTooltip from './PreviewTooltip';
 
-import { metaSource, FORM_DND_ID } from '../dnd';
+import { metaSource, FORM_DND_ID } from '../model/dnd';
 
 import styles from './ModuleItem.module.styl';
 

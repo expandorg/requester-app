@@ -13,7 +13,7 @@ import {
 
 import Category from './Category';
 
-import { availableTarget, FORM_DND_ID } from '../dnd';
+import { availableTarget, FORM_DND_ID } from '../model/dnd';
 
 import styles from './AvailableModules.module.styl';
 

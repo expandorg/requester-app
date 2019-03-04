@@ -8,7 +8,7 @@ import { moduleProps } from '@expandorg/modules';
 import { EmptyDroppable } from './Placeholders';
 import DnDModule from './DnDModule';
 
-import { nestedModuleTarget, FORM_DND_ID } from '../../../dnd';
+import { nestedModuleTarget, FORM_DND_ID } from '../../../model/dnd';
 
 import styles from './NestedModules.module.styl';
 

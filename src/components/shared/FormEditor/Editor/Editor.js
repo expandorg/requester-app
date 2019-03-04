@@ -13,12 +13,12 @@ import {
 } from '@expandorg/components/app';
 
 import Form from './Form/Form';
-import Properties from './Properties/Properties';
+import Properties from '../Properties/Properties';
 import PreviewCtx from './PreviewCtx';
 
 import Walkthrough from './Walkthrough';
 
-import { treeEditor } from '../dnd';
+import { treeEditor } from '../model/dnd';
 import { validateModuleProps } from '../model/validation';
 
 import styles from './Editor.module.styl';

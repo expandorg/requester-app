@@ -8,10 +8,9 @@ import { WalkthroughProvider, WalkthroughPin } from '@expandorg/components/app';
 import Editor from './Editor/Editor';
 import AvailableModules from './Available/AvailableModules';
 
-import { treeEditor } from './dnd';
+import { treeEditor } from './model/dnd';
 import { scaffold, getUniqId, availableModules } from './model/modules';
-
-import help from './help';
+import help from './model/help';
 
 import styles from './FormEditor.module.styl';
 

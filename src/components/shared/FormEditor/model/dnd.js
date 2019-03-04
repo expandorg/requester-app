@@ -1,5 +1,5 @@
 import ImmutableTreeBuilder from './ImmutableTreeBuilder';
-import { supportNesting } from '../model/modules';
+import { supportNesting } from './modules';
 
 export const FORM_DND_ID = 'FORM_DND_ID';
 
