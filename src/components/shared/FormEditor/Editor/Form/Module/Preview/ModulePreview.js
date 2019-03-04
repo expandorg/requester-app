@@ -6,7 +6,8 @@ import { moduleProps, Module } from '@expandorg/modules';
 
 import NestedModules from '../NestedModules';
 import Outer from './Outer';
-import ModuleActions from './ModuleActions';
+import Header from './Header';
+import Sidepanel from './Sidepanel';
 import NotSupported from './NotSupported';
 
 import { supportNesting } from '../../../../model/modules';
@@ -51,6 +52,10 @@ export default class ModulePreview extends Component {
     evt.preventDefault();
   };
 
+  handleToggleLogic = evt => {
+    evt.preventDefault();
+  };
+
   render() {
     const {
       connectDragPreview,
@@ -85,6 +90,11 @@ export default class ModulePreview extends Component {
               [styles.selected]: isSelected,
             })}
           >
+            <Header
+              module={module}
+              onSelect={this.handleSelect}
+              onToggleLogic={this.handleToggleLogic}
+            />
             <div
               className={cn(styles.inner, {
                 [styles.dimmed]: selected !== null && !isSelected,
@@ -114,7 +124,7 @@ export default class ModulePreview extends Component {
             )}
           </div>
         )}
-        <ModuleActions
+        <Sidepanel
           canCopy={canCopy}
           onRemove={this.handleRemove}
           onCopy={this.handleCopyClick}

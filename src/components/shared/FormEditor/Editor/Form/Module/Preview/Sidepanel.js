@@ -4,9 +4,9 @@ import PropTypes from 'prop-types';
 import { ReactComponent as X } from '@expandorg/uikit/assets/x.svg';
 import { ReactComponent as Copy } from '@expandorg/uikit/assets/copy.svg';
 
-import styles from './ModuleActions.module.styl';
+import styles from './Sidepanel.module.styl';
 
-const ModuleActions = ({ onRemove, onCopy, canCopy }) => (
+const Sidepanel = ({ onRemove, onCopy, canCopy }) => (
   <div className={styles.actions}>
     <button className={styles.remove} onClick={onRemove}>
       <X />
@@ -19,15 +19,15 @@ const ModuleActions = ({ onRemove, onCopy, canCopy }) => (
   </div>
 );
 
-ModuleActions.propTypes = {
+Sidepanel.propTypes = {
   onRemove: PropTypes.func.isRequired,
   onCopy: PropTypes.func,
   canCopy: PropTypes.bool,
 };
 
-ModuleActions.defaultProps = {
+Sidepanel.defaultProps = {
   onCopy: null,
   canCopy: false,
 };
 
-export default ModuleActions;
+export default Sidepanel;

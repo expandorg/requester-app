@@ -1,0 +1,24 @@
+@import '~@expandorg/uikit/colors'
+@import '~@expandorg/uikit/font'
+
+.container
+  display: flex
+  height 20px
+  align-items: center
+  justify-content: space-between
+
+.name
+  color: color-text-grey
+  font(small-text, false, 14px, 20px)
+  box-sizing: border-box
+  cursor pointer
+
+.icons
+  > *
+    margin-left: 15px
+
+    &:first-child
+      margin-left: 0
+
+  path
+    fill: color-text-grey

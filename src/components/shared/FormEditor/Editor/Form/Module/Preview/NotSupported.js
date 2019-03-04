@@ -5,7 +5,7 @@ import { ReactComponent as Icon } from '@expandorg/uikit/assets/warning.svg';
 import { Tooltip } from '@expandorg/components';
 
 import Outer from './Outer';
-import ModuleActions from './ModuleActions';
+import Sidepanel from './Sidepanel';
 
 import styles from './NotSupported.module.styl';
 
@@ -25,7 +25,7 @@ const NotSupported = ({ type, onRemove }) => (
       />
       <span className={styles.name}>{type} module</span>
     </div>
-    <ModuleActions onRemove={onRemove} />
+    <Sidepanel onRemove={onRemove} />
   </Outer>
 );
 
