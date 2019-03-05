@@ -44,7 +44,7 @@ export default class FormEditor extends Component {
     this.previewTab = null;
 
     this.state = {
-      selected: null,
+      selection: null,
       prev: props.form, // eslint-disable-line react/no-unused-state
       modules: props.form ? props.form.modules : [],
       controls: getModuleControlsMap(availableModules),
@@ -55,7 +55,7 @@ export default class FormEditor extends Component {
   static getDerviedStateFromProps({ form }, state) {
     if (state.prev !== form) {
       return {
-        selected: null,
+        selection: null,
         prev: form,
         modules: form ? form.modules : [],
       };
@@ -90,7 +90,7 @@ export default class FormEditor extends Component {
   handleRemove = path => {
     if (path.length) {
       this.setState(({ modules }) => ({
-        selected: null,
+        selection: null,
         modules: treeEditor.removeAt(modules, path),
       }));
     }
@@ -99,7 +99,7 @@ export default class FormEditor extends Component {
   handleCopyModule = (path, module) => {
     const { modules } = this.state;
     this.setState({
-      selected: null,
+      selection: null,
       modules: treeEditor.insertAt(
         modules,
         path,
@@ -110,17 +110,14 @@ export default class FormEditor extends Component {
 
   handleMoveAt = (dragPath, hoverPath, meta) => {
     const { modules } = this.state;
-    if (dragPath.length === 0) {
-      this.setState({
-        selected: null,
-        modules: treeEditor.insertAt(modules, hoverPath, scaffold(meta, true)),
-      });
-    } else {
-      this.setState({
-        selected: null,
-        modules: treeEditor.moveAt(modules, dragPath, hoverPath),
-      });
-    }
+
+    this.setState({
+      selection: null,
+      modules:
+        dragPath.length === 0
+          ? treeEditor.insertAt(modules, hoverPath, scaffold(meta, true))
+          : treeEditor.moveAt(modules, dragPath, hoverPath),
+    });
   };
 
   handleEndDrag = path => {
@@ -134,16 +131,30 @@ export default class FormEditor extends Component {
     });
   };
 
-  handleSelect = path => {
-    const { selected } = this.state;
-    this.setState({ selected: treeEditor.eq(selected, path) ? null : path });
+  handleSelect = (path, type = 'edit') => {
+    if (!path) {
+      this.setState({ selection: null });
+    } else {
+      const { selection } = this.state;
+      if (!selection || selection.type !== type) {
+        this.setState(() => ({
+          selection: { type, path },
+        }));
+      } else {
+        this.setState({
+          selection: !treeEditor.eq(selection.path, path)
+            ? { type, path }
+            : null,
+        });
+      }
+    }
   };
 
   handleEdit = edited => {
-    const { modules, selected } = this.state;
+    const { modules, selection } = this.state;
     this.setState({
-      selected: null,
-      modules: treeEditor.replaceAt(modules, selected, edited),
+      selection: null,
+      modules: treeEditor.replaceAt(modules, selection.path, edited),
     });
   };
 
@@ -159,9 +170,8 @@ export default class FormEditor extends Component {
 
   render() {
     const { onHide, variables, varsSample, title } = this.props;
-    const { modules, selected, controls, error } = this.state;
+    const { modules, selection, controls, error } = this.state;
 
-    const selectedModule = selected && treeEditor.findByPath(modules, selected);
     return (
       <WalkthroughProvider settings={help}>
         <div className={styles.container}>
@@ -183,7 +193,7 @@ export default class FormEditor extends Component {
             >
               <Form
                 modules={modules}
-                selected={selected && treeEditor.getIdByPath(selected)}
+                selected={selection && treeEditor.getIdByPath(selection.path)}
                 controls={controls}
                 onAdd={this.handleAdd}
                 onMove={this.handleMoveAt}
@@ -191,15 +201,17 @@ export default class FormEditor extends Component {
                 onSelect={this.handleSelect}
                 onCopy={this.handleCopyModule}
               />
-              <Spacer visible={!!selected} />
+              <Spacer visible={!!selection} />
             </FormContainer>
             <PropertiesPanel
-              module={selectedModule}
+              module={
+                selection && treeEditor.findByPath(modules, selection.path)
+              }
               controls={controls}
               variables={variables}
               onEdit={this.handleEdit}
               onValidate={this.validateModuleProps}
-              onCancel={() => this.handleSelect(selected)}
+              onCancel={() => this.handleSelect(null)}
             />
           </div>
           <NotificationAnimated
