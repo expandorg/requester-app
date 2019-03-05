@@ -3,8 +3,6 @@ import PropTypes from 'prop-types';
 import cn from 'classnames';
 
 import { moduleProps } from '@expandorg/modules';
-import { getModuleControlsMap } from '@expandorg/modules/model';
-
 import { NotificationAnimated } from '@expandorg/components/app';
 
 import Toolbar from './Toolbar/Toolbar';
@@ -20,7 +18,7 @@ export default class Canvas extends Component {
     selected: PropTypes.arrayOf(PropTypes.number),
     title: PropTypes.string.isRequired,
     varsSample: PropTypes.object, // eslint-disable-line
-    moduleControls: PropTypes.arrayOf(PropTypes.func).isRequired,
+    controls: PropTypes.object.isRequired, // eslint-disable-line
     validateForm: PropTypes.func.isRequired,
     onAddModule: PropTypes.func.isRequired,
     onMoveModule: PropTypes.func.isRequired,
@@ -36,17 +34,12 @@ export default class Canvas extends Component {
     selected: null,
   };
 
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      controls: getModuleControlsMap(props.moduleControls),
-    };
-  }
+  state = {
+    error: null,
+  };
 
   handleSave = () => {
-    const { modules, onSave, validateForm } = this.props;
-    const { controls } = this.state;
+    const { modules, onSave, validateForm, controls } = this.props;
 
     const errors = validateForm(modules, controls);
     if (errors) {
@@ -77,10 +70,9 @@ export default class Canvas extends Component {
       onCancel,
       varsSample,
       selected,
+      controls,
     } = this.props;
-    const { controls, error } = this.state;
-
-    const selectedModule = selected && treeEditor.findByPath(modules, selected);
+    const { error } = this.state;
 
     return (
       <div className={styles.container}>
@@ -98,9 +90,7 @@ export default class Canvas extends Component {
             />
           </div>
           <div
-            className={cn(styles.spacer, {
-              [styles.expanded]: !!selectedModule,
-            })}
+            className={cn(styles.spacer, { [styles.expanded]: !!selected })}
           />
         </div>
         <Toolbar

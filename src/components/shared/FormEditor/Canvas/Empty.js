@@ -6,7 +6,7 @@ import { DropTarget } from 'react-dnd';
 import { ReactComponent as Preview } from '@expandorg/uikit/assets/preview.svg';
 
 import { emptyTarget, FORM_DND_ID } from '../model/dnd';
-import Placeholder from './Module/Placeholders/Placeholder';
+import { Placeholder } from './Module/Placeholders';
 
 import styles from './Empty.module.styl';
 

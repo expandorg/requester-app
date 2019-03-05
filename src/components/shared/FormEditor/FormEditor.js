@@ -157,7 +157,7 @@ export default class FormEditor extends Component {
               modules={modules}
               title={title}
               selected={selected}
-              moduleControls={availableModules}
+              controls={controls}
               validateForm={validateForm}
               varsSample={varsSample}
               onAddModule={this.handleAdd}
