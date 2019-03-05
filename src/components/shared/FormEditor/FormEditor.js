@@ -6,7 +6,7 @@ import { deepCopyModule } from '@expandorg/modules/model';
 import { WalkthroughProvider, WalkthroughPin } from '@expandorg/components/app';
 
 import Editor from './Editor/Editor';
-import List from './Available/List';
+import List from './Sidebar/Sidebar';
 
 import { treeEditor } from './model/dnd';
 import { scaffold, getUniqId, availableModules } from './model/modules';

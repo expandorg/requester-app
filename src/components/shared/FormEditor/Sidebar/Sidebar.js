@@ -15,9 +15,9 @@ import Category from './Category';
 
 import { availableTarget, FORM_DND_ID } from '../model/dnd';
 
-import styles from './List.module.styl';
+import styles from './Sidebar.module.styl';
 
-class AvailableModules extends Component {
+class Sidebar extends Component {
   static propTypes = {
     onEndDrag: PropTypes.func.isRequired,
     moduleControls: PropTypes.arrayOf(PropTypes.func).isRequired,
@@ -102,4 +102,4 @@ class AvailableModules extends Component {
 
 export default DropTarget(FORM_DND_ID, availableTarget, connect => ({
   connectDropTarget: connect.dropTarget(),
-}))(AvailableModules);
+}))(Sidebar);
