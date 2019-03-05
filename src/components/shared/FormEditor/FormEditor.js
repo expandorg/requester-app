@@ -2,14 +2,16 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import { formProps } from '@expandorg/modules';
-import { deepCopyModule } from '@expandorg/modules/model';
+import { deepCopyModule, getModuleControlsMap } from '@expandorg/modules/model';
 import { WalkthroughProvider, WalkthroughPin } from '@expandorg/components/app';
 
 import Canvas from './Canvas';
+import { PropertiesPanel } from './Properties';
 import Sidebar from './Sidebar/Sidebar';
 
 import { treeEditor } from './model/dnd';
 import { scaffold, getUniqId, availableModules } from './model/modules';
+import { validateModuleProps } from './model/validation';
 import help from './model/help';
 
 import styles from './FormEditor.module.styl';
@@ -41,6 +43,7 @@ export default class FormEditor extends Component {
       selected: null,
       prev: props.form, // eslint-disable-line react/no-unused-state
       modules: props.form ? props.form.modules : [],
+      controls: getModuleControlsMap(availableModules),
     };
   }
 
@@ -119,18 +122,25 @@ export default class FormEditor extends Component {
     this.setState({ selected: treeEditor.eq(selected, path) ? null : path });
   };
 
-  handleEditModule = (path, module) => {
-    const { modules } = this.state;
+  handleEditModule = edited => {
+    const { modules, selected } = this.state;
     this.setState({
       selected: null,
-      modules: treeEditor.replaceAt(modules, path, module),
+      modules: treeEditor.replaceAt(modules, selected, edited),
     });
+  };
+
+  validateModuleProps = (module, originalName) => {
+    const { controls, modules } = this.state;
+    const { editor } = controls[module.type].module;
+    return validateModuleProps(module, originalName, editor, modules);
   };
 
   render() {
     const { onHide, validateForm, variables, varsSample, title } = this.props;
-    const { modules, selected } = this.state;
+    const { modules, selected, controls } = this.state;
 
+    const selectedModule = selected && treeEditor.findByPath(modules, selected);
     return (
       <WalkthroughProvider settings={help}>
         <div className={styles.container}>
@@ -149,16 +159,22 @@ export default class FormEditor extends Component {
               selected={selected}
               moduleControls={availableModules}
               validateForm={validateForm}
-              variables={variables}
               varsSample={varsSample}
               onAddModule={this.handleAdd}
-              onEditModule={this.handleEditModule}
               onMoveModule={this.handleMoveAt}
               onRemoveModule={this.handleRemove}
               onSelectModule={this.handleSelectModule}
               onCopyModule={this.handleCopyModule}
               onSave={this.handleSave}
               onCancel={onHide}
+            />
+            <PropertiesPanel
+              module={selectedModule}
+              controls={controls}
+              variables={variables}
+              onEdit={this.handleEditModule}
+              onValidate={this.validateModuleProps}
+              onCancel={() => this.handleSelectModule(selected)}
             />
           </div>
         </div>

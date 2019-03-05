@@ -9,10 +9,8 @@ import { NotificationAnimated } from '@expandorg/components/app';
 
 import Toolbar from './Toolbar/Toolbar';
 import Form from './Form';
-import { PropertiesPanel } from '../Properties';
 
 import { treeEditor } from '../model/dnd';
-import { validateModuleProps } from '../model/validation';
 
 import styles from './Canvas.module.styl';
 
@@ -20,13 +18,11 @@ export default class Canvas extends Component {
   static propTypes = {
     modules: PropTypes.arrayOf(moduleProps).isRequired,
     selected: PropTypes.arrayOf(PropTypes.number),
-    variables: PropTypes.arrayOf(PropTypes.string),
     title: PropTypes.string.isRequired,
     varsSample: PropTypes.object, // eslint-disable-line
     moduleControls: PropTypes.arrayOf(PropTypes.func).isRequired,
     validateForm: PropTypes.func.isRequired,
     onAddModule: PropTypes.func.isRequired,
-    onEditModule: PropTypes.func.isRequired,
     onMoveModule: PropTypes.func.isRequired,
     onRemoveModule: PropTypes.func.isRequired,
     onSelectModule: PropTypes.func.isRequired,
@@ -36,7 +32,6 @@ export default class Canvas extends Component {
   };
 
   static defaultProps = {
-    variables: [],
     varsSample: null,
     selected: null,
   };
@@ -48,24 +43,6 @@ export default class Canvas extends Component {
       controls: getModuleControlsMap(props.moduleControls),
     };
   }
-
-  handleCancelEdit = () => {
-    const { selected, onSelectModule } = this.props;
-    onSelectModule(selected);
-  };
-
-  handleEditModule = edited => {
-    const { selected, onEditModule } = this.props;
-    onEditModule(selected, edited);
-  };
-
-  validateModuleProps = (module, originalName) => {
-    const { modules } = this.props;
-    const { controls } = this.state;
-    const { editor } = controls[module.type].module;
-
-    return validateModuleProps(module, originalName, editor, modules);
-  };
 
   handleSave = () => {
     const { modules, onSave, validateForm } = this.props;
@@ -98,7 +75,6 @@ export default class Canvas extends Component {
       onRemoveModule,
       onCopyModule,
       onCancel,
-      variables,
       varsSample,
       selected,
     } = this.props;
@@ -133,14 +109,6 @@ export default class Canvas extends Component {
           onCancel={onCancel}
           title={title}
           varsSample={varsSample}
-        />
-        <PropertiesPanel
-          module={selectedModule}
-          controls={controls}
-          variables={variables}
-          onEdit={this.handleEditModule}
-          onValidate={this.validateModuleProps}
-          onCancel={this.handleCancelEdit}
         />
         <NotificationAnimated
           className={styles.notifications}
