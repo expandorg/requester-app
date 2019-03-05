@@ -12,7 +12,7 @@ import {
 import { dropAreaTarget, FORM_DND_ID } from '../model/dnd';
 
 import Empty from './Empty';
-import DnDModule from './Module/DnDModule';
+import Module from './Module';
 
 import styles from './Form.module.styl';
 
@@ -66,7 +66,7 @@ class Form extends Component {
                 services={services}
               >
                 {modules.map((module, order) => (
-                  <DnDModule
+                  <Module
                     key={module.name}
                     path={[order]}
                     controls={controls}

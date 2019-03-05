@@ -3,8 +3,6 @@ import cn from 'classnames';
 
 import styles from './Outer.module.styl';
 
-const Outer = ({ children }) => (
-  <div className={cn(cn(styles.outer, 'gem-outer'))}>{children}</div>
-);
-
-export default Outer;
+export default function Outer({ children }) {
+  return <div className={cn(cn(styles.outer, 'gem-outer'))}>{children}</div>;
+}

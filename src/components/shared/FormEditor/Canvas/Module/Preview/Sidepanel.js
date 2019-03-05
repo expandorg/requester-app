@@ -6,18 +6,20 @@ import { ReactComponent as Copy } from '@expandorg/uikit/assets/copy.svg';
 
 import styles from './Sidepanel.module.styl';
 
-const Sidepanel = ({ onRemove, onCopy, canCopy }) => (
-  <div className={styles.actions}>
-    <button className={styles.remove} onClick={onRemove}>
-      <X />
-    </button>
-    {canCopy && (
-      <button className={styles.copy} onClick={onCopy}>
-        <Copy />
+export default function Sidepanel({ onRemove, onCopy, canCopy }) {
+  return (
+    <div className={styles.actions}>
+      <button className={styles.remove} onClick={onRemove}>
+        <X />
       </button>
-    )}
-  </div>
-);
+      {canCopy && (
+        <button className={styles.copy} onClick={onCopy}>
+          <Copy />
+        </button>
+      )}
+    </div>
+  );
+}
 
 Sidepanel.propTypes = {
   onRemove: PropTypes.func.isRequired,
@@ -29,5 +31,3 @@ Sidepanel.defaultProps = {
   onCopy: null,
   canCopy: false,
 };
-
-export default Sidepanel;

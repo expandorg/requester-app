@@ -4,14 +4,14 @@ import cn from 'classnames';
 
 import { moduleProps, Module } from '@expandorg/modules';
 
-import NestedContainer from '../NestedContainer';
-import Outer from './Outer';
-import Header from './Header';
-import Sidepanel from './Sidepanel';
-import NotSupported from './NotSupported';
+import NestedContainer from './NestedContainer';
+import Outer from './Preview/Outer';
+import Header from './Preview/Header';
+import Sidepanel from './Preview/Sidepanel';
+import NotSupported from './Preview/NotSupported';
 
-import { supportNesting } from '../../../model/modules';
-import { treeEditor } from '../../../model/dnd';
+import { supportNesting } from '../../model/modules';
+import { treeEditor } from '../../model/dnd';
 
 import styles from './ModulePreview.module.styl';
 

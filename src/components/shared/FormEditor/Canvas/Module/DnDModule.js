@@ -6,7 +6,7 @@ import { DragSource, DropTarget } from 'react-dnd';
 import { moduleProps } from '@expandorg/modules';
 
 import { Placeholder } from './Placeholders';
-import ModulePreview from './Preview/ModulePreview';
+import ModulePreview from './ModulePreview';
 
 import { moduleSource, moduleTarget, FORM_DND_ID } from '../../model/dnd';
 

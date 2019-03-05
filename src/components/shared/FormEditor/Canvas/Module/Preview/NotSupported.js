@@ -16,22 +16,22 @@ const Warning = Tooltip(({ children, ...rest }) => (
   </span>
 ));
 
-const NotSupported = ({ type, onRemove }) => (
-  <Outer>
-    <div className={styles.container}>
-      <Warning
-        tooltipOrientation="right"
-        tooltip="This component has been deprecated. Please update."
-      />
-      <span className={styles.name}>{type} module</span>
-    </div>
-    <Sidepanel onRemove={onRemove} />
-  </Outer>
-);
+export default function NotSupported({ type, onRemove }) {
+  return (
+    <Outer>
+      <div className={styles.container}>
+        <Warning
+          tooltipOrientation="right"
+          tooltip="This component has been deprecated. Please update."
+        />
+        <span className={styles.name}>{type} module</span>
+      </div>
+      <Sidepanel onRemove={onRemove} />
+    </Outer>
+  );
+}
 
 NotSupported.propTypes = {
   type: PropTypes.string.isRequired,
   onRemove: PropTypes.func.isRequired,
 };
-
-export default NotSupported;
