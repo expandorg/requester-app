@@ -1,3 +1,4 @@
+// @flow
 import DnDContainer from './DnDContainer';
 import Preview from './Preview';
 
