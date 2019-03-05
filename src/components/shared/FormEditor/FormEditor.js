@@ -9,7 +9,7 @@ import {
   WalkthroughPin,
 } from '@expandorg/components/app';
 
-import { Form, FormContainer } from './Canvas';
+import { Form, FormContainer, Spacer } from './Canvas';
 import { PropertiesPanel } from './Properties';
 import Sidebar from './Sidebar/Sidebar';
 
@@ -176,7 +176,6 @@ export default class FormEditor extends Component {
           <div className={styles.editor}>
             <FormContainer
               modules={modules}
-              selected={selected}
               title={title}
               varsSample={varsSample}
               onSave={this.handleSave}
@@ -192,6 +191,7 @@ export default class FormEditor extends Component {
                 onSelect={this.handleSelect}
                 onCopy={this.handleCopyModule}
               />
+              <Spacer visible={!!selected} />
             </FormContainer>
             <PropertiesPanel
               module={selectedModule}

@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import cn from 'classnames';
 
 import { moduleProps } from '@expandorg/modules';
 
@@ -14,15 +13,11 @@ export default function FormContainer({
   children,
   onCancel,
   varsSample,
-  selected,
   onSave,
 }) {
   return (
     <div className={styles.container}>
-      <div className={styles.content}>
-        <div className={styles.form}>{children}</div>
-        <div className={cn(styles.spacer, { [styles.expanded]: !!selected })} />
-      </div>
+      <div className={styles.content}>{children}</div>
       <Toolbar
         modules={modules}
         onSave={onSave}
@@ -36,7 +31,6 @@ export default function FormContainer({
 
 FormContainer.propTypes = {
   modules: PropTypes.arrayOf(moduleProps).isRequired,
-  selected: PropTypes.arrayOf(PropTypes.number),
   title: PropTypes.string.isRequired,
   varsSample: PropTypes.object, // eslint-disable-line
   onSave: PropTypes.func.isRequired,
@@ -45,5 +39,4 @@ FormContainer.propTypes = {
 
 FormContainer.defaultProps = {
   varsSample: null,
-  selected: null,
 };
