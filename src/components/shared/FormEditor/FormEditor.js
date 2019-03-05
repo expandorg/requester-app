@@ -14,6 +14,7 @@ import { PropertiesPanel } from './Properties';
 import Sidebar from './Sidebar/Sidebar';
 
 import { treeEditor } from './model/dnd';
+import Selection from './model/Selection';
 import { scaffold, getUniqId, availableModules } from './model/modules';
 import { validateModuleProps } from './model/validation';
 import help from './model/help';
@@ -44,7 +45,7 @@ export default class FormEditor extends Component {
     this.previewTab = null;
 
     this.state = {
-      selection: null,
+      selection: Selection.empty,
       prev: props.form, // eslint-disable-line react/no-unused-state
       modules: props.form ? props.form.modules : [],
       controls: getModuleControlsMap(availableModules),
@@ -55,7 +56,7 @@ export default class FormEditor extends Component {
   static getDerviedStateFromProps({ form }, state) {
     if (state.prev !== form) {
       return {
-        selection: null,
+        selection: Selection.empty,
         prev: form,
         modules: form ? form.modules : [],
       };
@@ -90,7 +91,7 @@ export default class FormEditor extends Component {
   handleRemove = path => {
     if (path.length) {
       this.setState(({ modules }) => ({
-        selection: null,
+        selection: Selection.empty,
         modules: treeEditor.removeAt(modules, path),
       }));
     }
@@ -99,7 +100,7 @@ export default class FormEditor extends Component {
   handleCopyModule = (path, module) => {
     const { modules } = this.state;
     this.setState({
-      selection: null,
+      selection: Selection.empty,
       modules: treeEditor.insertAt(
         modules,
         path,
@@ -112,7 +113,7 @@ export default class FormEditor extends Component {
     const { modules } = this.state;
 
     this.setState({
-      selection: null,
+      selection: Selection.empty,
       modules:
         dragPath.length === 0
           ? treeEditor.insertAt(modules, hoverPath, scaffold(meta, true))
@@ -132,28 +133,15 @@ export default class FormEditor extends Component {
   };
 
   handleSelect = (path, type = 'edit') => {
-    if (!path) {
-      this.setState({ selection: null });
-    } else {
-      const { selection } = this.state;
-      if (!selection || selection.type !== type) {
-        this.setState(() => ({
-          selection: { type, path },
-        }));
-      } else {
-        this.setState({
-          selection: !treeEditor.eq(selection.path, path)
-            ? { type, path }
-            : null,
-        });
-      }
-    }
+    this.setState(({ selection }) => ({
+      selection: Selection.select(path, selection, type),
+    }));
   };
 
   handleEdit = edited => {
     const { modules, selection } = this.state;
     this.setState({
-      selection: null,
+      selection: Selection.empty,
       modules: treeEditor.replaceAt(modules, selection.path, edited),
     });
   };
@@ -193,7 +181,7 @@ export default class FormEditor extends Component {
             >
               <Form
                 modules={modules}
-                selected={selection && treeEditor.getIdByPath(selection.path)}
+                selectied={selection.getId('edit')}
                 controls={controls}
                 onAdd={this.handleAdd}
                 onMove={this.handleMoveAt}
@@ -201,12 +189,10 @@ export default class FormEditor extends Component {
                 onSelect={this.handleSelect}
                 onCopy={this.handleCopyModule}
               />
-              <Spacer visible={!!selection} />
+              <Spacer visible={selection.isType('edit')} />
             </FormContainer>
             <PropertiesPanel
-              module={
-                selection && treeEditor.findByPath(modules, selection.path)
-              }
+              module={selection.find(modules, 'edit')}
               controls={controls}
               variables={variables}
               onEdit={this.handleEdit}
