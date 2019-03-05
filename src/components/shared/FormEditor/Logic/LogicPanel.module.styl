@@ -4,14 +4,16 @@
   box-sizing: border-box
   width: 0
   min-width: 0
-  transition: width 300ms ease-in-out, min-width 300ms ease-in-out
+  transition: width 300ms ease-in-out, min-width, 300ms ease-in-out, opacity 300ms ease-in-out
 
   display: flex
   align-items: center
   justify-content: center
+  opacity 0
 
 
   &.visible
+    opacity 1
     width: 100%;
     flex-grow: 1
     max-width 550px

@@ -183,8 +183,8 @@ export default class FormEditor extends Component {
               <LogicPanel
                 module={selection.find(modules, 'logic')}
                 modules={modules}
-                onEdit={this.handleEdit}
                 variables={variables}
+                onSave={this.handleEdit}
                 onCancel={() => this.handleSelect(null)}
               />
               <Form

@@ -1,0 +1,37 @@
+@import '~@expandorg/uikit/colors';
+@import '~@expandorg/uikit/font';
+
+.row
+  box-sizing: border-box
+  margin-bottom: 16px
+  min-height 30px
+
+  color: color-light-blue
+  white-space: nowrap;
+
+.text
+  box-sizing: border-box
+  margin-right: 5px
+  font(body)
+
+  &:last-child
+    margin-right: 0
+
+.bold
+  font-weight: 700
+
+.dropdown
+  box-sizing: border-box
+  width: auto
+  display: inline-block
+  margin-right: 10px
+
+  :global(.gem-dropdown-content)
+    position relative
+    top: 1px
+    color: color-light-blue
+    padding: 2px 20px 8px 0
+    border-bottom-color: color-heavy-blue
+
+  &:last-child
+    margin-right: 0
