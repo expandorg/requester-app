@@ -7,16 +7,16 @@ import { getModuleControlsMap } from '@expandorg/modules/model';
 
 import { NotificationAnimated } from '@expandorg/components/app';
 
-import Form from './Form/Form';
-import Toolbar from './Toolbar';
+import Toolbar from './Toolbar/Toolbar';
+import Form from './Form';
 import { PropertiesPanel } from '../Properties';
 
 import { treeEditor } from '../model/dnd';
 import { validateModuleProps } from '../model/validation';
 
-import styles from './Editor.module.styl';
+import styles from './Canvas.module.styl';
 
-export default class Editor extends Component {
+export default class Canvas extends Component {
   static propTypes = {
     modules: PropTypes.arrayOf(moduleProps).isRequired,
     selected: PropTypes.arrayOf(PropTypes.number),
@@ -128,7 +128,7 @@ export default class Editor extends Component {
           />
         </div>
         <Toolbar
-          module={module}
+          modules={modules}
           onSave={this.handleSave}
           onCancel={onCancel}
           title={title}

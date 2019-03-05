@@ -9,7 +9,7 @@ import {
   ExecutionContextProvider,
 } from '@expandorg/modules';
 
-import { dropAreaTarget, FORM_DND_ID } from '../../model/dnd';
+import { dropAreaTarget, FORM_DND_ID } from '../model/dnd';
 
 import Empty from './Empty';
 import DnDModule from './Module/DnDModule';

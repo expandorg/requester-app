@@ -4,14 +4,14 @@ import cn from 'classnames';
 
 import { moduleProps, Module } from '@expandorg/modules';
 
-import NestedModules from '../NestedModules';
+import NestedContainer from '../NestedContainer';
 import Outer from './Outer';
 import Header from './Header';
 import Sidepanel from './Sidepanel';
 import NotSupported from './NotSupported';
 
-import { supportNesting } from '../../../../model/modules';
-import { treeEditor } from '../../../../model/dnd';
+import { supportNesting } from '../../../model/modules';
+import { treeEditor } from '../../../model/dnd';
 
 import styles from './ModulePreview.module.styl';
 
@@ -110,7 +110,7 @@ export default class ModulePreview extends Component {
               <div className={styles.edit} onClick={this.handleSelect} />
             </div>
             {supportNesting(meta) && (
-              <NestedModules
+              <NestedContainer
                 caption={meta.editor.properties.modules.caption}
                 modules={module.modules}
                 path={path}

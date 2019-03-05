@@ -8,11 +8,11 @@ import { moduleProps } from '@expandorg/modules';
 import { EmptyDroppable } from './Placeholders';
 import DnDModule from './DnDModule';
 
-import { nestedModuleTarget, FORM_DND_ID } from '../../../model/dnd';
+import { nestedModuleTarget, FORM_DND_ID } from '../../model/dnd';
 
-import styles from './NestedModules.module.styl';
+import styles from './NestedContainer.module.styl';
 
-class NestedModules extends Component {
+class NestedContainer extends Component {
   static propTypes = {
     caption: PropTypes.string,
     modules: PropTypes.arrayOf(moduleProps),
@@ -79,4 +79,4 @@ class NestedModules extends Component {
 
 export default DropTarget(FORM_DND_ID, nestedModuleTarget, connect => ({
   connectDropTarget: connect.dropTarget(),
-}))(NestedModules);
+}))(NestedContainer);

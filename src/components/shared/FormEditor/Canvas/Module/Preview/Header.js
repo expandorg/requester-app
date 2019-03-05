@@ -9,7 +9,7 @@ import { ReactComponent as Links } from '@expandorg/uikit/assets/link.svg';
 
 import { moduleProps } from '@expandorg/modules';
 
-import IconButton from '../../../../../../common/IconButton';
+import IconButton from '../../../../../common/IconButton';
 
 import styles from './Header.module.styl';
 

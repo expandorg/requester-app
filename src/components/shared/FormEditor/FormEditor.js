@@ -5,7 +5,7 @@ import { formProps } from '@expandorg/modules';
 import { deepCopyModule } from '@expandorg/modules/model';
 import { WalkthroughProvider, WalkthroughPin } from '@expandorg/components/app';
 
-import Editor from './Editor/Editor';
+import Canvas from './Canvas';
 import Sidebar from './Sidebar/Sidebar';
 
 import { treeEditor } from './model/dnd';
@@ -143,7 +143,7 @@ export default class FormEditor extends Component {
             />
           </div>
           <div className={styles.editor}>
-            <Editor
+            <Canvas
               modules={modules}
               title={title}
               selected={selected}
