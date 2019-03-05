@@ -49,7 +49,7 @@ export default class Canvas extends Component {
     };
   }
 
-  handleCancel = () => {
+  handleCancelEdit = () => {
     const { selected, onSelectModule } = this.props;
     onSelectModule(selected);
   };
@@ -140,7 +140,7 @@ export default class Canvas extends Component {
           variables={variables}
           onEdit={this.handleEditModule}
           onValidate={this.validateModuleProps}
-          onCancel={this.handleCancel}
+          onCancel={this.handleCancelEdit}
         />
         <NotificationAnimated
           className={styles.notifications}
