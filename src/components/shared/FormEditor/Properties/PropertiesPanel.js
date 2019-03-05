@@ -7,22 +7,19 @@ import Properties from './Properties';
 
 import styles from './PropertiesPanel.module.styl';
 
-export default class PropertiesPanel extends Component {
-  static propTypes = {
-    module: moduleProps,
-  };
-
-  static defaultProps = {
-    module: null,
-  };
-
-  render() {
-    const { module, ...rest } = this.props;
-    const visible = !!module;
-    return (
-      <Drawer className={styles.container} width={540} visible={visible}>
-        {visible && <Properties key={module.name} module={module} {...rest} />}
-      </Drawer>
-    );
-  }
+export default function PropertiesPanel({ module, ...rest }) {
+  const visible = !!module;
+  return (
+    <Drawer className={styles.container} width={540} visible={visible}>
+      {visible && <Properties key={module.name} module={module} {...rest} />}
+    </Drawer>
+  );
 }
+
+PropertiesPanel.propTypes = {
+  module: moduleProps,
+};
+
+PropertiesPanel.defaultProps = {
+  module: null,
+};
