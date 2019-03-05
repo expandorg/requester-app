@@ -3,9 +3,13 @@ import PropTypes from 'prop-types';
 
 import { formProps } from '@expandorg/modules';
 import { deepCopyModule, getModuleControlsMap } from '@expandorg/modules/model';
-import { WalkthroughProvider, WalkthroughPin } from '@expandorg/components/app';
+import {
+  NotificationAnimated,
+  WalkthroughProvider,
+  WalkthroughPin,
+} from '@expandorg/components/app';
 
-import Canvas from './Canvas';
+import { Form, FormContainer } from './Canvas';
 import { PropertiesPanel } from './Properties';
 import Sidebar from './Sidebar/Sidebar';
 
@@ -44,6 +48,7 @@ export default class FormEditor extends Component {
       prev: props.form, // eslint-disable-line react/no-unused-state
       modules: props.form ? props.form.modules : [],
       controls: getModuleControlsMap(availableModules),
+      error: null,
     };
   }
 
@@ -58,9 +63,21 @@ export default class FormEditor extends Component {
     return null;
   }
 
-  handleSave = modules => {
-    const { onSave, form } = this.props;
-    onSave({ ...form, modules });
+  handleSave = () => {
+    const { validateForm, onSave, form } = this.props;
+    const { controls, modules } = this.state;
+
+    const errors = validateForm(modules, controls);
+    if (errors) {
+      this.setState({
+        error: {
+          type: 'error',
+          message: errors.commonMessage,
+        },
+      });
+    } else {
+      onSave({ ...form, modules });
+    }
   };
 
   handleAdd = meta => {
@@ -130,6 +147,10 @@ export default class FormEditor extends Component {
     });
   };
 
+  handleClearError = () => {
+    this.setState({ error: null });
+  };
+
   validateModuleProps = (module, originalName) => {
     const { controls, modules } = this.state;
     const { editor } = controls[module.type].module;
@@ -137,8 +158,8 @@ export default class FormEditor extends Component {
   };
 
   render() {
-    const { onHide, validateForm, variables, varsSample, title } = this.props;
-    const { modules, selected, controls } = this.state;
+    const { onHide, variables, varsSample, title } = this.props;
+    const { modules, selected, controls, error } = this.state;
 
     const selectedModule = selected && treeEditor.findByPath(modules, selected);
     return (
@@ -153,21 +174,25 @@ export default class FormEditor extends Component {
             />
           </div>
           <div className={styles.editor}>
-            <Canvas
+            <FormContainer
               modules={modules}
-              title={title}
               selected={selected}
-              controls={controls}
-              validateForm={validateForm}
+              title={title}
               varsSample={varsSample}
-              onAddModule={this.handleAdd}
-              onMoveModule={this.handleMoveAt}
-              onRemoveModule={this.handleRemove}
-              onSelectModule={this.handleSelectModule}
-              onCopyModule={this.handleCopyModule}
               onSave={this.handleSave}
               onCancel={onHide}
-            />
+            >
+              <Form
+                modules={modules}
+                selected={selected && treeEditor.getIdByPath(selected)}
+                controls={controls}
+                onAddModule={this.handleAdd}
+                onMoveModule={this.handleMoveAt}
+                onRemoveModule={this.handleRemove}
+                onSelectModule={this.handleSelectModule}
+                onCopyModule={this.handleCopyModule}
+              />
+            </CanvasContainer>
             <PropertiesPanel
               module={selectedModule}
               controls={controls}
@@ -177,6 +202,11 @@ export default class FormEditor extends Component {
               onCancel={() => this.handleSelectModule(selected)}
             />
           </div>
+          <NotificationAnimated
+            className={styles.notifications}
+            notification={error}
+            onClear={this.handleClearError}
+          />
         </div>
         <WalkthroughPin id="search" className={styles.serachPin} />
         <WalkthroughPin id="components" className={styles.componentsPin} />

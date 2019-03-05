@@ -1,3 +1,4 @@
-import Canvas from './Canvas';
+import Form from './Form';
+import FormContainer from './FormContainer';
 
-export default Canvas;
+export { FormContainer, Form };
