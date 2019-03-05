@@ -1,3 +1,4 @@
-import DnDModule from './DnDModule';
+import DnDContainer from './DnDContainer';
+import Preview from './Preview';
 
-export default DnDModule;
+export { DnDContainer, Preview };

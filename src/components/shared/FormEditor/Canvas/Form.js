@@ -12,7 +12,7 @@ import {
 import { dropAreaTarget, FORM_DND_ID } from '../model/dnd';
 
 import Empty from './Empty';
-import Module from './Module';
+import { DnDContainer, Preview } from './Module';
 
 import styles from './Form.module.styl';
 
@@ -65,19 +65,32 @@ class Form extends Component {
                 controls={controls}
                 services={services}
               >
-                {modules.map((module, order) => (
-                  <Module
-                    key={module.name}
-                    path={[order]}
-                    controls={controls}
-                    selected={selected}
-                    module={module}
-                    onMove={onMoveModule}
-                    onRemove={onRemoveModule}
-                    onSelect={onSelectModule}
-                    onCopy={onCopyModule}
-                  />
-                ))}
+                {modules.map((module, order) => {
+                  const p = [order];
+                  return (
+                    <DnDContainer
+                      key={module.name}
+                      module={module}
+                      path={p}
+                      controls={controls}
+                      onMove={onMoveModule}
+                    >
+                      {({ connectDragPreview }) => (
+                        <Preview
+                          path={p}
+                          controls={controls}
+                          selected={selected}
+                          module={module}
+                          onMove={onMoveModule}
+                          onRemove={onRemoveModule}
+                          onSelect={onSelectModule}
+                          onCopy={onCopyModule}
+                          connectDragPreview={connectDragPreview}
+                        />
+                      )}
+                    </DnDContainer>
+                  );
+                })}
               </ExecutionContextProvider>
             </FormDataProvider>
           </div>

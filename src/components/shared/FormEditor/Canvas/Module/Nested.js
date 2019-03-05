@@ -6,13 +6,15 @@ import { DropTarget } from 'react-dnd';
 import { moduleProps } from '@expandorg/modules';
 
 import { EmptyDroppable } from './Placeholders';
-import DnDModule from './DnDModule';
+
+import DnDContainer from './DnDContainer';
+import Preview from './Preview';
 
 import { nestedModuleTarget, FORM_DND_ID } from '../../model/dnd';
 
-import styles from './NestedContainer.module.styl';
+import styles from './Nested.module.styl';
 
-class NestedContainer extends Component {
+class Nested extends Component {
   static propTypes = {
     caption: PropTypes.string,
     modules: PropTypes.arrayOf(moduleProps),
@@ -52,19 +54,32 @@ class NestedContainer extends Component {
     return connectDropTarget(
       <div className={styles.nested}>
         {hasNested ? (
-          modules.map((nestedModule, nestedOrder) => (
-            <DnDModule
-              key={nestedModule.name}
-              path={[...path, nestedOrder]}
-              module={nestedModule}
-              controls={controls}
-              selected={selected}
-              onMove={onMove}
-              onRemove={onRemove}
-              onSelect={onSelect}
-              onCopy={onCopy}
-            />
-          ))
+          modules.map((nestedModule, nestedOrder) => {
+            const p = [...path, nestedOrder];
+            return (
+              <DnDContainer
+                key={nestedModule.name}
+                controls={controls}
+                path={p}
+                module={nestedModule}
+                onMove={onMove}
+              >
+                {({ connectDragPreview }) => (
+                  <Preview
+                    module={nestedModule}
+                    path={p}
+                    controls={controls}
+                    selected={selected}
+                    onMove={onMove}
+                    onRemove={onRemove}
+                    onSelect={onSelect}
+                    onCopy={onCopy}
+                    connectDragPreview={connectDragPreview}
+                  />
+                )}
+              </DnDContainer>
+            );
+          })
         ) : (
           <EmptyDroppable
             title={caption || 'Drop here'}
@@ -79,4 +94,4 @@ class NestedContainer extends Component {
 
 export default DropTarget(FORM_DND_ID, nestedModuleTarget, connect => ({
   connectDropTarget: connect.dropTarget(),
-}))(NestedContainer);
+}))(Nested);

@@ -6,31 +6,22 @@ import { DragSource, DropTarget } from 'react-dnd';
 import { moduleProps } from '@expandorg/modules';
 
 import { Placeholder } from './Placeholders';
-import ModulePreview from './ModulePreview';
 
 import { moduleSource, moduleTarget, FORM_DND_ID } from '../../model/dnd';
 
-import styles from './DnDModule.module.styl';
+import styles from './DnDContainer.module.styl';
 
 class DnDModule extends Component {
   static propTypes = {
     module: moduleProps.isRequired,
-    path: PropTypes.arrayOf(PropTypes.number).isRequired,
+    path: PropTypes.arrayOf(PropTypes.number).isRequired, // eslint-disable-line
     controls: PropTypes.object.isRequired, // eslint-disable-line
     isDragging: PropTypes.bool.isRequired,
-    selected: PropTypes.string,
     onMove: PropTypes.func.isRequired, // eslint-disable-line
-    onSelect: PropTypes.func.isRequired,
-    onRemove: PropTypes.func.isRequired,
-    onCopy: PropTypes.func.isRequired,
 
     connectDragSource: PropTypes.func.isRequired,
     connectDragPreview: PropTypes.func.isRequired,
     connectDropTarget: PropTypes.func.isRequired,
-  };
-
-  static defaultProps = {
-    selected: null,
   };
 
   render() {
@@ -40,13 +31,7 @@ class DnDModule extends Component {
       connectDragPreview,
       isDragging,
       module,
-      selected,
-      controls,
-      path,
-      onMove,
-      onRemove,
-      onSelect,
-      onCopy,
+      children,
     } = this.props;
 
     const dragging = isDragging || module.isDragging;
@@ -60,17 +45,7 @@ class DnDModule extends Component {
           }}
         >
           {!dragging ? (
-            <ModulePreview
-              module={module}
-              connectDragPreview={connectDragPreview}
-              path={path}
-              controls={controls}
-              selected={selected}
-              onMove={onMove}
-              onSelect={onSelect}
-              onRemove={onRemove}
-              onCopy={onCopy}
-            />
+            children({ connectDragPreview })
           ) : (
             <Placeholder className={styles.placeholder} />
           )}
