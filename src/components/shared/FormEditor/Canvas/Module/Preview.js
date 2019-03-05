@@ -35,7 +35,14 @@ export default class Preview extends Component {
 
   handleSelect = evt => {
     const { onSelect, path } = this.props;
-    onSelect(path);
+    onSelect(path, 'edit');
+    evt.preventDefault();
+  };
+
+  handleSelectLogic = evt => {
+    const { onSelect, path } = this.props;
+    onSelect(path, 'logic');
+    console.log(111);
 
     evt.preventDefault();
   };
@@ -49,10 +56,6 @@ export default class Preview extends Component {
   handleCopyClick = evt => {
     const { module, path, onCopy } = this.props;
     onCopy(path, module);
-    evt.preventDefault();
-  };
-
-  handleToggleLogic = evt => {
     evt.preventDefault();
   };
 
@@ -93,7 +96,7 @@ export default class Preview extends Component {
             <Header
               module={module}
               onSelect={this.handleSelect}
-              onToggleLogic={this.handleToggleLogic}
+              onSelectLogic={this.handleSelectLogic}
             />
             <div
               className={cn(styles.inner, {

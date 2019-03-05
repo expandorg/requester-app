@@ -11,7 +11,8 @@ import {
 
 import { Form, FormContainer, Spacer } from './Canvas';
 import { PropertiesPanel } from './Properties';
-import Sidebar from './Sidebar/Sidebar';
+import Sidebar from './Sidebar';
+import { LogicPanel } from './Logic';
 
 import { treeEditor } from './model/dnd';
 import Selection from './model/Selection';
@@ -132,7 +133,7 @@ export default class FormEditor extends Component {
     });
   };
 
-  handleSelect = (path, type = 'edit') => {
+  handleSelect = (path, type) => {
     this.setState(({ selection }) => ({
       selection: Selection.select(path, selection, type),
     }));
@@ -179,9 +180,16 @@ export default class FormEditor extends Component {
               onSave={this.handleSave}
               onCancel={onHide}
             >
+              <LogicPanel
+                module={selection.find(modules, 'logic')}
+                modules={modules}
+                onEdit={this.handleEdit}
+                variables={variables}
+                onCancel={() => this.handleSelect(null)}
+              />
               <Form
                 modules={modules}
-                selectied={selection.getId('edit')}
+                selected={selection.getId('edit')}
                 controls={controls}
                 onAdd={this.handleAdd}
                 onMove={this.handleMoveAt}

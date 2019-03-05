@@ -4,14 +4,18 @@ import cn from 'classnames';
 
 import styles from './Spacer.module.styl';
 
-export default function Spacer({ className, visible, width }) {
+export default function Spacer({ className, visible, width, children }) {
   const style = visible
     ? {
         width,
         minWidth: width,
       }
     : undefined;
-  return <div className={cn(styles.spacer, className)} style={style} />;
+  return (
+    <div className={cn(styles.spacer, className)} style={style}>
+      {children}
+    </div>
+  );
 }
 
 Spacer.propTypes = {

@@ -53,7 +53,6 @@ class Form extends Component {
       controls,
       connectDropTarget,
     } = this.props;
-
     return (
       <div className={styles.container}>
         {connectDropTarget(

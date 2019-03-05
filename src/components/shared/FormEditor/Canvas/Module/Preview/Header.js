@@ -22,14 +22,14 @@ const isVisible = module => {
 
 const hasLinks = () => false;
 
-export default function Header({ module, onSelect, onToggleLogic }) {
+export default function Header({ module, onSelect, onSelectLogic }) {
   return (
     <div className={styles.container}>
       <div className={styles.name} onClick={onSelect}>
         {module.name}
       </div>
       <div className={styles.icons}>
-        <IconButton className={styles.button} onClick={onToggleLogic}>
+        <IconButton className={styles.button} onClick={onSelectLogic}>
           {isVisible(module) ? <Visible /> : <Invisible />}
         </IconButton>
         {hasLinks(module) && (
@@ -45,7 +45,7 @@ export default function Header({ module, onSelect, onToggleLogic }) {
 Header.propTypes = {
   module: moduleProps.isRequired,
   onSelect: PropTypes.func.isRequired,
-  onToggleLogic: PropTypes.func.isRequired,
+  onSelectLogic: PropTypes.func.isRequired,
 };
 
 Header.defaultProps = {};

@@ -1,0 +1,23 @@
+@import '~@expandorg/uikit/colors';
+
+.container
+  box-sizing: border-box
+  width: 0
+  min-width: 0
+  transition: width 300ms ease-in-out, min-width 300ms ease-in-out
+
+  display: flex
+  align-items: center
+  justify-content: center
+
+
+  &.visible
+    width: 100%;
+    flex-grow: 1
+    max-width 550px
+
+.panel
+  box-sizing: border-box
+  min-width: 450px
+  position relative
+  z-index 3
