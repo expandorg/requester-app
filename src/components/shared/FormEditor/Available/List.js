@@ -1,7 +1,6 @@
-import React, { Component, createRef } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import debounce from 'debounce';
 import { DropTarget } from 'react-dnd';
 
 import {
@@ -9,14 +8,14 @@ import {
   searchModulesTree,
 } from '../model/modulesTree';
 
+import ClientRectContainer from '../../../common/ClientRectContainer';
+
 import Search from './Search';
 import Category from './Category';
 
 import { availableTarget, FORM_DND_ID } from '../model/dnd';
 
-import styles from './AvailableModules.module.styl';
-
-const RESIZE_DEBOUNCE = 200;
+import styles from './List.module.styl';
 
 class AvailableModules extends Component {
   static propTypes = {
@@ -31,33 +30,13 @@ class AvailableModules extends Component {
   constructor(props) {
     super(props);
 
-    this.getOffset = debounce(this.getOffset, RESIZE_DEBOUNCE);
-
-    this.container = createRef();
-
     const categories = getAvailableModulesTree(props.moduleControls);
     this.state = {
       preview: null,
       all: categories,
       categories,
-      top: 0,
     };
   }
-
-  componentDidMount() {
-    this.getOffset();
-    window.addEventListener('resize', this.getOffset);
-  }
-
-  componentWillUnmount() {
-    this.getOffset.clear();
-    window.removeEventListener('resize', this.getOffset);
-  }
-
-  getOffset = () => {
-    const { top } = this.container.current.getBoundingClientRect();
-    this.setState({ top });
-  };
 
   handleSearch = search => {
     const { all } = this.state;
@@ -84,35 +63,39 @@ class AvailableModules extends Component {
 
   render() {
     const { onEndDrag, connectDropTarget } = this.props;
-    const { preview, categories, top, search } = this.state;
+    const { preview, categories, search } = this.state;
 
     /* eslint-disable jsx-a11y/click-events-have-key-events */
     /* eslint-disable jsx-a11y/no-static-element-interactions */
     return (
-      <div className={styles.container} ref={this.container}>
-        <Search onSearch={this.handleSearch} />
-        {connectDropTarget(
-          <div
-            className={styles.list}
-            onScroll={this.handleScroll}
-            id="gems-components"
-          >
-            {categories.map(({ category, modules }) => (
-              <Category
-                key={category}
-                forceOpen={!!search}
-                name={category}
-                modules={modules}
-                offset={top}
-                preview={preview}
-                onEndDrag={onEndDrag}
-                onAdd={this.handleAdd}
-                onPreview={this.handlePreview}
-              />
-            ))}
-          </div>
+      <ClientRectContainer className={styles.container} ref={this.container}>
+        {({ rect }) => (
+          <>
+            <Search onSearch={this.handleSearch} />
+            {connectDropTarget(
+              <div
+                className={styles.list}
+                onScroll={this.handleScroll}
+                id="gems-components"
+              >
+                {categories.map(({ category, modules }) => (
+                  <Category
+                    key={category}
+                    forceOpen={!!search}
+                    name={category}
+                    modules={modules}
+                    offset={rect ? rect.top : 0}
+                    preview={preview}
+                    onEndDrag={onEndDrag}
+                    onAdd={this.handleAdd}
+                    onPreview={this.handlePreview}
+                  />
+                ))}
+              </div>
+            )}
+          </>
         )}
-      </div>
+      </ClientRectContainer>
     );
   }
 }

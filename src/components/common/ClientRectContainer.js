@@ -6,24 +6,23 @@ function useClientRect(dobounceInterval = 200) {
   const ref = useRef();
   const [rect, setRect] = useState(null);
 
-  const handleResize = debounce(() => {
+  const resize = debounce(() => {
     setRect(ref.current.getBoundingClientRect());
   }, dobounceInterval);
 
   useEffect(() => {
-    window.addEventListener('resize', handleResize);
-
+    window.addEventListener('resize', resize);
+    resize();
     return () => {
-      handleResize.clear();
-      window.removeEventListener('resize', this.getOffset);
+      resize.clear();
+      window.removeEventListener('resize', resize);
     };
-  });
+  }, []);
   return [ref, rect];
 }
 
 export default function ClientRectContainer({ className, children }) {
   const [ref, rect] = useClientRect();
-
   return (
     <div ref={ref} className={className}>
       {children({ rect })}

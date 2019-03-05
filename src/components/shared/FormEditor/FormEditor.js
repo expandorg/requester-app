@@ -6,7 +6,7 @@ import { deepCopyModule } from '@expandorg/modules/model';
 import { WalkthroughProvider, WalkthroughPin } from '@expandorg/components/app';
 
 import Editor from './Editor/Editor';
-import AvailableModules from './Available/AvailableModules';
+import List from './Available/List';
 
 import { treeEditor } from './model/dnd';
 import { scaffold, getUniqId, availableModules } from './model/modules';
@@ -135,7 +135,7 @@ export default class FormEditor extends Component {
       <WalkthroughProvider settings={help}>
         <div className={styles.container}>
           <div className={styles.left}>
-            <AvailableModules
+            <List
               moduleControls={availableModules}
               onEndDrag={this.handleEndDrag}
               onAddModule={this.handleAdd}
