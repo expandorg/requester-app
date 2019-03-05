@@ -1,63 +1,51 @@
-import { Component } from 'react';
+import { useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 import { moduleProps } from '@expandorg/modules';
 import PreviewFormTab from '../../../../../common/popups/PreviewFormTab';
 
-export default class PreviewCtx extends Component {
-  static propTypes = {
-    modules: PropTypes.arrayOf(moduleProps),
-    variables: PropTypes.object, // eslint-disable-line
-  };
-
-  static defaultProps = {
-    modules: [],
-    variables: null,
-  };
-
-  tab = null;
-
-  componentDidMount() {
-    window.addEventListener('message', this.handleMessage, false);
-  }
-
-  componentDidUpdate({ modules: prev }) {
-    const { modules } = this.props;
-    if (prev !== modules) {
-      this.updatePreview();
+const updatePreview = (tab, modules, variables) => {
+  if (tab.current) {
+    const wnd = tab.current.getWindow();
+    if (wnd) {
+      wnd.postMessage({ type: 'updateForm', form: { modules }, variables });
     }
   }
+};
 
-  componentWillUnmount() {
-    window.removeEventListener('message', this.handleMessage);
-  }
-
-  handleMessage = ({ data }) => {
+export default function PreviewCtx({ children, modules, variables }) {
+  const tab = useRef();
+  const handleMessage = ({ data }) => {
     if (typeof data === 'object' && data.type === 'previewReady') {
-      this.updatePreview();
+      updatePreview(tab, modules, variables);
     }
   };
 
-  updatePreview = () => {
-    const { modules, variables } = this.props;
-    if (this.tab) {
-      const wnd = this.tab.getWindow();
-      if (wnd) {
-        wnd.postMessage({ type: 'updateForm', form: { modules }, variables });
-      }
+  useEffect(() => {
+    window.addEventListener('message', handleMessage, false);
+    return () => window.removeEventListener('message', handleMessage);
+  }, []);
+
+  useEffect(() => {
+    updatePreview(tab, modules, variables);
+  }, [modules]);
+
+  const handlePreview = () => {
+    if (!tab.current) {
+      tab.current = new PreviewFormTab();
     }
+    tab.current.open();
   };
 
-  handlePreviewClick = () => {
-    if (!this.tab) {
-      this.tab = new PreviewFormTab();
-    }
-    this.tab.open();
-  };
-
-  render() {
-    const { children } = this.props;
-
-    return children({ onPreview: this.handlePreviewClick });
-  }
+  return children({ onPreview: handlePreview });
 }
+
+PreviewCtx.propTypes = {
+  modules: PropTypes.arrayOf(moduleProps),
+  variables: PropTypes.object, // eslint-disable-line
+};
+
+PreviewCtx.defaultProps = {
+  modules: [],
+  variables: null,
+};
