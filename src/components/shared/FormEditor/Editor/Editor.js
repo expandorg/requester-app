@@ -5,18 +5,11 @@ import cn from 'classnames';
 import { moduleProps } from '@expandorg/modules';
 import { getModuleControlsMap } from '@expandorg/modules/model';
 
-import { Button } from '@expandorg/components';
-
-import {
-  WalkthroughPin,
-  NotificationAnimated,
-} from '@expandorg/components/app';
+import { NotificationAnimated } from '@expandorg/components/app';
 
 import Form from './Form/Form';
-import Properties from '../Properties/Properties';
-import PreviewCtx from './PreviewCtx';
-
-import Walkthrough from './Walkthrough';
+import Toolbar from './Toolbar';
+import { PropertiesPanel } from '../Properties';
 
 import { treeEditor } from '../model/dnd';
 import { validateModuleProps } from '../model/validation';
@@ -134,35 +127,14 @@ export default class Editor extends Component {
             })}
           />
         </div>
-        <div className={styles.actions}>
-          <div className={styles.previewContainer}>
-            <PreviewCtx modules={modules} variables={varsSample}>
-              {({ onPreview }) => (
-                <Button
-                  theme="aqua"
-                  className={styles.btn}
-                  onClick={onPreview}
-                  id="gems-preview"
-                >
-                  Preview
-                </Button>
-              )}
-            </PreviewCtx>
-            <WalkthroughPin id="preview" className={styles.previewPin} />
-          </div>
-          <div className={styles.title}>Edit {title} Module</div>
-          <div className={styles.buttons}>
-            <Walkthrough />
-            <WalkthroughPin id="toggle" className={styles.togglePin} />
-            <Button theme="grey" className={styles.btn} onClick={onCancel}>
-              Cancel
-            </Button>
-            <Button className={styles.btn} onClick={this.handleSave}>
-              Save
-            </Button>
-          </div>
-        </div>
-        <Properties
+        <Toolbar
+          module={module}
+          onSave={this.handleSave}
+          onCancel={onCancel}
+          title={title}
+          varsSample={varsSample}
+        />
+        <PropertiesPanel
           module={selectedModule}
           controls={controls}
           variables={variables}

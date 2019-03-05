@@ -59,7 +59,6 @@ class Form extends Component {
         {connectDropTarget(
           <div className={styles.form}>
             {modules.length === 0 && <Empty onAdd={onAddModule} />}
-
             <FormDataProvider formData={formData}>
               <ExecutionContextProvider
                 form={{ modules }}
