@@ -192,7 +192,7 @@ export default class FormEditor extends Component {
                 onSelectModule={this.handleSelectModule}
                 onCopyModule={this.handleCopyModule}
               />
-            </CanvasContainer>
+            </FormContainer>
             <PropertiesPanel
               module={selectedModule}
               controls={controls}
