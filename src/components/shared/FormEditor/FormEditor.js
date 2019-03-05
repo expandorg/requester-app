@@ -134,12 +134,12 @@ export default class FormEditor extends Component {
     });
   };
 
-  handleSelectModule = path => {
+  handleSelect = path => {
     const { selected } = this.state;
     this.setState({ selected: treeEditor.eq(selected, path) ? null : path });
   };
 
-  handleEditModule = edited => {
+  handleEdit = edited => {
     const { modules, selected } = this.state;
     this.setState({
       selected: null,
@@ -186,20 +186,20 @@ export default class FormEditor extends Component {
                 modules={modules}
                 selected={selected && treeEditor.getIdByPath(selected)}
                 controls={controls}
-                onAddModule={this.handleAdd}
-                onMoveModule={this.handleMoveAt}
-                onRemoveModule={this.handleRemove}
-                onSelectModule={this.handleSelectModule}
-                onCopyModule={this.handleCopyModule}
+                onAdd={this.handleAdd}
+                onMove={this.handleMoveAt}
+                onRemove={this.handleRemove}
+                onSelect={this.handleSelect}
+                onCopy={this.handleCopyModule}
               />
             </FormContainer>
             <PropertiesPanel
               module={selectedModule}
               controls={controls}
               variables={variables}
-              onEdit={this.handleEditModule}
+              onEdit={this.handleEdit}
               onValidate={this.validateModuleProps}
-              onCancel={() => this.handleSelectModule(selected)}
+              onCancel={() => this.handleSelect(selected)}
             />
           </div>
           <NotificationAnimated

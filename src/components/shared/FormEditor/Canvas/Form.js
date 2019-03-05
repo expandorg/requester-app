@@ -28,11 +28,11 @@ class Form extends Component {
     modules: PropTypes.arrayOf(moduleProps),
     selected: PropTypes.string,
     controls: PropTypes.object.isRequired, // eslint-disable-line
-    onAddModule: PropTypes.func.isRequired,
-    onMoveModule: PropTypes.func.isRequired,
-    onSelectModule: PropTypes.func.isRequired,
-    onRemoveModule: PropTypes.func.isRequired,
-    onCopyModule: PropTypes.func.isRequired,
+    onAdd: PropTypes.func.isRequired,
+    onMove: PropTypes.func.isRequired,
+    onSelect: PropTypes.func.isRequired,
+    onRemove: PropTypes.func.isRequired,
+    onCopy: PropTypes.func.isRequired,
     connectDropTarget: PropTypes.func.isRequired,
   };
 
@@ -44,11 +44,11 @@ class Form extends Component {
   render() {
     const {
       modules,
-      onAddModule,
-      onSelectModule,
-      onRemoveModule,
-      onMoveModule,
-      onCopyModule,
+      onAdd,
+      onSelect,
+      onRemove,
+      onMove,
+      onCopy,
       selected,
       controls,
       connectDropTarget,
@@ -58,7 +58,7 @@ class Form extends Component {
       <div className={styles.container}>
         {connectDropTarget(
           <div className={styles.form}>
-            {modules.length === 0 && <Empty onAdd={onAddModule} />}
+            {modules.length === 0 && <Empty onAdd={onAdd} />}
             <FormDataProvider formData={formData}>
               <ExecutionContextProvider
                 form={{ modules }}
@@ -73,7 +73,7 @@ class Form extends Component {
                       module={module}
                       path={p}
                       controls={controls}
-                      onMove={onMoveModule}
+                      onMove={onMove}
                     >
                       {({ connectDragPreview }) => (
                         <Preview
@@ -81,10 +81,10 @@ class Form extends Component {
                           controls={controls}
                           selected={selected}
                           module={module}
-                          onMove={onMoveModule}
-                          onRemove={onRemoveModule}
-                          onSelect={onSelectModule}
-                          onCopy={onCopyModule}
+                          onMove={onMove}
+                          onRemove={onRemove}
+                          onSelect={onSelect}
+                          onCopy={onCopy}
                           connectDragPreview={connectDragPreview}
                         />
                       )}
