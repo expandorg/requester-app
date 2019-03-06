@@ -118,7 +118,8 @@ export default function setupMocks(app: Object) {
       templateId,
       onboarding: {
         ...onboarding,
-        ...settings.onboarding,
+        successMessage: settings.onboardingSuccessMessage,
+        failureMessage: settings.onboardingFailureMessage,
       },
     };
     drafts[index] = draft;

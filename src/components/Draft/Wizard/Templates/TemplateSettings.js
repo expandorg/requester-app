@@ -36,10 +36,8 @@ const getTempateSettings = settings => ({
   stake: +settings.stake,
   deduct: settings.deduct,
   callbackUrl: settings.callbackUrl,
-  onboarding: {
-    successMessage: settings.onboardingSuccessMessage,
-    failureMessage: settings.onboardingFailureMessage,
-  },
+  onboardingSuccessMessage: settings.onboardingSuccessMessage,
+  onboardingFailureMessage: settings.onboardingFailureMessage,
 });
 
 class TemplateSettings extends Component {
