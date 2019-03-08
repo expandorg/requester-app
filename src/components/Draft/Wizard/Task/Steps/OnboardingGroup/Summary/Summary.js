@@ -31,7 +31,7 @@ export default class Summary extends Component {
         <div className={styles.content}>
           <Description>Description about this step goes here.</Description>
           <Section title="Data" status={getStatus(hasData(group.data))}>
-            <DataTable data={group.data} readOnly />
+            {group.data && <DataTable data={group.data} readOnly />}
           </Section>
           <Section title="Settings" blue status="complete">
             <div className={styles.settings}>

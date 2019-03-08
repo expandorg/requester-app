@@ -68,7 +68,7 @@ export default class OnboardingGroupData extends Component {
         />
         <div className={styles.content}>
           <div className={styles.description}>Quiz data</div>
-          <DataTable data={data} onUpdate={this.handleUpdateData} />
+          {data && <DataTable data={data} onUpdate={this.handleUpdateData} />}
         </div>
         <div className={styles.actions}>
           <Button theme="secondary" onClick={() => onChangeStep(null)}>
