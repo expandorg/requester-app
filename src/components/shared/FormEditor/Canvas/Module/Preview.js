@@ -42,7 +42,6 @@ export default class Preview extends Component {
   handleSelectLogic = evt => {
     const { onSelect, path } = this.props;
     onSelect(path, 'logic');
-    console.log(111);
 
     evt.preventDefault();
   };

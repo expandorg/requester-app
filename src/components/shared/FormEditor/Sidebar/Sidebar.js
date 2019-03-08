@@ -6,7 +6,7 @@ import { DropTarget } from 'react-dnd';
 import {
   getAvailableModulesTree,
   searchModulesTree,
-} from '../model/modulesTree';
+} from '../model/categories';
 
 import ClientRectContainer from '../../../common/ClientRectContainer';
 

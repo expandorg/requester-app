@@ -12,7 +12,7 @@ export type Column = {
   isAnswer: boolean,
 };
 
-export type ColumnValue = string | number | boolean;
+export type ColumnValue = string | number | boolean | null;
 
 export type OnboardingGroupData = {
   columns: Array<Column>,
@@ -22,7 +22,7 @@ export type OnboardingGroupData = {
 export const dataToVars = ({
   values,
   columns,
-}: OnboardingGroupData): Array<Object> =>
+}: OnboardingGroupData): Array<{ answer: ?string, variables: Object }> =>
   values.map(row => {
     let answer = null;
     const variables = columns.reduce((set, col, index) => {
@@ -50,12 +50,13 @@ const getDefaultValue = (type: ColumnType): ColumnValue => {
   return '';
 };
 
-export const createNewRow = (columns: Array<Column>) =>
+export const createNewRow = (columns: Array<Column>): Array<ColumnValue> =>
   columns.map(col => getDefaultValue(col.type));
 
 const convertType = (val: ColumnValue, type: ColumnType): ColumnValue => {
   switch (type) {
     case 'text': {
+      // $FlowFixMe
       return val.toString();
     }
     case 'number': {

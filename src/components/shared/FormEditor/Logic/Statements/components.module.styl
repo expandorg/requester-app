@@ -1,17 +1,17 @@
 @import '~@expandorg/uikit/colors';
 @import '~@expandorg/uikit/font';
 
+
 .row
   box-sizing: border-box
   margin-bottom: 16px
   min-height 30px
-
-  color: color-light-blue
   white-space: nowrap;
 
 .text
   box-sizing: border-box
   margin-right: 5px
+  color: color-light-blue
   font(body)
 
   &:last-child
@@ -22,16 +22,46 @@
 
 .dropdown
   box-sizing: border-box
+  position relative
   width: auto
   display: inline-block
-  margin-right: 10px
+  margin-right: 15px
+  min-width 70px
+  padding: 0 20px 0 0
+  color: color-light-blue
 
-  :global(.gem-dropdown-content)
-    position relative
-    top: 1px
-    color: color-light-blue
-    padding: 2px 20px 8px 0
-    border-bottom-color: color-heavy-blue
+  &::before
+    content: ' '
+    height: 1px
+    position absolute
+    bottom: -10px
+    left: 0
+    right: 0
+    border-bottom: 1px solid color-heavy-blue
+
+  &::after
+    position: absolute
+    content: ''
+    right: 0
+    top: calc(50% - 7px)
+    width: 12px
+    height: 16px
+    background-color: transparent;
+    background-position: center;
+    background-origin: border-box
+    background-repeat: no-repeat
+    background-image: url("~@expandorg/uikit/assets/arrow-down.svg")
+
 
   &:last-child
     margin-right: 0
+
+.input
+  display: inline-block
+  width: 100px
+  border-bottom-width: 1px
+
+  :global(.gem-input)
+    color: color-light-blue
+    border-bottom-width: 1px
+

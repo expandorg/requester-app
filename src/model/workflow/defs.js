@@ -1,5 +1,7 @@
 // @flow
 
+import type { Module } from '@expandorg/modules/src/form/model/types.flow';
+
 export type WorkflowForm = {
   modules: Array<Module>,
 };

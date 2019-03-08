@@ -1,14 +1,26 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 
-import { Row, Text } from './components';
+import { Row } from './components';
+
+import Conditional from './Conditional';
+
+const toVar = str => `$(${str})`;
 
 export default function If({ expression, variables, values, onChange }) {
-  console.log(expression, variables, values, onChange);
+  const options = useMemo(
+    () => [...(values || []), ...(variables || [])].map(toVar),
+    [variables, values]
+  );
 
   return (
     <Row>
-      <Text>if </Text>
+      <Conditional
+        prefix="if value of"
+        options={options}
+        expression={expression}
+        onChange={onChange}
+      />
     </Row>
   );
 }

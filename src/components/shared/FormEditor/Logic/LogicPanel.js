@@ -13,7 +13,7 @@ export default function LogicPanel({ module, ...rest }) {
     <div className={cn(styles.container, { [styles.visible]: visible })}>
       {visible && (
         <div className={styles.panel}>
-          <LogicEditor module={module} {...rest} />
+          <LogicEditor key={module.name} module={module} {...rest} />
         </div>
       )}
     </div>

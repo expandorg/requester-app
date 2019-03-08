@@ -14,10 +14,10 @@ import IconButton from '../../../../../common/IconButton';
 import styles from './Header.module.styl';
 
 const isVisible = module => {
-  if (!module.logic || !module.logic.visibility) {
+  if (!module.logic) {
     return true;
   }
-  return module.logic.visibility.success;
+  return !module.logic.show;
 };
 
 const hasLinks = () => false;

@@ -3,9 +3,14 @@
 import { ModuleCategories } from '@expandorg/modules';
 import { groupModulesByCategory } from '@expandorg/modules/model';
 
+import type {
+  ModuleControl,
+  ModuleControlMeta,
+} from '@expandorg/modules/src/form/model/types.flow';
+
 declare type ModuleCategoryItem = {
   category: string,
-  modules: Array<Object>,
+  modules: Array<ModuleControlMeta>,
 };
 
 export const displayCategories = [
@@ -18,7 +23,7 @@ export const displayCategories = [
 ];
 
 export const getAvailableModulesTree = (
-  controls: Array<Object>
+  controls: Array<ModuleControl>
 ): Array<ModuleCategoryItem> => {
   const grouped = groupModulesByCategory(controls);
   return displayCategories.map(category => ({

@@ -153,8 +153,8 @@ export default class FormEditor extends Component {
 
   validateModuleProps = (module, originalName) => {
     const { controls, modules } = this.state;
-    const { editor } = controls[module.type].module;
-    return validateModuleProps(module, originalName, editor, modules);
+    const { module: meta } = controls[module.type];
+    return validateModuleProps(module, originalName, meta, modules);
   };
 
   render() {

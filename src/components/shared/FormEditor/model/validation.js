@@ -1,8 +1,13 @@
 // @flow
 import { rules, validateForm } from '@expandorg/validation';
 import { getFormModulesNames } from '@expandorg/modules/model';
+import type {
+  Module,
+  ModuleControlMeta,
+  ModuleControlsMap,
+} from '@expandorg/modules/src/form/model/types.flow';
 
-const nameIsUniq = (modules: Array<Object>, originalName: string) => name => {
+const nameIsUniq = (modules: Array<Module>, originalName: string) => name => {
   if (name === originalName) {
     return true;
   }
@@ -13,9 +18,9 @@ const nameIsUniq = (modules: Array<Object>, originalName: string) => name => {
 const isRequired = prop => !!prop;
 
 const getModulePropsRules = (
-  editor: Object,
+  meta: ModuleControlMeta,
   originalName: string,
-  modules: Array<Object>
+  modules: Array<Module>
 ) => {
   const nameRules = [[isRequired, 'Name is required']];
   if (originalName && modules) {
@@ -24,10 +29,10 @@ const getModulePropsRules = (
       'Name should be uniq in form',
     ]);
   }
-
-  return Reflect.ownKeys(editor.properties).reduce(
+  const props = (meta.editor && meta.editor.properties) || {};
+  return Reflect.ownKeys(props).reduce(
     (r, propertyName) => {
-      const property = editor.properties[propertyName];
+      const property = props[propertyName];
       if (property.required) {
         return {
           ...r,
@@ -43,17 +48,17 @@ const getModulePropsRules = (
 };
 
 export const validateModuleProps = (
-  module: Object,
+  module: Module,
   originalName: string,
-  editor: Object,
-  modules: Array<Object>
+  meta: ModuleControlMeta,
+  modules: Array<Module>
 ) => {
-  const propRules = getModulePropsRules(editor, originalName, modules);
+  const propRules = getModulePropsRules(meta, originalName, modules);
   return validateForm(module, propRules);
 };
 
 const formConditionalVisitor = (
-  modules: Array<Object>,
+  modules: Array<Module>,
   validator: Function
 ) => {
   // eslint-disable-next-line no-restricted-syntax
@@ -73,8 +78,8 @@ const formConditionalVisitor = (
 };
 
 export const validationFormProps = (
-  modules: Array<Object>,
-  controls: Array<Object>
+  modules: Array<Module>,
+  controls: ModuleControlsMap
 ) => {
   const notSuportedType = formConditionalVisitor(
     modules,
@@ -94,8 +99,8 @@ export const validationFormProps = (
 };
 
 export const validationTaskFormProps = (
-  modules: Array<Object>,
-  controls: Object
+  modules: Array<Module>,
+  controls: ModuleControlsMap
 ) => {
   const errors = validationFormProps(modules, controls);
   if (errors) {

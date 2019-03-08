@@ -3,18 +3,11 @@ import PropTypes from 'prop-types';
 
 import { moduleProps } from '@expandorg/modules';
 
-import { If, Then } from './Statements';
+import { getVisibilityLogic, ModuleLogic } from '../model/logic';
 
-const getVisibility = module => {
-  if (!module.logic || !module.logic.visibility) {
-    return { condition: null, success: false };
-  }
-  return module.logic.visibility;
-};
+import { If, Then, Statement } from './Statements';
 
-const actions = ['hide', 'show'];
-
-const getAction = ({ success }) => (!success ? 'hide' : 'show');
+const visibilityActions = ['hide', 'show'];
 
 export default function VisibilityLogic({
   module,
@@ -22,28 +15,33 @@ export default function VisibilityLogic({
   values,
   onChange,
 }) {
-  const visibility = getVisibility(module);
-  const changeIf = () => {
-    onChange(module);
+  const { expression, action } = getVisibilityLogic(module);
+
+  const changeExpression = updated => {
+    onChange(ModuleLogic.set(module, action, updated));
   };
-  const changeThen = () => {
-    onChange(module);
+
+  const changeAction = updated => {
+    onChange(
+      ModuleLogic.set(ModuleLogic.unset(module, action), updated, expression)
+    );
   };
+
   return (
-    <>
+    <Statement>
       <If
-        expression={visibility.condition}
+        expression={expression}
         variables={variables}
         values={values}
-        onChange={changeIf}
+        onChange={changeExpression}
       />
       <Then
         name={module.name}
-        actions={actions}
-        action={getAction(visibility)}
-        onChange={changeThen}
+        actions={visibilityActions}
+        action={action}
+        onChange={changeAction}
       />
-    </>
+    </Statement>
   );
 }
 
