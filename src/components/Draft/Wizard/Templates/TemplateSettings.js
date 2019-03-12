@@ -23,7 +23,7 @@ const mapDispatchToProps = dispatch =>
 const getInitialState = draft => ({
   staking: (draft && draft.staking) || false,
   stake: (draft && `${draft.stake || 0}`) || '',
-  deduct: (draft && draft.deduct) || false,
+  // deduct: (draft && draft.deduct) || false,
   callbackUrl: (draft && draft.callbackUrl) || '',
   onboardingSuccessMessage:
     (draft && draft.onboarding && draft.onboarding.successMessage) || '',
@@ -34,7 +34,7 @@ const getInitialState = draft => ({
 const getTempateSettings = settings => ({
   staking: settings.staking,
   stake: +settings.stake,
-  deduct: settings.deduct,
+  // deduct: settings.deduct,
   callbackUrl: settings.callbackUrl,
   onboardingSuccessMessage: settings.onboardingSuccessMessage,
   onboardingFailureMessage: settings.onboardingFailureMessage,
@@ -146,7 +146,7 @@ class TemplateSettings extends Component {
                   onChange={this.handleInputChange}
                 />
               </Field>
-              <Field>
+              {/* <Field>
                 <Toggle
                   tooltip="Deduct stake if fail?"
                   label="Deduct stake if fail?"
@@ -154,7 +154,7 @@ class TemplateSettings extends Component {
                   value={settings.deduct}
                   onChange={this.handleToggleChange}
                 />
-              </Field>
+              </Field> */}
             </>
           )}
           <Field tooltip="callback Url">

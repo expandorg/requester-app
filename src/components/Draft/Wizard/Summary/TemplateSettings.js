@@ -19,11 +19,11 @@ export default class TemplateSettings extends Component {
         {draft.staking && (
           <SummaryField title="How much to stake?" value={draft.stake} />
         )}
-        <SummaryField
+        {/* <SummaryField
           title="Deduct stake if fail?"
           value={draft.deduct}
           type="bool"
-        />
+        /> */}
         {draft.callbackUrl && (
           <SummaryField title="Callback Url" value={draft.callbackUrl} />
         )}
