@@ -15,9 +15,16 @@ export default class TemplateSettings extends Component {
     const { draft } = this.props;
     return (
       <div className={styles.container}>
-        <SummaryField title="Staking" value={draft.staking} type="bool" />
-        {draft.staking && (
-          <SummaryField title="How much to stake?" value={draft.stake} />
+        <SummaryField
+          title="Staking"
+          value={!!draft.logic.funding.requirement}
+          type="bool"
+        />
+        {draft.logic.funding && (
+          <SummaryField
+            title="How much to stake?"
+            value={draft.logic.funding.requirement}
+          />
         )}
         {/* <SummaryField
           title="Deduct stake if fail?"

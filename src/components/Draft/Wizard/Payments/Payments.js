@@ -45,7 +45,6 @@ const mapDispatchToProps = dispatch =>
 const getInitialState = ({ logic }) => ({
   balance: (logic.funding && `${logic.funding.balance || 0}`) || '',
   reward: (logic.funding && `${logic.funding.reward || 0}`) || '',
-  module: logic.funding && `${logic.funding.module || ''}`,
 });
 
 class Payments extends Component {
@@ -64,7 +63,7 @@ class Payments extends Component {
     this.state = {
       draft: props.draft, // eslint-disable-line react/no-unused-state
       errors: null,
-      funding: getInitialState(props.draft),
+      ...getInitialState(props.draft),
     };
   }
 
@@ -73,7 +72,7 @@ class Payments extends Component {
       return {
         draft,
         errors: null,
-        funding: getInitialState(draft),
+        ...getInitialState(draft),
       };
     }
     return null;
@@ -82,13 +81,13 @@ class Payments extends Component {
   handleSubmit = () => {
     const { draft, submitState } = this.props;
     if (submitState.state !== RequestStates.Fetching) {
-      const { balance, reward, module } = this.state.funding;
+      const { balance, reward } = this.state;
       const funding = {
-        module,
+        ...draft.logic.funding,
         balance: +balance,
         reward: +reward,
       };
-      const errors = validateForm(this.state.funding, fundingRules);
+      const errors = validateForm({ balance, reward }, fundingRules);
       if (errors) {
         this.setState({ errors });
       } else {
@@ -100,14 +99,13 @@ class Payments extends Component {
   handleBack = evt => {
     const { onBack } = this.props;
     onBack();
-
     evt.preventDefault();
   };
 
   handleInputChange = ({ target }) => {
-    this.setState(({ funding }) => ({
-      funding: { ...funding, [target.name]: target.value },
-    }));
+    this.setState({
+      [target.name]: target.value,
+    });
   };
 
   handleUpdateComplete = () => {
@@ -117,7 +115,7 @@ class Payments extends Component {
 
   render() {
     const { submitState, user } = this.props;
-    const { funding, errors } = this.state;
+    const { balance, reward, errors } = this.state;
     const insufficent = false;
 
     return (
@@ -131,7 +129,7 @@ class Payments extends Component {
                 <Input
                   placeholder="Pay for Task *"
                   name="balance"
-                  value={funding.balance}
+                  value={balance}
                   error={!!(errors && errors.balance)}
                   onChange={this.handleInputChange}
                 />
@@ -144,7 +142,7 @@ class Payments extends Component {
                 <Input
                   placeholder="Amount Earned per Task *"
                   name="reward"
-                  value={funding.reward}
+                  value={reward}
                   error={!!(errors && errors.reward)}
                   onChange={this.handleInputChange}
                 />

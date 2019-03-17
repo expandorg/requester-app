@@ -20,16 +20,23 @@ import styles from './TemplateSettings.module.styl';
 const mapDispatchToProps = dispatch =>
   bindActionCreators({ selectTemplate }, dispatch);
 
-const getInitialState = draft => ({
-  staking: (draft && draft.staking) || false,
-  stake: (draft && `${draft.stake || 0}`) || '',
-  // deduct: (draft && draft.deduct) || false,
-  callbackUrl: (draft && draft.callbackUrl) || '',
-  onboardingSuccessMessage:
-    (draft && draft.onboarding && draft.onboarding.successMessage) || '',
-  onboardingFailureMessage:
-    (draft && draft.onboarding && draft.onboarding.failureMessage) || '',
-});
+const getFunding = draft =>
+  draft && draft.logic && draft.logic.funding && draft.logic.funding;
+
+const getOnboarding = draft => draft && draft.onboarding;
+
+const getInitialState = draft => {
+  const funding = getFunding(draft);
+  const onb = getOnboarding(draft);
+  return {
+    staking: !!(funding && funding.requirement),
+    stake: (funding && `${funding.requirement || 0}`) || '',
+    callbackUrl: (draft && draft.callbackUrl) || '',
+    onboardingSuccessMessage: (onb && onb.successMessage) || '',
+    onboardingFailureMessage: (onb && onb.failureMessage) || '',
+    // deduct: (draft && draft.deduct) || false,
+  };
+};
 
 const getTempateSettings = settings => ({
   staking: settings.staking,
