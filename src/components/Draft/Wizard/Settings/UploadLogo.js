@@ -54,12 +54,12 @@ class UploadLogo extends Component {
         this.setState({ uploadState: RequestStates.Fetching, progress: 0 });
         this.progress = new ProgressPubSub(this.handleProgress);
 
-        const { imageUrl } = await imagesApi.upload({
+        const { url } = await imagesApi.upload({
           thumbnail,
           cb: this.progress,
         });
 
-        onChangeLogo(imageUrl);
+        onChangeLogo(url);
         this.setState({ uploadState: RequestStates.Fetched });
       } catch (e) {
         this.setState({ uploadState: RequestStates.FetchError });
