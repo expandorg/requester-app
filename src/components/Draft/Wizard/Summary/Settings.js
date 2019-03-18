@@ -7,6 +7,7 @@ import { EndType } from '../../../../model/enums';
 import { EndWhenTitles } from '../../../../model/i18n';
 
 import styles from './Settings.module.styl';
+import DraftLogo from '../../../shared/DraftLogo';
 
 export default class Settings extends Component {
   static propTypes = {
@@ -23,10 +24,10 @@ export default class Settings extends Component {
               <div className={styles.filed}>
                 <div className={styles.name}>Thumbnail</div>
                 <div className={styles.logo}>
-                  <img
+                  <DraftLogo
                     src={draft.logo}
                     className={styles.img}
-                    alt={draft.name}
+                    name={draft.name}
                   />
                 </div>
               </div>

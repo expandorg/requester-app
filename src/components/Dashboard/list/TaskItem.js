@@ -8,6 +8,7 @@ import { ReactComponent as MoreIcon } from '@expandorg/uikit/assets/more.svg';
 import I from '../../common/I';
 
 import TaskItemMenu from './TaskItemMenu';
+import DraftLogo from '../../shared/DraftLogo';
 
 import { TaskStatus } from '../../../model/enums';
 import { TaskStatusTitles } from '../../../model/i18n';
@@ -125,9 +126,9 @@ export default class TaskItem extends Component {
           </div>
         </div>
         <div className={styles.logo}>
-          <img src={task.logo} className={styles.img} alt={task.title} />
+          <DraftLogo logo={task.logo} name={task.name} className={styles.img} />
         </div>
-        <div className={styles.title}>{task.title}</div>
+        <div className={styles.title}>{task.name}</div>
         <div className={styles.status}>{getStatusTitle(task)}</div>
       </Link>
     );
