@@ -11,15 +11,13 @@ export type Column = {
   type: ColumnType,
 };
 
-export type ColumnValue = string | number | boolean | null;
-
 export type OnboardingGroupData = {
   answer: {
     field: string,
   },
   columns: Array<Column>,
   steps: Array<{
-    values: Array<Array<ColumnValue>>,
+    values: Array<Array<string>>,
     answer: ?string,
   }>,
 };
@@ -40,35 +38,21 @@ export const dataToVars = ({
     return { variables, answer: { [answer.field]: row.answer } };
   });
 
-const getDefaultValue = (type: ColumnType): ColumnValue => {
-  switch (type) {
-    case 'text':
-      return '';
-    case 'number':
-      return '';
-    case 'bool':
-      return false;
-    default:
-      break;
-  }
-  return '';
-};
+export const createNewRow = (columns: Array<Column>): Array<string> =>
+  columns.map(() => '');
 
-export const createNewRow = (columns: Array<Column>): Array<ColumnValue> =>
-  columns.map(col => getDefaultValue(col.type));
-
-const convertType = (val: ColumnValue, type: ColumnType): ColumnValue => {
+const convertType = (val: string, type: ColumnType): string => {
   switch (type) {
     case 'text': {
       // $FlowFixMe
-      return val.toString();
+      return val;
     }
     case 'number': {
       const num = +val;
-      return Number.isNaN(num) ? 0 : num;
+      return Number.isNaN(num) ? '0' : val;
     }
     case 'bool': {
-      return !!val;
+      return val;
     }
     default:
       break;
@@ -77,7 +61,7 @@ const convertType = (val: ColumnValue, type: ColumnType): ColumnValue => {
 };
 
 export const updateValuesType = (
-  steps: Array<Array<ColumnValue>>,
+  steps: Array<{ values: Array<string>, answer: string }>,
   col: number,
   type: ColumnType
 ) =>

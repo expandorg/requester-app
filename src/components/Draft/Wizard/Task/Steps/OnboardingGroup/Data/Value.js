@@ -29,7 +29,10 @@ export default class Value extends PureComponent {
     const { onChange, type, columnIndex } = this.props;
     let adjusted = value;
     if (type === 'number') {
-      adjusted = Number.isNaN(+value) ? 0 : +value;
+      adjusted = Number.isNaN(+value) ? '0' : value;
+    }
+    if (type === 'bool') {
+      adjusted = value ? 'true' : '';
     }
     onChange(columnIndex, adjusted);
   };
@@ -55,7 +58,7 @@ export default class Value extends PureComponent {
         )}
         {!readOnly && type === 'bool' && (
           <Switch
-            value={value}
+            value={!!value}
             className={styles.switch}
             onChange={this.handleChange}
           />

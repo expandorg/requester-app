@@ -129,10 +129,10 @@ const quizForm = {
       { name: 'varname3', type: 'bool' },
     ],
     steps: [
-      { values: ['Type your name', 12, false], answer: '14' },
-      { values: ['Your favorite book', 22, false], answer: '14' },
-      { values: ['text-31', 32, false], answer: '14' },
-      { values: ['text-41', 42, false], answer: '15' },
+      { values: ['Type your name', '12', ''], answer: '14' },
+      { values: ['Your favorite book', '22', ''], answer: '14' },
+      { values: ['text-31', '32', ''], answer: '14' },
+      { values: ['text-41', '42', ''], answer: '15' },
     ],
   },
   taskForm: {
