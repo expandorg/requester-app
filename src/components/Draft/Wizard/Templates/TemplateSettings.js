@@ -13,7 +13,7 @@ import { Description, Actions, Field, Fieldset, Toggle } from '../Form';
 
 import { hasTemplate } from '../../wizard';
 import { selectTemplate } from '../../../../sagas/draftsSagas';
-import { draftProps } from '../../../shared/propTypes';
+import { draftProps, taskTemplateProps } from '../../../shared/propTypes';
 
 import styles from './TemplateSettings.module.styl';
 
@@ -25,15 +25,17 @@ const getFunding = draft =>
 
 const getOnboarding = draft => draft && draft.onboarding;
 
-const getInitialState = draft => {
-  const funding = getFunding(draft);
-  const onb = getOnboarding(draft);
+const getInitialState = (draft, template) => {
+  const ht = hasTemplate(draft);
+  const funding = getFunding(ht ? draft : template);
+  const onboarding = getOnboarding(ht ? draft : template);
+
   return {
     staking: !!(funding && funding.requirement),
     stake: (funding && `${funding.requirement || 0}`) || '',
     callbackUrl: (draft && draft.callbackUrl) || '',
-    onboardingSuccessMessage: (onb && onb.successMessage) || '',
-    onboardingFailureMessage: (onb && onb.failureMessage) || '',
+    onboardingSuccessMessage: (onboarding && onboarding.successMessage) || '',
+    onboardingFailureMessage: (onboarding && onboarding.failureMessage) || '',
     // deduct: (draft && draft.deduct) || false,
   };
 };
@@ -51,6 +53,7 @@ class TemplateSettings extends Component {
   static propTypes = {
     draft: draftProps.isRequired,
     submitState: requestStateProps.isRequired,
+    template: taskTemplateProps,
     selected: PropTypes.string,
 
     onBack: PropTypes.func.isRequired,
@@ -59,6 +62,7 @@ class TemplateSettings extends Component {
 
   static defaultProps = {
     selected: null,
+    template: null,
   };
 
   constructor(props) {
@@ -66,15 +70,15 @@ class TemplateSettings extends Component {
     this.state = {
       confirmDialog: false,
       draft: props.draft, // eslint-disable-line react/no-unused-state
-      settings: getInitialState(props.draft),
+      settings: getInitialState(props.draft, props.template),
     };
   }
 
-  static getDerivedStateFromProps({ draft }, state) {
+  static getDerivedStateFromProps({ draft, template }, state) {
     if (draft !== state.draft) {
       return {
         draft,
-        settings: getInitialState(draft),
+        settings: getInitialState(draft, template),
       };
     }
     return null;

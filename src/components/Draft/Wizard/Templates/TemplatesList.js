@@ -1,29 +1,16 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-
 import { Button } from '@expandorg/components';
 
 import Templates from '../../../shared/Templates/Templates';
 import { Actions } from '../Form';
 
 import { taskTemplateProps } from '../../../shared/propTypes';
-import { fetchTaskTemplates } from '../../../../sagas/tasksSagas';
-
-import { taskTemplatesSelector } from '../../../../selectors/taskTemplatesSelectors';
 
 import styles from './TemplatesList.module.styl';
 
-const mapStateToProps = state => ({
-  templates: taskTemplatesSelector(state),
-});
-
-const mapDispatchToProps = dispatch =>
-  bindActionCreators({ fetchTaskTemplates }, dispatch);
-
-class TemplatesList extends Component {
+export default class TemplatesList extends Component {
   static propTypes = {
     templates: PropTypes.arrayOf(taskTemplateProps),
 
@@ -32,18 +19,12 @@ class TemplatesList extends Component {
 
     onNext: PropTypes.func.isRequired,
     onBack: PropTypes.func.isRequired,
-
-    fetchTaskTemplates: PropTypes.func.isRequired,
   };
 
   static defaultProps = {
     templates: [],
     selected: null,
   };
-
-  componentDidMount() {
-    this.props.fetchTaskTemplates();
-  }
 
   render() {
     const { templates, selected, onBack, onNext, onSelect } = this.props;
@@ -71,8 +52,3 @@ class TemplatesList extends Component {
     );
   }
 }
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(TemplatesList);
