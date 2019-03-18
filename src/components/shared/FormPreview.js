@@ -25,6 +25,7 @@ export default class FormPreview extends Component {
       currentTry: PropTypes.number,
     }),
     className: PropTypes.string,
+    readOnly: PropTypes.bool,
     onSubmit: PropTypes.func,
     onNotify: PropTypes.func,
   };
@@ -32,6 +33,7 @@ export default class FormPreview extends Component {
   static defaultProps = {
     form: null,
     variables: null,
+    readOnly: false,
     className: null,
     onSubmit: Function.prototype,
     onNotify: Function.prototype,
@@ -46,18 +48,20 @@ export default class FormPreview extends Component {
       className,
       onSubmit,
       onNotify,
+      readOnly,
     } = this.props;
 
     if (!form || !form.modules || !form.modules.length) {
       return <div className={styles.empty}>Form is empty</div>;
     }
-
     return (
       <FormDataProvider formData={formData}>
         <Form
           controls={moduleControls}
           services={services}
-          className={cn(styles.form, className)}
+          className={cn(styles.form, className, {
+            [styles.readOnly]: readOnly,
+          })}
           variables={variables}
           form={form}
           onSubmit={onSubmit}

@@ -6,6 +6,20 @@
   display: block
   margin: 0 auto;
   max-width: 900px;
+  position relative
+
+.readOnly
+  &:after
+    box-sizing: border-box
+    z-index: 3
+    content: " "
+
+    position: absolute
+
+    left: 0
+    right: 0
+    top: 0
+    bottom: 0
 
 .empty
   color: color-text-dark

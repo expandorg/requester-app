@@ -28,7 +28,11 @@ export default class Preview extends Component {
     return (
       <div className={cn(styles.container, className)}>
         <div className={styles.title}>{template.name}</div>
-        <FormPreview form={template.taskForm} className={styles.form} />
+        <FormPreview
+          readOnly
+          form={template.taskForm}
+          className={styles.form}
+        />
       </div>
     );
   }
