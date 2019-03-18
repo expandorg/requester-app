@@ -50,9 +50,6 @@ export const copyDraft = draft => ({
 export const taskTemplates = range(20).map(i => ({
   id: nanoid(),
   name: i === 0 ? `Template name very very long, ${i}` : `Template name, ${i}`,
-  logo: 'https://portal.gems.org//images/complete-tasks.png',
-  description:
-    'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
   taskForm: {
     modules: [
       {
@@ -125,20 +122,19 @@ const quizForm = {
   retries: 3,
   failureMessage: 'Quiz failed',
   data: {
+    answer: { field: 'input' },
     columns: [
       { name: 'varname1', type: 'text' },
       { name: 'varname2', type: 'number' },
       { name: 'varname3', type: 'bool' },
-      { name: 'answer', type: 'text', isAnswer: true },
     ],
-    values: [
-      ['Type your name', 12, false, '14'],
-      ['Your favorite book', 22, false, '14'],
-      ['text-31', 32, false, '14'],
-      ['text-41', 42, false, '15'],
+    steps: [
+      { values: ['Type your name', 12, false], answer: '14' },
+      { values: ['Your favorite book', 22, false], answer: '14' },
+      { values: ['text-31', 32, false], answer: '14' },
+      { values: ['text-41', 42, false], answer: '15' },
     ],
   },
-  logo: 'https://portal.gems.org//images/complete-tasks.png',
   taskForm: {
     modules: [
       {
@@ -162,8 +158,6 @@ const quizForm = {
       },
     ],
   },
-  description:
-    'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
 };
 
 export const formTemplates = [quizForm].concat(
@@ -171,7 +165,6 @@ export const formTemplates = [quizForm].concat(
     id: nanoid(),
     name: `Form, ${id}`,
     isGroup: false,
-    logo: 'https://portal.gems.org//images/complete-tasks.png',
     taskForm: {
       modules: [
         {
@@ -196,7 +189,5 @@ export const formTemplates = [quizForm].concat(
         },
       ],
     },
-    description:
-      'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
   }))
 );

@@ -7,6 +7,7 @@ import { removeAtIndex, replaceAtIndex } from '@expandorg/utils';
 import { Table as T } from '@expandorg/components';
 
 import Variable from './Variable';
+import Answer from './Answer';
 import ValuesRow from './ValuesRow';
 
 import {
@@ -20,14 +21,16 @@ export default class DataTable extends Component {
   static propTypes = {
     data: PropTypes.shape({
       columns: PropTypes.arrayOf(PropTypes.object),
-      values: PropTypes.arrayOf(PropTypes.array),
+      steps: PropTypes.arrayOf(PropTypes.object),
     }).isRequired,
+    fields: PropTypes.arrayOf(PropTypes.string),
     readOnly: PropTypes.bool,
     onUpdate: PropTypes.func,
   };
 
   static defaultProps = {
     readOnly: false,
+    fields: [],
     onUpdate: Function.prototype,
   };
 
@@ -35,7 +38,7 @@ export default class DataTable extends Component {
     const { data, onUpdate } = this.props;
     onUpdate({
       ...data,
-      values: removeAtIndex(data.values, index),
+      steps: removeAtIndex(data.steps, index),
     });
   };
 
@@ -43,7 +46,10 @@ export default class DataTable extends Component {
     const { data, onUpdate } = this.props;
     onUpdate({
       ...data,
-      values: [...data.values, createNewRow(data.columns)],
+      steps: [
+        ...data.steps,
+        { values: createNewRow(data.columns), answer: '' },
+      ],
     });
   };
 
@@ -54,7 +60,7 @@ export default class DataTable extends Component {
     onUpdate({
       ...data,
       values: typeChanged
-        ? updateValuesType(data.values, index, column.type)
+        ? updateValuesType(data.steps, index, column.type)
         : data.values,
       columns: replaceAtIndex(data.columns, index, column),
     });
@@ -64,13 +70,27 @@ export default class DataTable extends Component {
     const { data, onUpdate } = this.props;
     onUpdate(
       immer(data, draft => {
-        draft.values[row][col] = value;
+        draft.steps[row].values[col] = value;
       })
     );
   };
 
+  handleChangeAnswerValue = (row, answer) => {
+    const { data, onUpdate } = this.props;
+    onUpdate(
+      immer(data, draft => {
+        draft.steps[row].answer = answer;
+      })
+    );
+  };
+
+  handleChangeAnswer = answer => {
+    const { data, onUpdate } = this.props;
+    onUpdate({ ...data, answer });
+  };
+
   render() {
-    const { data, readOnly } = this.props;
+    const { data, fields, readOnly } = this.props;
     /* eslint-disable react/no-array-index-key */
     return (
       <T.ScrollContainer className={styles.scroll}>
@@ -85,12 +105,18 @@ export default class DataTable extends Component {
                 onChange={this.handleChangeVar}
               />
             ))}
+            <Answer
+              answer={data.answer}
+              readOnly={readOnly}
+              fields={fields}
+              onChange={this.handleChangeAnswer}
+            />
             {!readOnly && (
               <T.HeaderCell className={styles.varDelete}>Delete</T.HeaderCell>
             )}
           </T.Header>
 
-          {data.values.map((row, index) => (
+          {data.steps.map((row, index) => (
             <ValuesRow
               key={index}
               index={index}
@@ -98,6 +124,7 @@ export default class DataTable extends Component {
               columns={data.columns}
               readOnly={readOnly}
               onChange={this.handleChangeValue}
+              onChangeAnswer={this.handleChangeAnswerValue}
               onDelete={this.handleDeleteRow}
             />
           ))}

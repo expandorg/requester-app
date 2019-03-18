@@ -6,34 +6,35 @@ import { Table as T, Button, Dropdown } from '@expandorg/components';
 
 import styles from './Variable.module.styl';
 
-import { columnTypes } from '../../../../../../../model/onboardingData';
-
-export default class Variable extends Component {
+export default class Answer extends Component {
   static propTypes = {
-    column: PropTypes.shape({
-      name: PropTypes.string,
-      type: PropTypes.oneOf(columnTypes),
+    answer: PropTypes.shape({
+      field: PropTypes.string,
     }).isRequired,
-    index: PropTypes.number.isRequired,
+    fields: PropTypes.arrayOf(PropTypes.string),
     readOnly: PropTypes.bool.isRequired,
     onChange: PropTypes.func.isRequired,
+  };
+
+  static defaultProps = {
+    fields: [],
   };
 
   constructor(props) {
     super(props);
 
     this.state = {
-      original: props.column, // eslint-disable-line react/no-unused-state
-      column: props.column,
+      original: props.answer, // eslint-disable-line react/no-unused-state
+      answer: props.answer,
       edit: false,
     };
   }
 
-  static getDerivedStateFromProps({ column }, state) {
-    if (column !== state.original) {
+  static getDerivedStateFromProps({ answer }, state) {
+    if (answer !== state.original) {
       return {
-        column,
-        original: column,
+        answer,
+        original: answer,
         edit: false,
       };
     }
@@ -47,43 +48,37 @@ export default class Variable extends Component {
 
     this.setState({
       edit: !edit,
-      column: original,
+      answer: original,
     });
   };
 
-  handleChangeName = ({ target }) => {
-    this.setState(({ column }) => ({
-      column: { ...column, name: target.value },
-    }));
-  };
-
-  handleChangeType = type => {
-    this.setState(({ column }) => ({
-      column: { ...column, type },
+  handleChangeField = field => {
+    this.setState(({ answer }) => ({
+      answer: { ...answer, field },
     }));
   };
 
   handleSave = evt => {
     evt.preventDefault();
 
-    const { onChange, index } = this.props;
-    const { column } = this.state;
+    const { onChange } = this.props;
+    const { answer } = this.state;
 
     this.setState({ edit: false });
-    onChange(index, column);
+    onChange(answer);
   };
 
   render() {
-    const { readOnly } = this.props;
-    const { column, edit } = this.state;
+    const { readOnly, fields } = this.props;
+    const { answer, edit } = this.state;
 
     return (
       <T.HeaderCell className={styles.var}>
         <div className={styles.container}>
           {!edit && (
             <div className={styles.content}>
-              <div className={styles.name}>{column.name}</div>
-              <div className={styles.type}>{column.type}</div>
+              <div className={styles.name}>{answer.field}</div>
+              <div className={styles.type}>(Answer field)</div>
               {!readOnly && (
                 <div className={styles.actions}>
                   <Button
@@ -101,18 +96,11 @@ export default class Variable extends Component {
           {edit && (
             <div className={cn(styles.content, styles.absolute)}>
               <div className={styles.fields}>
-                <input
-                  type="text"
-                  value={column.name}
-                  placeholder="Variable name"
-                  onChange={this.handleChangeName}
-                  className={styles.input}
-                />
                 <Dropdown
                   className={styles.dropdown}
-                  options={columnTypes}
-                  value={column.type}
-                  onChange={this.handleChangeType}
+                  options={fields}
+                  value={answer.field}
+                  onChange={this.handleChangeField}
                 />
               </div>
               <div className={styles.actions}>

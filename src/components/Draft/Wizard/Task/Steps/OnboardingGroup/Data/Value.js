@@ -15,13 +15,14 @@ export default class Value extends PureComponent {
       PropTypes.bool,
     ]).isRequired,
     type: PropTypes.oneOf(columnTypes),
-    columnIndex: PropTypes.number.isRequired,
+    columnIndex: PropTypes.number,
     readOnly: PropTypes.bool.isRequired,
     onChange: PropTypes.func.isRequired,
   };
 
   static defaultProps = {
     type: 'text',
+    columnIndex: null,
   };
 
   handleChange = value => {
@@ -35,6 +36,9 @@ export default class Value extends PureComponent {
 
   render() {
     const { value, readOnly, type } = this.props;
+    if (value === null) {
+      debugger; // eslint-disable-line
+    }
 
     return (
       <T.Cell className={styles.cell}>

@@ -9,31 +9,35 @@ export const columnTypes = ['text', 'number', 'bool'];
 export type Column = {
   name: string,
   type: ColumnType,
-  isAnswer: boolean,
 };
 
 export type ColumnValue = string | number | boolean | null;
 
 export type OnboardingGroupData = {
+  answer: {
+    field: string,
+  },
   columns: Array<Column>,
-  values: Array<Array<ColumnValue>>,
+  steps: Array<{
+    values: Array<Array<ColumnValue>>,
+    answer: ?string,
+  }>,
 };
 
 export const dataToVars = ({
-  values,
+  answer,
   columns,
-}: OnboardingGroupData): Array<{ answer: ?string, variables: Object }> =>
-  values.map(row => {
-    let answer = null;
+  steps,
+}: OnboardingGroupData): Array<{
+  answer: ?{ [filed: string]: string },
+  variables: Object,
+}> =>
+  steps.map(row => {
     const variables = columns.reduce((set, col, index) => {
-      if (!col.isAnswer) {
-        set[col.name] = row[index];
-      } else {
-        answer = row[index];
-      }
+      set[col.name] = row.values[index];
       return set;
     }, {});
-    return { variables, answer };
+    return { variables, answer: { [answer.field]: row.answer } };
   });
 
 const getDefaultValue = (type: ColumnType): ColumnValue => {
@@ -41,7 +45,7 @@ const getDefaultValue = (type: ColumnType): ColumnValue => {
     case 'text':
       return '';
     case 'number':
-      return null;
+      return '';
     case 'bool':
       return false;
     default:
@@ -73,12 +77,12 @@ const convertType = (val: ColumnValue, type: ColumnType): ColumnValue => {
 };
 
 export const updateValuesType = (
-  values: Array<Array<ColumnValue>>,
+  steps: Array<Array<ColumnValue>>,
   col: number,
   type: ColumnType
 ) =>
-  immer(values, draft => {
-    for (let i = 0; i < draft.length; i += 1) {
-      draft[i][col] = convertType(draft[i][col], type);
+  immer(steps, draft => {
+    for (let i = 0; i < steps.length; i += 1) {
+      draft[i].values[col] = convertType(draft[i].values[col], type);
     }
   });
