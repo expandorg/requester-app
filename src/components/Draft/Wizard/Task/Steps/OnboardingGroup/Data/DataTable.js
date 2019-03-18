@@ -130,7 +130,10 @@ export default class DataTable extends Component {
           ))}
           {!readOnly && (
             <T.Row>
-              <T.Cell className={styles.spacer} colSpan={data.columns.length} />
+              <T.Cell
+                className={styles.spacer}
+                colSpan={data.columns.length + 1}
+              />
               <T.Cell className={styles.cellAdd}>
                 <button className={styles.add} onClick={this.handleAddRow}>
                   +
