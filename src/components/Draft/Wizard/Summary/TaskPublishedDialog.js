@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router';
 
-import { requestStateProps, historyProps } from '@expandorg/app-utils';
+import { historyProps } from '@expandorg/app-utils';
 
 import ConfirmationDialog from '../../../shared/ConfirmationDialog';
+import { draftProps } from '../../../shared/propTypes';
 
 class Summary extends Component {
   static propTypes = {
     history: historyProps.isRequired,
-    submitState: requestStateProps.isRequired,
+    draft: draftProps.isRequired,
   };
 
   handleHide = () => {
@@ -17,10 +18,8 @@ class Summary extends Component {
   };
 
   handleConfirm = () => {
-    const { submitState, history } = this.props;
-    const { result, entities } = submitState.payload;
-    const draft = entities.drafts[result.draft];
-    history.replace(`/task/${draft.taskId}`);
+    const { draft, history } = this.props;
+    history.replace(`/task/${draft.jobId}`);
   };
 
   render() {

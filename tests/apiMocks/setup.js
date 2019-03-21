@@ -170,7 +170,7 @@ export default function setupMocks(app: Object) {
     const draft = drafts[index];
     const task = createTask(draft);
 
-    draft.taskId = task.id;
+    draft.jobId = task.id;
     draft.status = 'published';
 
     drafts.splice(index, 1);

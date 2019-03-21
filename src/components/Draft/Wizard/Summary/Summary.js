@@ -90,7 +90,7 @@ class Summary extends Component {
             />
           </LoadIndicator>
         )}
-        {published && <TaskPublishedDialog submitState={submitState} />}
+        {published && <TaskPublishedDialog draft={draft} />}
       </SubmitStateEffect>
     );
   }
