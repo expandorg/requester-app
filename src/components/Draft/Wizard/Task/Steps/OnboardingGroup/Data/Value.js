@@ -15,6 +15,7 @@ export default class Value extends PureComponent {
       PropTypes.bool,
     ]).isRequired,
     type: PropTypes.oneOf(columnTypes),
+    placeholder: PropTypes.string.isRequired,
     columnIndex: PropTypes.number,
     readOnly: PropTypes.bool.isRequired,
     onChange: PropTypes.func.isRequired,
@@ -38,7 +39,7 @@ export default class Value extends PureComponent {
   };
 
   render() {
-    const { value, readOnly, type } = this.props;
+    const { value, readOnly, type, placeholder } = this.props;
     if (value === null) {
       debugger; // eslint-disable-line
     }
@@ -51,7 +52,7 @@ export default class Value extends PureComponent {
             type={type}
             value={value}
             required
-            placeholder="value..."
+            placeholder={placeholder}
             className={styles.input}
             onChange={({ target }) => this.handleChange(target.value)}
           />

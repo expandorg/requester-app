@@ -78,7 +78,7 @@ export default class Answer extends Component {
           {!edit && (
             <div className={styles.content}>
               <div className={styles.name}>{answer.field}</div>
-              <div className={styles.type}>(Answer field)</div>
+              <div className={styles.type}>Answer</div>
               {!readOnly && (
                 <div className={styles.actions}>
                   <Button

@@ -31,7 +31,6 @@ export type WorkflowState = {
   form?: WorkflowForm,
 };
 
-// eslint-disable-next-line import/prefer-default-export
 export const TaskWorkflowState = {
   ONBOARDING_GROUP: 'ONBOARDING_GROUP',
   ONBOARDING_GROUP_FAILED: 'ONBOARDING_GROUP_FAILED',

@@ -48,18 +48,23 @@ export default class ValuesRow extends PureComponent {
     /* eslint-disable react/no-array-index-key */
     return (
       <T.Row className={styles.row}>
-        {row.values.map((value, index) => (
-          <Value
-            key={index}
-            value={value}
-            columnIndex={index}
-            type={columns[index].type}
-            readOnly={readOnly}
-            onChange={this.handleChange}
-          />
-        ))}
+        {row.values.map((value, index) => {
+          const col = columns[index];
+          return (
+            <Value
+              key={index}
+              value={value}
+              columnIndex={index}
+              type={col.type}
+              placeholder={col.name}
+              readOnly={readOnly}
+              onChange={this.handleChange}
+            />
+          );
+        })}
         <Value
           readOnly={readOnly}
+          placeholder="Answer"
           value={row.answer}
           onChange={this.handleChangeAnswer}
         />

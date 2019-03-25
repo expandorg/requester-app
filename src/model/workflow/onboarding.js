@@ -65,12 +65,16 @@ export const createOnboardingState = (draft: Object): WorkflowState =>
 export const repeatOnboardingGroup = ({
   groups,
   groupState,
-}: WorkflowState): WorkflowState =>
-  createGroupState(groups, {
+}: WorkflowState): WorkflowState => {
+  if (groups === undefined || groupState === undefined) {
+    throw new Error('Invalida task state');
+  }
+  return createGroupState(groups, {
     ...initialGroupState,
     groupIndex: groupState.groupIndex,
     currentTry: groupState.currentTry,
   });
+};
 
 const pickNextGroupStep = (
   groups: Array<OnboardingGroup>,
@@ -98,7 +102,7 @@ const pickNextGroupStep = (
   };
 };
 
-const isResponseCorrect = () => true;
+const isResponseCorrect = (correct: ?mixed, response: ?mixed) => true; // eslint-disable-line
 
 const passThreshold = (incorrect: number, group: OnboardingGroup) => {
   const score = 1 - incorrect / group.steps.length;
@@ -109,12 +113,19 @@ export const getNextOnboardingState = (
   { groups, groupState }: WorkflowState,
   response: any
 ): WorkflowState => {
+  if (groupState === undefined || groups === undefined) {
+    throw new Error('Invaliad group state');
+  }
+
   const group = groups[groupState.groupIndex];
 
   if (!group.isGroup) {
     return pickNextGroupStep(groups, groupState);
   }
   const step = group.steps[groupState.stepIndex];
+  if (step === undefined) {
+    throw new Error(`No step with index ${groupState.stepIndex}`);
+  }
 
   if (isResponseCorrect(step.answer, response)) {
     return pickNextGroupStep(groups, groupState);
@@ -125,7 +136,10 @@ export const getNextOnboardingState = (
     return pickNextGroupStep(groups, { ...groupState, incorrect });
   }
 
-  if (groupState.currentTry + 1 >= group.retries) {
+  if (
+    group.retries !== undefined &&
+    groupState.currentTry + 1 >= group.retries
+  ) {
     return {
       state: TaskWorkflowState.ONBOARDING_FAILED,
     };

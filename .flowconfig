@@ -1,9 +1,11 @@
-[ignore]
-
 [include]
 
 [libs]
 <PROJECT_ROOT>/flow-typed/
+
+
+[untyped]
+<PROJECT_ROOT>/node_modules/draft-js/*
 
 [options]
 esproposal.class_static_fields=enable
