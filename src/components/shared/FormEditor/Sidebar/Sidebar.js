@@ -17,6 +17,9 @@ import { availableTarget, FORM_DND_ID } from '../model/dnd';
 
 import styles from './Sidebar.module.styl';
 
+// FIXME: temproary disable https://github.com/gemsorg/requester-portal/issues/81
+const exclude = ['progress', 'upload'];
+
 class Sidebar extends Component {
   static propTypes = {
     onEndDrag: PropTypes.func.isRequired,
@@ -30,7 +33,7 @@ class Sidebar extends Component {
   constructor(props) {
     super(props);
 
-    const categories = getAvailableModulesTree(props.moduleControls);
+    const categories = getAvailableModulesTree(props.moduleControls, exclude);
     this.state = {
       preview: null,
       all: categories,

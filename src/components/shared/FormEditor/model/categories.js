@@ -23,9 +23,14 @@ export const displayCategories = [
 ];
 
 export const getAvailableModulesTree = (
-  controls: Array<ModuleControl>
+  controls: Array<ModuleControl>,
+  exclude?: Array<string> = []
 ): Array<ModuleCategoryItem> => {
-  const grouped = groupModulesByCategory(controls);
+  const available =
+    exclude && exclude.length
+      ? controls.filter(c => !exclude.includes(c.module.type))
+      : controls;
+  const grouped = groupModulesByCategory(available);
   return displayCategories.map(category => ({
     category,
     // $FlowFixMe
