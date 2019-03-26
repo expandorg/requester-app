@@ -56,9 +56,9 @@ export const updateOnboarding = (id, onboarding) => ({
   meta: { schema: draftResponseSchema },
 });
 
-export const updateFunding = (id, logic) => ({
+export const updateFunding = (id, funding) => ({
   type: draftsActionTypes.UPDATE_FUNDING,
-  payload: { id, params: { logic } },
+  payload: { id, params: { funding } },
   asyncCall: draftApi.update,
   meta: { schema: draftResponseSchema },
 });

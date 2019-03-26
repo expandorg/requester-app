@@ -22,8 +22,8 @@ const mapDispatchToProps = dispatch =>
   bindActionCreators({ selectTemplate }, dispatch);
 
 const getOnboarding = o => o && o.onboarding;
-const getFunding = o => o && o.logic && o.logic.funding;
-const getVerification = o => o && o.logic && o.logic.verification;
+const getFunding = o => o && o.funding;
+const getVerification = o => o && o.verification;
 
 const avaialableVerification = [
   VerificationType.Consensus,

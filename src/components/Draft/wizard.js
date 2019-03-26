@@ -14,10 +14,7 @@ export const hasWhitelist = (draft: ?Object) =>
   draft && draft.whitelist !== null && draft.whitelist !== undefined;
 
 export const hasFunding = (draft: ?Object) =>
-  draft &&
-  draft.logic &&
-  draft.logic.funding &&
-  typeof draft.logic.funding.reward !== 'undefined';
+  draft && draft.funding && typeof draft.funding.reward !== 'undefined';
 
 export const hasData = (draft: ?Object) =>
   draft && draft.dataId !== null && draft.dataId !== undefined;

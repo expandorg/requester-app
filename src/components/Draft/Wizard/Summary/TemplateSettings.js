@@ -17,13 +17,13 @@ export default class TemplateSettings extends Component {
       <div className={styles.container}>
         <SummaryField
           title="Staking"
-          value={!!draft.logic.funding.requirement}
+          value={!!draft.funding.requirement}
           type="bool"
         />
-        {draft.logic.funding && (
+        {draft.funding && (
           <SummaryField
             title="How much to stake?"
-            value={draft.logic.funding.requirement}
+            value={draft.funding.requirement}
           />
         )}
         {/* <SummaryField

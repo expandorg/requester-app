@@ -42,9 +42,9 @@ const mapsStateToProps = state => ({
 const mapDispatchToProps = dispatch =>
   bindActionCreators({ updateFunding }, dispatch);
 
-const getInitialState = ({ logic }) => ({
-  balance: (logic.funding && `${logic.funding.balance || 0}`) || '',
-  reward: (logic.funding && `${logic.funding.reward || 0}`) || '',
+const getInitialState = ({ funding }) => ({
+  balance: (funding && `${funding.balance || 0}`) || '',
+  reward: (funding && `${funding.reward || 0}`) || '',
 });
 
 class Payments extends Component {
@@ -83,7 +83,7 @@ class Payments extends Component {
     if (submitState.state !== RequestStates.Fetching) {
       const { balance, reward } = this.state;
       const funding = {
-        ...draft.logic.funding,
+        ...draft.funding,
         balance: +balance,
         reward: +reward,
       };
@@ -91,7 +91,7 @@ class Payments extends Component {
       if (errors) {
         this.setState({ errors });
       } else {
-        this.props.updateFunding(draft.id, { ...draft.logic, funding });
+        this.props.updateFunding(draft.id, funding);
       }
     }
   };

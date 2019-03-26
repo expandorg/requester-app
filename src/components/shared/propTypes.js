@@ -34,7 +34,6 @@ export const draftProps = PropTypes.shape({
   taskForm: formProps,
   verificationForm: formProps,
   onboarding: draftOnboardingProps,
-  logic: PropTypes.shape({}),
 });
 
 export const dataColumnProps = PropTypes.shape({

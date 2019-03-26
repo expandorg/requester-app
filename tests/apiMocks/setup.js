@@ -106,14 +106,20 @@ export default function setupMocks(app: Object) {
       taskForm,
       onboarding,
       verificationForm,
-      logic,
+      eligibility,
+      assignment,
+      verification,
+      funding,
     } = taskTemplates.find(t => t.id === templateId);
 
     draft = {
       ...draft,
       taskForm,
       verificationForm,
-      logic,
+      eligibility,
+      assignment,
+      verification,
+      funding,
       ...settings,
       templateId,
       onboarding: {

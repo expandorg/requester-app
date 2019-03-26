@@ -89,28 +89,26 @@ export const taskTemplates = range(20).map(i => ({
   verificationForm: {
     modules: [],
   },
-  logic: {
-    eligibility: {
-      module: null,
-    },
-    assignment: {
-      module: null,
-      limit: null,
-      repeat: false,
-      expiration: null,
-    },
-    verification: {
-      module: null,
-      agreementCount: null,
-      scoreThreshold: null,
-      prompt: null,
-    },
-    funding: {
-      module: null,
-      balance: 0,
-      reward: 0,
-      verificationReward: 0,
-    },
+  eligibility: {
+    module: null,
+  },
+  assignment: {
+    module: null,
+    limit: null,
+    repeat: false,
+    expiration: null,
+  },
+  verification: {
+    module: null,
+    agreementCount: null,
+    scoreThreshold: null,
+    prompt: null,
+  },
+  funding: {
+    module: null,
+    balance: 0,
+    reward: 0,
+    verificationReward: 0,
   },
 }));
 
