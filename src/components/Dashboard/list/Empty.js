@@ -10,7 +10,7 @@ export default class Empty extends Component {
       <div className={styles.container}>
         <Link to="/draft/create" className={styles.new}>
           <div className={styles.plus}>+</div>
-          <div className={styles.create}>create task</div>
+          <div className={styles.create}>create your first task</div>
         </Link>
       </div>
     );

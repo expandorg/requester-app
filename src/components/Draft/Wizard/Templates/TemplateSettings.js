@@ -6,7 +6,7 @@ import { bindActionCreators } from 'redux';
 
 import { requestStateProps, RequestStates } from '@expandorg/app-utils';
 
-import { Input, Button } from '@expandorg/components';
+import { Input, Button, Dropdown } from '@expandorg/components';
 
 import ConfirmationDialog from '../../../shared/ConfirmationDialog';
 import { Description, Actions, Field, Fieldset, Toggle } from '../Form';
@@ -14,21 +14,28 @@ import { Description, Actions, Field, Fieldset, Toggle } from '../Form';
 import { hasTemplate } from '../../wizard';
 import { selectTemplate } from '../../../../sagas/draftsSagas';
 import { draftProps, taskTemplateProps } from '../../../shared/propTypes';
+import { VerificationType } from '../../../../model/enums';
 
 import styles from './TemplateSettings.module.styl';
 
 const mapDispatchToProps = dispatch =>
   bindActionCreators({ selectTemplate }, dispatch);
 
-const getFunding = draft =>
-  draft && draft.logic && draft.logic.funding && draft.logic.funding;
+const getOnboarding = o => o && o.onboarding;
+const getFunding = o => o && o.logic && o.logic.funding;
+const getVerification = o => o && o.logic && o.logic.verification;
 
-const getOnboarding = draft => draft && draft.onboarding;
+const avaialableVerification = [
+  VerificationType.Consensus,
+  VerificationType.AuditWhitelist,
+];
 
 const getInitialState = (draft, template) => {
-  const ht = hasTemplate(draft);
-  const funding = getFunding(ht ? draft : template);
-  const onboarding = getOnboarding(ht ? draft : template);
+  const has = hasTemplate(draft);
+
+  const funding = getFunding(has ? draft : template);
+  const onboarding = getOnboarding(has ? draft : template);
+  const v = getVerification(has ? draft : template);
 
   return {
     staking: !!(funding && funding.requirement),
@@ -37,6 +44,8 @@ const getInitialState = (draft, template) => {
     onboardingSuccessMessage: (onboarding && onboarding.successMessage) || '',
     onboardingFailureMessage: (onboarding && onboarding.failureMessage) || '',
     // deduct: (draft && draft.deduct) || false,
+    verificationModule: (v && v.module) || 'noop',
+    agreementCount: (v && `${v.agreementCount || 0}`) || '',
   };
 };
 
@@ -47,6 +56,8 @@ const getTempateSettings = settings => ({
   callbackUrl: settings.callbackUrl,
   onboardingSuccessMessage: settings.onboardingSuccessMessage,
   onboardingFailureMessage: settings.onboardingFailureMessage,
+  verificationModule: settings.verificationModule,
+  agreementCount: +settings.agreementCount,
 });
 
 class TemplateSettings extends Component {
@@ -131,9 +142,27 @@ class TemplateSettings extends Component {
     }));
   };
 
+  handleChangeVerification = value => {
+    this.setState(({ settings }) => ({
+      settings: { ...settings, verificationModule: value },
+    }));
+  };
+
+  handleToggleVerification = value => {
+    this.setState(({ settings }) => ({
+      settings: {
+        ...settings,
+        verificationModule: value
+          ? VerificationType.Consensus
+          : VerificationType.Noop,
+      },
+    }));
+  };
+
   render() {
     const { selected, onBack } = this.props;
     const { confirmDialog, settings } = this.state;
+
     return (
       <div className={styles.outer}>
         <Fieldset>
@@ -192,6 +221,35 @@ class TemplateSettings extends Component {
               onChange={this.handleInputChange}
             />
           </Field>
+          <Field>
+            <Toggle
+              tooltip="Verification"
+              value={settings.verificationModule !== VerificationType.Noop}
+              label="Use Verification"
+              name="verificationModule"
+              onChange={this.handleToggleVerification}
+            />
+          </Field>
+          {settings.verificationModule !== VerificationType.Noop && (
+            <Field>
+              <Dropdown
+                value={settings.verificationModule}
+                label="Verification Type"
+                options={avaialableVerification}
+                onChange={this.handleChangeVerification}
+              />
+            </Field>
+          )}
+          {settings.verificationModule === VerificationType.Consensus && (
+            <Field tooltip="Agreement count">
+              <Input
+                placeholder="Agreement count"
+                name="agreementCount"
+                value={settings.agreementCount}
+                onChange={this.handleInputChange}
+              />
+            </Field>
+          )}
         </Fieldset>
         <Actions>
           <Button theme="secondary" onClick={onBack}>

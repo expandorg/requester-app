@@ -15,3 +15,11 @@ export const EndType = {
   ResultCount: 'ResultCount',
   ExceedTasks: 'ExceedTasks',
 };
+
+export const VerificationType = {
+  Noop: 'noop',
+  // Requester: 'requester',
+  Consensus: 'consensus',
+  // Audit: 'audit',
+  AuditWhitelist: 'audit-whitelist',
+};
