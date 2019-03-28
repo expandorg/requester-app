@@ -12,7 +12,7 @@ export class DraftApi extends BaseApi {
     this.post(`/drafts/${id}/template`, { templateId, settings });
 
   publish = ({ id, schedule }) =>
-    this.post(`/drafts/${id}/publish`, { schedule });
+    this.post(`/drafts/${id}/prepublish`, { schedule });
 
   remove = ({ id }) => this.delete(`/drafts/${id}`);
 
