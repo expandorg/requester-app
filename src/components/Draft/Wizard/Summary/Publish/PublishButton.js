@@ -6,7 +6,7 @@ import { parse, startOfHour, addHours } from 'date-fns';
 import { userProps } from '@expandorg/app-auth';
 import { Button, DateTimePicker } from '@expandorg/components';
 
-import { ReactComponent as Arrow } from '@expandorg/uikit/assets/arrow-down.svg';
+// import { ReactComponent as Arrow } from '@expandorg/uikit/assets/arrow-down.svg';
 import { EmailConfirmed } from '@expandorg/app-account/components';
 
 import { draftProps } from '../../../../shared/propTypes';
@@ -32,7 +32,7 @@ export default class PublishButton extends Component {
   handlePublishClick = evt => {
     const { onPublish } = this.props;
     onPublish();
-    this.handleToggleSchedule();
+    // this.handleToggleSchedule();
 
     evt.preventDefault();
   };
@@ -55,7 +55,7 @@ export default class PublishButton extends Component {
   };
 
   render() {
-    const { readOnly, user, draft } = this.props;
+    const { readOnly, user, draft, onPublish } = this.props;
     const { schedule, error, initialDate } = this.state;
 
     const disabledDays = {
@@ -65,7 +65,7 @@ export default class PublishButton extends Component {
 
     return (
       <div className={styles.group}>
-        <EmailConfirmed user={user}>
+        <EmailConfirmed user={user} onConfirmed={onPublish}>
           {({ onToggle, dialog }) => (
             <>
               <Button
@@ -74,7 +74,7 @@ export default class PublishButton extends Component {
                 onClick={onToggle}
               >
                 Publish
-                <Arrow className={styles.arrow} />
+                {/* <Arrow className={styles.arrow} /> */}
               </Button>
               {dialog && (
                 <Menu
