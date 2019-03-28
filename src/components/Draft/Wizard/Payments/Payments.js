@@ -31,6 +31,7 @@ import { updateFunding } from '../../../../sagas/draftsSagas';
 import { updateDraftFundingStateSelector } from '../../../../selectors/uiStateSelectors';
 
 import { fundingRules } from '../../../../model/draft';
+import { TaskStatus } from '../../../../model/enums';
 
 import styles from './Payments.module.styl';
 
@@ -114,7 +115,7 @@ class Payments extends Component {
   };
 
   render() {
-    const { submitState, user } = this.props;
+    const { submitState, user, draft } = this.props;
     const { balance, reward, errors } = this.state;
     const insufficent = false;
 
@@ -128,6 +129,7 @@ class Payments extends Component {
               <Field tooltip="Pay for Task *" name="balance" errors={errors}>
                 <Input
                   placeholder="Pay for Task *"
+                  disabled={draft.status !== TaskStatus.draft}
                   name="balance"
                   value={balance}
                   error={!!(errors && errors.balance)}
