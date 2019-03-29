@@ -12,6 +12,7 @@ import {
   dataActionTypes,
   whitelistActionTypes,
   tasksActionTypes,
+  accessTokenActionTypes,
 } from '../sagas/actionTypes';
 
 export default combineReducers({
@@ -43,4 +44,5 @@ export default combineReducers({
   eligibleUsers: requestUiStateReducer(whitelistActionTypes.GET_ELIGIBLE),
 
   fetchTaskStats: requestUiStateReducer(tasksActionTypes.FETCH_STATS),
+  accessToken: requestUiStateReducer(accessTokenActionTypes.GENERATE_KEY),
 });

@@ -1,0 +1,50 @@
+@import '~@expandorg/uikit/colors';
+@import '~@expandorg/uikit/font';
+@import '~@expandorg/uikit/size';
+
+.title
+  color: color-black
+  font(h2-title)
+  text-align: center
+
+.content
+  margin-top: 40px
+  box-sizing: border-box
+  min-height: 60px
+
+.generate
+  width: 100%
+
+.error
+  margin-top: 20px
+
+.token
+  position relative
+
+.input
+  :global(.gem-input)
+    padding-right: 40px
+    width: calc(100% - 40px)
+
+.copy
+  position: absolute
+  right 0
+  top: calc(50% - 15px)
+  padding: 2px
+
+  box-sizing: border-box
+
+  text-transform: uppercase
+  font(subtitle-bold, 800)
+
+  border: 0
+  background-color: transparent
+  color: color-text-blue
+
+  outline: 0
+  cursor pointer
+
+  &:hover
+    color: lighten(color-text-blue, 10%)
+
+

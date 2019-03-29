@@ -102,3 +102,9 @@ export const whitelistActionTypes = createActionTypes('whitelist', {
   GET_ELIGIBLE_COMPLETE: null,
   GET_ELIGIBLE_FAILED: null,
 });
+
+export const accessTokenActionTypes = createActionTypes('accessTokens', {
+  GENERATE_KEY: null,
+  GENERATE_KEY_COMPLETE: null,
+  GENERATE_KEY_FAILED: null,
+});

@@ -21,6 +21,8 @@ import dataValues from './data/dataValuesReducer';
 
 import eligible from './whitelist/eligibleUsersReducer';
 
+import accessToken from './accessTokenReducer';
+
 import ui from './ui';
 
 export default combineReducers({
@@ -45,6 +47,7 @@ export default combineReducers({
     entities: dataEntities,
     values: dataValues,
   }),
+  accessToken,
   whitelist: combineReducers({
     eligible,
   }),

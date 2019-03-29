@@ -77,3 +77,8 @@ export const fetchTaskStatsStateSelector = createSelector(
   uiStateSelector,
   state => state.fetchTaskStats
 );
+
+export const generateAccessTokenStateSelector = createSelector(
+  uiStateSelector,
+  state => state.accessToken
+);
