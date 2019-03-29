@@ -3,6 +3,7 @@ import format from 'date-fns/format';
 import nanoid from 'nanoid';
 
 import { rules } from '@expandorg/validation';
+import { VerificationType } from './enums';
 
 export const settingsRules = {
   name: [
@@ -40,6 +41,10 @@ export const createDashboardEntity = (draft: Object) => ({
   logo: draft.logo,
   status: draft.status || 'draft',
 });
+
+export const shouldUseVerificationForm = ({ verification }: Object) =>
+  verification.module === VerificationType.Requester ||
+  verification.module === VerificationType.AuditWhitelist;
 
 export const getOnboardingStepFromTemplate = ({
   name,

@@ -25,9 +25,10 @@ const getOnboarding = o => o && o.onboarding;
 const getFunding = o => o && o.funding;
 const getVerification = o => o && o.verification;
 
-const avaialableVerification = [
-  VerificationType.Consensus,
-  VerificationType.AuditWhitelist,
+const options = [
+  { value: VerificationType.Requester, label: 'Requester' },
+  { value: VerificationType.Consensus, label: 'Consensus' },
+  { value: VerificationType.AuditWhitelist, label: 'Whitelist' },
 ];
 
 const getInitialState = (draft, template) => {
@@ -44,7 +45,7 @@ const getInitialState = (draft, template) => {
     onboardingSuccessMessage: (onboarding && onboarding.successMessage) || '',
     onboardingFailureMessage: (onboarding && onboarding.failureMessage) || '',
     // deduct: (draft && draft.deduct) || false,
-    verificationModule: (v && v.module) || 'noop',
+    verificationModule: (v && v.module) || VerificationType.Requester,
     agreementCount: (v && `${v.agreementCount || 0}`) || '',
   };
 };
@@ -148,17 +149,6 @@ class TemplateSettings extends Component {
     }));
   };
 
-  handleToggleVerification = value => {
-    this.setState(({ settings }) => ({
-      settings: {
-        ...settings,
-        verificationModule: value
-          ? VerificationType.Consensus
-          : VerificationType.Noop,
-      },
-    }));
-  };
-
   render() {
     const { selected, onBack } = this.props;
     const { confirmDialog, settings } = this.state;
@@ -222,24 +212,13 @@ class TemplateSettings extends Component {
             />
           </Field>
           <Field>
-            <Toggle
-              tooltip="Verification"
-              value={settings.verificationModule !== VerificationType.Noop}
-              label="Use Verification"
-              name="verificationModule"
-              onChange={this.handleToggleVerification}
+            <Dropdown
+              value={settings.verificationModule}
+              label="Verification Type"
+              options={options}
+              onChange={this.handleChangeVerification}
             />
           </Field>
-          {settings.verificationModule !== VerificationType.Noop && (
-            <Field>
-              <Dropdown
-                value={settings.verificationModule}
-                label="Verification Type"
-                options={avaialableVerification}
-                onChange={this.handleChangeVerification}
-              />
-            </Field>
-          )}
           {settings.verificationModule === VerificationType.Consensus && (
             <Field tooltip="Agreement count">
               <Input

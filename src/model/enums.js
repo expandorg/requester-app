@@ -18,8 +18,8 @@ export const EndType = {
 
 export const VerificationType = {
   Noop: 'noop',
-  // Requester: 'requester',
+  Requester: 'requester',
   Consensus: 'consensus',
-  // Audit: 'audit',
+  Audit: 'audit',
   AuditWhitelist: 'audit-whitelist',
 };
