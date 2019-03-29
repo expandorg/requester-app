@@ -1,6 +1,6 @@
 // @flow
 
-export const TaskStatus = {
+export const DraftStatus = {
   draft: 'draft',
   completed: 'completed',
   inprogress: 'in-progress',

@@ -11,10 +11,10 @@ import { Input, Button, Dropdown } from '@expandorg/components';
 import ConfirmationDialog from '../../../shared/ConfirmationDialog';
 import { Description, Actions, Field, Fieldset, Toggle } from '../Form';
 
-import { hasTemplate } from '../../wizard';
 import { selectTemplate } from '../../../../sagas/draftsSagas';
 import { draftProps, taskTemplateProps } from '../../../shared/propTypes';
 import { VerificationType } from '../../../../model/enums';
+import { DraftManager } from '../../../../model/draft';
 
 import styles from './TemplateSettings.module.styl';
 
@@ -32,7 +32,7 @@ const options = [
 ];
 
 const getInitialState = (draft, template) => {
-  const has = hasTemplate(draft);
+  const has = DraftManager.hasTemplate(draft);
 
   const funding = getFunding(has ? draft : template);
   const onboarding = getOnboarding(has ? draft : template);
@@ -100,7 +100,7 @@ class TemplateSettings extends Component {
     const { selected, draft, submitState } = this.props;
     const { settings } = this.state;
     if (submitState.state !== RequestStates.Fetching) {
-      if (hasTemplate(draft) && draft.templateId !== selected) {
+      if (DraftManager.hasTemplate(draft) && draft.templateId !== selected) {
         this.setState({ confirmDialog: true });
       } else {
         const templateSettings = getTempateSettings(settings);

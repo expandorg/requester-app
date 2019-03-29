@@ -2,9 +2,8 @@ import React, { Component } from 'react';
 
 import { Fieldset } from '../Form';
 import { draftProps } from '../../../shared/propTypes';
-import { formatDate } from '../../../../model/draft';
 import { EndType } from '../../../../model/enums';
-import { EndWhenTitles } from '../../../../model/i18n';
+import { formatDate, EndWhenTitles } from '../../../../model/i18n';
 
 import styles from './Settings.module.styl';
 import DraftLogo from '../../../shared/DraftLogo';

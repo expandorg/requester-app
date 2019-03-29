@@ -67,14 +67,15 @@ export default class Settings extends Component {
 
   handleSubmit = () => {
     const { onNext, isSubmitting } = this.props;
-    if (!isSubmitting) {
-      const { settings } = this.state;
-      const errors = validateForm(settings, settingsRules);
-      if (errors) {
-        this.setState({ errors });
-      } else {
-        onNext(settings);
-      }
+    if (isSubmitting) {
+      return;
+    }
+    const { settings } = this.state;
+    const errors = validateForm(settings, settingsRules);
+    if (errors) {
+      this.setState({ errors });
+    } else {
+      onNext(settings);
     }
   };
 

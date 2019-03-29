@@ -31,7 +31,7 @@ import { updateFunding } from '../../../../sagas/draftsSagas';
 import { updateDraftFundingStateSelector } from '../../../../selectors/uiStateSelectors';
 
 import { fundingRules } from '../../../../model/draft';
-import { TaskStatus } from '../../../../model/enums';
+import { DraftStatus } from '../../../../model/enums';
 
 import styles from './Payments.module.styl';
 
@@ -129,7 +129,7 @@ class Payments extends Component {
           <Field tooltip="Pay for Task *" name="balance" errors={errors}>
             <Input
               placeholder="Pay for Task *"
-              disabled={draft.status !== TaskStatus.draft}
+              disabled={draft.status !== DraftStatus.draft}
               name="balance"
               value={balance}
               error={!!(errors && errors.balance)}

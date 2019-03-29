@@ -28,7 +28,6 @@ export const createNewRow = (columns: Array<any>): Array<string> =>
 const convertType = (val: string, type: string): string => {
   switch (type) {
     case 'text': {
-      // $FlowFixMe
       return val;
     }
     case 'number': {

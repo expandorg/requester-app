@@ -6,7 +6,7 @@ import { bindActionCreators } from 'redux';
 
 import Preview from '../../../shared/Templates/Preview';
 import { draftProps, taskTemplateProps } from '../../../shared/propTypes';
-import { hasTemplate } from '../../wizard';
+import { DraftManager } from '../../../../model/draft';
 
 import { fetchTaskTemplate } from '../../../../sagas/tasksSagas';
 import { makeTaskTemplateSelector } from '../../../../selectors/taskTemplatesSelectors';
@@ -36,7 +36,7 @@ class TaskTemplate extends Component {
 
   componentDidMount() {
     const { draft } = this.props;
-    if (hasTemplate(draft)) {
+    if (DraftManager.hasTemplate(draft)) {
       this.props.fetchTaskTemplate(draft.templateId);
     }
   }

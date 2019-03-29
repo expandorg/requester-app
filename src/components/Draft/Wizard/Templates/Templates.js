@@ -17,7 +17,7 @@ import { LoadIndicator } from '../Form';
 import TemplatesList from './TemplatesList';
 import TemplateSettings from './TemplateSettings';
 
-import { hasTemplate } from '../../wizard';
+import { DraftManager } from '../../../../model/draft';
 import { selectDraftTemplateStateSelector } from '../../../../selectors/uiStateSelectors';
 import { taskTemplatesSelector } from '../../../../selectors/taskTemplatesSelectors';
 import { fetchTaskTemplates } from '../../../../sagas/tasksSagas';
@@ -58,7 +58,9 @@ class Templates extends Component {
 
   static getDerivedStateFromProps({ draft }, state) {
     if (draft !== state.draft) {
-      const selected = hasTemplate(draft) ? draft.templateId : state.selected;
+      const selected = DraftManager.hasTemplate(draft)
+        ? draft.templateId
+        : state.selected;
       return { draft, selected };
     }
     return null;

@@ -9,7 +9,7 @@ import Table from './Table';
 import { draftProps } from '../../../../shared/propTypes';
 import { fetch } from '../../../../../sagas/dataSagas';
 
-import { hasData } from '../../../wizard';
+import { DraftManager } from '../../../../../model/draft';
 
 import styles from './Data.module.styl';
 
@@ -44,17 +44,17 @@ class Data extends Component {
     const { draft } = this.props;
     const { page } = this.state;
 
-    const data = hasData(draft);
+    const has = DraftManager.hasData(draft);
     return (
       <div className={styles.container}>
-        {data && (
+        {has && (
           <Table
             draft={draft}
             page={page}
             onChangePage={this.handleChangePage}
           />
         )}
-        {!data && <div className={styles.emptyData}>No data uploaded.</div>}
+        {!has && <div className={styles.emptyData}>No data uploaded.</div>}
       </div>
     );
   }

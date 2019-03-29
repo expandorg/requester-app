@@ -8,7 +8,6 @@ import OnboardingComplete from './OnboardingComplete';
 import TaskComplete from './TaskComplete';
 
 import ModulesForm from './ModulesForm';
-import { hasData } from '../../Draft/wizard';
 
 import { draftProps } from '../../shared/propTypes';
 
@@ -20,6 +19,7 @@ import {
   TaskWorkflowBackend,
   TaskWorkflowState,
 } from '../../../model/workflow';
+import { DraftManager } from '../../../model/draft';
 
 const makeMapStateToProps = () => {
   const dataVarsSampleSelector = makeDataVarsSampleSelector();
@@ -72,7 +72,7 @@ class PreviewDraftWorkflow extends Component {
 
   componentDidUpdate({ draft: prev }) {
     const { draft } = this.props;
-    if (hasData(draft) && draft.dataId !== prev.dataId) {
+    if (DraftManager.hasData(draft) && draft.dataId !== prev.dataId) {
       this.props.fetchData(draft.id, draft.dataId, 0);
     }
   }

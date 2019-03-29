@@ -10,33 +10,32 @@ import I from '../../common/I';
 import TaskItemMenu from './TaskItemMenu';
 import DraftLogo from '../../shared/DraftLogo';
 
-import { TaskStatus } from '../../../model/enums';
-import { TaskStatusTitles } from '../../../model/i18n';
-import { formatDate } from '../../../model/draft';
+import { DraftStatus } from '../../../model/enums';
+import { formatDate, DraftStatusTitles } from '../../../model/i18n';
 
 import styles from './styles.module.styl';
 
 const canCopyStates = [
-  TaskStatus.draft,
-  TaskStatus.completed,
-  TaskStatus.scheduled,
+  DraftStatus.draft,
+  DraftStatus.completed,
+  DraftStatus.scheduled,
 ];
 
 const canDeleteStates = [
-  TaskStatus.draft,
-  TaskStatus.completed,
-  TaskStatus.scheduled,
+  DraftStatus.draft,
+  DraftStatus.completed,
+  DraftStatus.scheduled,
 ];
 
 const getTaskTooltip = task => {
-  if (task.status === TaskStatus.inprogress) {
+  if (task.status === DraftStatus.inprogress) {
     if (task.endDate) {
       return `Still running. Task is due to end on ${formatDate(
         task.endDate
       )}.`;
     }
   }
-  if (task.state === TaskStatus.scheduled) {
+  if (task.state === DraftStatus.scheduled) {
     return `Scheduled for ${formatDate(task.startDate)}`;
   }
   return null;
@@ -48,7 +47,7 @@ const getStatusTitle = task => {
   if (tooltip) {
     return (
       <span>
-        {TaskStatusTitles[task.state]}
+        {DraftStatusTitles[task.state]}
         <I
           className={styles.check}
           tooltip={tooltip}
@@ -57,7 +56,7 @@ const getStatusTitle = task => {
       </span>
     );
   }
-  return TaskStatusTitles[task.status];
+  return DraftStatusTitles[task.status];
 };
 
 export default class TaskItem extends Component {
@@ -100,7 +99,7 @@ export default class TaskItem extends Component {
     const { menu } = this.state;
 
     const to =
-      task.status === TaskStatus.draft || task.status === TaskStatus.pending
+      task.status === DraftStatus.draft || task.status === DraftStatus.pending
         ? `/draft/${task.id}`
         : `/task/${task.taskId}`;
 

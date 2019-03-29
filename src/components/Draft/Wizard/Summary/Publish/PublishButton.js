@@ -10,7 +10,7 @@ import { Button, DateTimePicker } from '@expandorg/components';
 import { EmailConfirmed } from '@expandorg/app-account/components';
 
 import { draftProps } from '../../../../shared/propTypes';
-import { formatDate } from '../../../../../model/draft';
+import { formatDate } from '../../../../../model/i18n';
 
 import Menu from './Menu';
 

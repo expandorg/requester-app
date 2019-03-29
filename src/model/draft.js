@@ -1,5 +1,4 @@
 // @flow
-import format from 'date-fns/format';
 import nanoid from 'nanoid';
 
 import { rules } from '@expandorg/validation';
@@ -10,6 +9,30 @@ import {
   type DraftOnboardingGroupTemplate,
   type DraftOnboardingStep,
 } from './types.flow';
+
+export class DraftManager {
+  static hasTemplate = (draft: ?Draft) =>
+    draft && draft.templateId !== null && draft.templateId !== undefined;
+
+  static hasWhitelist = (draft: ?Draft) =>
+    draft && draft.whitelist !== null && draft.whitelist !== undefined;
+
+  static hasFunding = (draft: ?Draft) =>
+    draft && draft.funding && typeof draft.funding.reward !== 'undefined';
+
+  static hasData = (draft: ?Draft) =>
+    draft && draft.dataId !== null && draft.dataId !== undefined;
+
+  static validate = (draft: Draft) => {
+    if (!DraftManager.hasTemplate(draft)) {
+      return false;
+    }
+    if (!DraftManager.hasFunding(draft)) {
+      return false;
+    }
+    return true;
+  };
+}
 
 export const settingsRules = {
   name: [
@@ -37,16 +60,6 @@ export const onboardingGroupSettingsRules = {
   scoreThreshold: [[rules.isNumber, 'Should be a positive number'], ge(0)],
   failureMessage: [[rules.isRequired, 'Failure Message is required']],
 };
-
-export const formatDate = (date: ?Object | ?number) =>
-  date ? format(date, 'MM/DD/YYYY HH:mm') : '--/--/--';
-
-export const createDashboardEntity = (draft: Object) => ({
-  id: draft.id,
-  name: draft.name,
-  logo: draft.logo,
-  status: draft.status || 'draft',
-});
 
 export const shouldUseVerificationForm = ({ verification }: Draft) =>
   verification.module === VerificationType.Requester ||

@@ -10,7 +10,7 @@ import HeroWarning from '../../../shared/HeroWarning';
 
 import { Actions, Section, Description } from '../Form';
 import { draftProps } from '../../../shared/propTypes';
-import { getNavState, isDraftReady } from '../../wizard';
+import { getNavState } from '../../wizard';
 
 import Settings from './Settings';
 import Data from './Data/Data';
@@ -22,6 +22,7 @@ import Payout from './Payout';
 import PublishButton from './Publish/PublishButton';
 
 import styles from './SummaryForm.module.styl';
+import { DraftManager } from '../../../../model/draft';
 
 const getTaskStatus = ({ taskForm }) =>
   taskForm && taskForm.modules && taskForm.modules.length > 0
@@ -49,7 +50,7 @@ export default class SummaryForm extends Component {
   render() {
     const { draft, user, onBack, errors } = this.props;
     const nav = getNavState(draft);
-    const draftReady = isDraftReady(draft);
+    const draftReady = DraftManager.validate(draft);
 
     return (
       <div className={styles.form}>

@@ -1,5 +1,4 @@
 import { tasksActionTypes, draftsActionTypes } from '../sagas/actionTypes';
-import { createDashboardEntity } from '../model/draft';
 
 const initialState = [];
 
@@ -13,7 +12,7 @@ export default function dashboardTasksReducer(state = initialState, action) {
     }
     case draftsActionTypes.COPY_COMPLETE: {
       const { result, entities } = action.payload;
-      return [createDashboardEntity(entities.drafts[result.draft]), ...state];
+      return [entities.drafts[result.draft], ...state];
     }
     default:
       break;
