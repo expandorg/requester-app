@@ -3,6 +3,7 @@ import nanoid from 'nanoid';
 
 import { rules } from '@expandorg/validation';
 import { VerificationType } from './enums';
+import { ge } from './validation';
 
 import {
   type Draft,
@@ -18,10 +19,31 @@ export class DraftManager {
     draft && draft.whitelist !== null && draft.whitelist !== undefined;
 
   static hasFunding = (draft: ?Draft) =>
-    draft && draft.funding && typeof draft.funding.reward !== 'undefined';
+    draft && draft.funding && typeof draft.funding.balance !== 'undefined';
 
   static hasData = (draft: ?Draft) =>
     draft && draft.dataId !== null && draft.dataId !== undefined;
+
+  static isFormsReviewed(draft: ?Draft) {
+    if (!draft) {
+      return false;
+    }
+    if (!DraftManager.isVerificationFormReviewed(draft)) {
+      return false;
+    }
+    return DraftManager.isTaskFormReviewed(draft);
+  }
+
+  static isVerificationFormReviewed(draft: Draft) {
+    if (!DraftManager.shouldUseVerificationForm(draft)) {
+      return true;
+    }
+    return !!draft.verificationReviewed;
+  }
+
+  static isTaskFormReviewed(draft: Draft) {
+    return !!draft.taskReviewed;
+  }
 
   static validate = (draft: Draft) => {
     if (!DraftManager.hasTemplate(draft)) {
@@ -32,6 +54,10 @@ export class DraftManager {
     }
     return true;
   };
+
+  static shouldUseVerificationForm = ({ verification }: Draft) =>
+    verification.module === VerificationType.Requester ||
+    verification.module === VerificationType.AuditWhitelist;
 }
 
 export const settingsRules = {
@@ -45,25 +71,11 @@ export const settingsRules = {
   description: [[rules.isRequired, 'Description is required']],
 };
 
-const ge = (g: number = 0) => [
-  (v: number) => v >= g,
-  `Should be greater then ${g}`,
-];
-
-export const fundingRules = {
-  balance: [[rules.isNumber, 'Should be a positive number'], ge(0)],
-  reward: [[rules.isNumber, 'Should be a positive number'], ge(0)],
-};
-
 export const onboardingGroupSettingsRules = {
   retries: [[rules.isNumber, 'Should be a positive number'], ge(0)],
   scoreThreshold: [[rules.isNumber, 'Should be a positive number'], ge(0)],
   failureMessage: [[rules.isRequired, 'Failure Message is required']],
 };
-
-export const shouldUseVerificationForm = ({ verification }: Draft) =>
-  verification.module === VerificationType.Requester ||
-  verification.module === VerificationType.AuditWhitelist;
 
 export const getOnboardingStepFromTemplate = ({
   name,

@@ -36,7 +36,7 @@ class Step extends Component {
     id: null,
     order: null,
     isOnboarding: false,
-    checked: false,
+    checked: null,
     onMove: null,
     onDelete: null,
     onEndDrag: null,
@@ -71,7 +71,6 @@ class Step extends Component {
     const classes = cn(styles.outer, {
       [styles.dragging]: isDragging,
     });
-    const iconClass = cn(styles.icon, { [styles.checked]: checked });
     return connectDragSource(
       connectDropTarget(
         <div className={classes}>
@@ -84,9 +83,11 @@ class Step extends Component {
               }}
             >
               <div className={styles.name}>{name}</div>
-              <div className={iconClass}>
-                {checked ? <Checkmark /> : <Warning />}
-              </div>
+              {checked !== null && (
+                <div className={cn(styles.icon, { [styles.checked]: checked })}>
+                  {checked ? <Checkmark /> : <Warning />}
+                </div>
+              )}
             </div>
           )}
           {isOnboarding && (

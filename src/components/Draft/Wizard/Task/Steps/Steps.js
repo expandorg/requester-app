@@ -22,7 +22,7 @@ import FormEditorToggle from './FormEditor/FormEditorToggle';
 import OnboardingSteps from './Onboarding/OnboardingSteps';
 
 import { validationTaskFormProps } from '../../../../shared/FormEditor/model/validation';
-import { shouldUseVerificationForm } from '../../../../../model/draft';
+import { DraftManager } from '../../../../../model/draft';
 
 import styles from './Steps.module.styl';
 
@@ -92,15 +92,17 @@ class Steps extends Component {
           />
           <FormEditorToggle
             form={draft.taskForm}
+            checked={DraftManager.isTaskFormReviewed(draft)}
             title="Task"
             variables={variables}
             varsSample={varsSample}
             validateForm={validationTaskFormProps}
             onUpdate={this.handleUpdateTask}
           />
-          {shouldUseVerificationForm(draft) && (
+          {DraftManager.shouldUseVerificationForm(draft) && (
             <FormEditorToggle
               form={draft.verificationForm}
+              checked={DraftManager.isVerificationFormReviewed(draft)}
               title="Verification"
               variables={variables}
               varsSample={varsSample}

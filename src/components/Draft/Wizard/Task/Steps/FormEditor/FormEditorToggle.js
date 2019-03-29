@@ -10,6 +10,7 @@ export default class FormEditorToggle extends Component {
   static propTypes = {
     form: formProps,
     title: PropTypes.string.isRequired,
+    checked: PropTypes.bool,
     variables: PropTypes.arrayOf(PropTypes.string),
     varsSample: PropTypes.object, // eslint-disable-line
     validateForm: PropTypes.func.isRequired,
@@ -19,6 +20,7 @@ export default class FormEditorToggle extends Component {
   static defaultProps = {
     variables: [],
     varsSample: null,
+    checked: false,
     form: null,
   };
 
@@ -37,14 +39,23 @@ export default class FormEditorToggle extends Component {
   };
 
   render() {
-    const { form, variables, varsSample, title, validateForm } = this.props;
+    const {
+      form,
+      variables,
+      varsSample,
+      title,
+      validateForm,
+      checked,
+    } = this.props;
     if (!form) {
       return null;
     }
     const { selected } = this.state;
     return (
       <>
-        {form && <Step name={title} onSelect={this.handleToggle} />}
+        {form && (
+          <Step checked={checked} name={title} onSelect={this.handleToggle} />
+        )}
         {selected && (
           <FormEditorDialog
             form={form}

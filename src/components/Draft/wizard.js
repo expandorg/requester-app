@@ -2,16 +2,6 @@
 import type { Draft } from '../../model/types.flow';
 import { DraftManager } from '../../model/draft';
 
-const getSettingsStatus = (draft: ?Draft) => {
-  if (!draft) {
-    return null;
-  }
-  return 'complete';
-};
-
-const getWhitelistStatus = (draft: ?Object) =>
-  DraftManager.hasWhitelist(draft) ? 'complete' : null;
-
 const getTemplateStatus = (draft: ?Draft) => {
   if (!draft) {
     return null;
@@ -20,28 +10,29 @@ const getTemplateStatus = (draft: ?Draft) => {
 };
 
 const getFundingStatus = (draft: ?Draft) => {
-  if (!draft || !DraftManager.hasTemplate(draft)) {
+  if (!DraftManager.hasTemplate(draft)) {
     return null;
   }
   return DraftManager.hasFunding(draft) ? 'complete' : 'required';
 };
 
-const getUploadStatus = (draft: ?Draft) => {
-  if (!draft) {
+const getFormsStatus = (draft: ?Draft) => {
+  if (!DraftManager.hasTemplate(draft)) {
     return null;
   }
-  return DraftManager.hasData(draft) ? 'complete' : null;
+  return DraftManager.isFormsReviewed(draft) ? 'complete' : 'required';
 };
 
-export const getNavState = (draft: Draft) => { // eslint-disable-line
-  const t = DraftManager.hasTemplate(draft);
+// eslint-disable-next-line import/prefer-default-export
+export const getNavState = (draft: Draft) => {
+  const hasTemplate = DraftManager.hasTemplate(draft);
   return {
     settings: {
-      status: getSettingsStatus(draft),
+      status: draft ? 'complete' : null,
       disabled: !draft,
     },
     upload: {
-      status: getUploadStatus(draft),
+      status: DraftManager.hasData(draft) ? 'complete' : null,
       disabled: !draft,
     },
     templates: {
@@ -49,16 +40,16 @@ export const getNavState = (draft: Draft) => { // eslint-disable-line
       disabled: !draft,
     },
     task: {
-      status: null,
-      disabled: !t,
+      status: getFormsStatus(draft),
+      disabled: !hasTemplate,
     },
     whitelist: {
-      status: getWhitelistStatus(draft),
-      disabled: !t,
+      status: DraftManager.hasWhitelist(draft) ? 'complete' : null,
+      disabled: !hasTemplate,
     },
     pay: {
       status: getFundingStatus(draft),
-      disabled: !t,
+      disabled: !hasTemplate,
     },
   };
 };

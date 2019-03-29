@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import cn from 'classnames';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -10,7 +11,6 @@ import {
   SubmitStateEffect,
 } from '@expandorg/app-utils';
 
-import { validateForm } from '@expandorg/validation';
 import { userProps } from '@expandorg/app-auth';
 import { userSelector } from '@expandorg/app-auth/selectors';
 
@@ -30,8 +30,7 @@ import HeroWarning from '../../../shared/HeroWarning';
 import { updateFunding } from '../../../../sagas/draftsSagas';
 import { updateDraftFundingStateSelector } from '../../../../selectors/uiStateSelectors';
 
-import { fundingRules } from '../../../../model/draft';
-import { DraftStatus } from '../../../../model/enums';
+import DraftFunding from '../../../../model/DraftFunding';
 
 import styles from './Payments.module.styl';
 
@@ -85,18 +84,16 @@ class Payments extends Component {
       return;
     }
     const { balance, reward } = this.state;
-    const funding = {
-      ...draft.funding,
-      balance: +balance,
-      reward: +reward,
-    };
-    const errors = validateForm({ balance, reward }, fundingRules);
+    const [params, errors] = DraftFunding.getFundingRequestParams(
+      draft,
+      user,
+      balance,
+      reward
+    );
     if (errors) {
-      this.setState({ errors, insufficent: false });
-    } else if (user.gems.balance < balance) {
-      this.setState({ insufficent: true });
+      this.setState({ errors });
     } else {
-      this.props.updateFunding(draft.id, funding);
+      this.props.updateFunding(draft.id, params);
     }
   };
 
@@ -119,17 +116,21 @@ class Payments extends Component {
 
   render() {
     const { submitState, user, draft } = this.props;
-    const { balance, reward, errors, insufficent } = this.state;
+    const { balance, reward, errors } = this.state;
 
     return (
       <Form onSubmit={this.handleSubmit}>
         <Fieldset>
           <Description>Description about this step goes here.</Description>
-          <Hero value={user.gems.balance} title="XPN available" />
+          <Hero
+            value={user.gems.balance}
+            title="XPN available"
+            className={cn({ [styles.zero]: !user.gems.balance })}
+          />
           <Field tooltip="Pay for Task *" name="balance" errors={errors}>
             <Input
               placeholder="Pay for Task *"
-              disabled={draft.status !== DraftStatus.draft}
+              disabled={DraftFunding.balanceIsReadonly(draft)}
               name="balance"
               value={balance}
               error={!!(errors && errors.balance)}
@@ -149,7 +150,7 @@ class Payments extends Component {
               onChange={this.handleInputChange}
             />
           </Field>
-          {insufficent && (
+          {errors && errors.insufficent && (
             <HeroWarning
               className={styles.warning}
               icon={<Card width="82px" height="64px" viewBox="0 0 72 56" />}
@@ -178,11 +179,11 @@ class Payments extends Component {
             Back
           </Button>
           <Button type="submit">Next</Button>
-          <SubmitStateEffect
-            submitState={submitState}
-            onComplete={this.handleUpdateComplete}
-          />
         </Actions>
+        <SubmitStateEffect
+          submitState={submitState}
+          onComplete={this.handleUpdateComplete}
+        />
       </Form>
     );
   }

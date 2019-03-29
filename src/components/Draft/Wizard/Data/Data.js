@@ -8,6 +8,8 @@ import { draftProps } from '../../../shared/propTypes';
 import DataEditor from './DataEditor/DataEditor';
 import UploadForm from './UploadForm';
 
+import { DraftManager } from '../../../../model/draft';
+
 import { Form, Actions } from '../Form';
 
 class UploadData extends Component {
@@ -30,7 +32,9 @@ class UploadData extends Component {
 
   render() {
     const { draft } = this.props;
-    const hasData = draft.dataId !== null && draft.dataId !== undefined;
+
+    const hasData = DraftManager.hasData(draft);
+
     return (
       <Form onSubmit={this.handleSubmit}>
         {!hasData && <UploadForm draft={draft} />}
