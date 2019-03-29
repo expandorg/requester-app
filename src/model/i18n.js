@@ -1,8 +1,6 @@
 // @flow
 import { EndType, TaskStatus } from './enums';
 
-export const noop = {};
-
 export const TaskStatusTitles = {
   [TaskStatus.draft]: 'draft',
   [TaskStatus.completed]: 'completed',

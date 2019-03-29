@@ -1,5 +1,6 @@
 // @flow
 import { overrideFormVars } from '@expandorg/modules/model';
+import type { Draft, DraftOnboardingStep } from '../types.flow';
 
 import { dataToVars } from '../onboardingData';
 
@@ -17,10 +18,10 @@ const getGroup = ({
   failureMessage,
   data,
   form,
-}: Object): OnboardingGroup => {
+}: DraftOnboardingStep): OnboardingGroup => {
   let steps = null;
 
-  if (isGroup) {
+  if (isGroup && data) {
     steps = dataToVars(data).map(({ variables, answer }) => ({
       form: overrideFormVars(form, variables),
       answer,
@@ -56,7 +57,7 @@ const initialGroupState: OnboardingGroupState = {
   currentTry: 0,
 };
 
-export const createOnboardingState = (draft: Object): WorkflowState =>
+export const createOnboardingState = (draft: Draft): WorkflowState =>
   createGroupState(
     draft.onboarding.steps.map(step => getGroup(step)),
     initialGroupState

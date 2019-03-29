@@ -1,9 +1,10 @@
 // @flow
 import { createTaskState, type WorkflowState } from './defs';
+import type { Draft } from '../types.flow';
 import { createOnboardingState } from './onboarding';
 
 export default class InitialState {
-  static getNextState(draft: Object): WorkflowState {
+  static getNextState(draft: Draft): WorkflowState {
     if (draft.onboarding.enabled) {
       return createOnboardingState(draft);
     }

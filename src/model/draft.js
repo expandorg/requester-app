@@ -5,6 +5,12 @@ import nanoid from 'nanoid';
 import { rules } from '@expandorg/validation';
 import { VerificationType } from './enums';
 
+import {
+  type Draft,
+  type DraftOnboardingGroupTemplate,
+  type DraftOnboardingStep,
+} from './types.flow';
+
 export const settingsRules = {
   name: [
     [rules.isRequired, 'Title is required'],
@@ -42,7 +48,7 @@ export const createDashboardEntity = (draft: Object) => ({
   status: draft.status || 'draft',
 });
 
-export const shouldUseVerificationForm = ({ verification }: Object) =>
+export const shouldUseVerificationForm = ({ verification }: Draft) =>
   verification.module === VerificationType.Requester ||
   verification.module === VerificationType.AuditWhitelist;
 
@@ -54,7 +60,7 @@ export const getOnboardingStepFromTemplate = ({
   retries,
   failureMessage,
   data,
-}: Object) => ({
+}: DraftOnboardingGroupTemplate): DraftOnboardingStep => ({
   id: nanoid(),
   name,
   isGroup,

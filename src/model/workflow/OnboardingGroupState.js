@@ -1,5 +1,7 @@
 // @flow
 import { TaskWorkflowState, createTaskState, type WorkflowState } from './defs';
+import { type Draft } from '../types.flow';
+
 import {
   createOnboardingState,
   getNextOnboardingState,
@@ -8,7 +10,7 @@ import {
 
 export default class OnboardingGroupState {
   static getNextState(
-    draft: Object,
+    draft: Draft,
     current: WorkflowState,
     args: any
   ): WorkflowState {

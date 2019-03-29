@@ -1,7 +1,5 @@
 // @flow
 
-export const noop = {};
-
 export const TaskStatus = {
   draft: 'draft',
   completed: 'completed',

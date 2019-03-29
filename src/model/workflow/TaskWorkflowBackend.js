@@ -1,4 +1,5 @@
 // @flow
+import { type Draft } from '../types.flow';
 import { TaskWorkflowState, type WorkflowState } from './defs';
 
 import InitialState from './InitialState';
@@ -8,7 +9,7 @@ import VerificationState from './VerificationState';
 
 export default class TaskWorkflowBackend {
   static getNextState(
-    draft: Object,
+    draft: Draft,
     current?: WorkflowState,
     args?: any
   ): WorkflowState {

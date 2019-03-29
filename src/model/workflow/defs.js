@@ -1,14 +1,10 @@
 // @flow
 
-import type { Module } from '@expandorg/modules/src/form/model/types.flow';
-
-export type WorkflowForm = {
-  modules: Array<Module>,
-};
+import type { Form, Draft } from '../types.flow';
 
 export type OnboardingGroup = {
   steps: Array<{
-    form: WorkflowForm,
+    form: Form,
     answer?: any,
   }>,
   isGroup: boolean,
@@ -28,7 +24,7 @@ export type WorkflowState = {
   state: string,
   groups?: Array<OnboardingGroup>,
   groupState?: OnboardingGroupState,
-  form?: WorkflowForm,
+  form?: Form,
 };
 
 export const TaskWorkflowState = {
@@ -45,12 +41,12 @@ export const createRepeatState = (): WorkflowState => ({
   state: TaskWorkflowState.REPEAT,
 });
 
-export const createTaskState = (draft: Object): WorkflowState => ({
+export const createTaskState = (draft: Draft): WorkflowState => ({
   state: TaskWorkflowState.TASK,
   form: draft.taskForm,
 });
 
-export const createVerificationState = (draft: Object): WorkflowState => ({
+export const createVerificationState = (draft: Draft): WorkflowState => ({
   state: TaskWorkflowState.VERIFICATION,
   form: draft.verificationForm,
 });

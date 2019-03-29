@@ -2,33 +2,17 @@
 
 import immer from 'immer';
 
-type ColumnType = 'text' | 'number' | 'bool';
+import { type DraftOnboardingGroupData } from './types.flow';
 
 export const columnTypes = ['text', 'number', 'bool'];
-
-export type Column = {
-  name: string,
-  type: ColumnType,
-};
-
-export type OnboardingGroupData = {
-  answer: {
-    field: string,
-  },
-  columns: Array<Column>,
-  steps: Array<{
-    values: Array<Array<string>>,
-    answer: ?string,
-  }>,
-};
 
 export const dataToVars = ({
   answer,
   columns,
   steps,
-}: OnboardingGroupData): Array<{
-  answer: ?{ [filed: string]: string },
-  variables: Object,
+}: DraftOnboardingGroupData): Array<{
+  answer: { [filed: string]: string },
+  variables: { [key: string]: any },
 }> =>
   steps.map(row => {
     const variables = columns.reduce((set, col, index) => {
@@ -38,10 +22,10 @@ export const dataToVars = ({
     return { variables, answer: { [answer.field]: row.answer } };
   });
 
-export const createNewRow = (columns: Array<Column>): Array<string> =>
+export const createNewRow = (columns: Array<any>): Array<string> =>
   columns.map(() => '');
 
-const convertType = (val: string, type: ColumnType): string => {
+const convertType = (val: string, type: string): string => {
   switch (type) {
     case 'text': {
       // $FlowFixMe
@@ -63,7 +47,7 @@ const convertType = (val: string, type: ColumnType): string => {
 export const updateValuesType = (
   steps: Array<{ values: Array<string>, answer: string }>,
   col: number,
-  type: ColumnType
+  type: string
 ) =>
   immer(steps, draft => {
     for (let i = 0; i < steps.length; i += 1) {
