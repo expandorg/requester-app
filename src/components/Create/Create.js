@@ -71,7 +71,6 @@ class Create extends Component {
             <NavItem disabled>Upload</NavItem>
             <NavItem disabled>Templates</NavItem>
             <NavItem disabled>Create Task</NavItem>
-            {/* <NavItem disabled>Whitelist</NavItem> */}
             <NavItem disabled>Pay</NavItem>
           </Navigation>
         </Navbar>

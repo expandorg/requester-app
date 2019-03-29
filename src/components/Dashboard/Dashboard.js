@@ -13,7 +13,6 @@ import Navbar from '../shared/Navbar';
 import Sidebar from '../shared/Sidebar';
 
 import { authenticated } from '../shared/auth';
-import { links } from '../../model/dashboard';
 
 import Page from '../shared/Page';
 
@@ -34,6 +33,33 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch =>
   bindActionCreators({ fetchTasks, removeDraft, copyDraft }, dispatch);
+
+const links = [
+  {
+    href: '/',
+    text: 'All',
+  },
+  {
+    href: '/tasks/draft',
+    text: 'Draft',
+  },
+  {
+    href: '/tasks/pending',
+    text: 'Pending',
+  },
+  {
+    href: '/tasks/scheduled',
+    text: 'Scheduled',
+  },
+  {
+    href: '/tasks/in-progress',
+    text: 'In Progress',
+  },
+  {
+    href: '/tasks/completed',
+    text: 'Completed',
+  },
+];
 
 class Dashboard extends Component {
   static propTypes = {
