@@ -80,20 +80,23 @@ class Payments extends Component {
   }
 
   handleSubmit = () => {
-    const { draft, submitState } = this.props;
-    if (submitState.state !== RequestStates.Fetching) {
-      const { balance, reward } = this.state;
-      const funding = {
-        ...draft.funding,
-        balance: +balance,
-        reward: +reward,
-      };
-      const errors = validateForm({ balance, reward }, fundingRules);
-      if (errors) {
-        this.setState({ errors });
-      } else {
-        this.props.updateFunding(draft.id, funding);
-      }
+    const { draft, submitState, user } = this.props;
+    if (submitState.state === RequestStates.Fetching) {
+      return;
+    }
+    const { balance, reward } = this.state;
+    const funding = {
+      ...draft.funding,
+      balance: +balance,
+      reward: +reward,
+    };
+    const errors = validateForm({ balance, reward }, fundingRules);
+    if (errors) {
+      this.setState({ errors, insufficent: false });
+    } else if (user.gems.balance < balance) {
+      this.setState({ insufficent: true });
+    } else {
+      this.props.updateFunding(draft.id, funding);
     }
   };
 
@@ -116,41 +119,36 @@ class Payments extends Component {
 
   render() {
     const { submitState, user, draft } = this.props;
-    const { balance, reward, errors } = this.state;
-    const insufficent = false;
+    const { balance, reward, errors, insufficent } = this.state;
 
     return (
       <Form onSubmit={this.handleSubmit}>
         <Fieldset>
           <Description>Description about this step goes here.</Description>
           <Hero value={user.gems.balance} title="XPN available" />
-          {!insufficent && (
-            <>
-              <Field tooltip="Pay for Task *" name="balance" errors={errors}>
-                <Input
-                  placeholder="Pay for Task *"
-                  disabled={draft.status !== TaskStatus.draft}
-                  name="balance"
-                  value={balance}
-                  error={!!(errors && errors.balance)}
-                  onChange={this.handleInputChange}
-                />
-              </Field>
-              <Field
-                tooltip="Amount Earned per Task *"
-                name="reward"
-                errors={errors}
-              >
-                <Input
-                  placeholder="Amount Earned per Task *"
-                  name="reward"
-                  value={reward}
-                  error={!!(errors && errors.reward)}
-                  onChange={this.handleInputChange}
-                />
-              </Field>
-            </>
-          )}
+          <Field tooltip="Pay for Task *" name="balance" errors={errors}>
+            <Input
+              placeholder="Pay for Task *"
+              disabled={draft.status !== TaskStatus.draft}
+              name="balance"
+              value={balance}
+              error={!!(errors && errors.balance)}
+              onChange={this.handleInputChange}
+            />
+          </Field>
+          <Field
+            tooltip="Amount Earned per Task *"
+            name="reward"
+            errors={errors}
+          >
+            <Input
+              placeholder="Amount Earned per Task *"
+              name="reward"
+              value={reward}
+              error={!!(errors && errors.reward)}
+              onChange={this.handleInputChange}
+            />
+          </Field>
           {insufficent && (
             <HeroWarning
               className={styles.warning}

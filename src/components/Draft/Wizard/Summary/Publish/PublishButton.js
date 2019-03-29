@@ -55,7 +55,7 @@ export default class PublishButton extends Component {
   };
 
   render() {
-    const { readOnly, user, draft, onPublish } = this.props;
+    const { readOnly, user, draft } = this.props;
     const { schedule, error, initialDate } = this.state;
 
     const disabledDays = {
@@ -65,7 +65,7 @@ export default class PublishButton extends Component {
 
     return (
       <div className={styles.group}>
-        <EmailConfirmed user={user} onConfirmed={onPublish}>
+        <EmailConfirmed user={user} onConfirmed={this.handlePublishClick}>
           {({ onToggle, dialog }) => (
             <>
               <Button
