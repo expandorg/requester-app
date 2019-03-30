@@ -6,7 +6,6 @@ import HTMLWebpackPlugin from 'html-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 
 import { envFilePath } from './config';
-import setupMocks from './tests/apiMocks/setup';
 
 import packageJson from './package.json';
 
@@ -176,7 +175,6 @@ export default (env = {}) => {
     bail: !dev,
     devServer: {
       port,
-      before: env.mocks && setupMocks,
       contentBase: './public',
       historyApiFallback: true,
       headers: {

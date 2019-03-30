@@ -7,13 +7,13 @@ export const formTemplatesEntitiesSelector = (state: Object) =>
 export const formTemplatesListSelector = (state: Object) =>
   state.formTemplates.list;
 
-export const formTemplatesSelector = createSelector(
+export const formTemplatesSelector: any = createSelector(
   formTemplatesListSelector,
   formTemplatesEntitiesSelector,
   (list, entities) => list.map(id => entities[id])
 );
 
-export const makeTaskTemplateSelector = () =>
+export const makeTaskTemplateSelector = (): any =>
   createSelector(
     formTemplatesEntitiesSelector,
     (state, templateId) => templateId,

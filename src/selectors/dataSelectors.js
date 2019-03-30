@@ -3,17 +3,17 @@ import { createSelector } from 'reselect';
 
 export const dataStateSelector = (state: Object) => state.data;
 
-export const dataEntitiesSelector = createSelector(
+export const dataEntitiesSelector: any = createSelector(
   dataStateSelector,
   state => state.entities
 );
 
-export const dataValuesSelector = createSelector(
+export const dataValuesSelector: any = createSelector(
   dataStateSelector,
   state => state.values
 );
 
-export const makeDataSelector = () =>
+export const makeDataSelector = (): any =>
   createSelector(
     dataEntitiesSelector,
     dataValuesSelector,
@@ -37,7 +37,7 @@ export const makeDataSelector = () =>
     }
   );
 
-export const makeDataColumnNamesSelector = () =>
+export const makeDataColumnNamesSelector = (): any =>
   createSelector(
     dataEntitiesSelector,
     (state, id) => id,
@@ -50,7 +50,7 @@ export const makeDataColumnNamesSelector = () =>
     }
   );
 
-export const makeDataVarsSampleSelector = () =>
+export const makeDataVarsSampleSelector = (): any =>
   createSelector(
     dataEntitiesSelector,
     dataValuesSelector,

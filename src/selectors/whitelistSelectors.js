@@ -3,7 +3,7 @@ import { createSelector } from 'reselect';
 
 export const whitelistStateSelector = (state: Object) => state.whitelist;
 
-export const eligibleUsersSelector = createSelector(
+export const eligibleUsersSelector: any = createSelector(
   whitelistStateSelector,
   state => state.eligible
 );

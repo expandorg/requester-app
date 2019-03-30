@@ -3,82 +3,82 @@ import { createSelector } from 'reselect';
 
 export const uiStateSelector = (state: Object) => state.ui;
 
-export const notificationSelector = createSelector(
+export const notificationSelector: any = createSelector(
   uiStateSelector,
   state => state.notification
 );
 
-export const fetchDraftStateSelector = createSelector(
+export const fetchDraftStateSelector: any = createSelector(
   uiStateSelector,
   state => state.fetchDraft
 );
 
-export const createDraftStateSelector = createSelector(
+export const createDraftStateSelector: any = createSelector(
   uiStateSelector,
   state => state.createDraft
 );
 
-export const updateDraftSettingsStateSelector = createSelector(
+export const updateDraftSettingsStateSelector: any = createSelector(
   uiStateSelector,
   state => state.updateDraftSettings
 );
 
-export const selectDraftTemplateStateSelector = createSelector(
+export const selectDraftTemplateStateSelector: any = createSelector(
   uiStateSelector,
   state => state.selectDraftTemplate
 );
 
-export const updateDraftTaskStateSelector = createSelector(
+export const updateDraftTaskStateSelector: any = createSelector(
   uiStateSelector,
   state => state.updateDraftTask
 );
 
-export const updateDraftOnboardingStateSelector = createSelector(
+export const updateDraftOnboardingStateSelector: any = createSelector(
   uiStateSelector,
   state => state.updateDraftOnboarding
 );
 
-export const updateDraftWhitelistStateSelector = createSelector(
+export const updateDraftWhitelistStateSelector: any = createSelector(
   uiStateSelector,
   state => state.updateDraftWhitelist
 );
 
-export const updateDraftFundingStateSelector = createSelector(
+export const updateDraftFundingStateSelector: any = createSelector(
   uiStateSelector,
   state => state.updateDraftFunding
 );
 
-export const publishDraftStateSelector = createSelector(
+export const publishDraftStateSelector: any = createSelector(
   uiStateSelector,
   state => state.publishDraft
 );
 
-export const fetchDataStateSelector = createSelector(
+export const fetchDataStateSelector: any = createSelector(
   uiStateSelector,
   state => state.fetchData
 );
 
-export const uploadDataStateSelector = createSelector(
+export const uploadDataStateSelector: any = createSelector(
   uiStateSelector,
   state => state.uploadData
 );
 
-export const removeDataStateSelector = createSelector(
+export const removeDataStateSelector: any = createSelector(
   uiStateSelector,
   state => state.removeData
 );
 
-export const eligibleUsersStateSelector = createSelector(
+export const eligibleUsersStateSelector: any = createSelector(
   uiStateSelector,
   state => state.eligibleUsers
 );
 
-export const fetchTaskStatsStateSelector = createSelector(
+export const fetchTaskStatsStateSelector: any = createSelector(
   uiStateSelector,
   state => state.fetchTaskStats
 );
 
-export const generateAccessTokenStateSelector = createSelector(
+export const generateAccessTokenStateSelector: any = createSelector(
   uiStateSelector,
   state => state.accessToken
 );
