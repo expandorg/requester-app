@@ -28,7 +28,7 @@ const getVerification = o => o && o.verification;
 const options = [
   { value: VerificationType.Requester, label: 'Requester' },
   { value: VerificationType.Consensus, label: 'Consensus' },
-  { value: VerificationType.AuditWhitelist, label: 'Whitelist' },
+  // { value: VerificationType.AuditWhitelist, label: 'Whitelist' },
 ];
 
 const getInitialState = (draft, template) => {
