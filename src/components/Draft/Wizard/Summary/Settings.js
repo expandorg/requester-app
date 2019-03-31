@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 
+import { JobLogo } from '@expandorg/components/app';
 import { Fieldset } from '../Form';
 import { draftProps } from '../../../shared/propTypes';
 import { EndType } from '../../../../model/enums';
 import { formatDate, EndWhenTitles } from '../../../../model/i18n';
 
 import styles from './Settings.module.styl';
-import DraftLogo from '../../../shared/DraftLogo';
 
 export default class Settings extends Component {
   static propTypes = {
@@ -23,9 +23,10 @@ export default class Settings extends Component {
               <div className={styles.filed}>
                 <div className={styles.name}>Thumbnail</div>
                 <div className={styles.logo}>
-                  <DraftLogo
+                  <JobLogo
                     src={draft.logo}
                     className={styles.img}
+                    size="large"
                     name={draft.name}
                   />
                 </div>

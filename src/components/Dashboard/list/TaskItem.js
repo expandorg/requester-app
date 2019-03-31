@@ -5,10 +5,10 @@ import cn from 'classnames';
 import { Link } from 'react-router-dom';
 
 import { ReactComponent as MoreIcon } from '@expandorg/uikit/assets/more.svg';
+import { JobLogo } from '@expandorg/components/app';
 import I from '../../common/I';
 
 import TaskItemMenu from './TaskItemMenu';
-import DraftLogo from '../../shared/DraftLogo';
 
 import { DraftStatus } from '../../../model/enums';
 import { formatDate, DraftStatusTitles } from '../../../model/i18n';
@@ -125,7 +125,7 @@ export default class TaskItem extends Component {
           </div>
         </div>
         <div className={styles.logo}>
-          <DraftLogo logo={task.logo} name={task.name} className={styles.img} />
+          <JobLogo src={task.logo} name={task.name} className={styles.img} />
         </div>
         <div className={styles.title}>{task.name}</div>
         <div className={styles.status}>{getStatusTitle(task)}</div>
