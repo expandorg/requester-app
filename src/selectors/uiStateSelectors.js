@@ -73,9 +73,9 @@ export const eligibleUsersStateSelector: any = createSelector(
   state => state.eligibleUsers
 );
 
-export const fetchTaskStatsStateSelector: any = createSelector(
+export const fetchJobStatsStateSelector: any = createSelector(
   uiStateSelector,
-  state => state.fetchTaskStats
+  state => state.fetchJobStats
 );
 
 export const generateAccessTokenStateSelector: any = createSelector(

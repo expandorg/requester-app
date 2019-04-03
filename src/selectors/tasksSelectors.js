@@ -13,12 +13,12 @@ export const dashboardTasksSelector: any = createSelector(
     }))
 );
 
-export const taskStatsEntitiesSelector = (state: Object): any =>
-  state.taskStats.entities;
+export const jobStatsEntitiesSelector = (state: Object): any =>
+  state.jobStats.entities;
 
-export const makeTaskStatsSelector = (): any =>
+export const makeJobStatsSelector = (): any =>
   createSelector(
-    taskStatsEntitiesSelector,
+    jobStatsEntitiesSelector,
     (state, id) => id,
     (entities, id) => entities[id]
   );

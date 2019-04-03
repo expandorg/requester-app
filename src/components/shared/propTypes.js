@@ -3,9 +3,7 @@ import PropTypes from 'prop-types';
 
 import { moduleProps } from '@expandorg/modules';
 
-export const taskStatsProps = PropTypes.shape({
-  id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
-});
+export const jobStatsProps = PropTypes.shape({});
 
 export const formProps = PropTypes.shape({
   modules: PropTypes.arrayOf(moduleProps),

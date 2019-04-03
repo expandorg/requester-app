@@ -20,7 +20,7 @@ import Signup from './components/Auth/Signup';
 import Create from './components/Create/Create';
 import Draft from './components/Draft/Draft';
 
-import Task from './components/Task/Task';
+import JobStats from './components/JobStats/JobStats';
 import PreviewForm from './components/Preview/PreviewForm';
 import PreviewDraft from './components/Preview/PreviewDraft';
 
@@ -53,7 +53,7 @@ const App = () => (
             <Route path="/draft/create" component={Create} />
 
             <Route path="/draft/:id" component={Draft} />
-            <Route path="/task/:id" component={Task} />
+            <Route path="/job/:id" component={JobStats} />
 
             <Route path="/preview/form" component={PreviewForm} />
             <Route path="/preview/draft/:id" component={PreviewDraft} />

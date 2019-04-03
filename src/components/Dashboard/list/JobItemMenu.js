@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
 
-import styles from './TaskItemMenu.module.styl';
+import styles from './JobItemMenu.module.styl';
 
-export default class TaskItemMenu extends Component {
+export default class JobItemMenu extends Component {
   static propTypes = {
     canCopy: PropTypes.bool,
     canDelete: PropTypes.bool,

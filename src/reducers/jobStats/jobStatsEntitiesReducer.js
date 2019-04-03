@@ -1,3 +1,3 @@
 import { normalizedItemsReducer } from '@expandorg/app-utils';
 
-export default normalizedItemsReducer('taskStats');
+export default normalizedItemsReducer('jobStats');

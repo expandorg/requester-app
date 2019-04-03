@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
 import cn from 'classnames';
 
-import { taskStatsProps } from '../shared/propTypes';
-import { DraftStatusTitles } from '../../model/i18n';
+import { jobStatsProps } from '../shared/propTypes';
 
 import styles from './Title.module.styl';
 
 export default class Title extends Component {
   static propTypes = {
-    stats: taskStatsProps,
+    stats: jobStatsProps,
   };
 
   static defaultProps = {
@@ -22,9 +21,9 @@ export default class Title extends Component {
     }
     return (
       <div className={styles.title}>
-        {stats.title}
+        {stats.job.name}
         <span className={cn(styles.state, styles[stats.state])}>
-          {DraftStatusTitles[stats.state]}
+          {'In progress'}
         </span>
       </div>
     );

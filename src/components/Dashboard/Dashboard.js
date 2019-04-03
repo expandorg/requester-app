@@ -18,7 +18,7 @@ import Page from '../shared/Page';
 
 import List from './list/List';
 import NewTask from './list/NewTask';
-import TaskItem from './list/TaskItem';
+import JobItem from './list/JobItem';
 import Empty from './list/Empty';
 
 import { fetchTasks } from '../../sagas/tasksSagas';
@@ -98,10 +98,10 @@ class Dashboard extends Component {
         {!isEmpty && (
           <List className={styles.list}>
             <NewTask />
-            {items.map(task => (
-              <TaskItem
-                key={task.key}
-                task={task}
+            {items.map(draft => (
+              <JobItem
+                key={draft.key}
+                draft={draft}
                 onCopy={this.props.copyDraft}
                 onDelete={this.props.removeDraft}
               />

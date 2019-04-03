@@ -3,7 +3,7 @@ import { schema } from 'normalizr';
 
 const draftSchema = new schema.Entity('drafts');
 
-const taskStatsSchema = new schema.Entity('taskStats');
+const jobStatsSchema = new schema.Entity('jobStats');
 const taskTemplateSchema = new schema.Entity('taskTemplates');
 const formTemplateSchema = new schema.Entity('formTemplates');
 
@@ -15,7 +15,7 @@ const dataResponseSchema = { data: dataSchema };
 
 export {
   draftSchema,
-  taskStatsSchema,
+  jobStatsSchema,
   draftResponseSchema,
   dataResponseSchema,
   taskTemplateSchema,

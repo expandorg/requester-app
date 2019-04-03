@@ -43,6 +43,6 @@ export default combineReducers({
 
   eligibleUsers: requestUiStateReducer(whitelistActionTypes.GET_ELIGIBLE),
 
-  fetchTaskStats: requestUiStateReducer(tasksActionTypes.FETCH_STATS),
+  fetchJobStats: requestUiStateReducer(tasksActionTypes.FETCH_STATS),
   accessToken: requestUiStateReducer(accessTokenActionTypes.GENERATE_KEY),
 });

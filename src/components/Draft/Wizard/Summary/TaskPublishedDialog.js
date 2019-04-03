@@ -4,12 +4,12 @@ import { withRouter } from 'react-router';
 import { historyProps } from '@expandorg/app-utils';
 
 import ConfirmationDialog from '../../../shared/ConfirmationDialog';
-import { draftProps } from '../../../shared/propTypes';
+// import { draftProps } from '../../../shared/propTypes';
 
 class Summary extends Component {
   static propTypes = {
     history: historyProps.isRequired,
-    draft: draftProps.isRequired,
+    // draft: draftProps.isRequired,
   };
 
   handleHide = () => {
@@ -18,8 +18,8 @@ class Summary extends Component {
   };
 
   handleConfirm = () => {
-    const { draft, history } = this.props;
-    history.replace(`/task/${draft.jobId}`);
+    const { history } = this.props;
+    history.replace(`/`);
   };
 
   render() {

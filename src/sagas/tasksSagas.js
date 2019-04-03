@@ -4,21 +4,23 @@ import { handleAsyncCall } from '@expandorg/app-utils';
 
 import { tasksActionTypes } from './actionTypes';
 
-import { tasksApi } from '../api/TasksApi';
+import { dashboardApi } from '../api/DashboardApi';
+import { jobsApi } from '../api/JobsApi';
 import { templatesApi } from '../api/TemplatesApi';
-import { taskTemplateSchema, taskStatsSchema } from '../model/schemas';
+
+import { taskTemplateSchema, jobStatsSchema } from '../model/schemas';
 
 export const fetchTasks = status => ({
   type: tasksActionTypes.FETCH_LIST,
   payload: { status },
-  asyncCall: tasksApi.list,
+  asyncCall: dashboardApi.list,
 });
 
-export const fetchTaskStats = id => ({
+export const fetchJobStats = jobId => ({
   type: tasksActionTypes.FETCH_STATS,
-  payload: { id },
-  asyncCall: tasksApi.fetchStats,
-  meta: { schema: { task: taskStatsSchema } },
+  payload: { jobId },
+  asyncCall: jobsApi.stats,
+  meta: { schema: { stas: jobStatsSchema } },
 });
 
 export const fetchTaskTemplates = () => ({

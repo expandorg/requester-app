@@ -11,32 +11,32 @@ import {
   matchProps,
 } from '@expandorg/app-utils';
 
-import { taskStatsProps } from '../shared/propTypes';
+import { jobStatsProps } from '../shared/propTypes';
 import { authenticated } from '../shared/auth';
 
 import Stats from './Stats';
 
-import { makeTaskStatsSelector } from '../../selectors/tasksSelectors';
-import { fetchTaskStatsStateSelector } from '../../selectors/uiStateSelectors';
-import { fetchTaskStats } from '../../sagas/tasksSagas';
+import { makeJobStatsSelector } from '../../selectors/tasksSelectors';
+import { fetchJobStatsStateSelector } from '../../selectors/uiStateSelectors';
+import { fetchJobStats } from '../../sagas/tasksSagas';
 
 const makeMapStateToProps = () => {
-  const raskStatsSelector = makeTaskStatsSelector();
+  const jobStatsSelector = makeJobStatsSelector();
   return (state, props) => ({
-    stats: raskStatsSelector(state, props.match.params.id),
-    loadState: fetchTaskStatsStateSelector(state),
+    stats: jobStatsSelector(state, +props.match.params.id),
+    loadState: fetchJobStatsStateSelector(state),
   });
 };
 
 const mapDispatchToProps = dispatch =>
-  bindActionCreators({ fetchTaskStats }, dispatch);
+  bindActionCreators({ fetchJobStats }, dispatch);
 
-class Draft extends Component {
+class JobStats extends Component {
   static propTypes = {
     match: matchProps.isRequired,
-    stats: taskStatsProps,
+    stats: jobStatsProps,
     loadState: requestStateProps.isRequired,
-    fetchTaskStats: PropTypes.func.isRequired,
+    fetchJobStats: PropTypes.func.isRequired,
   };
 
   static defaultProps = {
@@ -45,21 +45,22 @@ class Draft extends Component {
 
   componentDidMount() {
     const { match } = this.props;
-    this.props.fetchTaskStats(match.params.id);
+    this.props.fetchJobStats(match.params.id);
   }
 
   componentDidUpdate({ match: prevMatch }) {
     const { match } = this.props;
     if (match.params.id !== prevMatch.params.id) {
-      this.props.fetchTaskStats(match.params.id);
+      this.props.fetchJobStats(match.params.id);
     }
   }
 
   render() {
     const { stats, loadState } = this.props;
     const isLoading = !stats && loadState.state === RequestStates.Fetching;
+    console.log(stats);
 
-    return <Stats taskStats={stats} isLoading={isLoading} />;
+    return <Stats stats={stats} isLoading={isLoading} />;
   }
 }
 
@@ -68,6 +69,6 @@ export default withRouter(
     connect(
       makeMapStateToProps,
       mapDispatchToProps
-    )(Draft)
+    )(JobStats)
   )
 );
