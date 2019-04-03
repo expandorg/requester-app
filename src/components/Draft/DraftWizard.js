@@ -73,7 +73,7 @@ export default class DraftWizard extends Component {
         <Navbar title="Create a task" top={false} logout={false}>
           <Navigation onChange={this.handleChangeActive} active={active}>
             <NavItem {...nav.settings}>Settings</NavItem>
-            <NavItem {...nav.upload}>Upload</NavItem>
+            <NavItem {...nav.data}>Data</NavItem>
             <NavItem {...nav.templates}>Templates</NavItem>
             <NavItem {...nav.task}>Create Task</NavItem>
             {/* <NavItem {...nav.whitelist}>Whitelist</NavItem> */}

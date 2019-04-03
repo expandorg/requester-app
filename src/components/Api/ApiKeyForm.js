@@ -4,12 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import {
-  Button,
-  ErrorMessage,
-  Input,
-  ClipboardButton,
-} from '@expandorg/components';
+import { Input, ClipboardButton, Panel } from '@expandorg/components';
 import { EmailConfirmed } from '@expandorg/app-account/components';
 
 import { requestStateProps, RequestStates } from '@expandorg/app-utils';
@@ -19,6 +14,8 @@ import { userSelector } from '@expandorg/app-auth/selectors';
 import { generateKey } from '../../sagas/accessTokenSagas';
 import { generateAccessTokenStateSelector } from '../../selectors/uiStateSelectors';
 import { accessTokenSelector } from '../../selectors/accessTokenSelectors';
+
+import ConfirmationDialog from '../shared/ConfirmationDialog';
 
 import styles from './ApiKeyForm.module.styl';
 
@@ -43,25 +40,34 @@ class ApiKeyForm extends Component {
     accessToken: null,
   };
 
+  state = {
+    confirm: false,
+  };
+
   handleGenerateClick = evt => {
     const { user, submitState } = this.props;
+    this.setState({ confirm: false });
     if (submitState !== RequestStates.Fetching) {
       this.props.generateKey(user);
     }
     evt.preventDefault();
   };
 
+  handleToggleConfirm = () => {
+    this.setState(({ confirm }) => ({ confirm: !confirm }));
+  };
+
   render() {
     const { accessToken, user, submitState } = this.props;
+    const { confirm } = this.state;
 
     const submitting = submitState.state === RequestStates.Fetching;
     const submitted = submitState.state === RequestStates.Fetched;
 
     return (
-      <div className={styles.container}>
-        <div className={styles.title}>Generate API key</div>
-        <div className={styles.content}>
-          {submitted && (
+      <>
+        {submitted && (
+          <Panel className={styles.panel}>
             <div className={styles.token}>
               <Input
                 value={accessToken}
@@ -73,33 +79,36 @@ class ApiKeyForm extends Component {
                 Copy
               </ClipboardButton>
             </div>
-          )}
-          {!submitted && (
-            <>
-              <EmailConfirmed
-                user={user}
-                onConfirmed={this.handleGenerateClick}
-              >
-                {({ onToggle }) => (
-                  <Button
-                    className={styles.generate}
-                    theme="blue"
-                    size="small"
-                    disabled={submitting}
-                    onClick={onToggle}
-                  >
-                    {submitting ? 'generating...' : 'generate'}
-                  </Button>
-                )}
-              </EmailConfirmed>
-              <ErrorMessage
-                errors={submitState.error}
-                className={styles.error}
-              />
-            </>
-          )}
-        </div>
-      </div>
+          </Panel>
+        )}
+        {!submitted && (
+          <>
+            <EmailConfirmed user={user} onConfirmed={this.handleToggleConfirm}>
+              {({ onToggle }) => (
+                <button
+                  className={styles.generate}
+                  disabled={submitting}
+                  onClick={onToggle}
+                >
+                  <div className={styles.plus}>+</div>
+                  generate api key
+                </button>
+              )}
+            </EmailConfirmed>
+          </>
+        )}
+        {confirm && (
+          <ConfirmationDialog
+            title=""
+            icon="warning"
+            confirmation="Expand does not store API keys. Please keep this safe."
+            confirmCaption="i understand"
+            hideCaption={null}
+            onHide={this.handleToggleConfirm}
+            onConfirm={this.handleGenerateClick}
+          />
+        )}
+      </>
     );
   }
 }

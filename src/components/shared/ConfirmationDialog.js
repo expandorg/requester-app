@@ -69,18 +69,22 @@ export default class ConfirmationDialog extends Component {
         <div className={styles.container}>
           <div className={styles.icon}>{this.renderIcon(icon)}</div>
           <DF.Title className={styles.title}>{title}</DF.Title>
-          <div className={styles.confirmation}>{confirmation}</div>
+          {confirmation && (
+            <div className={styles.confirmation}>{confirmation}</div>
+          )}
           <DF.Actions>
             <Button className="gem-dialogform-button" onClick={onConfirm}>
               {confirmCaption}
             </Button>
-            <Button
-              className="gem-dialogform-button"
-              theme="grey"
-              onClick={onHide}
-            >
-              {hideCaption}
-            </Button>
+            {hideCaption && (
+              <Button
+                className="gem-dialogform-button"
+                theme="grey"
+                onClick={onHide}
+              >
+                {hideCaption}
+              </Button>
+            )}
           </DF.Actions>
         </div>
       </Dialog>

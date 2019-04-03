@@ -2,18 +2,16 @@
 @import '~@expandorg/uikit/font';
 @import '~@expandorg/uikit/size';
 
-.title
-  color: color-black
-  font(h2-title)
-  text-align: center
 
-.content
-  margin-top: 40px
+.panel
   box-sizing: border-box
-  min-height: 60px
+  width: 512px
+  padding: 40px 40px
+  margin-bottom: 60px
 
-.generate
-  width: 100%
+  @media(max-width: breakpoint-mobile-sm)
+    width: 100%
+
 
 .error
   margin-top: 20px
@@ -48,3 +46,24 @@
     color: lighten(color-text-blue, 10%)
 
 
+
+.generate
+  width: 250px
+  height: 250px
+  box-sizing: border-box
+
+  font(subtitle)
+  text-transform: uppercase
+
+  color: color-heavy-blue
+  background-color: transparent;
+  border-radius: 5px
+  border: 1px solid color-heavy-blue
+
+  outline: 0
+  cursor: pointer
+
+
+.plus
+  font-size: 96px
+  font-weight: 300

@@ -60,7 +60,7 @@ export default class SummaryForm extends Component {
         <Section title="Settings" status={nav.settings.status} blue>
           <Settings draft={draft} />
         </Section>
-        <Section title="Data" status={nav.upload.status}>
+        <Section title="Data" status={nav.data.status}>
           <Data draft={draft} />
         </Section>
         {/* <Section title="Task" status={nav.templates.status} blue>

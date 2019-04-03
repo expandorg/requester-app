@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 
-import { Panel } from '@expandorg/components';
 import Navbar from '../shared/Navbar';
 import Sidebar from '../shared/Sidebar';
 
@@ -18,9 +17,7 @@ class Api extends Component {
         <Navbar title="API" />
         <Sidebar />
         <div className={styles.container}>
-          <Panel className={styles.panel}>
-            <ApiKeyForm />
-          </Panel>
+          <ApiKeyForm />
         </div>
       </Page>
     );

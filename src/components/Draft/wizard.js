@@ -31,7 +31,7 @@ export const getNavState = (draft: Draft) => {
       status: draft ? 'complete' : null,
       disabled: !draft,
     },
-    upload: {
+    data: {
       status: DraftManager.hasData(draft) ? 'complete' : null,
       disabled: !draft,
     },

@@ -11,7 +11,7 @@ import {
 
 import { gemsActionTypes } from '@expandorg/app-gemtokens';
 
-import { draftsActionTypes } from './actionTypes';
+import { draftsActionTypes, accessTokenActionTypes } from './actionTypes';
 
 export const successMessage = (message: string) => {
   function* handler(): any {
@@ -77,6 +77,11 @@ export function* notificationsSagas(): any {
   yield takeEvery(
     draftsActionTypes.UPDATE_TASK_COMPLETE,
     successMessage('Task module edited!')
+  );
+
+  yield takeEvery(
+    accessTokenActionTypes.GENERATE_KEY_COMPLETE,
+    successMessage('Your new API key has been generated!')
   );
 
   yield takeEvery(draftFailedActions, handleDraftActionFailed);
