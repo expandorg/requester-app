@@ -54,8 +54,8 @@ class DataEditor extends Component {
     return (
       <div className={styles.container}>
         <Description>
-          Once the file uploads, skip the columns you don&#39;t wish to use as
-          variables in your task.
+          Edit your column names so that you can recognize them later when
+          assigning the data inputs in your task. Skip the ones you won’t use.
         </Description>
         <Table
           draft={draft}
