@@ -18,6 +18,8 @@ import { imagesApi } from '../../../../api/ImagesApi';
 
 import styles from './UploadLogo.module.styl';
 
+import tooltipUploadLogo from './tooltipUploadLogo.png';
+
 const mapDispatchToProps = dispatch =>
   bindActionCreators({ addNotification }, dispatch);
 
@@ -93,7 +95,13 @@ class UploadLogo extends Component {
     return (
       <Upload
         label="Thumbnail *"
-        tooltip="Select a thumbnail for your request. It'll be visible to workers."
+        tooltip={
+          <img
+            src={tooltipUploadLogo}
+            className={styles.tooltip}
+            alt="Upload logo"
+          />
+        }
         accept="image/jpeg, image/png, image/gif"
         onSelect={this.handleSelect}
         onReject={this.handleReject}
