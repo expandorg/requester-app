@@ -26,7 +26,7 @@ const getFunding = o => o && o.funding;
 const getVerification = o => o && o.verification;
 
 const options = [
-  { value: VerificationType.Requester, label: 'Requester' },
+  { value: VerificationType.Requester, label: 'Manual' },
   { value: VerificationType.Consensus, label: 'Consensus' },
   // { value: VerificationType.AuditWhitelist, label: 'Whitelist' },
 ];
