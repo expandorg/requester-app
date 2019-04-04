@@ -71,9 +71,7 @@ export const moduleSource = {
 };
 
 const getContainerRect = component =>
-  component
-    .getDecoratedComponentInstance()
-    .containerRef.getBoundingClientRect();
+  component.containerRef.getBoundingClientRect();
 
 const getParentId = path =>
   treeEditor.getIdByPath(treeEditor.getParentPath(path));

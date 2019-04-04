@@ -20,7 +20,7 @@ export const fetchJobStats = jobId => ({
   type: tasksActionTypes.FETCH_STATS,
   payload: { jobId },
   asyncCall: jobsApi.stats,
-  meta: { schema: { stas: jobStatsSchema } },
+  meta: { schema: { stats: jobStatsSchema } },
 });
 
 export const fetchTaskTemplates = () => ({
@@ -37,6 +37,13 @@ export const fetchTaskTemplate = id => ({
   meta: { schema: { template: taskTemplateSchema } },
 });
 
+export const fetchResponses = (jobId, page) => ({
+  type: tasksActionTypes.FETCH_RESPONSES,
+  payload: { jobId, page },
+  asyncCall: jobsApi.fetchResponses,
+  meta: { params: { jobId, page } },
+});
+
 export function* tasksSagas() {
   yield takeEvery(
     [
@@ -44,6 +51,7 @@ export function* tasksSagas() {
       tasksActionTypes.FETCH_LIST,
       tasksActionTypes.FETCH_TEMPLATES,
       tasksActionTypes.FETCH_TEMPLATE,
+      tasksActionTypes.FETCH_RESPONSES,
     ],
     handleAsyncCall
   );

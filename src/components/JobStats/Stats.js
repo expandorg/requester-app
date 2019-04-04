@@ -1,69 +1,52 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import cn from 'classnames';
 
-import { Button } from '@expandorg/components';
-
-import Page from '../shared/Page';
-import Navbar from '../shared/Navbar';
 import Hero from '../shared/Hero';
+import settings from '../../common/settings';
 
 import { jobStatsProps } from '../shared/propTypes';
-
-import { LoadIndicator } from '../Draft/Wizard/Form';
-
-import Title from './Title';
 
 import styles from './Stats.module.styl';
 
 export default class Stats extends Component {
   static propTypes = {
-    stats: jobStatsProps,
-    isLoading: PropTypes.bool,
-  };
-
-  static defaultProps = {
-    isLoading: false,
-    stats: null,
+    stats: jobStatsProps.isRequired,
   };
 
   render() {
-    const { stats, isLoading } = this.props;
-    const title = (stats && stats.job.name) || '';
+    const { stats } = this.props;
+
+    const dlClasses = cn(
+      'gem-button',
+      'gem-button-primary',
+      'gem-button-small',
+      styles.download
+    );
+    const dlLink = `${settings.apiUrl}/jobs/${stats.job.id}/responses/csv`;
+
     return (
-      <Page
-        title={title}
-        sidebar={false}
-        navbar={false}
-        footer={false}
-        className={styles.content}
-      >
-        <Navbar title={<Title stats={stats} />} top={false} logout={false} />
-        <LoadIndicator isLoading={isLoading}>
-          {stats && (
-            <div className={styles.container}>
-              <div className={styles.info}>
-                <div className={styles.details}>{stats.job.description}</div>
-                <div className={styles.action}>
-                  <Button className={styles.button}>Download CSV</Button>
-                </div>
-              </div>
-              <div className={styles.stats}>
-                <Hero
-                  className={styles.hero}
-                  value={stats.accepted}
-                  title="results"
-                />
-                <Hero
-                  className={styles.hero}
-                  value={stats.workers}
-                  title="workers"
-                />
-                <Hero className={styles.hero} value={0} title="warnings" />
-              </div>
-            </div>
-          )}
-        </LoadIndicator>
-      </Page>
+      <div className={styles.container}>
+        <div className={styles.info}>
+          <div className={styles.details}>{stats.job.description}</div>
+          <a
+            href={dlLink}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={dlClasses}
+          >
+            Download CSV
+          </a>
+        </div>
+        <div className={styles.stats}>
+          <Hero
+            className={styles.hero}
+            value={stats.accepted}
+            title="results"
+          />
+          <Hero className={styles.hero} value={stats.workers} title="workers" />
+          <Hero className={styles.hero} value={0} title="warnings" />
+        </div>
+      </div>
     );
   }
 }

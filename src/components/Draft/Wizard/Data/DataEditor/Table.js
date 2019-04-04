@@ -74,7 +74,7 @@ class Table extends Component {
             <>
               <Pagination
                 current={page}
-                total={data.total}
+                total={data.total - 1}
                 onChange={onChangePage}
               />
               <button className={styles.delete} onClick={onDelete}>

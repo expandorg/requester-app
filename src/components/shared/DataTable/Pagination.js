@@ -39,10 +39,12 @@ export default class Pagination extends Component {
     current: PropTypes.number,
     total: PropTypes.number,
     display: PropTypes.number,
+    className: PropTypes.string,
     onChange: PropTypes.func.isRequired,
   };
 
   static defaultProps = {
+    className: null,
     current: 0,
     total: 0,
     display: 5,
@@ -57,14 +59,15 @@ export default class Pagination extends Component {
   };
 
   render() {
-    const { current, total, display } = this.props;
+    const { current, total, display, className } = this.props;
+
     if (!total || total === 1) {
       return null;
     }
-    const pages = getPages(current, total - 1, display);
+    const pages = getPages(current, total, display);
 
     return (
-      <div className={styles.container}>
+      <div className={cn(styles.container, className)}>
         <Page page={0} disabled={current === 0} onClick={this.handleClick}>
           <Arrow className={styles.left} />
           <Arrow className={styles.left} />

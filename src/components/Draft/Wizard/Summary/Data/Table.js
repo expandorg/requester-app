@@ -47,7 +47,7 @@ class Table extends Component {
           data && (
             <Pagination
               current={page}
-              total={data.total}
+              total={data.total - 1}
               onChange={onChangePage}
             />
           )

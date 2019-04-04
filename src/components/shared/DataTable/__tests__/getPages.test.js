@@ -9,6 +9,7 @@ describe('getPages()', () => {
 
   it('should limit number of pages', () => {
     expect(getPages(0, 15, display)).toEqual([0, 1, 2, 3, 4]);
+    expect(getPages(0, 2, display)).toEqual([0, 1]);
   });
 
   describe('boundaries', () => {

@@ -78,6 +78,11 @@ export const fetchJobStatsStateSelector: any = createSelector(
   state => state.fetchJobStats
 );
 
+export const fetchJobResponsesStateSelector: any = createSelector(
+  uiStateSelector,
+  state => state.fetchJobResponses
+);
+
 export const generateAccessTokenStateSelector: any = createSelector(
   uiStateSelector,
   state => state.accessToken

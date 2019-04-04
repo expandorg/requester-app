@@ -44,5 +44,6 @@ export default combineReducers({
   eligibleUsers: requestUiStateReducer(whitelistActionTypes.GET_ELIGIBLE),
 
   fetchJobStats: requestUiStateReducer(tasksActionTypes.FETCH_STATS),
+  fetchJobResponses: requestUiStateReducer(tasksActionTypes.FETCH_RESPONSES),
   accessToken: requestUiStateReducer(accessTokenActionTypes.GENERATE_KEY),
 });
