@@ -13,6 +13,7 @@ import {
   AlignmentTool,
   FontPresetTool,
   VariablesButton,
+  ListTool,
 } from './toolbar';
 
 import {
@@ -111,6 +112,7 @@ export default class DraftTextEditor extends Component {
             editorState={editorState}
             onChange={this.handleChange}
           />
+          <ListTool editorState={editorState} onChange={this.handleChange} />
           <VariablesButton
             editorState={editorState}
             variables={allVars}

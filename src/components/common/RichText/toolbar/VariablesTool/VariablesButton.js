@@ -28,7 +28,7 @@ export default class VariablesButton extends Component {
         >
           {({ onToggle }) => (
             <button className={styles.button} onClick={onToggle}>
-              add variable
+              variable
             </button>
           )}
         </VariablesTool>
