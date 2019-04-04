@@ -10,7 +10,7 @@ import styles from './Upload.module.styl';
 export default class Upload extends Component {
   static propTypes = {
     label: PropTypes.string,
-    tooltip: PropTypes.string,
+    tooltip: PropTypes.oneOfType([PropTypes.node, PropTypes.string]),
   };
 
   static defaultProps = {

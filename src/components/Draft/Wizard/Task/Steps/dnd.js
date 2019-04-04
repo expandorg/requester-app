@@ -22,9 +22,7 @@ export const target = {
       return;
     }
 
-    const hoverBoundingRect = component
-      .getDecoratedComponentInstance()
-      .containerRef.getBoundingClientRect();
+    const hoverBoundingRect = component.containerRef.getBoundingClientRect();
 
     const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
     const clientOffset = monitor.getClientOffset();
