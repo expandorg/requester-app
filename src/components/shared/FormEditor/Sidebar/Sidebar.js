@@ -20,6 +20,8 @@ import styles from './Sidebar.module.styl';
 // FIXME: temproary disable https://github.com/gemsorg/requester-portal/issues/81
 const exclude = ['progress', 'upload'];
 
+const isEmpty = categores => categores.every(c => !c.modules.length);
+
 class Sidebar extends Component {
   static propTypes = {
     onEndDrag: PropTypes.func.isRequired,
@@ -94,6 +96,9 @@ class Sidebar extends Component {
                     onPreview={this.handlePreview}
                   />
                 ))}
+                {isEmpty(categories) && (
+                  <div className={styles.empty}>No component found.</div>
+                )}
               </div>
             )}
           </>
