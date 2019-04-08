@@ -7,11 +7,7 @@ import type {
 
 type ModuleLogicMap = { [key: LogicAction]: ?Expression };
 
-type VisibilityLogic = {
-  expression: ?Expression,
-  action: LogicAction,
-};
-
+// eslint-disable-next-line import/prefer-default-export
 export class ModuleLogic {
   static has(module: Module): boolean {
     return !!module.logic;
@@ -49,13 +45,3 @@ export class ModuleLogic {
     return { ...module, logic };
   }
 }
-
-export const getVisibilityLogic = ({ logic }: Module): VisibilityLogic => {
-  if (!logic || !(logic.show || logic.hide)) {
-    return { expression: [], action: 'show' };
-  }
-  return {
-    expression: logic.show ? logic.show : logic.hide,
-    action: logic.show ? 'show' : 'hide',
-  };
-};

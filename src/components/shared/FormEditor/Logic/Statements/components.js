@@ -6,43 +6,28 @@ import { DropdownBase, AutocompleteInput } from '@expandorg/components';
 
 import styles from './components.module.styl';
 
-export const Row = ({ children }) => (
-  <div className={styles.row}>{children}</div>
-);
-
-export const Text = ({ children, bold }) => (
-  <span className={cn(styles.text, { [styles.bold]: bold })}>{children}</span>
-);
-
-Text.propTypes = {
-  bold: PropTypes.bool,
-};
-
-Text.defaultProps = {
-  bold: false,
-};
-
-export const Dropdown = ({ bold, ...props }) => (
-  <DropdownBase
-    className={cn(styles.dropdown, { [styles.bold]: bold })}
-    {...props}
-  >
+export const Dropdown = ({ className, ...props }) => (
+  <DropdownBase className={cn(styles.dropdown, className)} {...props}>
     {({ formatted, value }) => formatted || value}
   </DropdownBase>
 );
 
 Dropdown.propTypes = {
-  bold: PropTypes.bool,
+  className: PropTypes.bool,
 };
 
 Dropdown.defaultProps = {
-  bold: false,
+  className: null,
 };
 
-export const Input = ({ ...props }) => (
-  <AutocompleteInput className={styles.input} {...props} />
+export const Input = ({ className, ...props }) => (
+  <AutocompleteInput className={cn(styles.input, className)} {...props} />
 );
 
-export const Statement = ({ children }) => (
-  <div className={styles.statement}>{children}</div>
-);
+Input.propTypes = {
+  className: PropTypes.bool,
+};
+
+Input.defaultProps = {
+  className: null,
+};

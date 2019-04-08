@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import cn from 'classnames';
 
 import { moduleProps } from '@expandorg/modules';
 
@@ -128,8 +129,11 @@ export default class Properties extends Component {
           <Button theme="grey" onClick={onCancel} className={styles.btn}>
             Cancel
           </Button>
-          <Button onClick={this.handleSave} className={styles.btn}>
-            Save
+          <Button
+            onClick={this.handleSave}
+            className={cn(styles.done, styles.btn)}
+          >
+            Done
           </Button>
         </div>
       </aside>

@@ -1,11 +1,21 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 
 import { moduleProps } from '@expandorg/modules';
 
-import { getVisibilityLogic, ModuleLogic } from '../model/logic';
+import { ModuleLogic as ML } from '../model/logic';
 
-import { If, Then, Statement } from './Statements';
+import { If, Action, ConditionalExpression } from './Statements';
+
+const getInitialState = ({ logic }) => {
+  if (!logic || !(logic.show || logic.hide)) {
+    return { expression: [], action: 'show' };
+  }
+  return {
+    expression: logic.show ? logic.show : logic.hide,
+    action: logic.show ? 'show' : 'hide',
+  };
+};
 
 const visibilityActions = ['hide', 'show'];
 
@@ -15,33 +25,37 @@ export default function VisibilityLogic({
   values,
   onChange,
 }) {
-  const { expression, action } = getVisibilityLogic(module);
+  const options = useMemo(() => [...(variables || []), ...(values || [])], [
+    values,
+    variables,
+  ]);
 
-  const changeExpression = updated => {
-    onChange(ModuleLogic.set(module, action, updated));
+  const { expression, action } = getInitialState(module);
+
+  const changeExpression = exp => {
+    onChange(ML.set(module, action, exp));
   };
 
   const changeAction = updated => {
-    onChange(
-      ModuleLogic.set(ModuleLogic.unset(module, action), updated, expression)
-    );
+    onChange(ML.set(ML.unset(module, action), updated, expression));
   };
 
   return (
-    <Statement>
-      <If
-        expression={expression}
-        variables={variables}
-        values={values}
-        onChange={changeExpression}
-      />
-      <Then
+    <div>
+      <If>
+        <ConditionalExpression
+          expression={expression}
+          options={options}
+          onChange={changeExpression}
+        />
+      </If>
+      <Action
         name={module.name}
         actions={visibilityActions}
         action={action}
         onChange={changeAction}
       />
-    </Statement>
+    </div>
   );
 }
 

@@ -1,32 +1,11 @@
 @import '~@expandorg/uikit/colors';
 @import '~@expandorg/uikit/font';
 
-
-.row
-  box-sizing: border-box
-  margin-bottom: 16px
-  min-height 30px
-  white-space: nowrap;
-
-.text
-  box-sizing: border-box
-  margin-right: 5px
-  color: color-light-blue
-  font(body)
-
-  &:last-child
-    margin-right: 0
-
-.bold
-  font-weight: 700
-
 .dropdown
   box-sizing: border-box
   position relative
   width: auto
   display: inline-block
-  margin-right: 15px
-  min-width 70px
   padding: 0 20px 0 0
   color: color-light-blue
 
@@ -58,10 +37,17 @@
 
 .input
   display: inline-block
-  width: 100px
+  width: 110px
   border-bottom-width: 1px
 
   :global(.gem-input)
     color: color-light-blue
     border-bottom-width: 1px
+
+  :global(.gem-autocomplete-suggestions)
+    right: initial
+    top: 30px
+
+  :global(.gem-autocomplete-suggestion)
+    padding-right: 20px
 

@@ -1,6 +1,6 @@
 // @flow
 import If from './If';
-import Then from './Then';
-import { Statement } from './components';
+import ConditionalExpression from './Conditional/ConditionalExpression';
+import Action from './Action';
 
-export { If, Then, Statement };
+export { If, Action, ConditionalExpression };
