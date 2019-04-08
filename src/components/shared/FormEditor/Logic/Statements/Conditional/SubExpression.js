@@ -7,7 +7,7 @@ import BoolExpression from './BoolExpression';
 
 import styles from './SubExpression.module.styl';
 
-const ops = ['||', '&&'];
+const ops = [{ value: '||', label: 'or' }, { value: '&&', label: 'and' }];
 
 export default function SubExpression({
   expression,
