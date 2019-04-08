@@ -16,6 +16,7 @@ export default function SubExpression({
   op,
   onChangeOp,
   onAdd,
+  onRemove,
 }) {
   return (
     <div className={styles.container}>
@@ -37,6 +38,11 @@ export default function SubExpression({
           +
         </button>
       )}
+      {onRemove && (
+        <button className={styles.remove} onClick={onRemove}>
+          ✕
+        </button>
+      )}
     </div>
   );
 }
@@ -48,10 +54,12 @@ SubExpression.propTypes = {
   onChange: PropTypes.func.isRequired,
   onChangeOp: PropTypes.func,
   onAdd: PropTypes.func,
+  onRemove: PropTypes.func,
 };
 
 SubExpression.defaultProps = {
   op: null,
   onChangeOp: null,
   onAdd: null,
+  onRemove: null,
 };

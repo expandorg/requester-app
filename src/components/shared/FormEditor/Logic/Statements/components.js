@@ -13,7 +13,7 @@ export const Dropdown = ({ className, ...props }) => (
 );
 
 Dropdown.propTypes = {
-  className: PropTypes.bool,
+  className: PropTypes.string,
 };
 
 Dropdown.defaultProps = {
@@ -25,7 +25,7 @@ export const Input = ({ className, ...props }) => (
 );
 
 Input.propTypes = {
-  className: PropTypes.bool,
+  className: PropTypes.string,
 };
 
 Input.defaultProps = {

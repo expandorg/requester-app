@@ -23,6 +23,11 @@ export default class NestedExpression extends Component {
     onChange: PropTypes.func.isRequired,
   };
 
+  handleClear = () => {
+    const { onChange } = this.props;
+    onChange(null);
+  };
+
   handleAdd = () => {
     const { expression, onChange } = this.props;
     onChange(addExpr(expression, '||'));
@@ -31,6 +36,15 @@ export default class NestedExpression extends Component {
   handleChange = (value, index) => {
     const { expression, onChange } = this.props;
     return onChange(replaceAtIndex(expression, index, value));
+  };
+
+  handleRemove = index => {
+    const { expression, onChange } = this.props;
+    const changed = [
+      ...expression.slice(0, index),
+      ...expression.slice(index + 2),
+    ];
+    return onChange(changed.length === 1 ? changed[0] : changed);
   };
 
   render() {
@@ -43,6 +57,7 @@ export default class NestedExpression extends Component {
         op: null,
         onChangeExpr: onChange,
         onAdd: this.handleAdd,
+        onRemove: this.handleClear,
       });
     }
     const len = expression.length;
@@ -59,6 +74,7 @@ export default class NestedExpression extends Component {
         onChangeExpr: value => this.handleChange(value, index),
         onChangeOp: last ? null : value => this.handleChange(value, index + 1),
         onAdd: last ? this.handleAdd : null,
+        onRemove: last ? null : () => this.handleRemove(index),
       });
     });
   }

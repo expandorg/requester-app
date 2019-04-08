@@ -11,7 +11,15 @@ export default function ConditionalExpression({
 }) {
   return (
     <NestedExpression onChange={onChange} expression={expression}>
-      {({ key, expression: expr, op, onChangeExpr, onChangeOp, onAdd }) => (
+      {({
+        key,
+        expression: expr,
+        op,
+        onChangeExpr,
+        onChangeOp,
+        onAdd,
+        onRemove,
+      }) => (
         <SubExpression
           key={key}
           expression={expr}
@@ -20,6 +28,7 @@ export default function ConditionalExpression({
           onChange={onChangeExpr}
           onChangeOp={onChangeOp}
           onAdd={onAdd}
+          onRemove={onRemove}
         />
       )}
     </NestedExpression>
