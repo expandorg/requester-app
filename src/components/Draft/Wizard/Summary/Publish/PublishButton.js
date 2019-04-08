@@ -73,7 +73,7 @@ export default class PublishButton extends Component {
                 disabled={readOnly}
                 onClick={onToggle}
               >
-                Publish
+                Send for review
                 {/* <Arrow className={styles.arrow} /> */}
               </Button>
               {dialog && (
