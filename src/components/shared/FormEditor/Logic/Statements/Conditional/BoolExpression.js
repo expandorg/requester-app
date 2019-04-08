@@ -23,7 +23,7 @@ export default function BoolExpression({ options, expression, onChange }) {
         className={styles.input}
         options={options}
         onChange={({ target }) => onChange([target.value, op, o2])}
-        onSelect={value => onChange([value, op, o2])}
+        onSelect={value => onChange([`$(${value})`, op, o2])}
       />
       <span className={styles.is}>is</span>
       <Dropdown
@@ -37,7 +37,7 @@ export default function BoolExpression({ options, expression, onChange }) {
         className={styles.input}
         options={options}
         onChange={({ target }) => onChange([o1, op, target.value])}
-        onSelect={value => onChange([o1, op, value])}
+        onSelect={value => onChange([o1, op, `$(${value})`])}
       />
     </>
   );

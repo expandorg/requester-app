@@ -20,6 +20,8 @@ const isVisible = module => {
   return !module.logic.show;
 };
 
+const isVisibilityAllowed = module => module.type !== 'submit';
+
 const hasLinks = () => false;
 
 export default function Header({ module, onSelect, onSelectLogic }) {
@@ -29,9 +31,11 @@ export default function Header({ module, onSelect, onSelectLogic }) {
         {module.name}
       </div>
       <div className={styles.icons}>
-        <IconButton className={styles.button} onClick={onSelectLogic}>
-          {isVisible(module) ? <Visible /> : <Invisible />}
-        </IconButton>
+        {isVisibilityAllowed(module) && (
+          <IconButton className={styles.button} onClick={onSelectLogic}>
+            {isVisible(module) ? <Visible /> : <Invisible />}
+          </IconButton>
+        )}
         {hasLinks(module) && (
           <IconButton className={styles.button}>
             <Links />
@@ -47,5 +51,3 @@ Header.propTypes = {
   onSelect: PropTypes.func.isRequired,
   onSelectLogic: PropTypes.func.isRequired,
 };
-
-Header.defaultProps = {};
