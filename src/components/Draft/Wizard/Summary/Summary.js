@@ -37,6 +37,7 @@ class Summary extends Component {
     submitState: requestStateProps.isRequired,
     publish: PropTypes.func.isRequired,
     onBack: PropTypes.func.isRequired,
+    onStep: PropTypes.func.isRequired,
   };
 
   state = {
@@ -67,7 +68,7 @@ class Summary extends Component {
   };
 
   render() {
-    const { draft, user, submitState } = this.props;
+    const { draft, user, submitState, onStep } = this.props;
     const { published, errors } = this.state;
 
     return (
@@ -86,6 +87,7 @@ class Summary extends Component {
               draft={draft}
               errors={errors}
               onBack={this.handleBack}
+              onStep={onStep}
               onSubmit={this.handleSubmit}
             />
           </LoadIndicator>

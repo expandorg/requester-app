@@ -36,6 +36,7 @@ export default class SummaryForm extends Component {
     draft: draftProps.isRequired,
     onBack: PropTypes.func.isRequired,
     onSubmit: PropTypes.func.isRequired,
+    onStep: PropTypes.func.isRequired,
   };
 
   static defaultProps = {
@@ -48,7 +49,7 @@ export default class SummaryForm extends Component {
   };
 
   render() {
-    const { draft, user, onBack, errors } = this.props;
+    const { draft, user, onBack, onStep, errors } = this.props;
     const nav = getNavState(draft);
     const draftReady = DraftManager.validate(draft);
 
@@ -57,25 +58,44 @@ export default class SummaryForm extends Component {
         <Description className={styles.description}>
           Description about this step goes here.
         </Description>
-        <Section title="Settings" status={nav.settings.status} blue>
+        <Section
+          title="Settings"
+          status={nav.settings.status}
+          blue
+          onStep={() => onStep(0)}
+        >
           <Settings draft={draft} />
         </Section>
-        <Section title="Data" status={nav.data.status}>
+        <Section title="Data" status={nav.data.status} onStep={() => onStep(1)}>
           <Data draft={draft} />
         </Section>
         {/* <Section title="Task" status={nav.templates.status} blue>
           <TaskTemplate draft={draft} />
         </Section> */}
-        <Section title="Template Settings" status="complete" blue>
+        <Section
+          title="Template Settings"
+          status="complete"
+          blue
+          onStep={() => onStep(2)}
+        >
           <TemplateSettings draft={draft} />
         </Section>
-        <Section title="Task" status={getTaskStatus(draft)}>
+        <Section
+          title="Task"
+          status={getTaskStatus(draft)}
+          onStep={() => onStep(3)}
+        >
           <Task form={draft.taskForm} draft={draft} />
         </Section>
         {/* <Section title="Whitelist" status={nav.whitelist.status}>
           <Whitelist draft={draft} />
         </Section> */}
-        <Section title="Payout" status={nav.pay.status} blue>
+        <Section
+          title="Payout"
+          status={nav.pay.status}
+          blue
+          onStep={() => onStep(4)}
+        >
           <Payout draft={draft} />
         </Section>
         <Section>

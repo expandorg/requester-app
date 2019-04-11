@@ -56,6 +56,10 @@ export default class DraftWizard extends Component {
     this.setState(({ active }) => ({ active: active - 1 }));
   };
 
+  handleStep = active => {
+    this.setState({ active });
+  };
+
   render() {
     const { draft, isLoading } = this.props;
     const { active } = this.state;
@@ -122,7 +126,11 @@ export default class DraftWizard extends Component {
                 />
               )}
               {active === 5 && (
-                <Summary draft={draft} onBack={this.handleBack} />
+                <Summary
+                  draft={draft}
+                  onBack={this.handleBack}
+                  onStep={this.handleStep}
+                />
               )}
             </div>
           )}
