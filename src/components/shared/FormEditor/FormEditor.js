@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, createRef } from 'react';
 import PropTypes from 'prop-types';
 
 import { formProps } from '@expandorg/modules';
@@ -45,6 +45,8 @@ export default class FormEditor extends Component {
 
     this.previewTab = null;
 
+    this.formRef = createRef();
+
     this.state = {
       selection: Selection.empty,
       prev: props.form, // eslint-disable-line react/no-unused-state
@@ -82,11 +84,15 @@ export default class FormEditor extends Component {
     }
   };
 
-  handleAdd = meta => {
+  handleAdd = (meta, scroll) => {
     const { modules } = this.state;
     this.setState({
       modules: treeEditor.push(modules, scaffold(meta)),
     });
+
+    if (scroll) {
+      this.formRef.current.decoratedRef.current.scrollBottom();
+    }
   };
 
   handleRemove = path => {
@@ -188,6 +194,7 @@ export default class FormEditor extends Component {
                 onCancel={() => this.handleSelect(null)}
               />
               <Form
+                ref={this.formRef}
                 modules={modules}
                 selected={selection.getId('edit')}
                 controls={controls}

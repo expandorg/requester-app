@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, createRef } from 'react';
 import PropTypes from 'prop-types';
 
 import { DropTarget } from 'react-dnd';
@@ -41,6 +41,23 @@ class Form extends Component {
     selected: null,
   };
 
+  formRef = createRef();
+  timeout = null;
+
+  componentWillUnmount() {
+    if (this.timeout != null) {
+      clearTimeout(this.timeout);
+    }
+  }
+
+  scrollBottom = () => {
+    this.timeout = setTimeout(() => {
+      this.timeout = null;
+      this.formRef.current.scrollTop =
+        this.formRef.current.scrollHeight - this.formRef.current.clientHeight;
+    }, 100);
+  };
+
   render() {
     const {
       modules,
@@ -54,7 +71,7 @@ class Form extends Component {
       connectDropTarget,
     } = this.props;
     return (
-      <div className={styles.container}>
+      <div className={styles.container} ref={this.formRef}>
         {connectDropTarget(
           <div className={styles.form}>
             {modules.length === 0 && <Empty onAdd={onAdd} />}

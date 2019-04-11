@@ -53,10 +53,10 @@ class Sidebar extends Component {
     this.setState({ preview: type });
   };
 
-  handleAdd = (...params) => {
+  handleAdd = meta => {
     const { onAddModule } = this.props;
     this.setState({ preview: null });
-    onAddModule(...params);
+    onAddModule(meta, true);
   };
 
   handleScroll = () => {
