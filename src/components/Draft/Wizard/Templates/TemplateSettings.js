@@ -26,8 +26,11 @@ const getFunding = o => o && o.funding;
 const getVerification = o => o && o.verification;
 
 const options = [
-  { value: VerificationType.Requester, label: 'Manual' },
-  { value: VerificationType.Consensus, label: 'Consensus' },
+  { value: VerificationType.Requester, label: 'Manual: Verify it yourself' },
+  {
+    value: VerificationType.Consensus,
+    label: 'Consensus',
+  },
   // { value: VerificationType.AuditWhitelist, label: 'Whitelist' },
 ];
 
@@ -159,7 +162,15 @@ class TemplateSettings extends Component {
           <Description>Description about this step goes here.</Description>
           <Field>
             <Toggle
-              tooltip="How much to stake?"
+              tooltip={
+                <span>
+                  Staking helps you to capture high quality workers by asking
+                  <br />
+                  them to invest a token(s) beforehand to promise you that the
+                  <br />
+                  task will be completed accurately
+                </span>
+              }
               value={settings.staking}
               label="Staking"
               name="staking"
@@ -187,7 +198,16 @@ class TemplateSettings extends Component {
               </Field> */}
             </>
           )}
-          <Field tooltip="callback Url">
+          <Field
+            tooltip={
+              <span>
+                Only applicable to those who are connecting
+                <br /> their data through the API.
+                <br />
+                Your results will be sent to the url provided.
+              </span>
+            }
+          >
             <Input
               placeholder="Callback Url"
               name="callbackUrl"
@@ -195,7 +215,15 @@ class TemplateSettings extends Component {
               onChange={this.handleInputChange}
             />
           </Field>
-          <Field tooltip="Onboarding Success Message" className={styles.br}>
+          <Field
+            tooltip={
+              <span>
+                Text to display to the worker when
+                <br /> the task is complete e.g. Congratulations!
+              </span>
+            }
+            className={styles.br}
+          >
             <Input
               placeholder="Onboarding Success Message"
               name="onboardingSuccessMessage"
@@ -203,7 +231,15 @@ class TemplateSettings extends Component {
               onChange={this.handleInputChange}
             />
           </Field>
-          <Field tooltip="Onboarding Failure Message">
+          <Field
+            tooltip={
+              <span>
+                Text to display to the worker when the task is not completed
+                <br />
+                successfully e.g. Oops!
+              </span>
+            }
+          >
             <Input
               placeholder="Onboarding Failure Message"
               name="onboardingFailureMessage"
@@ -220,7 +256,15 @@ class TemplateSettings extends Component {
             />
           </Field>
           {settings.verificationModule === VerificationType.Consensus && (
-            <Field tooltip="Agreement count">
+            <Field
+              tooltip={
+                <span>
+                  Enter how many workers need to get the
+                  <br />
+                  right answer before the task is verified.
+                </span>
+              }
+            >
               <Input
                 placeholder="Agreement count"
                 name="agreementCount"

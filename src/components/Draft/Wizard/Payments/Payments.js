@@ -13,17 +13,13 @@ import {
 
 import { userProps } from '@expandorg/app-auth';
 import { userSelector } from '@expandorg/app-auth/selectors';
-
 import { Deposit } from '@expandorg/app-gemtokens/components';
-
 import { Input, Button } from '@expandorg/components';
-
 import { ReactComponent as Card } from '@expandorg/uikit/assets/creditcard.svg';
-
-import { draftProps } from '../../../shared/propTypes';
 
 import { Form, Description, Field, Fieldset, Actions } from '../Form';
 
+import { draftProps } from '../../../shared/propTypes';
 import Hero from '../../../shared/Hero';
 import HeroWarning from '../../../shared/HeroWarning';
 
@@ -127,9 +123,13 @@ class Payments extends Component {
             title="XPN available"
             className={cn({ [styles.zero]: !user.gems.balance })}
           />
-          <Field tooltip="Pay for Task *" name="balance" errors={errors}>
+          <Field
+            tooltip="Your entire budget for the task. *"
+            name="balance"
+            errors={errors}
+          >
             <Input
-              placeholder="Pay for Task *"
+              placeholder="Task Budget *"
               disabled={DraftFunding.balanceIsReadonly(draft)}
               name="balance"
               value={balance}
@@ -138,7 +138,7 @@ class Payments extends Component {
             />
           </Field>
           <Field
-            tooltip="Amount Earned per Task *"
+            tooltip="The amount the workers will earn. *"
             name="reward"
             errors={errors}
           >

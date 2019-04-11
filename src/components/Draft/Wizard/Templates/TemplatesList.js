@@ -34,7 +34,7 @@ export default class TemplatesList extends Component {
           <Templates
             className={styles.templates}
             title="Templates"
-            description="Select task template"
+            description="Templates provide the basic components for you to begin building your task. They are customisable."
             templates={templates}
             selected={selected}
             onSelect={onSelect}

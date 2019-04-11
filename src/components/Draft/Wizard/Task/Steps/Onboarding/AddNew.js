@@ -39,7 +39,9 @@ export default class AddNew extends Component {
         {dialog && (
           <TemplatesDialog
             title="Onboarding"
-            description="Pick onboarding step template"
+            description={
+              "Make your task more worker friendly by extending your task's functionality by adding welcome screens, TOS and more!"
+            }
             onHide={this.handleToggle}
             onSelect={this.handleAdd}
           />
