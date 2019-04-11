@@ -127,6 +127,7 @@ export default class Preview extends Component {
           </div>
         )}
         <Sidepanel
+          nested={path.length > 1}
           canCopy={canCopy}
           onRemove={this.handleRemove}
           onCopy={this.handleCopyClick}
