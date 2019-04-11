@@ -16,7 +16,7 @@ export default class Payout extends Component {
     const earned = (draft.funding && draft.funding.reward) || '--';
     return (
       <div className={styles.container}>
-        <Hero className={styles.hero} value={pay} title="payout" />
+        <Hero className={styles.hero} value={pay} title="balance" />
         <Hero className={styles.hero} value={earned} title="earned per task" />
       </div>
     );

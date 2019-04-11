@@ -4,7 +4,7 @@ import { JobLogo } from '@expandorg/components/app';
 import { Fieldset } from '../Form';
 import { draftProps } from '../../../shared/propTypes';
 import { EndType } from '../../../../model/enums';
-import { formatDate, EndWhenTitles } from '../../../../model/i18n';
+import { formatDate /* EndWhenTitles */ } from '../../../../model/i18n';
 
 import styles from './Settings.module.styl';
 
@@ -33,12 +33,12 @@ export default class Settings extends Component {
               </div>
             </div>
             <div className={styles.settings}>
-              <div className={styles.filed}>
+              {/* <div className={styles.filed}>
                 <div className={styles.name}>End when</div>
                 <div className={styles.value}>
                   {EndWhenTitles[draft.endWhen]}
                 </div>
-              </div>
+              </div> */}
               {draft.endWhen === EndType.Date && (
                 <div className={styles.filed}>
                   <div className={styles.name}>End Date</div>
@@ -53,10 +53,10 @@ export default class Settings extends Component {
                   <div className={styles.value}>{draft.endResultCount}</div>
                 </div>
               )}
-              <div className={styles.filed}>
+              {/* <div className={styles.filed}>
                 <div className={styles.name}>HITs</div>
                 <div className={styles.value}>200</div>
-              </div>
+              </div> */}
             </div>
           </div>
           <div className={styles.info}>
