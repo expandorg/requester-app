@@ -159,7 +159,7 @@ class TemplateSettings extends Component {
     return (
       <div className={styles.outer}>
         <Fieldset>
-          <Description>Description about this step goes here.</Description>
+          <Description>Edit the settings for your chosen template.</Description>
           <Field>
             <Toggle
               tooltip={

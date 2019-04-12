@@ -117,10 +117,12 @@ class Payments extends Component {
     return (
       <Form onSubmit={this.handleSubmit}>
         <Fieldset>
-          <Description>Description about this step goes here.</Description>
+          <Description>
+            Enter your payment details to complete your task setup.
+          </Description>
           <Hero
             value={user.gems.balance}
-            title="XPN available"
+            title="XPN AVAILABLE IN ACCOUNT"
             className={cn({ [styles.zero]: !user.gems.balance })}
           />
           <Field

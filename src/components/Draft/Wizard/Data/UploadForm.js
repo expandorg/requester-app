@@ -85,7 +85,8 @@ class UploadForm extends Component {
     return (
       <Fieldset>
         <Description>
-          Upload data to use in your task and assign to varibales
+          Upload your data in CSV format and create variables to be used in your
+          task.
         </Description>
         <Upload
           file={data}

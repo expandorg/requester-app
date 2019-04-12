@@ -97,8 +97,7 @@ export default class Settings extends Component {
       <Form onSubmit={this.handleSubmit}>
         <Fieldset>
           <Description>
-            Helpful Hint: name your project in a way that helps workers
-            understand the task at first glance.
+            Enter your project details to help you workers find your task.
           </Description>
           <UploadLogo
             logo={settings.logo}

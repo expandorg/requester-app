@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { Button } from '@expandorg/components';
 
 import Templates from '../../../shared/Templates/Templates';
-import { Actions } from '../Form';
+import { Actions, Description } from '../Form';
 
 import { taskTemplateProps } from '../../../shared/propTypes';
 
@@ -30,6 +30,10 @@ export default class TemplatesList extends Component {
     const { templates, selected, onBack, onNext, onSelect } = this.props;
     return (
       <div className={styles.outer}>
+        <Description>
+          Browse through the templates to find the one suitable for your type of
+          task. They can be customised later.
+        </Description>
         <div className={styles.container}>
           <Templates
             className={styles.templates}
