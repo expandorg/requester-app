@@ -15,7 +15,6 @@ import Page from '../shared/Page';
 import Navbar from '../shared/Navbar';
 import { LoadIndicator } from '../Draft/Wizard/Form';
 
-import Title from './Title';
 import Stats from './Stats';
 import JobResults from './JobResults';
 
@@ -105,7 +104,7 @@ class JobStats extends Component {
         footer={false}
         className={styles.page}
       >
-        <Navbar title={<Title stats={stats} />} top={false} logout={false} />
+        <Navbar title="" top={false} logout={false} />
         <div className={styles.content}>
           <LoadIndicator isLoading={isLoading}>
             {stats && <Stats stats={stats} />}

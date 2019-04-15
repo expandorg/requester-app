@@ -44,6 +44,7 @@ class JobResults extends Component {
     const isFetching = fetchState.state === RequestStates.Fetching;
     return (
       <div className={styles.container}>
+        <div className={styles.header}>Task Results</div>
         <LoadIndicator isLoading={!responses && isFetching}>
           {responses && (
             <T.Table>

@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import cn from 'classnames';
 
+import { JobLogo } from '@expandorg/components/app';
+
 import Hero from '../shared/Hero';
 import settings from '../../common/settings';
 
@@ -19,15 +21,30 @@ export default class Stats extends Component {
     const dlClasses = cn(
       'gem-button',
       'gem-button-primary',
-      'gem-button-small',
+      'gem-button-large',
       styles.download
     );
     const dlLink = `${settings.apiUrl}/jobs/${stats.job.id}/responses/csv`;
+    console.log(stats);
 
     return (
       <div className={styles.container}>
         <div className={styles.info}>
-          <div className={styles.details}>{stats.job.description}</div>
+          <div className={styles.details}>
+            <div className={styles.logo}>
+              <JobLogo
+                src={stats.job.logo}
+                className={styles.img}
+                size="large"
+                name={stats.job.name}
+              />
+            </div>
+            <div className={styles.props}>
+              <div className={styles.name}>{stats.job.name}</div>
+              <div className={styles.descriptions}>{stats.job.description}</div>
+              <div className={styles.status}>in progress</div>
+            </div>
+          </div>
           <a
             href={dlLink}
             target="_blank"
