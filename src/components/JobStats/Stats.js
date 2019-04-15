@@ -21,7 +21,7 @@ export default class Stats extends Component {
     const dlClasses = cn(
       'gem-button',
       'gem-button-primary',
-      'gem-button-large',
+      'gem-button-me',
       styles.download
     );
     const dlLink = `${settings.apiUrl}/jobs/${stats.job.id}/responses/csv`;

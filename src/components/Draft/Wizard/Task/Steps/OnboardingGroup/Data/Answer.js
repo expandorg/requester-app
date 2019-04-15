@@ -4,7 +4,7 @@ import cn from 'classnames';
 
 import { Table as T, Button, Dropdown } from '@expandorg/components';
 
-import styles from './Variable.module.styl';
+import styles from './Answer.module.styl';
 
 export default class Answer extends Component {
   static propTypes = {
@@ -77,17 +77,17 @@ export default class Answer extends Component {
         <div className={styles.container}>
           {!edit && (
             <div className={styles.content}>
-              <div className={styles.name}>{answer.field}</div>
-              <div className={styles.type}>Answer</div>
+              <div className={styles.name}>Answer</div>
+              <div className={styles.type}>{answer.field}</div>
               {!readOnly && (
                 <div className={styles.actions}>
                   <Button
                     size="small"
-                    theme="white-blue"
+                    theme="white"
                     className={styles.edit}
                     onClick={this.handleToggleEdit}
                   >
-                    edit
+                    select component
                   </Button>
                 </div>
               )}
@@ -95,8 +95,10 @@ export default class Answer extends Component {
           )}
           {edit && (
             <div className={cn(styles.content, styles.absolute)}>
+              <div className={styles.name}>Answer</div>
               <div className={styles.fields}>
                 <Dropdown
+                  label="Component"
                   className={styles.dropdown}
                   options={fields}
                   value={answer.field}
@@ -106,7 +108,7 @@ export default class Answer extends Component {
               <div className={styles.actions}>
                 <Button
                   size="small"
-                  theme="white-blue"
+                  theme="white"
                   className={styles.skip}
                   onClick={this.handleToggleEdit}
                 >

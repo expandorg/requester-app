@@ -1,0 +1,128 @@
+@import '~@expandorg/uikit/colors'
+@import '~@expandorg/uikit/font'
+
+.var
+  border: 1px solid color-teel-dark
+
+.container
+  box-sizing: border-box;
+  position relative
+  min-height: 160px
+
+.content
+  box-sizing: border-box;
+  padding: 20px 0
+  background-color: color-teel-dark
+  min-height: 160px
+
+.name
+  box-sizing: border-box;
+  padding: 0 10px
+
+  white-space: nowrap
+  overflow: hidden
+  text-overflow: ellipsis
+
+  font(h3-bold)
+
+  color: color-white
+  text-align: center;
+
+.absolute
+  position absolute
+  left: 0
+  right: 0
+  top: -1px
+  border-bottom: 1px solid color-teel-dark
+  z-index: 3
+
+.type
+  box-sizing: border-box;
+  padding: 0 10px
+
+  margin-top: 20px
+
+  font(body)
+
+  color: color-white
+  text-align: center;
+
+
+.actions
+  box-sizing: border-box;
+  margin-top: 20px
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  > *
+    margin: 0 5px
+
+.edit
+.skip
+.save
+  padding: 0 10px
+  min-width: 100px
+
+.skip
+.edit
+  background-color: color-white
+  color: color-teel-dark
+  &:hover
+    background-color: color-white
+    color: color-teel-dark
+
+.save
+  color: color-white
+  background-color: color-blue-background
+
+  &:hover
+    color: color-white
+    background-color: color-blue-background
+
+.fields
+  box-sizing: border-box;
+  padding: 0 16px 0 25px
+
+
+.input
+  box-sizing: border-box
+  display: inline-block;
+
+  width: 100%
+
+  padding: 0 15px 10px 0
+
+  font(body)
+  color: color-white
+
+  background-color: transparent
+  border-bottom: 1px solid color-white
+
+  transition: all 0.2s ease-out;
+
+  outline: none
+  resize: none;
+
+  &:focus
+    border-bottom-color color-white
+
+  &:-webkit-autofill
+    transition: background-color 5000s ease-in-out 0s
+    &:hover, &:focus, &:active
+      transition: background-color 5000s ease-in-out 0s
+
+.dropdown
+  margin-top: 20px
+  text-align: left
+
+  :global(.gem-dropdown-content)
+    line-height: 23px
+    padding-bottom: 5px
+
+  :global(.gem-dropdown-content-label)
+    color: color-white
+
+  :global(.gem-dropdown-content-val)
+    color: color-white
+    border-bottom: 1px solid color-white

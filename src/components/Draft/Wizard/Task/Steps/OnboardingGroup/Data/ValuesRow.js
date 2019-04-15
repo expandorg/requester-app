@@ -64,6 +64,7 @@ export default class ValuesRow extends PureComponent {
         })}
         <Value
           readOnly={readOnly}
+          answer
           placeholder="Answer"
           value={row.answer}
           onChange={this.handleChangeAnswer}

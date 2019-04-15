@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
+import cn from 'classnames';
 
 import { Table as T, Switch } from '@expandorg/components';
 
@@ -17,6 +18,7 @@ export default class Value extends PureComponent {
     type: PropTypes.oneOf(columnTypes),
     placeholder: PropTypes.string.isRequired,
     columnIndex: PropTypes.number,
+    answer: PropTypes.bool,
     readOnly: PropTypes.bool.isRequired,
     onChange: PropTypes.func.isRequired,
   };
@@ -24,6 +26,7 @@ export default class Value extends PureComponent {
   static defaultProps = {
     type: 'text',
     columnIndex: null,
+    answer: false,
   };
 
   handleChange = value => {
@@ -39,13 +42,10 @@ export default class Value extends PureComponent {
   };
 
   render() {
-    const { value, readOnly, type, placeholder } = this.props;
-    if (value === null) {
-      debugger; // eslint-disable-line
-    }
+    const { value, readOnly, type, placeholder, answer } = this.props;
 
     return (
-      <T.Cell className={styles.cell}>
+      <T.Cell className={cn(styles.cell, { [styles.answer]: answer })}>
         {readOnly && <span className={styles.value}>{value}</span>}
         {!readOnly && type !== 'bool' && (
           <input
