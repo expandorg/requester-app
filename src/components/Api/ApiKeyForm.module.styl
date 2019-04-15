@@ -6,18 +6,18 @@
 .panel
   box-sizing: border-box
   width: 512px
-  padding: 40px 40px
+  padding: 40px 30px
   margin-bottom: 60px
 
   @media(max-width: breakpoint-mobile-sm)
     width: 100%
-
 
 .error
   margin-top: 20px
 
 .token
   position relative
+  height: 35px
 
 .input
   :global(.gem-input)
@@ -45,25 +45,20 @@
   &:hover
     color: lighten(color-text-blue, 10%)
 
-
-
 .generate
-  width: 250px
-  height: 250px
+  width: 100%
+
+.alert
   box-sizing: border-box
+  margin-top: 30px
 
-  font(subtitle)
-  text-transform: uppercase
-
-  color: color-heavy-blue
-  background-color: transparent;
+  padding: 15px 15px
   border-radius: 5px
-  border: 1px solid color-heavy-blue
+  font(body)
 
-  outline: 0
-  cursor: pointer
+  color: color-text-yellow-2
+  background-color: color-yellow
 
+.bold
+  font-weight: 800
 
-.plus
-  font-size: 96px
-  font-weight: 300
