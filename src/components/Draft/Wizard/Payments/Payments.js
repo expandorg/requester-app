@@ -125,6 +125,19 @@ class Payments extends Component {
             title="XPN AVAILABLE IN ACCOUNT"
             className={cn({ [styles.zero]: !user.gems.balance })}
           />
+          <Field>
+            <Deposit user={user}>
+              {({ onToggleDepsoit }) => (
+                <button
+                  type="button"
+                  className={styles.deposit}
+                  onClick={onToggleDepsoit}
+                >
+                  deposit XPN
+                </button>
+              )}
+            </Deposit>
+          </Field>
           <Field
             tooltip="Your entire budget for the task. *"
             name="balance"
@@ -162,19 +175,6 @@ class Payments extends Component {
               Would you like to deposit some XPN?
             </HeroWarning>
           )}
-          <Field>
-            <Deposit user={user}>
-              {({ onToggleDepsoit }) => (
-                <button
-                  type="button"
-                  className={styles.deposit}
-                  onClick={onToggleDepsoit}
-                >
-                  deposit XPN
-                </button>
-              )}
-            </Deposit>
-          </Field>
         </Fieldset>
         <Actions>
           <Button theme="secondary" onClick={this.handleBack}>
