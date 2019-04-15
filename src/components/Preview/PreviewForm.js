@@ -6,8 +6,8 @@ import { bindActionCreators } from 'redux';
 
 import { addNotification } from '@expandorg/app-utils/app';
 
-import { Sidebar, Navbar, Button } from '@expandorg/components/app';
-import { Panel } from '@expandorg/components';
+import { Sidebar, Navbar } from '@expandorg/components/app';
+import { Panel, Button } from '@expandorg/components';
 
 import Page from '../shared/Page';
 import { authenticated } from '../shared/auth';
