@@ -6,7 +6,7 @@ import { bindActionCreators } from 'redux';
 
 import { addNotification } from '@expandorg/app-utils/app';
 
-import { Sidebar, Navbar } from '@expandorg/components/app';
+import { Sidebar, Navbar, Button } from '@expandorg/components/app';
 import { Panel } from '@expandorg/components';
 
 import Page from '../shared/Page';
@@ -55,6 +55,10 @@ class PreviewForm extends Component {
     this.props.addNotification(type, message);
   };
 
+  handleClose = () => {
+    window.close();
+  };
+
   render() {
     const { form, variables } = this.state;
     if (!form) {
@@ -63,7 +67,18 @@ class PreviewForm extends Component {
 
     return (
       <Page title="Preview" className={styles.page}>
-        <Navbar />
+        <Navbar>
+          <div className={styles.navbar}>
+            <Button
+              size="small"
+              className={styles.home}
+              onClick={this.handleClose}
+            >
+              take me home
+            </Button>
+          </div>
+        </Navbar>
+
         <Sidebar />
         <div className={styles.container}>
           <Panel className={styles.panel}>

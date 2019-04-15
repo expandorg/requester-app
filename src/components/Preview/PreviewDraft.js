@@ -8,7 +8,7 @@ import { bindActionCreators } from 'redux';
 import { addNotification } from '@expandorg/app-utils/app';
 
 import { Sidebar, Navbar } from '@expandorg/components/app';
-import { Panel } from '@expandorg/components';
+import { Panel, Button } from '@expandorg/components';
 
 import {
   requestStateProps,
@@ -79,13 +79,27 @@ class PreviewDraft extends Component {
     this.props.addNotification(type, message);
   };
 
+  handleClose = () => {
+    window.close();
+  };
+
   render() {
     const { draft } = this.props;
     // const isLoading = !draft && loadState.state === RequestStates.Fetching;
 
     return (
       <Page title="Preview" className={styles.page}>
-        <Navbar title={draft ? draft.name : ''} />
+        <Navbar title={draft ? draft.name : ''}>
+          <div className={styles.navbar}>
+            <Button
+              size="small"
+              className={styles.home}
+              onClick={this.handleClose}
+            >
+              take me home
+            </Button>
+          </div>
+        </Navbar>
         <Sidebar />
         <div className={styles.container}>
           <Panel className={styles.panel}>
