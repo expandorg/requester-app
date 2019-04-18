@@ -47,18 +47,18 @@ const links = [
     href: '/tasks/pending',
     text: 'Pending',
   },
-  {
-    href: '/tasks/scheduled',
-    text: 'Scheduled',
-  },
+  // {
+  //   href: '/tasks/scheduled',
+  //   text: 'Scheduled',
+  // },
   {
     href: '/tasks/in-progress',
     text: 'In Progress',
   },
-  {
-    href: '/tasks/completed',
-    text: 'Completed',
-  },
+  // {
+  //   href: '/tasks/completed',
+  //   text: 'Completed',
+  // },
 ];
 
 class Dashboard extends Component {
