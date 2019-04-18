@@ -15,6 +15,8 @@ import { treeEditor } from '../../model/dnd';
 
 import styles from './Preview.module.styl';
 
+const isVisibilityAllowed = module => module.type !== 'submit';
+
 export default class Preview extends Component {
   static propTypes = {
     module: moduleProps.isRequired,
@@ -92,11 +94,7 @@ export default class Preview extends Component {
               [styles.selected]: isSelected,
             })}
           >
-            <Header
-              module={module}
-              onSelect={this.handleSelect}
-              onSelectLogic={this.handleSelectLogic}
-            />
+            <Header module={module} onSelect={this.handleSelect} />
             <div
               className={cn(styles.inner, {
                 [styles.dimmed]: selected !== null && !isSelected,
@@ -131,6 +129,8 @@ export default class Preview extends Component {
           canCopy={canCopy}
           onRemove={this.handleRemove}
           onCopy={this.handleCopyClick}
+          canApplyLogic={isVisibilityAllowed(module)}
+          onLogic={this.handleSelectLogic}
         />
       </Outer>
     );

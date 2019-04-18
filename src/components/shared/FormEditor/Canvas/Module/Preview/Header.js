@@ -9,8 +9,6 @@ import { ReactComponent as Links } from '@expandorg/uikit/assets/link.svg';
 
 import { moduleProps } from '@expandorg/modules';
 
-import IconButton from '../../../../../common/IconButton';
-
 import styles from './Header.module.styl';
 
 const isVisible = module => {
@@ -20,27 +18,15 @@ const isVisible = module => {
   return !module.logic.show;
 };
 
-const isVisibilityAllowed = module => module.type !== 'submit';
-
 const hasLinks = () => false;
 
-export default function Header({ module, onSelect, onSelectLogic }) {
+export default function Header({ module, onSelect }) {
   return (
-    <div className={styles.container}>
-      <div className={styles.name} onClick={onSelect}>
-        {module.name}
-      </div>
+    <div className={styles.container} onClick={onSelect}>
+      <div className={styles.name}>{module.name}</div>
       <div className={styles.icons}>
-        {isVisibilityAllowed(module) && (
-          <IconButton className={styles.button} onClick={onSelectLogic}>
-            {isVisible(module) ? <Visible /> : <Invisible />}
-          </IconButton>
-        )}
-        {hasLinks(module) && (
-          <IconButton className={styles.button}>
-            <Links />
-          </IconButton>
-        )}
+        {isVisible(module) ? <Visible /> : <Invisible />}
+        {hasLinks(module) && <Links />}
       </div>
     </div>
   );
@@ -49,5 +35,4 @@ export default function Header({ module, onSelect, onSelectLogic }) {
 Header.propTypes = {
   module: moduleProps.isRequired,
   onSelect: PropTypes.func.isRequired,
-  onSelectLogic: PropTypes.func.isRequired,
 };
