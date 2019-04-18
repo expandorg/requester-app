@@ -106,8 +106,8 @@ export default class Settings extends Component {
           <Field
             tooltip={
               <span>
-                Give this task a title that is easy for your workers
-                <br /> to understand e.g. Nature Image Labelling
+                Give this task a title that is easy for your workers to
+                understand e.g. Nature Image Labelling
               </span>
             }
             name="name"
@@ -123,14 +123,7 @@ export default class Settings extends Component {
             />
           </Field>
           <Field
-            tooltip={
-              <span>
-                Provide a concise description about the task that is easy to
-                <br />
-                understand for your worker e.g. Label 100 images containing
-                objects belonging to nature
-              </span>
-            }
+            tooltip="Provide a concise description about the task that is easy to understand for your worker e.g. Label 100 images containing objects belonging to nature"
             name="description"
             errors={errors}
           >
