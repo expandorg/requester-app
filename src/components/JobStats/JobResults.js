@@ -49,10 +49,16 @@ class JobResults extends Component {
           {responses && (
             <T.Table>
               <T.Header className={styles.header}>
-                <T.HeaderCell>Item Id</T.HeaderCell>
-                <T.HeaderCell>Result</T.HeaderCell>
-                <T.HeaderCell>Worker Id</T.HeaderCell>
-                <T.HeaderCell>Date</T.HeaderCell>
+                <T.HeaderCell className={styles.headerCell}>
+                  Item Id
+                </T.HeaderCell>
+                <T.HeaderCell className={styles.headerCell}>
+                  Result
+                </T.HeaderCell>
+                <T.HeaderCell className={styles.headerCell}>
+                  Worker Id
+                </T.HeaderCell>
+                <T.HeaderCell className={styles.headerCell}>Date</T.HeaderCell>
               </T.Header>
               {responses.map(resp => (
                 <T.Row key={resp.id}>
