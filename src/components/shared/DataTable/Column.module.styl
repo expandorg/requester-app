@@ -1,6 +1,10 @@
 @import '~@expandorg/uikit/colors'
 @import '~@expandorg/uikit/font'
 
+active()
+  .active &
+    {block}
+
 .container
   box-sizing: border-box;
   position relative
@@ -11,12 +15,20 @@
   &:last-child
     border-right: none;
 
+.active
+  border-right-color: color-white
+
+
 .content
-  background-color: color-light-blue
+  background-color: color-white
   box-sizing: border-box;
   padding: 20px 0
 
   border-bottom: 1px solid color-heavy-blue
+
+  +active()
+    background-color: color-teel-dark
+    border-bottom-color: color-teel-dark
 
 .header
   position: relative;
@@ -37,6 +49,9 @@
   color: color-text-dark
   text-align: center;
 
+  +active()
+      color: color-white
+
 .skipped
   position: absolute;
   top: 100%
@@ -53,6 +68,9 @@
   font(body, false, false, 1)
   text-align: center;
   color: color-text-dark
+
+  +active()
+    color: color-white
 
 
 .actions
@@ -75,26 +93,31 @@
   letter-spacing: 0.15em;
   text-transform: uppercase;
 
-  border: 1px solid color-heavy-blue
+  border: 1px solid color-text-dark
   border-radius: 2px;
 
-  color: color-text-blue
+  color: color-text-dark
 
   outline: none;
   cursor: pointer;
 
   margin: 0 5px
 
-.skip
-  background-color: color-white
+  +active()
+    color: color-white
+    border-color: color-white
+    background-color: color-teel-dark
 
-.edit
-  background-color: color-medium-blue
+.button.edit
+  +active()
+    color: color-teel-dark
+    border-color: color-white
+    background-color: color-white
 
-.save
-  background-color: color-pink
-  border-color: color-pink
+.button.save
   color: color-white
+  border-color: color-blue-background
+  background-color: color-blue-background
 
 .absolute
   position: absolute;
@@ -115,10 +138,10 @@
   padding: 0 15px 10px 0
 
   font(body)
-  color: color-text-dark
+  color: color-white
 
   background-color: transparent
-  border-bottom: 1px solid color-heavy-blue
+  border-bottom: 1px solid color-white
 
   transition: all 0.2s ease-out;
 
@@ -126,7 +149,7 @@
   resize: none;
 
   &:focus
-    border-bottom-color color-primary-blue
+    border-bottom-color color-white
 
   &:-webkit-autofill
     transition: background-color 5000s ease-in-out 0s
@@ -144,8 +167,8 @@
   padding-bottom 10px
 
   font(body)
-  color: color-text-dark
-  border-bottom: 1px solid color-heavy-blue
+  color: color-white
+  border-bottom: 1px solid color-white
 
   &:after
     position: absolute

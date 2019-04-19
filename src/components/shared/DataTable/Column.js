@@ -93,7 +93,9 @@ export default class Column extends Component {
     const { readOnly } = this.props;
 
     return (
-      <div className={styles.container}>
+      <div
+        className={cn(styles.container, { [styles.active]: !column.skipped })}
+      >
         {!edit && (
           <div className={styles.content}>
             <div className={styles.header}>
