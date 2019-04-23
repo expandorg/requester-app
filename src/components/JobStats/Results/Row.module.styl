@@ -1,0 +1,51 @@
+@import '~@expandorg/uikit/colors';
+@import '~@expandorg/uikit/font';
+
+
+.cell
+  text-align: center
+  padding: 0 5px
+
+.valueCell
+  text-align: center
+  padding: 0
+  position relative
+
+.button
+  margin: 0 15px
+  padding: 0
+  background-color: transparent;
+
+  outline: 0
+  cursor: pointer;
+
+  path
+    fill: color-primary-blue
+
+
+
+.jsonPreview
+  position absolute
+  left: 0
+  top: 100%
+  z-index 3
+
+  width: 500px
+  min-height: 60px
+  max-height: 300px
+
+  overflow scroll
+  display: inline-block
+  text-align: left
+
+  overflow-y: scroll
+
+  box-sizing: border-box
+  padding: 30px 36px
+  border: 1px solid color-heavy-blue
+  background-color: color-blue-background
+  color: color-white
+  font(body)
+
+  white-space: pre-wrap;
+  word-wrap: break-word

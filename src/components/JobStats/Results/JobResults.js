@@ -1,20 +1,17 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { parse } from 'date-fns';
 
 import { connect } from 'react-redux';
 import { requestStateProps, RequestStates } from '@expandorg/app-utils';
-
 import { Table as T } from '@expandorg/components';
 
-import { LoadIndicator } from '../Draft/Wizard/Form';
+import { makeJobResponsesDataSelector } from '../../../selectors/jobResponsesSelectors';
+import { fetchJobResponsesStateSelector } from '../../../selectors/uiStateSelectors';
 
-import { makeJobResponsesDataSelector } from '../../selectors/jobResponsesSelectors';
-import { fetchJobResponsesStateSelector } from '../../selectors/uiStateSelectors';
-
-import { Pagination } from '../shared/DataTable';
-
-import { formatDate } from '../../model/i18n';
+import { LoadIndicator } from '../../Draft/Wizard/Form';
+import { Pagination } from '../../shared/DataTable';
+import Header from './Header';
+import Row from './Row';
 
 import styles from './JobResults.module.styl';
 
@@ -48,31 +45,9 @@ class JobResults extends Component {
         <LoadIndicator isLoading={!responses && isFetching}>
           {responses && (
             <T.Table>
-              <T.Header className={styles.header}>
-                <T.HeaderCell className={styles.headerCell}>
-                  Item Id
-                </T.HeaderCell>
-                <T.HeaderCell className={styles.headerCell}>
-                  Result
-                </T.HeaderCell>
-                <T.HeaderCell className={styles.headerCell}>
-                  Worker Id
-                </T.HeaderCell>
-                <T.HeaderCell className={styles.headerCell}>Date</T.HeaderCell>
-              </T.Header>
+              <Header />
               {responses.map(resp => (
-                <T.Row key={resp.id}>
-                  <T.Cell className={styles.cell}>{resp.id}</T.Cell>
-                  <T.Cell className={styles.valueCell}>
-                    <div className={styles.value}>
-                      {JSON.stringify(resp.value)}
-                    </div>
-                  </T.Cell>
-                  <T.Cell className={styles.cell}>{resp.worker_id}</T.Cell>
-                  <T.Cell className={styles.cell}>
-                    {formatDate(parse(resp.created_at))}
-                  </T.Cell>
-                </T.Row>
+                <Row key={resp.id} response={resp} />
               ))}
             </T.Table>
           )}

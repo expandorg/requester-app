@@ -16,7 +16,7 @@ import Navbar from '../shared/Navbar';
 import { LoadIndicator } from '../Draft/Wizard/Form';
 
 import Stats from './Stats';
-import JobResults from './JobResults';
+import JobResults from './Results/JobResults';
 
 import { jobStatsProps } from '../shared/propTypes';
 import { authenticated } from '../shared/auth';
