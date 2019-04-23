@@ -13,11 +13,27 @@ import styles from './Row.module.styl';
 
 export default class Row extends Component {
   static propTypes = {
+    index: PropTypes.number.isRequired,
     response: PropTypes.shape({}).isRequired,
+    onSelectValue: PropTypes.func.isRequired,
   };
 
   state = {
     json: false,
+    table: false,
+  };
+
+  handleTableOver = () => {
+    this.setState({ table: true });
+  };
+
+  handleTableOut = () => {
+    this.setState({ table: false });
+  };
+
+  handleTableClick = () => {
+    const { onSelectValue, index } = this.props;
+    onSelectValue(index, 'table');
   };
 
   handleJsonOver = () => {
@@ -28,20 +44,31 @@ export default class Row extends Component {
     this.setState({ json: false });
   };
 
+  handleJsonClick = () => {
+    const { onSelectValue, index } = this.props;
+    onSelectValue(index, 'json');
+  };
+
   render() {
     const { response } = this.props;
-    const { json } = this.state;
+    const { json, table } = this.state;
     return (
       <T.Row>
         <T.Cell className={styles.cell}>{response.id}</T.Cell>
         <T.Cell className={styles.valueCell}>
-          <button className={styles.button} onClick={this.handleToggleTable}>
+          <button
+            className={styles.button}
+            onMouseOver={this.handleTableOver}
+            onMouseOut={this.handleTableOut}
+            onClick={this.handleTableClick}
+          >
             <TableIcon />
           </button>
           <button
             className={styles.button}
             onMouseOver={this.handleJsonOver}
             onMouseOut={this.handleJsonOut}
+            onClick={this.handleJsonClick}
           >
             <JsIcon />
           </button>
@@ -50,6 +77,7 @@ export default class Row extends Component {
               {JSON.stringify(response.value, undefined, 2)}
             </div>
           )}
+          {table && <div className={styles.tablePreview} />}
         </T.Cell>
         <T.Cell className={styles.cell}>{response.worker_id}</T.Cell>
         <T.Cell className={styles.cell}>
