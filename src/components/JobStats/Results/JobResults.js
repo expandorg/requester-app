@@ -39,45 +39,52 @@ class JobResults extends Component {
 
   state = {
     selected: null,
+    mode: 'table',
   };
 
-  handleSelectValue = (index, mode) => {
-    this.setState({ selected: { index, mode } });
+  handleSelectValue = index => {
+    this.setState({ selected: index });
   };
 
-  onHide = () => {
+  handleHide = () => {
     this.setState({ selected: null });
   };
 
   handleNext = () => {
     this.setState(({ selected }) => ({
-      selected: { ...selected, index: selected.index + 1 },
+      selected: selected + 1,
     }));
   };
 
   handlePrev = () => {
     this.setState(({ selected }) => ({
-      selected: { ...selected, index: selected.index - 1 },
+      selected: selected - 1,
     }));
+  };
+
+  handleToggleMode = mode => {
+    this.setState({ mode });
   };
 
   render() {
     const { fetchState, responses, page, total, onChangePage } = this.props;
-    const { selected } = this.state;
+    const { selected, mode } = this.state;
 
     const isFetching = fetchState.state === RequestStates.Fetching;
+
     return (
       <div className={styles.container}>
         <div className={styles.header}>Task Results</div>
         <LoadIndicator isLoading={!responses && isFetching}>
           {responses && (
             <T.Table>
-              <Header />
+              <Header mode={mode} onToggle={this.handleToggleMode} />
               {responses.map((resp, i) => (
                 <Row
                   key={resp.id}
                   response={resp}
                   index={i}
+                  mode={mode}
                   onSelectValue={this.handleSelectValue}
                 />
               ))}
@@ -90,11 +97,11 @@ class JobResults extends Component {
           total={total}
           onChange={onChangePage}
         />
-        {selected && (
+        {selected !== null && (
           <SelectedRowDialog
-            row={responses[selected.index]}
-            index={selected.index}
-            mode={selected.mode}
+            response={responses[selected]}
+            index={selected}
+            mode={mode}
             count={responses.length}
             onHide={this.handleHide}
             onNext={this.handleNext}

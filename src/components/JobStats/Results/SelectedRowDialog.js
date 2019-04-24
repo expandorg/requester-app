@@ -1,13 +1,21 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import { Dialog } from '@expandorg/components';
+import { Dialog, Table as T, Button } from '@expandorg/components';
+import Header from './Header';
+import Row from './Row';
+import JsonPreview from './JsonPreview';
 
 import styles from './SelectedRowDialog.module.styl';
 
-export default class OnboardingGroupDialog extends Component {
+export default class SelectedRowDialog extends Component {
   static propTypes = {
+    response: PropTypes.shape({}).isRequired,
     mode: PropTypes.oneOf(['json', 'table']).isRequired,
+    index: PropTypes.number.isRequired,
+    count: PropTypes.number.isRequired,
+    onNext: PropTypes.func.isRequired,
+    onPrev: PropTypes.func.isRequired,
     onHide: PropTypes.func.isRequired,
   };
 
@@ -19,11 +27,29 @@ export default class OnboardingGroupDialog extends Component {
     };
   }
 
-  render() {
-    const { onHide } = this.props;
-    const { mode } = this.state;
+  handleToggleMode = mode => {
+    this.setState({ mode });
+  };
 
-    console.log(mode);
+  handleNext = evt => {
+    evt.preventDefault();
+    const { count, index, onNext } = this.props;
+    if (index !== count - 1) {
+      onNext();
+    }
+  };
+
+  handleBack = evt => {
+    evt.preventDefault();
+    const { index, onPrev } = this.props;
+    if (index !== 0) {
+      onPrev();
+    }
+  };
+
+  render() {
+    const { onHide, response, index } = this.props;
+    const { mode } = this.state;
 
     return (
       <Dialog
@@ -31,7 +57,39 @@ export default class OnboardingGroupDialog extends Component {
         onHide={onHide}
         modalClass={styles.modal}
         contentLabel="selected-row-dialog"
-      />
+      >
+        <div className={styles.content}>
+          <T.Table>
+            <Header mode={mode} onToggle={this.handleToggleMode} />
+            <Row
+              response={response}
+              preview={false}
+              mode={mode}
+              index={index}
+            />
+          </T.Table>
+          {mode === 'json' && (
+            <JsonPreview className={styles.json} value={response.value} />
+          )}
+          {mode === 'table' && <div className={styles.tablePreview} />}
+        </div>
+        <div className={styles.actions}>
+          <Button
+            theme="secondary"
+            className={styles.back}
+            onClick={this.handleBack}
+          >
+            Back
+          </Button>
+          <Button
+            theme="secondary"
+            className={styles.next}
+            onClick={this.handleNext}
+          >
+            Next
+          </Button>
+        </div>
+      </Dialog>
     );
   }
 }

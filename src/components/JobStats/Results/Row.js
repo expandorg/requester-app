@@ -7,6 +7,7 @@ import { Table as T } from '@expandorg/components';
 import { ReactComponent as JsIcon } from './js.svg';
 import { ReactComponent as TableIcon } from './table.svg';
 
+import JsonPreview from './JsonPreview';
 import { formatDate } from '../../../model/i18n';
 
 import styles from './Row.module.styl';
@@ -14,8 +15,15 @@ import styles from './Row.module.styl';
 export default class Row extends Component {
   static propTypes = {
     index: PropTypes.number.isRequired,
+    preview: PropTypes.bool,
+    mode: PropTypes.oneOf(['table', 'json']).isRequired,
     response: PropTypes.shape({}).isRequired,
-    onSelectValue: PropTypes.func.isRequired,
+    onSelectValue: PropTypes.func,
+  };
+
+  static defaultProps = {
+    preview: true,
+    onSelectValue: Function.prototype,
   };
 
   state = {
@@ -24,58 +32,72 @@ export default class Row extends Component {
   };
 
   handleTableOver = () => {
-    this.setState({ table: true });
+    const { preview } = this.props;
+    if (preview) {
+      this.setState({ table: true });
+    }
   };
 
   handleTableOut = () => {
-    this.setState({ table: false });
-  };
-
-  handleTableClick = () => {
-    const { onSelectValue, index } = this.props;
-    onSelectValue(index, 'table');
+    const { preview } = this.props;
+    if (preview) {
+      this.setState({ table: false });
+    }
   };
 
   handleJsonOver = () => {
-    this.setState({ json: true });
+    const { preview } = this.props;
+    if (preview) {
+      this.setState({ json: true });
+    }
   };
 
   handleJsonOut = () => {
-    this.setState({ json: false });
+    const { preview } = this.props;
+    if (preview) {
+      this.setState({ json: false });
+    }
   };
 
-  handleJsonClick = () => {
+  handleValueClick = () => {
     const { onSelectValue, index } = this.props;
-    onSelectValue(index, 'json');
+    if (onSelectValue) {
+      onSelectValue(index);
+    }
   };
 
   render() {
-    const { response } = this.props;
+    const { response, mode } = this.props;
     const { json, table } = this.state;
     return (
       <T.Row>
         <T.Cell className={styles.cell}>{response.id}</T.Cell>
         <T.Cell className={styles.valueCell}>
-          <button
-            className={styles.button}
-            onMouseOver={this.handleTableOver}
-            onMouseOut={this.handleTableOut}
-            onClick={this.handleTableClick}
-          >
-            <TableIcon />
-          </button>
-          <button
-            className={styles.button}
-            onMouseOver={this.handleJsonOver}
-            onMouseOut={this.handleJsonOut}
-            onClick={this.handleJsonClick}
-          >
-            <JsIcon />
-          </button>
+          {mode === 'table' && (
+            <button
+              className={styles.button}
+              onMouseOver={this.handleTableOver}
+              onMouseOut={this.handleTableOut}
+              onClick={this.handleValueClick}
+            >
+              <TableIcon />
+            </button>
+          )}
+          {mode === 'json' && (
+            <button
+              className={styles.button}
+              onMouseOver={this.handleJsonOver}
+              onMouseOut={this.handleJsonOut}
+              onClick={this.handleValueClick}
+            >
+              <JsIcon />
+            </button>
+          )}
           {json && (
-            <div className={styles.jsonPreview}>
-              {JSON.stringify(response.value, undefined, 2)}
-            </div>
+            <JsonPreview
+              value={response.value}
+              className={styles.jsonPreview}
+            />
           )}
           {table && <div className={styles.tablePreview} />}
         </T.Cell>
