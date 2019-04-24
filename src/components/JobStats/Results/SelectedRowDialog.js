@@ -5,6 +5,7 @@ import { Dialog, Table as T, Button } from '@expandorg/components';
 import Header from './Header';
 import Row from './Row';
 import JsonPreview from './JsonPreview';
+import TablePreview from './TablePreview';
 
 import styles from './SelectedRowDialog.module.styl';
 
@@ -71,7 +72,9 @@ export default class SelectedRowDialog extends Component {
           {mode === 'json' && (
             <JsonPreview className={styles.json} value={response.value} />
           )}
-          {mode === 'table' && <div className={styles.tablePreview} />}
+          {mode === 'table' && (
+            <TablePreview className={styles.table} value={response.value} />
+          )}
         </div>
         <div className={styles.actions}>
           <Button

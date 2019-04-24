@@ -8,6 +8,7 @@ import { ReactComponent as JsIcon } from './js.svg';
 import { ReactComponent as TableIcon } from './table.svg';
 
 import JsonPreview from './JsonPreview';
+import TablePreview from './TablePreview';
 import { formatDate } from '../../../model/i18n';
 
 import styles from './Row.module.styl';
@@ -99,7 +100,12 @@ export default class Row extends Component {
               className={styles.jsonPreview}
             />
           )}
-          {table && <div className={styles.tablePreview} />}
+          {table && (
+            <TablePreview
+              value={response.value}
+              className={styles.tablePreview}
+            />
+          )}
         </T.Cell>
         <T.Cell className={styles.cell}>{response.worker_id}</T.Cell>
         <T.Cell className={styles.cell}>

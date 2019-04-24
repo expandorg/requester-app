@@ -18,15 +18,7 @@ export default class JsonPreview extends Component {
     const { value, className } = this.props;
     return (
       <div className={cn(styles.container, className)}>
-        {JSON.stringify(
-          {
-            value: {
-              value: { value: { value }, value1: value, value2: value },
-            },
-          },
-          undefined,
-          2
-        )}
+        {JSON.stringify(value, undefined, 2)}
       </div>
     );
   }
