@@ -76,7 +76,7 @@ class JobResults extends Component {
       <div className={styles.container}>
         <div className={styles.header}>Task Results</div>
         <LoadIndicator isLoading={!responses && isFetching}>
-          {responses && (
+          {responses && responses.length !== 0 && (
             <T.Table>
               <Header mode={mode} onToggle={this.handleToggleMode} />
               {responses.map((resp, i) => (

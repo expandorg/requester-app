@@ -17,6 +17,7 @@ export default class Variable extends Component {
     index: PropTypes.number.isRequired,
     readOnly: PropTypes.bool.isRequired,
     onChange: PropTypes.func.isRequired,
+    onRemove: PropTypes.func.isRequired,
   };
 
   constructor(props) {
@@ -73,6 +74,11 @@ export default class Variable extends Component {
     onChange(index, column);
   };
 
+  handleRemove = () => {
+    const { onRemove, index } = this.props;
+    onRemove(index);
+  };
+
   render() {
     const { readOnly } = this.props;
     const { column, edit } = this.state;
@@ -93,6 +99,14 @@ export default class Variable extends Component {
                     onClick={this.handleToggleEdit}
                   >
                     edit
+                  </Button>
+                  <Button
+                    size="small"
+                    theme="link"
+                    className={styles.remove}
+                    onClick={this.handleRemove}
+                  >
+                    remove
                   </Button>
                 </div>
               )}

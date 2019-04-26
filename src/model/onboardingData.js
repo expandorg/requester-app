@@ -25,6 +25,11 @@ export const dataToVars = ({
 export const createNewRow = (columns: Array<any>): Array<string> =>
   columns.map(() => '');
 
+export const createNewColumn = (num: string, type: string = 'text') => ({
+  name: `var${num}`,
+  type,
+});
+
 const convertType = (val: string, type: string): string => {
   switch (type) {
     case 'text': {
@@ -51,5 +56,24 @@ export const updateValuesType = (
   immer(steps, draft => {
     for (let i = 0; i < steps.length; i += 1) {
       draft[i].values[col] = convertType(draft[i].values[col], type);
+    }
+  });
+
+export const removeValuesColumns = (
+  steps: Array<{ values: Array<string>, answer: string }>,
+  col: number
+) =>
+  immer(steps, draft => {
+    for (let i = 0; i < steps.length; i += 1) {
+      draft[i].values.splice(col, 1);
+    }
+  });
+
+export const insertValuesColumn = (
+  steps: Array<{ values: Array<string>, answer: string }>
+) =>
+  immer(steps, draft => {
+    for (let i = 0; i < steps.length; i += 1) {
+      draft[i].values.push('');
     }
   });

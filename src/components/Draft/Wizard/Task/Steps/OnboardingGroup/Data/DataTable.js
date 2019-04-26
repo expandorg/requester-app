@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import immer from 'immer';
 import { removeAtIndex, replaceAtIndex } from '@expandorg/utils';
 
-import { Table as T } from '@expandorg/components';
+import { Table as T, Button } from '@expandorg/components';
 
 import Variable from './Variable';
 import Answer from './Answer';
@@ -12,6 +12,9 @@ import ValuesRow from './ValuesRow';
 
 import {
   updateValuesType,
+  removeValuesColumns,
+  insertValuesColumn,
+  createNewColumn,
   createNewRow,
 } from '../../../../../../../model/onboardingData';
 
@@ -59,10 +62,29 @@ export default class DataTable extends Component {
     const typeChanged = data.columns[index].type !== column.type;
     onUpdate({
       ...data,
-      values: typeChanged
+      steps: typeChanged
         ? updateValuesType(data.steps, index, column.type)
-        : data.values,
+        : data.steps,
       columns: replaceAtIndex(data.columns, index, column),
+    });
+  };
+
+  handleAddVar = () => {
+    const { data, onUpdate } = this.props;
+    const column = createNewColumn(data.columns.length);
+    onUpdate({
+      ...data,
+      steps: insertValuesColumn(data.steps, column.type),
+      columns: [...data.columns, column],
+    });
+  };
+
+  handleRemoveVar = index => {
+    const { data, onUpdate } = this.props;
+    onUpdate({
+      ...data,
+      steps: removeValuesColumns(data.steps, index),
+      columns: removeAtIndex(data.columns, index),
     });
   };
 
@@ -103,6 +125,7 @@ export default class DataTable extends Component {
                 index={index}
                 column={column}
                 onChange={this.handleChangeVar}
+                onRemove={this.handleRemoveVar}
               />
             ))}
             <Answer
@@ -112,7 +135,7 @@ export default class DataTable extends Component {
               onChange={this.handleChangeAnswer}
             />
             {!readOnly && (
-              <T.HeaderCell className={styles.varDelete}>Delete</T.HeaderCell>
+              <T.HeaderCell className={styles.lastCol}>Delete</T.HeaderCell>
             )}
           </T.Header>
 
@@ -130,14 +153,21 @@ export default class DataTable extends Component {
           ))}
           {!readOnly && (
             <T.Row>
-              <T.Cell
-                className={styles.spacer}
-                colSpan={data.columns.length + 1}
-              />
+              {data.columns.length > 0 && (
+                <T.Cell
+                  className={styles.spacer}
+                  colSpan={data.columns.length}
+                />
+              )}
               <T.Cell className={styles.cellAdd}>
-                <button className={styles.add} onClick={this.handleAddRow}>
-                  +
-                </button>
+                <Button size="small" theme="link" onClick={this.handleAddVar}>
+                  + Var
+                </Button>
+              </T.Cell>
+              <T.Cell className={styles.cellAdd}>
+                <Button size="small" theme="link" onClick={this.handleAddRow}>
+                  + Row
+                </Button>
               </T.Cell>
             </T.Row>
           )}
