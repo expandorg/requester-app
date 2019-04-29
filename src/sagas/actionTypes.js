@@ -112,3 +112,9 @@ export const accessTokenActionTypes = createActionTypes('accessTokens', {
   GENERATE_KEY_COMPLETE: null,
   GENERATE_KEY_FAILED: null,
 });
+
+export const jobReportsActionTypes = createActionTypes('jobReports', {
+  FETCH_LIST: null,
+  FETCH_LIST_COMPLETE: null,
+  FETCH_LIST_FAILED: null,
+});

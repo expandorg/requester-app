@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import { Table as T, Switch } from '@expandorg/components';
 
-import styles from './JobResults.module.styl';
+import styles from './Header.module.styl';
 
 export default function Header({ mode, onToggle }) {
   return (

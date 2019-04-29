@@ -13,6 +13,7 @@ import {
   whitelistActionTypes,
   tasksActionTypes,
   accessTokenActionTypes,
+  jobReportsActionTypes,
 } from '../sagas/actionTypes';
 
 export default combineReducers({
@@ -45,5 +46,6 @@ export default combineReducers({
 
   fetchJobStats: requestUiStateReducer(tasksActionTypes.FETCH_STATS),
   fetchJobResponses: requestUiStateReducer(tasksActionTypes.FETCH_RESPONSES),
+  fetchJobReports: requestUiStateReducer(jobReportsActionTypes.FETCH_LIST),
   accessToken: requestUiStateReducer(accessTokenActionTypes.GENERATE_KEY),
 });

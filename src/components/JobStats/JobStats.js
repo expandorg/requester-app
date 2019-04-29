@@ -17,6 +17,7 @@ import { LoadIndicator } from '../Draft/Wizard/Form';
 
 import Stats from './Stats';
 import JobResults from './Results/JobResults';
+import Reports from './Reports/Reports';
 
 import { jobStatsProps } from '../shared/propTypes';
 import { authenticated } from '../shared/auth';
@@ -107,14 +108,17 @@ class JobStats extends Component {
         <Navbar title="" top={false} logout={false} />
         <div className={styles.content}>
           <LoadIndicator isLoading={isLoading}>
-            {stats && <Stats stats={stats} />}
             {stats && (
-              <JobResults
-                id={+id}
-                page={page}
-                total={Math.ceil(stats.accepted / 15)}
-                onChangePage={this.handleChangePage}
-              />
+              <>
+                <Stats stats={stats} />
+                <JobResults
+                  id={+id}
+                  page={page}
+                  total={Math.ceil(stats.accepted / 15)}
+                  onChangePage={this.handleChangePage}
+                />
+                <Reports id={+id} />
+              </>
             )}
           </LoadIndicator>
         </div>

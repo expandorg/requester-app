@@ -13,6 +13,7 @@ import taskTemplatesEntities from './taskTemplates/taskTemplatesEntitiesReducer'
 
 import jobStatsEntities from './jobStats/jobStatsEntitiesReducer';
 import jobResponsesEntities from './jobResponses/jobResponsesEntitiesReducer';
+import jobReports from './jobReportsReducer';
 
 import formTemplatesList from './formTemplates/formTemplatesListReducer';
 import formTemplatesEntities from './formTemplates/formTemplatesEntitiesReducer';
@@ -51,6 +52,7 @@ export default combineReducers({
   jobResponses: combineReducers({
     entities: jobResponsesEntities,
   }),
+  jobReports,
   accessToken,
   whitelist: combineReducers({
     eligible,

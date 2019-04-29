@@ -87,3 +87,8 @@ export const generateAccessTokenStateSelector: any = createSelector(
   uiStateSelector,
   state => state.accessToken
 );
+
+export const fetchJobReportsStateSelector: any = createSelector(
+  uiStateSelector,
+  state => state.fetchJobReports
+);
