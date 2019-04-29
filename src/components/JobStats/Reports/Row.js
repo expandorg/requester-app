@@ -18,11 +18,11 @@ export default class Row extends Component {
 
     return (
       <T.Row>
-        <T.Cell className={styles.cell}>{report.worker_id}</T.Cell>
-        <T.Cell className={styles.cell}>{report.question}</T.Cell>
+        <T.Cell className={styles.cell}>{report.userId}</T.Cell>
+        <T.Cell className={styles.cell}>{report.message}</T.Cell>
         <T.Cell className={styles.cell}>{report.reason}</T.Cell>
         <T.Cell className={styles.cell}>
-          {formatDate(parse(report.created_at))}
+          {formatDate(parse(report.createdAt))}
         </T.Cell>
         <T.Cell className={styles.cell} />
       </T.Row>
