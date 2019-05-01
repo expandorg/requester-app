@@ -23,8 +23,10 @@ import { jobStatsProps } from '../shared/propTypes';
 import { authenticated } from '../shared/auth';
 
 import { makeJobStatsSelector } from '../../selectors/tasksSelectors';
+import { jobReportSelector } from '../../selectors/jobReportsSelectors';
 import { fetchJobStatsStateSelector } from '../../selectors/uiStateSelectors';
 import { fetchJobStats, fetchResponses } from '../../sagas/tasksSagas';
+import { fetchJobReports } from '../../sagas/jobReportsSagas';
 
 import styles from './JobStats.module.styl';
 
@@ -32,24 +34,31 @@ const makeMapStateToProps = () => {
   const jobStatsSelector = makeJobStatsSelector();
   return (state, props) => ({
     stats: jobStatsSelector(state, +props.match.params.id),
+    reports: jobReportSelector(state),
     loadState: fetchJobStatsStateSelector(state),
   });
 };
 
 const mapDispatchToProps = dispatch =>
-  bindActionCreators({ fetchJobStats, fetchResponses }, dispatch);
+  bindActionCreators(
+    { fetchJobStats, fetchResponses, fetchJobReports },
+    dispatch
+  );
 
 class JobStats extends Component {
   static propTypes = {
     match: matchProps.isRequired,
     stats: jobStatsProps,
     loadState: requestStateProps.isRequired,
+    reports: PropTypes.arrayOf(PropTypes.shape({})),
     fetchJobStats: PropTypes.func.isRequired,
     fetchResponses: PropTypes.func.isRequired,
+    fetchJobReports: PropTypes.func.isRequired,
   };
 
   static defaultProps = {
     stats: null,
+    reports: [],
   };
 
   constructor(props) {
@@ -76,6 +85,7 @@ class JobStats extends Component {
 
     this.props.fetchJobStats(match.params.id);
     this.props.fetchResponses(match.params.id);
+    this.props.fetchJobReports(match.params.id);
   }
 
   componentDidUpdate({ match: prevMatch }) {
@@ -83,6 +93,7 @@ class JobStats extends Component {
     if (match.params.id !== prevMatch.params.id) {
       this.props.fetchJobStats(match.params.id);
       this.props.fetchResponses(match.params.id);
+      this.props.fetchJobReports(match.params.id);
     }
   }
 
@@ -93,7 +104,7 @@ class JobStats extends Component {
   };
 
   render() {
-    const { stats, loadState } = this.props;
+    const { stats, loadState, reports } = this.props;
     const { id, page } = this.state;
     const isLoading = !stats && loadState.state === RequestStates.Fetching;
 
@@ -110,14 +121,14 @@ class JobStats extends Component {
           <LoadIndicator isLoading={isLoading}>
             {stats && (
               <>
-                <Stats stats={stats} />
+                <Stats stats={stats} reports={reports.length} />
                 <JobResults
                   id={+id}
                   page={page}
                   total={Math.ceil(stats.accepted / 15)}
                   onChangePage={this.handleChangePage}
                 />
-                <Reports id={+id} />
+                <Reports reports={reports} />
               </>
             )}
           </LoadIndicator>

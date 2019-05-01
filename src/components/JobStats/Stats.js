@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import cn from 'classnames';
 
 import { JobLogo } from '@expandorg/components/app';
@@ -13,10 +14,11 @@ import styles from './Stats.module.styl';
 export default class Stats extends Component {
   static propTypes = {
     stats: jobStatsProps.isRequired,
+    reports: PropTypes.number.isRequired,
   };
 
   render() {
-    const { stats } = this.props;
+    const { stats, reports } = this.props;
 
     const dlClasses = cn(
       'gem-button',
@@ -25,7 +27,6 @@ export default class Stats extends Component {
       styles.download
     );
     const dlLink = `${settings.apiUrl}/jobs/${stats.job.id}/responses/csv`;
-    console.log(stats);
 
     return (
       <div className={styles.container}>
@@ -61,7 +62,7 @@ export default class Stats extends Component {
             title="results"
           />
           <Hero className={styles.hero} value={stats.workers} title="workers" />
-          <Hero className={styles.hero} value={0} title="warnings" />
+          <Hero className={styles.hero} value={reports} title="Reports" />
         </div>
       </div>
     );
