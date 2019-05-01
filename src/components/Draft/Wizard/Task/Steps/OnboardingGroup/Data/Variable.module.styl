@@ -8,6 +8,7 @@
 
 .content
   box-sizing: border-box;
+  position relative
   padding: 20px 0
   background-color: color-light-blue
 
@@ -23,6 +24,7 @@
 
   color: color-text-dark
   text-align: center;
+
 
 .absolute
   position absolute
@@ -56,7 +58,6 @@
     margin: 0 5px
 
 .edit
-.remove
 .skip
 .save
   padding: 0 10px
@@ -70,12 +71,6 @@
 
   &:hover
     background-color: lighten(color-medium-blue, 10%)
-
-.remove
-  border: 1px solid color-pink
-
-  &:hover
-    border: 1px solid color-pink
 
 .fields
   box-sizing: border-box;
@@ -118,3 +113,23 @@
 
   :global(.gem-dropdown-content-val)
     color: color-text-dark
+
+
+.remove
+  position absolute
+  right: 30px
+  top: 25px
+
+  box-sizing: border-box
+
+  padding: 0
+  background-color: color-text-heavy-blue
+  color: color-white
+  font(body, false, 22px, 18px)
+
+  width: 22px
+  height: 22px
+  border-radius: 11px
+
+  outline: none
+  cursor: pointer

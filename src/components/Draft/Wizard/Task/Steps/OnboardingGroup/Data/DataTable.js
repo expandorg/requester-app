@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import immer from 'immer';
 import { removeAtIndex, replaceAtIndex } from '@expandorg/utils';
 
-import { Table as T, Button } from '@expandorg/components';
+import { Table as T } from '@expandorg/components';
 
 import Variable from './Variable';
 import Answer from './Answer';
@@ -135,7 +135,11 @@ export default class DataTable extends Component {
               onChange={this.handleChangeAnswer}
             />
             {!readOnly && (
-              <T.HeaderCell className={styles.lastCol}>Delete</T.HeaderCell>
+              <T.HeaderCell className={styles.clearCell}>
+                <button className={styles.add} onClick={this.handleAddVar}>
+                  +
+                </button>
+              </T.HeaderCell>
             )}
           </T.Header>
 
@@ -156,18 +160,13 @@ export default class DataTable extends Component {
               {data.columns.length > 0 && (
                 <T.Cell
                   className={styles.spacer}
-                  colSpan={data.columns.length}
+                  colSpan={data.columns.length + 1}
                 />
               )}
-              <T.Cell className={styles.cellAdd}>
-                <Button size="small" theme="link" onClick={this.handleAddVar}>
-                  + Var
-                </Button>
-              </T.Cell>
-              <T.Cell className={styles.cellAdd}>
-                <Button size="small" theme="link" onClick={this.handleAddRow}>
-                  + Row
-                </Button>
+              <T.Cell className={styles.clearCell}>
+                <button className={styles.add} onClick={this.handleAddRow}>
+                  +
+                </button>
               </T.Cell>
             </T.Row>
           )}

@@ -70,7 +70,7 @@ export default class ValuesRow extends PureComponent {
           onChange={this.handleChangeAnswer}
         />
         {!readOnly && (
-          <T.Cell className={styles.cellDelete}>
+          <T.Cell className={styles.clearCell}>
             <button className={styles.delete} onClick={this.handleDelete}>
               ✕
             </button>

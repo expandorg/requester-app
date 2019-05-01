@@ -88,6 +88,9 @@ export default class Variable extends Component {
         <div className={styles.container}>
           {!edit && (
             <div className={styles.content}>
+              <button className={styles.remove} onClick={this.handleRemove}>
+                -
+              </button>
               <div className={styles.name}>{column.name}</div>
               <div className={styles.type}>{column.type}</div>
               {!readOnly && (
@@ -99,14 +102,6 @@ export default class Variable extends Component {
                     onClick={this.handleToggleEdit}
                   >
                     edit
-                  </Button>
-                  <Button
-                    size="small"
-                    theme="link"
-                    className={styles.remove}
-                    onClick={this.handleRemove}
-                  >
-                    remove
                   </Button>
                 </div>
               )}
