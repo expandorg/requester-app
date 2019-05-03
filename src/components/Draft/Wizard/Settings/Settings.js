@@ -6,7 +6,7 @@ import { validateForm } from '@expandorg/validation';
 import { Input, Button } from '@expandorg/components';
 
 // import DateTimeInput from '../../../common/DateTime/DateTimeInput';
-import UploadLogo from './UploadLogo';
+// import UploadLogo from './UploadLogo';
 import { draftProps } from '../../../shared/propTypes';
 
 import { Form, Description, Field, Fieldset, Actions } from '../Form';
@@ -14,6 +14,8 @@ import { Form, Description, Field, Fieldset, Actions } from '../Form';
 import { settingsRules } from '../../../../model/draft';
 import { EndType } from '../../../../model/enums';
 // import { EndWhenTitles } from '../../../../model/i18n';
+
+import styles from './Settings.module.styl';
 
 // const options = [
 //   { value: EndType.ExceedTasks, label: EndWhenTitles[EndType.ExceedTasks] },
@@ -79,11 +81,11 @@ export default class Settings extends Component {
     }
   };
 
-  handleChangeLogo = logo => {
-    this.setState(({ settings }) => ({
-      settings: { ...settings, logo },
-    }));
-  };
+  // handleChangeLogo = logo => {
+  //   this.setState(({ settings }) => ({
+  //     settings: { ...settings, logo },
+  //   }));
+  // };
 
   handleInputChange = ({ target }) => {
     this.setState(({ settings }) => ({
@@ -96,13 +98,13 @@ export default class Settings extends Component {
     return (
       <Form onSubmit={this.handleSubmit}>
         <Fieldset>
-          <Description>
+          <Description className={styles.desc}>
             Enter your project details to help you workers find your task.
           </Description>
-          <UploadLogo
+          {/* <UploadLogo
             logo={settings.logo}
             onChangeLogo={this.handleChangeLogo}
-          />
+          /> */}
           <Field
             tooltip={
               <span>

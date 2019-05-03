@@ -68,7 +68,7 @@ export const settingsRules = {
       'Title can be a maximum of 40 characters',
     ],
   ],
-  description: [[rules.isRequired, 'Description is required']],
+  // description: [[rules.isRequired, 'Description is required']],
 };
 
 export const onboardingGroupSettingsRules = {
