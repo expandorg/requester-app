@@ -2,6 +2,16 @@
 import type { Draft } from '../../model/types.flow';
 import { DraftManager } from '../../model/draft';
 
+export const WizardSteps = {
+  Templates: 0,
+  Settings: 1,
+  Data: 2,
+  Forms: 3,
+  // Whitelist: 4,
+  Pay: 4,
+  Summary: 5,
+};
+
 const getTemplateStatus = (draft: ?Draft) => {
   if (!draft) {
     return null;
@@ -24,32 +34,25 @@ const getFormsStatus = (draft: ?Draft) => {
 };
 
 // eslint-disable-next-line import/prefer-default-export
-export const getNavState = (draft: Draft) => {
-  const hasTemplate = DraftManager.hasTemplate(draft);
-  return {
-    settings: {
-      status: draft ? 'complete' : null,
-      disabled: !draft,
-    },
-    data: {
-      status: DraftManager.hasData(draft) ? 'complete' : null,
-      disabled: !draft,
-    },
-    templates: {
-      status: getTemplateStatus(draft),
-      disabled: !draft,
-    },
-    task: {
-      status: getFormsStatus(draft),
-      disabled: !hasTemplate,
-    },
-    whitelist: {
-      status: DraftManager.hasWhitelist(draft) ? 'complete' : null,
-      disabled: !hasTemplate,
-    },
-    pay: {
-      status: getFundingStatus(draft),
-      disabled: !hasTemplate,
-    },
-  };
-};
+export const getNavState = (draft: Draft) => ({
+  templates: {
+    status: getTemplateStatus(draft),
+    disabled: !draft,
+  },
+  settings: {
+    status: draft ? 'complete' : null,
+    disabled: !draft,
+  },
+  data: {
+    status: DraftManager.hasData(draft) ? 'complete' : null,
+  },
+  forms: {
+    status: getFormsStatus(draft),
+  },
+  whitelist: {
+    status: DraftManager.hasWhitelist(draft) ? 'complete' : null,
+  },
+  pay: {
+    status: getFundingStatus(draft),
+  },
+});

@@ -14,9 +14,9 @@ export const fetch = id => ({
   meta: { schema: draftResponseSchema },
 });
 
-export const createDraft = draft => ({
+export const createDraft = templateId => ({
   type: draftsActionTypes.CREATE,
-  payload: { draft },
+  payload: { templateId },
   asyncCall: draftApi.create,
   meta: { schema: draftResponseSchema },
 });
@@ -28,9 +28,9 @@ export const updateSettings = (id, params) => ({
   meta: { schema: draftResponseSchema },
 });
 
-export const selectTemplate = (id, templateId, settings) => ({
+export const selectTemplate = (id, templateId) => ({
   type: draftsActionTypes.UPDATE_TEMPLATE,
-  payload: { id, templateId, settings },
+  payload: { id, templateId },
   asyncCall: draftApi.template,
   meta: { schema: draftResponseSchema },
 });

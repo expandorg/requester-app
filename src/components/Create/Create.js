@@ -17,18 +17,23 @@ import Page from '../shared/Page';
 
 import { authenticated } from '../shared/auth';
 
-import { Navigation, NavItem } from '../Draft/Wizard/Navigation';
 import { LoadIndicator } from '../Draft/Wizard/Form';
 
-import Settings from '../Draft/Wizard/Settings/Settings';
+import TemplatesList from '../Draft/Wizard/Templates/TemplatesList';
 
 import { createDraft } from '../../sagas/draftsSagas';
-import { createDraftStateSelector } from '../../selectors/uiStateSelectors';
+import { taskTemplatesListSelector } from '../../selectors/taskTemplatesSelectors';
+import {
+  createDraftStateSelector,
+  fetchTemplatesStateSelector,
+} from '../../selectors/uiStateSelectors';
 
 import styles from './Create.module.styl';
 
 const mapsStateToProps = state => ({
-  requestState: createDraftStateSelector(state),
+  submitState: createDraftStateSelector(state),
+  templateIds: taskTemplatesListSelector(state),
+  fetchTemplatesState: fetchTemplatesStateSelector(state),
 });
 
 const mapDispatchToProps = dispatch =>
@@ -36,59 +41,88 @@ const mapDispatchToProps = dispatch =>
 
 class Create extends Component {
   static propTypes = {
-    createDraft: PropTypes.func.isRequired,
     history: historyProps.isRequired,
-    requestState: requestStateProps.isRequired,
+    templateIds: PropTypes.arrayOf(PropTypes.string),
+    submitState: requestStateProps.isRequired,
+    fetchTemplatesState: requestStateProps.isRequired,
+    createDraft: PropTypes.func.isRequired,
   };
 
-  handleNextClick = draft => {
-    const { requestState } = this.props;
-    if (requestState.state !== RequestStates.Fetching) {
-      this.props.createDraft(draft);
+  static defaultProps = {
+    templateIds: [],
+  };
+
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      templateId: props.templateIds.length ? props.templateIds[0] : null,
+    };
+  }
+
+  handleFetched = () => {
+    const { templateId } = this.state;
+    if (templateId === null) {
+      const { templateIds } = this.props;
+      if (templateIds.length) {
+        this.handleSelect(templateIds[0]);
+      }
     }
   };
 
-  handleCreateComplete = createState => {
+  handleCreate = () => {
+    const { submitState } = this.props;
+    const { templateId } = this.state;
+    if (submitState.state !== RequestStates.Fetching) {
+      this.props.createDraft(templateId);
+    }
+  };
+
+  handleCreated = createState => {
     const { history } = this.props;
     const { draft } = createState.payload.result;
     history.replace(`/draft/${draft}`, { tab: 1 });
   };
 
+  handleSelect = templateId => {
+    this.setState({ templateId });
+  };
+
   render() {
-    const { requestState } = this.props;
-    const isSubmitting = requestState.state === RequestStates.Fetching;
+    const { submitState, fetchTemplatesState } = this.props;
+    const { templateId } = this.state;
+
     return (
       <Page
-        title="Create a task"
-        className={styles.content}
+        title="New task"
+        className={styles.page}
         sidebar={false}
         navbar={false}
         footer={false}
       >
-        <Navbar title="Create a task" top={false} logout={false}>
-          <Navigation active={0}>
-            <NavItem>Settings</NavItem>
-            <NavItem disabled>Upload</NavItem>
-            <NavItem disabled>Templates</NavItem>
-            <NavItem disabled>Create Task</NavItem>
-            <NavItem disabled>Pay</NavItem>
-          </Navigation>
-        </Navbar>
+        <Navbar title="New Task" top={false} logout={false} />
         <div className={styles.container}>
           <LoadIndicator
-            isLoading={isSubmitting}
+            isLoading={submitState.state === RequestStates.Fetching}
             message="Preparing your task, please wait..."
           >
-            <Settings
-              onNext={this.handleNextClick}
-              isSubmitting={isSubmitting}
+            <TemplatesList
+              title="What type of task do you want to build?"
+              nextTitle="Create"
+              selected={templateId}
+              onSelect={this.handleSelect}
+              onNext={this.handleCreate}
             />
           </LoadIndicator>
-          <SubmitStateEffect
-            submitState={requestState}
-            onComplete={this.handleCreateComplete}
-          />
         </div>
+        <SubmitStateEffect
+          submitState={submitState}
+          onComplete={this.handleCreated}
+        />
+        <SubmitStateEffect
+          submitState={fetchTemplatesState}
+          onComplete={this.handleFetched}
+        />
       </Page>
     );
   }

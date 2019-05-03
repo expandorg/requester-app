@@ -46,9 +46,6 @@ export class DraftManager {
   }
 
   static validate = (draft: Draft) => {
-    if (!DraftManager.hasTemplate(draft)) {
-      return false;
-    }
     if (!DraftManager.hasFunding(draft)) {
       return false;
     }

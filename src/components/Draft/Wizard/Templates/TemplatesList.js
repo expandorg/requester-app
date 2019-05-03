@@ -1,39 +1,64 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+
 import { Button } from '@expandorg/components';
 
 import Templates from '../../../shared/Templates/Templates';
 import { Actions, Description } from '../Form';
 
+import { taskTemplatesSelector } from '../../../../selectors/taskTemplatesSelectors';
+import { fetchTaskTemplates } from '../../../../sagas/tasksSagas';
+
 import { taskTemplateProps } from '../../../shared/propTypes';
 
 import styles from './TemplatesList.module.styl';
 
-export default class TemplatesList extends Component {
+const mapStateToProps = state => ({
+  templates: taskTemplatesSelector(state),
+});
+
+const mapDispatchToProps = dispatch =>
+  bindActionCreators({ fetchTaskTemplates }, dispatch);
+
+class TemplatesList extends Component {
   static propTypes = {
     templates: PropTypes.arrayOf(taskTemplateProps),
 
+    title: PropTypes.string.isRequired,
+    nextTitle: PropTypes.string,
     selected: PropTypes.string,
     onSelect: PropTypes.func.isRequired,
 
     onNext: PropTypes.func.isRequired,
-    onBack: PropTypes.func.isRequired,
+
+    fetchTaskTemplates: PropTypes.func.isRequired,
   };
 
   static defaultProps = {
     templates: [],
+    nextTitle: 'Next',
     selected: null,
   };
 
+  componentDidMount() {
+    this.props.fetchTaskTemplates();
+  }
+
   render() {
-    const { templates, selected, onBack, onNext, onSelect } = this.props;
+    const {
+      templates,
+      selected,
+      onNext,
+      onSelect,
+      title,
+      nextTitle,
+    } = this.props;
     return (
       <div className={styles.outer}>
-        <Description>
-          Browse through the templates to find the one suitable for your type of
-          task. They can be customised later.
-        </Description>
+        <Description>{title}</Description>
         <div className={styles.container}>
           <Templates
             className={styles.templates}
@@ -45,14 +70,16 @@ export default class TemplatesList extends Component {
           />
         </div>
         <Actions>
-          <Button theme="secondary" onClick={onBack}>
-            Back
-          </Button>
           <Button disabled={selected === null} onClick={onNext}>
-            Next
+            {nextTitle}
           </Button>
         </Actions>
       </div>
     );
   }
 }
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(TemplatesList);
