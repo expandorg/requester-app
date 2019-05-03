@@ -34,7 +34,6 @@ export const restoreEntities = (
         focusKey: blockKey,
         focusOffset: end,
       });
-      // $FlowFixMe
       result = result.createEntity(type, mutability, getEntityData(range));
       const entityKey = result.getLastCreatedEntityKey();
 
@@ -173,7 +172,6 @@ export const insertVariable = (editorState: EditorState, value: string) => {
   let contentState = editorState.getCurrentContent();
   const selection = editorState.getSelection();
 
-  // $FlowFixMe
   contentState = contentState.createEntity('$mention', 'IMMUTABLE', {
     mention: {
       name: `$(${value})`,
