@@ -21,10 +21,10 @@ export const createDraft = templateId => ({
   meta: { schema: draftResponseSchema },
 });
 
-export const updateSettings = (id, params) => ({
+export const updateSettings = (id, settings) => ({
   type: draftsActionTypes.UPDATE_SETTINGS,
-  payload: { id, params },
-  asyncCall: draftApi.update,
+  payload: { id, settings },
+  asyncCall: draftApi.updateSettings,
   meta: { schema: draftResponseSchema },
 });
 
@@ -37,36 +37,36 @@ export const selectTemplate = (id, templateId) => ({
 
 export const updateTaskForm = (id, taskForm) => ({
   type: draftsActionTypes.UPDATE_TASK,
-  payload: { id, params: { taskForm } },
-  asyncCall: draftApi.update,
+  payload: { id, taskForm },
+  asyncCall: draftApi.updateTaskForm,
   meta: { schema: draftResponseSchema },
 });
 
 export const updateVerificationForm = (id, verificationForm) => ({
   type: draftsActionTypes.UPDATE_VERIFICATION,
-  payload: { id, params: { verificationForm } },
-  asyncCall: draftApi.update,
+  payload: { id, verificationForm },
+  asyncCall: draftApi.updateVerificationForm,
   meta: { schema: draftResponseSchema },
 });
 
 export const updateOnboarding = (id, onboarding) => ({
   type: draftsActionTypes.UPDATE_ONBOARDING,
-  payload: { id, params: { onboarding } },
-  asyncCall: draftApi.update,
+  payload: { id, onboarding },
+  asyncCall: draftApi.updateOnboarding,
   meta: { schema: draftResponseSchema },
 });
 
 export const updateFunding = (id, funding) => ({
   type: draftsActionTypes.UPDATE_FUNDING,
-  payload: { id, params: { funding } },
-  asyncCall: draftApi.update,
+  payload: { id, funding },
+  asyncCall: draftApi.updateFunding,
   meta: { schema: draftResponseSchema },
 });
 
 export const updateWhitelist = (id, whitelist) => ({
   type: draftsActionTypes.UPDATE_WHITELIST,
   payload: { id, params: { whitelist } },
-  asyncCall: draftApi.update,
+  asyncCall: draftApi.updateWhitelist,
   meta: { schema: draftResponseSchema },
 });
 
