@@ -19,7 +19,7 @@ import Payments from './Wizard/Payments/Payments';
 
 import Summary from './Wizard/Summary/Summary';
 
-import { getNavState } from './wizard';
+import { getNavState, WizardSteps } from './wizard';
 
 import styles from './DraftWizard.module.styl';
 
@@ -76,35 +76,34 @@ export default class DraftWizard extends Component {
       >
         <Navbar title="Create a task" top={false} logout={false}>
           <Navigation onChange={this.handleChangeActive} active={active}>
+            <NavItem {...nav.templates}>Templates</NavItem>
             <NavItem {...nav.settings}>Settings</NavItem>
             <NavItem {...nav.data}>Data</NavItem>
-            <NavItem {...nav.templates}>Templates</NavItem>
-            <NavItem {...nav.task}>Create Task</NavItem>
-            {/* <NavItem {...nav.whitelist}>Whitelist</NavItem> */}
+            <NavItem {...nav.forms}>Forms</NavItem>
             <NavItem {...nav.pay}>Pay</NavItem>
           </Navigation>
         </Navbar>
         <LoadIndicator isLoading={isLoading}>
           {draft && (
             <div className={styles.container}>
-              {active === 0 && (
-                <Settings draft={draft} onNext={this.handleNext} />
-              )}
-              {active === 1 && (
-                <Data
-                  draft={draft}
-                  onNext={this.handleNext}
-                  onBack={this.handleBack}
-                />
-              )}
-              {active === 2 && (
+              {active === WizardSteps.Templates && (
                 <Templates
                   draft={draft}
                   onNext={this.handleNext}
                   onBack={this.handleBack}
                 />
               )}
-              {active === 3 && (
+              {active === WizardSteps.Settings && (
+                <Settings draft={draft} onNext={this.handleNext} />
+              )}
+              {active === WizardSteps.Data && (
+                <Data
+                  draft={draft}
+                  onNext={this.handleNext}
+                  onBack={this.handleBack}
+                />
+              )}
+              {active === WizardSteps.Forms && (
                 <CreateTask
                   draft={draft}
                   onNext={this.handleNext}
@@ -118,14 +117,14 @@ export default class DraftWizard extends Component {
                     onBack={this.handleBack}
                   />
                 )} */}
-              {active === 4 && (
+              {active === WizardSteps.Pay && (
                 <Payments
                   draft={draft}
                   onNext={this.handleNext}
                   onBack={this.handleBack}
                 />
               )}
-              {active === 5 && (
+              {active === WizardSteps.Summary && (
                 <Summary
                   draft={draft}
                   onBack={this.handleBack}

@@ -3,43 +3,53 @@ import PropTypes from 'prop-types';
 
 import { validateForm } from '@expandorg/validation';
 
-import { Input, Button } from '@expandorg/components';
+import { Input, Button, Dropdown } from '@expandorg/components';
 
-// import DateTimeInput from '../../../common/DateTime/DateTimeInput';
-// import UploadLogo from './UploadLogo';
 import { draftProps } from '../../../shared/propTypes';
 
-import { Form, Description, Field, Fieldset, Actions } from '../Form';
+import { Form, Description, Field, Fieldset, Toggle, Actions } from '../Form';
 
 import { settingsRules } from '../../../../model/draft';
-import { EndType } from '../../../../model/enums';
-// import { EndWhenTitles } from '../../../../model/i18n';
+import { VerificationType } from '../../../../model/enums';
 
 import styles from './Settings.module.styl';
 
-// const options = [
-//   { value: EndType.ExceedTasks, label: EndWhenTitles[EndType.ExceedTasks] },
-//   { value: EndType.ResultCount, label: EndWhenTitles[EndType.ResultCount] },
-//   { value: EndType.Date, label: EndWhenTitles[EndType.Date] },
-// ];
+const options = [
+  { value: VerificationType.Requester, label: 'Manual: Verify it yourself' },
+  {
+    value: VerificationType.Consensus,
+    label: 'Consensus',
+  },
+  // { value: VerificationType.AuditWhitelist, label: 'Whitelist' },
+];
 
-const getInitialState = draft => ({
-  logo: (draft && draft.logo) || undefined,
-  name: (draft && draft.name) || '',
-  description: (draft && draft.description) || '',
-  endWhen: (draft && draft.endWhen) || EndType.ExceedTasks,
-  endDate: (draft && draft.endDate) || undefined,
+const getInitialState = draft => {
+  const { funding, onboarding, verification } = draft;
+
+  return {
+    name: draft.name || '',
+    description: draft.description || '',
+    staking: !!funding.requirement,
+    stake: `${funding.requirement || 0}`,
+    callbackUrl: (draft && draft.callbackUrl) || '',
+    onboardingSuccessMessage: onboarding.successMessage || '',
+    onboardingFailureMessage: onboarding.failureMessage || '',
+    verificationModule: verification.module || VerificationType.Requester,
+    agreementCount: `${verification.agreementCount || ''}`,
+  };
+};
+
+const getSettings = settings => ({
+  ...settings,
+  stake: +settings.stake,
+  agreementCount: +settings.agreementCount,
 });
 
 export default class Settings extends Component {
   static propTypes = {
-    draft: draftProps,
+    draft: draftProps.isRequired,
     isSubmitting: PropTypes.bool.isRequired,
     onNext: PropTypes.func.isRequired,
-  };
-
-  static defaultProps = {
-    draft: null,
   };
 
   constructor(props) {
@@ -73,11 +83,12 @@ export default class Settings extends Component {
       return;
     }
     const { settings } = this.state;
+
     const errors = validateForm(settings, settingsRules);
     if (errors) {
       this.setState({ errors });
     } else {
-      onNext(settings);
+      onNext(getSettings(settings));
     }
   };
 
@@ -90,6 +101,22 @@ export default class Settings extends Component {
   handleInputChange = ({ target }) => {
     this.setState(({ settings }) => ({
       settings: { ...settings, [target.name]: target.value },
+    }));
+  };
+
+  handleChangeStaking = value => {
+    this.setState(({ settings }) => ({
+      settings: {
+        ...settings,
+        staking: value,
+        stake: value ? settings.stake : '',
+      },
+    }));
+  };
+
+  handleChangeVerification = value => {
+    this.setState(({ settings }) => ({
+      settings: { ...settings, verificationModule: value },
     }));
   };
 
@@ -137,39 +164,110 @@ export default class Settings extends Component {
               onChange={this.handleInputChange}
             />
           </Field>
-          {/* <div className={styles.end}>
-            <Dropdown
-              value={settings.endWhen}
-              label="End Task When *"
-              options={options}
-              onChange={when =>
-                this.handleInputChange({
-                  target: { value: when, name: 'endWhen' },
-                })
+          <Field>
+            <Toggle
+              tooltip={
+                <span>
+                  Staking helps you to capture high quality workers by asking
+                  <br />
+                  them to invest a token(s) beforehand to promise you that the
+                  <br />
+                  task will be completed accurately
+                </span>
               }
+              value={settings.staking}
+              label="Staking"
+              name="staking"
+              onChange={this.handleChangeStaking}
             />
-            {settings.endWhen === EndType.Date && (
-              <DateTimeInput
-                placeholder="End Date"
-                disabledDays={{
-                  before: new Date(),
-                }}
-                name="endDate"
-                error={!!(errors && errors.endDate)}
-                value={settings.endDate}
-                onChange={this.handleInputChange}
-              />
-            )}
-            {settings.endWhen === EndType.ResultCount && (
+          </Field>
+          {settings.staking && (
+            <>
+              <Field tooltip="How much to stake?">
+                <Input
+                  placeholder="How much to stake?"
+                  name="stake"
+                  value={settings.stake}
+                  onChange={this.handleInputChange}
+                />
+              </Field>
+            </>
+          )}
+          <Field
+            tooltip={
+              <span>
+                Only applicable to those who are connecting
+                <br /> their data through the API.
+                <br />
+                Your results will be sent to the url provided.
+              </span>
+            }
+          >
+            <Input
+              placeholder="Callback Url"
+              name="callbackUrl"
+              value={settings.callbackUrl}
+              onChange={this.handleInputChange}
+            />
+          </Field>
+          <Field
+            tooltip={
+              <span>
+                Text to display to the worker when
+                <br /> the task is complete e.g. Congratulations!
+              </span>
+            }
+            className={styles.br}
+          >
+            <Input
+              placeholder="Onboarding Success Message"
+              name="onboardingSuccessMessage"
+              value={settings.onboardingSuccessMessage}
+              onChange={this.handleInputChange}
+            />
+          </Field>
+          <Field
+            tooltip={
+              <span>
+                Text to display to the worker when the task is not completed
+                <br />
+                successfully e.g. Oops!
+              </span>
+            }
+          >
+            <Input
+              placeholder="Onboarding Failure Message"
+              name="onboardingFailureMessage"
+              value={settings.onboardingFailureMessage}
+              onChange={this.handleInputChange}
+            />
+          </Field>
+          <Field>
+            <Dropdown
+              value={settings.verificationModule}
+              label="Verification Type"
+              options={options}
+              onChange={this.handleChangeVerification}
+            />
+          </Field>
+          {settings.verificationModule === VerificationType.Consensus && (
+            <Field
+              tooltip={
+                <span>
+                  Enter how many workers need to get the
+                  <br />
+                  right answer before the task is verified.
+                </span>
+              }
+            >
               <Input
-                placeholder="Count"
-                name="endResultCount"
-                error={!!(errors && errors.endResultCount)}
-                value={settings.endResultCount}
+                placeholder="Agreement count"
+                name="agreementCount"
+                value={settings.agreementCount}
                 onChange={this.handleInputChange}
               />
-            )}
-          </div> */}
+            </Field>
+          )}
         </Fieldset>
         <Actions>
           <Button disable={isSubmitting} type="submit">

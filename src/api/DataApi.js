@@ -5,6 +5,8 @@ export class DataApi extends BaseApi {
   uploadData = ({ draftId, data, xhrCallbacks }) =>
     this.uploadFile(`/drafts/${draftId}/data`, 'data', data, xhrCallbacks);
 
+  removeData = ({ draftId }) => this.delete(`/drafts/${draftId}/data`, {});
+
   fetch = ({ draftId, dataId, page = 0 }) =>
     this.get(`/drafts/${draftId}/data/${dataId}`, { page });
 

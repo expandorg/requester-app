@@ -5,7 +5,6 @@ import { handleAsyncCall } from '@expandorg/app-utils';
 
 import { dataActionTypes } from './actionTypes';
 
-import { draftApi } from '../api/DraftApi';
 import { dataApi } from '../api/DataApi';
 
 import { draftResponseSchema, dataResponseSchema } from '../model/schemas';
@@ -53,8 +52,8 @@ export const uppdateColumns = (draftId, dataId, columns) => ({
 
 export const removeData = draftId => ({
   type: dataActionTypes.REMOVE_DATA,
-  payload: { id: draftId, params: { dataId: null } },
-  asyncCall: draftApi.update,
+  payload: { id: draftId },
+  asyncCall: dataApi.removeData,
   meta: { schema: draftResponseSchema },
 });
 

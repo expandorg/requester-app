@@ -10,40 +10,28 @@ import {
   SubmitStateEffect,
 } from '@expandorg/app-utils';
 
-import { draftProps, taskTemplateProps } from '../../../shared/propTypes';
+import { draftProps } from '../../../shared/propTypes';
+import ConfirmationDialog from '../../../shared/ConfirmationDialog';
 
 import { LoadIndicator } from '../Form';
-
 import TemplatesList from './TemplatesList';
-import TemplateSettings from './TemplateSettings';
 
-import { DraftManager } from '../../../../model/draft';
+import { selectTemplate } from '../../../../sagas/draftsSagas';
 import { selectDraftTemplateStateSelector } from '../../../../selectors/uiStateSelectors';
-import { taskTemplatesSelector } from '../../../../selectors/taskTemplatesSelectors';
-import { fetchTaskTemplates } from '../../../../sagas/tasksSagas';
 
 const mapStateToProps = state => ({
   submitState: selectDraftTemplateStateSelector(state),
-  templates: taskTemplatesSelector(state),
 });
 
 const mapDispatchToProps = dispatch =>
-  bindActionCreators({ fetchTaskTemplates }, dispatch);
+  bindActionCreators({ selectTemplate }, dispatch);
 
 class Templates extends Component {
   static propTypes = {
     draft: draftProps.isRequired,
-    templates: PropTypes.arrayOf(taskTemplateProps),
     submitState: requestStateProps.isRequired,
-
     onNext: PropTypes.func.isRequired,
-    onBack: PropTypes.func.isRequired,
-
-    fetchTaskTemplates: PropTypes.func.isRequired,
-  };
-
-  static defaultProps = {
-    templates: [],
+    selectTemplate: PropTypes.func.isRequired,
   };
 
   constructor(props) {
@@ -51,48 +39,52 @@ class Templates extends Component {
 
     this.state = {
       draft: props.draft, // eslint-disable-line react/no-unused-state
-      step: 0,
-      selected: (props.draft && props.draft.templateId) || null,
+      selected: props.draft.templateId,
+      confirmDialog: false,
     };
   }
 
   static getDerivedStateFromProps({ draft }, state) {
     if (draft !== state.draft) {
-      const selected = DraftManager.hasTemplate(draft)
-        ? draft.templateId
-        : state.selected;
-      return { draft, selected };
+      return {
+        draft,
+        selected: draft.templateId,
+      };
     }
     return null;
-  }
-
-  componentDidMount() {
-    this.props.fetchTaskTemplates();
   }
 
   handleSelect = selected => {
     this.setState({ selected });
   };
 
-  handleBack = evt => {
-    const { onBack } = this.props;
-    onBack();
+  handleNextClick = () => {
+    const { onNext, draft, submitState } = this.props;
 
-    evt.preventDefault();
+    if (submitState.state !== RequestStates.Fetching) {
+      const { selected } = this.state;
+      if (draft.templateId !== selected) {
+        this.setState({ confirmDialog: true });
+      } else {
+        onNext();
+      }
+    }
   };
 
-  handleChangeStep = step => {
-    this.setState({ step });
+  handleToggleConfirm = () => {
+    this.setState(({ confirmDialog }) => ({ confirmDialog: !confirmDialog }));
+  };
+
+  handleConfirm = () => {
+    const { draft } = this.props;
+    const { selected } = this.state;
+    this.setState({ confirmDialog: false });
+    this.props.selectTemplate(draft.id, selected);
   };
 
   render() {
-    const { submitState, onNext, draft, templates } = this.props;
-    const { selected, step } = this.state;
-
-    const template =
-      templates && selected !== null
-        ? templates.find(t => t.id === selected)
-        : null;
+    const { submitState, onNext } = this.props;
+    const { selected, confirmDialog } = this.state;
 
     return (
       <SubmitStateEffect submitState={submitState} onComplete={onNext}>
@@ -100,25 +92,21 @@ class Templates extends Component {
           isLoading={submitState.state === RequestStates.Fetching}
           message="Preparing your task, please wait..."
         >
-          {step === 0 && (
-            <TemplatesList
-              templates={templates}
-              selected={selected}
-              onSelect={this.handleSelect}
-              onBack={this.handleBack}
-              onNext={() => this.handleChangeStep(1)}
-            />
-          )}
-          {step === 1 && (
-            <TemplateSettings
-              draft={draft}
-              template={template}
-              selected={selected}
-              submitState={submitState}
-              onBack={() => this.handleChangeStep(0)}
-            />
-          )}
+          <TemplatesList
+            title="What type of task do you want to build?"
+            selected={selected}
+            onSelect={this.handleSelect}
+            onNext={this.handleNextClick}
+          />
         </LoadIndicator>
+        {confirmDialog && (
+          <ConfirmationDialog
+            title="You already have an active template."
+            confirmation="If you change it all data will be lost. Are you sure you want to continue?"
+            onHide={this.handleToggleConfirm}
+            onConfirm={this.handleConfirm}
+          />
+        )}
       </SubmitStateEffect>
     );
   }

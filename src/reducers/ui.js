@@ -27,7 +27,9 @@ export default combineReducers({
   createDraft: requestUiStateReducer(draftsActionTypes.CREATE, true),
   updateDraftSettings: requestUiStateReducer(draftsActionTypes.UPDATE_SETTINGS),
 
+  fetchTemplates: requestUiStateReducer(tasksActionTypes.FETCH_TEMPLATES),
   selectDraftTemplate: requestUiStateReducer(draftsActionTypes.UPDATE_TEMPLATE),
+
   updateDraftTask: requestUiStateReducer(draftsActionTypes.UPDATE_TASK),
   updateDraftOnboarding: requestUiStateReducer(
     draftsActionTypes.UPDATE_ONBOARDING
