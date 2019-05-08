@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 
 import { Button } from '@expandorg/components';
 
-import { getFormModulesNames } from '@expandorg/modules/model';
 import { draftOnboardingStepProps } from '../../../../../../shared/propTypes';
 
 import DataTable from './DataTable';
@@ -11,8 +10,6 @@ import Nav from '../Nav';
 import { WizardSteps } from '../wizard';
 
 import styles from '../styles.module.styl';
-
-const getUniqNames = form => [...new Set(getFormModulesNames(form))];
 
 export default class OnboardingGroupData extends Component {
   static propTypes = {

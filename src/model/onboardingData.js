@@ -2,7 +2,10 @@
 
 import immer from 'immer';
 
-import { type DraftOnboardingGroupData } from './types.flow';
+import { getFormModules } from '@expandorg/modules/model';
+import type { Form } from '@expandorg/modules/src/form/model/types.flow';
+
+import type { DraftOnboardingGroupData } from './types.flow';
 
 export const columnTypes = ['text', 'number', 'bool'];
 
@@ -77,3 +80,16 @@ export const insertValuesColumn = (
       draft[i].values.push('');
     }
   });
+
+const answersFields = new Set([
+  'checkbox',
+  'dropdown',
+  'input',
+  'select',
+  'yesno',
+]);
+
+export const gerAnswerFields = (form: Form) => {
+  const valid = getFormModules(form).filter(m => answersFields.has(m.type));
+  return [...new Set(valid.map(m => m.name))];
+};

@@ -1,6 +1,7 @@
 // @flow
 
-import type { Form, Draft } from '../types.flow';
+import type { Form } from '@expandorg/modules/src/form/model/types.flow';
+import type { Draft } from '../types.flow';
 
 export type OnboardingGroup = {
   steps: Array<{

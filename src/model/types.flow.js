@@ -1,10 +1,6 @@
 // @flow
 
-import type { Module } from '@expandorg/modules/src/form/model/types.flow';
-
-export type Form = {
-  modules: Array<Module>,
-};
+import type { Form } from '@expandorg/modules/src/form/model/types.flow';
 
 export type DraftOnboardingGroupData = {
   answer: {
