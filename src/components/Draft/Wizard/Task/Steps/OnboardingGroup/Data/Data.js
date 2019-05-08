@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { Button } from '@expandorg/components';
 
 import { draftOnboardingStepProps } from '../../../../../../shared/propTypes';
+import { gerAnswerFields } from '../../../../../../../model/onboardingData';
 
 import DataTable from './DataTable';
 import Nav from '../Nav';
@@ -70,7 +71,7 @@ export default class OnboardingGroupData extends Component {
           <div className={styles.description}>Quiz data</div>
           {data && (
             <DataTable
-              fields={getUniqNames(group.form)}
+              fields={gerAnswerFields(group.form)}
               data={data}
               onUpdate={this.handleUpdateData}
             />

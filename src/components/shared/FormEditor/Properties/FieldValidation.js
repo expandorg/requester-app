@@ -8,7 +8,6 @@ import styles from './FieldValidation.module.styl';
 
 const labels = {
   isRequired: 'Is Required',
-  isNotEmpty: 'Is Not Empty',
   isTrue: 'Is True',
 };
 
