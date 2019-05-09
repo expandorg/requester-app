@@ -91,20 +91,18 @@ export default class DraftTextInput extends Component {
             placeholder={placeholder}
           />
         )}
-        {allVars && allVars.length > 0 && (
-          <VariablesTool
-            className={styles.dropdown}
-            variables={allVars}
-            editorState={editorState}
-            onChange={this.handleChange}
-          >
-            {({ onToggle }) => (
-              <button className={styles.vars} onClick={onToggle}>
-                <Arrow />
-              </button>
-            )}
-          </VariablesTool>
-        )}
+        <VariablesTool
+          className={styles.dropdown}
+          variables={allVars}
+          editorState={editorState}
+          onChange={this.handleChange}
+        >
+          {({ onToggle }) => (
+            <button className={styles.vars} onClick={onToggle}>
+              <Arrow />
+            </button>
+          )}
+        </VariablesTool>
       </div>
     );
   }

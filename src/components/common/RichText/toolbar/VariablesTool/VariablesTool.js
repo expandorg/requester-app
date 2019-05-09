@@ -43,14 +43,10 @@ export default class VariablesTool extends Component {
     const { children, variables, className } = this.props;
     const { opened } = this.state;
 
-    if (!(variables && variables.length)) {
-      return null;
-    }
-
     return (
       <>
         {children({ onToggle: this.handleToggle })}
-        {opened && (
+        {opened && variables && variables.length && (
           <VariablesDropdown
             className={className}
             variables={variables}
