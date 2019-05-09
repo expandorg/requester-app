@@ -39,7 +39,7 @@ Sidepanel.propTypes = {
   onRemove: PropTypes.func.isRequired,
   onCopy: PropTypes.func,
   canCopy: PropTypes.bool,
-  onLogic: PropTypes.bool,
+  onLogic: PropTypes.func,
   canApplyLogic: PropTypes.bool,
   nested: PropTypes.bool,
 };

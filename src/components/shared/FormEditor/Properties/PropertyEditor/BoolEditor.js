@@ -7,7 +7,7 @@ import styles from './styles.module.styl';
 
 export default class BoolEditor extends Component {
   static propTypes = {
-    value: PropTypes.string,
+    value: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
     label: PropTypes.string,
     onChange: PropTypes.func.isRequired,
   };

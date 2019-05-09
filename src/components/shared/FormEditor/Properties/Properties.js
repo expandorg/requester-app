@@ -82,6 +82,7 @@ export default class Properties extends Component {
     const {
       module: { name, editor, validation },
     } = controls[module.type];
+
     return (
       <aside className={styles.container}>
         <div className={styles.content}>
@@ -117,13 +118,11 @@ export default class Properties extends Component {
               ))}
             </div>
           )}
-          {validation && (
-            <FieldValidation
-              validation={validation}
-              module={module}
-              onChange={this.handleChangeValidation}
-            />
-          )}
+          <FieldValidation
+            rules={validation}
+            validation={module.validation}
+            onChange={this.handleChangeValidation}
+          />
         </div>
         <div className={styles.actions}>
           <Button theme="grey" onClick={onCancel} className={styles.btn}>

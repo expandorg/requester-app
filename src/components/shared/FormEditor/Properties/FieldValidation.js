@@ -1,53 +1,106 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import { Checkbox } from '@expandorg/components';
-import { moduleProps } from '@expandorg/modules';
+import { Checkbox, Input } from '@expandorg/components';
+import { getDefaultRuleMessage } from '@expandorg/modules/model';
 
 import styles from './FieldValidation.module.styl';
 
 const labels = {
-  isRequired: 'Is Required',
-  isTrue: 'Is True',
+  isRequired: 'Is required',
+  isEmail: 'Should be valid email address',
+  isTrue: 'Should be checked',
+  isNumber: 'Should be a number',
+  isRequiredArray: 'Should have at least one value',
 };
 
-export default class FieldValidation extends Component {
+class Rule extends Component {
   static propTypes = {
-    module: moduleProps.isRequired,
-    validation: PropTypes.object.isRequired, // eslint-disable-line
+    name: PropTypes.string.isRequired,
+    validation: PropTypes.object, // eslint-disable-line
     onChange: PropTypes.func.isRequired,
   };
 
-  handleInputChange = (value, name) => {
-    const {
-      onChange,
-      module: { validation },
-    } = this.props;
-    onChange({
-      ...(validation || {}),
-      [name]: value,
-    });
+  static defaultProps = {
+    validation: null,
+  };
+
+  constructor(props) {
+    super(props);
+    const val = !!props.validation && props.validation[props.name];
+    this.state = {
+      val: typeof val === 'string' ? val : getDefaultRuleMessage(props.name),
+    };
+  }
+
+  handleToggle = value => {
+    const { onChange, name, validation } = this.props;
+    onChange({ ...(validation || {}), [name]: value });
+    this.setState({ val: getDefaultRuleMessage(name) });
+  };
+
+  handleInput = ({ target }) => {
+    const { onChange, name, validation } = this.props;
+    this.setState({ val: target.value });
+    onChange({ ...(validation || {}), [name]: target.value || true });
   };
 
   render() {
-    const { validation, module } = this.props;
+    const { name, validation } = this.props;
+    const { val } = this.state;
+
+    const enabled =
+      !!validation &&
+      (validation[name] === true || typeof validation[name] === 'string');
+
+    const label = labels[name] || name;
 
     return (
-      <div className={styles.container}>
-        <div className={styles.title}>Validation</div>
-        <div className={styles.list}>
-          {Reflect.ownKeys(validation).map(name => (
-            <Checkbox
-              key={name}
-              className={styles.item}
-              name={name}
-              label={labels[name] || name}
-              value={(module.validation && !!module.validation[name]) || false}
-              onChange={this.handleInputChange}
-            />
-          ))}
-        </div>
+      <div className={styles.rule}>
+        <Checkbox
+          className={styles.checkbox}
+          value={enabled}
+          label={enabled ? '' : label}
+          onChange={this.handleToggle}
+        />
+        {enabled && (
+          <Input
+            className={styles.input}
+            value={val}
+            placeholder={label}
+            onChange={this.handleInput}
+          />
+        )}
       </div>
     );
   }
 }
+
+export default function FieldValidation({ rules, validation, onChange }) {
+  if (!rules) {
+    return null;
+  }
+  return (
+    <div className={styles.container}>
+      {Reflect.ownKeys(rules).map(name => (
+        <Rule
+          key={name}
+          name={name}
+          validation={validation}
+          onChange={onChange}
+        />
+      ))}
+    </div>
+  );
+}
+
+FieldValidation.propTypes = {
+  validation: PropTypes.object, // eslint-disable-line
+  rules: PropTypes.object, // eslint-disable-line
+  onChange: PropTypes.func.isRequired,
+};
+
+FieldValidation.defaultProps = {
+  validation: null,
+  rules: null,
+};
