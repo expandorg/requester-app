@@ -14,5 +14,5 @@ module.exports = {
     '^.+(\\.module){0,1}\\.styl': '<rootDir>/scripts/styleMock.js',
     '\\.svg': '<rootDir>/scripts/svgMock.js',
   },
-  testPathIgnorePatterns: ['/node_modules/'],
+  testPathIgnorePatterns: ['/node_modules/', 'tests/e2e/'],
 };
