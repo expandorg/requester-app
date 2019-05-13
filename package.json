@@ -12,6 +12,7 @@
     "build": "NODE_ENV=production webpack",
     "lint": "node_modules/.bin/eslint --ext .js ./src/",
     "test": "NODE_ENV=test jest --config jest.config.js",
+    "e2e": "NODE_ENV=test jest --config tests/e2e.jest.config.js",
     "coverage": "jest --collectCoverage --coverageDirectory ./coverage"
   },
   "keywords": [
@@ -54,6 +55,7 @@
     "nanoid": "^2.0.1",
     "normalizr": "^3.3.0",
     "prop-types": "^15.7.2",
+    "puppeteer": "^1.15.0",
     "query-string": "^6.5.0",
     "react": "^16.8.6",
     "react-day-picker": "^7.3.0",
