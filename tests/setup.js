@@ -21,6 +21,8 @@ export async function setupBrowser(width = WIDTH, height = HEIGHT) {
   return { browser, page };
 }
 
-export async function cleanup(browser) {
-  browser.close();
+export function cleanup(browser) {
+  if (browser) {
+    browser.close();
+  }
 }

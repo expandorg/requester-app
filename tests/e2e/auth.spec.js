@@ -9,7 +9,7 @@ beforeAll(async () => {
 });
 
 describe('Signup', () => {
-  it('should signup', async () => {
+  it('should signup with new user', async () => {
     const newUser = {
       email: faker.internet.email(),
       password: faker.internet.password(),
@@ -18,15 +18,15 @@ describe('Signup', () => {
     const { page } = ctx;
     await page.goto('http://localhost:3000/');
 
-    const lp = new LoginPage(ctx.page);
-    await lp.toggleSignup();
+    const login = new LoginPage(ctx.page);
 
-    const sp = new SignupPage(ctx.page);
-    await sp.typeEmail(newUser.email);
-    await sp.typePassword(newUser.password);
+    const signup = await login.toggleSignup();
 
-    await sp.submit();
-    await sp.waitSubmit();
+    await signup.typeEmail(newUser.email);
+    await signup.typePassword(newUser.password);
+
+    await signup.submit();
+    await signup.waitSubmit();
   }, 20000);
 });
 

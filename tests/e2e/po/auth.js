@@ -16,14 +16,11 @@ class AuthForm extends Page {
   }
 }
 
+export class SignupPage extends AuthForm {}
+
 export class LoginPage extends AuthForm {
   async toggleSignup() {
-    return this.click(AuthForm.toggleLink);
-  }
-}
-
-export class SignupPage extends AuthForm {
-  async toggleLogin() {
-    return this.click(AuthForm.toggleLink);
+    await this.click(AuthForm.toggleLink);
+    return new SignupPage(this.page);
   }
 }
