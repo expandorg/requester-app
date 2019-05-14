@@ -14,4 +14,8 @@ export default class Page {
   async waitFor(selector) {
     return this.page.waitForSelector(selector);
   }
+
+  async submit(btnSelector = 'button[type=submit]') {
+    await this.click(btnSelector);
+  }
 }

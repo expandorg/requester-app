@@ -11,10 +11,6 @@ class AuthForm extends Page {
     return this.type('input[name=password]', password);
   }
 
-  async submit() {
-    await this.click('button[type=submit]');
-  }
-
   async waitSubmit() {
     return this.waitFor('.gem-sidebar');
   }
