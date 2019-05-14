@@ -27,6 +27,9 @@ describe('Signup', () => {
 
     await signup.submit();
     await signup.waitSubmit();
+
+    const title = await page.$eval('.gem-navbar-title', el => el.textContent);
+    expect(title).toBe('Dashboard');
   }, 20000);
 });
 
