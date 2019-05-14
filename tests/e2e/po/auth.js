@@ -1,18 +1,21 @@
 import Page from './Page';
 
 class AuthForm extends Page {
-  static toggleLink = '.gem-auth-link';
+  static toggleSelector = '.gem-auth-link';
+  static emailSelector = 'input[name=email]';
+  static passwordSelector = 'input[name=password]';
+  static sidebarSelector = '.gem-sidebar';
 
   async typeEmail(email) {
-    return this.type('input[name=email]', email);
+    return this.type(AuthForm.emailSelector, email);
   }
 
   async typePassword(password) {
-    return this.type('input[name=password]', password);
+    return this.type(AuthForm.passwordSelector, password);
   }
 
   async waitSubmit() {
-    return this.waitFor('.gem-sidebar');
+    return this.waitFor(AuthForm.sidebarSelector);
   }
 
   async submitAuthForm(email, password) {
@@ -31,7 +34,7 @@ export class SignupPage extends AuthForm {
 
 export class LoginPage extends AuthForm {
   async toggleSignup() {
-    await this.click(AuthForm.toggleLink);
+    await this.click(AuthForm.toggleSelector);
     return new SignupPage(this.page);
   }
 
