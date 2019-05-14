@@ -1,6 +1,6 @@
 import faker from 'faker';
 import { setupBrowser, cleanup } from '../setup';
-import { LoginPage, SignupPage } from './po/auth';
+import { LoginPage } from './po/auth';
 
 let ctx;
 
