@@ -145,11 +145,11 @@ export default class FormEditor extends Component {
     }));
   };
 
-  handleEdit = edited => {
+  handleEdit = mod => {
     const { modules, selection } = this.state;
     this.setState({
       selection: Selection.empty,
-      modules: treeEditor.replaceAt(modules, selection.path, edited),
+      modules: treeEditor.replaceAt(modules, selection.path, mod),
     });
   };
 

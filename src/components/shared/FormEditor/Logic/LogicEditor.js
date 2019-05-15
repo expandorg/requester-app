@@ -24,7 +24,7 @@ const cleanup = module => {
     return module;
   }
   const logic = Reflect.ownKeys(module.logic).reduce((updated, key) => {
-    updated[key] = cleanupExpr(updated[key]);
+    updated[key] = cleanupExpr(module.logic[key]);
     return updated;
   }, {});
   return { ...module, logic };
