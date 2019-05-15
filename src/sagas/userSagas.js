@@ -1,10 +1,11 @@
-import { takeEvery, select, getContext } from 'redux-saga/effects';
+import { takeEvery, select, put, getContext } from 'redux-saga/effects';
 
 import { accountActionTypes } from '@expandorg/app-account';
 import { handleAssignAddress } from '@expandorg/app-account/sagas';
 
 import { handleAsyncCall } from '@expandorg/app-utils';
 import { authActionTypes } from '@expandorg/app-auth';
+import { getCurrentUser } from '@expandorg/app-auth/sagas';
 import { userSelector } from '@expandorg/app-auth/selectors';
 import { gemsActionTypes } from '@expandorg/app-gemtokens';
 
@@ -17,6 +18,18 @@ function* handleUserChangedSaga() {
       tx: user.pendingTx.hash,
       source: user.pendingTx.type,
     });
+  }
+}
+
+const failedActions = ({ type, failed }) =>
+  failed === true &&
+  type &&
+  type !== authActionTypes.GET_CURRENT_FAILED &&
+  type.endsWith('_FAILED');
+
+function* refreshUserOnAuthError({ payload: error }) {
+  if (error && error.httpStatus === 403) {
+    yield put(getCurrentUser());
   }
 }
 
@@ -48,4 +61,6 @@ export function* userSagas() {
     ],
     handleAsyncCall
   );
+
+  yield takeEvery(failedActions, refreshUserOnAuthError);
 }
