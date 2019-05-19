@@ -10,6 +10,7 @@ import BoolEditor from './BoolEditor';
 import OptionsEditor from './OptionsEditor';
 import ModulesEditor from './ModulesEditor';
 import ModuleProperyOptionsEditor from './ModuleProperyOptionsEditor';
+import ImageRegionEditor from './ImageRegionEditor';
 
 import styles from './styles.module.styl';
 
@@ -23,6 +24,7 @@ const editors = {
   [PropControlTypes.modules]: ModulesEditor,
   [PropControlTypes.options]: OptionsEditor,
   [PropControlTypes.moduleProperyOptions]: ModuleProperyOptionsEditor,
+  [PropControlTypes.imageRegion]: ImageRegionEditor,
 };
 
 export default class PropertyEditor extends Component {

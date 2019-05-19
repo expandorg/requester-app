@@ -16,7 +16,7 @@ import styles from './Nested.module.styl';
 
 class Nested extends Component {
   static propTypes = {
-    caption: PropTypes.string,
+    title: PropTypes.string,
     modules: PropTypes.arrayOf(moduleProps),
     path: PropTypes.arrayOf(PropTypes.number).isRequired,
     controls: PropTypes.object.isRequired, // eslint-disable-line
@@ -30,14 +30,14 @@ class Nested extends Component {
   };
 
   static defaultProps = {
-    caption: null,
+    title: null,
     modules: null,
     selected: null,
   };
 
   render() {
     const {
-      caption,
+      title,
       connectDropTarget,
       modules,
       selected,
@@ -82,7 +82,7 @@ class Nested extends Component {
           })
         ) : (
           <EmptyDroppable
-            title={caption || 'Drop here'}
+            title={title || 'Drop here'}
             path={path}
             onMove={onMove}
           />

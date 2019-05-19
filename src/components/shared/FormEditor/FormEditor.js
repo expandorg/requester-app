@@ -9,7 +9,12 @@ import {
   WalkthroughPin,
 } from '@expandorg/components/app';
 
-import { Form, FormContainer, Spacer } from './Canvas';
+import {
+  Form,
+  FormContainer,
+  Spacer,
+  InputValueContextProvider,
+} from './Canvas';
 import { PropertiesPanel } from './Properties';
 import Sidebar from './Sidebar';
 import { LogicPanel } from './Logic';
@@ -170,56 +175,58 @@ export default class FormEditor extends Component {
     return (
       <WalkthroughProvider settings={help}>
         <div className={styles.container}>
-          <div className={styles.left}>
-            <Sidebar
-              moduleControls={availableModules}
-              onEndDrag={this.handleEndDrag}
-              onAddModule={this.handleAdd}
-              onRemoveModule={this.handleRemove}
-            />
-          </div>
-          <div className={styles.editor}>
-            <FormContainer
-              modules={modules}
-              title={title}
-              varsSample={varsSample}
-              onSave={this.handleSave}
-              onCancel={onHide}
-            >
-              <LogicPanel
-                module={selection.find(modules, 'logic')}
+          <InputValueContextProvider selection={selection}>
+            <div className={styles.left}>
+              <Sidebar
+                moduleControls={availableModules}
+                onEndDrag={this.handleEndDrag}
+                onAddModule={this.handleAdd}
+                onRemoveModule={this.handleRemove}
+              />
+            </div>
+            <div className={styles.editor}>
+              <FormContainer
                 modules={modules}
+                title={title}
+                varsSample={varsSample}
+                onSave={this.handleSave}
+                onCancel={onHide}
+              >
+                <LogicPanel
+                  module={selection.find(modules, 'logic')}
+                  modules={modules}
+                  variables={variables}
+                  onSave={this.handleEdit}
+                  onCancel={() => this.handleSelect(null)}
+                />
+                <Form
+                  ref={this.formRef}
+                  modules={modules}
+                  selected={selection.getId('edit')}
+                  controls={controls}
+                  onAdd={this.handleAdd}
+                  onMove={this.handleMoveAt}
+                  onRemove={this.handleRemove}
+                  onSelect={this.handleSelect}
+                  onCopy={this.handleCopyModule}
+                />
+                <Spacer visible={selection.isType('edit')} />
+              </FormContainer>
+              <PropertiesPanel
+                module={selection.find(modules, 'edit')}
+                controls={controls}
                 variables={variables}
-                onSave={this.handleEdit}
+                onEdit={this.handleEdit}
+                onValidate={this.validateModuleProps}
                 onCancel={() => this.handleSelect(null)}
               />
-              <Form
-                ref={this.formRef}
-                modules={modules}
-                selected={selection.getId('edit')}
-                controls={controls}
-                onAdd={this.handleAdd}
-                onMove={this.handleMoveAt}
-                onRemove={this.handleRemove}
-                onSelect={this.handleSelect}
-                onCopy={this.handleCopyModule}
-              />
-              <Spacer visible={selection.isType('edit')} />
-            </FormContainer>
-            <PropertiesPanel
-              module={selection.find(modules, 'edit')}
-              controls={controls}
-              variables={variables}
-              onEdit={this.handleEdit}
-              onValidate={this.validateModuleProps}
-              onCancel={() => this.handleSelect(null)}
+            </div>
+            <NotificationAnimated
+              className={styles.notifications}
+              notification={error}
+              onClear={this.handleClearError}
             />
-          </div>
-          <NotificationAnimated
-            className={styles.notifications}
-            notification={error}
-            onClear={this.handleClearError}
-          />
+          </InputValueContextProvider>
         </div>
         <WalkthroughPin id="search" className={styles.serachPin} />
         <WalkthroughPin id="components" className={styles.componentsPin} />
