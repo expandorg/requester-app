@@ -13,14 +13,14 @@ const stringify = v => {
     : undefined;
 };
 
-export default function ImageRegionEditor(props) {
+export default function TimelineRangeEditor(props) {
   return (
     <LinkedValueEditor
       stringifyValue={stringify}
-      warning="Drag a square onto the image directly."
+      warning="Drag a range onto the timeline."
       {...props}
     />
   );
 }
 
-ImageRegionEditor.withModuleProperties = true;
+TimelineRangeEditor.withModuleProperties = true;

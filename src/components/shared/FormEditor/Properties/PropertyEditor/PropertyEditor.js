@@ -11,6 +11,7 @@ import OptionsEditor from './OptionsEditor';
 import ModulesEditor from './ModulesEditor';
 import ModuleProperyOptionsEditor from './ModuleProperyOptionsEditor';
 import ImageRegionEditor from './ImageRegionEditor';
+import TimelineRangeEditor from './TimelineRangeEditor';
 
 import styles from './styles.module.styl';
 
@@ -25,6 +26,7 @@ const editors = {
   [PropControlTypes.options]: OptionsEditor,
   [PropControlTypes.moduleProperyOptions]: ModuleProperyOptionsEditor,
   [PropControlTypes.imageRegion]: ImageRegionEditor,
+  [PropControlTypes.timelineRange]: TimelineRangeEditor,
 };
 
 export default class PropertyEditor extends Component {
@@ -32,13 +34,13 @@ export default class PropertyEditor extends Component {
     name: PropTypes.string.isRequired,
     property: PropTypes.object.isRequired, // eslint-disable-line
     variables: PropTypes.arrayOf(PropTypes.string),
-    moduleValues: PropTypes.any, // eslint-disable-line
+    moduleProperties: PropTypes.any, // eslint-disable-line
     onChange: PropTypes.func.isRequired,
   };
 
   static defaultProps = {
     variables: [],
-    moduleValues: undefined,
+    moduleProperties: undefined,
   };
 
   handleChange = value => {
@@ -50,7 +52,7 @@ export default class PropertyEditor extends Component {
     const {
       name,
       property: { type, ...params },
-      moduleValues,
+      moduleProperties,
       variables,
     } = this.props;
 
@@ -59,13 +61,16 @@ export default class PropertyEditor extends Component {
     if (!Editor) {
       return null;
     }
+
     return (
       <div className={styles.container}>
         <Editor
           variables={variables}
-          value={moduleValues[name]}
+          value={moduleProperties[name]}
           onChange={this.handleChange}
-          moduleValues={Editor.withModuleValues ? moduleValues : undefined}
+          moduleProperties={
+            Editor.withModuleProperties ? moduleProperties : undefined
+          }
           {...params}
         />
       </div>

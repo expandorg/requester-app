@@ -111,7 +111,7 @@ export default class Properties extends Component {
                     name={propertyName}
                     variables={variables}
                     property={editor.properties[propertyName]}
-                    moduleValues={module}
+                    moduleProperties={module}
                     onChange={this.handleChangeProperty}
                   />
                 </ErrorContainer>

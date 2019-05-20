@@ -9,12 +9,7 @@ import {
   WalkthroughPin,
 } from '@expandorg/components/app';
 
-import {
-  Form,
-  FormContainer,
-  Spacer,
-  InputValueContextProvider,
-} from './Canvas';
+import { Form, FormContainer, Spacer, ValueContextProvider } from './Canvas';
 import { PropertiesPanel } from './Properties';
 import Sidebar from './Sidebar';
 import { LogicPanel } from './Logic';
@@ -175,7 +170,7 @@ export default class FormEditor extends Component {
     return (
       <WalkthroughProvider settings={help}>
         <div className={styles.container}>
-          <InputValueContextProvider selection={selection}>
+          <ValueContextProvider selection={selection}>
             <div className={styles.left}>
               <Sidebar
                 moduleControls={availableModules}
@@ -226,7 +221,7 @@ export default class FormEditor extends Component {
               notification={error}
               onClear={this.handleClearError}
             />
-          </InputValueContextProvider>
+          </ValueContextProvider>
         </div>
         <WalkthroughPin id="search" className={styles.serachPin} />
         <WalkthroughPin id="components" className={styles.componentsPin} />

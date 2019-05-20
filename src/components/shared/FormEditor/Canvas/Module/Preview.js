@@ -89,7 +89,6 @@ export default class Preview extends Component {
             <ModuleWrapper
               path={path}
               selected={selected}
-              name={module.name}
               onSelect={this.handleSelect}
             >
               {({ values, onChange }) => (

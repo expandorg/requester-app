@@ -8,7 +8,7 @@ import styles from './styles.module.styl';
 export default class ModuleProperyOptionsEditor extends PureComponent {
   static propTypes = {
     value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    moduleValues: PropTypes.shape({}),
+    moduleProperties: PropTypes.shape({}),
     label: PropTypes.string,
     dependency: PropTypes.string,
     onChange: PropTypes.func.isRequired,
@@ -16,12 +16,12 @@ export default class ModuleProperyOptionsEditor extends PureComponent {
 
   static defaultProps = {
     value: undefined,
-    moduleValues: [],
+    moduleProperties: {},
     label: null,
     dependency: null,
   };
 
-  static withModuleValues = true;
+  static withModuleProperties = true;
 
   handleChange = value => {
     const { onChange } = this.props;
@@ -29,8 +29,8 @@ export default class ModuleProperyOptionsEditor extends PureComponent {
   };
 
   render() {
-    const { value, label, moduleValues, dependency } = this.props;
-    const options = [...new Set(moduleValues[dependency])];
+    const { value, label, moduleProperties, dependency } = this.props;
+    const options = [...new Set(moduleProperties[dependency])];
     return (
       <Dropdown
         options={options}

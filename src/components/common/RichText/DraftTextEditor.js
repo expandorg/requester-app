@@ -23,7 +23,12 @@ import {
   SuggestionsEntry,
 } from './suggest';
 
-import { getHtml, editorStateFromHtml, blockStyleFn } from './content';
+import {
+  getHtml,
+  editorStateFromHtml,
+  blockStyleFn,
+  insertVariable,
+} from './content';
 
 import styles from './DraftTextEditor.module.styl';
 
@@ -91,6 +96,11 @@ export default class DraftTextEditor extends Component {
     });
   };
 
+  handleSelectVar = variable => {
+    const { editorState } = this.state;
+    this.handleChange(insertVariable(editorState, variable));
+  };
+
   render() {
     const { placeholder, autocomplete: allVars } = this.props;
     const { editorState, autocomplete } = this.state;
@@ -114,9 +124,8 @@ export default class DraftTextEditor extends Component {
           />
           <ListTool editorState={editorState} onChange={this.handleChange} />
           <VariablesButton
-            editorState={editorState}
             variables={allVars}
-            onChange={this.handleChange}
+            onSelect={this.handleSelectVar}
           />
         </div>
         <div className={styles.content}>

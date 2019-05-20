@@ -3,14 +3,11 @@ import PropTypes from 'prop-types';
 
 import VariablesDropdown from './VariablesDropdown';
 
-import { insertVariable } from '../../content';
-
 export default class VariablesTool extends Component {
   static propTypes = {
     className: PropTypes.string,
-    editorState: PropTypes.shape({}).isRequired,
     variables: PropTypes.arrayOf(PropTypes.string),
-    onChange: PropTypes.func.isRequired,
+    onSelect: PropTypes.func.isRequired,
   };
 
   static defaultProps = {
@@ -20,11 +17,6 @@ export default class VariablesTool extends Component {
 
   state = {
     opened: false,
-  };
-
-  handleChange = value => {
-    const { onChange, editorState } = this.props;
-    onChange(insertVariable(editorState, value));
   };
 
   handleToggle = () => {
@@ -39,6 +31,11 @@ export default class VariablesTool extends Component {
     }));
   };
 
+  handleSelect = value => {
+    const { onSelect } = this.props;
+    onSelect(`$(${value})`, value);
+  };
+
   render() {
     const { children, variables, className } = this.props;
     const { opened } = this.state;
@@ -50,7 +47,7 @@ export default class VariablesTool extends Component {
           <VariablesDropdown
             className={className}
             variables={variables}
-            onClick={this.handleChange}
+            onClick={this.handleSelect}
             onHide={this.handleHide}
           />
         )}

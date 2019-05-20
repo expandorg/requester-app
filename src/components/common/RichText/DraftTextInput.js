@@ -17,42 +17,66 @@ import {
   suggestionsFilter,
   SuggestionsEntry,
 } from './suggest';
-import { getText, hasFocus, isEmpty, editorStateFromText } from './content';
+
+import {
+  getText,
+  hasFocus,
+  isEmpty,
+  editorStateFromText,
+  insertVariable,
+} from './content';
 
 import styles from './DraftTextInput.module.styl';
 
-// FIXME: class is uncotrolled
 export default class DraftTextInput extends Component {
   static propTypes = {
     value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     placeholder: PropTypes.string,
+    readOnly: PropTypes.bool,
     className: PropTypes.string,
     autocomplete: PropTypes.arrayOf(PropTypes.string),
     resotreEntities: PropTypes.func,
-    onChange: PropTypes.func.isRequired,
+    onChange: PropTypes.func,
+    onSelectVar: PropTypes.func,
   };
 
   static defaultProps = {
     value: undefined,
+    readOnly: false,
     autocomplete: [],
     resotreEntities: undefined,
     placeholder: undefined,
     className: undefined,
+    onChange: Function.prototype,
+    onSelectVar: null,
   };
 
   constructor(props) {
     super(props);
+
     this.mentionPlugin = createMentionPlugin(suggestionsOptions);
+
     this.state = {
       autocomplete: formatSuggestions(props.autocomplete),
+      value: props.value,
       editorState: editorStateFromText(props.value, props.resotreEntities),
     };
+  }
+
+  componentWillReceiveProps({ value, resotreEntities }) {
+    const { value: current } = this.state;
+    if (current !== value) {
+      this.setState({
+        value,
+        editorState: editorStateFromText(value, resotreEntities),
+      });
+    }
   }
 
   handleChange = editorState => {
     const { onChange } = this.props;
     const value = getText(editorState);
-    this.setState(() => ({ editorState }), () => onChange(value));
+    this.setState(() => ({ editorState, value }), () => onChange(value));
   };
 
   handleSearchChange = ({ value }) => {
@@ -62,19 +86,37 @@ export default class DraftTextInput extends Component {
     });
   };
 
+  handleSelectVar = (variable, value) => {
+    const { onSelectVar } = this.props;
+    if (onSelectVar) {
+      onSelectVar(variable, value);
+    } else {
+      const { editorState } = this.state;
+      this.handleChange(insertVariable(editorState, value));
+    }
+  };
+
   render() {
-    const { placeholder, className, autocomplete: allVars } = this.props;
+    const {
+      placeholder,
+      className,
+      readOnly,
+      autocomplete: allVars,
+    } = this.props;
+
     const { editorState, autocomplete } = this.state;
 
     const { MentionSuggestions } = this.mentionPlugin;
 
-    const focus = hasFocus(editorState);
+    const classes = cn(styles.container, className, {
+      [styles.focus]: hasFocus(editorState),
+    });
+
     return (
-      <div
-        className={cn(styles.container, className, { [styles.focus]: focus })}
-      >
+      <div className={classes}>
         <Editor
           className={styles.editor}
+          readOnly={readOnly}
           placeholder={placeholder}
           editorState={editorState}
           plugins={[this.mentionPlugin]}
@@ -94,8 +136,7 @@ export default class DraftTextInput extends Component {
         <VariablesTool
           className={styles.dropdown}
           variables={allVars}
-          editorState={editorState}
-          onChange={this.handleChange}
+          onSelect={this.handleSelectVar}
         >
           {({ onToggle }) => (
             <button className={styles.vars} onClick={onToggle}>

@@ -3,15 +3,6 @@
 import Form from './Form';
 import FormContainer from './FormContainer';
 import Spacer from './Spacer';
-import {
-  InputValueContextProvider,
-  withInputValueContext,
-} from './InputValueContext';
+import { ValueContextProvider, withValueContext } from './ValueContext';
 
-export {
-  FormContainer,
-  Form,
-  Spacer,
-  InputValueContextProvider,
-  withInputValueContext,
-};
+export { FormContainer, Form, Spacer, ValueContextProvider, withValueContext };

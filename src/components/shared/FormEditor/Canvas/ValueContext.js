@@ -1,9 +1,15 @@
 import React, { createContext, Component, forwardRef } from 'react';
 import PropTypes from 'prop-types';
 
-export const InputValueContext = createContext();
+export const ValueContext = createContext();
 
-export class InputValueContextProvider extends Component {
+const getInitialState = () => ({
+  isValueEditable: false,
+  moduleValue: undefined,
+  moduleValues: undefined,
+});
+
+export class ValueContextProvider extends Component {
   static propTypes = {
     selection: PropTypes.shape({}),
   };
@@ -16,8 +22,7 @@ export class InputValueContextProvider extends Component {
     super(props);
 
     this.state = {
-      isValueEditable: false,
-      moduleValue: undefined,
+      ...getInitialState(),
       selection: props.selection,
     };
   }
@@ -25,48 +30,55 @@ export class InputValueContextProvider extends Component {
   static getDerivedStateFromProps({ selection }, state) {
     if (selection !== state.selection) {
       return {
-        isValueEditable: false,
-        moduleValue: undefined,
+        ...getInitialState(),
         selection,
       };
     }
     return null;
   }
 
-  handleInputStart = () => {
+  handleInputStart = (moduleName, moduleValue) => {
     this.setState({
       isValueEditable: true,
-      moduleValue: undefined,
+      moduleValue,
+      moduleValues: { [moduleName]: moduleValue },
     });
   };
 
-  handleChange = (_, moduleValue) => {
-    this.setState({ moduleValue });
+  handleInputEnd = () => {
+    this.setState({ ...getInitialState() });
+  };
+
+  handleChange = (moduleName, moduleValue) => {
+    this.setState({
+      moduleValue,
+      moduleValues: { [moduleName]: moduleValue },
+    });
   };
 
   render() {
     const { children } = this.props;
-    const { isValueEditable, moduleValue } = this.state;
+    const { isValueEditable, moduleValue, moduleValues } = this.state;
 
     const ctx = {
       isValueEditable,
       moduleValue,
+      moduleValues,
       onChangeValue: this.handleChange,
       onStartInput: this.handleInputStart,
+      onEndInput: this.handleInputEnd,
     };
 
     return (
-      <InputValueContext.Provider value={ctx}>
-        {children}
-      </InputValueContext.Provider>
+      <ValueContext.Provider value={ctx}>{children}</ValueContext.Provider>
     );
   }
 }
 
-export const withInputValueContext = Wrapped =>
+export const withValueContext = Wrapped =>
   // eslint-disable-next-line react/no-multi-comp
   forwardRef((props, ref) => (
-    <InputValueContext.Consumer>
+    <ValueContext.Consumer>
       {ctx => <Wrapped {...props} {...ctx} forwardedRef={ref} />}
-    </InputValueContext.Consumer>
+    </ValueContext.Consumer>
   ));
