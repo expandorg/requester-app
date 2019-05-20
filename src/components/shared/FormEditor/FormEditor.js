@@ -145,6 +145,10 @@ export default class FormEditor extends Component {
     }));
   };
 
+  handleClearSelect = () => {
+    this.handleSelect(undefined);
+  };
+
   handleEdit = mod => {
     const { modules, selection } = this.state;
     this.setState({
@@ -194,7 +198,7 @@ export default class FormEditor extends Component {
                   modules={modules}
                   variables={variables}
                   onSave={this.handleEdit}
-                  onCancel={() => this.handleSelect(null)}
+                  onCancel={this.handleClearSelect}
                 />
                 <Form
                   ref={this.formRef}
@@ -215,15 +219,15 @@ export default class FormEditor extends Component {
                 variables={variables}
                 onEdit={this.handleEdit}
                 onValidate={this.validateModuleProps}
-                onCancel={() => this.handleSelect(null)}
+                onCancel={this.handleClearSelect}
               />
             </div>
-            <NotificationAnimated
-              className={styles.notifications}
-              notification={error}
-              onClear={this.handleClearError}
-            />
           </ValueContextProvider>
+          <NotificationAnimated
+            className={styles.notifications}
+            notification={error}
+            onClear={this.handleClearError}
+          />
         </div>
         <WalkthroughPin id="search" className={styles.serachPin} />
         <WalkthroughPin id="components" className={styles.componentsPin} />
