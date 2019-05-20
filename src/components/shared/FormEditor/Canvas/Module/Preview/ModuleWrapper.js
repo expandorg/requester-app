@@ -2,12 +2,28 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
 
+import { moduleProps } from '@expandorg/modules';
+
 import { ValueContext } from '../../ValueContext';
 import { treeEditor } from '../../../model/dnd';
 
 import styles from './ModuleWrapper.module.styl';
 
-export default function ModuleWrapper({ children, path, selected, onSelect }) {
+const overrideReadonly = module => {
+  if (module.readOnly) {
+    const { readOnly, ...rest } = module;
+    return rest;
+  }
+  return module;
+};
+
+export default function ModuleWrapper({
+  children,
+  path,
+  selected,
+  onSelect,
+  module,
+}) {
   /* eslint-disable jsx-a11y/no-static-element-interactions */
   /* eslint-disable jsx-a11y/click-events-have-key-events */
   return (
@@ -20,6 +36,7 @@ export default function ModuleWrapper({ children, path, selected, onSelect }) {
         return (
           <div className={cn(styles.inner, { [styles.dimmed]: dimmed })}>
             {children({
+              module: editable ? overrideReadonly(module) : module,
               values: editable ? moduleValues : undefined,
               onChange: editable ? onChangeValue : undefined,
             })}
@@ -33,6 +50,7 @@ export default function ModuleWrapper({ children, path, selected, onSelect }) {
 
 ModuleWrapper.propTypes = {
   path: PropTypes.arrayOf(PropTypes.number).isRequired,
+  module: moduleProps.isRequired,
   selected: PropTypes.string,
   onSelect: PropTypes.func.isRequired,
 };

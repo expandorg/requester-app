@@ -89,13 +89,14 @@ export default class Preview extends Component {
             <ModuleWrapper
               path={path}
               selected={selected}
+              module={module}
               onSelect={this.handleSelect}
             >
-              {({ values, onChange }) => (
+              {({ values, onChange, module: preview }) => (
                 <Module
                   isFormBuilder
                   isSubmitting={false}
-                  module={module}
+                  module={preview}
                   controls={controls}
                   values={values}
                   onChange={onChange}
