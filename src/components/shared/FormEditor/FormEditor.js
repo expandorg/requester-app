@@ -171,6 +171,7 @@ export default class FormEditor extends Component {
       <WalkthroughProvider settings={help}>
         <div className={styles.container}>
           <ValueContextProvider selection={selection}>
+            {/* {selection === Selection.empty && ( */}
             <div className={styles.left}>
               <Sidebar
                 moduleControls={availableModules}
@@ -179,6 +180,7 @@ export default class FormEditor extends Component {
                 onRemoveModule={this.handleRemove}
               />
             </div>
+            {/* )} */}
             <div className={styles.editor}>
               <FormContainer
                 modules={modules}
