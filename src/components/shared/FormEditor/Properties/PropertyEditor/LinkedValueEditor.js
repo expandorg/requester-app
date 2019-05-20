@@ -48,6 +48,10 @@ class LinkedValueEditor extends Component {
     }
   };
 
+  handleClear = () => {
+    this.handleSelectVar(undefined);
+  };
+
   handleStart = () => {
     const { value, onStartInput, moduleProperties } = this.props;
     onStartInput(moduleProperties.name, value);
@@ -73,15 +77,22 @@ class LinkedValueEditor extends Component {
 
     return (
       <div className={styles.container}>
-        <DraftTextInput
-          className={styles.input}
-          autocomplete={variables}
-          readOnly
-          value={stringifyValue(isValueEditable ? moduleValue : value)}
-          resotreEntities={restoreVariables}
-          placeholder={title}
-          onSelectVar={this.handleSelectVar}
-        />
+        <div className={styles.inner}>
+          <div className={styles.inputContainer}>
+            <DraftTextInput
+              className={styles.input}
+              autocomplete={variables}
+              readOnly
+              value={stringifyValue(isValueEditable ? moduleValue : value)}
+              resotreEntities={restoreVariables}
+              placeholder={title}
+              onSelectVar={this.handleSelectVar}
+            />
+          </div>
+          <button className={styles.clear} onClick={this.handleClear}>
+            ✕
+          </button>
+        </div>
         {!isValueEditable && (
           <div className={styles.actions}>
             <Button className={styles.button} onClick={this.handleStart}>
