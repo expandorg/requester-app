@@ -8,6 +8,8 @@ import { moduleProps } from '@expandorg/modules';
 
 import VisibilityLogic from './VisibilityLogic';
 
+import { ModuleLogic as ML } from '../model/logic';
+
 import styles from './LogicEditor.module.styl';
 
 const getUniqNames = modules => [...new Set(getFormModulesNames({ modules }))];
@@ -49,10 +51,28 @@ export default function LogicEditor({
         onChange={setModule}
       />
       <div className={styles.actions}>
-        <Button theme="grey" size="small" onClick={onCancel}>
+        <Button
+          className={styles.btn}
+          theme="link"
+          onClick={() => setModule(ML.clear(module))}
+          size="small"
+        >
+          Clear
+        </Button>
+        <Button
+          theme="grey"
+          className={styles.btn}
+          size="small"
+          onClick={onCancel}
+        >
           Cancel
         </Button>
-        <Button onClick={() => onSave(cleanup(module))} size="small">
+
+        <Button
+          className={styles.btn}
+          onClick={() => onSave(cleanup(module))}
+          size="small"
+        >
           Save
         </Button>
       </div>

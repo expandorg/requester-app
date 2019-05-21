@@ -31,6 +31,15 @@ export class ModuleLogic {
     };
   }
 
+  static clear(module: Module): Module {
+    if (!ModuleLogic.has(module)) {
+      return module;
+    }
+    const { logic: __, ...modified } = module;
+    // $FlowFixMe
+    return modified;
+  }
+
   static unset(module: Module, action: LogicAction): Module {
     if (!ModuleLogic.has(module)) {
       return module;
