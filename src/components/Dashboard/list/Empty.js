@@ -1,18 +1,12 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-import { Link } from 'react-router-dom';
-
+import NewTask from './NewTask';
 import styles from './Empty.module.styl';
 
-export default class Empty extends Component {
-  render() {
-    return (
-      <div className={styles.container}>
-        <Link to="/draft/create" className={styles.new}>
-          <div className={styles.plus}>+</div>
-          <div className={styles.create}>create your first task</div>
-        </Link>
-      </div>
-    );
-  }
+export default function Empty() {
+  return (
+    <div className={styles.container}>
+      <NewTask />
+    </div>
+  );
 }
