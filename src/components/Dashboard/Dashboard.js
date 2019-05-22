@@ -90,8 +90,8 @@ class Dashboard extends Component {
     const { items } = this.props;
     const isEmpty = items.length === 0;
     return (
-      <Page title="Dashboard">
-        <Navbar title="Dashboard" />
+      <Page title="Jobs">
+        <Navbar title="Jobs" />
         <Sidebar />
         <ListNav navs={links} />
         {isEmpty && <Empty />}

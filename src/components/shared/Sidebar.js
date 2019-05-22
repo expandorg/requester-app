@@ -23,7 +23,7 @@ export default class Sidebar extends Component {
     navigation: [
       {
         link: '/',
-        title: 'Dashboard',
+        title: 'Jobs',
         icon: DashboardIcon,
         isActive: (match, localtion) => {
           if (match && match.isExact) {

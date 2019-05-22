@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 const NotFound = () => (
   <div>
-    <Link to="/">Dashboard</Link>
+    <Link to="/">Jobs</Link>
   </div>
 );
 
