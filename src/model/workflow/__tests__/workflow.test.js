@@ -17,8 +17,6 @@ describe('TaskWorkflowBackend', () => {
         taskForm,
         onboarding: {
           enabled: false,
-          successMessage: 'test',
-          failureMessage: 'test',
           steps: [],
         },
       };
@@ -38,8 +36,6 @@ describe('TaskWorkflowBackend', () => {
         taskForm,
         onboarding: {
           enabled: true,
-          successMessage: '',
-          failureMessage: '',
           steps: [
             {
               form: form1,
@@ -82,8 +78,6 @@ describe('TaskWorkflowBackend', () => {
         taskForm,
         onboarding: {
           enabled: true,
-          successMessage: 'success',
-          failureMessage: 'failed',
           steps: [
             {
               isGroup: true,

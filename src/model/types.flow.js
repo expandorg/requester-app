@@ -47,8 +47,6 @@ export type Draft = {
 
   onboarding: {
     enabled: boolean,
-    successMessage: string,
-    failureMessage: string,
     steps: Array<DraftOnboardingStep>,
   },
   eligibility: {

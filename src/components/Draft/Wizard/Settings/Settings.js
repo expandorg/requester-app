@@ -24,7 +24,7 @@ const options = [
 ];
 
 const getInitialState = draft => {
-  const { funding, onboarding, verification } = draft;
+  const { funding, verification } = draft;
 
   return {
     name: draft.name || '',
@@ -32,8 +32,6 @@ const getInitialState = draft => {
     staking: !!funding.requirement,
     stake: `${funding.requirement || 0}`,
     callbackUrl: (draft && draft.callbackUrl) || '',
-    onboardingSuccessMessage: onboarding.successMessage || '',
-    onboardingFailureMessage: onboarding.failureMessage || '',
     verificationModule: verification.module || VerificationType.Requester,
     agreementCount: `${verification.agreementCount || ''}`,
   };
@@ -207,38 +205,6 @@ export default class Settings extends Component {
               placeholder="Callback Url"
               name="callbackUrl"
               value={settings.callbackUrl}
-              onChange={this.handleInputChange}
-            />
-          </Field>
-          <Field
-            tooltip={
-              <span>
-                Text to display to the worker when
-                <br /> the task is complete e.g. Congratulations!
-              </span>
-            }
-            className={styles.br}
-          >
-            <Input
-              placeholder="Onboarding Success Message"
-              name="onboardingSuccessMessage"
-              value={settings.onboardingSuccessMessage}
-              onChange={this.handleInputChange}
-            />
-          </Field>
-          <Field
-            tooltip={
-              <span>
-                Text to display to the worker when the task is not completed
-                <br />
-                successfully e.g. Oops!
-              </span>
-            }
-          >
-            <Input
-              placeholder="Onboarding Failure Message"
-              name="onboardingFailureMessage"
-              value={settings.onboardingFailureMessage}
               onChange={this.handleInputChange}
             />
           </Field>

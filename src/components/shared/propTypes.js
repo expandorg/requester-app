@@ -22,8 +22,6 @@ export const draftOnboardingStepProps = PropTypes.shape({
 
 export const draftOnboardingProps = PropTypes.shape({
   enabled: PropTypes.bool,
-  successMessage: PropTypes.string,
-  failureMessage: PropTypes.string,
   steps: PropTypes.arrayOf(draftOnboardingStepProps),
 });
 
