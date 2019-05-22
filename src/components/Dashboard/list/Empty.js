@@ -1,12 +1,13 @@
 import React from 'react';
 
-import NewTask from './NewTask';
+import NewJob from './NewJob';
+
 import styles from './Empty.module.styl';
 
 export default function Empty() {
   return (
     <div className={styles.container}>
-      <NewTask />
+      <NewJob />
     </div>
   );
 }

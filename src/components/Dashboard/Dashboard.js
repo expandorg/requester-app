@@ -17,7 +17,7 @@ import { authenticated } from '../shared/auth';
 import Page from '../shared/Page';
 
 import List from './list/List';
-import NewTask from './list/NewTask';
+import NewJob from './list/NewJob';
 import JobItem from './list/JobItem';
 import Empty from './list/Empty';
 
@@ -97,7 +97,7 @@ class Dashboard extends Component {
         {isEmpty && <Empty />}
         {!isEmpty && (
           <List className={styles.list}>
-            <NewTask />
+            <NewJob />
             {items.map(draft => (
               <JobItem
                 key={draft.key}
