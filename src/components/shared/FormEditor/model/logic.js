@@ -3,6 +3,7 @@ import type {
   Module,
   Expression,
   LogicAction,
+  Term,
 } from '@expandorg/modules/src/form/model/types.flow';
 
 type ModuleLogicMap = { [key: LogicAction]: ?Expression };
@@ -53,4 +54,36 @@ export class ModuleLogic {
     }
     return { ...module, logic };
   }
+
+  static cleanupTerm(term: Term): Term {
+    if (Array.isArray(term)) {
+      return term.map(t => ModuleLogic.cleanupTerm(t));
+    }
+    if (term === 'null') {
+      // $FlowFixMe
+      return null;
+    }
+    return term;
+  }
+
+  static cleanupExpr = (expr: Expression): Expression => {
+    if (!expr || !Array.isArray(expr)) {
+      return expr;
+    }
+    return expr
+      .filter(term => !(Array.isArray(term) && term.length === 0))
+      .map(term => ModuleLogic.cleanupTerm(term));
+  };
+
+  static cleanup = (module: Module): Module => {
+    if (!module.logic) {
+      return module;
+    }
+    const logic = Reflect.ownKeys(module.logic).reduce((updated, key) => {
+      // $FlowFixMe
+      updated[key] = ModuleLogic.cleanupExpr(module.logic[key]);
+      return updated;
+    }, {});
+    return { ...module, logic };
+  };
 }

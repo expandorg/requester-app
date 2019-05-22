@@ -9,7 +9,7 @@ function getValues(expr) {
   if (!expr.length) {
     return ['', '==', ''];
   }
-  return expr;
+  return expr.map(v => (v === null ? 'null' : v));
 }
 
 const ops = ['>', '<', '>=', '<=', '==', '!='];

@@ -14,24 +14,6 @@ import styles from './LogicEditor.module.styl';
 
 const getUniqNames = modules => [...new Set(getFormModulesNames({ modules }))];
 
-const cleanupExpr = expr => {
-  if (!expr || !Array.isArray(expr)) {
-    return expr;
-  }
-  return expr.filter(term => !Array.isArray(term) || term.length !== 0);
-};
-
-const cleanup = module => {
-  if (!module.logic) {
-    return module;
-  }
-  const logic = Reflect.ownKeys(module.logic).reduce((updated, key) => {
-    updated[key] = cleanupExpr(module.logic[key]);
-    return updated;
-  }, {});
-  return { ...module, logic };
-};
-
 export default function LogicEditor({
   module: original,
   modules,
@@ -70,7 +52,7 @@ export default function LogicEditor({
 
         <Button
           className={styles.btn}
-          onClick={() => onSave(cleanup(module))}
+          onClick={() => onSave(ML.cleanup(module))}
           size="small"
         >
           Save
