@@ -4,6 +4,7 @@ import cn from 'classnames';
 
 import { moduleProps, Module } from '@expandorg/modules';
 
+// eslint-disable-next-line import/no-cycle
 import Nested from './Nested';
 import Outer from './Preview/Outer';
 import Header from './Preview/Header';
