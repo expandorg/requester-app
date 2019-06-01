@@ -17,6 +17,8 @@ function useClientRect(dobounceInterval = 200) {
       resize.clear();
       window.removeEventListener('resize', resize);
     };
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return [ref, rect];
 }
