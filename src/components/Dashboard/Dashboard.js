@@ -93,7 +93,7 @@ class Dashboard extends Component {
       <Page title="Jobs">
         <Navbar title="Jobs" />
         <Sidebar />
-        <ListNav navs={links} />
+        <ListNav navs={links} theme="raised" className={styles.navs} />
         {isEmpty && <Empty />}
         {!isEmpty && (
           <List className={styles.list}>

@@ -2,15 +2,18 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
 
+import { clickOutside } from '@expandorg/components';
+
 import styles from './JobItemMenu.module.styl';
 
-export default class JobItemMenu extends Component {
+class JobItemMenu extends Component {
   static propTypes = {
     canCopy: PropTypes.bool,
     canDelete: PropTypes.bool,
     onHide: PropTypes.func.isRequired,
     onCopy: PropTypes.func.isRequired,
     onDelete: PropTypes.func.isRequired,
+    forwardedRef: PropTypes.object.isRequired, //eslint-disable-line
   };
 
   static defaultProps = {
@@ -27,6 +30,11 @@ export default class JobItemMenu extends Component {
     evt.preventDefault();
   };
 
+  handleClickOutside = () => {
+    const { onHide } = this.props;
+    onHide();
+  };
+
   handleDelete = evt => {
     const { onDelete, onHide, canDelete } = this.props;
     if (canDelete) {
@@ -37,10 +45,10 @@ export default class JobItemMenu extends Component {
   };
 
   render() {
-    const { canDelete, canCopy } = this.props;
+    const { canDelete, canCopy, forwardedRef } = this.props;
 
     return (
-      <div className={styles.container}>
+      <div className={styles.container} ref={forwardedRef}>
         <button
           onClick={this.handleCopy}
           className={cn(styles.button, { [styles.disabled]: !canCopy })}
@@ -59,3 +67,5 @@ export default class JobItemMenu extends Component {
     );
   }
 }
+
+export default clickOutside(JobItemMenu);
