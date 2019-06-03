@@ -63,16 +63,23 @@ export default class DraftWizard extends Component {
     const { active } = this.state;
 
     const nav = getNavState(draft);
+    const title = (draft && draft.name) || '';
 
     return (
       <Page
-        title="Create a task"
+        title={title}
         className={styles.content}
         sidebar={false}
         navbar={false}
         footer={false}
       >
-        <Navbar title="Create a task" top={false} logout={false}>
+        <Navbar
+          title={title}
+          top={false}
+          logout={false}
+          className={styles.navbar}
+          theme="dark"
+        >
           <Navigation onChange={this.handleChangeActive} active={active}>
             <NavItem {...nav.settings}>Settings</NavItem>
             <NavItem {...nav.data}>Data</NavItem>

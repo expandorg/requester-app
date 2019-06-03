@@ -66,12 +66,12 @@ export function* notificationsSagas(): any {
 
   yield takeEvery(
     draftsActionTypes.COPY_COMPLETE,
-    successMessage('Task copied!')
+    successMessage('Success! Duplicated job can be found in your drafts.')
   );
 
   yield takeEvery(
     draftsActionTypes.REMOVE_COMPLETE,
-    successMessage('Task successfully deleted!')
+    successMessage('Job successfully deleted!')
   );
 
   yield takeEvery(
