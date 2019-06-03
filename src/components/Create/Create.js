@@ -89,6 +89,11 @@ class Create extends Component {
     this.setState({ templateId });
   };
 
+  handleHide = () => {
+    const { history } = this.props;
+    history.goBack();
+  };
+
   render() {
     const { submitState, fetchTemplatesState, templates } = this.props;
     const { templateId } = this.state;
@@ -106,7 +111,7 @@ class Create extends Component {
               onSelect={this.handleSelect}
               onCreate={this.handleCreate}
               onPreview={Function.prototype}
-              onHide={Function.prototype}
+              onHide={this.handleHide}
             />
           </LoadIndicator>
         </div>
