@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 
 import {
   requestStateProps,
@@ -12,61 +11,64 @@ import {
   historyProps,
 } from '@expandorg/app-utils';
 
-import Navbar from '../shared/Navbar';
 import Page from '../shared/Page';
 
 import { authenticated } from '../shared/auth';
 
 import { LoadIndicator } from '../Draft/Wizard/Form';
 
-import TemplatesList from '../Draft/Wizard/Templates/TemplatesList';
+import Form from './Form';
 
 import { createDraft } from '../../sagas/draftsSagas';
-import { taskTemplatesListSelector } from '../../selectors/taskTemplatesSelectors';
+import { fetchTaskTemplates } from '../../sagas/tasksSagas';
+import { taskTemplatesSelector } from '../../selectors/taskTemplatesSelectors';
 import {
   createDraftStateSelector,
   fetchTemplatesStateSelector,
 } from '../../selectors/uiStateSelectors';
+import { taskTemplateProps } from '../shared/propTypes';
 
 import styles from './Create.module.styl';
 
 const mapsStateToProps = state => ({
   submitState: createDraftStateSelector(state),
-  templateIds: taskTemplatesListSelector(state),
+  templates: taskTemplatesSelector(state),
   fetchTemplatesState: fetchTemplatesStateSelector(state),
 });
-
-const mapDispatchToProps = dispatch =>
-  bindActionCreators({ createDraft }, dispatch);
 
 class Create extends Component {
   static propTypes = {
     history: historyProps.isRequired,
-    templateIds: PropTypes.arrayOf(PropTypes.string),
+    templates: PropTypes.arrayOf(taskTemplateProps),
+
     submitState: requestStateProps.isRequired,
     fetchTemplatesState: requestStateProps.isRequired,
+
     createDraft: PropTypes.func.isRequired,
+    fetchTaskTemplates: PropTypes.func.isRequired,
   };
 
   static defaultProps = {
-    templateIds: [],
+    templates: [],
   };
 
   constructor(props) {
     super(props);
 
     this.state = {
-      templateId: props.templateIds.length ? props.templateIds[0] : null,
+      templateId: props.templates.length ? props.templates[0].id : null,
     };
+  }
+
+  componentDidMount() {
+    this.props.fetchTaskTemplates();
   }
 
   handleFetched = () => {
     const { templateId } = this.state;
-    if (templateId === null) {
-      const { templateIds } = this.props;
-      if (templateIds.length) {
-        this.handleSelect(templateIds[0]);
-      }
+    const { templates } = this.props;
+    if (templateId === null && templates.length) {
+      this.handleSelect(templates[0].id);
     }
   };
 
@@ -78,10 +80,9 @@ class Create extends Component {
     }
   };
 
-  handleCreated = createState => {
+  handleCreated = ({ payload }) => {
     const { history } = this.props;
-    const { draft } = createState.payload.result;
-    history.replace(`/draft/${draft}`, { tab: 1 });
+    history.replace(`/draft/${payload.result.draft}`);
   };
 
   handleSelect = templateId => {
@@ -89,29 +90,23 @@ class Create extends Component {
   };
 
   render() {
-    const { submitState, fetchTemplatesState } = this.props;
+    const { submitState, fetchTemplatesState, templates } = this.props;
     const { templateId } = this.state;
-
+    const isLoading = submitState.state === RequestStates.Fetching;
     return (
-      <Page
-        title="New task"
-        className={styles.page}
-        sidebar={false}
-        navbar={false}
-        footer={false}
-      >
-        <Navbar title="New Task" top={false} logout={false} />
+      <Page title="New task" sidebar={false} navbar={false} footer={false}>
         <div className={styles.container}>
           <LoadIndicator
-            isLoading={submitState.state === RequestStates.Fetching}
+            isLoading={isLoading}
             message="Preparing your task, please wait..."
           >
-            <TemplatesList
-              title="What type of task do you want to build?"
-              nextTitle="Create"
+            <Form
+              templates={templates}
               selected={templateId}
               onSelect={this.handleSelect}
-              onNext={this.handleCreate}
+              onCreate={this.handleCreate}
+              onPreview={Function.prototype}
+              onHide={Function.prototype}
             />
           </LoadIndicator>
         </div>
@@ -131,7 +126,7 @@ export default withRouter(
   authenticated(
     connect(
       mapsStateToProps,
-      mapDispatchToProps
+      { createDraft, fetchTaskTemplates }
     )(Create)
   )
 );

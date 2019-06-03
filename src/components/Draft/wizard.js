@@ -3,13 +3,12 @@ import type { Draft } from '../../model/types.flow';
 import { DraftManager } from '../../model/draft';
 
 export const WizardSteps = {
-  Templates: 0,
-  Settings: 1,
-  Data: 2,
-  Forms: 3,
+  Settings: 0,
+  Data: 1,
+  Forms: 2,
   // Whitelist: 4,
-  Pay: 4,
-  Summary: 5,
+  Pay: 3,
+  Summary: 4,
 };
 
 const getTemplateStatus = (draft: ?Draft) => {

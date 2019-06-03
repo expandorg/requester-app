@@ -12,9 +12,7 @@ import { LoadIndicator } from './Wizard/Form';
 
 import Settings from './Wizard/Settings/SettingsContainer';
 import Data from './Wizard/Data/Data';
-import Templates from './Wizard/Templates/Templates';
 import CreateTask from './Wizard/Task/CreateTask';
-// import Whitelist from './Wizard/Whitelist/Whitelist';
 import Payments from './Wizard/Payments/Payments';
 
 import Summary from './Wizard/Summary/Summary';
@@ -76,7 +74,6 @@ export default class DraftWizard extends Component {
       >
         <Navbar title="Create a task" top={false} logout={false}>
           <Navigation onChange={this.handleChangeActive} active={active}>
-            <NavItem {...nav.templates}>Templates</NavItem>
             <NavItem {...nav.settings}>Settings</NavItem>
             <NavItem {...nav.data}>Data</NavItem>
             <NavItem {...nav.forms}>Forms</NavItem>
@@ -86,13 +83,6 @@ export default class DraftWizard extends Component {
         <LoadIndicator isLoading={isLoading}>
           {draft && (
             <div className={styles.container}>
-              {active === WizardSteps.Templates && (
-                <Templates
-                  draft={draft}
-                  onNext={this.handleNext}
-                  onBack={this.handleBack}
-                />
-              )}
               {active === WizardSteps.Settings && (
                 <Settings draft={draft} onNext={this.handleNext} />
               )}
@@ -110,13 +100,6 @@ export default class DraftWizard extends Component {
                   onBack={this.handleBack}
                 />
               )}
-              {/* {active === 4 && (
-                  <Whitelist
-                    draft={draft}
-                    onNext={this.handleNext}
-                    onBack={this.handleBack}
-                  />
-                )} */}
               {active === WizardSteps.Pay && (
                 <Payments
                   draft={draft}

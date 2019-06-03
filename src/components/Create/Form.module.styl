@@ -1,0 +1,82 @@
+@import '~@expandorg/uikit/colors';
+@import '~@expandorg/uikit/size';
+@import '~@expandorg/uikit/font';
+
+
+.container
+  box-sizing: border-box;
+  height 100vh
+  display flex
+
+.content
+  box-sizing: border-box;
+  flex-grow: 1
+
+  background-color: #F3F9FF
+
+  display: flex
+  flex-direction: column
+  justify-content: space-between
+
+.preview
+  box-sizing: border-box
+
+  padding: 16px 16px
+
+  flex-grow: 1
+  overflow-y: scroll
+  max-height: calc(100vh - 80px)
+
+.form
+  margin-top: 50px
+
+.panel
+  box-sizing: border-box
+  background-color: color-white
+  display: flex
+  justify-content: space-between
+  align-items: center
+
+  height 80px
+  padding: 0 20px
+
+.top
+  display flex
+  width 100%
+
+.warn
+  box-sizing: border-box
+  display: flex;
+  align-items: center;
+  justify-content: center
+
+  flex-grow: 1
+
+  font(h4-bold)
+
+  height 60px
+
+  color: color-text-yellow2
+  background-color: color-yellow
+
+  border-radius: 5px;
+  box-shadow: heavy-shadow
+
+.create
+  padding: 0 15px
+
+.close
+  box-sizing: border-box
+  width: 24
+  height: 24
+
+  margin-left: 20px
+  margin-right: 10px
+
+  font-size: 20px
+
+  background-color: transparent
+  color: color-text-dark
+
+  outline: none
+  cursor pointer

@@ -1,0 +1,48 @@
+@import '~@expandorg/uikit/colors';
+@import '~@expandorg/uikit/font';
+
+.container
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+
+  width: 100%
+
+  box-sizing: border-box;
+  height: 50px
+
+  padding: 0 10px 0 20px
+
+  font(body, false, false, normal)
+  text-align: left;
+
+  color: color-white;
+
+  background-color: transparent;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+
+  outline: none;
+  cursor: pointer;
+
+  &:hover
+    border-left-color color-primary-blue
+
+.selected
+  background-color: color-primary-blue
+  color: color-white
+
+.name
+  white-space: nowrap
+  overflow: hidden
+  text-overflow: ellipsis
+
+.checkmark
+  display: block;
+  width: 15px
+  min-width: 15px;
+  height: 15px
+
+  path
+    fill: color-white;

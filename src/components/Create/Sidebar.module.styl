@@ -1,0 +1,40 @@
+@import '~@expandorg/uikit/colors';
+@import '~@expandorg/uikit/font';
+@import '~@expandorg/uikit/size';
+
+.sidebar
+  background-color: color-blue-background
+  box-sizing: border-box;
+  width: 245px
+  min-width: 245px
+  height 100vh
+
+  display: flex;
+  flex-direction: column;
+
+.title
+  box-sizing: border-box;
+  height: 75px
+
+  font(h2-title, 500, false, 75px)
+  padding-left: 22px
+  color: color-white;
+
+.i
+  margin-left: 8px
+
+  &:hover
+    path
+      fill: color-text-heavy-blue
+
+.list
+  flex-grow: 1
+  position: relative;
+  overflow-y: scroll;
+
+.inner
+  position: absolute;
+  left: 0
+  right: 0
+  top: 0
+  bottom: 0
