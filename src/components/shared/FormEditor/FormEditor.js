@@ -119,13 +119,12 @@ export default class FormEditor extends Component {
   handleMoveAt = (dragPath, hoverPath, meta) => {
     const { modules } = this.state;
 
-    this.setState({
-      selection: Selection.empty,
-      modules:
-        dragPath.length === 0
-          ? treeEditor.insertAt(modules, hoverPath, scaffold(meta, true))
-          : treeEditor.moveAt(modules, dragPath, hoverPath),
-    });
+    const edited =
+      dragPath.length === 0
+        ? treeEditor.insertAt(modules, hoverPath, scaffold(meta, true))
+        : treeEditor.moveAt(modules, dragPath, hoverPath);
+
+    this.setState({ selection: Selection.empty, modules: edited });
   };
 
   handleEndDrag = path => {
@@ -151,7 +150,6 @@ export default class FormEditor extends Component {
 
   handleEdit = mod => {
     const { modules, selection } = this.state;
-    console.log(mod);
 
     this.setState({
       selection: Selection.empty,
