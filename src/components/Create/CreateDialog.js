@@ -11,10 +11,7 @@ import {
   historyProps,
 } from '@expandorg/app-utils';
 
-import Page from '../shared/Page';
-
-import { authenticated } from '../shared/auth';
-
+import { Dialog } from '@expandorg/components';
 import { LoadIndicator } from '../Draft/Wizard/Form';
 
 import Form from './Form';
@@ -28,7 +25,7 @@ import {
 } from '../../selectors/uiStateSelectors';
 import { taskTemplateProps } from '../shared/propTypes';
 
-import styles from './Create.module.styl';
+import styles from './CreateDialog.module.styl';
 
 const mapsStateToProps = state => ({
   submitState: createDraftStateSelector(state),
@@ -36,7 +33,7 @@ const mapsStateToProps = state => ({
   fetchTemplatesState: fetchTemplatesStateSelector(state),
 });
 
-class Create extends Component {
+class CreateDialog extends Component {
   static propTypes = {
     history: historyProps.isRequired,
     templates: PropTypes.arrayOf(taskTemplateProps),
@@ -44,6 +41,7 @@ class Create extends Component {
     submitState: requestStateProps.isRequired,
     fetchTemplatesState: requestStateProps.isRequired,
 
+    onToogle: PropTypes.func.isRequired,
     createDraft: PropTypes.func.isRequired,
     fetchTaskTemplates: PropTypes.func.isRequired,
   };
@@ -90,16 +88,23 @@ class Create extends Component {
   };
 
   handleHide = () => {
-    const { history } = this.props;
-    history.goBack();
+    const { onToogle } = this.props;
+    onToogle(false);
   };
 
   render() {
     const { submitState, fetchTemplatesState, templates } = this.props;
     const { templateId } = this.state;
     const isLoading = submitState.state === RequestStates.Fetching;
+
     return (
-      <Page title="New task" sidebar={false} navbar={false} footer={false}>
+      <Dialog
+        visible
+        onHide={this.handleHide}
+        modalClass={styles.modal}
+        contentLabel="create-dialog"
+        hideButton
+      >
         <div className={styles.container}>
           <LoadIndicator
             isLoading={isLoading}
@@ -123,15 +128,13 @@ class Create extends Component {
           submitState={fetchTemplatesState}
           onComplete={this.handleFetched}
         />
-      </Page>
+      </Dialog>
     );
   }
 }
 export default withRouter(
-  authenticated(
-    connect(
-      mapsStateToProps,
-      { createDraft, fetchTaskTemplates }
-    )(Create)
-  )
+  connect(
+    mapsStateToProps,
+    { createDraft, fetchTaskTemplates }
+  )(CreateDialog)
 );

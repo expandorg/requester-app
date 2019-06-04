@@ -17,7 +17,6 @@ import Choice from './components/Choice/Choice';
 import Login from './components/Auth/Login';
 import Signup from './components/Auth/Signup';
 
-import Create from './components/Create/Create';
 import Draft from './components/Draft/Draft';
 
 import JobStats from './components/JobStats/JobStats';
@@ -49,8 +48,6 @@ const App = () => (
             <Route path="/signup" component={Signup} />
 
             <Route path="/tasks/:category" component={Dashboard} />
-
-            <Route path="/draft/create" component={Create} />
 
             <Route path="/draft/:id" component={Draft} />
             <Route path="/job/:id" component={JobStats} />
