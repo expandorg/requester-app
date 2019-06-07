@@ -95,7 +95,7 @@ export default class Preview extends Component {
             >
               {({ values, onChange, module: preview }) => (
                 <Module
-                  isFormBuilder
+                  isModulePreview
                   isSubmitting={false}
                   module={preview}
                   controls={controls}

@@ -32,7 +32,6 @@ export default function ModuleWrapper({
         const isSelected = treeEditor.getIdByPath(path) === selected;
         const editable = isSelected && isValueEditable;
         const dimmed = selected !== null && !isSelected;
-
         return (
           <div className={cn(styles.inner, { [styles.dimmed]: dimmed })}>
             {children({
