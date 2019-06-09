@@ -10,7 +10,7 @@ export default class Toggle extends Component {
   static propTypes = {
     className: PropTypes.string,
     value: PropTypes.bool,
-    tooltip: PropTypes.string,
+    tooltip: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
     label: PropTypes.string,
     name: PropTypes.string,
     onChange: PropTypes.func.isRequired,

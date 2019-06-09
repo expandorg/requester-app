@@ -14,7 +14,7 @@ class EmptyPlugin {
 }
 
 const entry = {
-  portal: ['@babel/polyfill', './index'],
+  portal: ['core-js/stable', 'regenerator-runtime/runtime', './index'],
 };
 
 const babelPlugins = [
@@ -72,7 +72,8 @@ export default (env = {}) => {
                 '@babel/preset-env',
                 {
                   modules: false,
-                  useBuiltIns: 'entry',
+                  useBuiltIns: 'usage',
+                  corejs: 3,
                 },
               ],
               '@babel/preset-flow',

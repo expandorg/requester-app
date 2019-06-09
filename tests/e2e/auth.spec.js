@@ -29,7 +29,7 @@ describe('Signup', () => {
     await signup.waitSubmit();
 
     const title = await page.$eval('.gem-navbar-title', el => el.textContent);
-    expect(title).toBe('Dashboard');
+    expect(title).toBe('Jobs');
   }, 20000);
 });
 
