@@ -1,22 +1,23 @@
-import React, { Component, createRef } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import { formProps } from '@expandorg/modules';
-import { deepCopyModule, getModuleControlsMap } from '@expandorg/modules/model';
+import { getModuleControlsMap } from '@expandorg/modules/model';
 import {
   NotificationAnimated,
   WalkthroughProvider,
   WalkthroughPin,
 } from '@expandorg/components/app';
 
-import { Form, FormContainer, Spacer, ValueContextProvider } from './Canvas';
+import { Form, FormContainer, Spacer } from './Canvas';
 import { PropertiesPanel } from './Properties';
 import Sidebar from './Sidebar';
 import { LogicPanel } from './Logic';
 
-import { treeEditor } from './model/dnd';
+import FormTreeEditor from './FormTreeEditor';
+
 import Selection from './model/Selection';
-import { scaffold, getUniqId, availableModules } from './model/modules';
+import { availableModules } from './model/modules';
 import { validateModuleProps } from './model/validation';
 import help from './model/help';
 
@@ -42,10 +43,6 @@ export default class FormEditor extends Component {
 
   constructor(props) {
     super(props);
-
-    this.previewTab = null;
-
-    this.formRef = createRef();
 
     this.state = {
       selection: Selection.empty,
@@ -84,60 +81,6 @@ export default class FormEditor extends Component {
     }
   };
 
-  handleAdd = (meta, scroll) => {
-    const { modules } = this.state;
-    this.setState({
-      modules: treeEditor.push(modules, scaffold(meta)),
-    });
-
-    if (scroll) {
-      this.formRef.current.decoratedRef.current.scrollBottom();
-    }
-  };
-
-  handleRemove = path => {
-    if (path.length) {
-      this.setState(({ modules }) => ({
-        selection: Selection.empty,
-        modules: treeEditor.removeAt(modules, path),
-      }));
-    }
-  };
-
-  handleCopyModule = (path, module) => {
-    const { modules } = this.state;
-    this.setState({
-      selection: Selection.empty,
-      modules: treeEditor.insertAt(
-        modules,
-        path,
-        deepCopyModule(module, getUniqId)
-      ),
-    });
-  };
-
-  handleMoveAt = (dragPath, hoverPath, meta) => {
-    const { modules } = this.state;
-
-    const edited =
-      dragPath.length === 0
-        ? treeEditor.insertAt(modules, hoverPath, scaffold(meta, true))
-        : treeEditor.moveAt(modules, dragPath, hoverPath);
-
-    this.setState({ selection: Selection.empty, modules: edited });
-  };
-
-  handleEndDrag = path => {
-    const { modules } = this.state;
-    this.setState({
-      modules: treeEditor.modifyAt(modules, path, item => {
-        if (item !== undefined) {
-          item.isDragging = undefined;
-        }
-      }),
-    });
-  };
-
   handleSelect = (path, type) => {
     this.setState(({ selection }) => ({
       selection: Selection.select(path, selection, type),
@@ -148,13 +91,8 @@ export default class FormEditor extends Component {
     this.handleSelect(undefined);
   };
 
-  handleEdit = mod => {
-    const { modules, selection } = this.state;
-
-    this.setState({
-      selection: Selection.empty,
-      modules: treeEditor.replaceAt(modules, selection.path, mod),
-    });
+  handleChange = (modules, selection) => {
+    this.setState({ modules, selection });
   };
 
   handleClearError = () => {
@@ -173,62 +111,74 @@ export default class FormEditor extends Component {
 
     return (
       <WalkthroughProvider settings={help}>
-        <div className={styles.container}>
-          <ValueContextProvider selection={selection}>
-            {/* {selection === Selection.empty && ( */}
-            <div className={styles.left}>
-              <Sidebar
-                moduleControls={availableModules}
-                onEndDrag={this.handleEndDrag}
-                onAddModule={this.handleAdd}
-                onRemoveModule={this.handleRemove}
-              />
-            </div>
-            {/* )} */}
-            <div className={styles.editor}>
-              <FormContainer
-                modules={modules}
-                title={title}
-                varsSample={varsSample}
-                onSave={this.handleSave}
-                onCancel={onHide}
-              >
-                <LogicPanel
-                  module={selection.find(modules, 'logic')}
+        <FormTreeEditor
+          modules={modules}
+          selection={selection}
+          onChange={this.handleChange}
+        >
+          {({
+            onAdd,
+            onRemove,
+            onEdit,
+            onCopy,
+            onEndDrag,
+            onMove,
+            formRef,
+          }) => (
+            <div className={styles.container}>
+              <div className={styles.left}>
+                <Sidebar
+                  moduleControls={availableModules}
+                  onEndDrag={onEndDrag}
+                  onAddModule={onAdd}
+                  onRemoveModule={onRemove}
+                />
+              </div>
+              <div className={styles.editor}>
+                <FormContainer
                   modules={modules}
+                  title={title}
+                  varsSample={varsSample}
+                  onSave={this.handleSave}
+                  onCancel={onHide}
+                >
+                  <LogicPanel
+                    module={selection.find(modules, 'logic')}
+                    modules={modules}
+                    variables={variables}
+                    onSave={onEdit}
+                    onCancel={this.handleClearSelect}
+                  />
+                  <Form
+                    ref={formRef}
+                    modules={modules}
+                    selected={selection.getId('edit')}
+                    controls={controls}
+                    onAdd={onAdd}
+                    onMove={onMove}
+                    onRemove={onRemove}
+                    onSelect={this.handleSelect}
+                    onCopy={onCopy}
+                  />
+                  <Spacer visible={selection.isType('edit')} />
+                </FormContainer>
+                <PropertiesPanel
+                  module={selection.find(modules, 'edit')}
+                  controls={controls}
                   variables={variables}
-                  onSave={this.handleEdit}
+                  onEdit={onEdit}
+                  onValidate={this.validateModuleProps}
                   onCancel={this.handleClearSelect}
                 />
-                <Form
-                  ref={this.formRef}
-                  modules={modules}
-                  selected={selection.getId('edit')}
-                  controls={controls}
-                  onAdd={this.handleAdd}
-                  onMove={this.handleMoveAt}
-                  onRemove={this.handleRemove}
-                  onSelect={this.handleSelect}
-                  onCopy={this.handleCopyModule}
-                />
-                <Spacer visible={selection.isType('edit')} />
-              </FormContainer>
-              <PropertiesPanel
-                module={selection.find(modules, 'edit')}
-                controls={controls}
-                variables={variables}
-                onEdit={this.handleEdit}
-                onValidate={this.validateModuleProps}
-                onCancel={this.handleClearSelect}
+              </div>
+              <NotificationAnimated
+                className={styles.notifications}
+                notification={error}
+                onClear={this.handleClearError}
               />
             </div>
-          </ValueContextProvider>
-          <NotificationAnimated
-            className={styles.notifications}
-            notification={error}
-            onClear={this.handleClearError}
-          />
-        </div>
+          )}
+        </FormTreeEditor>
         <WalkthroughPin id="search" className={styles.serachPin} />
         <WalkthroughPin id="components" className={styles.componentsPin} />
       </WalkthroughProvider>
