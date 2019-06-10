@@ -1,10 +1,9 @@
-import React, { Component, createRef } from 'react';
+import { Component, createRef } from 'react';
 import PropTypes from 'prop-types';
 
 import { moduleProps } from '@expandorg/modules';
 import { deepCopyModule } from '@expandorg/modules/model';
 
-import { ValueContextProvider } from './Canvas';
 import Selection from './model/Selection';
 
 import { scaffold, getUniqId } from './model/modules';
@@ -77,20 +76,16 @@ export default class FormTreeEditor extends Component {
   };
 
   render() {
-    const { children, selection } = this.props;
+    const { children } = this.props;
 
-    return (
-      <ValueContextProvider selection={selection}>
-        {children({
-          onAdd: this.handleAdd,
-          onEndDrag: this.handleEndDrag,
-          onRemove: this.handleRemove,
-          onEdit: this.handleEdit,
-          onCopy: this.handleCopy,
-          onMove: this.handleMove,
-          formRef: this.formRef,
-        })}
-      </ValueContextProvider>
-    );
+    return children({
+      onAdd: this.handleAdd,
+      onEndDrag: this.handleEndDrag,
+      onRemove: this.handleRemove,
+      onEdit: this.handleEdit,
+      onCopy: this.handleCopy,
+      onMove: this.handleMove,
+      formRef: this.formRef,
+    });
   }
 }
