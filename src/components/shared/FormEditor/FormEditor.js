@@ -18,7 +18,6 @@ export default function FormEditor({
   onHide,
   variables,
   varsSample,
-  title,
   validateForm,
   onSave: onSaveForm,
 }) {
@@ -28,66 +27,50 @@ export default function FormEditor({
       validateForm={validateForm}
       onSave={onSaveForm}
     >
-      {({
-        modules,
-        selection,
-        controls,
-        onSave,
-        onSelect,
-        onDeselect,
-        onAdd,
-        onRemove,
-        onEdit,
-        onCopy,
-        onEndDrag,
-        onMove,
-        onValidateModule,
-        formRef,
-      }) => (
+      {p => (
         <FormLayout>
           <Left>
             <Sidebar
               moduleControls={availableModules}
-              onEndDrag={onEndDrag}
-              onAddModule={onAdd}
-              onRemoveModule={onRemove}
+              onEndDrag={p.onEndDrag}
+              onAddModule={p.onAdd}
+              onRemoveModule={p.onRemove}
             />
           </Left>
           <Content>
             <FormContainer
-              modules={modules}
-              title={title}
+              modules={p.modules}
               varsSample={varsSample}
-              onSave={onSave}
+              onSave={p.onSave}
               onCancel={onHide}
             >
               <LogicPanel
-                module={selection.find(modules, 'logic')}
-                modules={modules}
+                module={p.selection.find(p.modules, 'logic')}
+                modules={p.modules}
                 variables={variables}
-                onSave={onEdit}
-                onCancel={onDeselect}
+                onSave={p.onEdit}
+                onCancel={p.onDeselect}
               />
               <Form
-                ref={formRef}
-                modules={modules}
-                selected={selection.getId('edit')}
-                controls={controls}
-                onAdd={onAdd}
-                onMove={onMove}
-                onRemove={onRemove}
-                onSelect={onSelect}
-                onCopy={onCopy}
+                ref={p.formRef}
+                modules={p.modules}
+                selected={p.selection.getId('edit')}
+                controls={p.controls}
+                onAdd={p.onAdd}
+                onMove={p.onMove}
+                onRemove={p.onRemove}
+                onSelect={p.onSelect}
+                onCopy={p.onCopy}
               />
-              <Spacer visible={selection.isType('edit')} />
+              <Spacer visible={p.selection.isType('edit')} />
             </FormContainer>
             <PropertiesPanel
-              module={selection.find(modules, 'edit')}
-              controls={controls}
+              module={p.selection.find(p.modules, 'edit')}
+              controls={p.controls}
               variables={variables}
-              onEdit={onEdit}
-              onValidate={onValidateModule}
-              onCancel={onDeselect}
+              onEdit={p.onEdit}
+              onValidate={p.onValidateModule}
+              onCancel={p.onDeselect}
             />
           </Content>
         </FormLayout>
@@ -98,9 +81,8 @@ export default function FormEditor({
 
 FormEditor.propTypes = {
   form: formProps,
-  title: PropTypes.string,
   variables: PropTypes.arrayOf(PropTypes.string),
-    varsSample: PropTypes.object, // eslint-disable-line
+  varsSample: PropTypes.object, // eslint-disable-line
   validateForm: PropTypes.func.isRequired,
   onSave: PropTypes.func.isRequired,
   onHide: PropTypes.func.isRequired,
@@ -109,6 +91,5 @@ FormEditor.propTypes = {
 FormEditor.defaultProps = {
   form: null,
   variables: [],
-  title: 'Task',
   varsSample: null,
 };

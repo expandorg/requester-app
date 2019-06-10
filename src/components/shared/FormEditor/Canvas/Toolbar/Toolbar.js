@@ -13,13 +13,7 @@ import PreviewCtx from './PreviewCtx';
 
 import styles from './Toolbar.module.styl';
 
-export default function Toolbar({
-  modules,
-  title,
-  onCancel,
-  onSave,
-  varsSample,
-}) {
+export default function Toolbar({ modules, onCancel, onSave, varsSample }) {
   return (
     <div className={styles.actions}>
       <div className={styles.previewContainer}>
@@ -37,7 +31,6 @@ export default function Toolbar({
         </PreviewCtx>
         <WalkthroughPin id="preview" className={styles.previewPin} />
       </div>
-      <div className={styles.title}>Edit {title} Module</div>
       <div className={styles.buttons}>
         <ToggleWalkthrough>
           {({ onToggle, enabled }) => (
@@ -63,7 +56,6 @@ export default function Toolbar({
 }
 Toolbar.propTypes = {
   modules: PropTypes.arrayOf(moduleProps).isRequired,
-  title: PropTypes.string.isRequired,
     varsSample: PropTypes.object, // eslint-disable-line
   onSave: PropTypes.func.isRequired,
   onCancel: PropTypes.func.isRequired,

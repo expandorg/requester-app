@@ -9,7 +9,6 @@ import styles from './FormContainer.module.styl';
 
 export default function FormContainer({
   modules,
-  title,
   children,
   onCancel,
   varsSample,
@@ -22,7 +21,6 @@ export default function FormContainer({
         modules={modules}
         onSave={onSave}
         onCancel={onCancel}
-        title={title}
         varsSample={varsSample}
       />
     </div>
@@ -31,7 +29,6 @@ export default function FormContainer({
 
 FormContainer.propTypes = {
   modules: PropTypes.arrayOf(moduleProps).isRequired,
-  title: PropTypes.string.isRequired,
   varsSample: PropTypes.object, // eslint-disable-line
   onSave: PropTypes.func.isRequired,
   onCancel: PropTypes.func.isRequired,
