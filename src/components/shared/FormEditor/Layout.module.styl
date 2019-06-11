@@ -1,23 +1,50 @@
 @import '~@expandorg/uikit/colors';
 
 .container
-  display: flex;
+  box-sizing: border-box;
   position: relative;
 
-  box-sizing: border-box;
-
+  display: flex;
   justify-content: flex-start;
-  height: 100%;
+  align-items: stretch
 
 .sidebar
+  box-sizing: border-box
+  background-color: color-blue-background;
   width: 240px;
   min-width: 240px;
-
-  height: 100%;
 
 .content
   flex-grow: 1
   background-color: color-light-blue;
+  display: flex
+  flex-direction: column
+
+.canvas
+  position: relative;
+  box-sizing: border-box;
+  flex-grow: 1
+
+  display: flex
+  overflow-y: auto
+
+
+.bottombar
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  box-sizing: border-box;
+
+  padding: 0 20px
+
+  height: 70px
+  min-height: 70px
+
+  background-color: color-white
+
+  box-shadow: light-shadow
+
 
 .serachPin
   top: 35px

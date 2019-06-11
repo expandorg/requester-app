@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import cn from 'classnames';
 
 import { DropTarget } from 'react-dnd';
 
@@ -15,21 +16,26 @@ import Category from './Category';
 
 import { availableTarget, FORM_DND_ID } from '../model/dnd';
 
-import styles from './Sidebar.module.styl';
+import styles from './ModulePicker.module.styl';
 
 // FIXME: temproary disable https://github.com/gemsorg/requester-portal/issues/81
 const exclude = ['progress', 'upload'];
 
 const isEmpty = categores => categores.every(c => !c.modules.length);
 
-class Sidebar extends Component {
+class ModulePicker extends Component {
   static propTypes = {
+    className: PropTypes.string,
     onEndDrag: PropTypes.func.isRequired,
     moduleControls: PropTypes.arrayOf(PropTypes.func).isRequired,
     onAddModule: PropTypes.func.isRequired,
     onRemoveModule: PropTypes.func.isRequired, // eslint-disable-line
 
     connectDropTarget: PropTypes.func.isRequired,
+  };
+
+  static defaultProps = {
+    className: null,
   };
 
   constructor(props) {
@@ -67,13 +73,16 @@ class Sidebar extends Component {
   };
 
   render() {
-    const { onEndDrag, connectDropTarget } = this.props;
+    const { onEndDrag, connectDropTarget, className } = this.props;
     const { preview, categories, search } = this.state;
 
     /* eslint-disable jsx-a11y/click-events-have-key-events */
     /* eslint-disable jsx-a11y/no-static-element-interactions */
     return (
-      <ClientRectContainer className={styles.container} ref={this.container}>
+      <ClientRectContainer
+        className={cn(styles.container, className)}
+        ref={this.container}
+      >
         {({ rect }) => (
           <>
             <Search onSearch={this.handleSearch} />
@@ -110,4 +119,4 @@ class Sidebar extends Component {
 
 export default DropTarget(FORM_DND_ID, availableTarget, connect => ({
   connectDropTarget: connect.dropTarget(),
-}))(Sidebar);
+}))(ModulePicker);

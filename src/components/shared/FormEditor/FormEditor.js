@@ -2,16 +2,21 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { formProps } from '@expandorg/modules';
+import { WalkthroughPin } from '@expandorg/components/app';
 
-import { Form, FormContainer, Spacer } from './Canvas';
+import { Form } from './Canvas';
+import Toolbar from './Toolbar/Toolbar';
 import { PropertiesPanel } from './Properties';
-import Sidebar from './Sidebar';
+import ModulePicker from './ModulePicker';
 import { LogicPanel } from './Logic';
 
 import FormEditorContainer from './FormEditorContainer';
-import { FormLayout, Left, Content } from './Layout';
+import { FormLayout, Sidebar, Content, Canvas } from './Layout';
 
 import { availableModules } from './model/modules';
+import help from './model/help';
+
+import styles from './FormEditor.module.styl';
 
 export default function FormEditor({
   form,
@@ -28,22 +33,17 @@ export default function FormEditor({
       onSave={onSaveForm}
     >
       {p => (
-        <FormLayout>
-          <Left>
-            <Sidebar
+        <FormLayout className={styles.container} walkthrough={help}>
+          <Sidebar className={styles.sidebar}>
+            <ModulePicker
               moduleControls={availableModules}
               onEndDrag={p.onEndDrag}
               onAddModule={p.onAdd}
               onRemoveModule={p.onRemove}
             />
-          </Left>
-          <Content>
-            <FormContainer
-              modules={p.modules}
-              varsSample={varsSample}
-              onSave={p.onSave}
-              onCancel={onHide}
-            >
+          </Sidebar>
+          <Content className={styles.content}>
+            <Canvas>
               <LogicPanel
                 module={p.selection.find(p.modules, 'logic')}
                 modules={p.modules}
@@ -62,17 +62,24 @@ export default function FormEditor({
                 onSelect={p.onSelect}
                 onCopy={p.onCopy}
               />
-              <Spacer visible={p.selection.isType('edit')} />
-            </FormContainer>
-            <PropertiesPanel
-              module={p.selection.find(p.modules, 'edit')}
-              controls={p.controls}
-              variables={variables}
-              onEdit={p.onEdit}
-              onValidate={p.onValidateModule}
-              onCancel={p.onDeselect}
+            </Canvas>
+            <Toolbar
+              modules={p.modules}
+              onSave={p.onSave}
+              onCancel={onHide}
+              varsSample={varsSample}
             />
           </Content>
+          <PropertiesPanel
+            module={p.selection.find(p.modules, 'edit')}
+            controls={p.controls}
+            variables={variables}
+            onEdit={p.onEdit}
+            onValidate={p.onValidateModule}
+            onCancel={p.onDeselect}
+          />
+          <WalkthroughPin id="search" className={styles.serachPin} />
+          <WalkthroughPin id="components" className={styles.componentsPin} />
         </FormLayout>
       )}
     </FormEditorContainer>

@@ -1,22 +1,56 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-import { WalkthroughProvider, WalkthroughPin } from '@expandorg/components/app';
-import help from './model/help';
+import cn from 'classnames';
+
+import { WalkthroughProvider } from '@expandorg/components/app';
 
 import styles from './Layout.module.styl';
 
-export const FormLayout = ({ children }) => (
-  <WalkthroughProvider settings={help}>
-    <div className={styles.container}>{children}</div>
-    <WalkthroughPin id="search" className={styles.serachPin} />
-    <WalkthroughPin id="components" className={styles.componentsPin} />
+export const FormLayout = ({ children, className, walkthrough }) => (
+  <WalkthroughProvider settings={walkthrough}>
+    <div className={cn(styles.container, className)}>{children}</div>
   </WalkthroughProvider>
 );
 
-export const Left = ({ children }) => (
-  <div className={styles.sidebar}>{children}</div>
+FormLayout.propTypes = {
+  walkthrough: PropTypes.shape({}),
+  className: PropTypes.string,
+};
+
+FormLayout.defaultProps = {
+  walkthrough: null,
+  className: null,
+};
+
+export const Sidebar = ({ children, className }) => (
+  <div className={cn(styles.sidebar, className)}>{children}</div>
 );
 
-export const Content = ({ children }) => (
-  <div className={styles.content}>{children}</div>
+Sidebar.propTypes = {
+  className: PropTypes.string,
+};
+
+Sidebar.defaultProps = {
+  className: null,
+};
+
+export const Content = ({ children, className }) => (
+  <div className={cn(styles.content, className)}>{children}</div>
+);
+
+Content.propTypes = {
+  className: PropTypes.string,
+};
+
+Content.defaultProps = {
+  className: null,
+};
+
+export const Canvas = ({ children }) => (
+  <div className={styles.canvas}>{children}</div>
+);
+
+export const Bottombar = ({ children }) => (
+  <div className={styles.bottombar}>{children}</div>
 );

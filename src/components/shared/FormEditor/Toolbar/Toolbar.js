@@ -12,10 +12,11 @@ import { WalkthroughPin, ToggleWalkthrough } from '@expandorg/components/app';
 import PreviewCtx from './PreviewCtx';
 
 import styles from './Toolbar.module.styl';
+import { Bottombar } from '../Layout';
 
 export default function Toolbar({ modules, onCancel, onSave, varsSample }) {
   return (
-    <div className={styles.actions}>
+    <Bottombar>
       <div className={styles.previewContainer}>
         <PreviewCtx modules={modules} variables={varsSample}>
           {({ onPreview }) => (
@@ -51,12 +52,12 @@ export default function Toolbar({ modules, onCancel, onSave, varsSample }) {
           Save
         </Button>
       </div>
-    </div>
+    </Bottombar>
   );
 }
 Toolbar.propTypes = {
   modules: PropTypes.arrayOf(moduleProps).isRequired,
-    varsSample: PropTypes.object, // eslint-disable-line
+  varsSample: PropTypes.object, // eslint-disable-line
   onSave: PropTypes.func.isRequired,
   onCancel: PropTypes.func.isRequired,
 };

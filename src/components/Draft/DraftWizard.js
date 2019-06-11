@@ -10,8 +10,9 @@ import { draftProps } from '../shared/propTypes';
 import { Navigation, NavItem } from './Wizard/Navigation';
 import { LoadIndicator } from './Wizard/Form';
 
-import Settings from './Wizard/Settings/SettingsContainer';
+// import Settings from './Wizard/Settings/SettingsContainer';
 import Data from './Wizard/Data/Data';
+import JobForms from './Wizard/JobForms/JobForms';
 import CreateTask from './Wizard/Task/CreateTask';
 import Payments from './Wizard/Payments/Payments';
 
@@ -81,17 +82,18 @@ export default class DraftWizard extends Component {
           theme="dark"
         >
           <Navigation onChange={this.handleChangeActive} active={active}>
-            <NavItem {...nav.settings}>Settings</NavItem>
+            <NavItem {...nav.settings}>Create Job</NavItem>
             <NavItem {...nav.data}>Data</NavItem>
-            <NavItem {...nav.forms}>Forms</NavItem>
+            <NavItem {...nav.forms}>Create Job</NavItem>
             <NavItem {...nav.pay}>Pay</NavItem>
           </Navigation>
         </Navbar>
         <LoadIndicator isLoading={isLoading}>
           {draft && (
-            <div className={styles.container}>
+            <>
+              {/* <Settings draft={draft} onNext={this.handleNext} /> */}
               {active === WizardSteps.Settings && (
-                <Settings draft={draft} onNext={this.handleNext} />
+                <JobForms draft={draft} onNext={this.handleNext} />
               )}
               {active === WizardSteps.Data && (
                 <Data
@@ -121,7 +123,7 @@ export default class DraftWizard extends Component {
                   onStep={this.handleStep}
                 />
               )}
-            </div>
+            </>
           )}
         </LoadIndicator>
       </Page>
