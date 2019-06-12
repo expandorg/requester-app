@@ -7,7 +7,7 @@ import { getDefaultRuleMessage } from '@expandorg/modules/model';
 import styles from './FieldValidation.module.styl';
 
 const labels = {
-  isRequired: 'Is required',
+  isRequired: 'Required',
   isEmail: 'Should be valid email address',
   isTrue: 'Should be checked',
   isNumber: 'Should be a number',
