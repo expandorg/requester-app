@@ -31,8 +31,6 @@ export default function Toolbar({ modules, onSave, varsSample }) {
           )}
         </PreviewCtx>
         <WalkthroughPin id="preview" className={styles.previewPin} />
-      </div>
-      <div className={styles.buttons}>
         <ToggleWalkthrough>
           {({ onToggle, enabled }) => (
             <button
@@ -45,8 +43,10 @@ export default function Toolbar({ modules, onSave, varsSample }) {
           )}
         </ToggleWalkthrough>
         <WalkthroughPin id="toggle" className={styles.togglePin} />
+      </div>
+      <div className={styles.buttons}>
         <Button className={styles.btn} onClick={onSave}>
-          Save
+          Next
         </Button>
       </div>
     </Bottombar>

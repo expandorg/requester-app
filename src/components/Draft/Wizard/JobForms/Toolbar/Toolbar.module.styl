@@ -7,28 +7,16 @@
   height: 40px
   width: 130px
 
-  margin-left: 20px
+  margin-right: 20px
 
-  &:first-child
-    margin-left: 0
+  &:last-child
+    margin-right: 0
 
 .buttons
+.previewContainer
   display: flex;
   align-items: center
-
   position: relative
-
-
-.previewContainer
-  position: relative
-
-.previewPin
-.togglePin
-  top: -62px
-  left: 0
-
-.previewPin
-  left: calc(50% - 20px)
 
 
 .toggle
@@ -53,3 +41,12 @@
 
   path
     fill: color-white
+
+
+.previewPin
+  top: -60px
+  left: 60px
+
+.togglePin
+  top: -60px
+  left: 175px
