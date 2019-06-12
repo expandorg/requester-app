@@ -14,7 +14,7 @@ import PreviewCtx from './PreviewCtx';
 import styles from './Toolbar.module.styl';
 import { Bottombar } from '../../../../shared/FormEditor/Layout';
 
-export default function Toolbar({ modules, onCancel, onSave, varsSample }) {
+export default function Toolbar({ modules, onSave, varsSample }) {
   return (
     <Bottombar>
       <div className={styles.previewContainer}>
@@ -45,9 +45,6 @@ export default function Toolbar({ modules, onCancel, onSave, varsSample }) {
           )}
         </ToggleWalkthrough>
         <WalkthroughPin id="toggle" className={styles.togglePin} />
-        <Button theme="grey" className={styles.btn} onClick={onCancel}>
-          Cancel
-        </Button>
         <Button className={styles.btn} onClick={onSave}>
           Save
         </Button>
@@ -59,7 +56,6 @@ Toolbar.propTypes = {
   modules: PropTypes.arrayOf(moduleProps).isRequired,
   varsSample: PropTypes.object, // eslint-disable-line
   onSave: PropTypes.func.isRequired,
-  onCancel: PropTypes.func.isRequired,
 };
 
 Toolbar.defaultProps = {

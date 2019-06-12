@@ -28,19 +28,11 @@ export default class JobForms extends Component {
   static propTypes = {
     draft: draftProps.isRequired,
     onNext: PropTypes.func.isRequired,
-    onBack: PropTypes.func.isRequired,
   };
 
   handleSubmit = () => {
     const { onNext } = this.props;
     onNext();
-  };
-
-  handleBack = evt => {
-    const { onBack } = this.props;
-    onBack();
-
-    evt.preventDefault();
   };
 
   render() {
@@ -76,12 +68,7 @@ export default class JobForms extends Component {
                   onCopy={p.onCopy}
                 />
               </Canvas>
-              <Toolbar
-                modules={p.modules}
-                onSave={p.onSave}
-                onCancel={Function.prototype}
-                varsSample={{}}
-              />
+              <Toolbar modules={p.modules} onSave={p.onSave} varsSample={{}} />
             </Content>
             <PropertiesPanel
               module={p.selection.find(p.modules, 'edit')}

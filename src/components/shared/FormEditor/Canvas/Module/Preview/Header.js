@@ -12,9 +12,6 @@ import { moduleProps } from '@expandorg/modules';
 import styles from './Header.module.styl';
 
 const isVisible = module => {
-  if (!module.logic) {
-    return true;
-  }
   return !module.logic.show;
 };
 
@@ -25,7 +22,7 @@ export default function Header({ module, onSelect }) {
     <div className={styles.container} onClick={onSelect}>
       <div className={styles.name}>{module.name}</div>
       <div className={styles.icons}>
-        {isVisible(module) ? <Visible /> : <Invisible />}
+        {module.logic && (isVisible(module) ? <Visible /> : <Invisible />)}
         {hasLinks(module) && <Links />}
       </div>
     </div>
