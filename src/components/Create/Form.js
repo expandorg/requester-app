@@ -23,10 +23,8 @@ export default function Form({
       <div className={styles.content}>
         <div className={styles.preview}>
           <div className={styles.top}>
-            <div className={styles.warn}>This is just a preview.</div>
-            <button className={styles.close} onClick={onHide}>
-              ✕
-            </button>
+            First things first, choose a template for your task. This templates
+            are just for previews only.
           </div>
           <FormPreview
             readOnly
@@ -36,11 +34,16 @@ export default function Form({
         </div>
         <div className={styles.panel}>
           <Button onClick={onPreview} theme="aqua">
-            Preview
+            Full Preview
           </Button>
-          <Button onClick={onCreate} className={styles.create}>
-            use this template
-          </Button>
+          <div>
+            <Button onClick={onHide} theme="secondary" className={styles.hide}>
+              Close
+            </Button>
+            <Button onClick={onCreate} className={styles.create}>
+              use this template
+            </Button>
+          </div>
         </div>
       </div>
     </div>

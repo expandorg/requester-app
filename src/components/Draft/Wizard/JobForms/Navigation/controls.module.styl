@@ -1,0 +1,95 @@
+@import '~@expandorg/uikit/colors';
+@import '~@expandorg/uikit/font';
+
+.menu
+  margin-left: 24px
+
+  display flex
+
+.item
+  box-sizing: border-box
+
+  height: 40px
+  min-width 130px
+
+  text-align: center
+  font(h4-bold, false, false, 38px)
+  padding: 0 20px
+
+  color: color-black
+  border: 1px solid color-heavy-blue
+  border-right-color: transparent
+
+  cursor pointer
+
+  &:hover
+    background-color: color-white
+
+  &:first-child
+    border-top-left-radius: 20px
+    border-bottom-left-radius: 20px
+
+  &:last-child
+    border-top-right-radius: 20px
+    border-bottom-right-radius: 20px
+    border-right-color: color-heavy-blue
+
+.selected
+  background-color: color-white
+
+.add
+  box-sizing: border-box
+  width: 40px
+  height: 40px
+
+  font(body, false, 25px, 38px)
+  color: color-primary-blue
+  background-color: color-white
+
+  border: 1px solid color-heavy-blue
+  border-radius: 20px
+
+
+  outline: 0
+  cursor pointer
+
+.contextMenu
+  position: absolute
+  box-sizing: border-box
+
+  left: 0
+  top: calc(100% + 20px)
+
+  max-height: 300px
+  overflow-y: auto
+
+  background-color: color-white
+  box-shadow: heavy-shadow
+  z-index: 2
+
+.contextMenuItem
+  width: 170px
+  height: 46px
+
+  padding: 0 25px
+  box-sizing: border-box
+
+  transition: background-color 0.4s cubic-bezier(.27,1.27,.48,.56);
+
+  color: color-text-dark
+  font(body, false, false, 46px)
+  text-align: left
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  border: 0
+
+  outline: 0
+  cursor pointer
+
+  &:hover
+    background-color: color-medium-blue;
+
+

@@ -111,10 +111,11 @@ export default (env = {}) => {
               options: {
                 sourceMap: true,
                 importLoaders: 2,
-                modules: true,
-                localIdentName: dev
-                  ? '[local]__[path][name]__[hash:base64:5]'
-                  : '[hash:base64:5]',
+                modules: {
+                  localIdentName: dev
+                    ? '[local]__[path][name]__[hash:base64:5]'
+                    : '[hash:base64:5]',
+                },
               },
             },
             'postcss-loader?sourceMap',
