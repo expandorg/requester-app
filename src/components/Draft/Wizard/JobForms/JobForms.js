@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import Navigation from './Navigation/Navigation';
+import Steps from './Steps/Steps';
 
 import { draftProps } from '../../../shared/propTypes';
 
@@ -39,7 +39,7 @@ export default class JobForms extends Component {
         varsSample={{}}
         validateForm={Function.prototype}
       >
-        <Navigation
+        <Steps
           selection={selection}
           draft={draft}
           onSelect={this.handleSelect}

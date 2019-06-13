@@ -9,7 +9,9 @@ import Add from './Add';
 import { Navs, NavItem } from './controls';
 import { FormSelection } from '../forms';
 
-export default function Navigation({ draft, selection, onSelect }) {
+import VerificationStep from './VerificationStep';
+
+export default function Steps({ draft, selection, onSelect }) {
   return (
     <Topbar>
       <Add onAddTemplate={Function.prototype} />
@@ -20,27 +22,25 @@ export default function Navigation({ draft, selection, onSelect }) {
             onClick={() => onSelect(FormSelection.onboarding(index))}
             selected={selection.isOnboardingStep(index)}
           >
-            {step.name}
+            {step.name} →
           </NavItem>
         ))}
         <NavItem
           selected={selection === FormSelection.task}
           onClick={() => onSelect(FormSelection.task)}
         >
-          Task
+          Task →
         </NavItem>
-        <NavItem
+        <VerificationStep
+          onSelect={onSelect}
           selected={selection === FormSelection.verification}
-          onClick={() => onSelect(FormSelection.verification)}
-        >
-          Verification
-        </NavItem>
+        />
       </Navs>
     </Topbar>
   );
 }
 
-Navigation.propTypes = {
+Steps.propTypes = {
   draft: draftProps.isRequired,
   selection: PropTypes.instanceOf(FormSelection).isRequired,
   onSelect: PropTypes.func.isRequired,

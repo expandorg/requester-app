@@ -5,23 +5,10 @@ import PropTypes from 'prop-types';
 import cn from 'classnames';
 
 import { useClickOutside } from '@expandorg/components';
+
+import { ReactComponent as SettingsIcon } from './settings.svg';
+
 import styles from './controls.module.styl';
-
-export function AddButton({ onClick }) {
-  return (
-    <button className={styles.add} onClick={onClick}>
-      +
-    </button>
-  );
-}
-
-AddButton.propTypes = {
-  onClick: PropTypes.func,
-};
-
-AddButton.defaultProps = {
-  onClick: Function.prototype,
-};
 
 export function Navs({ children }) {
   return <div className={styles.menu}>{children}</div>;
@@ -32,7 +19,7 @@ export function NavItem({ children, selected, onClick }) {
 
   return (
     <div className={classes} onClick={onClick}>
-      {children} →
+      {children}
     </div>
   );
 }
@@ -84,3 +71,14 @@ ContextMenuItem.defaultProps = {
   onClick: Function.prototype,
   className: null,
 };
+
+export function Settings() {
+  return (
+    <SettingsIcon
+      className={styles.settingsIcon}
+      width="12"
+      height="12"
+      viewBox="0 0 20 20"
+    />
+  );
+}
