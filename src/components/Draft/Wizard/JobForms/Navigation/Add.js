@@ -16,7 +16,9 @@ export default function Add({ onAddTemplate }) {
 
   const [opened, setOpened] = useState(false);
 
-  useEffect(() => dispatch(fetchFormTemplates()), [dispatch]);
+  useEffect(() => {
+    dispatch(fetchFormTemplates());
+  }, [dispatch]);
 
   return (
     <div className={styles.container}>

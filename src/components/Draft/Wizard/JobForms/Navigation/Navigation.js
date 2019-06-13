@@ -14,7 +14,7 @@ export default function Navigation({ draft }) {
 
   return (
     <Topbar>
-      <Add />
+      <Add onAddTemplate={Function.prototype} />
       <Navs>
         {onb.map(s => (
           <NavItem key={s}>{s}</NavItem>
