@@ -12,13 +12,14 @@ import {
 } from '../../../shared/FormEditor/Layout';
 
 import ModulePicker from '../../../shared/FormEditor/ModulePicker';
-
+import { LogicPanel } from '../../../shared/FormEditor/Logic';
 import { Form } from '../../../shared/FormEditor/Canvas';
 import { PropertiesPanel } from '../../../shared/FormEditor/Properties';
 import { availableModules } from '../../../shared/FormEditor/model/modules';
 import help from '../../../shared/FormEditor/model/help';
 
 import Toolbar from './Toolbar/Toolbar';
+import Navigation from './Navigation/Navigation';
 
 import { draftProps } from '../../../shared/propTypes';
 
@@ -55,7 +56,15 @@ export default class JobForms extends Component {
               />
             </Sidebar>
             <Content>
+              <Navigation draft={draft} />
               <Canvas>
+                <LogicPanel
+                  module={p.selection.find(p.modules, 'logic')}
+                  modules={p.modules}
+                  variables={[]}
+                  onSave={p.onEdit}
+                  onCancel={p.onDeselect}
+                />
                 <Form
                   ref={p.formRef}
                   modules={p.modules}

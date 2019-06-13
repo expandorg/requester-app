@@ -51,6 +51,10 @@ export const Canvas = ({ children }) => (
   <div className={styles.canvas}>{children}</div>
 );
 
+export const Topbar = ({ children }) => (
+  <div className={styles.topbar}>{children}</div>
+);
+
 export const Bottombar = ({ children }) => (
   <div className={styles.bottombar}>{children}</div>
 );
