@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import { Topbar } from '../../../../shared/FormEditor/Layout';
 import { draftProps } from '../../../../shared/propTypes';
@@ -6,21 +7,34 @@ import { draftProps } from '../../../../shared/propTypes';
 import Add from './Add';
 
 import { Navs, NavItem } from './controls';
+import { FormSelection } from '../forms';
 
-const onb = ['Welcome', 'Instructions', 'NDA', 'Quiz', 'Task'];
-
-export default function Navigation({ draft }) {
-  console.log(draft);
-
+export default function Navigation({ draft, selection, onSelect }) {
   return (
     <Topbar>
       <Add onAddTemplate={Function.prototype} />
       <Navs>
-        {onb.map(s => (
-          <NavItem key={s}>{s}</NavItem>
+        {draft.onboarding.steps.map((step, index) => (
+          <NavItem
+            key={step.id}
+            onClick={() => onSelect(FormSelection.onboarding(index))}
+            selected={selection.isOnboardingStep(index)}
+          >
+            {step.name}
+          </NavItem>
         ))}
-        <NavItem selected>Task</NavItem>
-        <NavItem>Verification</NavItem>
+        <NavItem
+          selected={selection === FormSelection.task}
+          onClick={() => onSelect(FormSelection.task)}
+        >
+          Task
+        </NavItem>
+        <NavItem
+          selected={selection === FormSelection.verification}
+          onClick={() => onSelect(FormSelection.verification)}
+        >
+          Verification
+        </NavItem>
       </Navs>
     </Topbar>
   );
@@ -28,4 +42,6 @@ export default function Navigation({ draft }) {
 
 Navigation.propTypes = {
   draft: draftProps.isRequired,
+  selection: PropTypes.instanceOf(FormSelection).isRequired,
+  onSelect: PropTypes.func.isRequired,
 };

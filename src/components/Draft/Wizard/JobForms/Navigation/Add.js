@@ -11,14 +11,19 @@ import { fetchFormTemplates } from '../../../../../sagas/formTemplateSagas';
 import styles from './Add.module.styl';
 
 export default function Add({ onAddTemplate }) {
-  const templates = useSelector(formTemplatesSelector);
   const dispatch = useDispatch();
 
+  const templates = useSelector(formTemplatesSelector);
   const [opened, setOpened] = useState(false);
 
   useEffect(() => {
     dispatch(fetchFormTemplates());
   }, [dispatch]);
+
+  const getOnClick = id => () => {
+    onAddTemplate(id);
+    setOpened(false);
+  };
 
   return (
     <div className={styles.container}>
@@ -26,7 +31,7 @@ export default function Add({ onAddTemplate }) {
       {opened && (
         <ContextMenu onHide={() => setOpened(false)}>
           {templates.map(t => (
-            <ContextMenuItem key={t.id} onClick={() => onAddTemplate(t.id)}>
+            <ContextMenuItem key={t.id} onClick={getOnClick(t.id)}>
               {t.name}
             </ContextMenuItem>
           ))}

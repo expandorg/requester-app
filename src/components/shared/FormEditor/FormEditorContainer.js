@@ -39,12 +39,13 @@ export default class FormEditorContainer extends Component {
     };
   }
 
-  static getDerviedStateFromProps({ form }, state) {
+  static getDerivedStateFromProps({ form }, state) {
     if (state.prev !== form) {
       return {
         selection: Selection.empty,
         prev: form,
         modules: form ? form.modules : [],
+        error: null,
       };
     }
     return null;

@@ -28,7 +28,7 @@ class ModulePicker extends Component {
     className: PropTypes.string,
     onEndDrag: PropTypes.func.isRequired,
     moduleControls: PropTypes.arrayOf(PropTypes.func).isRequired,
-    onAddModule: PropTypes.func.isRequired,
+    onAdd: PropTypes.func.isRequired,
     onRemoveModule: PropTypes.func.isRequired, // eslint-disable-line
 
     connectDropTarget: PropTypes.func.isRequired,
@@ -60,9 +60,9 @@ class ModulePicker extends Component {
   };
 
   handleAdd = meta => {
-    const { onAddModule } = this.props;
+    const { onAdd } = this.props;
     this.setState({ preview: null });
-    onAddModule(meta, true);
+    onAdd(meta, true);
   };
 
   handleScroll = () => {

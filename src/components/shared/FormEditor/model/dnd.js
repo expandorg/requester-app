@@ -33,11 +33,11 @@ export const dropAreaTarget = {
     const { meta, path } = monitor.getItem();
     return !!meta && path.length === 0;
   },
-  drop: ({ onAddModule }, monitor) => {
+  drop: ({ onAdd }, monitor) => {
     if (!monitor.didDrop()) {
       const { path, meta } = monitor.getItem();
       if (path.length === 0) {
-        onAddModule(meta);
+        onAdd(meta);
       }
     }
   },

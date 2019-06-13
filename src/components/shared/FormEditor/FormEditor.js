@@ -38,7 +38,7 @@ export default function FormEditor({
             <ModulePicker
               moduleControls={availableModules}
               onEndDrag={p.onEndDrag}
-              onAddModule={p.onAdd}
+              onAdd={p.onAdd}
               onRemoveModule={p.onRemove}
             />
           </Sidebar>
