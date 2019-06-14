@@ -18,6 +18,7 @@ import { Form } from '../../../shared/FormEditor/Canvas';
 import { PropertiesPanel } from '../../../shared/FormEditor/Properties';
 import { availableModules } from '../../../shared/FormEditor/model/modules';
 import help from '../../../shared/FormEditor/model/help';
+import Selection from '../../../shared/FormEditor/model/Selection';
 
 import Toolbar from './Toolbar/Toolbar';
 
@@ -55,7 +56,7 @@ export default class Editor extends Component {
       >
         {p => (
           <FormLayout className={styles.container} walkthrough={help}>
-            <Sidebar>
+            <Sidebar hidden={p.selection !== Selection.empty}>
               <ModulePicker
                 moduleControls={availableModules}
                 onEndDrag={p.onEndDrag}

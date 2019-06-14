@@ -1,16 +1,19 @@
 import React, { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
 
 import { useSelector, useDispatch } from 'react-redux';
 
-import { ContextMenu, ContextMenuItem } from './controls';
+import { ContextMenu, ContextMenuItem } from '../controls';
 
-import { formTemplatesSelector } from '../../../../../selectors/formTemplatesSelectors';
-import { fetchFormTemplates } from '../../../../../sagas/formTemplateSagas';
+import { draftProps } from '../../../../../shared/propTypes';
+import { formTemplatesSelector } from '../../../../../../selectors/formTemplatesSelectors';
+import { fetchFormTemplates } from '../../../../../../sagas/formTemplateSagas';
+import { updateOnboarding } from '../../../../../../sagas/draftsSagas';
+
+import { DraftManager } from '../../../../../../model/draft';
 
 import styles from './Add.module.styl';
 
-export default function Add({ onAddTemplate }) {
+export default function Add({ draft }) {
   const dispatch = useDispatch();
 
   const templates = useSelector(formTemplatesSelector);
@@ -20,8 +23,9 @@ export default function Add({ onAddTemplate }) {
     dispatch(fetchFormTemplates());
   }, [dispatch]);
 
-  const getOnClick = id => () => {
-    onAddTemplate(id);
+  const add = template => {
+    const onboarding = DraftManager.addOnboardingStep(draft, template);
+    dispatch(updateOnboarding(draft.id, onboarding));
     setOpened(false);
   };
 
@@ -33,7 +37,7 @@ export default function Add({ onAddTemplate }) {
       {opened && (
         <ContextMenu onHide={() => setOpened(false)}>
           {templates.map(template => (
-            <ContextMenuItem key={template.id} onClick={getOnClick(template)}>
+            <ContextMenuItem key={template.id} onClick={() => add(template)}>
               {template.name}
             </ContextMenuItem>
           ))}
@@ -44,5 +48,5 @@ export default function Add({ onAddTemplate }) {
 }
 
 Add.propTypes = {
-  onAddTemplate: PropTypes.func.isRequired,
+  draft: draftProps.isRequired,
 };

@@ -23,16 +23,21 @@ FormLayout.defaultProps = {
   className: null,
 };
 
-export const Sidebar = ({ children, className }) => (
-  <div className={cn(styles.sidebar, className)}>{children}</div>
-);
+export const Sidebar = ({ children, className, hidden }) => {
+  if (hidden) {
+    return null;
+  }
+  return <div className={cn(styles.sidebar, className)}>{children}</div>;
+};
 
 Sidebar.propTypes = {
   className: PropTypes.string,
+  hidden: PropTypes.bool,
 };
 
 Sidebar.defaultProps = {
   className: null,
+  hidden: false,
 };
 
 export const Content = ({ children, className }) => (

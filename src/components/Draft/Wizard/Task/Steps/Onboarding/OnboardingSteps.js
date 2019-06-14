@@ -12,7 +12,7 @@ import OnboardingGroupDialog from '../OnboardingGroup/OnboardingGroupDialog';
 import { validationFormProps } from '../../../../../shared/FormEditor/model/validation';
 
 import { draftOnboardingProps } from '../../../../../shared/propTypes';
-import { getOnboardingStepFromTemplate } from '../../../../../../model/draft';
+import { DraftManager } from '../../../../../../model/draft';
 
 export default class OnboardingSteps extends Component {
   static propTypes = {
@@ -72,7 +72,7 @@ export default class OnboardingSteps extends Component {
     const { onUpdateOnboarding, onboarding } = this.props;
     const { steps: prev } = this.state;
 
-    const step = getOnboardingStepFromTemplate(template);
+    const step = DraftManager.onboardingStepFromTemplate(template);
     const steps = [step, ...prev];
 
     this.setState({ steps });

@@ -35,7 +35,7 @@ export class DraftManager {
   }
 
   static isVerificationFormReviewed(draft: Draft) {
-    if (!DraftManager.shouldUseVerificationForm(draft)) {
+    if (!DraftManager.hasVerificationForm(draft)) {
       return true;
     }
     return !!draft.verificationReviewed;
@@ -52,9 +52,31 @@ export class DraftManager {
     return true;
   };
 
-  static shouldUseVerificationForm = ({ verification }: Draft) =>
+  static hasVerificationForm = ({ verification }: Draft) =>
     verification.module === VerificationType.Requester ||
     verification.module === VerificationType.AuditWhitelist;
+
+  static onboardingStepFromTemplate = (
+    template: DraftOnboardingGroupTemplate
+  ): DraftOnboardingStep => ({
+    id: nanoid(),
+    name: template.name,
+    isGroup: template.isGroup,
+    scoreThreshold: template.scoreThreshold,
+    retries: template.retries,
+    failureMessage: template.failureMessage,
+    data: template.data,
+    form: template.taskForm,
+  });
+
+  static addOnboardingStep(
+    draft: Draft,
+    template: DraftOnboardingGroupTemplate
+  ) {
+    const step = DraftManager.onboardingStepFromTemplate(template);
+    const steps = [...(draft.onboarding.steps || []), step];
+    return { ...draft.onboarding, enabled: steps.length > 0, steps };
+  }
 }
 
 export const settingsRules = {
@@ -73,22 +95,3 @@ export const onboardingGroupSettingsRules = {
   scoreThreshold: [[rules.isNumber, 'Should be a positive number'], ge(0)],
   failureMessage: [[rules.isRequired, 'Failure Message is required']],
 };
-
-export const getOnboardingStepFromTemplate = ({
-  name,
-  taskForm,
-  isGroup,
-  scoreThreshold,
-  retries,
-  failureMessage,
-  data,
-}: DraftOnboardingGroupTemplate): DraftOnboardingStep => ({
-  id: nanoid(),
-  name,
-  isGroup,
-  scoreThreshold,
-  retries,
-  failureMessage,
-  data,
-  form: taskForm,
-});

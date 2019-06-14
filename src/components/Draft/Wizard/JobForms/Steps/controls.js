@@ -72,13 +72,15 @@ ContextMenuItem.defaultProps = {
   className: null,
 };
 
-export function Settings() {
+export function SettingsButton(props) {
   return (
-    <SettingsIcon
-      className={styles.settingsIcon}
-      width="12"
-      height="12"
-      viewBox="0 0 20 20"
-    />
+    <button {...props} className={styles.settingsButton}>
+      <SettingsIcon
+        className={styles.settingsIcon}
+        width="14"
+        height="14"
+        viewBox="0 0 20 20"
+      />
+    </button>
   );
 }

@@ -99,7 +99,7 @@ class Steps extends Component {
             validateForm={validationTaskFormProps}
             onUpdate={this.handleUpdateTask}
           />
-          {DraftManager.shouldUseVerificationForm(draft) && (
+          {DraftManager.hasVerificationForm(draft) && (
             <FormEditorToggle
               form={draft.verificationForm}
               checked={DraftManager.isVerificationFormReviewed(draft)}
