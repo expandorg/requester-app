@@ -10,14 +10,14 @@ export class FormSelection {
   static task: FormSelection = new FormSelection('task');
   static verification: FormSelection = new FormSelection('verification');
 
-  static onboarding(step: number): FormSelection {
+  static onboarding(step: string): FormSelection {
     return new FormSelection('onboarding', step);
   }
 
   type: FormSelectionType;
-  step: number;
+  step: ?string;
 
-  constructor(type: FormSelectionType, step?: number = 0) {
+  constructor(type: FormSelectionType, step: ?string = null) {
     this.type = type;
     this.step = step;
   }
@@ -26,7 +26,7 @@ export class FormSelection {
     return this.type === 'onboarding';
   }
 
-  isOnboardingStep(step: number): boolean {
+  isOnboardingStep(step: string): boolean {
     return this.isOnboarding() && this.step === step;
   }
 
@@ -37,7 +37,11 @@ export class FormSelection {
       case 'verification':
         return draft.verificationForm;
       case 'onboarding': {
-        return draft.onboarding.steps[this.step].form;
+        const selected =
+          draft.onboarding && draft.onboarding.steps
+            ? draft.onboarding.steps.find(s => s.id === this.step)
+            : null;
+        return selected ? selected.form : null;
       }
       default:
         break;

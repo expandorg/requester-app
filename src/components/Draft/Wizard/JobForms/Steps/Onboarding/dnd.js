@@ -1,4 +1,15 @@
+import immer from 'immer';
+
 const type = 'STEPS_DND_ID';
+
+export const replace = (collection, dragIndex, hoverIndex) => {
+  const dragged = collection[dragIndex];
+  const hovered = collection[hoverIndex];
+  return immer(collection, d => {
+    d[dragIndex] = hovered;
+    d[hoverIndex] = dragged;
+  });
+};
 
 export const source = (index, onEndDrag) => ({
   item: {

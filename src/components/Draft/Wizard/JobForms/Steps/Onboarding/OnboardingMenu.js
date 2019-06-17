@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
-import immer from 'immer';
 
 import { useDispatch } from 'react-redux';
 
@@ -10,6 +9,8 @@ import { FormSelection } from '../../forms';
 
 import MenuItem from './MenuItem';
 import { DraftManager } from '../../../../../../model/draft';
+
+import { replace } from './dnd';
 
 const getSteps = draft => (draft.onboarding && draft.onboarding.steps) || [];
 
@@ -22,26 +23,19 @@ export default function OnboardingMenu({ draft, selection, onSelect }) {
     setSteps(getSteps(draft));
   }, [draft]);
 
-  const remove = index => {
-    dispatch(
-      updateOnboarding(
-        draft.id,
-        DraftManager.removeOnboardingStep(draft.onboarding, steps, index)
-      )
-    );
-  };
+  const remove = useCallback(
+    id => {
+      if (selection.isOnboardingStep(id)) {
+        onSelect(FormSelection.task);
+      }
+      const onboarding = DraftManager.removeOnboardingStep(draft, id);
+      dispatch(updateOnboarding(draft.id, onboarding));
+    },
+    [dispatch, draft, onSelect, selection]
+  );
 
   const move = useCallback(
-    (dragIndex, hoverIndex) => {
-      const dragged = steps[dragIndex];
-      const hovered = steps[hoverIndex];
-      setSteps(
-        immer(steps, d => {
-          d[dragIndex] = hovered;
-          d[hoverIndex] = dragged;
-        })
-      );
-    },
+    (dragIndex, hoverIndex) => setSteps(replace(steps, dragIndex, hoverIndex)),
     [steps]
   );
 
@@ -56,8 +50,8 @@ export default function OnboardingMenu({ draft, selection, onSelect }) {
           key={step.id}
           index={index}
           step={step}
-          selected={selection.isOnboardingStep(index)}
-          onSelect={() => onSelect(FormSelection.onboarding(index))}
+          selected={selection.isOnboardingStep(step.id)}
+          onSelect={onSelect}
           onDuplcate={Function.prototype}
           onRemove={remove}
           onMove={move}

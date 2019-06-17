@@ -19,6 +19,7 @@ import QuizSettings from './QuizSettings';
 import { source, target } from './dnd';
 
 import styles from './MenuItem.module.styl';
+import { FormSelection } from '../../forms';
 
 export default function OnboardingMenuItem({
   step,
@@ -37,15 +38,28 @@ export default function OnboardingMenuItem({
   const [{ isDragging }, drag] = useDrag(source(index, onEndDrag));
   const [, drop] = useDrop(target(ref, index, onMove));
 
-  const duplicate = useCallback(() => {
-    toggleMenu();
-    onDuplcate(index);
-  }, [index, onDuplcate, toggleMenu]);
+  const duplicate = useCallback(
+    evt => {
+      evt.stopPropagation();
+      toggleMenu();
+      onDuplcate(step.id);
+    },
+    [onDuplcate, step.id, toggleMenu]
+  );
 
-  const remove = useCallback(() => {
-    toggleMenu();
-    onRemove(index);
-  }, [index, onRemove, toggleMenu]);
+  const remove = useCallback(
+    evt => {
+      evt.stopPropagation();
+      toggleMenu();
+      onRemove(step.id);
+    },
+    [onRemove, step.id, toggleMenu]
+  );
+
+  const select = useCallback(
+    () => onSelect(FormSelection.onboarding(step.id)),
+    [onSelect, step.id]
+  );
 
   const classes = cn({
     [styles.dragging]: isDragging,
@@ -56,7 +70,7 @@ export default function OnboardingMenuItem({
       className={classes}
       selected={selected}
       ref={drag(drop(ref))}
-      onClick={onSelect}
+      onClick={select}
     >
       <NavItemText>{step.name}</NavItemText>&nbsp;→&nbsp;
       {step.isGroup && <SettingsButton onClick={toggleQuiz} />}
