@@ -4,10 +4,7 @@ import cn from 'classnames';
 
 import { DropTarget } from 'react-dnd';
 
-import {
-  getAvailableModulesTree,
-  searchModulesTree,
-} from '../model/categories';
+import { getAvailableModulesTree, searchModulesTree } from './categories';
 
 import ClientRectContainer from '../../../common/ClientRectContainer';
 

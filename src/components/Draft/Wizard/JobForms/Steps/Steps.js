@@ -5,10 +5,11 @@ import { draftProps } from '../../../../shared/propTypes';
 
 import { Topbar } from '../../../../shared/FormEditor/Layout';
 
-import { Navs, NavItem } from './controls';
+import { Navs } from './controls';
 import { FormSelection } from '../forms';
 
 import Add from './Add/Add';
+import OnboardingMenu from './Onboarding/OnboardingMenu';
 import TaskMenuItem from './Task/MenuItem';
 import VerificationMenuItem from './Verification/MenuItem';
 
@@ -17,16 +18,11 @@ export default function Steps({ draft, selection, onSelect }) {
     <Topbar>
       <Add draft={draft} />
       <Navs>
-        {draft.onboarding.steps &&
-          draft.onboarding.steps.map((step, index) => (
-            <NavItem
-              key={step.id}
-              onClick={() => onSelect(FormSelection.onboarding(index))}
-              selected={selection.isOnboardingStep(index)}
-            >
-              {step.name} →
-            </NavItem>
-          ))}
+        <OnboardingMenu
+          draft={draft}
+          selection={selection}
+          onSelect={onSelect}
+        />
         <TaskMenuItem
           selected={selection === FormSelection.task}
           onSelect={onSelect}

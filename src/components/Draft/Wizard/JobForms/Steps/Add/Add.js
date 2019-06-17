@@ -35,7 +35,7 @@ export default function Add({ draft }) {
         +
       </button>
       {opened && (
-        <ContextMenu onHide={() => setOpened(false)}>
+        <ContextMenu className={styles.menu} onHide={() => setOpened(false)}>
           {templates.map(template => (
             <ContextMenuItem key={template.id} onClick={() => add(template)}>
               {template.name}

@@ -2,6 +2,7 @@
 import nanoid from 'nanoid';
 
 import { rules } from '@expandorg/validation';
+import { removeAtIndex } from '@expandorg/utils';
 import { VerificationType } from './enums';
 import { ge } from './validation';
 
@@ -75,6 +76,15 @@ export class DraftManager {
   ) {
     const step = DraftManager.onboardingStepFromTemplate(template);
     const steps = [...(draft.onboarding.steps || []), step];
+    return { ...draft.onboarding, enabled: steps.length > 0, steps };
+  }
+
+  static removeOnboardingStep(
+    draft: Draft,
+    oldSteps: Array<DraftOnboardingStep>,
+    index: number
+  ) {
+    const steps = removeAtIndex(oldSteps, index);
     return { ...draft.onboarding, enabled: steps.length > 0, steps };
   }
 }

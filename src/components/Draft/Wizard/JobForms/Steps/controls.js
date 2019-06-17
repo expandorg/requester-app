@@ -1,12 +1,13 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
-import React, { useRef } from 'react';
+import React, { useRef, forwardRef } from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
 
 import { useClickOutside } from '@expandorg/components';
 
 import { ReactComponent as SettingsIcon } from './settings.svg';
+import { ReactComponent as MenuIcon } from './menu.svg';
 
 import styles from './controls.module.styl';
 
@@ -14,29 +15,36 @@ export function Navs({ children }) {
   return <div className={styles.menu}>{children}</div>;
 }
 
-export function NavItem({ children, selected, onClick }) {
-  const classes = cn(styles.item, { [styles.selected]: selected });
-
-  return (
-    <div className={classes} onClick={onClick}>
-      {children}
-    </div>
-  );
-}
+export const NavItem = forwardRef(
+  ({ children, selected, onClick, className }, ref) => {
+    const classes = cn(styles.item, { [styles.selected]: selected }, className);
+    return (
+      <div ref={ref} className={classes} onClick={onClick}>
+        {children}
+      </div>
+    );
+  }
+);
 
 NavItem.propTypes = {
   onClick: PropTypes.func,
+  className: PropTypes.string,
   selected: PropTypes.bool,
 };
 
 NavItem.defaultProps = {
   onClick: Function.prototype,
+  className: null,
   selected: false,
 };
 
+export function NavItemText({ children }) {
+  return <span className={styles.itemText}>{children}</span>;
+}
+
 export function ContextMenu({ onHide, className, children }) {
   const ref = useRef();
-  useClickOutside(ref, () => onHide());
+  useClickOutside(ref, evt => onHide(evt));
 
   return (
     <div ref={ref} className={cn(styles.contextMenu, className)}>
@@ -70,6 +78,22 @@ ContextMenuItem.propTypes = {
 ContextMenuItem.defaultProps = {
   onClick: Function.prototype,
   className: null,
+};
+
+export function NavItemContextMenu({ visible, onToggle, children }) {
+  return (
+    <>
+      <button className={styles.contextMenuButton} onClick={onToggle}>
+        <MenuIcon />
+      </button>
+      {visible && <ContextMenu onHide={onToggle}>{children}</ContextMenu>}
+    </>
+  );
+}
+
+NavItemContextMenu.propTypes = {
+  onToggle: PropTypes.func.isRequired,
+  visible: PropTypes.bool.isRequired,
 };
 
 export function SettingsButton(props) {

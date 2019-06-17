@@ -31,7 +31,8 @@ export default function VerificationMenuItem({ draft, selected, onSelect }) {
     <>
       {dialog && <Settings draft={draft} onHide={() => setDialog(false)} />}
       <NavItem selected={selected} onClick={click}>
-        Verification <SettingsButton onClick={iconClick} />
+        Verification&nbsp;
+        <SettingsButton onClick={iconClick} />
       </NavItem>
     </>
   );
