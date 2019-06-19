@@ -79,6 +79,7 @@ export class DraftManager {
   }
 
   static removeOnboardingStep(draft: Draft, id: string) {
+    // $FlowFixMe
     const steps = draft.onboarding.steps.filter(s => s.id !== id);
     return { ...draft.onboarding, enabled: steps.length > 0, steps };
   }

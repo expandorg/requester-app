@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import Preview from '../../../shared/Templates/Preview';
+import Preview from '../../../shared/Preview/Preview';
 import { draftProps, taskTemplateProps } from '../../../shared/propTypes';
 import { DraftManager } from '../../../../model/draft';
 

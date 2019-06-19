@@ -1,18 +1,15 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import immer from 'immer';
-import { removeAtIndex, replaceAtIndex } from '@expandorg/utils';
+import { replaceAtIndex } from '@expandorg/utils';
 
 import Step from '../Step';
-import AddNew from './AddNew';
 import FormEditorDialog from '../FormEditor/FormEditorDialog';
 import OnboardingGroupDialog from '../OnboardingGroup/OnboardingGroupDialog';
 
 import { validationFormProps } from '../../../../../shared/FormEditor/model/validation';
 
 import { draftOnboardingProps } from '../../../../../shared/propTypes';
-import { DraftManager } from '../../../../../../model/draft';
 
 export default class OnboardingSteps extends Component {
   static propTypes = {
@@ -68,51 +65,6 @@ export default class OnboardingSteps extends Component {
     });
   };
 
-  handleAdd = template => {
-    const { onUpdateOnboarding, onboarding } = this.props;
-    const { steps: prev } = this.state;
-
-    const step = DraftManager.onboardingStepFromTemplate(template);
-    const steps = [step, ...prev];
-
-    this.setState({ steps });
-
-    onUpdateOnboarding({ ...onboarding, enabled: steps.length > 0, steps });
-  };
-
-  handleEndDrag = () => {
-    const { onUpdateOnboarding, onboarding } = this.props;
-    const { steps } = this.state;
-    onUpdateOnboarding({ ...onboarding, steps });
-  };
-
-  handleDeleteStep = order => {
-    const { onUpdateOnboarding, onboarding } = this.props;
-    const { steps } = this.state;
-    onUpdateOnboarding({
-      ...onboarding,
-      enabled: steps.length - 1 > 0,
-      steps: removeAtIndex(steps, order),
-    });
-  };
-
-  handleMoveStep = (dragId, hoverId) => {
-    const { steps } = this.state;
-
-    const dragIndex = steps.findIndex(m => m.id === dragId);
-    const hoverIndex = steps.findIndex(m => m.id === hoverId);
-
-    const dragged = steps[dragIndex];
-    const hovered = steps[hoverIndex];
-
-    this.setState({
-      steps: immer(steps, draft => {
-        draft[dragIndex] = hovered;
-        draft[hoverIndex] = dragged;
-      }),
-    });
-  };
-
   handleSelect = selected => {
     this.setState({ selected });
   };
@@ -126,7 +78,6 @@ export default class OnboardingSteps extends Component {
 
     return (
       <>
-        <AddNew onAdd={this.handleAdd} />
         {steps.map((step, order) => (
           <Step
             id={step.id}

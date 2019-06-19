@@ -2,17 +2,13 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
 
-import { DragSource, DropTarget } from 'react-dnd';
-
 import { ReactComponent as X } from '@expandorg/uikit/assets/x.svg';
 import { ReactComponent as Checkmark } from '@expandorg/uikit/assets/checkmark-2.svg';
 import { ReactComponent as Warning } from '@expandorg/uikit/assets/warning.svg';
 
-import { STEPS_DND_ID, source, target } from './dnd';
-
 import styles from './Step.module.styl';
 
-class Step extends Component {
+export default class Step extends Component {
   static propTypes = {
     id: PropTypes.string, // eslint-disable-line
     name: PropTypes.string.isRequired,
@@ -26,10 +22,6 @@ class Step extends Component {
     onMove: PropTypes.func, // eslint-disable-line
     onDelete: PropTypes.func,
     onEndDrag: PropTypes.func, // eslint-disable-line
-
-    connectDragSource: PropTypes.func.isRequired,
-    connectDragPreview: PropTypes.func.isRequired,
-    connectDropTarget: PropTypes.func.isRequired,
   };
 
   static defaultProps = {
@@ -55,58 +47,35 @@ class Step extends Component {
   };
 
   render() {
-    const {
-      name,
-      checked,
-      isOnboarding,
-      isDragging,
-
-      connectDragSource,
-      connectDropTarget,
-      connectDragPreview,
-    } = this.props;
+    const { name, checked, isOnboarding, isDragging } = this.props;
 
     /* eslint-disable jsx-a11y/click-events-have-key-events  */
     /* eslint-disable jsx-a11y/no-static-element-interactions  */
     const classes = cn(styles.outer, {
       [styles.dragging]: isDragging,
     });
-    return connectDragSource(
-      connectDropTarget(
-        <div className={classes}>
-          {connectDragPreview(
-            <div
-              className={styles.container}
-              onClick={this.handleClick}
-              ref={c => {
-                this.containerRef = c;
-              }}
-            >
-              <div className={styles.name}>{name}</div>
-              {checked !== null && (
-                <div className={cn(styles.icon, { [styles.checked]: checked })}>
-                  {checked ? <Checkmark /> : <Warning />}
-                </div>
-              )}
+    return (
+      <div className={classes}>
+        <div
+          className={styles.container}
+          onClick={this.handleClick}
+          ref={c => {
+            this.containerRef = c;
+          }}
+        >
+          <div className={styles.name}>{name}</div>
+          {checked !== null && (
+            <div className={cn(styles.icon, { [styles.checked]: checked })}>
+              {checked ? <Checkmark /> : <Warning />}
             </div>
           )}
-          {isOnboarding && (
-            <button className={styles.remove} onClick={this.handleDelete}>
-              <X />
-            </button>
-          )}
         </div>
-      )
+        {isOnboarding && (
+          <button className={styles.remove} onClick={this.handleDelete}>
+            <X />
+          </button>
+        )}
+      </div>
     );
   }
 }
-
-export default DropTarget(STEPS_DND_ID, target, connect => ({
-  connectDropTarget: connect.dropTarget(),
-}))(
-  DragSource(STEPS_DND_ID, source, (connect, monitor) => ({
-    connectDragSource: connect.dragSource(),
-    connectDragPreview: connect.dragPreview(),
-    isDragging: monitor.isDragging(),
-  }))(Step)
-);
