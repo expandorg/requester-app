@@ -72,6 +72,7 @@ export default class FormTreeEditor extends Component {
       dragPath.length === 0
         ? treeEditor.insertAt(modules, hoverPath, scaffold(meta, true))
         : treeEditor.moveAt(modules, dragPath, hoverPath);
+
     onChange(edited, Selection.empty);
   };
 

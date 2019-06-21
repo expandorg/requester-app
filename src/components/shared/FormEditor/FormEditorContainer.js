@@ -20,11 +20,14 @@ export default class FormEditorContainer extends Component {
   static propTypes = {
     form: formProps,
     validateForm: PropTypes.func.isRequired,
-    onSave: PropTypes.func.isRequired,
+    onSave: PropTypes.func,
+    onChange: PropTypes.func,
   };
 
   static defaultProps = {
     form: null,
+    onChange: null,
+    onSave: Function.prototype,
   };
 
   constructor(props) {
@@ -39,12 +42,13 @@ export default class FormEditorContainer extends Component {
     };
   }
 
-  static getDerviedStateFromProps({ form }, state) {
+  static getDerivedStateFromProps({ form }, state) {
     if (state.prev !== form) {
       return {
         selection: Selection.empty,
         prev: form,
         modules: form ? form.modules : [],
+        error: null,
       };
     }
     return null;
@@ -78,14 +82,19 @@ export default class FormEditorContainer extends Component {
   };
 
   handleChange = (modules, selection) => {
-    this.setState({ modules, selection });
+    const { onChange, form } = this.props;
+    this.setState({ modules, selection }, () => {
+      if (onChange) {
+        onChange({ ...form, modules });
+      }
+    });
   };
 
   handleClearError = () => {
     this.setState({ error: null });
   };
 
-  validateModuleProps = (module, originalName) => {
+  validateModule = (module, originalName) => {
     const { controls, modules } = this.state;
     const { module: meta } = controls[module.type];
     return validateModuleProps(module, originalName, meta, modules);
@@ -111,7 +120,7 @@ export default class FormEditorContainer extends Component {
               onSave: this.handleSave,
               onSelect: this.handleSelect,
               onDeselect: this.handleDeselect,
-              onValidateModule: this.validateModuleProps,
+              onValidateModule: this.validateModule,
             })
           }
         </FormTreeEditor>

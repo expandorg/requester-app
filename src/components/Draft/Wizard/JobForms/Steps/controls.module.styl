@@ -1,0 +1,132 @@
+@import '~@expandorg/uikit/colors';
+@import '~@expandorg/uikit/font';
+
+.menu
+  margin-left: 24px
+  display flex
+
+.item
+  box-sizing: border-box
+  position relative
+
+  display: flex
+  align-items: center
+  justify-content: center
+
+  height: 40px
+  min-width 130px
+
+  font(h4-bold, false, false, 38px)
+  padding: 0 20px
+
+  color: color-black
+  border: 1px solid color-heavy-blue
+  border-right-color: transparent
+
+  cursor pointer
+
+  &:hover
+    background-color: color-white
+
+    .contextMenuButton
+      display block
+
+  &:first-child
+    border-top-left-radius: 20px
+    border-bottom-left-radius: 20px
+
+  &:last-child
+    border-top-right-radius: 20px
+    border-bottom-right-radius: 20px
+    border-right-color: color-heavy-blue
+
+
+.selected
+  background-color: color-white
+
+.itemText
+  box-sizing: border-box
+
+  white-space nowrap
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  max-width 120px
+
+.contextMenu
+  position: absolute
+  box-sizing: border-box
+
+  right: 0
+  top: calc(100% + 20px)
+
+  max-height: 300px
+  width: 170px
+
+  overflow-y: auto
+
+  background-color: color-white
+  box-shadow: heavy-shadow
+  z-index: 10
+
+.contextMenuItem
+  box-sizing: border-box
+
+  width: 170px
+  height: 46px
+
+  padding: 0 25px
+
+  transition: background-color 0.4s cubic-bezier(.27,1.27,.48,.56);
+
+  color: color-text-dark
+  font(body, false, false, 46px)
+  text-align: left
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  border: 0
+  outline: 0
+  cursor pointer
+
+  &:hover
+    background-color: color-medium-blue;
+
+
+.contextMenuButton
+  position absolute
+  display: none
+  right: 8px
+  top: calc(50% - 8px)
+
+  background-color: transparent
+  padding: 0 3px
+
+  cursor pointer
+  outline none
+
+  path
+    fill color-text-heavy-blue
+
+.settingsButton
+  box-sizing: border-box
+
+  padding: 1px
+  border: 0
+  background-color: transparent
+
+  outline: 0
+  cursor pointer
+
+.settingsIcon
+  position relative
+  top: 2px
+  path
+    fill: color-black
+    fill-opacity: 0.5
+
+  &:hover
+    path
+      fill-opacity: 1

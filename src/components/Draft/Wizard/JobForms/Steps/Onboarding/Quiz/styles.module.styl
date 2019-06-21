@@ -1,0 +1,44 @@
+@import '~@expandorg/uikit/colors';
+@import '~@expandorg/uikit/font';
+
+.container
+  display: flex
+  flex-direction: column
+  height 100%
+
+.content
+  box-sizing: border-box
+  padding-top: 30px
+  flex-grow: 1
+  max-height: calc(100% - 165px)
+  overflow: auto
+
+.description
+  margin-bottom: 50px
+
+  font(h3-title)
+  text-align center
+  color: color-text-dark
+
+.formInner
+  box-sizing: border-box
+  padding: 20px 10px 10px
+  margin: 0 auto
+  max-width 900px
+
+.actions
+  display: flex
+  align-items: center
+  justify-content: flex-end
+
+  box-sizing: border-box
+  padding: 15px 40px
+
+  > *
+    margin-left: 15px
+    font-size: 14px
+
+.settings
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0 15px

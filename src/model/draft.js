@@ -1,15 +1,10 @@
 // @flow
-import nanoid from 'nanoid';
 
 import { rules } from '@expandorg/validation';
 import { VerificationType } from './enums';
 import { ge } from './validation';
 
-import {
-  type Draft,
-  type DraftOnboardingGroupTemplate,
-  type DraftOnboardingStep,
-} from './types.flow';
+import { type Draft } from './types.flow';
 
 export class DraftManager {
   static hasTemplate = (draft: ?Draft) =>
@@ -35,7 +30,7 @@ export class DraftManager {
   }
 
   static isVerificationFormReviewed(draft: Draft) {
-    if (!DraftManager.shouldUseVerificationForm(draft)) {
+    if (!DraftManager.hasVerificationForm(draft)) {
       return true;
     }
     return !!draft.verificationReviewed;
@@ -52,7 +47,7 @@ export class DraftManager {
     return true;
   };
 
-  static shouldUseVerificationForm = ({ verification }: Draft) =>
+  static hasVerificationForm = ({ verification }: Draft) =>
     verification.module === VerificationType.Requester ||
     verification.module === VerificationType.AuditWhitelist;
 }
@@ -73,22 +68,3 @@ export const onboardingGroupSettingsRules = {
   scoreThreshold: [[rules.isNumber, 'Should be a positive number'], ge(0)],
   failureMessage: [[rules.isRequired, 'Failure Message is required']],
 };
-
-export const getOnboardingStepFromTemplate = ({
-  name,
-  taskForm,
-  isGroup,
-  scoreThreshold,
-  retries,
-  failureMessage,
-  data,
-}: DraftOnboardingGroupTemplate): DraftOnboardingStep => ({
-  id: nanoid(),
-  name,
-  isGroup,
-  scoreThreshold,
-  retries,
-  failureMessage,
-  data,
-  form: taskForm,
-});
