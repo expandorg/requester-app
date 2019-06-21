@@ -30,6 +30,7 @@ class SettingsContainer extends Component {
     requestState: requestStateProps.isRequired,
 
     onNext: PropTypes.func.isRequired,
+    onBack: PropTypes.func.isRequired,
     updateSettings: PropTypes.func.isRequired,
   };
 
@@ -46,7 +47,7 @@ class SettingsContainer extends Component {
   };
 
   render() {
-    const { draft, requestState } = this.props;
+    const { draft, requestState, onBack } = this.props;
     const isSubmitting = requestState.state === RequestStates.Fetching;
     return (
       <SubmitStateEffect
@@ -57,6 +58,7 @@ class SettingsContainer extends Component {
           draft={draft}
           isSubmitting={isSubmitting}
           onNext={this.handleUpdate}
+          onBack={onBack}
         />
       </SubmitStateEffect>
     );

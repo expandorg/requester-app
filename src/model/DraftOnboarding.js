@@ -1,5 +1,6 @@
 // @flow
 import nanoid from 'nanoid';
+import type { Form } from '@expandorg/modules/src/form/model/types.flow';
 
 import { replaceAtIndex, insertAtIndex } from '@expandorg/utils';
 
@@ -34,6 +35,13 @@ export default class DraftOnboarding {
 
   static update(draft: Draft, step: DraftOnboardingStep) {
     const index = draft.onboarding.steps.findIndex(s => s.id === step.id);
+    const steps = replaceAtIndex(draft.onboarding.steps, index, step);
+    return { ...draft.onboarding, steps };
+  }
+
+  static updateForm(draft: Draft, stepId: string, form: Form) {
+    const index = draft.onboarding.steps.findIndex(s => s.id === stepId);
+    const step = { ...draft.onboarding.steps[index], form };
     const steps = replaceAtIndex(draft.onboarding.steps, index, step);
     return { ...draft.onboarding, steps };
   }

@@ -48,6 +48,7 @@ export default class Settings extends Component {
     draft: draftProps.isRequired,
     isSubmitting: PropTypes.bool.isRequired,
     onNext: PropTypes.func.isRequired,
+    onBack: PropTypes.func.isRequired,
   };
 
   constructor(props) {
@@ -116,6 +117,12 @@ export default class Settings extends Component {
     this.setState(({ settings }) => ({
       settings: { ...settings, verificationModule: value },
     }));
+  };
+
+  handleBack = evt => {
+    evt.preventDefault();
+    const { onBack } = this.props;
+    onBack();
   };
 
   render() {
@@ -236,6 +243,9 @@ export default class Settings extends Component {
           )}
         </Fieldset>
         <Actions>
+          <Button theme="secondary" onClick={this.handleBack}>
+            Back
+          </Button>
           <Button disable={isSubmitting} type="submit">
             Next
           </Button>

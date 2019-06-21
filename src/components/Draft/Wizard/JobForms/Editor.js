@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
 import { WalkthroughPin } from '@expandorg/components/app';
@@ -22,70 +22,78 @@ import Selection from '../../../shared/FormEditor/model/Selection';
 
 import styles from './Editor.module.styl';
 
-export default class Editor extends Component {
-  static propTypes = {
-    form: formProps.isRequired,
-    toolbar: PropTypes.element.isRequired,
-    variables: PropTypes.arrayOf(PropTypes.string),
-    validateForm: PropTypes.func.isRequired,
-  };
-
-  static defaultProps = {
-    variables: [],
-  };
-
-  render() {
-    const { form, variables, toolbar, validateForm, children } = this.props;
-
-    return (
-      <FormEditorContainer form={form} validateForm={validateForm}>
-        {p => (
-          <FormLayout className={styles.container} walkthrough={help}>
-            <Sidebar hidden={p.selection !== Selection.empty}>
-              <ModulePicker
-                moduleControls={availableModules}
-                onEndDrag={p.onEndDrag}
-                onAdd={p.onAdd}
-                onRemoveModule={p.onRemove}
-              />
-            </Sidebar>
-            <Content>
-              {children}
-              <Canvas>
-                <LogicPanel
-                  module={p.selection.find(p.modules, 'logic')}
-                  modules={p.modules}
-                  variables={variables}
-                  onSave={p.onEdit}
-                  onCancel={p.onDeselect}
-                />
-                <Form
-                  ref={p.formRef}
-                  modules={p.modules}
-                  selected={p.selection.getId('edit')}
-                  controls={p.controls}
-                  onAdd={p.onAdd}
-                  onMove={p.onMove}
-                  onRemove={p.onRemove}
-                  onSelect={p.onSelect}
-                  onCopy={p.onCopy}
-                />
-              </Canvas>
-              {toolbar}
-            </Content>
-            <PropertiesPanel
-              module={p.selection.find(p.modules, 'edit')}
-              controls={p.controls}
-              variables={variables}
-              onEdit={p.onEdit}
-              onValidate={p.onValidateModule}
-              onCancel={p.onDeselect}
+export default function Editor({
+  form,
+  variables,
+  toolbar,
+  validateForm,
+  children,
+  onSave,
+}) {
+  return (
+    <FormEditorContainer
+      form={form}
+      validateForm={validateForm}
+      onChange={onSave}
+    >
+      {p => (
+        <FormLayout className={styles.container} walkthrough={help}>
+          <Sidebar hidden={p.selection !== Selection.empty}>
+            <ModulePicker
+              moduleControls={availableModules}
+              onEndDrag={p.onEndDrag}
+              onAdd={p.onAdd}
+              onRemoveModule={p.onRemove}
             />
-            <WalkthroughPin id="search" className={styles.serachPin} />
-            <WalkthroughPin id="components" className={styles.componentsPin} />
-          </FormLayout>
-        )}
-      </FormEditorContainer>
-    );
-  }
+          </Sidebar>
+          <Content>
+            {children}
+            <Canvas>
+              <LogicPanel
+                module={p.selection.find(p.modules, 'logic')}
+                modules={p.modules}
+                variables={variables}
+                onSave={p.onEdit}
+                onCancel={p.onDeselect}
+              />
+              <Form
+                ref={p.formRef}
+                modules={p.modules}
+                selected={p.selection.getId('edit')}
+                controls={p.controls}
+                onAdd={p.onAdd}
+                onMove={p.onMove}
+                onRemove={p.onRemove}
+                onSelect={p.onSelect}
+                onCopy={p.onCopy}
+              />
+            </Canvas>
+            {toolbar}
+          </Content>
+          <PropertiesPanel
+            module={p.selection.find(p.modules, 'edit')}
+            controls={p.controls}
+            variables={variables}
+            onEdit={p.onEdit}
+            onValidate={p.onValidateModule}
+            onCancel={p.onDeselect}
+          />
+          <WalkthroughPin id="search" className={styles.serachPin} />
+          <WalkthroughPin id="components" className={styles.componentsPin} />
+        </FormLayout>
+      )}
+    </FormEditorContainer>
+  );
 }
+
+Editor.propTypes = {
+  form: formProps.isRequired,
+  toolbar: PropTypes.element.isRequired,
+  variables: PropTypes.arrayOf(PropTypes.string),
+  validateForm: PropTypes.func.isRequired,
+  onSave: PropTypes.func.isRequired,
+};
+
+Editor.defaultProps = {
+  variables: [],
+};

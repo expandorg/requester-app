@@ -20,13 +20,14 @@ export default class FormEditorContainer extends Component {
   static propTypes = {
     form: formProps,
     validateForm: PropTypes.func.isRequired,
-    onSave: PropTypes.func.isRequired,
+    onSave: PropTypes.func,
     onChange: PropTypes.func,
   };
 
   static defaultProps = {
     form: null,
     onChange: null,
+    onSave: Function.prototype,
   };
 
   constructor(props) {

@@ -3,9 +3,13 @@
 import type { Form } from '@expandorg/modules/src/form/model/types.flow';
 import type { Draft } from '../../../../model/types.flow';
 
+import {
+  validationFormProps,
+  validationTaskFormProps,
+} from '../../../shared/FormEditor/model/validation';
+
 export type FormSelectionType = 'task' | 'verification' | 'onboarding';
 
-// eslint-disable-next-line import/prefer-default-export
 export class FormSelection {
   static task: FormSelection = new FormSelection('task');
   static verification: FormSelection = new FormSelection('verification');
@@ -47,5 +51,43 @@ export class FormSelection {
         break;
     }
     throw new Error('Invalid selection type');
+  }
+}
+
+export class FormProps {
+  static getUpdateAction(
+    selection: FormSelection,
+    updateTask: Function,
+    updateVerification: Function,
+    updateOnboarding: Function
+  ): Function {
+    switch (selection) {
+      case FormSelection.task:
+        return updateTask;
+      case FormSelection.verification:
+        return updateVerification;
+      default:
+        break;
+    }
+    return updateOnboarding;
+  }
+
+  static getValidator(selection: FormSelection): Function {
+    switch (selection) {
+      case FormSelection.task:
+        return validationTaskFormProps;
+      case FormSelection.verification:
+        return validationTaskFormProps;
+      default:
+        break;
+    }
+    return validationFormProps;
+  }
+
+  static getFormProps(selection: FormSelection, dataColumns: Array<string>) {
+    return {
+      variables: dataColumns,
+      validateForm: FormProps.getValidator(selection),
+    };
   }
 }
