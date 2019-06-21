@@ -5,7 +5,6 @@ import { replaceAtIndex } from '@expandorg/utils';
 
 import Step from '../Step';
 import FormEditorDialog from '../FormEditor/FormEditorDialog';
-import OnboardingGroupDialog from '../OnboardingGroup/OnboardingGroupDialog';
 
 import { validationFormProps } from '../../../../../shared/FormEditor/model/validation';
 
@@ -91,19 +90,12 @@ export default class OnboardingSteps extends Component {
             onSelect={this.handleSelect}
           />
         ))}
-        {selected !== null && !steps[selected].isGroup && (
+        {selected !== null && (
           <FormEditorDialog
             title="Onboarding"
             form={steps[selected].form}
             validateForm={validationFormProps}
             onSave={this.handleUpdate}
-            onHide={this.handleDeselect}
-          />
-        )}
-        {selected !== null && steps[selected].isGroup && (
-          <OnboardingGroupDialog
-            group={steps[selected]}
-            onUpdate={this.handleUpdateGroup}
             onHide={this.handleDeselect}
           />
         )}

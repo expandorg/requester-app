@@ -8,7 +8,6 @@ import styles from './Nav.module.styl';
 
 export default class Nav extends Component {
   static propTypes = {
-    title: PropTypes.string.isRequired,
     active: PropTypes.string,
     onChangeStep: PropTypes.func,
   };
@@ -19,10 +18,10 @@ export default class Nav extends Component {
   };
 
   render() {
-    const { title, active, onChangeStep } = this.props;
+    const { active, onChangeStep } = this.props;
     return (
       <div className={styles.container}>
-        <div className={styles.title}>{title}</div>
+        <div className={styles.title}></div>
         {active && (
           <div className={styles.nav}>
             <button
@@ -40,14 +39,6 @@ export default class Nav extends Component {
               })}
             >
               Settings
-            </button>
-            <button
-              onClick={() => onChangeStep(WizardSteps.Quiz)}
-              className={cn(styles.navItem, {
-                [styles.active]: active === WizardSteps.Quiz,
-              })}
-            >
-              Quiz
             </button>
           </div>
         )}

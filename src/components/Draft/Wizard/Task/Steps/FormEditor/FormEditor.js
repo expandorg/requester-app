@@ -4,17 +4,22 @@ import PropTypes from 'prop-types';
 import { formProps } from '@expandorg/modules';
 import { WalkthroughPin } from '@expandorg/components/app';
 
-import { Form } from './Canvas';
+import { Form } from '../../../../../shared/FormEditor/Canvas';
 import Toolbar from './Toolbar/Toolbar';
-import { PropertiesPanel } from './Properties';
-import ModulePicker from './ModulePicker';
-import { LogicPanel } from './Logic';
+import { PropertiesPanel } from '../../../../../shared/FormEditor/Properties';
+import ModulePicker from '../../../../../shared/FormEditor/ModulePicker';
+import { LogicPanel } from '../../../../../shared/FormEditor/Logic';
 
-import FormEditorContainer from './FormEditorContainer';
-import { FormLayout, Sidebar, Content, Canvas } from './Layout';
+import FormEditorContainer from '../../../../../shared/FormEditor/FormEditorContainer';
+import {
+  FormLayout,
+  Sidebar,
+  Content,
+  Canvas,
+} from '../../../../../shared/FormEditor/Layout';
 
-import { availableModules } from './model/modules';
-import help from './model/help';
+import { availableModules } from '../../../../../shared/FormEditor/model/modules';
+import help from '../../../../../shared/FormEditor/model/help';
 
 import styles from './FormEditor.module.styl';
 

@@ -15,7 +15,7 @@ import {
   ContextMenuItem,
 } from '../controls';
 
-import QuizSettings from './QuizSettings';
+import Quiz from './Quiz/Quiz';
 import { source, target } from './dnd';
 
 import styles from './MenuItem.module.styl';
@@ -29,6 +29,7 @@ export default function OnboardingMenuItem({
   onDuplcate,
   onRemove,
   onMove,
+  onUpdate,
   onEndDrag,
 }) {
   const ref = useRef(null);
@@ -56,6 +57,13 @@ export default function OnboardingMenuItem({
     [onRemove, step.id, toggleMenu]
   );
 
+  const update = useCallback(
+    updated => {
+      onUpdate(updated, index);
+    },
+    [index, onUpdate]
+  );
+
   const select = useCallback(
     () => onSelect(FormSelection.onboarding(step.id)),
     [onSelect, step.id]
@@ -78,7 +86,7 @@ export default function OnboardingMenuItem({
         <ContextMenuItem onClick={duplicate}>Duplicate</ContextMenuItem>
         <ContextMenuItem onClick={remove}>Remove</ContextMenuItem>
       </NavItemContextMenu>
-      <QuizSettings visible={quiz} onHide={toggleQuiz} />
+      <Quiz group={step} visible={quiz} onHide={toggleQuiz} onUpdate={update} />
     </NavItem>
   );
 }
@@ -89,6 +97,7 @@ OnboardingMenuItem.propTypes = {
   selected: PropTypes.bool.isRequired,
   onSelect: PropTypes.func.isRequired,
   onDuplcate: PropTypes.func.isRequired,
+  onUpdate: PropTypes.func.isRequired,
   onRemove: PropTypes.func.isRequired,
   onMove: PropTypes.func.isRequired,
   onEndDrag: PropTypes.func.isRequired,

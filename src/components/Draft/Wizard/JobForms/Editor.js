@@ -20,40 +20,25 @@ import { availableModules } from '../../../shared/FormEditor/model/modules';
 import help from '../../../shared/FormEditor/model/help';
 import Selection from '../../../shared/FormEditor/model/Selection';
 
-import Toolbar from './Toolbar/Toolbar';
-
 import styles from './Editor.module.styl';
 
 export default class Editor extends Component {
   static propTypes = {
     form: formProps.isRequired,
-
+    toolbar: PropTypes.element.isRequired,
     variables: PropTypes.arrayOf(PropTypes.string),
-    varsSample: PropTypes.object, // eslint-disable-line
-
     validateForm: PropTypes.func.isRequired,
-    onSubmit: PropTypes.func.isRequired,
   };
 
   static defaultProps = {
     variables: [],
-    varsSample: null,
-  };
-
-  handleSave = () => {
-    const { onSubmit } = this.props;
-    onSubmit();
   };
 
   render() {
-    const { form, variables, validateForm, children } = this.props;
+    const { form, variables, toolbar, validateForm, children } = this.props;
 
     return (
-      <FormEditorContainer
-        form={form}
-        validateForm={validateForm}
-        onSave={this.handleSave}
-      >
+      <FormEditorContainer form={form} validateForm={validateForm}>
         {p => (
           <FormLayout className={styles.container} walkthrough={help}>
             <Sidebar hidden={p.selection !== Selection.empty}>
@@ -86,7 +71,7 @@ export default class Editor extends Component {
                   onCopy={p.onCopy}
                 />
               </Canvas>
-              <Toolbar modules={p.modules} onSave={p.onSave} varsSample={{}} />
+              {toolbar}
             </Content>
             <PropertiesPanel
               module={p.selection.find(p.modules, 'edit')}

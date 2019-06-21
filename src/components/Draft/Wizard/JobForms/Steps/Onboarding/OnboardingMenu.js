@@ -8,9 +8,9 @@ import { updateOnboarding } from '../../../../../../sagas/draftsSagas';
 import { FormSelection } from '../../forms';
 
 import MenuItem from './MenuItem';
-import { DraftManager } from '../../../../../../model/draft';
 
 import { replace } from './dnd';
+import DraftOnboarding from '../../../../../../model/DraftOnboarding';
 
 const getSteps = draft => (draft.onboarding && draft.onboarding.steps) || [];
 
@@ -28,7 +28,7 @@ export default function OnboardingMenu({ draft, selection, onSelect }) {
       if (selection.isOnboardingStep(id)) {
         onSelect(FormSelection.task);
       }
-      const onboarding = DraftManager.removeOnboardingStep(draft, id);
+      const onboarding = DraftOnboarding.remove(draft, id);
       dispatch(updateOnboarding(draft.id, onboarding));
     },
     [dispatch, draft, onSelect, selection]
@@ -37,6 +37,22 @@ export default function OnboardingMenu({ draft, selection, onSelect }) {
   const move = useCallback(
     (dragIndex, hoverIndex) => setSteps(replace(steps, dragIndex, hoverIndex)),
     [steps]
+  );
+
+  const update = useCallback(
+    updatedStep => {
+      const onboarding = DraftOnboarding.update(draft, updatedStep);
+      dispatch(updateOnboarding(draft.id, onboarding));
+    },
+    [dispatch, draft]
+  );
+
+  const duplicate = useCallback(
+    id => {
+      const onboarding = DraftOnboarding.duplicate(draft, id);
+      dispatch(updateOnboarding(draft.id, onboarding));
+    },
+    [dispatch, draft]
   );
 
   const endDrag = () => {
@@ -52,7 +68,8 @@ export default function OnboardingMenu({ draft, selection, onSelect }) {
           step={step}
           selected={selection.isOnboardingStep(step.id)}
           onSelect={onSelect}
-          onDuplcate={Function.prototype}
+          onDuplcate={duplicate}
+          onUpdate={update}
           onRemove={remove}
           onMove={move}
           onEndDrag={endDrag}

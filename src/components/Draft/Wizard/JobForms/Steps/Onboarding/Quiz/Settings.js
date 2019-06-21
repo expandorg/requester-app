@@ -5,16 +5,15 @@ import { Button, Input } from '@expandorg/components';
 import { validateForm } from '@expandorg/validation';
 
 import { Fieldset, Field } from '../../../../Form';
+import Nav from './Nav';
+
+import { WizardSteps } from './wizard';
 import { draftOnboardingStepProps } from '../../../../../../shared/propTypes';
-
-import Nav from '../Nav';
-import { WizardSteps } from '../wizard';
-
 import { onboardingGroupSettingsRules } from '../../../../../../../model/draft';
 
-import styles from '../styles.module.styl';
+import styles from './styles.module.styl';
 
-export default class OnboardingGroupSettings extends Component {
+export default class Settings extends Component {
   static propTypes = {
     group: draftOnboardingStepProps.isRequired,
     onUpdate: PropTypes.func.isRequired,
@@ -55,7 +54,7 @@ export default class OnboardingGroupSettings extends Component {
   };
 
   handleSave = () => {
-    const { onChangeStep, onUpdate } = this.props;
+    const { onChangeStep, onUpdate, group } = this.props;
     const { isDirty, scoreThreshold, retries, failureMessage } = this.state;
     if (isDirty) {
       const settings = {
@@ -71,7 +70,7 @@ export default class OnboardingGroupSettings extends Component {
         this.setState({ errors });
         return;
       }
-      onUpdate(settings);
+      onUpdate({ ...group, ...settings });
     }
     onChangeStep(WizardSteps.Quiz);
   };
@@ -82,11 +81,7 @@ export default class OnboardingGroupSettings extends Component {
 
     return (
       <div className={styles.container}>
-        <Nav
-          title="Quiz Module"
-          onChangeStep={onChangeStep}
-          active={WizardSteps.Settings}
-        />
+        <Nav onChangeStep={onChangeStep} active={WizardSteps.Settings} />
         <div className={styles.content}>
           <Fieldset>
             <div className={styles.description}>Quiz settings</div>
@@ -137,13 +132,16 @@ export default class OnboardingGroupSettings extends Component {
           </Fieldset>
         </div>
         <div className={styles.actions}>
+          <Button theme="grey" onClick={() => onChangeStep(null)}>
+            Hide
+          </Button>
           <Button
             theme="secondary"
             onClick={() => onChangeStep(WizardSteps.Data)}
           >
             Back
           </Button>
-          <Button onClick={this.handleSave}>Next</Button>
+          <Button onClick={this.handleSave}>Save</Button>
         </div>
       </div>
     );

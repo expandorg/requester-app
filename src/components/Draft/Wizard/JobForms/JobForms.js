@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
 import Steps from './Steps/Steps';
@@ -6,45 +6,26 @@ import Steps from './Steps/Steps';
 import { draftProps } from '../../../shared/propTypes';
 
 import Editor from './Editor';
+import Toolbar from './Toolbar/Toolbar';
+
 import { FormSelection } from './forms';
 
-export default class JobForms extends Component {
-  static propTypes = {
-    draft: draftProps.isRequired,
-    onNext: PropTypes.func.isRequired,
-  };
+export default function JobForms({ draft, onNext }) {
+  const [selection, setSelection] = useState(FormSelection.task);
 
-  state = {
-    selection: FormSelection.task,
-  };
-
-  handleSubmit = () => {
-    const { onNext } = this.props;
-    onNext();
-  };
-
-  handleSelect = selection => {
-    this.setState({ selection });
-  };
-
-  render() {
-    const { draft } = this.props;
-    const { selection } = this.state;
-
-    return (
-      <Editor
-        form={selection.getForm(draft)}
-        onSubmit={Function.prototype}
-        variables={[]}
-        varsSample={{}}
-        validateForm={Function.prototype}
-      >
-        <Steps
-          selection={selection}
-          draft={draft}
-          onSelect={this.handleSelect}
-        />
-      </Editor>
-    );
-  }
+  return (
+    <Editor
+      form={selection.getForm(draft)}
+      variables={[]}
+      varsSample={{}}
+      toolbar={<Toolbar draft={draft} onNext={onNext} />}
+    >
+      <Steps selection={selection} draft={draft} onSelect={setSelection} />
+    </Editor>
+  );
 }
+
+JobForms.propTypes = {
+  draft: draftProps.isRequired,
+  onNext: PropTypes.func.isRequired,
+};

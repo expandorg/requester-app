@@ -1,15 +1,10 @@
 // @flow
-import nanoid from 'nanoid';
 
 import { rules } from '@expandorg/validation';
 import { VerificationType } from './enums';
 import { ge } from './validation';
 
-import {
-  type Draft,
-  type DraftOnboardingGroupTemplate,
-  type DraftOnboardingStep,
-} from './types.flow';
+import { type Draft } from './types.flow';
 
 export class DraftManager {
   static hasTemplate = (draft: ?Draft) =>
@@ -55,34 +50,6 @@ export class DraftManager {
   static hasVerificationForm = ({ verification }: Draft) =>
     verification.module === VerificationType.Requester ||
     verification.module === VerificationType.AuditWhitelist;
-
-  static onboardingStepFromTemplate = (
-    template: DraftOnboardingGroupTemplate
-  ): DraftOnboardingStep => ({
-    id: nanoid(),
-    name: template.name,
-    isGroup: template.isGroup,
-    scoreThreshold: template.scoreThreshold,
-    retries: template.retries,
-    failureMessage: template.failureMessage,
-    data: template.data,
-    form: template.taskForm,
-  });
-
-  static addOnboardingStep(
-    draft: Draft,
-    template: DraftOnboardingGroupTemplate
-  ) {
-    const step = DraftManager.onboardingStepFromTemplate(template);
-    const steps = [...(draft.onboarding.steps || []), step];
-    return { ...draft.onboarding, enabled: steps.length > 0, steps };
-  }
-
-  static removeOnboardingStep(draft: Draft, id: string) {
-    // $FlowFixMe
-    const steps = draft.onboarding.steps.filter(s => s.id !== id);
-    return { ...draft.onboarding, enabled: steps.length > 0, steps };
-  }
 }
 
 export const settingsRules = {

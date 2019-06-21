@@ -9,9 +9,8 @@ import { formTemplatesSelector } from '../../../../../../selectors/formTemplates
 import { fetchFormTemplates } from '../../../../../../sagas/formTemplateSagas';
 import { updateOnboarding } from '../../../../../../sagas/draftsSagas';
 
-import { DraftManager } from '../../../../../../model/draft';
-
 import styles from './Add.module.styl';
+import DraftOnboarding from '../../../../../../model/DraftOnboarding';
 
 export default function Add({ draft }) {
   const dispatch = useDispatch();
@@ -24,7 +23,7 @@ export default function Add({ draft }) {
   }, [dispatch]);
 
   const add = template => {
-    const onboarding = DraftManager.addOnboardingStep(draft, template);
+    const onboarding = DraftOnboarding.add(draft, template);
     dispatch(updateOnboarding(draft.id, onboarding));
     setOpened(false);
   };

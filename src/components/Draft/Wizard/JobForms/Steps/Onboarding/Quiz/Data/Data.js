@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 
 import { Button } from '@expandorg/components';
 
-import { draftOnboardingStepProps } from '../../../../../../shared/propTypes';
-import { gerAnswerFields } from '../../../../../../../model/onboardingData';
+import { draftOnboardingStepProps } from '../../../../../../../shared/propTypes';
+import { gerAnswerFields } from '../../../../../../../../model/onboardingData';
 
 import DataTable from './DataTable';
 import Nav from '../Nav';
@@ -48,10 +48,10 @@ export default class OnboardingGroupData extends Component {
   };
 
   handleSave = () => {
-    const { onChangeStep, onUpdate } = this.props;
+    const { onChangeStep, onUpdate, group } = this.props;
     const { isDirty, data } = this.state;
     if (isDirty) {
-      onUpdate(data);
+      onUpdate({ ...group, data });
     }
     onChangeStep(WizardSteps.Settings);
   };
@@ -62,13 +62,9 @@ export default class OnboardingGroupData extends Component {
 
     return (
       <div className={styles.container}>
-        <Nav
-          title="Quiz Module"
-          onChangeStep={onChangeStep}
-          active={WizardSteps.Data}
-        />
+        <Nav onChangeStep={onChangeStep} active={WizardSteps.Data} />
         <div className={styles.content}>
-          <div className={styles.description}>Quiz data</div>
+          <div className={styles.description}>Your quiz data</div>
           {data && (
             <DataTable
               fields={gerAnswerFields(group.form)}
@@ -78,8 +74,8 @@ export default class OnboardingGroupData extends Component {
           )}
         </div>
         <div className={styles.actions}>
-          <Button theme="secondary" onClick={() => onChangeStep(null)}>
-            Back
+          <Button theme="grey" onClick={() => onChangeStep(null)}>
+            Hide
           </Button>
           <Button onClick={this.handleSave}>Next</Button>
         </div>

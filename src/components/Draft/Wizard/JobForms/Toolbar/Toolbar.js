@@ -2,23 +2,22 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
 
-import { moduleProps } from '@expandorg/modules';
-
 import { Button } from '@expandorg/components';
 import { ReactComponent as Bulb } from '@expandorg/uikit/assets/bulb.svg';
-
 import { WalkthroughPin, ToggleWalkthrough } from '@expandorg/components/app';
 
 import PreviewCtx from './PreviewCtx';
 
-import styles from './Toolbar.module.styl';
 import { Bottombar } from '../../../../shared/FormEditor/Layout';
+import { draftProps } from '../../../../shared/propTypes';
 
-export default function Toolbar({ modules, onSave, varsSample }) {
+import styles from './Toolbar.module.styl';
+
+export default function Toolbar({ draft, onNext }) {
   return (
     <Bottombar>
       <div className={styles.previewContainer}>
-        <PreviewCtx modules={modules} variables={varsSample}>
+        <PreviewCtx draft={draft}>
           {({ onPreview }) => (
             <Button
               theme="aqua"
@@ -45,7 +44,7 @@ export default function Toolbar({ modules, onSave, varsSample }) {
         <WalkthroughPin id="toggle" className={styles.togglePin} />
       </div>
       <div className={styles.buttons}>
-        <Button className={styles.btn} onClick={onSave}>
+        <Button className={styles.btn} onClick={onNext}>
           Next
         </Button>
       </div>
@@ -53,11 +52,6 @@ export default function Toolbar({ modules, onSave, varsSample }) {
   );
 }
 Toolbar.propTypes = {
-  modules: PropTypes.arrayOf(moduleProps).isRequired,
-  varsSample: PropTypes.object, // eslint-disable-line
-  onSave: PropTypes.func.isRequired,
-};
-
-Toolbar.defaultProps = {
-  varsSample: null,
+  draft: draftProps.isRequired,
+  onNext: PropTypes.func.isRequired,
 };
