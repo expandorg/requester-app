@@ -1,13 +1,13 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
-import React, { useRef, forwardRef } from 'react';
+import React, { forwardRef } from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
 
-import { useClickOutside } from '@expandorg/components';
-
 import { ReactComponent as SettingsIcon } from './settings.svg';
 import { ReactComponent as MenuIcon } from './menu.svg';
+
+import { ContextMenu } from '../../../../common/ContextMenu';
 
 import styles from './controls.module.styl';
 
@@ -41,44 +41,6 @@ NavItem.defaultProps = {
 export function NavItemText({ children }) {
   return <span className={styles.itemText}>{children}</span>;
 }
-
-export function ContextMenu({ onHide, className, children }) {
-  const ref = useRef();
-  useClickOutside(ref, evt => onHide(evt));
-
-  return (
-    <div ref={ref} className={cn(styles.contextMenu, className)}>
-      {children}
-    </div>
-  );
-}
-
-ContextMenu.propTypes = {
-  onHide: PropTypes.func.isRequired,
-  className: PropTypes.string,
-};
-
-ContextMenu.defaultProps = {
-  className: null,
-};
-
-export function ContextMenuItem({ className, onClick, children }) {
-  return (
-    <button onClick={onClick} className={cn(styles.contextMenuItem, className)}>
-      {children}
-    </button>
-  );
-}
-
-ContextMenuItem.propTypes = {
-  onClick: PropTypes.func,
-  className: PropTypes.string,
-};
-
-ContextMenuItem.defaultProps = {
-  onClick: Function.prototype,
-  className: null,
-};
 
 export function NavItemContextMenu({ visible, onToggle, children }) {
   return (

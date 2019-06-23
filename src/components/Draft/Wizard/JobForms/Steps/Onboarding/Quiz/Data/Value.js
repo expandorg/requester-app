@@ -19,7 +19,6 @@ export default class Value extends PureComponent {
     placeholder: PropTypes.string.isRequired,
     columnIndex: PropTypes.number,
     answer: PropTypes.bool,
-    readOnly: PropTypes.bool.isRequired,
     onChange: PropTypes.func.isRequired,
   };
 
@@ -42,12 +41,11 @@ export default class Value extends PureComponent {
   };
 
   render() {
-    const { value, readOnly, type, placeholder, answer } = this.props;
+    const { value, type, placeholder, answer } = this.props;
 
     return (
       <T.Cell className={cn(styles.cell, { [styles.answer]: answer })}>
-        {readOnly && <span className={styles.value}>{value}</span>}
-        {!readOnly && type !== 'bool' && (
+        {type !== 'bool' && (
           <input
             type={type}
             value={value}
@@ -57,7 +55,7 @@ export default class Value extends PureComponent {
             onChange={({ target }) => this.handleChange(target.value)}
           />
         )}
-        {!readOnly && type === 'bool' && (
+        {type === 'bool' && (
           <Switch
             value={!!value}
             className={styles.switch}

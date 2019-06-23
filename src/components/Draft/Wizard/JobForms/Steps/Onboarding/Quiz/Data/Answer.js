@@ -12,7 +12,6 @@ export default class Answer extends Component {
       field: PropTypes.string,
     }).isRequired,
     fields: PropTypes.arrayOf(PropTypes.string),
-    readOnly: PropTypes.bool.isRequired,
     onChange: PropTypes.func.isRequired,
   };
 
@@ -69,7 +68,7 @@ export default class Answer extends Component {
   };
 
   render() {
-    const { readOnly, fields } = this.props;
+    const { fields } = this.props;
     const { answer, edit } = this.state;
 
     return (
@@ -79,18 +78,16 @@ export default class Answer extends Component {
             <div className={styles.content}>
               <div className={styles.name}>Answer</div>
               <div className={styles.type}>{answer.field}</div>
-              {!readOnly && (
-                <div className={styles.actions}>
-                  <Button
-                    size="small"
-                    theme="white"
-                    className={styles.edit}
-                    onClick={this.handleToggleEdit}
-                  >
-                    select component
-                  </Button>
-                </div>
-              )}
+              <div className={styles.actions}>
+                <Button
+                  size="small"
+                  theme="white"
+                  className={styles.edit}
+                  onClick={this.handleToggleEdit}
+                >
+                  select component
+                </Button>
+              </div>
             </div>
           )}
           {edit && (

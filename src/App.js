@@ -3,7 +3,7 @@ import { hot } from 'react-hot-loader/root';
 import React from 'react';
 import { Provider } from 'react-redux';
 
-import { DragDropContextProvider } from 'react-dnd';
+import { DndProvider } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
@@ -36,7 +36,7 @@ store.dispatch(initSaga());
 
 const App = () => (
   <ServiceProvider services={services}>
-    <DragDropContextProvider backend={HTML5Backend}>
+    <DndProvider backend={HTML5Backend}>
       <Provider store={store}>
         <BrowserRouter>
           <Switch>
@@ -61,7 +61,7 @@ const App = () => (
           </Switch>
         </BrowserRouter>
       </Provider>
-    </DragDropContextProvider>
+    </DndProvider>
   </ServiceProvider>
 );
 

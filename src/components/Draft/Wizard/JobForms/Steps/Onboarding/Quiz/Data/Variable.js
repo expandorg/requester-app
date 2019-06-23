@@ -15,9 +15,8 @@ export default class Variable extends Component {
       type: PropTypes.oneOf(columnTypes),
     }).isRequired,
     index: PropTypes.number.isRequired,
-    readOnly: PropTypes.bool.isRequired,
     onChange: PropTypes.func.isRequired,
-    onRemove: PropTypes.func.isRequired,
+    onDelete: PropTypes.func.isRequired,
   };
 
   constructor(props) {
@@ -74,13 +73,12 @@ export default class Variable extends Component {
     onChange(index, column);
   };
 
-  handleRemove = () => {
-    const { onRemove, index } = this.props;
-    onRemove(index);
+  handleDelete = () => {
+    const { onDelete, index } = this.props;
+    onDelete(index);
   };
 
   render() {
-    const { readOnly } = this.props;
     const { column, edit } = this.state;
 
     return (
@@ -88,23 +86,21 @@ export default class Variable extends Component {
         <div className={styles.container}>
           {!edit && (
             <div className={styles.content}>
-              <button className={styles.remove} onClick={this.handleRemove}>
+              <button className={styles.remove} onClick={this.handleDelete}>
                 -
               </button>
               <div className={styles.name}>{column.name}</div>
               <div className={styles.type}>{column.type}</div>
-              {!readOnly && (
-                <div className={styles.actions}>
-                  <Button
-                    size="small"
-                    theme="white-blue"
-                    className={styles.edit}
-                    onClick={this.handleToggleEdit}
-                  >
-                    edit
-                  </Button>
-                </div>
-              )}
+              <div className={styles.actions}>
+                <Button
+                  size="small"
+                  theme="white-blue"
+                  className={styles.edit}
+                  onClick={this.handleToggleEdit}
+                >
+                  edit
+                </Button>
+              </div>
             </div>
           )}
           {edit && (

@@ -2,7 +2,10 @@ import React, { useState, useEffect } from 'react';
 
 import { useSelector, useDispatch } from 'react-redux';
 
-import { ContextMenu, ContextMenuItem } from '../controls';
+import {
+  ContextMenu,
+  ContextMenuItem,
+} from '../../../../../common/ContextMenu';
 
 import { draftProps } from '../../../../../shared/propTypes';
 import { formTemplatesSelector } from '../../../../../../selectors/formTemplatesSelectors';

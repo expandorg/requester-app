@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
-import { Table as T } from '@expandorg/components';
+import { Table as T, Checkbox } from '@expandorg/components';
 
 import Value from './Value';
 
@@ -21,15 +21,15 @@ export default class ValuesRow extends PureComponent {
     }).isRequired,
     columns: PropTypes.arrayOf(PropTypes.object).isRequired,
     index: PropTypes.number.isRequired,
-    readOnly: PropTypes.bool.isRequired,
+    selected: PropTypes.bool.isRequired,
     onChange: PropTypes.func.isRequired,
     onChangeAnswer: PropTypes.func.isRequired,
-    onDelete: PropTypes.func.isRequired,
+    onSelect: PropTypes.func.isRequired,
   };
 
-  handleDelete = () => {
-    const { onDelete, index } = this.props;
-    onDelete(index);
+  handlSelect = () => {
+    const { onSelect, index } = this.props;
+    onSelect(index);
   };
 
   handleChange = (column, value) => {
@@ -43,11 +43,14 @@ export default class ValuesRow extends PureComponent {
   };
 
   render() {
-    const { row, readOnly, columns } = this.props;
+    const { row, columns, selected } = this.props;
 
     /* eslint-disable react/no-array-index-key */
     return (
       <T.Row className={styles.row}>
+        <T.Cell className={styles.leftCell}>
+          <Checkbox value={selected} onChange={this.handlSelect} />
+        </T.Cell>
         {row.values.map((value, index) => {
           const col = columns[index];
           return (
@@ -57,25 +60,17 @@ export default class ValuesRow extends PureComponent {
               columnIndex={index}
               type={col.type}
               placeholder={col.name}
-              readOnly={readOnly}
               onChange={this.handleChange}
             />
           );
         })}
         <Value
-          readOnly={readOnly}
           answer
           placeholder="Answer"
           value={row.answer}
           onChange={this.handleChangeAnswer}
         />
-        {!readOnly && (
-          <T.Cell className={styles.clearCell}>
-            <button className={styles.delete} onClick={this.handleDelete}>
-              ✕
-            </button>
-          </T.Cell>
-        )}
+        <td />
       </T.Row>
     );
   }

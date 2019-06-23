@@ -2,18 +2,17 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
 
-import { clickOutside } from '@expandorg/components';
+import { ContextMenu, ContextMenuItem } from '../../common/ContextMenu';
 
 import styles from './JobItemMenu.module.styl';
 
-class JobItemMenu extends Component {
+export default class JobItemMenu extends Component {
   static propTypes = {
     canCopy: PropTypes.bool,
     canDelete: PropTypes.bool,
     onHide: PropTypes.func.isRequired,
     onCopy: PropTypes.func.isRequired,
     onDelete: PropTypes.func.isRequired,
-    forwardedRef: PropTypes.object.isRequired, //eslint-disable-line
   };
 
   static defaultProps = {
@@ -45,27 +44,25 @@ class JobItemMenu extends Component {
   };
 
   render() {
-    const { canDelete, canCopy, forwardedRef } = this.props;
+    const { canDelete, canCopy, onHide } = this.props;
 
     return (
-      <div className={styles.container} ref={forwardedRef}>
-        <button
+      <ContextMenu onHide={onHide}>
+        <ContextMenuItem
           onClick={this.handleCopy}
           className={cn(styles.button, { [styles.disabled]: !canCopy })}
           disabled={!canCopy}
         >
           Duplicate Job
-        </button>
-        <button
+        </ContextMenuItem>
+        <ContextMenuItem
           onClick={this.handleDelete}
           className={cn(styles.button, { [styles.disabled]: !canDelete })}
           disabled={!canDelete}
         >
           Delete
-        </button>
-      </div>
+        </ContextMenuItem>
+      </ContextMenu>
     );
   }
 }
-
-export default clickOutside(JobItemMenu);

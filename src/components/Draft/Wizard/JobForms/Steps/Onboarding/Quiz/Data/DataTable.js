@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import cn from 'classnames';
 
 import immer from 'immer';
 import { removeAtIndex, replaceAtIndex } from '@expandorg/utils';
@@ -9,6 +10,8 @@ import { Table as T } from '@expandorg/components';
 import Variable from './Variable';
 import Answer from './Answer';
 import ValuesRow from './ValuesRow';
+
+import DeleteMenu from './DeleteMenu';
 
 import {
   updateValuesType,
@@ -27,22 +30,33 @@ export default class DataTable extends Component {
       steps: PropTypes.arrayOf(PropTypes.object),
     }).isRequired,
     fields: PropTypes.arrayOf(PropTypes.string),
-    readOnly: PropTypes.bool,
     onUpdate: PropTypes.func,
   };
 
   static defaultProps = {
-    readOnly: false,
     fields: [],
     onUpdate: Function.prototype,
   };
 
-  handleDeleteRow = index => {
+  state = {
+    selection: [],
+  };
+
+  handleDeleteRows = () => {
     const { data, onUpdate } = this.props;
-    onUpdate({
-      ...data,
-      steps: removeAtIndex(data.steps, index),
-    });
+    const { selection } = this.state;
+    if (!selection.length) {
+      return;
+    }
+    this.setState({ selection: [] });
+    onUpdate(
+      immer(data, draft => {
+        selection.forEach(idx => {
+          draft.steps[idx] = null;
+        });
+        draft.steps = draft.steps.filter(s => s !== null);
+      })
+    );
   };
 
   handleAddRow = () => {
@@ -79,7 +93,7 @@ export default class DataTable extends Component {
     });
   };
 
-  handleRemoveVar = index => {
+  handleDeleteVar = index => {
     const { data, onUpdate } = this.props;
     onUpdate({
       ...data,
@@ -111,36 +125,51 @@ export default class DataTable extends Component {
     onUpdate({ ...data, answer });
   };
 
+  handleSelect = selected => {
+    const { selection } = this.state;
+    const index = selection.indexOf(selected);
+    this.setState({
+      selection:
+        index === -1
+          ? [...selection, selected]
+          : removeAtIndex(selection, index),
+    });
+  };
+
   render() {
-    const { data, fields, readOnly } = this.props;
+    const { data, fields } = this.props;
+    const { selection } = this.state;
     /* eslint-disable react/no-array-index-key */
     return (
       <T.ScrollContainer className={styles.scroll}>
         <T.Table>
           <T.Header>
+            <T.Cell className={styles.leftCell}>
+              <DeleteMenu onDelete={this.handleDeleteRows} />
+            </T.Cell>
             {data.columns.map((column, index) => (
               <Variable
-                readOnly={readOnly}
                 key={index}
                 index={index}
                 column={column}
                 onChange={this.handleChangeVar}
-                onRemove={this.handleRemoveVar}
+                onDelete={this.handleDeleteVar}
               />
             ))}
             <Answer
               answer={data.answer}
-              readOnly={readOnly}
               fields={fields}
               onChange={this.handleChangeAnswer}
             />
-            {!readOnly && (
-              <T.HeaderCell className={styles.clearCell}>
-                <button className={styles.add} onClick={this.handleAddVar}>
-                  +
-                </button>
-              </T.HeaderCell>
-            )}
+            <T.HeaderCell className={styles.addCell}>
+              <button
+                className={cn(styles.btn, styles.col)}
+                onClick={this.handleAddVar}
+              >
+                <div className={styles.plus}>+</div>
+                <div>Add column</div>
+              </button>
+            </T.HeaderCell>
           </T.Header>
 
           {data.steps.map((row, index) => (
@@ -149,27 +178,28 @@ export default class DataTable extends Component {
               index={index}
               row={row}
               columns={data.columns}
-              readOnly={readOnly}
+              selected={selection.indexOf(index) !== -1}
               onChange={this.handleChangeValue}
               onChangeAnswer={this.handleChangeAnswerValue}
               onDelete={this.handleDeleteRow}
+              onSelect={this.handleSelect}
             />
           ))}
-          {!readOnly && (
-            <T.Row>
-              {data.columns.length > 0 && (
-                <T.Cell
-                  className={styles.spacer}
-                  colSpan={data.columns.length + 1}
-                />
-              )}
-              <T.Cell className={styles.clearCell}>
-                <button className={styles.add} onClick={this.handleAddRow}>
-                  +
-                </button>
-              </T.Cell>
-            </T.Row>
-          )}
+          <T.Row>
+            <td />
+            <T.Cell
+              className={styles.addCell}
+              colSpan={data.columns.length + 1}
+            >
+              <button
+                className={cn(styles.btn, styles.row)}
+                onClick={this.handleAddRow}
+              >
+                <span className={styles.plus}>+</span> Add Row
+              </button>
+            </T.Cell>
+            <td />
+          </T.Row>
         </T.Table>
       </T.ScrollContainer>
     );

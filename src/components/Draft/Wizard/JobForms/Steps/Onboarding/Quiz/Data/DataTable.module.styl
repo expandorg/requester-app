@@ -2,35 +2,49 @@
 @import '~@expandorg/uikit/font';
 
 .scroll
-  padding-top: 20px
+  padding: 0 40px
 
-.spacer
-  border-color: transparent
-
-.clearCell
-  border-color: transparent
+.addCell
+  border: 0
   background-color: color-white
-  text-align: center
-  padding: 0 10px
-  max-width: initial
-  width: initial
+  border: 1px dashed color-heavy-blue
 
-.add
-.delete
+.btn
   box-sizing: border-box
-  margin:  0
-  padding: 5px 10px
+  padding: 0
+  width: 100%
 
-  background: transparent
+  display flex
+  align-items: center
+  justify-content: center
 
+  text-transform: uppercase
+  font(subtitle, 800)
+
+  color: color-text-blue
+  background-color: transparent
   outline: none
   cursor pointer
 
-.add
-  color: color-blue-background
-  font(body, bold, 25px)
+.col
+  flex-direction: column
+  min-height: 160px
+  min-width: 160px
 
-.delete
-  color: color-text-disabled
-  font(body, bold, 18px)
+  .plus
+    margin-bottom: 7px
 
+.row
+  height 50px
+
+  .plus
+    margin-right: 8px
+
+.plus
+  font-size: 20px
+
+.leftCell
+  background: color-white
+  border: 0
+  width: auto
+  height auto

@@ -7,12 +7,13 @@ import { useDrag, useDrop } from 'react-dnd';
 import useToggle from '../../../../../common/useToggle';
 import { draftOnboardingStepProps } from '../../../../../shared/propTypes';
 
+import { ContextMenuItem } from '../../../../../common/ContextMenu';
+
 import {
   SettingsButton,
   NavItem,
   NavItemText,
   NavItemContextMenu,
-  ContextMenuItem,
 } from '../controls';
 
 import Quiz from './Quiz/Quiz';
