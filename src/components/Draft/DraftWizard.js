@@ -12,7 +12,7 @@ import LoadIndicator from '../shared/LoadIndicator';
 
 import Settings from './Settings/SettingsContainer';
 import Data from './Data/Data';
-import JobForms from './JobForms/JobForms';
+import JobForms from './Forms/JobForms';
 import Payments from './Payments/Payments';
 
 import Summary from './Summary/Summary';
