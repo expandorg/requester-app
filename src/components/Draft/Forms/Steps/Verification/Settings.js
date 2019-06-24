@@ -44,7 +44,7 @@ const getSettings = settings => ({
   agreementCount: +settings.agreementCount,
 });
 
-export default function VerificationSettings({ onHide, draft }) {
+export default function VerificationSettings({ onHide, onSaved, draft }) {
   const dispatch = useDispatch();
 
   const [form, setForm] = useState(getInitialState(draft));
@@ -112,12 +112,13 @@ export default function VerificationSettings({ onHide, draft }) {
           </Button>
         </DF.Actions>
       </DF.Container>
-      <SubmitStateEffect submitState={requestState} onComplete={onHide} />
+      <SubmitStateEffect submitState={requestState} onComplete={onSaved} />
     </Dialog>
   );
 }
 
 VerificationSettings.propTypes = {
   draft: draftProps.isRequired,
+  onSaved: PropTypes.func.isRequired,
   onHide: PropTypes.func.isRequired,
 };
