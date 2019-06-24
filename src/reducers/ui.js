@@ -31,7 +31,6 @@ export default combineReducers({
   ),
 
   fetchTemplates: requestUiStateReducer(tasksActionTypes.FETCH_TEMPLATES),
-  selectDraftTemplate: requestUiStateReducer(draftsActionTypes.UPDATE_TEMPLATE),
 
   updateDraftTask: requestUiStateReducer(draftsActionTypes.UPDATE_TASK),
   updateDraftOnboarding: requestUiStateReducer(

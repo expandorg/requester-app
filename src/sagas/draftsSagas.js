@@ -28,13 +28,6 @@ export const updateSettings = (id, settings) => ({
   meta: { schema: draftResponseSchema },
 });
 
-export const selectTemplate = (id, templateId) => ({
-  type: draftsActionTypes.UPDATE_TEMPLATE,
-  payload: { id, templateId },
-  asyncCall: draftApi.template,
-  meta: { schema: draftResponseSchema },
-});
-
 export const updateTaskForm = (id, taskForm) => ({
   type: draftsActionTypes.UPDATE_TASK,
   payload: { id, taskForm },
@@ -103,7 +96,6 @@ export function* draftsSagas() {
     draftsActionTypes.CREATE,
     draftsActionTypes.UPDATE_SETTINGS,
     draftsActionTypes.UPDATE_VERIFICATION_SETTINGS,
-    draftsActionTypes.UPDATE_TEMPLATE,
     draftsActionTypes.UPDATE_TASK,
     draftsActionTypes.UPDATE_VERIFICATION_FORM,
     draftsActionTypes.UPDATE_ONBOARDING,

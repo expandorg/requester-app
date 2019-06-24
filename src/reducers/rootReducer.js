@@ -7,6 +7,7 @@ import user from './userReducer';
 
 import dashboardTasks from './dashboardTasksReducer';
 import draftEntities from './drafts/draftEntitiesReducer';
+import draftSaving from './drafts/draftSavingReducer';
 
 import taskTemplatesList from './taskTemplates/taskTemplatesListReducer';
 import taskTemplatesEntities from './taskTemplates/taskTemplatesEntitiesReducer';
@@ -44,6 +45,7 @@ export default combineReducers({
   }),
   drafts: combineReducers({
     entities: draftEntities,
+    saving: draftSaving,
   }),
   data: combineReducers({
     entities: dataEntities,

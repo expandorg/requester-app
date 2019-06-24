@@ -6,9 +6,6 @@ export class DraftApi extends BaseApi {
 
   create = ({ templateId }) => this.post('/drafts', { templateId });
 
-  template = ({ id, templateId }) =>
-    this.post(`/drafts/${id}/template`, { templateId });
-
   updateSettings = ({ id, settings }) =>
     this.post(`/drafts/${id}/settings`, settings);
 

@@ -49,7 +49,6 @@ function* handleDraftActionFailed({ payload }) {
 
 const draftFailedActions = [
   draftsActionTypes.UPDATE_SETTINGS_FAILED,
-  draftsActionTypes.UPDATE_TEMPLATE_FAILED,
   draftsActionTypes.UPDATE_TASK_FAILED,
   draftsActionTypes.UPDATE_VERIFICATION_SETTINGS_FAILED,
   draftsActionTypes.UPDATE_VERIFICATION_FORM_FAILED,
@@ -73,11 +72,6 @@ export function* notificationsSagas(): any {
   yield takeEvery(
     draftsActionTypes.REMOVE_COMPLETE,
     successMessage('Job successfully deleted!')
-  );
-
-  yield takeEvery(
-    draftsActionTypes.UPDATE_TASK_COMPLETE,
-    successMessage('Task module edited!')
   );
 
   yield takeEvery(

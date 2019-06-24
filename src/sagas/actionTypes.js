@@ -36,10 +36,6 @@ export const draftsActionTypes = createActionTypes('drafts', {
   UPDATE_SETTINGS_COMPLETE: null,
   UPDATE_SETTINGS_FAILED: null,
 
-  UPDATE_TEMPLATE: null,
-  UPDATE_TEMPLATE_COMPLETE: null,
-  UPDATE_TEMPLATE_FAILED: null,
-
   UPDATE_TASK: null,
   UPDATE_TASK_COMPLETE: null,
   UPDATE_TASK_FAILED: null,

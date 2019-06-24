@@ -17,7 +17,11 @@ import { authenticated } from '../shared/auth';
 
 import DraftWizard from './DraftWizard';
 
-import { makeDraftSelector } from '../../selectors/draftsSelectors';
+import {
+  makeDraftSelector,
+  draftSavingSelector,
+} from '../../selectors/draftsSelectors';
+
 import { fetchDraftStateSelector } from '../../selectors/uiStateSelectors';
 
 import { fetch } from '../../sagas/draftsSagas';
@@ -26,6 +30,7 @@ const makeMapStateToProps = () => {
   const draftSelector = makeDraftSelector();
   return (state, props) => ({
     draft: draftSelector(state, props.match.params.id),
+    isSaving: draftSavingSelector(state),
     loadState: fetchDraftStateSelector(state),
   });
 };
@@ -36,6 +41,7 @@ class Draft extends Component {
   static propTypes = {
     match: matchProps.isRequired,
     location: locationProps.isRequired,
+    isSaving: PropTypes.bool.isRequired,
     draft: draftProps,
     loadState: requestStateProps.isRequired,
     fetch: PropTypes.func.isRequired,
@@ -58,10 +64,17 @@ class Draft extends Component {
   }
 
   render() {
-    const { draft, loadState, location } = this.props;
+    const { draft, loadState, location, isSaving } = this.props;
     const isLoading = !draft && loadState.state === RequestStates.Fetching;
     const tab = (location.state && location.state.tab) || 0;
-    return <DraftWizard draft={draft} tab={tab} isLoading={isLoading} />;
+    return (
+      <DraftWizard
+        draft={draft}
+        tab={tab}
+        isSaving={isSaving}
+        isLoading={isLoading}
+      />
+    );
   }
 }
 

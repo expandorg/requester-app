@@ -33,11 +33,6 @@ export const fetchTemplatesStateSelector: any = createSelector(
   state => state.fetchTemplates
 );
 
-export const selectDraftTemplateStateSelector: any = createSelector(
-  uiStateSelector,
-  state => state.selectDraftTemplate
-);
-
 export const updateDraftTaskStateSelector: any = createSelector(
   uiStateSelector,
   state => state.updateDraftTask

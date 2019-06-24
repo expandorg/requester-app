@@ -14,3 +14,5 @@ export const makeDraftSelector = (): any =>
     (state, id) => id,
     (entities, id) => entities[id]
   );
+
+export const draftSavingSelector = (state: Object) => state.drafts.saving;

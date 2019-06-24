@@ -21,7 +21,7 @@ import { getNavState, WizardSteps } from './wizard';
 
 import styles from './DraftWizard.module.styl';
 
-export default function DraftWizard({ draft, isLoading, tab }) {
+export default function DraftWizard({ draft, isLoading, tab, isSaving }) {
   const [active, setActive] = useState(tab);
 
   const next = useCallback(() => {
@@ -44,7 +44,7 @@ export default function DraftWizard({ draft, isLoading, tab }) {
       footer={false}
     >
       <Navbar
-        title={title}
+        title={`${title} ${isSaving ? '...' : ''}`}
         top={false}
         logout={false}
         className={styles.navbar}
@@ -85,11 +85,13 @@ export default function DraftWizard({ draft, isLoading, tab }) {
 DraftWizard.propTypes = {
   draft: draftProps,
   tab: PropTypes.number,
+  isSaving: PropTypes.bool,
   isLoading: PropTypes.bool,
 };
 
 DraftWizard.defaultProps = {
   tab: 0,
   draft: null,
+  isSaving: false,
   isLoading: false,
 };
