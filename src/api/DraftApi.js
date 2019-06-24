@@ -12,11 +12,11 @@ export class DraftApi extends BaseApi {
   updateVerificationSettings = ({ id, settings }) =>
     this.post(`/drafts/${id}/verification`, settings);
 
-  updateTaskForm = ({ id, taskForm }) =>
-    this.post(`/drafts/${id}/task/form`, { taskForm });
+  updateTaskForm = ({ id, form }) =>
+    this.post(`/drafts/${id}/task/form`, { taskForm: form });
 
-  updateVerificationForm = ({ id, verificationForm }) =>
-    this.post(`/drafts/${id}/verification/form`, { verificationForm });
+  updateVerificationForm = ({ id, form }) =>
+    this.post(`/drafts/${id}/verification/form`, { verificationForm: form });
 
   updateOnboarding = ({ id, onboarding }) =>
     this.post(`/drafts/${id}/onboarding`, { onboarding });

@@ -28,9 +28,9 @@ export const updateSettings = (id, settings) => ({
   meta: { schema: draftResponseSchema },
 });
 
-export const updateTaskForm = (id, taskForm) => ({
+export const updateTaskForm = (id, form) => ({
   type: draftsActionTypes.UPDATE_TASK,
-  payload: { id, taskForm },
+  payload: { id, form },
   asyncCall: draftApi.updateTaskForm,
   meta: { schema: draftResponseSchema },
 });

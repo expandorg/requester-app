@@ -57,19 +57,19 @@ export class FormSelection {
 export class FormProps {
   static getUpdateAction(
     selection: FormSelection,
-    updateTask: Function,
-    updateVerification: Function,
-    updateOnboarding: Function
-  ): Function {
+    task: () => {},
+    ver: () => {},
+    onb: () => {}
+  ): () => {} {
     switch (selection) {
       case FormSelection.task:
-        return updateTask;
+        return task;
       case FormSelection.verification:
-        return updateVerification;
+        return ver;
       default:
         break;
     }
-    return updateOnboarding;
+    return onb;
   }
 
   static getValidator(selection: FormSelection): Function {
