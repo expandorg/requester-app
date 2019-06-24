@@ -13,7 +13,7 @@ import {
 
 import Page from '../shared/Page';
 import Navbar from '../shared/Navbar';
-import { LoadIndicator } from '../Draft/Wizard/Form';
+import LoadIndicator from '../shared/LoadIndicator';
 
 import Stats from './Stats';
 import JobResults from './Results/JobResults';

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
 
 import Navbar from '../shared/Navbar';
@@ -7,124 +7,89 @@ import Page from '../shared/Page';
 
 import { draftProps } from '../shared/propTypes';
 
-import { Navigation, NavItem } from './Wizard/Navigation';
-import { LoadIndicator } from './Wizard/Form';
+import { Navigation, NavItem } from './Navigation';
+import LoadIndicator from '../shared/LoadIndicator';
 
-import Settings from './Wizard/Settings/SettingsContainer';
-import Data from './Wizard/Data/Data';
-import JobForms from './Wizard/JobForms/JobForms';
-import Payments from './Wizard/Payments/Payments';
+import Settings from './Settings/SettingsContainer';
+import Data from './Data/Data';
+import JobForms from './JobForms/JobForms';
+import Payments from './Payments/Payments';
 
-import Summary from './Wizard/Summary/Summary';
+import Summary from './Summary/Summary';
 
 import { getNavState, WizardSteps } from './wizard';
 
 import styles from './DraftWizard.module.styl';
 
-export default class DraftWizard extends Component {
-  static propTypes = {
-    draft: draftProps,
-    tab: PropTypes.number,
-    isLoading: PropTypes.bool,
-  };
+export default function DraftWizard({ draft, isLoading, tab }) {
+  const [active, setActive] = useState(tab);
 
-  static defaultProps = {
-    tab: 0,
-    draft: null,
-    isLoading: false,
-  };
+  const next = useCallback(() => {
+    setActive(active + 1);
+  }, [active]);
 
-  constructor(props) {
-    super(props);
+  const back = useCallback(() => {
+    setActive(active - 1);
+  }, [active]);
 
-    this.state = {
-      active: props.tab,
-    };
-  }
+  const nav = getNavState(draft);
+  const title = (draft && draft.name) || '';
 
-  handleChangeActive = active => {
-    this.setState({ active });
-  };
-
-  handleNext = () => {
-    this.setState(({ active }) => ({ active: active + 1 }));
-  };
-
-  handleBack = () => {
-    this.setState(({ active }) => ({ active: active - 1 }));
-  };
-
-  handleStep = active => {
-    this.setState({ active });
-  };
-
-  render() {
-    const { draft, isLoading } = this.props;
-    const { active } = this.state;
-
-    const nav = getNavState(draft);
-    const title = (draft && draft.name) || '';
-
-    return (
-      <Page
+  return (
+    <Page
+      title={title}
+      className={styles.content}
+      sidebar={false}
+      navbar={false}
+      footer={false}
+    >
+      <Navbar
         title={title}
-        className={styles.content}
-        sidebar={false}
-        navbar={false}
-        footer={false}
+        top={false}
+        logout={false}
+        className={styles.navbar}
+        theme="dark"
       >
-        <Navbar
-          title={title}
-          top={false}
-          logout={false}
-          className={styles.navbar}
-          theme="dark"
-        >
-          <Navigation onChange={this.handleChangeActive} active={active}>
-            <NavItem {...nav.forms}>Create Job</NavItem>
-            <NavItem {...nav.data}>Data</NavItem>
-            <NavItem {...nav.settings}>Settings</NavItem>
-            <NavItem {...nav.pay}>Pay</NavItem>
-          </Navigation>
-        </Navbar>
-        <LoadIndicator isLoading={isLoading}>
-          {draft && (
-            <>
-              {active === WizardSteps.Forms && (
-                <JobForms draft={draft} onNext={this.handleNext} />
-              )}
-              {active === WizardSteps.Data && (
-                <Data
-                  draft={draft}
-                  onNext={this.handleNext}
-                  onBack={this.handleBack}
-                />
-              )}
-              {active === WizardSteps.Settings && (
-                <Settings
-                  draft={draft}
-                  onNext={this.handleNext}
-                  onBack={this.handleBack}
-                />
-              )}
-              {active === WizardSteps.Pay && (
-                <Payments
-                  draft={draft}
-                  onNext={this.handleNext}
-                  onBack={this.handleBack}
-                />
-              )}
-              {active === WizardSteps.Summary && (
-                <Summary
-                  draft={draft}
-                  onBack={this.handleBack}
-                  onStep={this.handleStep}
-                />
-              )}
-            </>
-          )}
-        </LoadIndicator>
-      </Page>
-    );
-  }
+        <Navigation onChange={setActive} active={active}>
+          <NavItem {...nav.forms}>Create Job</NavItem>
+          <NavItem {...nav.data}>Data</NavItem>
+          <NavItem {...nav.settings}>Settings</NavItem>
+          <NavItem {...nav.pay}>Pay</NavItem>
+        </Navigation>
+      </Navbar>
+      <LoadIndicator isLoading={isLoading}>
+        {draft && (
+          <>
+            {active === WizardSteps.Forms && (
+              <JobForms draft={draft} onNext={next} />
+            )}
+            {active === WizardSteps.Data && (
+              <Data draft={draft} onNext={next} onBack={back} />
+            )}
+            {active === WizardSteps.Settings && (
+              <Settings draft={draft} onNext={next} onBack={back} />
+            )}
+            {active === WizardSteps.Pay && (
+              <Payments draft={draft} onNext={next} onBack={back} />
+            )}
+            {active === WizardSteps.Summary && (
+              <Summary draft={draft} onBack={next} onStep={setActive} />
+            )}
+          </>
+        )}
+      </LoadIndicator>
+    </Page>
+  );
 }
+
+DraftWizard.propTypes = {
+  draft: draftProps,
+  tab: PropTypes.number,
+  isLoading: PropTypes.bool,
+};
+
+DraftWizard.defaultProps = {
+  tab: 0,
+  draft: null,
+  isLoading: false,
+};

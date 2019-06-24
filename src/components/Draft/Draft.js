@@ -11,6 +11,7 @@ import {
   matchProps,
   locationProps,
 } from '@expandorg/app-utils';
+
 import { draftProps } from '../shared/propTypes';
 import { authenticated } from '../shared/auth';
 

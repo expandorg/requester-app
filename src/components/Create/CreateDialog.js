@@ -12,7 +12,7 @@ import {
 } from '@expandorg/app-utils';
 
 import { Dialog } from '@expandorg/components';
-import { LoadIndicator } from '../Draft/Wizard/Form';
+import LoadIndicator from '../shared/LoadIndicator';
 
 import Form from './Form';
 

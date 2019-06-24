@@ -8,7 +8,7 @@ import { Table as T } from '@expandorg/components';
 import { makeJobResponsesDataSelector } from '../../../selectors/jobResponsesSelectors';
 import { fetchJobResponsesStateSelector } from '../../../selectors/uiStateSelectors';
 
-import { LoadIndicator } from '../../Draft/Wizard/Form';
+import LoadIndicator from '../../shared/LoadIndicator';
 import { Pagination } from '../../shared/DataTable';
 import Header from './Header';
 import Row from './Row';

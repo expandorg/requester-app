@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { requestStateProps, RequestStates } from '@expandorg/app-utils';
 import { Table as T } from '@expandorg/components';
 
-import { LoadIndicator } from '../../Draft/Wizard/Form';
+import LoadIndicator from '../../shared/LoadIndicator';
 import Header from './Header';
 import Row from './Row';
 
