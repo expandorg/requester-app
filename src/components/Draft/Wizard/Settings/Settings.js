@@ -3,28 +3,18 @@ import PropTypes from 'prop-types';
 
 import { validateForm } from '@expandorg/validation';
 
-import { Input, Button, Dropdown } from '@expandorg/components';
+import { Input, Button } from '@expandorg/components';
 
 import { draftProps } from '../../../shared/propTypes';
 
 import { Form, Description, Field, Fieldset, Toggle, Actions } from '../Form';
 
 import { settingsRules } from '../../../../model/draft';
-import { VerificationType } from '../../../../model/enums';
 
 import styles from './Settings.module.styl';
 
-const options = [
-  { value: VerificationType.Requester, label: 'Manual: Verify it yourself' },
-  {
-    value: VerificationType.Consensus,
-    label: 'Consensus',
-  },
-  // { value: VerificationType.AuditWhitelist, label: 'Whitelist' },
-];
-
 const getInitialState = draft => {
-  const { funding, verification } = draft;
+  const { funding } = draft;
 
   return {
     name: draft.name || '',
@@ -32,15 +22,12 @@ const getInitialState = draft => {
     staking: !!funding.requirement,
     stake: `${funding.requirement || 0}`,
     callbackUrl: (draft && draft.callbackUrl) || '',
-    verificationModule: verification.module || VerificationType.Requester,
-    agreementCount: `${verification.agreementCount || ''}`,
   };
 };
 
 const getSettings = settings => ({
   ...settings,
   stake: +settings.stake,
-  agreementCount: +settings.agreementCount,
 });
 
 export default class Settings extends Component {
@@ -91,12 +78,6 @@ export default class Settings extends Component {
     }
   };
 
-  // handleChangeLogo = logo => {
-  //   this.setState(({ settings }) => ({
-  //     settings: { ...settings, logo },
-  //   }));
-  // };
-
   handleInputChange = ({ target }) => {
     this.setState(({ settings }) => ({
       settings: { ...settings, [target.name]: target.value },
@@ -110,12 +91,6 @@ export default class Settings extends Component {
         staking: value,
         stake: value ? settings.stake : '',
       },
-    }));
-  };
-
-  handleChangeVerification = value => {
-    this.setState(({ settings }) => ({
-      settings: { ...settings, verificationModule: value },
     }));
   };
 
@@ -133,10 +108,6 @@ export default class Settings extends Component {
           <Description className={styles.desc}>
             Enter your project details to help you workers find your task.
           </Description>
-          {/* <UploadLogo
-            logo={settings.logo}
-            onChangeLogo={this.handleChangeLogo}
-          /> */}
           <Field
             tooltip={
               <span>
@@ -174,9 +145,7 @@ export default class Settings extends Component {
               tooltip={
                 <span>
                   Staking helps you to capture high quality workers by asking
-                  <br />
                   them to invest a token(s) beforehand to promise you that the
-                  <br />
                   task will be completed accurately
                 </span>
               }
@@ -201,8 +170,8 @@ export default class Settings extends Component {
           <Field
             tooltip={
               <span>
-                Only applicable to those who are connecting
-                <br /> their data through the API.
+                Only applicable to those who are connecting their data through
+                the API.
                 <br />
                 Your results will be sent to the url provided.
               </span>
@@ -215,32 +184,6 @@ export default class Settings extends Component {
               onChange={this.handleInputChange}
             />
           </Field>
-          <Field>
-            <Dropdown
-              value={settings.verificationModule}
-              label="Verification Type"
-              options={options}
-              onChange={this.handleChangeVerification}
-            />
-          </Field>
-          {settings.verificationModule === VerificationType.Consensus && (
-            <Field
-              tooltip={
-                <span>
-                  Enter how many workers need to get the
-                  <br />
-                  right answer before the task is verified.
-                </span>
-              }
-            >
-              <Input
-                placeholder="Agreement count"
-                name="agreementCount"
-                value={settings.agreementCount}
-                onChange={this.handleInputChange}
-              />
-            </Field>
-          )}
         </Fieldset>
         <Actions>
           <Button theme="secondary" onClick={this.handleBack}>
