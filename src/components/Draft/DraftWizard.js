@@ -44,7 +44,7 @@ export default function DraftWizard({ draft, isLoading, tab, isSaving }) {
       footer={false}
     >
       <Navbar
-        title={`${title} ${isSaving ? '...' : ''}`}
+        title={!isSaving ? title : 'Saving...'}
         top={false}
         logout={false}
         className={styles.navbar}

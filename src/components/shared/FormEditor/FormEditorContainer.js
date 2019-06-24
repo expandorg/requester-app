@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import { formProps } from '@expandorg/modules';
-import { NotificationAnimated } from '@expandorg/components/app';
 
 import { getModuleControlsMap } from '@expandorg/modules/model';
 
@@ -12,22 +11,27 @@ import { validateModuleProps } from './model/validation';
 import { ValueContextProvider } from './Canvas';
 import Selection from './model/Selection';
 
-import FormTreeEditor from './FormTreeEditor';
+import FormTreeEditor, { Ops } from './FormTreeEditor';
 
-import styles from './FormEditorContainer.module.styl';
+const actions = new Set([Ops.Remove, Ops.Copy, Ops.Edit, Ops.Move]);
+
+const changeSelection = (current, op) => {
+  if (current !== Selection.empty && actions.has(op)) {
+    return Selection.empty;
+  }
+  return current;
+};
 
 export default class FormEditorContainer extends Component {
   static propTypes = {
     form: formProps,
     validateForm: PropTypes.func.isRequired,
-    onSave: PropTypes.func,
     onChange: PropTypes.func,
   };
 
   static defaultProps = {
     form: null,
     onChange: null,
-    onSave: Function.prototype,
   };
 
   constructor(props) {
@@ -38,7 +42,7 @@ export default class FormEditorContainer extends Component {
       prev: props.form, // eslint-disable-line react/no-unused-state
       modules: props.form ? props.form.modules : [],
       controls: getModuleControlsMap(availableModules),
-      error: null,
+      // error: null,
     };
   }
 
@@ -54,21 +58,12 @@ export default class FormEditorContainer extends Component {
     return null;
   }
 
-  handleSave = () => {
-    const { validateForm, onSave, form } = this.props;
+  handleValidate = () => {
+    const { validateForm } = this.props;
     const { controls, modules } = this.state;
 
     const errors = validateForm(modules, controls);
-    if (errors) {
-      this.setState({
-        error: {
-          type: 'error',
-          message: errors.commonMessage,
-        },
-      });
-    } else {
-      onSave({ ...form, modules });
-    }
+    console.log(errors);
   };
 
   handleSelect = (path, type) => {
@@ -81,17 +76,18 @@ export default class FormEditorContainer extends Component {
     this.handleSelect(undefined);
   };
 
-  handleChange = (modules, selection) => {
+  handleChange = (modules, op) => {
     const { onChange, form } = this.props;
-    this.setState({ modules, selection }, () => {
-      if (onChange) {
-        onChange({ ...form, modules });
-      }
-    });
-  };
+    const { selection } = this.state;
 
-  handleClearError = () => {
-    this.setState({ error: null });
+    this.setState(
+      { modules, selection: changeSelection(selection, op) },
+      () => {
+        if (onChange && op !== Ops.Move) {
+          onChange({ ...form, modules });
+        }
+      }
+    );
   };
 
   validateModule = (module, originalName) => {
@@ -102,7 +98,7 @@ export default class FormEditorContainer extends Component {
 
   render() {
     const { children } = this.props;
-    const { selection, modules, error, controls } = this.state;
+    const { selection, modules, controls } = this.state;
 
     return (
       <ValueContextProvider selection={selection}>
@@ -117,18 +113,12 @@ export default class FormEditorContainer extends Component {
               modules,
               selection,
               controls,
-              onSave: this.handleSave,
               onSelect: this.handleSelect,
               onDeselect: this.handleDeselect,
               onValidateModule: this.validateModule,
             })
           }
         </FormTreeEditor>
-        <NotificationAnimated
-          className={styles.notifications}
-          notification={error}
-          onClear={this.handleClearError}
-        />
       </ValueContextProvider>
     );
   }

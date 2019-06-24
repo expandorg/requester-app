@@ -68,10 +68,12 @@ export const moduleSource = {
     id: props.module.name,
     path: props.path,
   }),
+  endDrag: ({ onEndDrag }, monitor) => {
+    onEndDrag(monitor.getItem().path);
+  },
 };
 
-const getContainerRect = component =>
-  component.containerRef.getBoundingClientRect();
+const getContainerRect = c => c.containerRef.getBoundingClientRect();
 
 const getParentId = path =>
   treeEditor.getIdByPath(treeEditor.getParentPath(path));

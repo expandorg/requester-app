@@ -15,13 +15,13 @@ export const getUniqId = ({ type }: ModuleControlMeta) =>
 
 export const scaffold = (
   meta: ModuleControlMeta,
-  isDragging: boolean
+  isDragging: boolean = false
 ): Module => ({
   ...(meta.editor && meta.editor.defaults),
   type: meta.type,
   name: getUniqId(meta),
-  modules: supportNesting(meta) ? [] : undefined,
   isDragging,
+  modules: supportNesting(meta) ? [] : undefined,
 });
 
 export const availableModules = moduleControls;

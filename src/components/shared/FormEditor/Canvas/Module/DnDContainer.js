@@ -17,7 +17,6 @@ class DnDModule extends Component {
     path: PropTypes.arrayOf(PropTypes.number).isRequired, // eslint-disable-line
     controls: PropTypes.object.isRequired, // eslint-disable-line
     isDragging: PropTypes.bool.isRequired,
-    onMove: PropTypes.func.isRequired, // eslint-disable-line
 
     connectDragSource: PropTypes.func.isRequired,
     connectDragPreview: PropTypes.func.isRequired,

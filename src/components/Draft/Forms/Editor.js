@@ -62,6 +62,7 @@ export default function Editor({
                 selected={p.selection.getId('edit')}
                 controls={p.controls}
                 onAdd={p.onAdd}
+                onEndDrag={p.onEndDrag}
                 onMove={p.onMove}
                 onRemove={p.onRemove}
                 onSelect={p.onSelect}

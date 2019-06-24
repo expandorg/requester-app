@@ -33,6 +33,7 @@ class Form extends Component {
     onSelect: PropTypes.func.isRequired,
     onRemove: PropTypes.func.isRequired,
     onCopy: PropTypes.func.isRequired,
+    onEndDrag: PropTypes.func.isRequired,
     connectDropTarget: PropTypes.func.isRequired,
   };
 
@@ -68,6 +69,7 @@ class Form extends Component {
       onCopy,
       selected,
       controls,
+      onEndDrag,
       connectDropTarget,
     } = this.props;
     return (
@@ -90,6 +92,7 @@ class Form extends Component {
                       path={p}
                       controls={controls}
                       onMove={onMove}
+                      onEndDrag={onEndDrag}
                     >
                       {({ connectDragPreview }) => (
                         <Preview

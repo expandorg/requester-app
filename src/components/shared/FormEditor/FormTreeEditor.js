@@ -9,6 +9,15 @@ import Selection from './model/Selection';
 import { scaffold, getUniqId } from './model/modules';
 import { treeEditor } from './model/dnd';
 
+export const Ops = {
+  Add: 'Add',
+  EndDrag: 'EndDrag',
+  Remove: 'Remove',
+  Copy: 'Copy',
+  Edit: 'Edit',
+  Move: 'Move',
+};
+
 export default class FormTreeEditor extends Component {
   static propTypes = {
     modules: PropTypes.arrayOf(moduleProps),
@@ -34,7 +43,7 @@ export default class FormTreeEditor extends Component {
   handleEndDrag = path => {
     const { modules, onChange, selection } = this.props;
     const modifiled = treeEditor.modifyAt(modules, path, item => {
-      if (item !== undefined) {
+      if (item !== undefined && item.isDragging) {
         item.isDragging = undefined;
       }
     });
@@ -43,7 +52,7 @@ export default class FormTreeEditor extends Component {
 
   handleRemove = path => {
     const { modules, onChange } = this.props;
-    onChange(treeEditor.removeAt(modules, path), Selection.empty);
+    onChange(treeEditor.removeAt(modules, path), Ops.Remove);
   };
 
   handleCopy = (path, module) => {
@@ -54,15 +63,12 @@ export default class FormTreeEditor extends Component {
       path,
       deepCopyModule(module, getUniqId)
     );
-    onChange(editied, Selection.empty);
+    onChange(editied, Ops.Copy);
   };
 
   handleEdit = mod => {
     const { modules, onChange, selection } = this.props;
-    onChange(
-      treeEditor.replaceAt(modules, selection.path, mod),
-      Selection.empty
-    );
+    onChange(treeEditor.replaceAt(modules, selection.path, mod), Ops.Edit);
   };
 
   handleMove = (dragPath, hoverPath, meta) => {
@@ -73,7 +79,7 @@ export default class FormTreeEditor extends Component {
         ? treeEditor.insertAt(modules, hoverPath, scaffold(meta, true))
         : treeEditor.moveAt(modules, dragPath, hoverPath);
 
-    onChange(edited, Selection.empty);
+    onChange(edited, Ops.Move);
   };
 
   render() {
