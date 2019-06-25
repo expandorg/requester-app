@@ -15,7 +15,6 @@ export default class List extends Component {
 
   render() {
     const { className, children } = this.props;
-
     return <div className={cn(styles.list, className)}>{children}</div>;
   }
 }

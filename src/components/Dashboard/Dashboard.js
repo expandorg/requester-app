@@ -97,7 +97,6 @@ class Dashboard extends Component {
         {isEmpty && <Empty />}
         {!isEmpty && (
           <List className={styles.list}>
-            <NewJob />
             {items.map(draft => (
               <JobItem
                 key={draft.key}
@@ -106,6 +105,7 @@ class Dashboard extends Component {
                 onDelete={this.props.removeDraft}
               />
             ))}
+            <NewJob small />
           </List>
         )}
       </Page>
