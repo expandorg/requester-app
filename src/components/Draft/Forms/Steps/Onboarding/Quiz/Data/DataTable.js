@@ -167,7 +167,7 @@ export default class DataTable extends Component {
                 onClick={this.handleAddVar}
               >
                 <div className={styles.plus}>+</div>
-                <div>Add column</div>
+                <div>Add Answer Choice</div>
               </button>
             </T.HeaderCell>
           </T.Header>
@@ -195,7 +195,7 @@ export default class DataTable extends Component {
                 className={cn(styles.btn, styles.row)}
                 onClick={this.handleAddRow}
               >
-                <span className={styles.plus}>+</span> Add Row
+                <span className={styles.plus}>+</span> Add Question
               </button>
             </T.Cell>
             <td />
