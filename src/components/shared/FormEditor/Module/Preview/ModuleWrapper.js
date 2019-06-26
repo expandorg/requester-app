@@ -5,7 +5,7 @@ import cn from 'classnames';
 import { moduleProps } from '@expandorg/modules';
 
 import { ValueContext } from '../../ValueContext';
-import { treeEditor } from '../../../model/dnd';
+import { treeEditor } from '../../model/dnd';
 
 import styles from './ModuleWrapper.module.styl';
 

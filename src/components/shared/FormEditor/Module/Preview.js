@@ -12,8 +12,8 @@ import Sidepanel from './Preview/Sidepanel';
 import NotSupported from './Preview/NotSupported';
 import ModuleWrapper from './Preview/ModuleWrapper';
 
-import { supportNesting } from '../../model/modules';
-import { treeEditor } from '../../model/dnd';
+import { supportNesting } from '../model/modules';
+import { treeEditor } from '../model/dnd';
 
 import styles from './Preview.module.styl';
 

@@ -12,7 +12,7 @@ import {
 import { dropAreaTarget, FORM_DND_ID } from '../model/dnd';
 
 import Empty from './Empty';
-import { DnDContainer, Preview } from './Module';
+import { DnDContainer, Preview } from '../Module';
 
 import styles from './Form.module.styl';
 

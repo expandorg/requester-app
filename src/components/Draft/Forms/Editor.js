@@ -14,11 +14,12 @@ import {
 
 import ModulePicker from '../../shared/FormEditor/ModulePicker';
 import { LogicPanel } from '../../shared/FormEditor/Logic';
-import { Form } from '../../shared/FormEditor/Canvas';
+import Form from '../../shared/FormEditor/Form';
 import { PropertiesPanel } from '../../shared/FormEditor/Properties';
 import { availableModules } from '../../shared/FormEditor/model/modules';
-import help from '../../shared/FormEditor/model/help';
 import Selection from '../../shared/FormEditor/model/Selection';
+
+import help from '../../shared/FormEditor/model/help';
 
 import styles from './Editor.module.styl';
 

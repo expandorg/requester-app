@@ -5,7 +5,7 @@ import { Button } from '@expandorg/components';
 
 import { DraftTextInput } from '../../../../common/RichText';
 import { restoreVariables } from './restoreVariables';
-import { withValueContext } from '../../Canvas';
+import { withValueContext } from '../../ValueContext';
 
 import styles from './LinkedValueEditor.module.styl';
 

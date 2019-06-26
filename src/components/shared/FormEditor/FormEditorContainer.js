@@ -8,7 +8,7 @@ import { getModuleControlsMap } from '@expandorg/modules/model';
 import { availableModules } from './model/modules';
 import { validateModuleProps } from './model/validation';
 
-import { ValueContextProvider } from './Canvas';
+import { ValueContextProvider } from './ValueContext';
 import Selection from './model/Selection';
 
 import FormTreeEditor, { Ops } from './FormTreeEditor';

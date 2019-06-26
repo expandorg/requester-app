@@ -7,7 +7,7 @@ import { moduleProps } from '@expandorg/modules';
 
 import { Placeholder } from './Placeholders';
 
-import { moduleSource, moduleTarget, FORM_DND_ID } from '../../model/dnd';
+import { moduleSource, moduleTarget, FORM_DND_ID } from '../model/dnd';
 
 import styles from './DnDContainer.module.styl';
 
