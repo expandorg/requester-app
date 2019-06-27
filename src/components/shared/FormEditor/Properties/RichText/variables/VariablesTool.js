@@ -8,7 +8,7 @@ export default function VariablesTool({
   variables,
   className,
   onSelect,
-  onAdd,
+  onToggleVarsDialog,
 }) {
   const [opened, setOpened] = useState(false);
 
@@ -36,7 +36,7 @@ export default function VariablesTool({
           variables={variables}
           onSelect={select}
           onHide={hide}
-          onAdd={onAdd}
+          onToggleVarsDialog={onToggleVarsDialog}
         />
       )}
     </>
@@ -47,11 +47,11 @@ VariablesTool.propTypes = {
   className: PropTypes.string,
   variables: PropTypes.arrayOf(PropTypes.string),
   onSelect: PropTypes.func.isRequired,
-  onAdd: PropTypes.func,
+  onToggleVarsDialog: PropTypes.func,
 };
 
 VariablesTool.defaultProps = {
   variables: [],
   className: null,
-  onAdd: null,
+  onToggleVarsDialog: null,
 };

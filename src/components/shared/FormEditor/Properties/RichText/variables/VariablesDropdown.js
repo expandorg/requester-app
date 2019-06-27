@@ -11,7 +11,7 @@ export default function VariablesDropdown({
   className,
   onHide,
   onSelect,
-  onAdd,
+  onToggleVarsDialog,
 }) {
   const ref = useRef();
   useClickOutside(ref, evt => {
@@ -43,11 +43,13 @@ export default function VariablesDropdown({
             </button>
           ))}
       </div>
-      <div className={styles.add}>
-        <button className={styles.addBtn} onClick={onAdd}>
-          add/manage
-        </button>
-      </div>
+      {onToggleVarsDialog && (
+        <div className={styles.add}>
+          <button className={styles.addBtn} onClick={onToggleVarsDialog}>
+            add/manage
+          </button>
+        </div>
+      )}
     </div>
   );
 }
@@ -57,10 +59,11 @@ VariablesDropdown.propTypes = {
   className: PropTypes.string,
   onHide: PropTypes.func.isRequired,
   onSelect: PropTypes.func.isRequired,
-  onAdd: PropTypes.func.isRequired,
+  onToggleVarsDialog: PropTypes.func,
 };
 
 VariablesDropdown.defaultProps = {
   className: null,
   variables: null,
+  onToggleVarsDialog: null,
 };

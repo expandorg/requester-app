@@ -20,11 +20,13 @@ export default class OptionsEditor extends Component {
     value: PropTypes.arrayOf(PropTypes.string),
     variables: PropTypes.arrayOf(PropTypes.string),
     onChange: PropTypes.func.isRequired,
+    onToggleVarsDialog: PropTypes.func,
   };
 
   static defaultProps = {
     value: [''],
     variables: [],
+    onToggleVarsDialog: null,
   };
 
   constructor(props) {
@@ -64,7 +66,7 @@ export default class OptionsEditor extends Component {
   };
 
   render() {
-    const { variables } = this.props;
+    const { variables, onToggleVarsDialog } = this.props;
     const { options } = this.state;
     /* eslint-disable react/no-array-index-key */
     return (
@@ -75,6 +77,7 @@ export default class OptionsEditor extends Component {
           placeholder="Default Option 1"
           onChange={v => this.handleChangeValue(v, 0)}
           className={styles.default}
+          onToggleVarsDialog={onToggleVarsDialog}
         />
         {options.slice(1, options.length).map((o, idx) => (
           <div className={styles.item} key={o.id}>
@@ -84,6 +87,7 @@ export default class OptionsEditor extends Component {
               placeholder={`Option ${idx + 2}`}
               className={styles.option}
               onChange={v => this.handleChangeValue(v, idx + 1)}
+              onToggleVarsDialog={onToggleVarsDialog}
             />
             <button
               className={styles.remove}

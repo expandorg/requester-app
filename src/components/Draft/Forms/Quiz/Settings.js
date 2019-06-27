@@ -4,12 +4,12 @@ import PropTypes from 'prop-types';
 import { Button, Input } from '@expandorg/components';
 import { validateForm } from '@expandorg/validation';
 
-import { Fieldset, Field } from '../../../../controls';
+import { Fieldset, Field } from '../../controls';
 import Nav from './Nav';
 
 import { WizardSteps } from './wizard';
-import { draftOnboardingStepProps } from '../../../../../shared/propTypes';
-import { onboardingGroupSettingsRules } from '../../../../../../model/draft';
+import { draftOnboardingStepProps } from '../../../shared/propTypes';
+import { onboardingGroupSettingsRules } from '../../../../model/draft';
 
 import styles from './styles.module.styl';
 

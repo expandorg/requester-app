@@ -1,38 +1,46 @@
-import React, { Component } from 'react';
+import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
 
 import { DraftTextEditor } from '../RichText';
 import { restoreVariables } from './restoreVariables';
 
-export default class RichTextEditor extends Component {
-  static propTypes = {
-    value: PropTypes.string,
-    placeholder: PropTypes.string,
-    variables: PropTypes.arrayOf(PropTypes.string),
-    onChange: PropTypes.func.isRequired,
-  };
+export default function RichTextEditor({
+  placeholder,
+  value,
+  onChange,
+  variables,
+  onToggleVarsDialog,
+}) {
+  const handleChange = useCallback(
+    v => {
+      onChange(v);
+    },
+    [onChange]
+  );
 
-  static defaultProps = {
-    value: undefined,
-    variables: [],
-    placeholder: undefined,
-  };
-
-  handleChange = value => {
-    const { onChange } = this.props;
-    onChange(value);
-  };
-
-  render() {
-    const { placeholder, value, variables } = this.props;
-    return (
-      <DraftTextEditor
-        value={value}
-        autocomplete={variables}
-        resotreEntities={restoreVariables}
-        onChange={this.handleChange}
-        placeholder={placeholder}
-      />
-    );
-  }
+  return (
+    <DraftTextEditor
+      value={value}
+      autocomplete={variables}
+      resotreEntities={restoreVariables}
+      onChange={handleChange}
+      placeholder={placeholder}
+      onToggleVarsDialog={onToggleVarsDialog}
+    />
+  );
 }
+
+RichTextEditor.propTypes = {
+  value: PropTypes.string,
+  placeholder: PropTypes.string,
+  variables: PropTypes.arrayOf(PropTypes.string),
+  onChange: PropTypes.func.isRequired,
+  onToggleVarsDialog: PropTypes.func,
+};
+
+RichTextEditor.defaultProps = {
+  value: undefined,
+  variables: [],
+  placeholder: undefined,
+  onToggleVarsDialog: null,
+};

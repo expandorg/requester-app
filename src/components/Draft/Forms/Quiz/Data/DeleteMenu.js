@@ -1,12 +1,9 @@
 import React, { useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
 
-import { ReactComponent as MenuIcon } from '../../../menu.svg';
+import { ReactComponent as MenuIcon } from '../../Steps/menu.svg';
 
-import {
-  ContextMenu,
-  ContextMenuItem,
-} from '../../../../../../common/ContextMenu';
+import { ContextMenu, ContextMenuItem } from '../../../../common/ContextMenu';
 
 import styles from './DeleteMenu.module.styl';
 

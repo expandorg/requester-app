@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
 
 import { PropControlTypes } from '@expandorg/modules';
@@ -29,51 +29,54 @@ const editors = {
   [PropControlTypes.timelineRange]: TimelineRangeEditor,
 };
 
-export default class PropertyEditor extends Component {
-  static propTypes = {
-    name: PropTypes.string.isRequired,
-    property: PropTypes.object.isRequired, // eslint-disable-line
-    variables: PropTypes.arrayOf(PropTypes.string),
-    moduleProperties: PropTypes.any, // eslint-disable-line
-    onChange: PropTypes.func.isRequired,
-  };
+export default function PropertyEditor({
+  name,
+  property: { type, ...params },
+  moduleProperties,
+  variables,
+  onChange,
+  onToggleVarsDialog,
+}) {
+  const handleChange = useCallback(
+    v => {
+      onChange(name, v);
+    },
+    [name, onChange]
+  );
 
-  static defaultProps = {
-    variables: [],
-    moduleProperties: undefined,
-  };
+  const Editor = editors[type];
 
-  handleChange = value => {
-    const { name, onChange } = this.props;
-    onChange(name, value);
-  };
-
-  render() {
-    const {
-      name,
-      property: { type, ...params },
-      moduleProperties,
-      variables,
-    } = this.props;
-
-    const Editor = editors[type];
-
-    if (!Editor) {
-      return null;
-    }
-
-    return (
-      <div className={styles.container}>
-        <Editor
-          variables={variables}
-          value={moduleProperties[name]}
-          onChange={this.handleChange}
-          moduleProperties={
-            Editor.withModuleProperties ? moduleProperties : undefined
-          }
-          {...params}
-        />
-      </div>
-    );
+  if (!Editor) {
+    return null;
   }
+
+  return (
+    <div className={styles.container}>
+      <Editor
+        value={moduleProperties[name]}
+        onChange={handleChange}
+        variables={variables}
+        onToggleVarsDialog={onToggleVarsDialog}
+        moduleProperties={
+          Editor.withModuleProperties ? moduleProperties : undefined
+        }
+        {...params}
+      />
+    </div>
+  );
 }
+
+PropertyEditor.propTypes = {
+  name: PropTypes.string.isRequired,
+  property: PropTypes.object.isRequired, // eslint-disable-line
+  variables: PropTypes.arrayOf(PropTypes.string),
+  moduleProperties: PropTypes.any, // eslint-disable-line
+  onChange: PropTypes.func.isRequired,
+  onToggleVarsDialog: PropTypes.func,
+};
+
+PropertyEditor.defaultProps = {
+  variables: [],
+  moduleProperties: undefined,
+  onToggleVarsDialog: null,
+};

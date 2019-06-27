@@ -6,7 +6,7 @@ import { Table as T, Button, Dropdown } from '@expandorg/components';
 
 import styles from './Variable.module.styl';
 
-import { columnTypes } from '../../../../../../../model/onboardingData';
+import { columnTypes } from '../../../../../model/onboardingData';
 
 export default class Variable extends Component {
   static propTypes = {

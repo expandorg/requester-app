@@ -26,11 +26,13 @@ class LinkedValueEditor extends Component {
     onStartInput: PropTypes.func.isRequired,
     onChangeValue: PropTypes.func.isRequired,
     onEndInput: PropTypes.func.isRequired,
+    onToggleVarsDialog: PropTypes.func,
   };
 
   static defaultProps = {
     moduleValue: null,
     variables: [],
+    onToggleVarsDialog: null,
   };
 
   handleSelectVar = variable => {
@@ -72,6 +74,7 @@ class LinkedValueEditor extends Component {
       moduleValue,
       variables,
       onEndInput,
+      onToggleVarsDialog,
       stringifyValue,
     } = this.props;
 
@@ -87,6 +90,7 @@ class LinkedValueEditor extends Component {
               resotreEntities={restoreVariables}
               placeholder={title}
               onSelectVar={this.handleSelectVar}
+              onToggleVarsDialog={onToggleVarsDialog}
             />
           </div>
           <button className={styles.clear} onClick={this.handleClear}>

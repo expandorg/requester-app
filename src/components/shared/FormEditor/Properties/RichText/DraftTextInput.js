@@ -38,6 +38,7 @@ export default class DraftTextInput extends Component {
     resotreEntities: PropTypes.func,
     onChange: PropTypes.func,
     onSelectVar: PropTypes.func,
+    onToggleVarsDialog: PropTypes.func,
   };
 
   static defaultProps = {
@@ -49,6 +50,7 @@ export default class DraftTextInput extends Component {
     className: undefined,
     onChange: Function.prototype,
     onSelectVar: null,
+    onToggleVarsDialog: null,
   };
 
   constructor(props) {
@@ -101,6 +103,7 @@ export default class DraftTextInput extends Component {
       placeholder,
       className,
       readOnly,
+      onToggleVarsDialog,
       autocomplete: allVars,
     } = this.props;
 
@@ -137,6 +140,7 @@ export default class DraftTextInput extends Component {
           className={styles.dropdown}
           variables={allVars}
           onSelect={this.handleSelectVar}
+          onToggleVarsDialog={onToggleVarsDialog}
         >
           {({ onToggle }) => (
             <button className={styles.vars} onClick={onToggle}>

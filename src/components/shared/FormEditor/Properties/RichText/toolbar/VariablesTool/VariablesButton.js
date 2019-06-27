@@ -5,10 +5,18 @@ import VariablesTool from '../../variables/VariablesTool';
 
 import styles from './VariablesButton.module.styl';
 
-export default function VariablesButton({ variables, onSelect }) {
+export default function VariablesButton({
+  variables,
+  onSelect,
+  onToggleVarsDialog,
+}) {
   return (
     <div className={styles.container}>
-      <VariablesTool variables={variables} onSelect={onSelect}>
+      <VariablesTool
+        variables={variables}
+        onSelect={onSelect}
+        onToggleVarsDialog={onToggleVarsDialog}
+      >
         {({ onToggle }) => (
           <button className={styles.button} onClick={onToggle}>
             + var
@@ -22,8 +30,10 @@ export default function VariablesButton({ variables, onSelect }) {
 VariablesButton.propTypes = {
   variables: PropTypes.arrayOf(PropTypes.string),
   onSelect: PropTypes.func.isRequired,
+  onToggleVarsDialog: PropTypes.func,
 };
 
 VariablesButton.defaultProps = {
   variables: [],
+  onToggleVarsDialog: null,
 };

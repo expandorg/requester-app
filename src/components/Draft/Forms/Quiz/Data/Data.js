@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 
 import { Button } from '@expandorg/components';
 
-import { draftOnboardingStepProps } from '../../../../../../shared/propTypes';
-import { gerAnswerFields } from '../../../../../../../model/onboardingData';
+import { draftOnboardingStepProps } from '../../../../shared/propTypes';
+import { gerAnswerFields } from '../../../../../model/onboardingData';
 
 import DataTable from './DataTable';
 import Nav from '../Nav';

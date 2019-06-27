@@ -16,7 +16,7 @@ import {
   NavItemContextMenu,
 } from '../controls';
 
-import Quiz from './Quiz/Quiz';
+import Quiz from '../../Quiz/Quiz';
 import { source, target } from './dnd';
 
 import styles from './MenuItem.module.styl';

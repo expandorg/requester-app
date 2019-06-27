@@ -19,7 +19,7 @@ import {
   insertValuesColumn,
   createNewColumn,
   createNewRow,
-} from '../../../../../../../model/onboardingData';
+} from '../../../../../model/onboardingData';
 
 import styles from './DataTable.module.styl';
 

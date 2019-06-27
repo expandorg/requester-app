@@ -3,13 +3,13 @@ import PropTypes from 'prop-types';
 
 import { Dialog } from '@expandorg/components';
 
-import { draftOnboardingStepProps } from '../../../../../shared/propTypes';
+import { draftOnboardingStepProps } from '../../../shared/propTypes';
 
 import Data from './Data/Data';
 import Settings from './Settings';
 
 import { WizardSteps } from './wizard';
-import usePropsState from '../../../../../common/usePropsState';
+import usePropsState from '../../../common/usePropsState';
 
 import styles from './Quiz.module.styl';
 

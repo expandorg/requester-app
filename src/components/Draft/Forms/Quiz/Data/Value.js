@@ -4,7 +4,7 @@ import cn from 'classnames';
 
 import { Table as T, Switch } from '@expandorg/components';
 
-import { columnTypes } from '../../../../../../../model/onboardingData';
+import { columnTypes } from '../../../../../model/onboardingData';
 
 import styles from './Value.module.styl';
 

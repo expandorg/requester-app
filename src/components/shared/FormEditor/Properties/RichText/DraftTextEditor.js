@@ -42,6 +42,7 @@ export default class DraftTextEditor extends Component {
     autocomplete: PropTypes.arrayOf(PropTypes.string),
     resotreEntities: PropTypes.func,
     onChange: PropTypes.func.isRequired,
+    onToggleVarsDialog: PropTypes.func,
   };
 
   static defaultProps = {
@@ -49,6 +50,7 @@ export default class DraftTextEditor extends Component {
     autocomplete: [],
     resotreEntities: undefined,
     placeholder: undefined,
+    onToggleVarsDialog: null,
   };
 
   constructor(props) {
@@ -102,7 +104,11 @@ export default class DraftTextEditor extends Component {
   };
 
   render() {
-    const { placeholder, autocomplete: allVars } = this.props;
+    const {
+      placeholder,
+      autocomplete: allVars,
+      onToggleVarsDialog,
+    } = this.props;
     const { editorState, autocomplete } = this.state;
 
     const { MentionSuggestions } = this.mentionPlugin;
@@ -126,6 +132,7 @@ export default class DraftTextEditor extends Component {
           <VariablesButton
             variables={allVars}
             onSelect={this.handleSelectVar}
+            onAdd={onToggleVarsDialog}
           />
         </div>
         <div className={styles.content}>

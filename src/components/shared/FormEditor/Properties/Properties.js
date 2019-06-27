@@ -21,10 +21,12 @@ export default class Properties extends Component {
     onEdit: PropTypes.func.isRequired,
     onValidate: PropTypes.func.isRequired,
     onCancel: PropTypes.func.isRequired,
+    onToggleVarsDialog: PropTypes.func,
   };
 
   static defaultProps = {
     variables: [],
+    onToggleVarsDialog: null,
   };
 
   constructor(props) {
@@ -76,7 +78,7 @@ export default class Properties extends Component {
   };
 
   render() {
-    const { controls, onCancel, variables } = this.props;
+    const { controls, onCancel, variables, onToggleVarsDialog } = this.props;
     const { module, errors } = this.state;
 
     const {
@@ -110,6 +112,7 @@ export default class Properties extends Component {
                     key={propertyName}
                     name={propertyName}
                     variables={variables}
+                    onToggleVarsDialog={onToggleVarsDialog}
                     property={editor.properties[propertyName]}
                     moduleProperties={module}
                     onChange={this.handleChangeProperty}
