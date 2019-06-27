@@ -49,11 +49,11 @@ export const updateVerificationForm = (id, form) => ({
   meta: { schema: draftResponseSchema },
 });
 
-export const updateOnboarding = (id, onboarding) => ({
+export const updateOnboarding = (id, onboarding, optimistic = false) => ({
   type: draftsActionTypes.UPDATE_ONBOARDING,
   payload: { id, onboarding },
   asyncCall: draftApi.updateOnboarding,
-  meta: { schema: draftResponseSchema },
+  meta: { schema: draftResponseSchema, optimistic },
 });
 
 export const updateVariables = (id, variables) => ({

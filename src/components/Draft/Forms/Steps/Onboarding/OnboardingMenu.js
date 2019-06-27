@@ -40,9 +40,9 @@ export default function OnboardingMenu({ draft, selection, onSelect }) {
   );
 
   const update = useCallback(
-    updatedStep => {
+    (updatedStep, optimistic) => {
       const onboarding = DraftOnboarding.update(draft, updatedStep);
-      dispatch(updateOnboarding(draft.id, onboarding));
+      dispatch(updateOnboarding(draft.id, onboarding, optimistic));
     },
     [dispatch, draft]
   );

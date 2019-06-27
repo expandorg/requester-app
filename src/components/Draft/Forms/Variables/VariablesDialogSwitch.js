@@ -26,7 +26,7 @@ export default function VariablesDialogSwitch({
   const updateGroup = useCallback(
     group => {
       const onboarding = DraftOnboarding.update(draft, group);
-      dispatch(updateOnboarding(draft.id, onboarding));
+      dispatch(updateOnboarding(draft.id, onboarding, true));
     },
     [dispatch, draft]
   );

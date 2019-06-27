@@ -58,9 +58,9 @@ export default function OnboardingMenuItem({
     [onRemove, step.id, toggleMenu]
   );
 
-  const update = useCallback(
+  const updateQuiz = useCallback(
     updated => {
-      onUpdate(updated);
+      onUpdate(updated, true);
     },
     [onUpdate]
   );
@@ -87,7 +87,12 @@ export default function OnboardingMenuItem({
         <ContextMenuItem onClick={duplicate}>Duplicate</ContextMenuItem>
         <ContextMenuItem onClick={remove}>Remove</ContextMenuItem>
       </NavItemContextMenu>
-      <Quiz group={step} visible={quiz} onHide={toggleQuiz} onUpdate={update} />
+      <Quiz
+        group={step}
+        visible={quiz}
+        onHide={toggleQuiz}
+        onUpdate={updateQuiz}
+      />
     </NavItem>
   );
 }
