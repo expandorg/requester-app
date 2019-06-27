@@ -34,8 +34,9 @@ export default function VariablesDialogSwitch({
   const updateVars = useCallback(
     vars => {
       dispatch(updateVariables(draft.id, vars));
+      onHide();
     },
-    [dispatch, draft]
+    [dispatch, draft.id, onHide]
   );
 
   if (!visible) {
