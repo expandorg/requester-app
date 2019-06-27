@@ -2,7 +2,6 @@
 @import '~@expandorg/uikit/font';
 
 .menu
-  margin-left: 24px
   display flex
 
 .item
@@ -13,32 +12,41 @@
   align-items: center
   justify-content: center
 
-  height: 40px
+  height: 50px
   min-width 130px
 
-  font(h4-bold, false, false, 38px)
+  font(h4-bold, false, false, 48px)
   padding: 0 20px
 
   color: color-black
+  background-color: color-white
+
   border: 1px solid color-heavy-blue
   border-right-color: transparent
 
   cursor pointer
 
+  &:after
+    position: absolute
+    content: " "
+    bottom: -1px
+    right: -1px
+    left: 0
+    height: 3px
+    background-color: transparent
+
   &:hover
-    background-color: color-white
+    &:after
+      background-color: color-primary-blue
+
 
     .contextMenuButton
       display block
 
-  &:first-child
-    border-top-left-radius: 20px
-    border-bottom-left-radius: 20px
 
   &:last-child
-    border-top-right-radius: 20px
-    border-bottom-right-radius: 20px
     border-right-color: color-heavy-blue
+    border-bottom-right-radius: 5px
 
 
 .selected
