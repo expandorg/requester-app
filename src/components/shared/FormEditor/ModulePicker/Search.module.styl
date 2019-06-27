@@ -2,10 +2,13 @@
 @import '~@expandorg/uikit/font';
 
 .container
+  box-sizing: border-box
   position: relative;
   display: flex;
   align-items: center;
   height: 54px
+  padding: 0 14px
+
 
 .title
   font(subtitle, 800)
@@ -18,7 +21,7 @@
 .icon
   position: absolute;
   top: calc(50% - 11px)
-  left: calc(100% - 15px)
+  left: calc(100% - 30px)
   cursor: pointer;
 
   transition: left 100ms linear
@@ -27,7 +30,7 @@
     fill: color-white
 
   .searching &
-    left: 0
+    left: 15px
 
 .search
   display: none;

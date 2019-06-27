@@ -4,15 +4,18 @@
 
 .container
   box-sizing: border-box;
-  margin-bottom: 10px
-  border-radius: 5px;
-  background-color: color-primary-blue;
+  border-bottom: 1px solid color-white
+
+  &:last-child
+    border-bottom: none
 
 .inner
+  box-sizing: border-box
   display: flex;
   justify-content: flex-start;
   align-items: stretch;
   height: 46px;
+  padding-left: 10px
 
   cursor: pointer;
 
@@ -34,9 +37,7 @@
 
 
 .name
-  background-color: color-primary-blue
   box-sizing: border-box;
-
   padding: 0 6px
   width: 100%;
 
@@ -52,7 +53,6 @@
   user-select: none;
 
   transition: background-color  100ms linear, color 100ms linear
-
 
 .list
   box-sizing: border-box;
