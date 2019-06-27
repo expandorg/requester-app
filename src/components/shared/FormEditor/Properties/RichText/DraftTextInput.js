@@ -7,7 +7,7 @@ import createMentionPlugin from 'draft-js-mention-plugin';
 
 import { ReactComponent as Arrow } from '@expandorg/uikit/assets/arrow-down.svg';
 
-import { VariablesTool } from './toolbar';
+import VariablesTool from './variables/VariablesTool';
 
 import TopPlaceholder from './TopPlaceholder';
 

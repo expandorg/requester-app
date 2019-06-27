@@ -7,7 +7,7 @@ import { removeAtIndex, replaceAtIndex } from '@expandorg/utils';
 
 import { ReactComponent as X } from '@expandorg/uikit/assets/x.svg';
 
-import { DraftTextInput } from '../../../../common/RichText';
+import { DraftTextInput } from '../RichText';
 
 import styles from './OptionsEditor.module.styl';
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import VariablesTool from './VariablesTool';
+import VariablesTool from '../../variables/VariablesTool';
 
 import styles from './VariablesButton.module.styl';
 

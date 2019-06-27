@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import { Button } from '@expandorg/components';
 
-import { DraftTextInput } from '../../../../common/RichText';
+import { DraftTextInput } from '../RichText';
 import { restoreVariables } from './restoreVariables';
 import { withValueContext } from '../../ValueContext';
 

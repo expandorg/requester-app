@@ -3,7 +3,7 @@ import type { ContentState, ContentBlock } from 'draft-js';
 
 import { findVariables } from '@expandorg/modules/model';
 
-import { restoreEntities } from '../../../../common/RichText';
+import { restoreEntities } from '../RichText';
 
 export const findVarsRanges = (block: ContentBlock): Array<Object> =>
   findVariables(block.getText());
