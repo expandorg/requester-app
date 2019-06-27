@@ -97,7 +97,6 @@ export class FormProps {
   static getValidator(selection: FormSelection): Function {
     switch (selection) {
       case FormSelection.task:
-        return validationTaskFormProps;
       case FormSelection.verification:
         return validationTaskFormProps;
       default:
@@ -106,18 +105,41 @@ export class FormProps {
     return validationFormProps;
   }
 
+  static getVariablesParams(
+    selection: FormSelection,
+    dataColumns: Array<string>,
+    draft: Draft,
+    onToggleVarsDialog: Function
+  ) {
+    if (selection.isTask() || selection.isVerification()) {
+      return {
+        variables: dataColumns,
+        onToggleVarsDialog,
+      };
+    }
+    if (selection.isQuiz(draft)) {
+      return {
+        variables: dataColumns,
+        onToggleVarsDialog,
+      };
+    }
+    return {};
+  }
+
   static getFormProps(
     selection: FormSelection,
     dataColumns: Array<string>,
     draft: Draft,
     toggleVars: Function
   ) {
-    const isOnboarding = selection.isOnboarding();
     return {
-      variables: dataColumns,
+      ...FormProps.getVariablesParams(
+        selection,
+        dataColumns,
+        draft,
+        toggleVars
+      ),
       validateForm: FormProps.getValidator(selection),
-      onToggleVarsDialog:
-        !isOnboarding || selection.isQuiz(draft) ? toggleVars : undefined,
     };
   }
 }

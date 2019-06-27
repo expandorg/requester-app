@@ -1,0 +1,98 @@
+@import '~@expandorg/uikit/colors';
+@import '~@expandorg/uikit/font';
+
+.overlay
+  z-index 4
+
+.container
+  padding-left: 65px
+  padding-right: 65px
+
+.fieldset
+  text-align: left
+  margin-top 50px
+
+
+.field
+  position relative
+
+.input
+  width: calc(100% - 8px)
+
+.add
+  position absolute
+  right: 0px
+  top: calc(50% - 8px)
+
+  font(subtitle, 800)
+  text-transform: uppercase
+
+  color: color-text-blue
+  background-color: transparent
+
+  outline: 0
+  cursor pointer
+
+.vars
+  margin-top: 45px
+  font(h3-bold)
+  color: color-black
+
+.list
+  box-sizing: border-box
+  margin-top: 15px
+
+  max-height: 300px
+  overflow-y: auto
+
+  border: 1px solid color-heavy-blue
+
+.variable
+  display: flex
+  justify-content: space-between
+  align-items: center
+
+  box-sizing: border-box
+  padding: 0 11px
+  height 40px
+
+  border-bottom: 1px solid color-heavy-blue
+
+  &:last-child
+    border-bottom: 0
+
+  &:nth-child(odd)
+    background-color: color-light-blue
+
+.name
+  font(body)
+  color: color-text-dark
+
+.remove
+  box-sizing: border-box
+  position relative
+  width: 20px
+  height: 20px
+
+  background-color: color-primary-blue
+  border-radius: 10px
+  outline: 0
+  cursor pointer
+
+  &:after
+    position: absolute
+    top calc(50% - 1px)
+    left: calc(50% - 5px)
+    content:""
+    width: 10px
+    height 2px
+    background-color: color-white
+
+.btn
+  width: 100%
+
+  &:first-child
+    margin-left: 0
+
+  &:last-child
+    margin-right: 0
