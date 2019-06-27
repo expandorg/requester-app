@@ -9,6 +9,9 @@ export class DraftApi extends BaseApi {
   updateSettings = ({ id, settings }) =>
     this.post(`/drafts/${id}/settings`, settings);
 
+  updateVariables = ({ id, variables }) =>
+    this.post(`/drafts/${id}/variables`, { variables });
+
   updateVerificationSettings = ({ id, settings }) =>
     this.post(`/drafts/${id}/verification`, settings);
 

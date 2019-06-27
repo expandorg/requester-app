@@ -35,7 +35,8 @@ export type Draft = {
 
   name: string,
   description: string,
-  logo: string,
+
+  variables?: Array<string>,
 
   status: 'draft' | 'completed' | 'inprogress' | 'pending' | 'scheduled',
 

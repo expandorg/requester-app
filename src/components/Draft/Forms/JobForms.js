@@ -1,13 +1,11 @@
-import React, { useState, useMemo, useEffect, useCallback } from 'react';
+import React, { useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 import Steps from './Steps/Steps';
 
 import useToggle from '../../common/useToggle';
 
-import { makeDataColumnNamesSelector } from '../../../selectors/dataSelectors';
-import { fetch as fetchData } from '../../../sagas/dataSagas';
 import {
   updateTaskForm,
   updateOnboarding,
@@ -26,16 +24,6 @@ import DraftOnboarding from '../../../model/DraftOnboarding';
 export default function JobForms({ draft, onNext }) {
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    if (draft.dataId) {
-      dispatch(fetchData(draft.id, draft.dataId, 0));
-    }
-  }, [dispatch, draft.dataId, draft.id]);
-
-  const dataColumnsSelector = useMemo(makeDataColumnNamesSelector, []);
-  const dataColumns = useSelector(state =>
-    dataColumnsSelector(state, draft.dataId)
-  );
   const [selection, setSelection] = useState(FormSelection.task);
 
   const saveTask = useCallback(
@@ -78,7 +66,7 @@ export default function JobForms({ draft, onNext }) {
       form={selection.getForm(draft)}
       onSave={save}
       toolbar={<Toolbar draft={draft} onNext={onNext} />}
-      {...FormProps.getFormProps(selection, dataColumns, draft, toggleVars)}
+      {...FormProps.getFormProps(selection, draft, toggleVars)}
     >
       <Steps selection={selection} draft={draft} onSelect={setSelection} />
       <VariablesDialogSwitch

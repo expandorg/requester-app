@@ -56,6 +56,13 @@ export const updateOnboarding = (id, onboarding) => ({
   meta: { schema: draftResponseSchema },
 });
 
+export const updateVariables = (id, variables) => ({
+  type: draftsActionTypes.UPDATE_VARIABLES,
+  payload: { id, variables },
+  asyncCall: draftApi.updateVariables,
+  meta: { schema: draftResponseSchema },
+});
+
 export const updateFunding = (id, funding) => ({
   type: draftsActionTypes.UPDATE_FUNDING,
   payload: { id, funding },
@@ -95,6 +102,7 @@ export function* draftsSagas() {
     draftsActionTypes.FETCH,
     draftsActionTypes.CREATE,
     draftsActionTypes.UPDATE_SETTINGS,
+    draftsActionTypes.UPDATE_VARIABLES,
     draftsActionTypes.UPDATE_VERIFICATION_SETTINGS,
     draftsActionTypes.UPDATE_TASK,
     draftsActionTypes.UPDATE_VERIFICATION_FORM,

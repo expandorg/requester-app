@@ -107,19 +107,24 @@ export class FormProps {
 
   static getVariablesParams(
     selection: FormSelection,
-    dataColumns: Array<string>,
     draft: Draft,
     onToggleVarsDialog: Function
   ) {
-    if (selection.isTask() || selection.isVerification()) {
+    if (selection.isTask()) {
       return {
-        variables: dataColumns,
+        variables: draft.variables,
+        onToggleVarsDialog,
+      };
+    }
+    if (selection.isVerification()) {
+      return {
+        variables: draft.variables,
         onToggleVarsDialog,
       };
     }
     if (selection.isQuiz(draft)) {
       return {
-        variables: dataColumns,
+        variables: draft.variables,
         onToggleVarsDialog,
       };
     }
@@ -128,17 +133,11 @@ export class FormProps {
 
   static getFormProps(
     selection: FormSelection,
-    dataColumns: Array<string>,
     draft: Draft,
     toggleVars: Function
   ) {
     return {
-      ...FormProps.getVariablesParams(
-        selection,
-        dataColumns,
-        draft,
-        toggleVars
-      ),
+      ...FormProps.getVariablesParams(selection, draft, toggleVars),
       validateForm: FormProps.getValidator(selection),
     };
   }
