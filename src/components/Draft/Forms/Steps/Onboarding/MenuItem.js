@@ -60,9 +60,9 @@ export default function OnboardingMenuItem({
 
   const update = useCallback(
     updated => {
-      onUpdate(updated, index);
+      onUpdate(updated);
     },
-    [index, onUpdate]
+    [onUpdate]
   );
 
   const select = useCallback(

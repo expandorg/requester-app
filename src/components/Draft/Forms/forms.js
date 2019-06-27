@@ -1,7 +1,7 @@
 // @flow
 
-import type { Form } from '@expandorg/modules/src/form/model/types.flow';
-import type { Draft } from '../../../model/types.flow';
+import { type Form } from '@expandorg/modules/src/form/model/types.flow';
+import type { Draft, DraftOnboardingStep } from '../../../model/types.flow';
 
 import {
   validationFormProps,
@@ -30,8 +30,33 @@ export class FormSelection {
     return this.type === 'onboarding';
   }
 
+  isTask(): boolean {
+    return this.type === 'task';
+  }
+
+  isVerification(): boolean {
+    return this.type === 'verification';
+  }
+
   isOnboardingStep(step: string): boolean {
     return this.isOnboarding() && this.step === step;
+  }
+
+  isQuiz(draft: Draft): boolean {
+    const step = this.getOnboardingStep(draft);
+    return step ? step.isGroup : false;
+  }
+
+  getOnboardingStep(draft: Draft): ?DraftOnboardingStep {
+    if (!this.isOnboarding()) {
+      throw new Error('invalid selection type');
+    }
+
+    if (!draft.onboarding || !draft.onboarding.steps) {
+      return null;
+    }
+
+    return draft.onboarding.steps.find(s => s.id === this.step);
   }
 
   getForm(draft: Draft): ?Form {
@@ -41,10 +66,7 @@ export class FormSelection {
       case 'verification':
         return draft.verificationForm;
       case 'onboarding': {
-        const selected =
-          draft.onboarding && draft.onboarding.steps
-            ? draft.onboarding.steps.find(s => s.id === this.step)
-            : null;
+        const selected = this.getOnboardingStep(draft);
         return selected ? selected.form : null;
       }
       default:
@@ -84,10 +106,18 @@ export class FormProps {
     return validationFormProps;
   }
 
-  static getFormProps(selection: FormSelection, dataColumns: Array<string>) {
+  static getFormProps(
+    selection: FormSelection,
+    dataColumns: Array<string>,
+    draft: Draft,
+    toggleVars: Function
+  ) {
+    const isOnboarding = selection.isOnboarding();
     return {
       variables: dataColumns,
       validateForm: FormProps.getValidator(selection),
+      onToggleVarsDialog:
+        !isOnboarding || selection.isQuiz(draft) ? toggleVars : undefined,
     };
   }
 }

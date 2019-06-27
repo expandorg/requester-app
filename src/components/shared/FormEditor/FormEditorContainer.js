@@ -48,6 +48,7 @@ export default class FormEditorContainer extends Component {
 
   static getDerivedStateFromProps({ form }, state) {
     if (state.prev !== form) {
+      console.log(state.prev !== form);
       return {
         selection: Selection.empty,
         prev: form,

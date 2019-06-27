@@ -20,10 +20,10 @@ export default function Quiz({ onHide, onUpdate, group, visible }) {
 
   const update = useCallback(
     updated => {
-      setStep(updated);
+      onHide();
       onUpdate(updated);
     },
-    [onUpdate, setStep]
+    [onHide, onUpdate]
   );
 
   const changeWizard = useCallback(

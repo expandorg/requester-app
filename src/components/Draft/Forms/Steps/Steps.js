@@ -23,13 +23,10 @@ export default function Steps({ draft, selection, onSelect }) {
           selection={selection}
           onSelect={onSelect}
         />
-        <TaskMenuItem
-          selected={selection === FormSelection.task}
-          onSelect={onSelect}
-        />
+        <TaskMenuItem selected={selection.isTask()} onSelect={onSelect} />
         <VerificationMenuItem
           draft={draft}
-          selected={selection === FormSelection.verification}
+          selected={selection.isVerification()}
           onSelect={onSelect}
         />
       </Navs>

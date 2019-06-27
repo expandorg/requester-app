@@ -40,7 +40,6 @@ export default class Settings extends Component {
         retries: `${group.retries || 0}`,
         failureMessage: group.failureMessage,
         errors: null,
-        isDirty: false,
       };
     }
     return null;
@@ -49,30 +48,26 @@ export default class Settings extends Component {
   handleInputChange = ({ target }) => {
     this.setState({
       [target.name]: target.value,
-      isDirty: true,
     });
   };
 
   handleSave = () => {
-    const { onChangeStep, onUpdate, group } = this.props;
-    const { isDirty, scoreThreshold, retries, failureMessage } = this.state;
-    if (isDirty) {
-      const settings = {
-        scoreThreshold: +scoreThreshold,
-        retries: +retries,
-        failureMessage,
-      };
-      const errors = validateForm(
-        { scoreThreshold, retries, failureMessage },
-        onboardingGroupSettingsRules
-      );
-      if (errors) {
-        this.setState({ errors });
-        return;
-      }
-      onUpdate({ ...group, ...settings });
+    const { onUpdate, group } = this.props;
+    const { scoreThreshold, retries, failureMessage } = this.state;
+    const settings = {
+      scoreThreshold: +scoreThreshold,
+      retries: +retries,
+      failureMessage,
+    };
+    const errors = validateForm(
+      { scoreThreshold, retries, failureMessage },
+      onboardingGroupSettingsRules
+    );
+    if (errors) {
+      this.setState({ errors });
+      return;
     }
-    onChangeStep(WizardSteps.Quiz);
+    onUpdate({ ...group, ...settings });
   };
 
   render() {

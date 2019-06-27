@@ -28,6 +28,11 @@ export default function VariablesDropdown({
     [onHide, onSelect]
   );
 
+  const handleToggle = useCallback(() => {
+    onToggleVarsDialog();
+    onHide();
+  }, [onHide, onToggleVarsDialog]);
+
   return (
     <div className={cn(styles.dropdown, className)} ref={ref}>
       <div className={styles.list}>
@@ -45,7 +50,7 @@ export default function VariablesDropdown({
       </div>
       {onToggleVarsDialog && (
         <div className={styles.add}>
-          <button className={styles.addBtn} onClick={onToggleVarsDialog}>
+          <button className={styles.addBtn} onClick={handleToggle}>
             add/manage
           </button>
         </div>

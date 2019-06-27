@@ -30,6 +30,7 @@ export default function Editor({
   validateForm,
   children,
   onSave,
+  onToggleVarsDialog,
 }) {
   return (
     <FormEditorContainer
@@ -79,6 +80,7 @@ export default function Editor({
             onEdit={p.onEdit}
             onValidate={p.onValidateModule}
             onCancel={p.onDeselect}
+            onToggleVarsDialog={onToggleVarsDialog}
           />
           <WalkthroughPin id="search" className={styles.serachPin} />
           <WalkthroughPin id="components" className={styles.componentsPin} />
@@ -94,8 +96,10 @@ Editor.propTypes = {
   variables: PropTypes.arrayOf(PropTypes.string),
   validateForm: PropTypes.func.isRequired,
   onSave: PropTypes.func.isRequired,
+  onToggleVarsDialog: PropTypes.func,
 };
 
 Editor.defaultProps = {
   variables: [],
+  onToggleVarsDialog: null,
 };

@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import Steps from './Steps/Steps';
 
+import useToggle from '../../common/useToggle';
+
 import { makeDataColumnNamesSelector } from '../../../selectors/dataSelectors';
 import { fetch as fetchData } from '../../../sagas/dataSagas';
 import {
@@ -15,8 +17,10 @@ import { draftProps } from '../../shared/propTypes';
 
 import Editor from './Editor';
 import Toolbar from './Toolbar/Toolbar';
+import VariablesDialogSwitch from './Variables/VariablesDialogSwitch';
 
 import { FormSelection, FormProps } from './forms';
+
 import DraftOnboarding from '../../../model/DraftOnboarding';
 
 export default function JobForms({ draft, onNext }) {
@@ -60,6 +64,8 @@ export default function JobForms({ draft, onNext }) {
     [dispatch, draft, selection]
   );
 
+  const [varsDialog, toggleVars] = useToggle();
+
   const save = FormProps.getUpdateAction(
     selection,
     saveTask,
@@ -72,9 +78,15 @@ export default function JobForms({ draft, onNext }) {
       form={selection.getForm(draft)}
       onSave={save}
       toolbar={<Toolbar draft={draft} onNext={onNext} />}
-      {...FormProps.getFormProps(selection, dataColumns)}
+      {...FormProps.getFormProps(selection, dataColumns, draft, toggleVars)}
     >
       <Steps selection={selection} draft={draft} onSelect={setSelection} />
+      <VariablesDialogSwitch
+        visible={varsDialog}
+        selection={selection}
+        draft={draft}
+        onHide={toggleVars}
+      />
     </Editor>
   );
 }
