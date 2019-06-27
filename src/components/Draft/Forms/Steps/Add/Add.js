@@ -35,11 +35,14 @@ export default function Add({ draft }) {
       </button>
       {opened && (
         <ContextMenu className={styles.menu} onHide={() => setOpened(false)}>
-          {templates.map(template => (
-            <ContextMenuItem key={template.id} onClick={() => add(template)}>
-              {template.name}
-            </ContextMenuItem>
-          ))}
+          <div className={styles.header}>Templates</div>
+          <div className={styles.list}>
+            {templates.map(template => (
+              <ContextMenuItem key={template.id} onClick={() => add(template)}>
+                {template.name}
+              </ContextMenuItem>
+            ))}
+          </div>
         </ContextMenu>
       )}
     </div>

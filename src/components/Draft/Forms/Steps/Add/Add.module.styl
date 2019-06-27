@@ -11,7 +11,7 @@
 
   font(body, false, 25px, 38px)
   color: color-primary-blue
-  background-color: color-white
+  background-color: transparent
 
   border: 1px solid color-heavy-blue
   border-radius: 20px
@@ -19,6 +19,28 @@
   outline: 0
   cursor pointer
 
+  &:hover
+    background-color: color-white
+
 .menu
   left: 0
   right: auto
+  overflow-y: visible
+  max-height: auto
+
+.header
+  display: flex
+  align-items: center
+
+  box-sizing: border-box
+  padding-left: 25px
+  height 70px
+
+  font(subtitle, 800)
+  text-transform: uppercase
+  color: color-text-dark
+
+
+.list
+  max-height: 300px
+  overflow-y: auto
