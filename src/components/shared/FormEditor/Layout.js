@@ -56,9 +56,17 @@ export const Canvas = ({ children }) => (
   <div className={styles.canvas}>{children}</div>
 );
 
-export const Topbar = ({ children }) => (
-  <div className={styles.topbar}>{children}</div>
+export const Topbar = ({ children, className }) => (
+  <div className={cn(styles.topbar, className)}>{children}</div>
 );
+
+Topbar.propTypes = {
+  className: PropTypes.string,
+};
+
+Topbar.defaultProps = {
+  className: null,
+};
 
 export const Bottombar = ({ children }) => (
   <div className={styles.bottombar}>{children}</div>

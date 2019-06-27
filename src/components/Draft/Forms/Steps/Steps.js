@@ -13,9 +13,11 @@ import OnboardingMenu from './Onboarding/OnboardingMenu';
 import TaskMenuItem from './Task/MenuItem';
 import VerificationMenuItem from './Verification/MenuItem';
 
+import styles from './Steps.module.styl';
+
 export default function Steps({ draft, selection, onSelect }) {
   return (
-    <Topbar>
+    <Topbar className={styles.topbar}>
       <Add draft={draft} />
       <Navs>
         <OnboardingMenu
