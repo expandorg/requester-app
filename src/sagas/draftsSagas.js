@@ -60,7 +60,7 @@ export const updateVariables = (id, variables) => ({
   type: draftsActionTypes.UPDATE_VARIABLES,
   payload: { id, variables },
   asyncCall: draftApi.updateVariables,
-  meta: { schema: draftResponseSchema },
+  meta: { schema: draftResponseSchema, optimistic: true },
 });
 
 export const updateFunding = (id, funding) => ({
