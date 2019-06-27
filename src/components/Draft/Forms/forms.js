@@ -2,6 +2,7 @@
 
 import { type Form } from '@expandorg/modules/src/form/model/types.flow';
 import type { Draft, DraftOnboardingStep } from '../../../model/types.flow';
+import { getQuizDataVarialbes } from '../../../model/onboardingData';
 
 import {
   validationFormProps,
@@ -40,11 +41,6 @@ export class FormSelection {
 
   isOnboardingStep(step: string): boolean {
     return this.isOnboarding() && this.step === step;
-  }
-
-  isQuiz(draft: Draft): boolean {
-    const step = this.getOnboardingStep(draft);
-    return step ? step.isGroup : false;
   }
 
   getOnboardingStep(draft: Draft): ?DraftOnboardingStep {
@@ -122,9 +118,11 @@ export class FormProps {
         onToggleVarsDialog,
       };
     }
-    if (selection.isQuiz(draft)) {
+
+    const group = selection.getOnboardingStep(draft);
+    if (group && group.isGroup) {
       return {
-        variables: draft.variables,
+        variables: getQuizDataVarialbes(group.data),
         onToggleVarsDialog,
       };
     }

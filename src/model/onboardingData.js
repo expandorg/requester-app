@@ -25,6 +25,15 @@ export const dataToVars = ({
     return { variables, answer: { [answer.field]: row.answer } };
   });
 
+export const getQuizDataVarialbes = (
+  data: ?DraftOnboardingGroupData
+): Array<string> => {
+  if (!data) {
+    return [];
+  }
+  return data.columns.map(c => c.name);
+};
+
 export const createNewRow = (columns: Array<any>): Array<string> =>
   columns.map(() => '');
 
