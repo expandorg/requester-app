@@ -5,8 +5,6 @@ import cn from 'classnames';
 import Editor from 'draft-js-plugins-editor';
 import createMentionPlugin from 'draft-js-mention-plugin';
 
-import { ReactComponent as Arrow } from '@expandorg/uikit/assets/arrow-down.svg';
-
 import VariablesTool from './variables/VariablesTool';
 
 import TopPlaceholder from './TopPlaceholder';
@@ -144,7 +142,7 @@ export default class DraftTextInput extends Component {
         >
           {({ onToggle }) => (
             <button className={styles.vars} onClick={onToggle}>
-              <Arrow />
+              +var
             </button>
           )}
         </VariablesTool>
