@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import cn from 'classnames';
 
 import { replaceAtIndex } from '@expandorg/utils';
-import { dataProps } from '../propTypes';
+import { dataProps } from '../../../shared/propTypes';
 
 import Column from './Column';
 import ValuesRow from './ValuesRow';

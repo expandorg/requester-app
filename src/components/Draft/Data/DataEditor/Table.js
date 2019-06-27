@@ -7,11 +7,8 @@ import { bindActionCreators } from 'redux';
 import { requestStateProps, RequestStates } from '@expandorg/app-utils';
 
 import { addNotification } from '@expandorg/app-utils/app';
-import {
-  DataTable,
-  TableContainer,
-  Pagination,
-} from '../../../shared/DataTable';
+import { DataTable, TableContainer } from '../DataTable';
+import { Pagination } from '../../../common/Pagination';
 
 import { draftProps, dataProps } from '../../../shared/propTypes';
 import LoadIndicator from '../../../shared/LoadIndicator';

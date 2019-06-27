@@ -9,7 +9,7 @@ import { makeJobResponsesDataSelector } from '../../../selectors/jobResponsesSel
 import { fetchJobResponsesStateSelector } from '../../../selectors/uiStateSelectors';
 
 import LoadIndicator from '../../shared/LoadIndicator';
-import { Pagination } from '../../shared/DataTable';
+import { Pagination } from '../../common/Pagination';
 import Header from './Header';
 import Row from './Row';
 import SelectedRowDialog from './SelectedRowDialog';

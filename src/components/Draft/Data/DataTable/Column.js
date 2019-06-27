@@ -4,7 +4,7 @@ import cn from 'classnames';
 
 // import { Dropdown } from '@expandorg/components';
 
-import { dataColumnProps } from '../propTypes';
+import { dataColumnProps } from '../../../shared/propTypes';
 // import tableTypes from './table-types';
 
 import styles from './Column.module.styl';

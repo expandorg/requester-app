@@ -12,7 +12,11 @@ import { makeDataVarsSampleSelector } from '../../../selectors/dataSelectors';
 const makeMapStateToProps = () => {
   const dataVarsSampleSelector = makeDataVarsSampleSelector();
   return (state, props) => ({
-    variables: dataVarsSampleSelector(state, props.draft.dataId),
+    variables: dataVarsSampleSelector(
+      state,
+      props.draft.id,
+      props.draft.dataId
+    ),
   });
 };
 

@@ -4,7 +4,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import Preview from '../../shared/Preview/Preview';
+import FormPreview from '../../shared/FormPreview';
+
 import { draftProps, taskTemplateProps } from '../../shared/propTypes';
 import { DraftManager } from '../../../model/draft';
 
@@ -45,7 +46,16 @@ class TaskTemplate extends Component {
     const { template } = this.props;
     return (
       <div className={styles.container}>
-        {template && <Preview template={template} className={styles.preview} />}
+        {template && (
+          <div className={styles.preview}>
+            <div className={styles.title}>{template.name}</div>
+            <FormPreview
+              readOnly
+              form={template.taskForm}
+              className={styles.form}
+            />
+          </div>
+        )}
       </div>
     );
   }

@@ -1,6 +1,8 @@
 // @flow
 import { createSelector } from 'reselect';
 
+import { makeDraftSelector } from './draftsSelectors';
+
 export const dataStateSelector = (state: Object) => state.data;
 
 export const dataEntitiesSelector: any = createSelector(
@@ -37,38 +39,33 @@ export const makeDataSelector = (): any =>
     }
   );
 
-export const makeDataColumnNamesSelector = (): any =>
-  createSelector(
-    dataEntitiesSelector,
-    (state, id) => id,
-    (entities, id) => {
-      const entity = entities[id];
-      if (!entity) {
-        return null;
-      }
-      return entity.columns.filter(c => !c.skipped).map(c => c.name);
-    }
-  );
-
-export const makeDataVarsSampleSelector = (): any =>
-  createSelector(
+export const makeDataVarsSampleSelector = (): any => {
+  const draftSelector = makeDraftSelector();
+  return createSelector(
     dataEntitiesSelector,
     dataValuesSelector,
-    (state, id) => id,
-    (entities, valueEntites, id) => {
-      const entity = entities[id];
+    draftSelector,
+    (state, draftId, dataId) => dataId,
+    (entities, valueEntites, draft, dataId) => {
+      if (!draft.variables) {
+        return null;
+      }
+
+      const entity = entities[dataId];
       if (!entity) {
         return null;
       }
-      const samplePage = valueEntites[id].pages[0];
+      const samplePage = valueEntites[dataId].pages[0];
       if (!samplePage) {
         return null;
       }
-      return entity.columns.reduce((all, col, index) => {
-        if (col.skipped) {
+      return draft.variables.reduce((all, v) => {
+        const index = entity.columns.findIndex(col => col.name === v);
+        if (index === -1) {
           return all;
         }
-        return { ...all, [col.name]: samplePage[0][index] };
+        return { ...all, [v]: samplePage[0][index] };
       }, {});
     }
   );
+};

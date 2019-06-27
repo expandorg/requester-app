@@ -98,9 +98,9 @@ export default class DraftTextEditor extends Component {
     });
   };
 
-  handleSelectVar = variable => {
+  handleSelectVar = (variable, value) => {
     const { editorState } = this.state;
-    this.handleChange(insertVariable(editorState, variable));
+    this.handleChange(insertVariable(editorState, value));
   };
 
   render() {
@@ -132,7 +132,7 @@ export default class DraftTextEditor extends Component {
           <VariablesButton
             variables={allVars}
             onSelect={this.handleSelectVar}
-            onAdd={onToggleVarsDialog}
+            onToggleVarsDialog={onToggleVarsDialog}
           />
         </div>
         <div className={styles.content}>

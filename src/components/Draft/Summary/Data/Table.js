@@ -5,11 +5,8 @@ import { connect } from 'react-redux';
 
 import { requestStateProps, RequestStates } from '@expandorg/app-utils';
 
-import {
-  DataTable,
-  TableContainer,
-  Pagination,
-} from '../../../shared/DataTable';
+import { DataTable, TableContainer } from '../../Data/DataTable';
+import { Pagination } from '../../../common/Pagination';
 
 import { dataProps } from '../../../shared/propTypes';
 

@@ -24,7 +24,11 @@ import { DraftManager } from '../../../model/draft';
 const makeMapStateToProps = () => {
   const dataVarsSampleSelector = makeDataVarsSampleSelector();
   return (state, props) => ({
-    variables: dataVarsSampleSelector(state, props.draft.dataId),
+    variables: dataVarsSampleSelector(
+      state,
+      props.draft.id,
+      props.draft.dataId
+    ),
   });
 };
 
