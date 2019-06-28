@@ -35,17 +35,35 @@
 
 .vars
   margin-top: 45px
+
+.title
   font(h3-bold)
+  color: color-black
+
+.desc
+  margin-top 10px
+  font(body)
   color: color-black
 
 .list
   box-sizing: border-box
-  margin-top: 15px
 
   max-height: 300px
   overflow-y: auto
 
   border: 1px solid color-heavy-blue
+
+.header
+  box-sizing: border-box
+  height 48px
+  margin-top: 10px
+
+  display: flex
+  align-items: center
+
+  font(subtitle, 800)
+  text-transform: uppercase
+  color: color-text-dark
 
 .variable
   display: flex
@@ -61,9 +79,6 @@
   &:last-child
     border-bottom: 0
 
-  &:nth-child(odd)
-    background-color: color-light-blue
-
 .name
   font(body)
   color: color-text-dark
@@ -74,7 +89,7 @@
   width: 20px
   height: 20px
 
-  background-color: color-primary-blue
+  background-color: color-text-yellow
   border-radius: 10px
   outline: 0
   cursor pointer

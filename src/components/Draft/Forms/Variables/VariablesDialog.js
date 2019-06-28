@@ -59,20 +59,32 @@ export default function VariablesDialog({ onHide, draftId, variables }) {
             </button>
           </div>
           <div className={styles.vars}>
-            <div className={styles.desc}>Variables List</div>
+            <div className={styles.title}>Variables List</div>
+            <div className={styles.desc}>
+              Variables that are removed from an element will revert back to its
+              original state.
+            </div>
             {hasVars && (
-              <div className={styles.list}>
-                {vars.map(v => (
-                  <div key={v} className={styles.variable}>
-                    <div key={v} className={styles.name}>
-                      {v}
+              <>
+                <div className={styles.header}>
+                  <div className={styles.heanderName}>name</div>
+                </div>
+                <div className={styles.list}>
+                  {vars.map(v => (
+                    <div key={v} className={styles.variable}>
+                      <div key={v} className={styles.name}>
+                        {v}
+                      </div>
+                      <button
+                        className={styles.remove}
+                        onClick={() => remove(v)}
+                      >
+                        {' '}
+                      </button>
                     </div>
-                    <button className={styles.remove} onClick={() => remove(v)}>
-                      {' '}
-                    </button>
-                  </div>
-                ))}
-              </div>
+                  ))}
+                </div>
+              </>
             )}
           </div>
         </div>
