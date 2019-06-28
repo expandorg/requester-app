@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import cn from 'classnames';
 
 import { Button } from '@expandorg/components';
-import { ReactComponent as Bulb } from '@expandorg/uikit/assets/bulb.svg';
 import { WalkthroughPin, ToggleWalkthrough } from '@expandorg/components/app';
+import { ReactComponent as Bulb } from '../../../../assets/bulb.svg';
 
 import PreviewCtx from './PreviewCtx';
 
@@ -37,7 +37,7 @@ export default function Toolbar({ draft, onNext }) {
               onClick={onToggle}
               id="gems-toggle"
             >
-              <Bulb width={13} height={15} viewBox="0 0 9 15" />
+              <Bulb width="14" height="20" viewBox="0 0 14 20" />
             </button>
           )}
         </ToggleWalkthrough>

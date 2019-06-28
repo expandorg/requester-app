@@ -4,7 +4,7 @@ import cn from 'classnames';
 
 import { Tooltip } from '@expandorg/components';
 
-import { ReactComponent as Checkmark } from '@expandorg/uikit/assets/checkmark.svg';
+import { ReactComponent as Checkmark } from '../../assets/check_circle.svg';
 import { taskTemplateProps } from '../shared/propTypes';
 
 import styles from './SidebarItem.module.styl';
@@ -31,7 +31,14 @@ class SidebarItem extends Component {
         {...rest}
       >
         <div className={styles.name}>{template.name}</div>
-        {selected && <Checkmark className={styles.checkmark} />}
+        {selected && (
+          <Checkmark
+            className={styles.checkmark}
+            width="15"
+            height="15"
+            viewBox="0 0 20 20"
+          />
+        )}
         {children}
       </button>
     );
