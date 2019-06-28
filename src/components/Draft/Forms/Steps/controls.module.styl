@@ -2,7 +2,16 @@
 @import '~@expandorg/uikit/font';
 
 .menu
+  box-sizing: border-box
   display flex
+  max-width: calc(100vw - 350px)
+  overflow-x scroll
+
+  margin-bottom: -20px
+  padding-bottom: 20px
+
+  &::-webkit-scrollbar
+    display: none;
 
 .item
   box-sizing: border-box
@@ -39,7 +48,6 @@
     &:after
       background-color: color-primary-blue
 
-
     .contextMenuButton
       display block
 
@@ -47,6 +55,10 @@
   &:last-child
     border-right-color: color-heavy-blue
     border-bottom-right-radius: 5px
+
+
+  &:first-child
+    border-left: none
 
 
 .selected
@@ -62,6 +74,15 @@
   text-overflow: ellipsis;
 
   max-width 120px
+
+.portal
+  position absolute
+
+.contextMenu
+  position: absolute
+  left: -150px
+  top: 40px
+  right: auto
 
 .contextMenuButton
   position absolute
