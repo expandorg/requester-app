@@ -5,7 +5,7 @@ import cn from 'classnames';
 import { DragSource } from 'react-dnd';
 
 import { ReactComponent as DragIcon } from '@expandorg/uikit/assets/dragcursor.svg';
-import { ReactComponent as InfoMark } from '@expandorg/uikit/assets/i.svg';
+import { ReactComponent as I } from '../../../../assets/circle-i.svg';
 
 import PreviewTooltip from './PreviewTooltip';
 
@@ -81,7 +81,12 @@ class ModuleItem extends Component {
           onMouseEnter={this.handleMouseEnter}
           onMouseLeave={this.handleMouseLeave}
         >
-          <InfoMark className={styles.mark} />
+          <I
+            className={styles.mark}
+            width="20"
+            height="20"
+            viewBox="0 0 20 20"
+          />
           {isHovered && <PreviewTooltip top={previewTop - offset} />}
         </div>
       </div>
