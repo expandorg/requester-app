@@ -113,7 +113,8 @@ export default class Settings extends Component {
       <Form onSubmit={this.handleSubmit}>
         <Fieldset>
           <Description className={styles.desc}>
-            Enter your project details to help you workers find your task.
+            Nearly there now! Add in some details to help your workers
+            understand what your job is all about.
           </Description>
           <Field
             tooltip={

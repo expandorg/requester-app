@@ -118,7 +118,8 @@ class Payments extends Component {
       <Form onSubmit={this.handleSubmit}>
         <Fieldset>
           <Description>
-            Enter your payment details to complete your task setup.
+            It’s the final frontier, calculate how you want to pay your workers
+            fairly.
           </Description>
           <Hero
             value={user.gems.balance}

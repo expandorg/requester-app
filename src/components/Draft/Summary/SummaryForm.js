@@ -56,12 +56,11 @@ export default class SummaryForm extends Component {
     return (
       <div className={styles.form}>
         <Description className={styles.description}>
-          Description about this step goes here.
+          Review your task to confirm everything looks as intended.
         </Description>
         <Section
           title="Settings"
           status={nav.settings.status}
-          blue
           onStep={() => onStep(0)}
         >
           <Settings draft={draft} />
@@ -75,7 +74,6 @@ export default class SummaryForm extends Component {
         <Section
           title="Template Settings"
           status="complete"
-          blue
           onStep={() => onStep(2)}
         >
           <TemplateSettings draft={draft} />
@@ -93,7 +91,6 @@ export default class SummaryForm extends Component {
         <Section
           title="Payout"
           status={nav.pay.status}
-          blue
           onStep={() => onStep(4)}
         >
           <Payout draft={draft} />

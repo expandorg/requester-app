@@ -80,7 +80,7 @@ class Summary extends Component {
         {!published && (
           <LoadIndicator
             isLoading={submitState.state === RequestStates.Fetching}
-            message="Publishing your task, please wait..."
+            message="Submitting your task, please wait..."
           >
             <SummaryForm
               user={user}

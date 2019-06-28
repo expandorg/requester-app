@@ -54,8 +54,8 @@ class DataEditor extends Component {
     return (
       <div className={styles.container}>
         <Description>
-          Edit your column names so that you can recognize them later when
-          assigning the data inputs in your task. Skip the ones you won’t use.
+          How would you like to supply your data? You can skip this step if you
+          don’t need it.
         </Description>
         <Table
           draft={draft}
