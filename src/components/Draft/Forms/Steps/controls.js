@@ -6,7 +6,9 @@ import cn from 'classnames';
 
 import { Portal } from '@expandorg/components';
 import { ReactComponent as SettingsIcon } from './settings.svg';
-import { ReactComponent as MenuIcon } from './menu.svg';
+
+import { ReactComponent as Down } from '../../../../assets/arrow_drop_down.svg';
+import { ReactComponent as Up } from '../../../../assets/arrow_drop_up.svg';
 
 import { ContextMenu } from '../../../common/ContextMenu';
 
@@ -58,10 +60,11 @@ export function NavItemContextMenu({ visible, onToggle, children }) {
     },
     [onToggle, visible]
   );
+  const Icon = visible ? Up : Down;
   return (
     <>
       <button ref={btn} className={styles.contextMenuButton} onClick={toggle}>
-        <MenuIcon />
+        <Icon />
       </button>
       {visible && pos && (
         <Portal

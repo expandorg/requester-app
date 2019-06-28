@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
 
-import { ReactComponent as Arrow } from '@expandorg/uikit/assets/arrow-2.svg';
+import { ReactComponent as Down } from '../../../../assets/arrow_drop_down.svg';
+import { ReactComponent as Up } from '../../../../assets/arrow_drop_up.svg';
 
 import ModuleItem from './ModuleItem';
 
@@ -48,19 +49,20 @@ export default class Category extends Component {
     if (!modules.length) {
       return null;
     }
+    const opened = forceOpen || expanded;
+    const Icon = opened ? Up : Down;
 
     /* eslint-disable jsx-a11y/click-events-have-key-events  */
     /* eslint-disable jsx-a11y/no-static-element-interactions  */
 
-    const opened = forceOpen || expanded;
     return (
-      <div className={cn(styles.container, { [styles.opened]: opened })}>
+      <div className={cn(styles.container)}>
         <div className={styles.inner} onClick={this.handleClick}>
           <div className={styles.toggle}>
-            <Arrow
-              width="13"
-              height="13"
-              viewBox="0 0 13 8"
+            <Icon
+              width="10"
+              height="12"
+              viewBox="0 0 10 6"
               className={styles.arrowIcon}
             />
           </div>

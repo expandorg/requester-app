@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import cn from 'classnames';
 
 import debounce from 'debounce';
-import { ReactComponent as SearchIcon } from '@expandorg/uikit/assets/search.svg';
-import { ReactComponent as X } from '@expandorg/uikit/assets/x.svg';
+import { ReactComponent as X } from '../../../../assets/close.svg';
+import { ReactComponent as SearchIcon } from '../../../../assets/search.svg';
 
 import styles from './Search.module.styl';
 
