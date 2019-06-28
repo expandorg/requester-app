@@ -103,7 +103,11 @@ class ModulePicker extends Component {
                   />
                 ))}
                 {isEmpty(categories) && (
-                  <div className={styles.empty}>No component found.</div>
+                  <div className={styles.empty}>
+                    No components have been found.
+                    <br />
+                    Try again maybe?
+                  </div>
                 )}
               </div>
             )}
