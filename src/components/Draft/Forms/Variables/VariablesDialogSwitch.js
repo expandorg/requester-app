@@ -6,10 +6,7 @@ import { useDispatch } from 'react-redux';
 import { FormSelection } from '../forms';
 import { draftProps } from '../../../shared/propTypes';
 
-import {
-  updateOnboarding,
-  updateVariables,
-} from '../../../../sagas/draftsSagas';
+import { updateOnboarding } from '../../../../sagas/draftsSagas';
 import DraftOnboarding from '../../../../model/DraftOnboarding';
 
 import Quiz from '../Quiz/Quiz';
@@ -31,14 +28,6 @@ export default function VariablesDialogSwitch({
     [dispatch, draft]
   );
 
-  const updateVars = useCallback(
-    vars => {
-      dispatch(updateVariables(draft.id, vars));
-      onHide();
-    },
-    [dispatch, draft.id, onHide]
-  );
-
   if (!visible) {
     return null;
   }
@@ -55,9 +44,9 @@ export default function VariablesDialogSwitch({
   }
   return (
     <VariablesDialog
+      draftId={draft.id}
       variables={draft.variables}
       onHide={onHide}
-      onSave={updateVars}
     />
   );
 }

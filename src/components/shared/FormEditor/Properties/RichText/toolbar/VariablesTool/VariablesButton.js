@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import VariablesTool from '../../variables/VariablesTool';
+import { VariablesToggle } from '../../../../../VariablesDropdown';
 
 import styles from './VariablesButton.module.styl';
 
@@ -12,7 +12,7 @@ export default function VariablesButton({
 }) {
   return (
     <div className={styles.container}>
-      <VariablesTool
+      <VariablesToggle
         variables={variables}
         onSelect={onSelect}
         onToggleVarsDialog={onToggleVarsDialog}
@@ -22,7 +22,7 @@ export default function VariablesButton({
             + var
           </button>
         )}
-      </VariablesTool>
+      </VariablesToggle>
     </div>
   );
 }

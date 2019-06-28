@@ -17,15 +17,19 @@ export default class DataTable extends Component {
     isFetching: PropTypes.bool,
     className: PropTypes.string,
     readOnly: PropTypes.bool,
+    variables: PropTypes.arrayOf(PropTypes.string),
     onChangeColumns: PropTypes.func,
+    onToggleVarsDialog: PropTypes.func,
   };
 
   static defaultProps = {
     data: null,
     isFetching: false,
+    variables: [],
     className: null,
     readOnly: false,
     onChangeColumns: Function.prototype,
+    onToggleVarsDialog: null,
   };
 
   constructor(props) {
@@ -53,7 +57,14 @@ export default class DataTable extends Component {
   };
 
   render() {
-    const { data, className, readOnly, isFetching } = this.props;
+    const {
+      data,
+      className,
+      readOnly,
+      isFetching,
+      variables,
+      onToggleVarsDialog,
+    } = this.props;
     const { original } = this.state;
     if (!data) {
       return null;
@@ -72,8 +83,10 @@ export default class DataTable extends Component {
               column={column}
               key={index}
               readOnly={readOnly}
+              variables={variables}
               index={index}
               onChange={this.handleChangeColumn}
+              onToggleVarsDialog={onToggleVarsDialog}
             />
           ))}
         </div>

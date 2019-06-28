@@ -73,8 +73,9 @@ class UploadForm extends Component {
     this.props.addNotification('error', message);
   };
 
-  handleToggleApi = evt => {
-    evt.prventDefault();
+  handleDownload = evt => {
+    evt.preventDefault();
+    evt.stopPropagation();
   };
 
   render() {
@@ -85,8 +86,8 @@ class UploadForm extends Component {
     return (
       <Fieldset>
         <Description>
-          Upload your data in CSV format and create variables to be used in your
-          task.
+          How would you like to supply your data? You can skip this step if you
+          don’t need it.
         </Description>
         <Upload
           file={data}
@@ -110,17 +111,13 @@ class UploadForm extends Component {
                 <Placeholder className={styles.image} />
                 <div className={styles.or}>Drag a file or</div>
                 <div className={styles.button}>Browse</div>
+                <button className={styles.banner} onClick={this.handleDownload}>
+                  download a csv template based on your task
+                </button>
               </div>
             )
           }
         </Upload>
-        <button
-          disabled={uploading}
-          onClick={this.handleToggleApi}
-          className={styles.api}
-        >
-          Use API instead?
-        </button>
       </Fieldset>
     );
   }

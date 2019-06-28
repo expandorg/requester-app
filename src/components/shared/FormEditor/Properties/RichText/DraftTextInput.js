@@ -5,7 +5,7 @@ import cn from 'classnames';
 import Editor from 'draft-js-plugins-editor';
 import createMentionPlugin from 'draft-js-mention-plugin';
 
-import VariablesTool from './variables/VariablesTool';
+import { VariablesToggle } from '../../../VariablesDropdown';
 
 import TopPlaceholder from './TopPlaceholder';
 
@@ -134,7 +134,7 @@ export default class DraftTextInput extends Component {
             placeholder={placeholder}
           />
         )}
-        <VariablesTool
+        <VariablesToggle
           className={styles.dropdown}
           variables={allVars}
           onSelect={this.handleSelectVar}
@@ -145,7 +145,7 @@ export default class DraftTextInput extends Component {
               +var
             </button>
           )}
-        </VariablesTool>
+        </VariablesToggle>
       </div>
     );
   }

@@ -1,13 +1,24 @@
 import React, { useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
 
+import { useDispatch } from 'react-redux';
+
 import { Dialog, Button, DialogForm as DF, Input } from '@expandorg/components';
+
+import { updateVariables } from '../../../../sagas/draftsSagas';
 
 import styles from './VariablesDialog.module.styl';
 
-export default function VariablesDialog({ onHide, onSave, variables }) {
+export default function VariablesDialog({ onHide, draftId, variables }) {
+  const dispatch = useDispatch();
+
   const [vars, setVars] = useState(variables);
   const [value, setValue] = useState('');
+
+  const save = useCallback(() => {
+    dispatch(updateVariables(draftId, vars));
+    onHide();
+  }, [dispatch, draftId, onHide, vars]);
 
   const add = useCallback(() => {
     if (value) {
@@ -69,7 +80,7 @@ export default function VariablesDialog({ onHide, onSave, variables }) {
           <Button className={styles.btn} theme="secondary" onClick={onHide}>
             go back
           </Button>
-          <Button className={styles.btn} onClick={() => onSave(vars)}>
+          <Button className={styles.btn} onClick={save}>
             Save
           </Button>
         </DF.Actions>
@@ -80,7 +91,7 @@ export default function VariablesDialog({ onHide, onSave, variables }) {
 
 VariablesDialog.propTypes = {
   variables: PropTypes.arrayOf(PropTypes.string),
-  onSave: PropTypes.func.isRequired,
+  draftId: PropTypes.string.isRequired,
   onHide: PropTypes.func.isRequired,
 };
 

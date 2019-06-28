@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import VariablesDropdown from './VariablesDropdown';
 
-export default function VariablesTool({
+export default function VariablesToggle({
   children,
   variables,
   className,
@@ -43,14 +43,14 @@ export default function VariablesTool({
   );
 }
 
-VariablesTool.propTypes = {
+VariablesToggle.propTypes = {
   className: PropTypes.string,
   variables: PropTypes.arrayOf(PropTypes.string),
   onSelect: PropTypes.func.isRequired,
   onToggleVarsDialog: PropTypes.func,
 };
 
-VariablesTool.defaultProps = {
+VariablesToggle.defaultProps = {
   variables: [],
   className: null,
   onToggleVarsDialog: null,

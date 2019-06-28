@@ -34,7 +34,7 @@ export const draftProps = PropTypes.shape({
 
 export const dataColumnProps = PropTypes.shape({
   name: PropTypes.string,
-  type: PropTypes.string,
+  variable: PropTypes.string,
   skipped: PropTypes.bool,
 });
 

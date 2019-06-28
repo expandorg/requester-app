@@ -9,6 +9,7 @@ import { requestStateProps, RequestStates } from '@expandorg/app-utils';
 import { addNotification } from '@expandorg/app-utils/app';
 import { DataTable, TableContainer } from '../DataTable';
 import { Pagination } from '../../../common/Pagination';
+import VariablesDialog from '../../Forms/Variables/VariablesDialog';
 
 import { draftProps, dataProps } from '../../../shared/propTypes';
 import LoadIndicator from '../../../shared/LoadIndicator';
@@ -32,7 +33,7 @@ const mapDispatchToProps = dispatch =>
 
 class Table extends Component {
   static propTypes = {
-    draft: draftProps.isRequired, // eslint-disable-line
+    draft: draftProps.isRequired,
     data: dataProps,
     fetchState: requestStateProps.isRequired,
     page: PropTypes.number.isRequired,
@@ -47,6 +48,8 @@ class Table extends Component {
     data: null,
   };
 
+  state = { varsDialog: false };
+
   handleChangeColumn = (columns, isSkipping) => {
     const { draft } = this.props;
     if (isSkipping && !columns.some(c => !c.skipped)) {
@@ -57,8 +60,21 @@ class Table extends Component {
     }
   };
 
+  handleToggleDialog = () => {
+    this.setState(({ varsDialog }) => ({ varsDialog: !varsDialog }));
+  };
+
   render() {
-    const { data, page, fetchState, onDelete, onChangePage } = this.props;
+    const {
+      draft,
+      data,
+      page,
+      fetchState,
+      onDelete,
+      onChangePage,
+    } = this.props;
+
+    const { varsDialog } = this.state;
 
     const isFetching = fetchState.state === RequestStates.Fetching;
 
@@ -83,10 +99,19 @@ class Table extends Component {
         <LoadIndicator isLoading={!data && isFetching}>
           <DataTable
             data={data}
+            variables={draft.variables}
             isFetching={isFetching}
             onChangeColumns={this.handleChangeColumn}
+            onToggleVarsDialog={this.handleToggleDialog}
           />
         </LoadIndicator>
+        {varsDialog && (
+          <VariablesDialog
+            draftId={draft.id}
+            variables={draft.variables}
+            onHide={this.handleToggleDialog}
+          />
+        )}
       </TableContainer>
     );
   }

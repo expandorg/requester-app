@@ -36,14 +36,14 @@ class UploadData extends Component {
     const hasData = DraftManager.hasData(draft);
 
     return (
-      <Form onSubmit={this.handleSubmit}>
+      <Form>
         {!hasData && <UploadForm draft={draft} />}
         {hasData && <DataEditor draft={draft} />}
         <Actions>
           <Button theme="secondary" onClick={this.handleBack}>
             Back
           </Button>
-          <Button type="submit">Next</Button>
+          <Button onClick={this.handleSubmit}>Next</Button>
         </Actions>
       </Form>
     );

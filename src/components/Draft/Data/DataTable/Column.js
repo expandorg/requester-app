@@ -1,157 +1,148 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
 
-// import { Dropdown } from '@expandorg/components';
+import { Switch } from '@expandorg/components';
+import { ReactComponent as Arrow } from '@expandorg/uikit/assets/arrow-down.svg';
+
+import { ReactComponent as EditIcon } from './edit.svg';
 
 import { dataColumnProps } from '../../../shared/propTypes';
-// import tableTypes from './table-types';
+import { VariablesToggle } from '../../../shared/VariablesDropdown';
 
 import styles from './Column.module.styl';
 
-export default class Column extends Component {
-  static propTypes = {
-    column: dataColumnProps.isRequired, // eslint-disable-line
-    index: PropTypes.number.isRequired,
-    readOnly: PropTypes.bool,
-    onChange: PropTypes.func.isRequired,
-  };
+const Header = ({ onEdit, name, readOnly }) => (
+  <div className={styles.header}>
+    <div className={styles.name}>{name}</div>
+    {!readOnly && (
+      <button className={styles.edit} onClick={onEdit}>
+        <EditIcon />
+      </button>
+    )}
+  </div>
+);
 
-  static defaultProps = {
-    readOnly: false,
-  };
+Header.propTypes = {
+  name: PropTypes.string.isRequired,
+  readOnly: PropTypes.bool.isRequired,
+  onEdit: PropTypes.func.isRequired,
+};
 
-  constructor(props) {
-    super(props);
+export default function Column({
+  readOnly,
+  column: original,
+  variables,
+  index,
+  onChange,
+  onToggleVarsDialog,
+}) {
+  const [edit, setEdit] = useState(false);
+  const [column, setColumn] = useState(original);
 
-    this.state = {
-      original: props.column, // eslint-disable-line react/no-unused-state
-      column: props.column,
-      edit: false,
-    };
-  }
+  useEffect(() => {
+    setColumn(original);
+    setEdit(false);
+  }, [original]);
 
-  static getDerivedStateFromProps({ column }, state) {
-    if (column !== state.original) {
-      return {
-        column,
-        original: column,
-        edit: false,
-      };
-    }
-    return null;
-  }
+  const toggleEdit = useCallback(() => {
+    setEdit(!edit);
+    setColumn(original);
+  }, [edit, original]);
 
-  handleSkip = evt => {
-    evt.preventDefault();
+  const toggleSkip = useCallback(() => {
+    onChange({ ...original, skipped: !original.skipped }, index, true);
+  }, [index, onChange, original]);
 
-    const { onChange, column, index } = this.props;
-    onChange({ ...column, skipped: true }, index, true);
-  };
-
-  handleToggleEdit = evt => {
-    evt.preventDefault();
-
-    const { edit, column, original } = this.state;
-
-    if (edit) {
-      this.setState({
-        edit: false,
-        column: original,
-      });
-    } else {
-      this.setState({
-        edit: true,
-        column: column.skipped ? { ...column, skipped: false } : column,
-      });
-    }
-  };
-
-  handleSave = evt => {
-    evt.preventDefault();
-    const { onChange, index } = this.props;
-    const { column } = this.state;
-
-    this.setState({ edit: false });
+  const save = useCallback(() => {
+    setEdit(false);
     onChange(column, index);
-  };
+  }, [column, index, onChange]);
 
-  handleChangeName = ({ target }) => {
-    this.setState(({ column }) => ({
-      column: { ...column, name: target.value },
-    }));
-  };
+  const selectVar = useCallback(
+    (_, variable) => {
+      setColumn({ ...column, variable });
+    },
+    [column]
+  );
 
-  // handleChangeType = type => {
-  //   this.setState(({ column }) => ({
-  //     column: { ...column, type },
-  //   }));
-  // };
-
-  render() {
-    const { edit, column, original } = this.state;
-    const { readOnly } = this.props;
-
-    return (
-      <div
-        className={cn(styles.container, { [styles.active]: !column.skipped })}
-      >
-        {!edit && (
+  const classes = cn(styles.container, { [styles.skipped]: column.skipped });
+  return (
+    <div className={classes}>
+      {!edit && (
+        <>
+          <Header
+            name={column.name}
+            onEdit={toggleEdit}
+            readOnly={readOnly || column.skipped}
+          />
           <div className={styles.content}>
-            <div className={styles.header}>
-              <div className={styles.name}>{column.name}</div>
-              {column.skipped && (
-                <div className={styles.skipped}>Will not be imported</div>
-              )}
-            </div>
-            {!readOnly && (
-              <div className={styles.actions}>
-                {!column.skipped && (
-                  <button
-                    className={cn(styles.button, styles.skip)}
-                    onClick={this.handleSkip}
-                  >
-                    skip
-                  </button>
-                )}
-                <button
-                  className={cn(styles.button, styles.edit)}
-                  onClick={this.handleToggleEdit}
-                >
-                  edit
-                </button>
-              </div>
+            {column.skipped && (
+              <div className={styles.warning}>Will not be imported</div>
+            )}
+            {!column.skipped && (
+              <div className={styles.variable}>{column.variable || '--'}</div>
             )}
           </div>
-        )}
-        {edit && (
-          <div className={cn(styles.content, styles.absolute)}>
-            <div className={styles.name}>{original.name}</div>
-            <div className={styles.fields}>
-              <input
-                value={column.name}
-                placeholder="Field name"
-                onChange={this.handleChangeName}
-                className={styles.input}
-              />
-            </div>
+          {!readOnly && (
             <div className={styles.actions}>
-              <button
-                className={cn(styles.button, styles.skip)}
-                onClick={this.handleToggleEdit}
+              <Switch value={!column.skipped} onChange={toggleSkip} />
+            </div>
+          )}
+        </>
+      )}
+      {edit && (
+        <>
+          <Header
+            name={column.name}
+            onEdit={toggleEdit}
+            readOnly={readOnly || column.skipped}
+          />
+          <div className={styles.content}>
+            <div className={styles.input}>
+              <VariablesToggle
+                className={styles.dropdown}
+                variables={variables}
+                onSelect={selectVar}
+                onToggleVarsDialog={onToggleVarsDialog}
               >
-                Cancel
-              </button>
-              <button
-                className={cn(styles.button, styles.save)}
-                onClick={this.handleSave}
-              >
-                Save
-              </button>
+                {({ onToggle }) => (
+                  <button className={styles.varsToggle} onClick={onToggle}>
+                    {column.variable || 'Select variable'}
+                    <Arrow className={styles.arrow} />
+                  </button>
+                )}
+              </VariablesToggle>
             </div>
           </div>
-        )}
-      </div>
-    );
-  }
+          <div className={styles.actions}>
+            <button
+              className={cn(styles.button, styles.skip)}
+              onClick={toggleEdit}
+            >
+              Cancel
+            </button>
+            <button className={cn(styles.button, styles.save)} onClick={save}>
+              Save
+            </button>
+          </div>
+        </>
+      )}
+    </div>
+  );
 }
+
+Column.propTypes = {
+  column: dataColumnProps.isRequired,
+  variables: PropTypes.arrayOf(PropTypes.string),
+  index: PropTypes.number.isRequired,
+  readOnly: PropTypes.bool,
+  onChange: PropTypes.func.isRequired,
+  onToggleVarsDialog: PropTypes.func,
+};
+
+Column.defaultProps = {
+  variables: [],
+  readOnly: false,
+  onToggleVarsDialog: null,
+};
