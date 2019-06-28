@@ -150,13 +150,7 @@ export default class Settings extends Component {
           </Field>
           <Field>
             <Toggle
-              tooltip={
-                <span>
-                  Staking helps you to capture high quality workers by asking
-                  them to invest a token(s) beforehand to promise you that the
-                  task will be completed accurately
-                </span>
-              }
+              tooltip="Staking helps you to capture high quality workers by asking them to invest a token(s) beforehand to promise you that the task will be completed accurately"
               value={settings.staking}
               label="Staking"
               name="staking"
