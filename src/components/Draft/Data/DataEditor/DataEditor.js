@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { Description } from '../../controls';
 import Table from './Table';
 import DeleteDialog from './DeleteDialog';
 
@@ -53,10 +52,6 @@ class DataEditor extends Component {
 
     return (
       <div className={styles.container}>
-        <Description>
-          How would you like to supply your data? You can skip this step if you
-          don’t need it.
-        </Description>
         <Table
           draft={draft}
           page={page}

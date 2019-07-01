@@ -17,9 +17,8 @@ import ModulePicker from '../../shared/FormEditor/ModulePicker';
 import Form from '../../shared/FormEditor/Form';
 import { PropertiesPanel } from '../../shared/FormEditor/Properties';
 import { availableModules } from '../../shared/FormEditor/model/modules';
-import Selection from '../../shared/FormEditor/model/Selection';
 
-import help from '../../shared/FormEditor/model/help';
+import walkthrough from './walkthrough';
 
 import styles from './Editor.module.styl';
 
@@ -27,16 +26,15 @@ export default function Editor({
   form,
   variables,
   toolbar,
-  validateForm,
   children,
   onSave,
   onToggleVarsDialog,
 }) {
   return (
-    <FormEditor form={form} validateForm={validateForm} onChange={onSave}>
+    <FormEditor form={form} onChange={onSave}>
       {p => (
-        <FormLayout className={styles.container} walkthrough={help}>
-          <Sidebar hidden={p.selection !== Selection.empty}>
+        <FormLayout className={styles.container} walkthrough={walkthrough}>
+          <Sidebar hidden={!p.selection.isEmpty()}>
             <ModulePicker
               moduleControls={availableModules}
               onEndDrag={p.onEndDrag}
@@ -90,7 +88,6 @@ Editor.propTypes = {
   form: formProps.isRequired,
   toolbar: PropTypes.element.isRequired,
   variables: PropTypes.arrayOf(PropTypes.string),
-  validateForm: PropTypes.func.isRequired,
   onSave: PropTypes.func.isRequired,
   onToggleVarsDialog: PropTypes.func,
 };

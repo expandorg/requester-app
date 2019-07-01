@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
 import { Button, deferComponentRender } from '@expandorg/components';
@@ -10,44 +10,34 @@ import UploadForm from './UploadForm';
 
 import { DraftManager } from '../../../model/draft';
 
-import { Form, Actions } from '../controls';
+import { Form, Actions, Description } from '../controls';
 
-class UploadData extends Component {
-  static propTypes = {
-    draft: draftProps.isRequired,
-    onNext: PropTypes.func.isRequired,
-    onBack: PropTypes.func.isRequired,
-  };
-
-  handleSubmit = () => {
-    const { onNext } = this.props;
-    onNext();
-  };
-
-  handleBack = evt => {
-    evt.preventDefault();
-    const { onBack } = this.props;
-    onBack();
-  };
-
-  render() {
-    const { draft } = this.props;
-
-    const hasData = DraftManager.hasData(draft);
-
-    return (
-      <Form>
+function UploadData({ draft, onBack, onNext }) {
+  const hasData = DraftManager.hasData(draft);
+  return (
+    <Form>
+      <div>
+        <Description>
+          How would you like to supply your data? You can skip this step if you
+          don’t need it.
+        </Description>
         {!hasData && <UploadForm draft={draft} />}
         {hasData && <DataEditor draft={draft} />}
-        <Actions>
-          <Button theme="secondary" onClick={this.handleBack}>
-            Back
-          </Button>
-          <Button onClick={this.handleSubmit}>Next</Button>
-        </Actions>
-      </Form>
-    );
-  }
+      </div>
+      <Actions>
+        <Button theme="secondary" onClick={onBack}>
+          Back
+        </Button>
+        <Button onClick={onNext}>Next</Button>
+      </Actions>
+    </Form>
+  );
 }
+
+UploadData.propTypes = {
+  draft: draftProps.isRequired,
+  onNext: PropTypes.func.isRequired,
+  onBack: PropTypes.func.isRequired,
+};
 
 export default deferComponentRender(UploadData);

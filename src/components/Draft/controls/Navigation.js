@@ -10,8 +10,8 @@ export default class Navigation extends Component {
   };
 
   static defaultProps = {
-    onChange: Function.prototype,
     active: null,
+    onChange: Function.prototype,
   };
 
   render() {

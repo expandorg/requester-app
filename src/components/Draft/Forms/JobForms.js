@@ -2,6 +2,7 @@ import React, { useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 
+import { deferComponentRender } from '@expandorg/components';
 import Steps from './Steps/Steps';
 
 import useToggle from '../../common/useToggle';
@@ -21,7 +22,7 @@ import { FormSelection, FormProps } from './forms';
 
 import DraftOnboarding from '../../../model/DraftOnboarding';
 
-export default function JobForms({ draft, onNext }) {
+function JobForms({ draft, onNext, validation }) {
   const dispatch = useDispatch();
 
   const [selection, setSelection] = useState(FormSelection.task);
@@ -61,14 +62,21 @@ export default function JobForms({ draft, onNext }) {
     saveOnboarding
   );
 
+  const varParams = FormProps.getVariablesParams(selection, draft, toggleVars);
+
   return (
     <Editor
       form={selection.getForm(draft)}
       onSave={save}
       toolbar={<Toolbar draft={draft} onNext={onNext} />}
-      {...FormProps.getFormProps(selection, draft, toggleVars)}
+      {...varParams}
     >
-      <Steps selection={selection} draft={draft} onSelect={setSelection} />
+      <Steps
+        draft={draft}
+        selection={selection}
+        validation={validation}
+        onSelect={setSelection}
+      />
       <VariablesDialogSwitch
         visible={varsDialog}
         selection={selection}
@@ -81,5 +89,12 @@ export default function JobForms({ draft, onNext }) {
 
 JobForms.propTypes = {
   draft: draftProps.isRequired,
+  validation: PropTypes.shape({}),
   onNext: PropTypes.func.isRequired,
 };
+
+JobForms.defaultProps = {
+  validation: null,
+};
+
+export default deferComponentRender(JobForms);

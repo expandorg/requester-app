@@ -90,40 +90,39 @@ class Whitelist extends Component {
     const { whitelist } = this.state;
 
     return (
-      <SubmitStateEffect
-        submitState={updateState}
-        onComplete={this.handleSaveComplete}
-      >
-        <Form onSubmit={this.handleSubmit}>
-          <div className={styles.container}>
-            <div className={styles.inner}>
-              <Description>
-                The second step is uploading your data and assigning variables.
-              </Description>
-              <EligibleUsers whitelist={whitelist}>
-                {({ eligibleUsers, isFetching }) => (
-                  <Hero
-                    className={cn({ [styles.fetching]: isFetching })}
-                    value={eligibleUsers}
-                    title="users available"
-                  />
-                )}
-              </EligibleUsers>
-              <UserFilter
-                className={styles.filters}
-                filters={whitelist}
-                onChange={this.handleChange}
-              />
-            </div>
+      <Form>
+        <Description>
+          The second step is uploading your data and assigning variables.
+        </Description>
+        <div className={styles.container}>
+          <div className={styles.inner}>
+            <EligibleUsers whitelist={whitelist}>
+              {({ eligibleUsers, isFetching }) => (
+                <Hero
+                  className={cn({ [styles.fetching]: isFetching })}
+                  value={eligibleUsers}
+                  title="users available"
+                />
+              )}
+            </EligibleUsers>
+            <UserFilter
+              className={styles.filters}
+              filters={whitelist}
+              onChange={this.handleChange}
+            />
           </div>
-          <Actions>
-            <Button theme="secondary" onClick={this.handleBack}>
-              Back
-            </Button>
-            <Button type="submit">Next</Button>
-          </Actions>
-        </Form>
-      </SubmitStateEffect>
+        </div>
+        <Actions>
+          <Button theme="secondary" onClick={this.handleBack}>
+            Back
+          </Button>
+          <Button onClick={this.handleSubmit}>Next</Button>
+        </Actions>
+        <SubmitStateEffect
+          submitState={updateState}
+          onComplete={this.handleSaveComplete}
+        />
+      </Form>
     );
   }
 }

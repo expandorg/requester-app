@@ -110,88 +110,90 @@ export default class Settings extends Component {
   render() {
     const { settings, errors, isSubmitting } = this.state;
     return (
-      <Form onSubmit={this.handleSubmit}>
-        <Fieldset>
+      <Form>
+        <div>
           <Description className={styles.desc}>
             Nearly there now! Add in some details to help your workers
             understand what your job is all about.
           </Description>
-          <Field
-            tooltip={
-              <span>
-                Give this task a title that is easy for your workers to
-                understand e.g. Nature Image Labelling
-              </span>
-            }
-            name="name"
-            errors={errors}
-          >
-            <Input
-              ref={this.nameInput}
-              placeholder="Title *"
+          <Fieldset>
+            <Field
+              tooltip={
+                <span>
+                  Give this task a title that is easy for your workers to
+                  understand e.g. Nature Image Labelling
+                </span>
+              }
               name="name"
-              error={!!(errors && errors.name)}
-              value={settings.name}
-              onChange={this.handleInputChange}
-            />
-          </Field>
-          <Field
-            tooltip="Provide a concise description about the task that is easy to understand for your worker e.g. Label 100 images containing objects belonging to nature"
-            name="description"
-            errors={errors}
-          >
-            <Input
-              placeholder="Description *"
+              errors={errors}
+            >
+              <Input
+                ref={this.nameInput}
+                placeholder="Title *"
+                name="name"
+                error={!!(errors && errors.name)}
+                value={settings.name}
+                onChange={this.handleInputChange}
+              />
+            </Field>
+            <Field
+              tooltip="Provide a concise description about the task that is easy to understand for your worker e.g. Label 100 images containing objects belonging to nature"
               name="description"
-              error={!!(errors && errors.description)}
-              value={settings.description}
-              onChange={this.handleInputChange}
-            />
-          </Field>
-          <Field>
-            <Toggle
-              tooltip="Staking helps you to capture high quality workers by asking them to invest a token(s) beforehand to promise you that the task will be completed accurately"
-              value={settings.staking}
-              label="Staking"
-              name="staking"
-              onChange={this.handleChangeStaking}
-            />
-          </Field>
-          {settings.staking && (
-            <>
-              <Field tooltip="How much to stake?">
-                <Input
-                  placeholder="How much to stake?"
-                  name="stake"
-                  value={settings.stake}
-                  onChange={this.handleInputChange}
-                />
-              </Field>
-            </>
-          )}
-          <Field
-            tooltip={
-              <span>
-                Only applicable to those who are connecting their data through
-                the API.
-                <br />
-                Your results will be sent to the url provided.
-              </span>
-            }
-          >
-            <Input
-              placeholder="Callback Url"
-              name="callbackUrl"
-              value={settings.callbackUrl}
-              onChange={this.handleInputChange}
-            />
-          </Field>
-        </Fieldset>
+              errors={errors}
+            >
+              <Input
+                placeholder="Description *"
+                name="description"
+                error={!!(errors && errors.description)}
+                value={settings.description}
+                onChange={this.handleInputChange}
+              />
+            </Field>
+            <Field>
+              <Toggle
+                tooltip="Staking helps you to capture high quality workers by asking them to invest a token(s) beforehand to promise you that the task will be completed accurately"
+                value={settings.staking}
+                label="Staking"
+                name="staking"
+                onChange={this.handleChangeStaking}
+              />
+            </Field>
+            {settings.staking && (
+              <>
+                <Field tooltip="How much to stake?">
+                  <Input
+                    placeholder="How much to stake?"
+                    name="stake"
+                    value={settings.stake}
+                    onChange={this.handleInputChange}
+                  />
+                </Field>
+              </>
+            )}
+            <Field
+              tooltip={
+                <span>
+                  Only applicable to those who are connecting their data through
+                  the API.
+                  <br />
+                  Your results will be sent to the url provided.
+                </span>
+              }
+            >
+              <Input
+                placeholder="Callback Url"
+                name="callbackUrl"
+                value={settings.callbackUrl}
+                onChange={this.handleInputChange}
+              />
+            </Field>
+          </Fieldset>
+        </div>
         <Actions>
           <Button theme="secondary" onClick={this.handleBack}>
             Back
           </Button>
-          <Button disable={isSubmitting} type="submit">
+          <Button disable={isSubmitting} onClick={this.handleSubmit}>
             Next
           </Button>
         </Actions>

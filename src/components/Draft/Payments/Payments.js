@@ -115,73 +115,75 @@ class Payments extends Component {
     const { balance, reward, errors } = this.state;
 
     return (
-      <Form onSubmit={this.handleSubmit}>
-        <Fieldset>
+      <Form>
+        <div>
           <Description>
             It’s the final frontier, calculate how you want to pay your workers
             fairly.
           </Description>
-          <Hero
-            value={user.gems.balance}
-            title="XPN AVAILABLE IN ACCOUNT"
-            className={cn({ [styles.zero]: !user.gems.balance })}
-          />
-          <Field>
-            <Deposit user={user}>
-              {({ onToggleDepsoit }) => (
-                <button
-                  type="button"
-                  className={styles.deposit}
-                  onClick={onToggleDepsoit}
-                >
-                  deposit XPN
-                </button>
-              )}
-            </Deposit>
-          </Field>
-          <Field
-            tooltip="Your entire budget for the task. *"
-            name="balance"
-            errors={errors}
-          >
-            <Input
-              placeholder="Task Budget *"
-              disabled={DraftFunding.balanceIsReadonly(draft)}
+          <Fieldset>
+            <Hero
+              value={user.gems.balance}
+              title="XPN AVAILABLE IN ACCOUNT"
+              className={cn({ [styles.zero]: !user.gems.balance })}
+            />
+            <Field>
+              <Deposit user={user}>
+                {({ onToggleDepsoit }) => (
+                  <button
+                    type="button"
+                    className={styles.deposit}
+                    onClick={onToggleDepsoit}
+                  >
+                    deposit XPN
+                  </button>
+                )}
+              </Deposit>
+            </Field>
+            <Field
+              tooltip="Your entire budget for the task. *"
               name="balance"
-              value={balance}
-              error={!!(errors && errors.balance)}
-              onChange={this.handleInputChange}
-            />
-          </Field>
-          <Field
-            tooltip="The amount the workers will earn. *"
-            name="reward"
-            errors={errors}
-          >
-            <Input
-              placeholder="Amount Earned per Task *"
-              name="reward"
-              value={reward}
-              error={!!(errors && errors.reward)}
-              onChange={this.handleInputChange}
-            />
-          </Field>
-          {errors && errors.insufficent && (
-            <HeroWarning
-              className={styles.warning}
-              icon={<Card width="82px" height="64px" viewBox="0 0 72 56" />}
+              errors={errors}
             >
-              You do not have enough XPN.
-              <br />
-              Would you like to deposit some XPN?
-            </HeroWarning>
-          )}
-        </Fieldset>
+              <Input
+                placeholder="Total Budget *"
+                disabled={DraftFunding.balanceIsReadonly(draft)}
+                name="balance"
+                value={balance}
+                error={!!(errors && errors.balance)}
+                onChange={this.handleInputChange}
+              />
+            </Field>
+            <Field
+              tooltip="The amount the workers will earn. *"
+              name="reward"
+              errors={errors}
+            >
+              <Input
+                placeholder="Amount Earned per Task *"
+                name="reward"
+                value={reward}
+                error={!!(errors && errors.reward)}
+                onChange={this.handleInputChange}
+              />
+            </Field>
+            {errors && errors.insufficent && (
+              <HeroWarning
+                className={styles.warning}
+                icon={<Card width="82px" height="64px" viewBox="0 0 72 56" />}
+              >
+                You do not have enough XPN.
+                <br />
+                Would you like to deposit some XPN?
+              </HeroWarning>
+            )}
+          </Fieldset>
+        </div>
         <Actions>
           <Button theme="secondary" onClick={this.handleBack}>
             Back
           </Button>
-          <Button type="submit">Next</Button>
+          <Button onClick={this.handleSubmit}>Next</Button>
         </Actions>
         <SubmitStateEffect
           submitState={submitState}

@@ -14,7 +14,7 @@ import { authenticated } from '../shared/auth';
 import {
   makeDraftSelector,
   draftSavingSelector,
-  makeDraftErrorsSelector,
+  makeDraftValidationSelector,
 } from '../../selectors/draftsSelectors';
 import { fetchDraftStateSelector } from '../../selectors/uiStateSelectors';
 import { fetch } from '../../sagas/draftsSagas';
@@ -28,8 +28,8 @@ function Draft({ match, location }) {
   const isSaving = useSelector(draftSavingSelector);
   const loadState = useSelector(fetchDraftStateSelector);
 
-  const errorsSelector = useMemo(makeDraftErrorsSelector, []);
-  const errorState = useSelector(errorsSelector);
+  const validationSelector = useMemo(makeDraftValidationSelector, []);
+  const validation = useSelector(validationSelector);
 
   useEffect(() => {
     dispatch(fetch(match.params.id));
@@ -38,6 +38,7 @@ function Draft({ match, location }) {
   const isLoading = !draft && loadState.state === RequestStates.Fetching;
   const title = (draft && draft.name) || '';
   const tab = (location.state && location.state.tab) || 0;
+
   return (
     <Page title={title} sidebar={false} navbar={false} footer={false}>
       <LoadIndicator isLoading={isLoading}>
@@ -46,7 +47,7 @@ function Draft({ match, location }) {
             draft={draft}
             isSaving={isSaving}
             tab={tab}
-            errorState={errorState}
+            validation={validation}
           />
         )}
       </LoadIndicator>

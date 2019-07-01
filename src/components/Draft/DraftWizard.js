@@ -5,17 +5,25 @@ import Navbar from '../shared/Navbar';
 
 import { draftProps } from '../shared/propTypes';
 
-import { Navigation, NavItem } from './Navigation';
+import { Navigation, NavItem } from './controls';
 import Settings from './Settings/SettingsContainer';
 import Data from './Data/Data';
 import JobForms from './Forms/JobForms';
 import Payments from './Payments/Payments';
 import Summary from './Summary/Summary';
-import { getNavState, WizardSteps } from './wizard';
 
 import styles from './DraftWizard.module.styl';
 
-export default function DraftWizard({ draft, tab, isSaving }) {
+const WizardSteps = {
+  Forms: 0,
+  Data: 1,
+  Settings: 2,
+  // Whitelist: 3,
+  Pay: 3,
+  Summary: 4,
+};
+
+export default function DraftWizard({ draft, tab, isSaving, validation }) {
   const [active, setActive] = useState(tab);
 
   const next = useCallback(() => {
@@ -26,7 +34,6 @@ export default function DraftWizard({ draft, tab, isSaving }) {
     setActive(active - 1);
   }, [active]);
 
-  const nav = getNavState(draft);
   return (
     <>
       <Navbar
@@ -37,13 +44,15 @@ export default function DraftWizard({ draft, tab, isSaving }) {
         logout={false}
       >
         <Navigation onChange={setActive} active={active}>
-          <NavItem {...nav.forms}>Create Job</NavItem>
-          <NavItem {...nav.data}>Data</NavItem>
-          <NavItem {...nav.settings}>Settings</NavItem>
-          <NavItem {...nav.pay}>Pay</NavItem>
+          <NavItem>Create Job</NavItem>
+          <NavItem>Data</NavItem>
+          <NavItem>Settings</NavItem>
+          <NavItem>Pay</NavItem>
         </Navigation>
       </Navbar>
-      {active === WizardSteps.Forms && <JobForms draft={draft} onNext={next} />}
+      {active === WizardSteps.Forms && (
+        <JobForms validation={validation} draft={draft} onNext={next} />
+      )}
       {active === WizardSteps.Data && (
         <Data draft={draft} onNext={next} onBack={back} />
       )}
@@ -54,7 +63,12 @@ export default function DraftWizard({ draft, tab, isSaving }) {
         <Payments draft={draft} onNext={next} onBack={back} />
       )}
       {active === WizardSteps.Summary && (
-        <Summary draft={draft} onBack={next} onStep={setActive} />
+        <Summary
+          draft={draft}
+          validation={validation}
+          onBack={next}
+          onStep={setActive}
+        />
       )}
     </>
   );
@@ -62,11 +76,11 @@ export default function DraftWizard({ draft, tab, isSaving }) {
 
 DraftWizard.propTypes = {
   draft: draftProps.isRequired,
-  tab: PropTypes.number,
-  isSaving: PropTypes.bool,
+  validation: PropTypes.shape({}),
+  tab: PropTypes.number.isRequired,
+  isSaving: PropTypes.bool.isRequired,
 };
 
 DraftWizard.defaultProps = {
-  tab: 0,
-  isSaving: false,
+  validation: null,
 };

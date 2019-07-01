@@ -33,6 +33,10 @@ export default class Selection {
     this.type = type;
   }
 
+  isEmpty() {
+    return this.isType('none');
+  }
+
   isType(type: SelectionType): boolean {
     return type === this.type;
   }

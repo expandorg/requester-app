@@ -10,7 +10,6 @@ import HeroWarning from '../../shared/HeroWarning';
 
 import { Actions, Section, Description } from '../controls';
 import { draftProps } from '../../shared/propTypes';
-import { getNavState } from '../wizard';
 
 import Settings from './Settings';
 import Data from './Data/Data';
@@ -50,7 +49,6 @@ export default class SummaryForm extends Component {
 
   render() {
     const { draft, user, onBack, onStep, errors } = this.props;
-    const nav = getNavState(draft);
     const draftReady = DraftManager.validate(draft);
 
     return (
@@ -58,14 +56,10 @@ export default class SummaryForm extends Component {
         <Description className={styles.description}>
           Review your task to confirm everything looks as intended.
         </Description>
-        <Section
-          title="Settings"
-          status={nav.settings.status}
-          onStep={() => onStep(0)}
-        >
+        <Section title="Settings" onStep={() => onStep(0)}>
           <Settings draft={draft} />
         </Section>
-        <Section title="Data" status={nav.data.status} onStep={() => onStep(1)}>
+        <Section title="Data" onStep={() => onStep(1)}>
           <Data draft={draft} />
         </Section>
         {/* <Section title="Task" status={nav.templates.status} blue>
@@ -88,11 +82,7 @@ export default class SummaryForm extends Component {
         {/* <Section title="Whitelist" status={nav.whitelist.status}>
           <Whitelist draft={draft} />
         </Section> */}
-        <Section
-          title="Payout"
-          status={nav.pay.status}
-          onStep={() => onStep(4)}
-        >
+        <Section title="Payout" onStep={() => onStep(4)}>
           <Payout draft={draft} />
         </Section>
         <Section>

@@ -6,11 +6,6 @@ import { type Form } from '@expandorg/modules/src/form/model/types.flow';
 import type { Draft, DraftOnboardingStep } from '../../../model/types.flow';
 import { getQuizDataVarialbes } from '../../../model/onboardingData';
 
-import {
-  validationFormProps,
-  validationTaskFormProps,
-} from '../../shared/FormEditor/model/validation';
-
 export type FormSelectionType = 'task' | 'verification' | 'onboarding';
 
 export class FormSelection {
@@ -92,17 +87,6 @@ export class FormProps {
     return onb;
   }
 
-  static getValidator(selection: FormSelection): Function {
-    switch (selection) {
-      case FormSelection.task:
-      case FormSelection.verification:
-        return validationTaskFormProps;
-      default:
-        break;
-    }
-    return validationFormProps;
-  }
-
   static getVariablesParams(
     selection: FormSelection,
     draft: Draft,
@@ -115,13 +99,11 @@ export class FormProps {
       };
     }
     if (selection.isVerification()) {
-      const variables = [
-        ...getFormModulesNames(draft.taskForm),
-        ...(draft.variables || []),
-      ];
-
       return {
-        variables,
+        variables: [
+          ...getFormModulesNames(draft.taskForm),
+          ...(draft.variables || []),
+        ],
         onToggleVarsDialog,
       };
     }
@@ -134,16 +116,5 @@ export class FormProps {
       };
     }
     return {};
-  }
-
-  static getFormProps(
-    selection: FormSelection,
-    draft: Draft,
-    toggleVars: Function
-  ) {
-    return {
-      ...FormProps.getVariablesParams(selection, draft, toggleVars),
-      validateForm: FormProps.getValidator(selection),
-    };
   }
 }

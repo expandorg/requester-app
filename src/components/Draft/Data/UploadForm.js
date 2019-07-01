@@ -13,7 +13,7 @@ import { Upload, ProgressPubSub } from '../../common/Upload';
 
 import { draftProps } from '../../shared/propTypes';
 
-import { Description, Fieldset } from '../controls';
+import { Fieldset } from '../controls';
 
 import { uploadData } from '../../../sagas/dataSagas';
 import { uploadDataStateSelector } from '../../../selectors/uiStateSelectors';
@@ -85,10 +85,6 @@ class UploadForm extends Component {
     const uploading = uploadState.state === RequestStates.Fetching;
     return (
       <Fieldset>
-        <Description>
-          How would you like to supply your data? You can skip this step if you
-          don’t need it.
-        </Description>
         <Upload
           file={data}
           accept="text/csv"

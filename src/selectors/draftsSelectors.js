@@ -17,11 +17,15 @@ export const makeDraftSelector = (): any =>
 
 export const draftSavingSelector = (state: Object) => state.drafts.saving;
 
-export const makeDraftErrorsSelector = (): any => {
+export const makeDraftValidationSelector = (): any => {
   const draftSelector = makeDraftSelector();
   return createSelector(
     draftSelector,
     draft => {
+      if (!draft) {
+        return null;
+      }
+
       return draft;
     }
   );
