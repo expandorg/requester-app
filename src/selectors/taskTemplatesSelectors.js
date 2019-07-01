@@ -24,3 +24,17 @@ export const makeTaskTemplateSelector = (): any =>
       return entities[id];
     }
   );
+
+export const makeDraftFromTemplateSelector = (): any => {
+  const templateSelector = makeTaskTemplateSelector();
+  return createSelector(
+    templateSelector,
+    template => {
+      if (!template) {
+        return null;
+      }
+      console.log(template);
+      return { ...template };
+    }
+  );
+};

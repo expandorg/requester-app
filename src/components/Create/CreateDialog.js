@@ -26,6 +26,7 @@ import {
 import { taskTemplateProps } from '../shared/propTypes';
 
 import styles from './CreateDialog.module.styl';
+import PreviewTemplateTab from '../../common/popups/PreviewTemplateTab';
 
 const mapsStateToProps = state => ({
   submitState: createDraftStateSelector(state),
@@ -92,6 +93,14 @@ class CreateDialog extends Component {
     onToogle(false);
   };
 
+  handlePreview = () => {
+    const { templateId } = this.state;
+    if (templateId) {
+      const preview = new PreviewTemplateTab(templateId);
+      preview.open();
+    }
+  };
+
   render() {
     const { submitState, fetchTemplatesState, templates } = this.props;
     const { templateId } = this.state;
@@ -115,7 +124,7 @@ class CreateDialog extends Component {
               selected={templateId}
               onSelect={this.handleSelect}
               onCreate={this.handleCreate}
-              onPreview={Function.prototype}
+              onPreview={this.handlePreview}
               onHide={this.handleHide}
             />
           </LoadIndicator>

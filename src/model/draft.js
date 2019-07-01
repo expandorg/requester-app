@@ -7,9 +7,6 @@ import { ge } from './validation';
 import { type Draft } from './types.flow';
 
 export class DraftManager {
-  static hasTemplate = (draft: ?Draft) =>
-    draft && draft.templateId !== null && draft.templateId !== undefined;
-
   static hasWhitelist = (draft: ?Draft) =>
     draft && draft.whitelist !== null && draft.whitelist !== undefined;
 

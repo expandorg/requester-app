@@ -4,10 +4,8 @@ import { withRouter } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { addNotification } from '@expandorg/app-utils/app';
-
 import { Sidebar, Navbar } from '@expandorg/components/app';
 import { Panel, Button } from '@expandorg/components';
-
 import { matchProps } from '@expandorg/app-utils';
 
 import Page from '../shared/Page';

@@ -12,19 +12,19 @@ import Page from '../shared/Page';
 import PreviewDraftWorkflow from './draft/PreviewDraftWorkflow';
 
 import { authenticated } from '../shared/auth';
-import { fetch } from '../../sagas/draftsSagas';
-import { makeDraftSelector } from '../../selectors/draftsSelectors';
+import { fetchTaskTemplate } from '../../sagas/tasksSagas';
+import { makeDraftFromTemplateSelector } from '../../selectors/taskTemplatesSelectors';
 
 import styles from './styles.module.styl';
 
 function PreviewTemplate({ match }) {
   const dispatch = useDispatch();
-  const draftSelector = useMemo(makeDraftSelector, []);
+  const draftSelector = useMemo(makeDraftFromTemplateSelector, []);
 
   const draft = useSelector(state => draftSelector(state, match.params.id));
 
   useEffect(() => {
-    dispatch(fetch(match.params.id));
+    dispatch(fetchTaskTemplate(match.params.id));
   }, [dispatch, match.params.id]);
 
   const notify = useCallback(

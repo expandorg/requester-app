@@ -11,33 +11,16 @@ export const WizardSteps = {
   Summary: 4,
 };
 
-const getTemplateStatus = (draft: ?Draft) => {
-  if (!draft) {
-    return null;
-  }
-  return DraftManager.hasTemplate(draft) ? 'complete' : 'required';
-};
-
 const getFundingStatus = (draft: ?Draft) => {
-  if (!DraftManager.hasTemplate(draft)) {
-    return null;
-  }
   return DraftManager.hasFunding(draft) ? 'complete' : 'required';
 };
 
 const getFormsStatus = (draft: ?Draft) => {
-  if (!DraftManager.hasTemplate(draft)) {
-    return null;
-  }
   return DraftManager.isFormsReviewed(draft) ? 'complete' : 'required';
 };
 
 // eslint-disable-next-line import/prefer-default-export
 export const getNavState = (draft: Draft) => ({
-  templates: {
-    status: getTemplateStatus(draft),
-    disabled: !draft,
-  },
   settings: {
     status: draft ? 'complete' : null,
     disabled: !draft,

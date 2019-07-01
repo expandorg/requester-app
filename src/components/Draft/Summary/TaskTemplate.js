@@ -7,7 +7,6 @@ import { bindActionCreators } from 'redux';
 import FormPreview from '../../shared/FormPreview';
 
 import { draftProps, taskTemplateProps } from '../../shared/propTypes';
-import { DraftManager } from '../../../model/draft';
 
 import { fetchTaskTemplate } from '../../../sagas/tasksSagas';
 import { makeTaskTemplateSelector } from '../../../selectors/taskTemplatesSelectors';
@@ -37,9 +36,7 @@ class TaskTemplate extends Component {
 
   componentDidMount() {
     const { draft } = this.props;
-    if (DraftManager.hasTemplate(draft)) {
-      this.props.fetchTaskTemplate(draft.templateId);
-    }
+    this.props.fetchTaskTemplate(draft.templateId);
   }
 
   render() {
