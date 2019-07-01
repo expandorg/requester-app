@@ -13,7 +13,7 @@ import {
 } from '../../shared/FormEditor/Layout';
 
 import ModulePicker from '../../shared/FormEditor/ModulePicker';
-import { LogicPanel } from '../../shared/FormEditor/Logic';
+// import { LogicPanel } from '../../shared/FormEditor/Logic';
 import Form from '../../shared/FormEditor/Form';
 import { PropertiesPanel } from '../../shared/FormEditor/Properties';
 import { availableModules } from '../../shared/FormEditor/model/modules';
@@ -51,13 +51,13 @@ export default function Editor({
           <Content>
             {children}
             <Canvas>
-              <LogicPanel
+              {/* <LogicPanel
                 module={p.selection.find(p.modules, 'logic')}
                 modules={p.modules}
                 variables={variables}
                 onSave={p.onEdit}
                 onCancel={p.onDeselect}
-              />
+              /> */}
               <Form
                 ref={p.formRef}
                 modules={p.modules}

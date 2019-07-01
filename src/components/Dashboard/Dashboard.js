@@ -35,30 +35,10 @@ const mapDispatchToProps = dispatch =>
   bindActionCreators({ fetchTasks, removeDraft, copyDraft }, dispatch);
 
 const links = [
-  {
-    href: '/',
-    text: 'All',
-  },
-  {
-    href: '/tasks/draft',
-    text: 'Draft',
-  },
-  {
-    href: '/tasks/pending',
-    text: 'Pending',
-  },
-  // {
-  //   href: '/tasks/scheduled',
-  //   text: 'Scheduled',
-  // },
-  {
-    href: '/tasks/in-progress',
-    text: 'In Progress',
-  },
-  // {
-  //   href: '/tasks/completed',
-  //   text: 'Completed',
-  // },
+  { href: '/', text: 'All' },
+  { href: '/tasks/draft', text: 'Draft' },
+  { href: '/tasks/pending', text: 'Pending' },
+  { href: '/tasks/in-progress', text: 'In Progress' },
 ];
 
 class Dashboard extends Component {
