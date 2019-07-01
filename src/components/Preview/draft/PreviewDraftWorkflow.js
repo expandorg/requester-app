@@ -15,10 +15,7 @@ import { fetch as fetchData } from '../../../sagas/dataSagas';
 
 import { makeDataVarsSampleSelector } from '../../../selectors/dataSelectors';
 
-import {
-  TaskWorkflowBackend,
-  TaskWorkflowState,
-} from '../../../model/workflow';
+import { TaskWorkflowBackend, TaskWorkflowState } from '../workflow';
 import { DraftManager } from '../../../model/draft';
 
 const makeMapStateToProps = () => {

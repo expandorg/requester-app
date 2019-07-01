@@ -11,6 +11,9 @@ import Value from './Value';
 
 import styles from './DataTable.module.styl';
 
+const filterAssignedVars = (variables, assigned, columnVariable) =>
+  variables.filter(v => v === columnVariable || assigned.indexOf(v) === -1);
+
 export default class DataTable extends Component {
   static propTypes = {
     data: dataProps,
@@ -74,6 +77,8 @@ export default class DataTable extends Component {
 
     const array = isFetching && !values.length ? original.values : values;
 
+    const assigned = columns.map(c => c.variable);
+
     /* eslint-disable react/no-array-index-key */
     return (
       <div className={cn(styles.table, className)}>
@@ -83,7 +88,11 @@ export default class DataTable extends Component {
               column={column}
               key={index}
               readOnly={readOnly}
-              variables={variables}
+              variables={filterAssignedVars(
+                variables,
+                assigned,
+                column.variable
+              )}
               index={index}
               onChange={this.handleChangeColumn}
               onToggleVarsDialog={onToggleVarsDialog}

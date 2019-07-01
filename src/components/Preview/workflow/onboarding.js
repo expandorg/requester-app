@@ -1,8 +1,8 @@
 // @flow
 import { overrideFormVars } from '@expandorg/modules/model';
-import type { Draft, DraftOnboardingStep } from '../types.flow';
+import type { Draft, DraftOnboardingStep } from '../../../model/types.flow';
 
-import { dataToVars } from '../onboardingData';
+import { dataToVars } from '../../../model/onboardingData';
 
 import {
   TaskWorkflowState,

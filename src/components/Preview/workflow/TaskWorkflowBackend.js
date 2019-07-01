@@ -1,5 +1,5 @@
 // @flow
-import { type Draft } from '../types.flow';
+import { type Draft } from '../../../model/types.flow';
 import { TaskWorkflowState, type WorkflowState } from './defs';
 
 import InitialState from './InitialState';

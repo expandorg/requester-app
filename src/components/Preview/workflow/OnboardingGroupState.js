@@ -1,6 +1,6 @@
 // @flow
 import { TaskWorkflowState, createTaskState, type WorkflowState } from './defs';
-import { type Draft } from '../types.flow';
+import { type Draft } from '../../../model/types.flow';
 
 import {
   createOnboardingState,
