@@ -51,7 +51,12 @@ export default function Column({
   }, [edit, original]);
 
   const toggleSkip = useCallback(() => {
-    onChange({ ...original, skipped: !original.skipped }, index, true);
+    const edited = {
+      ...original,
+      skipped: !original.skipped,
+      variable: original.skipped ? original.variable : '',
+    };
+    onChange(edited, index, true);
   }, [index, onChange, original]);
 
   const save = useCallback(() => {
