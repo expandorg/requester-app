@@ -23,6 +23,7 @@ export default function PreviewDraftWorkflow({ draft, variables, onNotify }) {
     },
     [draft, workflow]
   );
+
   return (
     <>
       {workflow.state === TaskWorkflowState.ONBOARDING_PASSED && (
