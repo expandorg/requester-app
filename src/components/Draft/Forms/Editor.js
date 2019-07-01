@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { WalkthroughPin } from '@expandorg/components/app';
 import { formProps } from '@expandorg/modules';
 
-import FormEditorContainer from '../../shared/FormEditor/FormEditorContainer';
+import FormEditor from '../../shared/FormEditor/FormEditor';
 import {
   FormLayout,
   Sidebar,
@@ -33,11 +33,7 @@ export default function Editor({
   onToggleVarsDialog,
 }) {
   return (
-    <FormEditorContainer
-      form={form}
-      validateForm={validateForm}
-      onChange={onSave}
-    >
+    <FormEditor form={form} validateForm={validateForm} onChange={onSave}>
       {p => (
         <FormLayout className={styles.container} walkthrough={help}>
           <Sidebar hidden={p.selection !== Selection.empty}>
@@ -86,7 +82,7 @@ export default function Editor({
           <WalkthroughPin id="components" className={styles.componentsPin} />
         </FormLayout>
       )}
-    </FormEditorContainer>
+    </FormEditor>
   );
 }
 

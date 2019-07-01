@@ -7,35 +7,11 @@ import { ge } from './validation';
 import { type Draft } from './types.flow';
 
 export class DraftManager {
-  static hasWhitelist = (draft: ?Draft) =>
-    draft && draft.whitelist !== null && draft.whitelist !== undefined;
-
   static hasFunding = (draft: ?Draft) =>
     draft && draft.funding && typeof draft.funding.balance !== 'undefined';
 
   static hasData = (draft: ?Draft) =>
     draft && draft.dataId !== null && draft.dataId !== undefined;
-
-  static isFormsReviewed(draft: ?Draft) {
-    if (!draft) {
-      return false;
-    }
-    if (!DraftManager.isVerificationFormReviewed(draft)) {
-      return false;
-    }
-    return DraftManager.isTaskFormReviewed(draft);
-  }
-
-  static isVerificationFormReviewed(draft: Draft) {
-    if (!DraftManager.hasVerificationForm(draft)) {
-      return true;
-    }
-    return !!draft.verificationReviewed;
-  }
-
-  static isTaskFormReviewed(draft: Draft) {
-    return !!draft.taskReviewed;
-  }
 
   static validate = (draft: Draft) => {
     if (!DraftManager.hasFunding(draft)) {

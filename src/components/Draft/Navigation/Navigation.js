@@ -21,7 +21,7 @@ export default class Navigation extends Component {
         {Children.map(children, (item, index) =>
           cloneElement(item, {
             active: active === index,
-            onClick: evt => onChange(index, evt),
+            onClick: () => onChange(index),
           })
         )}
       </div>

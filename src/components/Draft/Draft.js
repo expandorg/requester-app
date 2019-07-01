@@ -1,88 +1,62 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React, { useEffect, useMemo } from 'react';
 
 import { withRouter } from 'react-router-dom';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+import { useDispatch, useSelector } from 'react-redux';
 
-import {
-  requestStateProps,
-  RequestStates,
-  matchProps,
-  locationProps,
-} from '@expandorg/app-utils';
-
-import { draftProps } from '../shared/propTypes';
-import { authenticated } from '../shared/auth';
+import { RequestStates, matchProps, locationProps } from '@expandorg/app-utils';
 
 import DraftWizard from './DraftWizard';
+
+import LoadIndicator from '../shared/LoadIndicator';
+import Page from '../shared/Page';
+import { authenticated } from '../shared/auth';
 
 import {
   makeDraftSelector,
   draftSavingSelector,
+  makeDraftErrorsSelector,
 } from '../../selectors/draftsSelectors';
-
 import { fetchDraftStateSelector } from '../../selectors/uiStateSelectors';
-
 import { fetch } from '../../sagas/draftsSagas';
 
-const makeMapStateToProps = () => {
-  const draftSelector = makeDraftSelector();
-  return (state, props) => ({
-    draft: draftSelector(state, props.match.params.id),
-    isSaving: draftSavingSelector(state),
-    loadState: fetchDraftStateSelector(state),
-  });
-};
+function Draft({ match, location }) {
+  const dispatch = useDispatch();
 
-const mapDispatchToProps = dispatch => bindActionCreators({ fetch }, dispatch);
+  const draftSelector = useMemo(makeDraftSelector, []);
+  const draft = useSelector(state => draftSelector(state, match.params.id));
 
-class Draft extends Component {
-  static propTypes = {
-    match: matchProps.isRequired,
-    location: locationProps.isRequired,
-    isSaving: PropTypes.bool.isRequired,
-    draft: draftProps,
-    loadState: requestStateProps.isRequired,
-    fetch: PropTypes.func.isRequired,
-  };
+  const isSaving = useSelector(draftSavingSelector);
+  const loadState = useSelector(fetchDraftStateSelector);
 
-  static defaultProps = {
-    draft: null,
-  };
+  const errorsSelector = useMemo(makeDraftErrorsSelector, []);
+  const errorState = useSelector(errorsSelector);
 
-  componentDidMount() {
-    const { match } = this.props;
-    this.props.fetch(match.params.id);
-  }
+  useEffect(() => {
+    dispatch(fetch(match.params.id));
+  }, [dispatch, match.params.id]);
 
-  componentDidUpdate({ match: prevMatch }) {
-    const { match } = this.props;
-    if (match.params.id !== prevMatch.params.id) {
-      this.props.fetch(match.params.id);
-    }
-  }
-
-  render() {
-    const { draft, loadState, location, isSaving } = this.props;
-    const isLoading = !draft && loadState.state === RequestStates.Fetching;
-    const tab = (location.state && location.state.tab) || 0;
-    return (
-      <DraftWizard
-        draft={draft}
-        tab={tab}
-        isSaving={isSaving}
-        isLoading={isLoading}
-      />
-    );
-  }
+  const isLoading = !draft && loadState.state === RequestStates.Fetching;
+  const title = (draft && draft.name) || '';
+  const tab = (location.state && location.state.tab) || 0;
+  return (
+    <Page title={title} sidebar={false} navbar={false} footer={false}>
+      <LoadIndicator isLoading={isLoading}>
+        {!!draft && (
+          <DraftWizard
+            draft={draft}
+            isSaving={isSaving}
+            tab={tab}
+            errorState={errorState}
+          />
+        )}
+      </LoadIndicator>
+    </Page>
+  );
 }
 
-export default withRouter(
-  authenticated(
-    connect(
-      makeMapStateToProps,
-      mapDispatchToProps
-    )(Draft)
-  )
-);
+Draft.propTypes = {
+  match: matchProps.isRequired,
+  location: locationProps.isRequired,
+};
+
+export default withRouter(authenticated(Draft));

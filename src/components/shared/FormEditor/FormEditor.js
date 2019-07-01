@@ -22,10 +22,9 @@ const changeSelection = (current, op) => {
   return current;
 };
 
-export default class FormEditorContainer extends Component {
+export default class FormEditor extends Component {
   static propTypes = {
     form: formProps,
-    validateForm: PropTypes.func.isRequired,
     onChange: PropTypes.func,
   };
 
@@ -42,30 +41,19 @@ export default class FormEditorContainer extends Component {
       prev: props.form, // eslint-disable-line react/no-unused-state
       modules: props.form ? props.form.modules : [],
       controls: getModuleControlsMap(availableModules),
-      // error: null,
     };
   }
 
   static getDerivedStateFromProps({ form }, state) {
     if (state.prev !== form) {
-      console.log(state.prev !== form);
       return {
         selection: Selection.empty,
         prev: form,
         modules: form ? form.modules : [],
-        error: null,
       };
     }
     return null;
   }
-
-  handleValidate = () => {
-    const { validateForm } = this.props;
-    const { controls, modules } = this.state;
-
-    const errors = validateForm(modules, controls);
-    console.log(errors);
-  };
 
   handleSelect = (path, type) => {
     this.setState(({ selection }) => ({

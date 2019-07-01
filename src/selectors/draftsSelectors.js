@@ -16,3 +16,13 @@ export const makeDraftSelector = (): any =>
   );
 
 export const draftSavingSelector = (state: Object) => state.drafts.saving;
+
+export const makeDraftErrorsSelector = (): any => {
+  const draftSelector = makeDraftSelector();
+  return createSelector(
+    draftSelector,
+    draft => {
+      return draft;
+    }
+  );
+};
