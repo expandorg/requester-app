@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-
 import OnboardingComplete from './OnboardingComplete';
 import TaskComplete from './TaskComplete';
 
@@ -11,32 +8,12 @@ import ModulesForm from './ModulesForm';
 
 import { draftProps } from '../../shared/propTypes';
 
-import { fetch as fetchData } from '../../../sagas/dataSagas';
-
-import { makeDataVarsSampleSelector } from '../../../selectors/dataSelectors';
-
 import { TaskWorkflowBackend, TaskWorkflowState } from '../workflow';
-import { DraftManager } from '../../../model/draft';
 
-const makeMapStateToProps = () => {
-  const dataVarsSampleSelector = makeDataVarsSampleSelector();
-  return (state, props) => ({
-    variables: dataVarsSampleSelector(
-      state,
-      props.draft.id,
-      props.draft.dataId
-    ),
-  });
-};
-
-const mapDispatchToProps = dispatch =>
-  bindActionCreators({ fetchData }, dispatch);
-
-class PreviewDraftWorkflow extends Component {
+export default class PreviewDraftWorkflow extends Component {
   static propTypes = {
     draft: draftProps.isRequired,
     variables: PropTypes.object, // eslint-disable-line
-    fetchData: PropTypes.func.isRequired,
     onNotify: PropTypes.func,
   };
 
@@ -62,20 +39,6 @@ class PreviewDraftWorkflow extends Component {
       };
     }
     return null;
-  }
-
-  componentDidMount() {
-    const { draft } = this.props;
-    if (draft.dataId) {
-      this.props.fetchData(draft.id, draft.dataId, 0);
-    }
-  }
-
-  componentDidUpdate({ draft: prev }) {
-    const { draft } = this.props;
-    if (DraftManager.hasData(draft) && draft.dataId !== prev.dataId) {
-      this.props.fetchData(draft.id, draft.dataId, 0);
-    }
   }
 
   handleSubmit = (...args) => {
@@ -116,8 +79,3 @@ class PreviewDraftWorkflow extends Component {
     );
   }
 }
-
-export default connect(
-  makeMapStateToProps,
-  mapDispatchToProps
-)(PreviewDraftWorkflow);

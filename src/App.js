@@ -20,7 +20,9 @@ import Signup from './components/Auth/Signup';
 import Draft from './components/Draft/Draft';
 
 import JobStats from './components/JobStats/JobStats';
+
 import PreviewDraft from './components/Preview/PreviewDraft';
+import PreviewTemplate from './components/Preview/PreviewTemplate';
 
 import Api from './components/Api/Api';
 import Stats from './components/Stats/Stats';
@@ -52,6 +54,7 @@ const App = () => (
             <Route path="/job/:id" component={JobStats} />
 
             <Route path="/preview/draft/:id" component={PreviewDraft} />
+            <Route path="/preview/template/:id" component={PreviewTemplate} />
 
             <Route path="/api" component={Api} />
             <Route path="/stats" component={Stats} />

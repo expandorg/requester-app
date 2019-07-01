@@ -47,7 +47,7 @@ export const makeDataVarsSampleSelector = (): any => {
     draftSelector,
     (state, draftId, dataId) => dataId,
     (entities, valueEntites, draft, dataId) => {
-      if (!draft.variables) {
+      if (!draft || !draft.variables) {
         return null;
       }
 
@@ -55,17 +55,19 @@ export const makeDataVarsSampleSelector = (): any => {
       if (!entity) {
         return null;
       }
+
       const samplePage = valueEntites[dataId].pages[0];
       if (!samplePage) {
         return null;
       }
-      return draft.variables.reduce((all, v) => {
-        const index = entity.columns.findIndex(col => col.name === v);
+      const variables = draft.variables.reduce((all, v) => {
+        const index = entity.columns.findIndex(col => col.variable === v);
         if (index === -1) {
           return all;
         }
         return { ...all, [v]: samplePage[0][index] };
       }, {});
+      return variables;
     }
   );
 };
