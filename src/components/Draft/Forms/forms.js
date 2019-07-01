@@ -1,5 +1,7 @@
 // @flow
 
+import { getFormModulesNames } from '@expandorg/modules/model';
+
 import { type Form } from '@expandorg/modules/src/form/model/types.flow';
 import type { Draft, DraftOnboardingStep } from '../../../model/types.flow';
 import { getQuizDataVarialbes } from '../../../model/onboardingData';
@@ -113,8 +115,13 @@ export class FormProps {
       };
     }
     if (selection.isVerification()) {
+      const variables = [
+        ...getFormModulesNames(draft.taskForm),
+        ...(draft.variables || []),
+      ];
+
       return {
-        variables: draft.variables,
+        variables,
         onToggleVarsDialog,
       };
     }
