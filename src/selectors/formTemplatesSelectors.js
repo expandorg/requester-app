@@ -12,15 +12,3 @@ export const formTemplatesSelector: any = createSelector(
   formTemplatesEntitiesSelector,
   (list, entities) => list.map(id => entities[id])
 );
-
-export const makeTaskTemplateSelector = (): any =>
-  createSelector(
-    formTemplatesEntitiesSelector,
-    (state, templateId) => templateId,
-    (entities, id) => {
-      if (id === null || id === undefined) {
-        return null;
-      }
-      return entities[id];
-    }
-  );
