@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux';
 
 import { Dialog, Button, DialogForm as DF, Input } from '@expandorg/components';
 
+import { keyCodes } from '../../../../common/consts';
 import { updateVariables } from '../../../../sagas/draftsSagas';
 
 import styles from './VariablesDialog.module.styl';
@@ -26,6 +27,19 @@ export default function VariablesDialog({ onHide, draftId, variables }) {
       setValue('');
     }
   }, [value, vars]);
+
+  const keyDown = useCallback(
+    evt => {
+      if (evt.keyCode === keyCodes.ENTER) {
+        evt.stopPropagation();
+        if (value) {
+          setVars([...new Set([value, ...vars])]);
+          setValue('');
+        }
+      }
+    },
+    [value, vars]
+  );
 
   const remove = useCallback(
     val => {
@@ -51,6 +65,7 @@ export default function VariablesDialog({ onHide, draftId, variables }) {
             <Input
               value={value}
               className={styles.input}
+              onKeyDown={keyDown}
               placeholder="Create variable tag"
               onChange={({ target }) => setValue(target.value)}
             />
