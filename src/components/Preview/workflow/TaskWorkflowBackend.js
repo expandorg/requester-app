@@ -11,7 +11,7 @@ export default class TaskWorkflowBackend {
   static getNextState(
     draft: Draft,
     current?: WorkflowState,
-    args?: any
+    response?: any
   ): WorkflowState {
     if (current !== null && current !== undefined) {
       switch (current.state) {
@@ -19,10 +19,10 @@ export default class TaskWorkflowBackend {
         case TaskWorkflowState.ONBOARDING_GROUP_FAILED:
         case TaskWorkflowState.ONBOARDING_PASSED:
         case TaskWorkflowState.ONBOARDING_FAILED: {
-          return OnboardingGroupState.getNextState(draft, current, args);
+          return OnboardingGroupState.getNextState(draft, current, response);
         }
         case TaskWorkflowState.TASK: {
-          return TaskState.getNextState(draft);
+          return TaskState.getNextState(draft, response);
         }
         case TaskWorkflowState.VERIFICATION: {
           return VerificationState.getNextState();

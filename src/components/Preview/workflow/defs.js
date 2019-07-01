@@ -26,6 +26,7 @@ export type WorkflowState = {
   groups?: Array<OnboardingGroup>,
   groupState?: OnboardingGroupState,
   form?: Form,
+  response?: ?any,
 };
 
 export const TaskWorkflowState = {
@@ -47,7 +48,11 @@ export const createTaskState = (draft: Draft): WorkflowState => ({
   form: draft.taskForm,
 });
 
-export const createVerificationState = (draft: Draft): WorkflowState => ({
+export const createVerificationState = (
+  draft: Draft,
+  response: any
+): WorkflowState => ({
   state: TaskWorkflowState.VERIFICATION,
   form: draft.verificationForm,
+  response: response || {},
 });
