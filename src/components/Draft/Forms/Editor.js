@@ -12,8 +12,8 @@ import {
   Canvas,
 } from '../../shared/FormEditor/Layout';
 
-import ModulePicker from '../../shared/FormEditor/ModulePicker';
 // import { LogicPanel } from '../../shared/FormEditor/Logic';
+import ModulePicker from '../../shared/FormEditor/ModulePicker';
 import Form from '../../shared/FormEditor/Form';
 import { PropertiesPanel } from '../../shared/FormEditor/Properties';
 import { availableModules } from '../../shared/FormEditor/model/modules';

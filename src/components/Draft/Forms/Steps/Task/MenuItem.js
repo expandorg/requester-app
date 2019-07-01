@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
 
-import { NavItem } from '../controls';
+import { NavItem, ErrorIcon } from '../controls';
 import { FormSelection } from '../../forms';
 
 export default function TaskMenuItem({ selected, onSelect }) {
@@ -9,7 +9,7 @@ export default function TaskMenuItem({ selected, onSelect }) {
 
   return (
     <NavItem selected={selected} onClick={select}>
-      Task →
+      Task → <ErrorIcon />
     </NavItem>
   );
 }

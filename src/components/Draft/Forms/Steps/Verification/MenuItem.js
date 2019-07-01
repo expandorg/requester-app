@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from 'react';
 import PropTypes from 'prop-types';
 
-import { NavItem, SettingsButton } from '../controls';
+import { NavItem, SettingsButton, ErrorIcon } from '../controls';
 import { FormSelection } from '../../forms';
 
 import Settings from './Settings';
@@ -51,6 +51,7 @@ export default function VerificationMenuItem({ draft, selected, onSelect }) {
       <NavItem selected={selected} onClick={click}>
         Verification&nbsp;
         <SettingsButton onClick={iconClick} />
+        <ErrorIcon />
       </NavItem>
     </>
   );

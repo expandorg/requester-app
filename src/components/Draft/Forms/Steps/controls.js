@@ -9,6 +9,7 @@ import { ReactComponent as SettingsIcon } from './settings.svg';
 
 import { ReactComponent as Down } from '../../../../assets/arrow_drop_down.svg';
 import { ReactComponent as Up } from '../../../../assets/arrow_drop_up.svg';
+import { ReactComponent as Warning } from '../../../../assets/warning.svg';
 
 import { ContextMenu } from '../../../common/ContextMenu';
 
@@ -44,6 +45,18 @@ NavItem.defaultProps = {
 export function NavItemText({ children }) {
   return <span className={styles.itemText}>{children}</span>;
 }
+
+export function ErrorIcon({ error }) {
+  return error ? <Warning className={styles.warning} /> : null;
+}
+
+ErrorIcon.propTypes = {
+  error: PropTypes.bool,
+};
+
+ErrorIcon.defaultProps = {
+  error: false,
+};
 
 export function NavItemContextMenu({ visible, onToggle, children }) {
   const btn = useRef(null);

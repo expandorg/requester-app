@@ -5,7 +5,7 @@ import { Sidebar as UISidebar } from '@expandorg/components/app';
 
 import { NavLink } from 'react-router-dom';
 
-import { ReactComponent as Gear } from '../../assets/settings2.svg';
+import { ReactComponent as Gear } from '../../assets/settings.svg';
 import { ReactComponent as Api } from '../../assets/api.svg';
 import { ReactComponent as Stats } from '../../assets/stats.svg';
 import { ReactComponent as Jobs } from '../../assets/jobs.svg';

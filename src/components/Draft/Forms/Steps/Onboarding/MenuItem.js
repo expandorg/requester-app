@@ -1,6 +1,5 @@
 import React, { useCallback, useRef } from 'react';
 import PropTypes from 'prop-types';
-import cn from 'classnames';
 
 import { useDrag, useDrop } from 'react-dnd';
 
@@ -14,12 +13,12 @@ import {
   NavItem,
   NavItemText,
   NavItemContextMenu,
+  ErrorIcon,
 } from '../controls';
 
 import Quiz from '../../Quiz/Quiz';
 import { source, target } from './dnd';
 
-import styles from './MenuItem.module.styl';
 import { FormSelection } from '../../forms';
 
 export default function OnboardingMenuItem({
@@ -37,7 +36,7 @@ export default function OnboardingMenuItem({
   const [quiz, toggleQuiz] = useToggle();
   const [menu, toggleMenu] = useToggle();
 
-  const [{ isDragging }, drag] = useDrag(source(index, onEndDrag));
+  const [, drag] = useDrag(source(index, onEndDrag));
   const [, drop] = useDrop(target(ref, index, onMove));
 
   const duplicate = useCallback(
@@ -70,18 +69,10 @@ export default function OnboardingMenuItem({
     [onSelect, step.id]
   );
 
-  const classes = cn({
-    [styles.dragging]: isDragging,
-  });
-
   return (
-    <NavItem
-      className={classes}
-      selected={selected}
-      ref={drag(drop(ref))}
-      onClick={select}
-    >
+    <NavItem selected={selected} ref={drag(drop(ref))} onClick={select}>
       <NavItemText>{step.name}</NavItemText>&nbsp;→&nbsp;
+      <ErrorIcon />
       {step.isGroup && <SettingsButton onClick={toggleQuiz} />}
       <NavItemContextMenu visible={menu} onToggle={toggleMenu}>
         <ContextMenuItem onClick={duplicate}>Duplicate</ContextMenuItem>
