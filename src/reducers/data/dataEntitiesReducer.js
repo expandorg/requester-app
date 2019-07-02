@@ -17,6 +17,11 @@ const dataEntitiesReducer = (state = initialState, action) => {
     default:
       break;
   }
+
+  if (action.meta && action.meta.optimistic) {
+    return state;
+  }
+
   if (action.payload) {
     const { entities } = action.payload;
     if (entities && entities.data) {
