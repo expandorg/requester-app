@@ -25,7 +25,7 @@ import PreviewDraft from './components/Preview/PreviewDraft';
 import PreviewTemplate from './components/Preview/PreviewTemplate';
 
 import Api from './components/Api/Api';
-import Stats from './components/Stats/Stats';
+// import Stats from './components/Stats/Stats';
 import Settings from './components/Settings/Settings';
 
 import NotFound from './components/shared/NotFound';
@@ -57,7 +57,7 @@ const App = () => (
             <Route path="/preview/template/:id" component={PreviewTemplate} />
 
             <Route path="/api" component={Api} />
-            <Route path="/stats" component={Stats} />
+            {/* <Route path="/stats" component={Stats} /> */}
             <Route path="/settings" component={Settings} />
 
             <Route component={NotFound} />
