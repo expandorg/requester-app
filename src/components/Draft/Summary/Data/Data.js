@@ -1,8 +1,6 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React, { useState, useCallback, useEffect } from 'react';
 
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+import { useDispatch } from 'react-redux';
 
 import Table from './Table';
 
@@ -13,54 +11,27 @@ import DraftValidator from '../../../../model/DraftValidator';
 
 import styles from './Data.module.styl';
 
-const mapDispatchToProps = dispatch => bindActionCreators({ fetch }, dispatch);
+export default function Data({ draft }) {
+  const dispatch = useDispatch();
+  const [page, setPage] = useState(0);
 
-class Data extends Component {
-  static propTypes = {
-    draft: draftProps.isRequired,
-    fetch: PropTypes.func.isRequired,
-  };
-
-  state = {
-    page: 0,
-  };
-
-  componentDidMount() {
-    const { draft } = this.props;
-    const { page } = this.state;
-
+  useEffect(() => {
     if (draft.dataId) {
-      this.props.fetch(draft.id, draft.dataId, page);
+      dispatch(fetch(draft.id, draft.dataId, page));
     }
-  }
+  }, [dispatch, draft.dataId, draft.id, page]);
 
-  handleChangePage = page => {
-    const { draft } = this.props;
-    this.setState({ page });
-    this.props.fetch(draft.id, draft.dataId, page);
-  };
+  const changePage = useCallback(p => setPage(p), []);
 
-  render() {
-    const { draft } = this.props;
-    const { page } = this.state;
-
-    const has = DraftValidator.hasData(draft);
-    return (
-      <div className={styles.container}>
-        {has && (
-          <Table
-            draft={draft}
-            page={page}
-            onChangePage={this.handleChangePage}
-          />
-        )}
-        {!has && <div className={styles.emptyData}>No data uploaded.</div>}
-      </div>
-    );
-  }
+  const hasData = DraftValidator.hasData(draft);
+  return (
+    <div className={styles.container}>
+      {hasData && <Table draft={draft} page={page} onChangePage={changePage} />}
+      {!hasData && <div className={styles.emptyData}>No data uploaded.</div>}
+    </div>
+  );
 }
 
-export default connect(
-  null,
-  mapDispatchToProps
-)(Data);
+Data.propTypes = {
+  draft: draftProps.isRequired,
+};
