@@ -33,6 +33,7 @@ export default function DraftWizard({ draft, tab, isSaving, validation }) {
   const back = useCallback(() => {
     setActive(active - 1);
   }, [active]);
+  console.log(validation);
 
   return (
     <>

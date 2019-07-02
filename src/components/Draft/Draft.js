@@ -28,14 +28,15 @@ function Draft({ match, location }) {
   const isSaving = useSelector(draftSavingSelector);
   const loadState = useSelector(fetchDraftStateSelector);
 
-  const validationSelector = useMemo(makeDraftValidationSelector, []);
-  const validation = useSelector(validationSelector);
+  const selectValidation = useMemo(makeDraftValidationSelector, []);
+  const validation = useSelector(s => selectValidation(s, match.params.id));
 
   useEffect(() => {
     dispatch(fetch(match.params.id));
   }, [dispatch, match.params.id]);
 
   const isLoading = !draft && loadState.state === RequestStates.Fetching;
+
   const title = (draft && draft.name) || '';
   const tab = (location.state && location.state.tab) || 0;
 

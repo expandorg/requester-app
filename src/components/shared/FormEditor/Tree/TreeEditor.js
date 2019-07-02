@@ -9,7 +9,7 @@ import { treeEditor, Ops } from './editor';
 
 import { createModule, newModuleId } from '../modules';
 
-export default class FormTreeEditor extends Component {
+export default class TreeEditor extends Component {
   static propTypes = {
     modules: PropTypes.arrayOf(moduleProps),
     selection: PropTypes.instanceOf(Selection).isRequired,

@@ -1,5 +1,6 @@
 // @flow
 import { createSelector } from 'reselect';
+import DraftValidator from '../model/DraftValidator';
 
 export const draftsStateSelector = (state: Object) => state.drafts;
 
@@ -17,21 +18,11 @@ export const makeDraftSelector = (): any =>
 
 export const draftSavingSelector = (state: Object) => state.drafts.saving;
 
-const valid = {
-  onboardingForms: null,
-  taskForm: null,
-  verificationForm: null,
-};
-
 export const makeDraftValidationSelector = (): any => {
   const draftSelector = makeDraftSelector();
+  const validator = new DraftValidator();
   return createSelector(
     draftSelector,
-    draft => {
-      if (!draft) {
-        return valid;
-      }
-      return {};
-    }
+    draft => validator.validate(draft)
   );
 };
