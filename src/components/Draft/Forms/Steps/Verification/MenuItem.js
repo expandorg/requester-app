@@ -7,13 +7,13 @@ import { FormSelection } from '../../forms';
 import Settings from './Settings';
 
 import { draftProps } from '../../../../shared/propTypes';
-import { DraftManager } from '../../../../../model/draft';
+import DraftValidator from '../../../../../model/DraftValidator';
 import { VerificationType } from '../../../../../model/enums';
 
 export default function VerificationMenuItem({ draft, selected, onSelect }) {
   const [dialog, setDialog] = useState(false);
 
-  const hasForm = DraftManager.hasVerificationForm(draft);
+  const hasForm = DraftValidator.hasVerificationForm(draft);
 
   const click = useCallback(() => {
     if (hasForm) {

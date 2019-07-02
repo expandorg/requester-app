@@ -9,7 +9,7 @@ import Table from './Table';
 import { draftProps } from '../../../shared/propTypes';
 import { fetch } from '../../../../sagas/dataSagas';
 
-import { DraftManager } from '../../../../model/draft';
+import DraftValidator from '../../../../model/DraftValidator';
 
 import styles from './Data.module.styl';
 
@@ -44,7 +44,7 @@ class Data extends Component {
     const { draft } = this.props;
     const { page } = this.state;
 
-    const has = DraftManager.hasData(draft);
+    const has = DraftValidator.hasData(draft);
     return (
       <div className={styles.container}>
         {has && (

@@ -1,8 +1,5 @@
 // @flow
-import type { FormValidationResult } from '../../../model/FormValidator/FormValidator';
-import DraftValidator, {
-  type DraftValidateionResult,
-} from '../../../model/DraftValidator';
+import { type DraftValidateionResult } from '../../../model/DraftValidator';
 import { FormSelection } from '../Forms/forms';
 
 import WizardSteps from '../WizardSteps';
@@ -63,29 +60,5 @@ export default class DraftErrorsBuilder {
       }
     });
     return messages;
-  }
-
-  static countFormErrors(formResult: ?FormValidationResult): number {
-    if (!formResult) {
-      return 0;
-    }
-    return 1;
-  }
-
-  static errorsCount(result: DraftValidateionResult): number {
-    if (result === DraftValidator.valid) {
-      return 0;
-    }
-
-    const taskCount = DraftErrorsBuilder.countFormErrors(result.taskForm);
-    const verificationCount = DraftErrorsBuilder.countFormErrors(
-      result.verificationForm
-    );
-
-    return Reflect.ownKeys(result.onboardingForms).reduce(
-      (sum, key) =>
-        sum + DraftErrorsBuilder.countFormErrors(result.onboardingForms[key]),
-      taskCount + verificationCount
-    );
   }
 }

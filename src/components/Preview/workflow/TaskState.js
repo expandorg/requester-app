@@ -6,11 +6,11 @@ import {
 } from './defs';
 
 import type { Draft } from '../../../model/types.flow';
-import { DraftManager } from '../../../model/draft';
+import DraftValidator from '../../../model/DraftValidator';
 
 export default class TaskState {
   static getNextState(draft: Draft, response: any): WorkflowState {
-    if (DraftManager.hasVerificationForm(draft) && draft.verificationForm) {
+    if (DraftValidator.hasVerificationForm(draft) && draft.verificationForm) {
       return createVerificationState(draft, response);
     }
     return createRepeatState();

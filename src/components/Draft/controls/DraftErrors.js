@@ -9,6 +9,7 @@ import DraftErrorsBuilder from './DraftErrorsBuilder';
 import { ErrorsContextMenu, ErrorsMenuItem } from './ErrorsMenu';
 
 import styles from './DraftErrors.module.styl';
+import DraftValidator from '../../../model/DraftValidator';
 
 export default function DraftErrors({ validation, onNavigate }) {
   const ref = useRef(null);
@@ -37,7 +38,7 @@ export default function DraftErrors({ validation, onNavigate }) {
     [onNavigate]
   );
 
-  const count = DraftErrorsBuilder.errorsCount(validation);
+  const count = DraftValidator.errorsCount(validation);
   if (!count) {
     return null;
   }

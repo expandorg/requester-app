@@ -8,12 +8,12 @@ import { draftProps } from '../../shared/propTypes';
 import DataEditor from './DataEditor/DataEditor';
 import UploadForm from './UploadForm';
 
-import { DraftManager } from '../../../model/draft';
+import DraftValidator from '../../../model/DraftValidator';
 
 import { Form, Actions, Description } from '../controls';
 
 function UploadData({ draft, onBack, onNext }) {
-  const hasData = DraftManager.hasData(draft);
+  const hasData = DraftValidator.hasData(draft);
   return (
     <Form>
       <div>

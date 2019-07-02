@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
 import { userProps } from '@expandorg/app-auth';
@@ -23,100 +23,91 @@ import PublishButton from './Publish/PublishButton';
 import WizardSteps from '../WizardSteps';
 
 import styles from './SummaryForm.module.styl';
-import { DraftManager } from '../../../model/draft';
+import DraftValidator from '../../../model/DraftValidator';
 
-const getTaskStatus = ({ taskForm }) =>
-  taskForm && taskForm.modules && taskForm.modules.length > 0
-    ? 'complete'
-    : 'required';
+export default function SummaryForm({
+  draft,
+  user,
+  onBack,
+  onStep,
+  errors,
+  validation,
+  onSubmit,
+}) {
+  const isReady = DraftValidator.isReadyToPublish(validation, draft);
 
-export default class SummaryForm extends Component {
-  static propTypes = {
-    user: userProps.isRequired,
-    errors: PropTypes.shape({}),
-    draft: draftProps.isRequired,
-    onBack: PropTypes.func.isRequired,
-    onSubmit: PropTypes.func.isRequired,
-    onStep: PropTypes.func.isRequired,
-  };
-
-  static defaultProps = {
-    errors: null,
-  };
-
-  handlePublishClick = schedule => {
-    const { onSubmit } = this.props;
-    onSubmit(schedule);
-  };
-
-  render() {
-    const { draft, user, onBack, onStep, errors } = this.props;
-    const draftReady = DraftManager.validate(draft);
-
-    return (
-      <div className={styles.form}>
-        <Description className={styles.description}>
-          Review your task to confirm everything looks as intended.
-        </Description>
-        <Section title="Settings" onStep={() => onStep(WizardSteps.Settings)}>
-          <Settings draft={draft} />
-        </Section>
-        <Section title="Data" onStep={() => onStep(WizardSteps.Data)}>
-          <Data draft={draft} />
-        </Section>
-        {/* <Section title="Task" status={nav.templates.status} blue>
+  return (
+    <div className={styles.form}>
+      <Description className={styles.description}>
+        Review your task to confirm everything looks as intended.
+      </Description>
+      <Section title="Settings" onStep={() => onStep(WizardSteps.Settings)}>
+        <Settings draft={draft} />
+      </Section>
+      <Section title="Data" onStep={() => onStep(WizardSteps.Data)}>
+        <Data draft={draft} />
+      </Section>
+      {/* <Section title="Task" >
           <TaskTemplate draft={draft} />
         </Section> */}
-        <Section
-          title="Template Settings"
-          status="complete"
-          onStep={() => onStep(WizardSteps.Settings)}
-        >
-          <TemplateSettings draft={draft} />
-        </Section>
-        <Section
-          title="Task"
-          status={getTaskStatus(draft)}
-          onStep={() => onStep(WizardSteps.Forms)}
-        >
-          <Task form={draft.taskForm} draft={draft} />
-        </Section>
-        {/* <Section title="Whitelist" status={nav.whitelist.status}>
+      <Section
+        title="Template Settings"
+        onStep={() => onStep(WizardSteps.Settings)}
+      >
+        <TemplateSettings draft={draft} />
+      </Section>
+      <Section title="Task" onStep={() => onStep(WizardSteps.Forms)}>
+        <Task form={draft.taskForm} draft={draft} />
+      </Section>
+      {/* <Section title="Whitelist" >
           <Whitelist draft={draft} />
         </Section> */}
-        <Section title="Payout" onStep={() => onStep(WizardSteps.Pay)}>
-          <Payout draft={draft} />
-        </Section>
-        <Section>
-          {!draftReady && (
-            <HeroWarning
-              icon={<Warning width="64px" height="64px" viewBox="0 0 42 42" />}
-            >
-              There are still some sections that need completing.
-              <br />
-              The task can not be published until all sections are complete.
-            </HeroWarning>
-          )}
-          {errors && (
-            <HeroWarning
-              icon={<Warning width="64px" height="64px" viewBox="0 0 42 42" />}
-            >
-              {errors.commonMessage}
-            </HeroWarning>
-          )}
-        </Section>
-        <Actions className={styles.actions}>
-          <Button theme="secondary" onClick={onBack}>
-            Back
-          </Button>
-          <PublishButton
-            user={user}
-            readOnly={!draftReady}
-            draft={draft}
-            onPublish={this.handlePublishClick}
-          />
-        </Actions>
-      </div>
-    );
-  }
+      <Section title="Payout" onStep={() => onStep(WizardSteps.Pay)}>
+        <Payout draft={draft} />
+      </Section>
+      <Section>
+        {!isReady && (
+          <HeroWarning
+            icon={<Warning width="64px" height="64px" viewBox="0 0 42 42" />}
+          >
+            There are still some sections that need completing.
+            <br />
+            The task can not be published until all sections are complete.
+          </HeroWarning>
+        )}
+        {errors && (
+          <HeroWarning
+            icon={<Warning width="64px" height="64px" viewBox="0 0 42 42" />}
+          >
+            {errors.commonMessage}
+          </HeroWarning>
+        )}
+      </Section>
+      <Actions className={styles.actions}>
+        <Button theme="secondary" onClick={onBack}>
+          Back
+        </Button>
+        <PublishButton
+          user={user}
+          readOnly={!isReady}
+          draft={draft}
+          onPublish={schedule => onSubmit(schedule)}
+        />
+      </Actions>
+    </div>
+  );
 }
+
+SummaryForm.propTypes = {
+  user: userProps.isRequired,
+  errors: PropTypes.shape({}),
+  draft: draftProps.isRequired,
+  validation: PropTypes.shape({}).isRequired,
+  onBack: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired,
+  onStep: PropTypes.func.isRequired,
+};
+
+SummaryForm.defaultProps = {
+  errors: null,
+};

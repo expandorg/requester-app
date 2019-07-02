@@ -6,7 +6,7 @@ import {
   VerificationFormValidator,
 } from './FormValidator';
 
-import { DraftManager } from './draft';
+import { VerificationType } from './enums';
 
 import type { FormValidationResult } from './FormValidator/FormValidator';
 
@@ -24,6 +24,16 @@ export default class DraftValidator {
     taskForm: null,
     verificationForm: null,
   };
+
+  static hasData = ({ dataId }: Draft) =>
+    dataId !== null && dataId !== undefined;
+
+  static hasFunding = ({ funding }: Draft) =>
+    funding && typeof funding.balance !== 'undefined';
+
+  static hasVerificationForm = ({ verification }: Draft) =>
+    verification.module === VerificationType.Requester ||
+    verification.module === VerificationType.AuditWhitelist;
 
   taskValidator = new TaskFormValidator();
   verificationValidator = new VerificationFormValidator();
@@ -43,8 +53,32 @@ export default class DraftValidator {
     }, {});
   }
 
+  static countFormErrors(formResult: ?FormValidationResult): number {
+    if (!formResult) {
+      return 0;
+    }
+    return 1;
+  }
+
+  static errorsCount(result: DraftValidateionResult): number {
+    if (result === DraftValidator.valid) {
+      return 0;
+    }
+
+    const taskCount = DraftValidator.countFormErrors(result.taskForm);
+    const verificationCount = DraftValidator.countFormErrors(
+      result.verificationForm
+    );
+
+    return Reflect.ownKeys(result.onboardingForms).reduce(
+      (sum, key) =>
+        sum + DraftValidator.countFormErrors(result.onboardingForms[key]),
+      taskCount + verificationCount
+    );
+  }
+
   checkVerificationForm(draft: Draft): ?FormValidationResult {
-    if (!DraftManager.hasVerificationForm(draft)) {
+    if (!DraftValidator.hasVerificationForm(draft)) {
       return null;
     }
     if (!draft.verificationForm) {
@@ -62,5 +96,15 @@ export default class DraftValidator {
       taskForm: this.taskValidator.validate(draft.taskForm.modules),
       verificationForm: this.checkVerificationForm(draft),
     };
+  }
+
+  static isReadyToPublish(
+    result: DraftValidateionResult,
+    draft: Draft
+  ): boolean {
+    if (!DraftValidator.hasFunding(draft)) {
+      return false;
+    }
+    return DraftValidator.errorsCount(result) === 0;
   }
 }

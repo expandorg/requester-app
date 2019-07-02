@@ -1,104 +1,72 @@
-import React, { Component } from 'react';
+import React, { useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
 
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+import { useDispatch, useSelector } from 'react-redux';
 
-import {
-  requestStateProps,
-  RequestStates,
-  SubmitStateEffect,
-} from '@expandorg/app-utils';
-
-import { userProps } from '@expandorg/app-auth';
+import { RequestStates, SubmitStateEffect } from '@expandorg/app-utils';
 import { userSelector } from '@expandorg/app-auth/selectors';
-
-import { draftProps } from '../../shared/propTypes';
 
 import LoadIndicator from '../../shared/LoadIndicator';
 import SummaryForm from './SummaryForm';
 import TaskPublishedDialog from './TaskPublishedDialog';
 
+import { draftProps } from '../../shared/propTypes';
 import { publish } from '../../../sagas/draftsSagas';
 import { publishDraftStateSelector } from '../../../selectors/uiStateSelectors';
 
-const mapsStateToProps = state => ({
-  user: userSelector(state),
-  submitState: publishDraftStateSelector(state),
-});
+export default function Summary({ draft, onStep, onBack, validation }) {
+  const dispatch = useDispatch();
 
-const mapDispatchToProps = dispatch =>
-  bindActionCreators({ publish }, dispatch);
+  const user = useSelector(userSelector);
+  const submitState = useSelector(publishDraftStateSelector);
 
-class Summary extends Component {
-  static propTypes = {
-    user: userProps.isRequired,
-    draft: draftProps.isRequired,
-    submitState: requestStateProps.isRequired,
-    publish: PropTypes.func.isRequired,
-    onBack: PropTypes.func.isRequired,
-    onStep: PropTypes.func.isRequired,
-  };
+  const [errors, setErrors] = useState(null);
+  const [published, setPublished] = useState(false);
 
-  state = {
-    published: false,
-    errors: null,
-  };
+  const complete = useCallback(() => setPublished(true), []);
+  const failed = useCallback(({ error }) => setErrors(error), []);
 
-  handleBack = evt => {
-    const { onBack } = this.props;
-    onBack();
+  const fetching = submitState.state === RequestStates.Fetching;
 
-    evt.preventDefault();
-  };
+  const submit = useCallback(
+    schedule => {
+      if (!fetching) {
+        dispatch(publish(draft.id, schedule));
+      }
+    },
+    [dispatch, draft.id, fetching]
+  );
 
-  handleSubmit = schedule => {
-    const { draft, submitState } = this.props;
-    if (submitState.state !== RequestStates.Fetching) {
-      this.props.publish(draft.id, schedule);
-    }
-  };
-
-  handlePublishComplete = () => {
-    this.setState({ published: true });
-  };
-
-  handlePublishFailed = ({ error }) => {
-    this.setState({ errors: error });
-  };
-
-  render() {
-    const { draft, user, submitState, onStep } = this.props;
-    const { published, errors } = this.state;
-
-    return (
-      <SubmitStateEffect
-        submitState={submitState}
-        onComplete={this.handlePublishComplete}
-        onFailed={this.handlePublishFailed}
-      >
-        {!published && (
-          <LoadIndicator
-            isLoading={submitState.state === RequestStates.Fetching}
-            message="Submitting your task, please wait..."
-          >
-            <SummaryForm
-              user={user}
-              draft={draft}
-              errors={errors}
-              onBack={this.handleBack}
-              onStep={onStep}
-              onSubmit={this.handleSubmit}
-            />
-          </LoadIndicator>
-        )}
-        {published && <TaskPublishedDialog draft={draft} />}
-      </SubmitStateEffect>
-    );
-  }
+  return (
+    <SubmitStateEffect
+      submitState={submitState}
+      onComplete={complete}
+      onFailed={failed}
+    >
+      {!published && (
+        <LoadIndicator
+          isLoading={fetching}
+          message="Submitting your task, please wait..."
+        >
+          <SummaryForm
+            user={user}
+            draft={draft}
+            validation={validation}
+            errors={errors}
+            onBack={onBack}
+            onStep={onStep}
+            onSubmit={submit}
+          />
+        </LoadIndicator>
+      )}
+      {published && <TaskPublishedDialog draft={draft} />}
+    </SubmitStateEffect>
+  );
 }
 
-export default connect(
-  mapsStateToProps,
-  mapDispatchToProps
-)(Summary);
+Summary.propTypes = {
+  draft: draftProps.isRequired,
+  validation: PropTypes.shape({}).isRequired,
+  onBack: PropTypes.func.isRequired,
+  onStep: PropTypes.func.isRequired,
+};
