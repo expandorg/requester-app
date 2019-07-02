@@ -14,6 +14,7 @@ import { ReactComponent as Warning } from '../../../../assets/warning.svg';
 import { ContextMenu } from '../../../common/ContextMenu';
 
 import styles from './controls.module.styl';
+import { ErrorsContextMenu, ErrorsMenuItem } from '../../controls/ErrorsMenu';
 
 export function Navs({ children }) {
   return <div className={styles.menu}>{children}</div>;
@@ -47,7 +48,40 @@ export function NavItemText({ children }) {
 }
 
 export function ErrorIcon({ error }) {
-  return error ? <Warning className={styles.warning} /> : null;
+  const btn = useRef(null);
+  const [visible, setVisible] = useState(false);
+
+  const [pos, setPos] = useState(null);
+
+  const toggle = useCallback(
+    evt => {
+      if (evt) {
+        evt.preventDefault();
+        evt.stopPropagation();
+      }
+      if (!visible) {
+        setPos(btn.current.getBoundingClientRect());
+      }
+      setVisible(!visible);
+    },
+    [visible]
+  );
+
+  if (!error) {
+    return null;
+  }
+  return (
+    <>
+      <button className={styles.errBtn} ref={btn} onClick={toggle}>
+        <Warning className={styles.warning} />
+      </button>
+      {visible && (
+        <ErrorsContextMenu pos={pos} onHide={toggle}>
+          <ErrorsMenuItem message={error.commonMessage} />
+        </ErrorsContextMenu>
+      )}
+    </>
+  );
 }
 
 ErrorIcon.propTypes = {
@@ -103,8 +137,8 @@ export function SettingsButton(props) {
     <button {...props} className={styles.settingsButton}>
       <SettingsIcon
         className={styles.settingsIcon}
-        width="14"
-        height="14"
+        width="17"
+        height="17"
         viewBox="0 0 20 20"
       />
     </button>

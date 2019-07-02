@@ -72,9 +72,9 @@ export default function OnboardingMenuItem({
 
   return (
     <NavItem selected={selected} ref={drag(drop(ref))} onClick={select}>
-      <NavItemText>{step.name}</NavItemText>&nbsp;→&nbsp;
-      <ErrorIcon error={validation} />
+      <NavItemText>{step.name}</NavItemText>&nbsp;→
       {step.isGroup && <SettingsButton onClick={toggleQuiz} />}
+      <ErrorIcon error={validation} />
       <NavItemContextMenu visible={menu} onToggle={toggleMenu}>
         <ContextMenuItem onClick={duplicate}>Duplicate</ContextMenuItem>
         <ContextMenuItem onClick={remove}>Remove</ContextMenuItem>

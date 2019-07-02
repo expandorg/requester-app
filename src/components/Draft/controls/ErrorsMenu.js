@@ -30,13 +30,13 @@ ErrorsContextMenu.defaultProps = {
   pos: null,
 };
 
-export function ErrorsMenuItem({ path, message }) {
+export function ErrorsMenuItem({ path, message, ...rest }) {
   return (
-    <div className={styles.item}>
+    <button className={styles.item} {...rest}>
       <Warning className={styles.warning} />
       <div className={styles.message}>{message}</div>
       <div className={styles.path}>{path}</div>
-    </div>
+    </button>
   );
 }
 
