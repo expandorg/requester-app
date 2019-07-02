@@ -9,7 +9,11 @@ import { getModuleControlsMap } from '@expandorg/modules/model';
 
 export type FormValidationResult = {
   commonMessage: string,
-  path?: string,
+  meta?: {
+    id?: string,
+    name?: string,
+  },
+  [key: string]: any,
 };
 
 export default class FormValidator {

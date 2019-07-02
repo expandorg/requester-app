@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 
@@ -22,10 +22,16 @@ import { FormSelection, FormProps } from './forms';
 
 import DraftOnboarding from '../../../model/DraftOnboarding';
 
-function JobForms({ draft, onNext }) {
+function JobForms({ draft, onNext, tab }) {
   const dispatch = useDispatch();
 
   const [selection, setSelection] = useState(FormSelection.task);
+
+  useEffect(() => {
+    if (tab) {
+      setSelection(tab);
+    }
+  }, [tab]);
 
   const saveTask = useCallback(
     form => {
@@ -85,7 +91,12 @@ function JobForms({ draft, onNext }) {
 
 JobForms.propTypes = {
   draft: draftProps.isRequired,
+  tab: PropTypes.instanceOf(FormSelection),
   onNext: PropTypes.func.isRequired,
+};
+
+JobForms.defaultProps = {
+  tab: null,
 };
 
 export default deferComponentRender(JobForms);

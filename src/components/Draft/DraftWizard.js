@@ -25,14 +25,20 @@ const WizardSteps = {
 };
 
 export default function DraftWizard({ draft, tab, isSaving, validation }) {
-  const [active, setActive] = useState(tab);
+  const [active, setActive] = useState({ tab });
+
+  const navigate = useCallback(nav => {
+    setActive(nav);
+  }, []);
+
+  const setTab = useCallback(i => setActive({ tab: i }), []);
 
   const next = useCallback(() => {
-    setActive(active + 1);
+    setActive({ tab: active + 1 });
   }, [active]);
 
   const back = useCallback(() => {
-    setActive(active - 1);
+    setActive({ tab: active - 1 });
   }, [active]);
 
   return (
@@ -44,32 +50,37 @@ export default function DraftWizard({ draft, tab, isSaving, validation }) {
         top={false}
         logout={false}
       >
-        <DraftErrors validation={validation} />
-        <Navigation onChange={setActive} active={active}>
+        <DraftErrors validation={validation} onNavigate={navigate} />
+        <Navigation onChange={setTab} active={active.tab}>
           <NavItem>Create Job</NavItem>
           <NavItem>Data</NavItem>
           <NavItem>Settings</NavItem>
           <NavItem>Pay</NavItem>
         </Navigation>
       </Navbar>
-      {active === WizardSteps.Forms && (
-        <JobForms validation={validation} draft={draft} onNext={next} />
+      {active.tab === WizardSteps.Forms && (
+        <JobForms
+          tab={active.selected}
+          validation={validation}
+          draft={draft}
+          onNext={next}
+        />
       )}
-      {active === WizardSteps.Data && (
+      {active.tab === WizardSteps.Data && (
         <Data draft={draft} onNext={next} onBack={back} />
       )}
-      {active === WizardSteps.Settings && (
+      {active.tab === WizardSteps.Settings && (
         <Settings draft={draft} onNext={next} onBack={back} />
       )}
-      {active === WizardSteps.Pay && (
+      {active.tab === WizardSteps.Pay && (
         <Payments draft={draft} onNext={next} onBack={back} />
       )}
-      {active === WizardSteps.Summary && (
+      {active.tab === WizardSteps.Summary && (
         <Summary
           draft={draft}
           validation={validation}
           onBack={next}
-          onStep={setActive}
+          onStep={setTab}
         />
       )}
     </>

@@ -5,12 +5,12 @@ import { ReactComponent as Down } from '../../../assets/arrow_drop_down.svg';
 import { ReactComponent as Up } from '../../../assets/arrow_drop_up.svg';
 import { ReactComponent as Warning } from '../../../assets/warning.svg';
 
-import DraftValidator from '../../../model/DraftValidator';
+import DraftErrorsBuilder from './DraftErrorsBuilder';
 import { ErrorsContextMenu, ErrorsMenuItem } from './ErrorsMenu';
 
 import styles from './DraftErrors.module.styl';
 
-export default function DraftErrors({ validation }) {
+export default function DraftErrors({ validation, onNavigate }) {
   const ref = useRef(null);
   const [visible, setVisible] = useState(false);
   const [pos, setPos] = useState(null);
@@ -29,7 +29,15 @@ export default function DraftErrors({ validation }) {
     [visible]
   );
 
-  const count = DraftValidator.errorsCount(validation);
+  const navigate = useCallback(
+    nav => {
+      onNavigate(nav);
+      setVisible(false);
+    },
+    [onNavigate]
+  );
+
+  const count = DraftErrorsBuilder.errorsCount(validation);
   if (!count) {
     return null;
   }
@@ -44,9 +52,16 @@ export default function DraftErrors({ validation }) {
       </button>
       {visible && (
         <ErrorsContextMenu pos={pos} validation={validation} onHide={toggle}>
-          {DraftValidator.errorMessages(validation).map(({ path, message }) => (
-            <ErrorsMenuItem key={path} path={path} message={message} />
-          ))}
+          {DraftErrorsBuilder.errorMessages(validation).map(
+            ({ path, message, nav }) => (
+              <ErrorsMenuItem
+                key={path}
+                path={path}
+                message={message}
+                onClick={() => navigate(nav)}
+              />
+            )
+          )}
         </ErrorsContextMenu>
       )}
     </div>
@@ -55,4 +70,5 @@ export default function DraftErrors({ validation }) {
 
 DraftErrors.propTypes = {
   validation: PropTypes.shape({}).isRequired,
+  onNavigate: PropTypes.func.isRequired,
 };
