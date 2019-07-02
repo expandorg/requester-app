@@ -20,6 +20,8 @@ import Task from './Task';
 import Payout from './Payout';
 import PublishButton from './Publish/PublishButton';
 
+import WizardSteps from '../WizardSteps';
+
 import styles from './SummaryForm.module.styl';
 import { DraftManager } from '../../../model/draft';
 
@@ -56,10 +58,10 @@ export default class SummaryForm extends Component {
         <Description className={styles.description}>
           Review your task to confirm everything looks as intended.
         </Description>
-        <Section title="Settings" onStep={() => onStep(0)}>
+        <Section title="Settings" onStep={() => onStep(WizardSteps.Settings)}>
           <Settings draft={draft} />
         </Section>
-        <Section title="Data" onStep={() => onStep(1)}>
+        <Section title="Data" onStep={() => onStep(WizardSteps.Data)}>
           <Data draft={draft} />
         </Section>
         {/* <Section title="Task" status={nav.templates.status} blue>
@@ -68,21 +70,21 @@ export default class SummaryForm extends Component {
         <Section
           title="Template Settings"
           status="complete"
-          onStep={() => onStep(2)}
+          onStep={() => onStep(WizardSteps.Settings)}
         >
           <TemplateSettings draft={draft} />
         </Section>
         <Section
           title="Task"
           status={getTaskStatus(draft)}
-          onStep={() => onStep(3)}
+          onStep={() => onStep(WizardSteps.Forms)}
         >
           <Task form={draft.taskForm} draft={draft} />
         </Section>
         {/* <Section title="Whitelist" status={nav.whitelist.status}>
           <Whitelist draft={draft} />
         </Section> */}
-        <Section title="Payout" onStep={() => onStep(4)}>
+        <Section title="Payout" onStep={() => onStep(WizardSteps.Pay)}>
           <Payout draft={draft} />
         </Section>
         <Section>

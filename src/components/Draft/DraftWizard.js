@@ -15,14 +15,7 @@ import Summary from './Summary/Summary';
 
 import styles from './DraftWizard.module.styl';
 
-const WizardSteps = {
-  Forms: 0,
-  Data: 1,
-  Settings: 2,
-  // Whitelist: 3,
-  Pay: 3,
-  Summary: 4,
-};
+import WizardSteps from './WizardSteps';
 
 export default function DraftWizard({ draft, tab, isSaving, validation }) {
   const [active, setActive] = useState({ tab });
@@ -70,7 +63,7 @@ export default function DraftWizard({ draft, tab, isSaving, validation }) {
         <Summary
           draft={draft}
           validation={validation}
-          onBack={next}
+          onBack={back}
           onStep={setTab}
         />
       )}

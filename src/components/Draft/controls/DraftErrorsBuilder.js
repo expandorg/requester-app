@@ -5,6 +5,8 @@ import DraftValidator, {
 } from '../../../model/DraftValidator';
 import { FormSelection } from '../Forms/forms';
 
+import WizardSteps from '../WizardSteps';
+
 type ErrorMessage = {
   path?: string,
   message: string,
@@ -30,7 +32,7 @@ export default class DraftErrorsBuilder {
         message: result.taskForm.commonMessage,
         path: 'Create Task → Task',
         nav: {
-          tab: 0,
+          tab: WizardSteps.Forms,
           selected: FormSelection.task,
         },
       });
@@ -40,7 +42,7 @@ export default class DraftErrorsBuilder {
         message: result.verificationForm.commonMessage,
         path: 'Create Task → Verification',
         nav: {
-          tab: 0,
+          tab: WizardSteps.Forms,
           selected: FormSelection.verification,
         },
       });
@@ -52,7 +54,7 @@ export default class DraftErrorsBuilder {
           message: item.commonMessage,
           path: `Create Task → ${item.meta.name || ''}`,
           nav: {
-            tab: 0,
+            tab: WizardSteps.Forms,
             selected: item.meta.id
               ? FormSelection.onboarding(item.meta.id)
               : undefined,
