@@ -93,25 +93,14 @@ class Payments extends Component {
     }
   };
 
-  handleBack = evt => {
-    const { onBack } = this.props;
-    onBack();
-    evt.preventDefault();
-  };
-
   handleInputChange = ({ target }) => {
     this.setState({
       [target.name]: target.value,
     });
   };
 
-  handleUpdateComplete = () => {
-    const { onNext } = this.props;
-    onNext();
-  };
-
   render() {
-    const { submitState, user, draft } = this.props;
+    const { submitState, user, draft, onNext, onBack } = this.props;
     const { balance, reward, errors } = this.state;
 
     return (
@@ -180,15 +169,12 @@ class Payments extends Component {
           </Fieldset>
         </div>
         <Actions>
-          <Button theme="secondary" onClick={this.handleBack}>
+          <Button theme="secondary" onClick={onBack}>
             Back
           </Button>
           <Button onClick={this.handleSubmit}>Next</Button>
         </Actions>
-        <SubmitStateEffect
-          submitState={submitState}
-          onComplete={this.handleUpdateComplete}
-        />
+        <SubmitStateEffect submitState={submitState} onComplete={onNext} />
       </Form>
     );
   }
