@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
 
-import styles from './Navigation.module.styl';
+import styles from './NavItem.module.styl';
 
 export default function NavItem({ children, onClick, active, ...rest }) {
   const classes = cn(styles.item, { [styles.active]: active });

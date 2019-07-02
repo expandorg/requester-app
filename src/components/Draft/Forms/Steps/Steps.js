@@ -34,7 +34,7 @@ export default function Steps({ draft, selection, onSelect, validation }) {
         <VerificationMenuItem
           draft={draft}
           selected={selection.isVerification()}
-          validation={validation}
+          validation={validation.verificationForm}
           onSelect={onSelect}
         />
       </Navs>

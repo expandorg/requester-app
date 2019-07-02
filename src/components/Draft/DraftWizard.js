@@ -5,7 +5,8 @@ import Navbar from '../shared/Navbar';
 
 import { draftProps } from '../shared/propTypes';
 
-import { Navigation, NavItem } from './controls';
+import { Navigation, NavItem, DraftErrors } from './controls';
+
 import Settings from './Settings/SettingsContainer';
 import Data from './Data/Data';
 import JobForms from './Forms/JobForms';
@@ -33,7 +34,6 @@ export default function DraftWizard({ draft, tab, isSaving, validation }) {
   const back = useCallback(() => {
     setActive(active - 1);
   }, [active]);
-  console.log(validation);
 
   return (
     <>
@@ -44,6 +44,7 @@ export default function DraftWizard({ draft, tab, isSaving, validation }) {
         top={false}
         logout={false}
       >
+        <DraftErrors validation={validation} />
         <Navigation onChange={setActive} active={active}>
           <NavItem>Create Job</NavItem>
           <NavItem>Data</NavItem>

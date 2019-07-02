@@ -1,0 +1,43 @@
+@import '~@expandorg/uikit/colors';
+@import '~@expandorg/uikit/font';
+
+.portal
+  position absolute
+
+.menu
+  position: absolute
+  left: -80px
+  top: 40px
+  right: auto
+
+  width: 310px
+
+  border-radius: 10px
+  max-height: 450px
+
+.item
+  position relative
+  box-sizing: border-box
+
+  width: 310px
+  padding: 32px 32px 32px 80px
+  cursor pointer
+
+  &:hover
+    background-color: color-teel-light
+
+.name
+  font(body)
+  color: color-black
+
+.path
+  margin-top 5px
+  font(small-text)
+  color: color-text-grey
+
+.warning
+  position absolute
+  top: calc(50% - 14px)
+  left: 32px
+  path
+    fill: color-text-yellow

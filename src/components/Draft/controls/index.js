@@ -9,6 +9,7 @@ import Toggle from './Toggle';
 import SummaryField from './SummaryField';
 import NavItem from './NavItem';
 import Navigation from './Navigation';
+import DraftErrors from './DraftErrors';
 
 import Actions from './Actions';
 
@@ -23,4 +24,5 @@ export {
   Toggle,
   NavItem,
   Navigation,
+  DraftErrors,
 };

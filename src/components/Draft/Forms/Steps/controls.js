@@ -51,11 +51,11 @@ export function ErrorIcon({ error }) {
 }
 
 ErrorIcon.propTypes = {
-  error: PropTypes.bool,
+  error: PropTypes.shape({}),
 };
 
 ErrorIcon.defaultProps = {
-  error: false,
+  error: null,
 };
 
 export function NavItemContextMenu({ visible, onToggle, children }) {
