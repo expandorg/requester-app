@@ -4,11 +4,9 @@ import PropTypes from 'prop-types';
 import { formProps } from '@expandorg/modules';
 
 import { getModuleControlsMap } from '@expandorg/modules/model';
-
-import { availableModules } from './model/modules';
 import { validateModuleProperties } from './Properties';
-
 import { ValueContextProvider } from './ValueContext';
+
 import Selection from './Tree/Selection';
 
 import { Ops, TreeEditor } from './Tree';
@@ -25,6 +23,7 @@ const changeSelection = (current, op) => {
 export default class FormEditor extends Component {
   static propTypes = {
     form: formProps,
+    controls: PropTypes.arrayOf(PropTypes.func).isRequired,
     onChange: PropTypes.func,
   };
 
@@ -40,7 +39,7 @@ export default class FormEditor extends Component {
       selection: Selection.empty,
       prev: props.form, // eslint-disable-line react/no-unused-state
       modules: props.form ? props.form.modules : [],
-      controls: getModuleControlsMap(availableModules),
+      controlsMap: getModuleControlsMap(props.controls),
     };
   }
 
@@ -79,15 +78,15 @@ export default class FormEditor extends Component {
     );
   };
 
-  validateModule = (module, originalName) => {
-    const { controls, modules } = this.state;
-    const { module: meta } = controls[module.type];
+  validate = (module, originalName) => {
+    const { controlsMap, modules } = this.state;
+    const { module: meta } = controlsMap[module.type];
     return validateModuleProperties(module, originalName, meta, modules);
   };
 
   render() {
     const { children } = this.props;
-    const { selection, modules, controls } = this.state;
+    const { selection, modules, controlsMap } = this.state;
 
     return (
       <ValueContextProvider selection={selection}>
@@ -101,10 +100,10 @@ export default class FormEditor extends Component {
               ...props,
               modules,
               selection,
-              controls,
+              controlsMap,
               onSelect: this.handleSelect,
               onDeselect: this.handleDeselect,
-              onValidateModule: this.validateModule,
+              onValidateModule: this.validate,
             })
           }
         </TreeEditor>

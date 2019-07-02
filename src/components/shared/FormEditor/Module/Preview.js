@@ -12,7 +12,7 @@ import Sidepanel from './Preview/Sidepanel';
 import NotSupported from './Preview/NotSupported';
 import ModuleWrapper from './Preview/ModuleWrapper';
 
-import { supportNesting } from '../model/modules';
+import { supportNesting } from '../modules';
 import { treeEditor } from '../Tree';
 
 import styles from './Preview.module.styl';

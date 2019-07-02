@@ -69,6 +69,7 @@ function JobForms({ draft, onNext, validation }) {
       form={selection.getForm(draft)}
       onSave={save}
       toolbar={<Toolbar draft={draft} onNext={onNext} />}
+      pickerModules={FormProps.getPickerModules(selection)}
       {...varParams}
     >
       <Steps

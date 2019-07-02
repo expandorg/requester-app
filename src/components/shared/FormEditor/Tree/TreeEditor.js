@@ -7,7 +7,7 @@ import { deepCopyModule } from '@expandorg/modules/model';
 import Selection from './Selection';
 import { treeEditor, Ops } from './editor';
 
-import { scaffold, getUniqId } from '../model/modules';
+import { createModule, newModuleId } from '../modules';
 
 export default class FormTreeEditor extends Component {
   static propTypes = {
@@ -24,7 +24,7 @@ export default class FormTreeEditor extends Component {
 
   handleAdd = (meta, scroll) => {
     const { modules, onChange, selection } = this.props;
-    onChange(treeEditor.push(modules, scaffold(meta)), selection);
+    onChange(treeEditor.push(modules, createModule(meta)), selection);
 
     if (scroll) {
       this.formRef.current.decoratedRef.current.scrollBottom();
@@ -52,7 +52,7 @@ export default class FormTreeEditor extends Component {
     const editied = treeEditor.insertAt(
       modules,
       path,
-      deepCopyModule(module, getUniqId)
+      deepCopyModule(module, newModuleId)
     );
     onChange(editied, Ops.Copy);
   };
@@ -67,7 +67,7 @@ export default class FormTreeEditor extends Component {
 
     const edited =
       dragPath.length === 0
-        ? treeEditor.insertAt(modules, hoverPath, scaffold(meta, true))
+        ? treeEditor.insertAt(modules, hoverPath, createModule(meta, true))
         : treeEditor.moveAt(modules, dragPath, hoverPath);
 
     onChange(edited, Ops.Move);

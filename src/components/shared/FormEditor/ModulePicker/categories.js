@@ -22,7 +22,7 @@ export const displayCategories = [
   ModuleCategories.Onboarding,
 ];
 
-export const getAvailableModulesTree = (
+export const getCategories = (
   controls: Array<ModuleControl>,
   exclude?: Array<string> = []
 ): Array<ModuleCategoryItem> => {
@@ -30,6 +30,7 @@ export const getAvailableModulesTree = (
     exclude && exclude.length
       ? controls.filter(c => !exclude.includes(c.module.type))
       : controls;
+
   const grouped = groupModulesByCategory(available);
   return displayCategories.map(category => ({
     category,
@@ -40,7 +41,7 @@ export const getAvailableModulesTree = (
   }));
 };
 
-export const searchModulesTree = (
+export const searchModules = (
   tree: Array<ModuleCategoryItem>,
   term?: string
 ) => {

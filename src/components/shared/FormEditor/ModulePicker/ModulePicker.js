@@ -4,7 +4,7 @@ import cn from 'classnames';
 
 import { DropTarget } from 'react-dnd';
 
-import { getAvailableModulesTree, searchModulesTree } from './categories';
+import { getCategories, searchModules } from './categories';
 
 import ClientRectContainer from '../../../common/ClientRectContainer';
 
@@ -38,7 +38,7 @@ class ModulePicker extends Component {
   constructor(props) {
     super(props);
 
-    const categories = getAvailableModulesTree(props.moduleControls, exclude);
+    const categories = getCategories(props.moduleControls, exclude);
     this.state = {
       preview: null,
       all: categories,
@@ -48,7 +48,7 @@ class ModulePicker extends Component {
 
   handleSearch = search => {
     const { all } = this.state;
-    const categories = searchModulesTree(all, search);
+    const categories = searchModules(all, search);
     this.setState({ categories, search });
   };
 

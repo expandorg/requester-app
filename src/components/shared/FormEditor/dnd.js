@@ -1,4 +1,4 @@
-import { supportNesting } from './model/modules';
+import { supportNesting } from './modules';
 
 import { treeEditor } from './Tree';
 

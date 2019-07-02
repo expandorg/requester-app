@@ -1,8 +1,12 @@
 // @flow
 
 import { getFormModulesNames } from '@expandorg/modules/model';
+import { moduleControls } from '@expandorg/modules/app';
 
-import { type Form } from '@expandorg/modules/src/form/model/types.flow';
+import {
+  type Form,
+  type ModuleControl,
+} from '@expandorg/modules/src/form/model/types.flow';
 import type { Draft, DraftOnboardingStep } from '../../../model/types.flow';
 import { getQuizDataVarialbes } from '../../../model/onboardingData';
 
@@ -116,5 +120,15 @@ export class FormProps {
       };
     }
     return {};
+  }
+
+  static getPickerModules(selection: FormSelection): Array<ModuleControl> {
+    if (selection.isTask()) {
+      return moduleControls;
+    }
+    if (selection.isVerification()) {
+      return moduleControls;
+    }
+    return moduleControls;
   }
 }

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import { WalkthroughPin } from '@expandorg/components/app';
 import { formProps } from '@expandorg/modules';
+import { moduleControls } from '@expandorg/modules/app';
 
 import FormEditor from '../../shared/FormEditor/FormEditor';
 import {
@@ -16,7 +17,6 @@ import {
 import ModulePicker from '../../shared/FormEditor/ModulePicker';
 import Form from '../../shared/FormEditor/Form';
 import { PropertiesPanel } from '../../shared/FormEditor/Properties';
-import { availableModules } from '../../shared/FormEditor/model/modules';
 
 import walkthrough from './walkthrough';
 
@@ -27,16 +27,17 @@ export default function Editor({
   variables,
   toolbar,
   children,
+  pickerModules,
   onSave,
   onToggleVarsDialog,
 }) {
   return (
-    <FormEditor form={form} onChange={onSave}>
+    <FormEditor form={form} onChange={onSave} controls={moduleControls}>
       {p => (
         <FormLayout className={styles.container} walkthrough={walkthrough}>
           <Sidebar hidden={!p.selection.isEmpty()}>
             <ModulePicker
-              moduleControls={availableModules}
+              moduleControls={pickerModules}
               onEndDrag={p.onEndDrag}
               onAdd={p.onAdd}
               onRemoveModule={p.onRemove}
@@ -56,7 +57,7 @@ export default function Editor({
                 ref={p.formRef}
                 modules={p.modules}
                 selected={p.selection.getId('edit')}
-                controls={p.controls}
+                controls={p.controlsMap}
                 onAdd={p.onAdd}
                 onEndDrag={p.onEndDrag}
                 onMove={p.onMove}
@@ -69,7 +70,7 @@ export default function Editor({
           </Content>
           <PropertiesPanel
             module={p.selection.find(p.modules, 'edit')}
-            controls={p.controls}
+            controls={p.controlsMap}
             variables={variables}
             onEdit={p.onEdit}
             onValidate={p.onValidateModule}
@@ -88,6 +89,7 @@ Editor.propTypes = {
   form: formProps.isRequired,
   toolbar: PropTypes.element.isRequired,
   variables: PropTypes.arrayOf(PropTypes.string),
+  pickerModules: PropTypes.arrayOf(PropTypes.func).isRequired,
   onSave: PropTypes.func.isRequired,
   onToggleVarsDialog: PropTypes.func,
 };
