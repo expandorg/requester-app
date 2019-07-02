@@ -12,9 +12,16 @@ export default function VariablesToggle({
 }) {
   const [opened, setOpened] = useState(false);
 
-  const onToggle = useCallback(() => {
-    setOpened(!opened);
-  }, [opened]);
+  const onToggle = useCallback(
+    evt => {
+      if (evt) {
+        evt.preventDefault();
+        evt.stopPropagation();
+      }
+      setOpened(!opened);
+    },
+    [opened]
+  );
 
   const select = useCallback(
     value => {

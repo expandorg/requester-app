@@ -1,25 +1,20 @@
 import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
 
-import { NavItem, ErrorIcon } from '../controls';
+import { NavItem } from '../controls';
 import { FormSelection } from '../../forms';
 
-export default function TaskMenuItem({ selected, onSelect, validation }) {
+export default function TaskMenuItem({ selected, onSelect }) {
   const select = useCallback(() => onSelect(FormSelection.task), [onSelect]);
 
   return (
     <NavItem selected={selected} onClick={select}>
-      Task → <ErrorIcon error={validation} />
+      Task →
     </NavItem>
   );
 }
 
 TaskMenuItem.propTypes = {
-  validation: PropTypes.shape({}),
   selected: PropTypes.bool.isRequired,
   onSelect: PropTypes.func.isRequired,
-};
-
-TaskMenuItem.defaultProps = {
-  validation: null,
 };

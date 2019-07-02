@@ -9,12 +9,12 @@ import { ReactComponent as SettingsIcon } from './settings.svg';
 
 import { ReactComponent as Down } from '../../../../assets/arrow_drop_down.svg';
 import { ReactComponent as Up } from '../../../../assets/arrow_drop_up.svg';
-import { ReactComponent as Warning } from '../../../../assets/warning.svg';
+// import { ReactComponent as Warning } from '../../../../assets/warning.svg';
+// import { ErrorsContextMenu, ErrorsMenuItem } from '../../controls/ErrorsMenu';
 
 import { ContextMenu } from '../../../common/ContextMenu';
 
 import styles from './controls.module.styl';
-import { ErrorsContextMenu, ErrorsMenuItem } from '../../controls/ErrorsMenu';
 
 export function Navs({ children }) {
   return <div className={styles.menu}>{children}</div>;
@@ -47,50 +47,50 @@ export function NavItemText({ children }) {
   return <span className={styles.itemText}>{children}</span>;
 }
 
-export function ErrorIcon({ error }) {
-  const btn = useRef(null);
-  const [visible, setVisible] = useState(false);
+// export function ErrorIcon({ error }) {
+//   const btn = useRef(null);
+//   const [visible, setVisible] = useState(false);
 
-  const [pos, setPos] = useState(null);
+//   const [pos, setPos] = useState(null);
 
-  const toggle = useCallback(
-    evt => {
-      if (evt) {
-        evt.preventDefault();
-        evt.stopPropagation();
-      }
-      if (!visible) {
-        setPos(btn.current.getBoundingClientRect());
-      }
-      setVisible(!visible);
-    },
-    [visible]
-  );
+//   const toggle = useCallback(
+//     evt => {
+//       if (evt) {
+//         evt.preventDefault();
+//         evt.stopPropagation();
+//       }
+//       if (!visible) {
+//         setPos(btn.current.getBoundingClientRect());
+//       }
+//       setVisible(!visible);
+//     },
+//     [visible]
+//   );
 
-  if (!error) {
-    return null;
-  }
-  return (
-    <>
-      <button className={styles.errBtn} ref={btn} onClick={toggle}>
-        <Warning className={styles.warning} />
-      </button>
-      {visible && (
-        <ErrorsContextMenu pos={pos} onHide={toggle}>
-          <ErrorsMenuItem message={error.commonMessage} />
-        </ErrorsContextMenu>
-      )}
-    </>
-  );
-}
+//   if (!error) {
+//     return null;
+//   }
+//   return (
+//     <>
+//       <button className={styles.errBtn} ref={btn} onClick={toggle}>
+//         <Warning className={styles.warning} />
+//       </button>
+//       {visible && (
+//         <ErrorsContextMenu pos={pos} onHide={toggle}>
+//           <ErrorsMenuItem message={error.commonMessage} />
+//         </ErrorsContextMenu>
+//       )}
+//     </>
+//   );
+// }
 
-ErrorIcon.propTypes = {
-  error: PropTypes.shape({}),
-};
+// ErrorIcon.propTypes = {
+//   error: PropTypes.shape({}),
+// };
 
-ErrorIcon.defaultProps = {
-  error: null,
-};
+// ErrorIcon.defaultProps = {
+//   error: null,
+// };
 
 export function NavItemContextMenu({ visible, onToggle, children }) {
   const btn = useRef(null);

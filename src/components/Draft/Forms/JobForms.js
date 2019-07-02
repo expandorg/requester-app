@@ -22,7 +22,7 @@ import { FormSelection, FormProps } from './forms';
 
 import DraftOnboarding from '../../../model/DraftOnboarding';
 
-function JobForms({ draft, onNext, validation }) {
+function JobForms({ draft, onNext }) {
   const dispatch = useDispatch();
 
   const [selection, setSelection] = useState(FormSelection.task);
@@ -72,12 +72,7 @@ function JobForms({ draft, onNext, validation }) {
       pickerModules={FormProps.getPickerModules(selection)}
       {...varParams}
     >
-      <Steps
-        draft={draft}
-        selection={selection}
-        validation={validation}
-        onSelect={setSelection}
-      />
+      <Steps draft={draft} selection={selection} onSelect={setSelection} />
       <VariablesDialogSwitch
         visible={varsDialog}
         selection={selection}
@@ -90,7 +85,6 @@ function JobForms({ draft, onNext, validation }) {
 
 JobForms.propTypes = {
   draft: draftProps.isRequired,
-  validation: PropTypes.shape({}).isRequired,
   onNext: PropTypes.func.isRequired,
 };
 
