@@ -29,8 +29,8 @@ export default function DraftWizard({ draft, tab, isSaving, validation }) {
 
   const navigate = useCallback(nav => setActive(nav), []);
   const setTab = useCallback(i => setActive({ tab: i }), []);
-  const next = useCallback(() => setActive({ tab: active + 1 }), [active]);
-  const back = useCallback(() => setActive({ tab: active - 1 }), [active]);
+  const next = useCallback(() => setActive({ tab: active.tab + 1 }), [active]);
+  const back = useCallback(() => setActive({ tab: active.tab - 1 }), [active]);
 
   return (
     <>
