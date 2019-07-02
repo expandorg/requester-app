@@ -124,8 +124,8 @@ class Payments extends Component {
           <Fieldset>
             <Hero
               value={user.gems.balance}
-              title="XPN AVAILABLE IN ACCOUNT"
-              className={cn({ [styles.zero]: !user.gems.balance })}
+              title=" tokens available TO FUND YOUR job"
+              className={cn(styles.hero, { [styles.zero]: !user.gems.balance })}
             />
             <Field>
               <Deposit user={user}>
@@ -135,7 +135,7 @@ class Payments extends Component {
                     className={styles.deposit}
                     onClick={onToggleDepsoit}
                   >
-                    deposit XPN
+                    deposit XPN tokens
                   </button>
                 )}
               </Deposit>

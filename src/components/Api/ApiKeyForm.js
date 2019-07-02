@@ -85,8 +85,7 @@ class ApiKeyForm extends Component {
           )}
         </div>
         <div className={styles.alert}>
-          <span className={styles.bold}>Alert!</span> Save your key or it will
-          be lost if you leave this page.
+          Save your key or it will be lost if you leave this page.
         </div>
       </Panel>
     );

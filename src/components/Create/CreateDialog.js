@@ -117,7 +117,7 @@ class CreateDialog extends Component {
         <div className={styles.container}>
           <LoadIndicator
             isLoading={isLoading}
-            message="Preparing your task, please wait..."
+            message="Creating new task from template..."
           >
             <Form
               templates={templates}

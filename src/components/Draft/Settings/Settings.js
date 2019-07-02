@@ -116,7 +116,7 @@ export default class Settings extends Component {
             Nearly there now! Add in some details to help your workers
             understand what your job is all about.
           </Description>
-          <Fieldset>
+          <Fieldset className={styles.fieldset}>
             <Field
               tooltip={
                 <span>
