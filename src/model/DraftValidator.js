@@ -11,21 +11,34 @@ import { DraftManager } from './draft';
 import type { FormValidationResult } from './FormValidator/FormValidator';
 
 type DraftValidateionResult = {
-  onboardingForms: Array<?FormValidationResult>,
+  onboardingForms: { [id: string]: ?FormValidationResult },
   taskForm?: ?FormValidationResult,
   verificationForm?: ?FormValidationResult,
 };
 
 const valid: DraftValidateionResult = {
-  onboardingForms: [],
+  onboardingForms: {},
   taskForm: null,
   verificationForm: null,
 };
 
 export default class DraftValidator {
-  taskFormValidator = new TaskFormValidator();
-  verificationFormValidator = new VerificationFormValidator();
-  onboardingFormValidator = new OnboardingFormValidator();
+  static empty = {};
+
+  taskValidator = new TaskFormValidator();
+  verificationValidator = new VerificationFormValidator();
+  onboardingValidator = new OnboardingFormValidator();
+
+  checkOnboardingForms(draft: Draft) {
+    if (!draft.onboarding.steps || draft.onboarding.steps.length) {
+      return DraftValidator.empty;
+    }
+
+    return draft.onboarding.steps.reduce((result, step) => {
+      result[step.id] = this.onboardingValidator.validate(step.form.modules);
+      return result;
+    }, {});
+  }
 
   checkVerificationForm(draft: Draft): ?FormValidationResult {
     if (!DraftManager.hasVerificationForm(draft)) {
@@ -34,9 +47,7 @@ export default class DraftValidator {
     if (!draft.verificationForm) {
       return { commonMessage: 'Verification Form should not be empty' };
     }
-    return this.verificationFormValidator.validate(
-      draft.verificationForm.modules
-    );
+    return this.verificationValidator.validate(draft.verificationForm.modules);
   }
 
   validate(draft: ?Draft): DraftValidateionResult {
@@ -44,8 +55,8 @@ export default class DraftValidator {
       return valid;
     }
     return {
-      ...valid,
-      taskForm: this.taskFormValidator.validate(draft.taskForm.modules),
+      onboardingForms: this.checkOnboardingForms(draft),
+      taskForm: this.taskValidator.validate(draft.taskForm.modules),
       verificationForm: this.checkVerificationForm(draft),
     };
   }

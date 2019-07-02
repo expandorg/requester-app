@@ -14,7 +14,12 @@ import { replace } from './dnd';
 
 const getSteps = draft => (draft.onboarding && draft.onboarding.steps) || [];
 
-export default function OnboardingMenu({ draft, selection, onSelect }) {
+export default function OnboardingMenu({
+  draft,
+  selection,
+  onSelect,
+  validation,
+}) {
   const dispatch = useDispatch();
 
   const [steps, setSteps] = useState(getSteps(draft));
@@ -65,6 +70,7 @@ export default function OnboardingMenu({ draft, selection, onSelect }) {
         <MenuItem
           key={step.id}
           index={index}
+          validation={validation.onboardingForms[step.id]}
           step={step}
           selected={selection.isOnboardingStep(step.id)}
           onSelect={onSelect}
@@ -81,6 +87,7 @@ export default function OnboardingMenu({ draft, selection, onSelect }) {
 
 OnboardingMenu.propTypes = {
   draft: draftProps.isRequired,
+  validation: PropTypes.shape({}).isRequired,
   selection: PropTypes.instanceOf(FormSelection).isRequired,
   onSelect: PropTypes.func.isRequired,
 };

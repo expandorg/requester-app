@@ -22,7 +22,7 @@ export default function Steps({ draft, selection, onSelect, validation }) {
       <Navs>
         <OnboardingMenu
           draft={draft}
-          validation={validation.onboardingForms}
+          validation={validation}
           selection={selection}
           onSelect={onSelect}
         />
@@ -34,7 +34,7 @@ export default function Steps({ draft, selection, onSelect, validation }) {
         <VerificationMenuItem
           draft={draft}
           selected={selection.isVerification()}
-          validation={validation.verificationForm}
+          validation={validation}
           onSelect={onSelect}
         />
       </Navs>

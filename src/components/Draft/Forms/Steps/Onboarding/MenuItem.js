@@ -25,6 +25,7 @@ export default function OnboardingMenuItem({
   step,
   selected,
   index,
+  validation,
   onSelect,
   onDuplcate,
   onRemove,
@@ -72,7 +73,7 @@ export default function OnboardingMenuItem({
   return (
     <NavItem selected={selected} ref={drag(drop(ref))} onClick={select}>
       <NavItemText>{step.name}</NavItemText>&nbsp;→&nbsp;
-      <ErrorIcon />
+      <ErrorIcon error={validation} />
       {step.isGroup && <SettingsButton onClick={toggleQuiz} />}
       <NavItemContextMenu visible={menu} onToggle={toggleMenu}>
         <ContextMenuItem onClick={duplicate}>Duplicate</ContextMenuItem>
@@ -92,10 +93,15 @@ OnboardingMenuItem.propTypes = {
   step: draftOnboardingStepProps.isRequired,
   index: PropTypes.number.isRequired,
   selected: PropTypes.bool.isRequired,
+  validation: PropTypes.shape({}),
   onSelect: PropTypes.func.isRequired,
   onDuplcate: PropTypes.func.isRequired,
   onUpdate: PropTypes.func.isRequired,
   onRemove: PropTypes.func.isRequired,
   onMove: PropTypes.func.isRequired,
   onEndDrag: PropTypes.func.isRequired,
+};
+
+OnboardingMenuItem.defaultProps = {
+  validation: null,
 };
