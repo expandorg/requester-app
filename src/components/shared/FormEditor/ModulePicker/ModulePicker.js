@@ -11,7 +11,7 @@ import ClientRectContainer from '../../../common/ClientRectContainer';
 import Search from './Search';
 import Category from './Category';
 
-import { availableTarget, FORM_DND_ID } from '../model/dnd';
+import { availableTarget, FORM_DND_ID } from '../dnd';
 
 import styles from './ModulePicker.module.styl';
 

@@ -1,9 +1,8 @@
-import ImmutableTreeBuilder from './ImmutableTreeBuilder';
-import { supportNesting } from './modules';
+import { supportNesting } from './model/modules';
+
+import { treeEditor } from './Tree';
 
 export const FORM_DND_ID = 'FORM_DND_ID';
-
-export const treeEditor = new ImmutableTreeBuilder();
 
 export const emptyTarget = {
   drop: ({ onAdd }, monitor) => {

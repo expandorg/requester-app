@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import { moduleProps } from '@expandorg/modules';
 
-import { ModuleLogic as ML } from '../model/logic';
+import { ModuleLogic as ML } from './logic';
 
 import { If, Action, ConditionalExpression } from './Statements';
 

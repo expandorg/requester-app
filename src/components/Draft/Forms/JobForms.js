@@ -89,12 +89,8 @@ function JobForms({ draft, onNext, validation }) {
 
 JobForms.propTypes = {
   draft: draftProps.isRequired,
-  validation: PropTypes.shape({}),
+  validation: PropTypes.shape({}).isRequired,
   onNext: PropTypes.func.isRequired,
-};
-
-JobForms.defaultProps = {
-  validation: null,
 };
 
 export default deferComponentRender(JobForms);

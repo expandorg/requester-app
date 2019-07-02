@@ -2,7 +2,7 @@ import { DropTarget } from 'react-dnd';
 
 import Placeholder from './Placeholder';
 
-import { nestedTarget, FORM_DND_ID } from '../../model/dnd';
+import { nestedTarget, FORM_DND_ID } from '../../dnd';
 
 import styles from './EmptyDroppable.module.styl';
 

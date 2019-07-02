@@ -4,19 +4,10 @@ import PropTypes from 'prop-types';
 import { moduleProps } from '@expandorg/modules';
 import { deepCopyModule } from '@expandorg/modules/model';
 
-import Selection from './model/Selection';
+import Selection from './Selection';
+import { treeEditor, Ops } from './editor';
 
-import { scaffold, getUniqId } from './model/modules';
-import { treeEditor } from './model/dnd';
-
-export const Ops = {
-  Add: 'Add',
-  EndDrag: 'EndDrag',
-  Remove: 'Remove',
-  Copy: 'Copy',
-  Edit: 'Edit',
-  Move: 'Move',
-};
+import { scaffold, getUniqId } from '../model/modules';
 
 export default class FormTreeEditor extends Component {
   static propTypes = {

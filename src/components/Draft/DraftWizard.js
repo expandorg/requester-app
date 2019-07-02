@@ -76,11 +76,7 @@ export default function DraftWizard({ draft, tab, isSaving, validation }) {
 
 DraftWizard.propTypes = {
   draft: draftProps.isRequired,
-  validation: PropTypes.shape({}),
+  validation: PropTypes.shape({}).isRequired,
   tab: PropTypes.number.isRequired,
   isSaving: PropTypes.bool.isRequired,
-};
-
-DraftWizard.defaultProps = {
-  validation: null,
 };

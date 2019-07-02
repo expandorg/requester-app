@@ -8,7 +8,7 @@ import { moduleProps } from '@expandorg/modules';
 
 import VisibilityLogic from './VisibilityLogic';
 
-import { ModuleLogic as ML } from '../model/logic';
+import { ModuleLogic as ML } from './logic';
 
 import styles from './LogicEditor.module.styl';
 

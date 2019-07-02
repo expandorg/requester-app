@@ -6,12 +6,12 @@ import { formProps } from '@expandorg/modules';
 import { getModuleControlsMap } from '@expandorg/modules/model';
 
 import { availableModules } from './model/modules';
-import { validateModuleProps } from './model/validation';
+import { validateModuleProperties } from './Properties';
 
 import { ValueContextProvider } from './ValueContext';
-import Selection from './model/Selection';
+import Selection from './Tree/Selection';
 
-import FormTreeEditor, { Ops } from './FormTreeEditor';
+import { Ops, TreeEditor } from './Tree';
 
 const actions = new Set([Ops.Remove, Ops.Copy, Ops.Edit, Ops.Move]);
 
@@ -82,7 +82,7 @@ export default class FormEditor extends Component {
   validateModule = (module, originalName) => {
     const { controls, modules } = this.state;
     const { module: meta } = controls[module.type];
-    return validateModuleProps(module, originalName, meta, modules);
+    return validateModuleProperties(module, originalName, meta, modules);
   };
 
   render() {
@@ -91,7 +91,7 @@ export default class FormEditor extends Component {
 
     return (
       <ValueContextProvider selection={selection}>
-        <FormTreeEditor
+        <TreeEditor
           modules={modules}
           selection={selection}
           onChange={this.handleChange}
@@ -107,7 +107,7 @@ export default class FormEditor extends Component {
               onValidateModule: this.validateModule,
             })
           }
-        </FormTreeEditor>
+        </TreeEditor>
       </ValueContextProvider>
     );
   }

@@ -9,7 +9,7 @@ import { ReactComponent as I } from '../../../../assets/circle-i.svg';
 
 import PreviewTooltip from './PreviewTooltip';
 
-import { metaSource, FORM_DND_ID } from '../model/dnd';
+import { metaSource, FORM_DND_ID } from '../dnd';
 
 import styles from './ModuleItem.module.styl';
 

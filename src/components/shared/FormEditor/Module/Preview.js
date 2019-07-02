@@ -13,7 +13,7 @@ import NotSupported from './Preview/NotSupported';
 import ModuleWrapper from './Preview/ModuleWrapper';
 
 import { supportNesting } from '../model/modules';
-import { treeEditor } from '../model/dnd';
+import { treeEditor } from '../Tree';
 
 import styles from './Preview.module.styl';
 

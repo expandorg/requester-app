@@ -12,7 +12,7 @@ import DnDContainer from './DnDContainer';
 // eslint-disable-next-line import/no-cycle
 import Preview from './Preview';
 
-import { nestedModuleTarget, FORM_DND_ID } from '../model/dnd';
+import { nestedModuleTarget, FORM_DND_ID } from '../dnd';
 
 import styles from './Nested.module.styl';
 

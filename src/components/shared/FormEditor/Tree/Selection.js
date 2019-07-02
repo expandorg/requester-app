@@ -1,6 +1,6 @@
 // @flow
 
-import { treeEditor } from './dnd';
+import { treeEditor } from './editor';
 import { type TreeModule } from './ModulesTreeEditor';
 
 type SelectionType = 'edit' | 'logic' | 'none';

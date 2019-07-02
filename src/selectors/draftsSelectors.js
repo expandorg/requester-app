@@ -17,16 +17,21 @@ export const makeDraftSelector = (): any =>
 
 export const draftSavingSelector = (state: Object) => state.drafts.saving;
 
+const valid = {
+  onboardingForms: null,
+  taskForm: null,
+  verificationForm: null,
+};
+
 export const makeDraftValidationSelector = (): any => {
   const draftSelector = makeDraftSelector();
   return createSelector(
     draftSelector,
     draft => {
       if (!draft) {
-        return null;
+        return valid;
       }
-
-      return draft;
+      return {};
     }
   );
 };
