@@ -4,12 +4,12 @@ import cn from 'classnames';
 
 import { DragSource } from 'react-dnd';
 
-import { ReactComponent as DragIcon } from '@expandorg/uikit/assets/dragcursor.svg';
 import { ReactComponent as I } from '../../../../assets/circle-i.svg';
 
 import PreviewTooltip from './PreviewTooltip';
 
 import { metaSource, FORM_DND_ID } from '../dnd';
+import miniIcon from './icons/miniIcon';
 
 import styles from './ModuleItem.module.styl';
 
@@ -72,9 +72,7 @@ class ModuleItem extends Component {
 
     return connectDragSource(
       <div className={classes} onClick={this.handleAdd}>
-        <div className={styles.drag}>
-          <DragIcon className={styles.dragIcon} />
-        </div>
+        <div className={cn(styles.miniIcon, miniIcon(meta.type))}></div>
         <div className={styles.name}>{meta.name}</div>
         <div
           className={cn(styles.info, { [styles.markHover]: isHovered })}

@@ -24,24 +24,21 @@
   opacity: 0.25;
   transform: translate(0, 0);
 
-.drag
+.miniIcon
   min-width: 35px
   line-height: 46px
   text-align: center;
   cursor: grab;
 
   background-color: color-medium-blue
+  background-position: center;
+  background-origin: border-box
+  background-repeat: no-repeat
+
 
   border: 1px solid color-medium-blue
   border-top-left-radius: 5px
   border-bottom-left-radius: 5px
-
-.dragIcon
-  top: 3px
-  position: relative;
-
-  path
-    fill color-text-blue
 
 .name
   box-sizing: border-box;
@@ -79,3 +76,4 @@
   .markHover &
     path
       fill: color-heavy-blue
+
