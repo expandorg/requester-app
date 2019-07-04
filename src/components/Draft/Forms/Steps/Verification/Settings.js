@@ -86,12 +86,15 @@ export default function VerificationSettings({ onHide, onSaved, draft }) {
           </Field>
           {form.verificationModule === VerificationType.Consensus && (
             <Field
+              className={styles.field}
               tooltip={
                 <span>
                   Enter how many workers need to get the right answer before the
                   task is verified.
                 </span>
               }
+              tooltipOrientation="top"
+              tooltipPosition="right"
             >
               <Input
                 placeholder="Agreement count"

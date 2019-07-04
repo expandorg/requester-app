@@ -6,7 +6,15 @@ import I from '../../common/I';
 
 import styles from './styles.module.styl';
 
-const Field = ({ children, tooltip, name, errors, className }) => {
+const Field = ({
+  children,
+  tooltip,
+  tooltipOrientation,
+  tooltipPosition,
+  name,
+  errors,
+  className,
+}) => {
   const error = name && errors && errors[name];
   const classes = cn(styles.field, className);
   return (
@@ -16,7 +24,8 @@ const Field = ({ children, tooltip, name, errors, className }) => {
         <I
           className={styles.fieldTooltip}
           tooltip={tooltip}
-          tooltipOrientation="right"
+          tooltipPosition={tooltipPosition}
+          tooltipOrientation={tooltipOrientation}
         />
       )}
       {error && <div className={styles.error}>{error}</div>}
@@ -26,6 +35,8 @@ const Field = ({ children, tooltip, name, errors, className }) => {
 
 Field.propTypes = {
   tooltip: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
+  tooltipOrientation: PropTypes.string,
+  tooltipPosition: PropTypes.string,
   name: PropTypes.string,
   className: PropTypes.string,
   errors: PropTypes.object, // eslint-disable-line
@@ -33,6 +44,8 @@ Field.propTypes = {
 
 Field.defaultProps = {
   tooltip: null,
+  tooltipOrientation: 'right',
+  tooltipPosition: 'center',
   className: null,
   name: null,
   errors: null,
