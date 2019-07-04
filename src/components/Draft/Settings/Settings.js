@@ -1,8 +1,7 @@
 import React, { Component, createRef } from 'react';
 import PropTypes from 'prop-types';
 
-import { validateForm } from '@expandorg/validation';
-
+import { validateForm, rules } from '@expandorg/validation';
 import { Input, Button } from '@expandorg/components';
 
 import { draftProps } from '../../shared/propTypes';
@@ -16,9 +15,14 @@ import {
   Actions,
 } from '../controls';
 
-import { settingsRules } from '../../../model/draft';
-
 import styles from './Settings.module.styl';
+
+export const validation = {
+  name: [
+    [rules.isRequired, 'Title is required'],
+    [x => x && x.length <= 40, 'Title can be a maximum of 40 characters'],
+  ],
+};
 
 const getInitialState = draft => {
   const { funding } = draft;
@@ -77,7 +81,7 @@ export default class Settings extends Component {
     }
     const { settings } = this.state;
 
-    const errors = validateForm(settings, settingsRules);
+    const errors = validateForm(settings, validation);
     if (errors) {
       this.setState({ errors });
     } else {

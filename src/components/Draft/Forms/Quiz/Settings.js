@@ -2,16 +2,22 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import { Button, Input } from '@expandorg/components';
-import { validateForm } from '@expandorg/validation';
+import { validateForm, rules } from '@expandorg/validation';
 
 import { Fieldset, Field } from '../../controls';
 import Nav from './Nav';
 
 import { WizardSteps } from './wizard';
 import { draftOnboardingStepProps } from '../../../shared/propTypes';
-import { onboardingGroupSettingsRules } from '../../../../model/draft';
+import { ge } from '../../../../model/validation';
 
 import styles from './styles.module.styl';
+
+const validationRules = {
+  retries: [[rules.isNumber, 'Should be a positive number'], ge(0)],
+  scoreThreshold: [[rules.isNumber, 'Should be a positive number'], ge(0)],
+  failureMessage: [[rules.isRequired, 'Failure Message is required']],
+};
 
 export default class Settings extends Component {
   static propTypes = {
@@ -61,7 +67,7 @@ export default class Settings extends Component {
     };
     const errors = validateForm(
       { scoreThreshold, retries, failureMessage },
-      onboardingGroupSettingsRules
+      validationRules
     );
     if (errors) {
       this.setState({ errors });

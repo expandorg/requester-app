@@ -34,7 +34,7 @@ const options = [
 const getInitialState = draft => {
   const { verification } = draft;
   return {
-    verificationModule: verification.module || VerificationType.Requester,
+    verificationModule: verification.module || null,
     agreementCount: `${verification.agreementCount || ''}`,
   };
 };
@@ -44,10 +44,27 @@ const getSettings = settings => ({
   agreementCount: +settings.agreementCount,
 });
 
+const validate = form => {
+  const errors = {};
+  if (!form.verificationModule) {
+    errors.verificationModule = 'You should provide Verification type';
+  }
+  if (form.verificationModule === VerificationType.Consensus) {
+    const count = +form.agreementCount;
+    if (Number.isNaN(count)) {
+      errors.agreementCount = 'Agreement count should be a positive number';
+    } else if (count < 2) {
+      errors.agreementCount = 'Minimal number of answers is 2';
+    }
+  }
+  return Reflect.ownKeys(errors).length ? errors : null;
+};
+
 export default function VerificationSettings({ onHide, onSaved, draft }) {
   const dispatch = useDispatch();
 
   const [form, setForm] = useState(getInitialState(draft));
+  const [errors, setErrors] = useState(null);
 
   useEffect(() => {
     setForm(getInitialState(draft));
@@ -60,7 +77,12 @@ export default function VerificationSettings({ onHide, onSaved, draft }) {
     if (isSubmitting) {
       return;
     }
-    dispatch(updateVerificationSettings(draft.id, getSettings(form)));
+    const err = validate(form);
+    if (err) {
+      setErrors(err);
+    } else {
+      dispatch(updateVerificationSettings(draft.id, getSettings(form)));
+    }
   }, [dispatch, draft.id, form, isSubmitting]);
 
   return (
@@ -95,6 +117,8 @@ export default function VerificationSettings({ onHide, onSaved, draft }) {
               }
               tooltipOrientation="top"
               tooltipPosition="right"
+              name="agreementCount"
+              errors={errors}
             >
               <Input
                 placeholder="Agreement count"

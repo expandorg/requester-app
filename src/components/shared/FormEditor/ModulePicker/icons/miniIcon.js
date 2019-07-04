@@ -27,7 +27,5 @@ const modules = {
 };
 
 export default function miniIcon(type: string) {
-  console.log(type);
-
   return modules[type] || styles.default;
 }
