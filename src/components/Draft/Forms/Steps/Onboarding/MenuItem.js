@@ -70,7 +70,7 @@ export default function OnboardingMenuItem({
 
   return (
     <NavItem selected={selected} ref={drag(drop(ref))} onClick={select}>
-      <NavItemText>{step.name}</NavItemText>&nbsp;→
+      <NavItemText>{step.name}</NavItemText>
       {step.isGroup && <SettingsButton onClick={toggleQuiz} />}
       <NavItemContextMenu visible={menu} onToggle={toggleMenu}>
         <ContextMenuItem onClick={duplicate}>Duplicate</ContextMenuItem>

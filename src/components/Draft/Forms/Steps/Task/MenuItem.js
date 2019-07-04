@@ -9,7 +9,7 @@ export default function TaskMenuItem({ selected, onSelect }) {
 
   return (
     <NavItem selected={selected} onClick={select}>
-      Task →
+      Task
     </NavItem>
   );
 }
