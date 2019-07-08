@@ -11,8 +11,6 @@ import Variable from './Variable';
 import Answer from './Answer';
 import ValuesRow from './ValuesRow';
 
-import DeleteMenu from './DeleteMenu';
-
 import {
   updateValuesType,
   removeValuesColumns,
@@ -38,22 +36,11 @@ export default class DataTable extends Component {
     onUpdate: Function.prototype,
   };
 
-  state = {
-    selection: [],
-  };
-
-  handleDeleteRows = () => {
+  handleDeleteRow = index => {
     const { data, onUpdate } = this.props;
-    const { selection } = this.state;
-    if (!selection.length) {
-      return;
-    }
-    this.setState({ selection: [] });
     onUpdate(
       immer(data, draft => {
-        selection.forEach(idx => {
-          draft.steps[idx] = null;
-        });
+        draft.steps[index] = null;
         draft.steps = draft.steps.filter(s => s !== null);
       })
     );
@@ -125,28 +112,14 @@ export default class DataTable extends Component {
     onUpdate({ ...data, answer });
   };
 
-  handleSelect = selected => {
-    const { selection } = this.state;
-    const index = selection.indexOf(selected);
-    this.setState({
-      selection:
-        index === -1
-          ? [...selection, selected]
-          : removeAtIndex(selection, index),
-    });
-  };
-
   render() {
     const { data, fields } = this.props;
-    const { selection } = this.state;
     /* eslint-disable react/no-array-index-key */
     return (
       <T.ScrollContainer className={styles.scroll}>
         <T.Table>
           <T.Header>
-            <T.Cell className={styles.leftCell}>
-              <DeleteMenu onDelete={this.handleDeleteRows} />
-            </T.Cell>
+            <T.Cell className={styles.leftCell} />
             {data.columns.map((column, index) => (
               <Variable
                 key={index}
@@ -178,11 +151,9 @@ export default class DataTable extends Component {
               index={index}
               row={row}
               columns={data.columns}
-              selected={selection.indexOf(index) !== -1}
               onChange={this.handleChangeValue}
               onChangeAnswer={this.handleChangeAnswerValue}
               onDelete={this.handleDeleteRow}
-              onSelect={this.handleSelect}
             />
           ))}
           <T.Row>

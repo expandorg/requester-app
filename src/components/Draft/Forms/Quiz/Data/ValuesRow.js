@@ -1,7 +1,8 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
-import { Table as T, Checkbox } from '@expandorg/components';
+import { Table as T } from '@expandorg/components';
+import { ReactComponent as Remove } from '../../../../../assets/remove_circle.svg';
 
 import Value from './Value';
 
@@ -21,15 +22,14 @@ export default class ValuesRow extends PureComponent {
     }).isRequired,
     columns: PropTypes.arrayOf(PropTypes.object).isRequired,
     index: PropTypes.number.isRequired,
-    selected: PropTypes.bool.isRequired,
     onChange: PropTypes.func.isRequired,
     onChangeAnswer: PropTypes.func.isRequired,
-    onSelect: PropTypes.func.isRequired,
+    onDelete: PropTypes.func.isRequired,
   };
 
-  handlSelect = () => {
-    const { onSelect, index } = this.props;
-    onSelect(index);
+  handlDelete = () => {
+    const { onDelete, index } = this.props;
+    onDelete(index);
   };
 
   handleChange = (column, value) => {
@@ -43,13 +43,15 @@ export default class ValuesRow extends PureComponent {
   };
 
   render() {
-    const { row, columns, selected } = this.props;
+    const { row, columns } = this.props;
 
     /* eslint-disable react/no-array-index-key */
     return (
       <T.Row className={styles.row}>
         <T.Cell className={styles.leftCell}>
-          <Checkbox value={selected} onChange={this.handlSelect} />
+          <button className={styles.removeBtn} onClick={this.handlDelete}>
+            <Remove />
+          </button>
         </T.Cell>
         {row.values.map((value, index) => {
           const col = columns[index];

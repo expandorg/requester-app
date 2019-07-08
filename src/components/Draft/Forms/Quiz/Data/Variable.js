@@ -7,6 +7,7 @@ import { Table as T, Button, Dropdown } from '@expandorg/components';
 import styles from './Variable.module.styl';
 
 import { columnTypes } from '../../../../../model/onboardingData';
+import { ReactComponent as Remove } from '../../../../../assets/remove_circle.svg';
 
 export default class Variable extends Component {
   static propTypes = {
@@ -87,7 +88,7 @@ export default class Variable extends Component {
           {!edit && (
             <div className={styles.content}>
               <button className={styles.remove} onClick={this.handleDelete}>
-                -
+                <Remove />
               </button>
               <div className={styles.name}>{column.name}</div>
               <div className={styles.type}>{column.type}</div>
