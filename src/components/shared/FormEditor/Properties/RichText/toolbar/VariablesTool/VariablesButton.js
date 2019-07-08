@@ -19,7 +19,7 @@ export default function VariablesButton({
       >
         {({ onToggle }) => (
           <button className={styles.button} onClick={onToggle}>
-            + var
+            +var
           </button>
         )}
       </VariablesToggle>

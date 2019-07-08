@@ -97,11 +97,9 @@ export default class OptionsEditor extends Component {
             </button>
           </div>
         ))}
-        <div className={styles.addContainer}>
-          <button onClick={this.handleAddClick} className={styles.add}>
-            <X />
-          </button>
-        </div>
+        <button onClick={this.handleAddClick} className={styles.add}>
+          + Add option
+        </button>
       </div>
     );
   }
