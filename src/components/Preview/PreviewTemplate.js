@@ -50,7 +50,13 @@ function PreviewTemplate({ match }) {
       <Sidebar />
       <div className={styles.container}>
         <Panel className={styles.panel}>
-          {draft && <PreviewDraftWorkflow draft={draft} onNotify={notify} />}
+          {draft && (
+            <PreviewDraftWorkflow
+              draft={draft}
+              variables={draft.dataSample}
+              onNotify={notify}
+            />
+          )}
         </Panel>
       </div>
     </Page>

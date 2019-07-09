@@ -29,6 +29,7 @@ export default function Form({
           <FormPreview
             readOnly
             form={template && template.taskForm}
+            variables={template && template.dataSample}
             className={styles.form}
           />
         </div>

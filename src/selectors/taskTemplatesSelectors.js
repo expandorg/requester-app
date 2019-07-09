@@ -33,7 +33,6 @@ export const makeDraftFromTemplateSelector = (): any => {
       if (!template) {
         return null;
       }
-      console.log(template);
       return { ...template };
     }
   );

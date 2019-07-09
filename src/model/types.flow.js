@@ -73,8 +73,6 @@ export type Draft = {
   },
   whitelist?: Array<any>,
   callbackUrl?: string,
-  taskReviewed: boolean,
-  verificationReviewed: boolean,
 };
 
 export type DraftOnboardingGroupTemplate = {
