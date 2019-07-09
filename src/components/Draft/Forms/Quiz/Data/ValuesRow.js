@@ -24,12 +24,11 @@ export default class ValuesRow extends PureComponent {
     index: PropTypes.number.isRequired,
     onChange: PropTypes.func.isRequired,
     onChangeAnswer: PropTypes.func.isRequired,
-    onDelete: PropTypes.func.isRequired,
+    onDelete: PropTypes.func,
   };
 
-  handlDelete = () => {
-    const { onDelete, index } = this.props;
-    onDelete(index);
+  static defaultProps = {
+    onDelete: null,
   };
 
   handleChange = (column, value) => {
@@ -43,23 +42,28 @@ export default class ValuesRow extends PureComponent {
   };
 
   render() {
-    const { row, columns } = this.props;
+    const { row, columns, onDelete, index } = this.props;
 
     /* eslint-disable react/no-array-index-key */
     return (
       <T.Row className={styles.row}>
         <T.Cell className={styles.leftCell}>
-          <button className={styles.removeBtn} onClick={this.handlDelete}>
-            <Remove />
-          </button>
+          {onDelete && (
+            <button
+              className={styles.removeBtn}
+              onClick={() => onDelete(index)}
+            >
+              <Remove />
+            </button>
+          )}
         </T.Cell>
-        {row.values.map((value, index) => {
-          const col = columns[index];
+        {row.values.map((value, ix) => {
+          const col = columns[ix];
           return (
             <Value
-              key={index}
+              key={ix}
               value={value}
-              columnIndex={index}
+              columnIndex={ix}
               type={col.type}
               placeholder={col.name}
               onChange={this.handleChange}

@@ -114,6 +114,7 @@ export default class DataTable extends Component {
 
   render() {
     const { data, fields } = this.props;
+    const single = data.steps.length === 1;
     /* eslint-disable react/no-array-index-key */
     return (
       <T.ScrollContainer className={styles.scroll}>
@@ -153,7 +154,7 @@ export default class DataTable extends Component {
               columns={data.columns}
               onChange={this.handleChangeValue}
               onChangeAnswer={this.handleChangeAnswerValue}
-              onDelete={this.handleDeleteRow}
+              onDelete={!single ? this.handleDeleteRow : null}
             />
           ))}
           <T.Row>
