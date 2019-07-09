@@ -23,8 +23,8 @@ export default function Form({
       <div className={styles.content}>
         <div className={styles.preview}>
           <div className={styles.top}>
-            First things first, choose a template for your task. This templates
-            are just for previews only.
+            First things first, choose a template for your task. The templates
+            below are previews. You will edit your template in the next step.
           </div>
           <FormPreview
             readOnly
