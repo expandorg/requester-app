@@ -19,7 +19,14 @@ function UploadData({ draft, onBack, onNext }) {
       <div>
         <Description>
           Upload your dataset (Optional). You can read more about alternative
-          ways to supply data <a href="https://expandorg.zendesk.com">Here</a>
+          ways to supply data&nbsp;
+          <a
+            href="https://expandorg.zendesk.com"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Here
+          </a>
         </Description>
         {!hasData && <UploadForm draft={draft} />}
         {hasData && <DataEditor draft={draft} />}
