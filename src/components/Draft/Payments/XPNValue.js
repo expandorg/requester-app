@@ -24,7 +24,7 @@ export default function XPNValue() {
   }
   return (
     <div className={styles.value}>
-      Current Value of Expand token: {tokenPrice.toFixed(2)} $
+      Current Value of Expand token: {tokenPrice} $
     </div>
   );
 }
