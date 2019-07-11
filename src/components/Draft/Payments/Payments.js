@@ -24,6 +24,7 @@ import DraftFunding from '../../../model/DraftFunding';
 
 import styles from './Payments.module.styl';
 import Calculator from './Calculator/Calculator';
+import XPNValue from './XPNValue';
 
 const getInitialState = ({ funding }) => ({
   balance: (funding && `${funding.balance || 0}`) || '',
@@ -97,6 +98,7 @@ export default function Payments({ draft, onNext, onBack }) {
             </Deposit>
           </Field>
           <Calculator draft={draft} />
+          <XPNValue />
           <Field
             tooltip="This is the total amount of funds you will set aside for the job. *"
             name="balance"

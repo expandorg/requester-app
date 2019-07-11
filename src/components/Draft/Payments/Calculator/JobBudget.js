@@ -37,7 +37,7 @@ export default function JobBudget({ verification }) {
           placeholder2="Task Cost"
           value2={workerTaskCost}
           onChange2={setWorkerTaskCost}
-          total={0}
+          total={workerTotal}
         />
         <Field
           placeholder1="Number of Verifier Tasks"
@@ -46,7 +46,7 @@ export default function JobBudget({ verification }) {
           placeholder2="Task Cost"
           value2={verifierTaskCost}
           onChange2={setVerifierTaskCost}
-          total={0}
+          total={verifierTotal}
           disabled={!verification}
         />
       </div>
