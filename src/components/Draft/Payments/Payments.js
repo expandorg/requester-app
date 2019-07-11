@@ -107,8 +107,8 @@ class Payments extends Component {
       <Form>
         <div>
           <Description>
-            It’s the final frontier, calculate how you want to pay your workers
-            fairly.
+            It’s the final frontier, calculate how much you want to pay your
+            workers.
           </Description>
           <Fieldset>
             <Hero
@@ -130,7 +130,7 @@ class Payments extends Component {
               </Deposit>
             </Field>
             <Field
-              tooltip="Your entire budget for the task. *"
+              tooltip="This is the total amount of funds you will set aside for the job. *"
               name="balance"
               errors={errors}
             >
@@ -144,7 +144,7 @@ class Payments extends Component {
               />
             </Field>
             <Field
-              tooltip="The amount the workers will earn. *"
+              tooltip="The amount the workers will earn for each task completion. *"
               name="reward"
               errors={errors}
             >

@@ -124,8 +124,8 @@ export default class Settings extends Component {
             <Field
               tooltip={
                 <span>
-                  Give this task a title that is easy for your workers to
-                  understand e.g. Nature Image Labelling
+                  Workers will see your title when deciding to chose a task. The
+                  title should be accurate, succinct, and easy to understand.
                 </span>
               }
               name="name"
@@ -155,7 +155,7 @@ export default class Settings extends Component {
             </Field>
             <Field>
               <Toggle
-                tooltip="Staking helps you to capture high quality workers by asking them to invest a token(s) beforehand to promise you that the task will be completed accurately"
+                tooltip="Staking requires workers to lock up a certain amount of their XPN tokens before being assigned to a task. Staking is an entirely optional quality management system. You can read more about staking here https://expandsupport.zendesk.com/hc/en-us/articles/360025693971"
                 value={settings.staking}
                 label="Staking"
                 name="staking"
@@ -177,10 +177,8 @@ export default class Settings extends Component {
             <Field
               tooltip={
                 <span>
-                  Only applicable to those who are connecting their data through
-                  the API.
-                  <br />
-                  Your results will be sent to the url provided.
+                  Events, such as submission, assignment, and verification of a
+                  task will be sent to the web url supplied
                 </span>
               }
             >
