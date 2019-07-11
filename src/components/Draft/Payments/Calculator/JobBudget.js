@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 
 import Field from './Field';
 
+import { XPN_USD } from '../../../../common/consts';
+
 import styles from './Calculator.module.styl';
 
 function getTotal(tasks, cost, enabled = true) {
@@ -14,7 +16,7 @@ function getTotal(tasks, cost, enabled = true) {
   if (Number.isNaN(tasksCount) || Number.isNaN(taskCost)) {
     return 0;
   }
-  return tasksCount * taskCost;
+  return tasksCount * (taskCost / XPN_USD);
 }
 
 export default function JobBudget({ verification, visible }) {
@@ -38,7 +40,7 @@ export default function JobBudget({ verification, visible }) {
           placeholder1="Number of Worker Tasks"
           value1={workerTasks}
           onChange1={setWorkerTasks}
-          placeholder2="Task Cost"
+          placeholder2="Task Cost $"
           value2={workerTaskCost}
           onChange2={setWorkerTaskCost}
           total={workerTotal}
@@ -47,7 +49,7 @@ export default function JobBudget({ verification, visible }) {
           placeholder1="Number of Verifier Tasks"
           value1={verifierTasks}
           onChange1={setVerifierTasks}
-          placeholder2="Task Cost"
+          placeholder2="Task Cost $"
           value2={verifierTaskCost}
           onChange2={setVerifierTaskCost}
           total={verifierTotal}

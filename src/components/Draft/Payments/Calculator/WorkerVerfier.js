@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
 import Field from './Field';
+import { XPN_USD } from '../../../../common/consts';
 
 import styles from './Calculator.module.styl';
 
@@ -14,7 +15,9 @@ function workerPayment(mins, hourly, enabled = true) {
   if (Number.isNaN(minsPerTask) || Number.isNaN(hourlyRate)) {
     return 0;
   }
-  return +(minsPerTask * (hourlyRate / 60)).toFixed(3);
+
+  const xpnHourlyRate = hourlyRate / XPN_USD;
+  return +(minsPerTask * (xpnHourlyRate / 60)).toFixed(3);
 }
 
 export default function WorkerVerfier({ verification, visible }) {
@@ -42,7 +45,7 @@ export default function WorkerVerfier({ verification, visible }) {
           placeholder1="Mins per Task for Worker"
           value1={minsPerWorker}
           onChange1={setMinsPerWorker}
-          placeholder2="Hourly Rate"
+          placeholder2="Hourly Rate $"
           value2={workerRate}
           onChange2={setWorkerRate}
           total={workerTotal}
@@ -51,7 +54,7 @@ export default function WorkerVerfier({ verification, visible }) {
           placeholder1="Mins per Task for Verifier"
           value1={minsPerVerifier}
           onChange1={setMinsPerVerifier}
-          placeholder2="Hourly Rate"
+          placeholder2="Hourly Rate $"
           value2={verifierRate}
           onChange2={setVerifierRate}
           total={verifierTotal}

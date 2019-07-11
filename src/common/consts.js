@@ -19,3 +19,5 @@ export const keyCodes = {
   COMMA: 188,
   PERIOD: 190,
 };
+
+export const XPN_USD = 0.002;

@@ -3,7 +3,7 @@ import React from 'react';
 
 import styles from './XPNValue.module.styl';
 
-const tokenPrice = 0.002;
+import { XPN_USD } from '../../../common/consts';
 
 // async function fetchPrice() {
 //   try {
@@ -19,12 +19,9 @@ const tokenPrice = 0.002;
 export default function XPNValue() {
   // useEffect(() => fetchPrice(), []);
 
-  if (tokenPrice === null) {
-    return null;
-  }
   return (
     <div className={styles.value}>
-      Current Value of Expand token: {tokenPrice} $
+      Current Value of Expand token: {XPN_USD} $
     </div>
   );
 }
