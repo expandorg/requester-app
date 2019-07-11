@@ -155,7 +155,7 @@ export default class Settings extends Component {
             </Field>
             <Field>
               <Toggle
-                tooltip="Staking requires workers to lock up a certain amount of their XPN tokens before being assigned to a task. Staking is an entirely optional quality management system. You can read more about staking here https://expandsupport.zendesk.com/hc/en-us/articles/360025693971"
+                tooltip="Staking requires workers to lock up a certain amount of their XPN tokens before being assigned to a task. Staking is an entirely optional quality management system. You can read more about staking <a href='https://expandsupport.zendesk.com/hc/en-us/articles/360025693971' target='_blank' rel='noopener noreferrer'> here</a>"
                 value={settings.staking}
                 label="Staking"
                 name="staking"
