@@ -17,12 +17,16 @@ function workerPayment(mins, hourly, enabled = true) {
   return +(minsPerTask * (hourlyRate / 60)).toFixed(3);
 }
 
-export default function WorkerVerfier({ verification }) {
+export default function WorkerVerfier({ verification, visible }) {
   const [minsPerWorker, setMinsPerWorker] = useState('');
   const [workerRate, setWorkerRate] = useState('');
 
   const [minsPerVerifier, setMinsPerVerifier] = useState('');
   const [verifierRate, setVerifierRate] = useState('');
+
+  if (!visible) {
+    return null;
+  }
 
   const workerTotal = workerPayment(minsPerWorker, workerRate);
   const verifierTotal = workerPayment(
@@ -61,4 +65,5 @@ export default function WorkerVerfier({ verification }) {
 
 WorkerVerfier.propTypes = {
   verification: PropTypes.bool.isRequired,
+  visible: PropTypes.bool.isRequired,
 };

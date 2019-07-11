@@ -17,12 +17,16 @@ function getTotal(tasks, cost, enabled = true) {
   return tasksCount * taskCost;
 }
 
-export default function JobBudget({ verification }) {
+export default function JobBudget({ verification, visible }) {
   const [workerTasks, setWorkerTasks] = useState('');
   const [workerTaskCost, setWorkerTaskCost] = useState('');
 
   const [verifierTasks, setVerifierTasks] = useState('');
   const [verifierTaskCost, setVerifierTaskCost] = useState('');
+
+  if (!visible) {
+    return null;
+  }
 
   const workerTotal = getTotal(workerTasks, workerTaskCost);
   const verifierTotal = getTotal(verifierTasks, verifierTaskCost, verification);
@@ -57,4 +61,5 @@ export default function JobBudget({ verification }) {
 
 JobBudget.propTypes = {
   verification: PropTypes.bool.isRequired,
+  visible: PropTypes.bool.isRequired,
 };

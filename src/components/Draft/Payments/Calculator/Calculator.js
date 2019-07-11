@@ -32,8 +32,8 @@ export default function Calculator({ draft }) {
           Job Budget
         </button>
       </div>
-      {active === 0 && <WorkerVerfier verification={hasVerification} />}
-      {active === 1 && <JobBudget verification={hasVerification} />}
+      <WorkerVerfier verification={hasVerification} visible={active === 0} />
+      <JobBudget verification={hasVerification} visible={active === 1} />
     </div>
   );
 }
