@@ -1,0 +1,115 @@
+@import '~@expandorg/uikit/colors'
+@import '~@expandorg/uikit/font'
+
+.container
+  margin-top: 50px
+
+.title
+  font(h3-bold)
+  text-align: center
+
+.tabs
+  margin-top: 40px
+  display: flex
+  justify-content: space-between
+
+
+.tab
+  box-sizing: border-box
+  padding: 0
+
+  height 50px
+  width: 100%
+  flex-grow: 1
+
+  background-color: transparent
+
+  font(h4)
+  border: 1px solid  color-heavy-blue
+
+  outline: 0
+  cursor pointer
+
+  &:first-child
+    border-top-left-radius: 25px
+    border-bottom-left-radius: 25px
+    border-right: 0
+
+  &:last-child
+    border-top-right-radius: 25px
+    border-bottom-right-radius: 25px
+
+.tabActive
+  font-weight: 800
+  background-color: color-white
+
+.form
+  box-sizing: border-box
+  margin-top: 40px
+
+  border: 1px solid color-heavy-blue
+  border-radius: 5px
+
+.fields
+  box-sizing: border-box
+  background-color: color-blue-background
+  padding: 10px 24px 40px 24px
+
+  border-top-left-radius: 5px
+  border-top-right-radius: 5px
+
+.field
+  margin-top: 30px
+  display flex
+  align-items: center
+
+.total
+  box-sizing: border-box
+
+  color: color-text-dark
+  background-color: color-white
+  font(h1, false, false, 76px)
+  text-align: center
+
+  border-bottom-left-radius: 5px
+  border-bottom-right-radius: 5px
+
+.x
+  box-sizing: border-box
+  padding-right: 20px
+  font(subtitle-bold, 800)
+  color: color-white
+
+.input
+  :global(.gem-input)
+    color: color-white
+    border-bottom-color: color-white
+
+    &:focus,
+    &:active,
+    &:global(.gem-input-filled)
+      & + :global(.gem-input-label:before)
+        color: color-white
+
+  :global(.gem-input-label:before)
+    color: color-white
+
+.subtotal
+  font(subtitle-bold)
+  color: color-white
+  min-width: 100px
+  text-align: right
+  white-space nowrap
+
+.vlong
+  width: 180px
+  max-width: 180px
+  margin-right: 20px
+
+.vshort
+  width: 105px
+  max-width: 105px
+  margin-right: 20px
+
+.disabled
+  opacity 0.6
