@@ -1,0 +1,36 @@
+@import '~@expandorg/uikit/colors'
+@import '~@expandorg/uikit/font'
+
+.tabs
+  margin-top: 50px
+  display: flex
+  justify-content: center
+  align-items: center
+
+.tab
+  box-sizing: border-box
+  padding: 0
+
+  height 50px
+  width: 170px
+
+  background-color: transparent
+
+  font(h4)
+  border: 1px solid  color-heavy-blue
+
+  outline: 0
+  cursor pointer
+
+  &:first-child
+    border-top-left-radius: 5px
+    border-bottom-left-radius: 5px
+    border-right: 0
+
+  &:last-child
+    border-top-right-radius: 5px
+    border-bottom-right-radius: 5px
+
+.tabActive
+  font-weight: 800
+  background-color: color-white

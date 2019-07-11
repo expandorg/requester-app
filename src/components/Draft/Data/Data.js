@@ -1,35 +1,44 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import cn from 'classnames';
 
-import { Button, deferComponentRender } from '@expandorg/components';
+import { Button } from '@expandorg/components';
+
+import CSV from './CSV';
+import API from './API';
 
 import { draftProps } from '../../shared/propTypes';
-
-import DataEditor from './DataEditor/DataEditor';
-import UploadForm from './UploadForm';
-
-import DraftValidator from '../../../model/DraftValidator';
-
 import { Form, Actions, Description } from '../controls';
 
-function UploadData({ draft, onBack, onNext }) {
-  const hasData = DraftValidator.hasData(draft);
+import styles from './Data.module.styl';
+
+export default function Data({ draft, onBack, onNext }) {
+  const [tab, setTab] = useState(0);
   return (
     <Form>
       <div>
         <Description>
-          Upload your dataset (Optional). You can read more about alternative
-          ways to supply data&nbsp;
-          <a
-            href="https://expandorg.zendesk.com"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Here
-          </a>
+          How would you like to supply your data? You can skip this step if you
+          don’t need it.
         </Description>
-        {!hasData && <UploadForm draft={draft} />}
-        {hasData && <DataEditor draft={draft} />}
+        <div className={styles.tabs}>
+          <button
+            className={cn(styles.tab, { [styles.tabActive]: !tab })}
+            type="button"
+            onClick={() => setTab(0)}
+          >
+            CSV
+          </button>
+          <button
+            className={cn(styles.tab, { [styles.tabActive]: tab })}
+            type="button"
+            onClick={() => setTab(1)}
+          >
+            API
+          </button>
+        </div>
+        {tab === 0 && <CSV draft={draft} />}
+        {tab === 1 && <API draft={draft} />}
       </div>
       <Actions>
         <Button theme="secondary" onClick={onBack}>
@@ -41,10 +50,8 @@ function UploadData({ draft, onBack, onNext }) {
   );
 }
 
-UploadData.propTypes = {
+Data.propTypes = {
   draft: draftProps.isRequired,
   onNext: PropTypes.func.isRequired,
   onBack: PropTypes.func.isRequired,
 };
-
-export default deferComponentRender(UploadData);
