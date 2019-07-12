@@ -23,6 +23,7 @@ export default function Data({ draft, onBack, onNext }) {
           <a
             href="https://expandorg.zendesk.com"
             target="_blank"
+            className={styles.link}
             rel="noopener noreferrer"
           >
             Here
