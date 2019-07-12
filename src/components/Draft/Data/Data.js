@@ -4,7 +4,7 @@ import cn from 'classnames';
 
 import { Button } from '@expandorg/components';
 
-import CSV from './CSV';
+import CSV from './CSV/CSV';
 import API from './API';
 
 import { draftProps } from '../../shared/propTypes';

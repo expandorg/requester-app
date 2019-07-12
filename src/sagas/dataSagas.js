@@ -52,7 +52,7 @@ export const uppdateColumns = (draftId, dataId, columns) => ({
 
 export const removeData = draftId => ({
   type: dataActionTypes.REMOVE_DATA,
-  payload: { id: draftId },
+  payload: { draftId },
   asyncCall: dataApi.removeData,
   meta: { schema: draftResponseSchema },
 });

@@ -8,15 +8,15 @@ import { UploadProgressIndicator } from '@expandorg/components/app';
 import { RequestStates, requestStateProps } from '@expandorg/app-utils';
 import { addNotification } from '@expandorg/app-utils/app';
 
-import { ReactComponent as Placeholder } from '../../../assets/cloud_upload.svg';
-import { Upload, ProgressPubSub } from '../../common/Upload';
+import { ReactComponent as Placeholder } from '../../../../assets/cloud_upload.svg';
+import { Upload, ProgressPubSub } from '../../../common/Upload';
 
-import { draftProps } from '../../shared/propTypes';
+import { draftProps } from '../../../shared/propTypes';
 
-import { Fieldset } from '../controls';
+import { Fieldset } from '../../controls';
 
-import { uploadData } from '../../../sagas/dataSagas';
-import { uploadDataStateSelector } from '../../../selectors/uiStateSelectors';
+import { uploadData } from '../../../../sagas/dataSagas';
+import { uploadDataStateSelector } from '../../../../selectors/uiStateSelectors';
 
 import styles from './UploadForm.module.styl';
 
