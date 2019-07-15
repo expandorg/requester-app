@@ -83,6 +83,8 @@ class UploadForm extends Component {
     const { data, progress } = this.state;
 
     const uploading = uploadState.state === RequestStates.Fetching;
+    const uploaded = uploadState.state === RequestStates.Fetched;
+    const err = uploadState.state === RequestStates.FetchError;
     return (
       <Fieldset>
         <Upload
@@ -96,9 +98,9 @@ class UploadForm extends Component {
           {({ file }) =>
             file ? (
               <UploadProgressIndicator
-                isUploading={uploadState.state === RequestStates.Fetching}
-                isUploaded={uploadState.state === RequestStates.Fetched}
-                isUploadError={uploadState.state === RequestStates.FetchError}
+                isUploading={uploading}
+                isUploaded={uploaded}
+                isUploadError={err}
                 progress={progress}
                 onAbort={this.handleAbort}
               />

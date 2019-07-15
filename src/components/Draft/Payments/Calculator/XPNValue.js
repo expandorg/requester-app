@@ -3,7 +3,7 @@ import React from 'react';
 
 import styles from './XPNValue.module.styl';
 
-import { XPN_USD } from '../../../common/consts';
+import { XPN_USD } from '../../../../common/consts';
 
 // async function fetchPrice() {
 //   try {

@@ -2,11 +2,49 @@
 @import '~@expandorg/uikit/font'
 
 .container
-  margin-top: 50px
+  margin-top: 40px
+  box-sizing: border-box
+  padding: 15px 16px
+
+  background-color: color-white
+  border-bottom: 1px solid color-primary-blue
+
+.header
+  display flex
+  justify-content: space-between
+  align-items: center
+  cursor: pointer
 
 .title
   font(h3-bold)
-  text-align: center
+
+.toggle
+  position relative
+  width: 24px
+  height: 24px
+  font(body, 800, 20px, 1)
+
+  &:before
+  &:after
+    position absolute
+    content: " "
+    background-color: color-primary-blue
+
+  &:before
+    width: 2px
+    height 14px
+    left: 11px
+    top: 5px
+
+  &:after
+    width: 14px
+    height 2px
+    left: 5px
+    top: 11px
+
+.visible
+  &:before
+    display none
 
 .tabs
   margin-top: 40px
@@ -26,18 +64,19 @@
 
   font(h4)
   border: 1px solid  color-heavy-blue
+  background-color: color-light-blue
 
   outline: 0
   cursor pointer
 
   &:first-child
-    border-top-left-radius: 25px
-    border-bottom-left-radius: 25px
+    border-top-left-radius: 5px
+    border-bottom-left-radius: 5px
     border-right: 0
 
   &:last-child
-    border-top-right-radius: 25px
-    border-bottom-right-radius: 25px
+    border-top-right-radius: 5px
+    border-bottom-right-radius: 5px
 
 .tabActive
   font-weight: 800
@@ -45,7 +84,7 @@
 
 .form
   box-sizing: border-box
-  margin-top: 40px
+  margin-top: 24px
 
   border: 1px solid color-heavy-blue
   border-radius: 5px
