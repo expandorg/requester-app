@@ -49,7 +49,11 @@ export default class DraftOnboarding {
   static duplicate(draft: Draft, id: string) {
     const index = draft.onboarding.steps.findIndex(s => s.id === id);
     const original = draft.onboarding.steps[index];
-    const copy = { ...original, id: nanoid(), name: `${original.name} - copy` };
+    const copy = JSON.parse(JSON.stringify(original));
+
+    copy.id = nanoid();
+    copy.name = `${original.name} - copy`;
+
     const steps = insertAtIndex(draft.onboarding.steps, index + 1, copy);
     return { ...draft.onboarding, steps };
   }
