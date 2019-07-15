@@ -8,6 +8,7 @@ import { removeAtIndex, replaceAtIndex } from '@expandorg/utils';
 import { ReactComponent as X } from '@expandorg/uikit/assets/x.svg';
 
 import { DraftTextInput } from '../RichText';
+import { restoreVariables } from './restoreVariables';
 
 import styles from './OptionsEditor.module.styl';
 
@@ -76,6 +77,7 @@ export default class OptionsEditor extends Component {
           autocomplete={variables}
           placeholder="Default Option 1"
           onChange={v => this.handleChangeValue(v, 0)}
+          resotreEntities={restoreVariables}
           className={styles.default}
           onToggleVarsDialog={onToggleVarsDialog}
         />
@@ -87,6 +89,7 @@ export default class OptionsEditor extends Component {
               placeholder={`Option ${idx + 2}`}
               className={styles.option}
               onChange={v => this.handleChangeValue(v, idx + 1)}
+              resotreEntities={restoreVariables}
               onToggleVarsDialog={onToggleVarsDialog}
             />
             <button
