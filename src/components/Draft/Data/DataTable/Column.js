@@ -18,11 +18,10 @@ export default function Column({
   onToggleVarsDialog,
 }) {
   const [column, setColumn] = useState(original);
-  const [edit, setEdit] = useState(false);
+  const [edit, setEdit] = useState(!original.skipped && !original.variable);
 
   useEffect(() => {
     setColumn(original);
-    setEdit(false);
   }, [original]);
 
   const toggle = useCallback(
@@ -50,8 +49,8 @@ export default function Column({
   const save = useCallback(
     evt => {
       evt.preventDefault();
-      setEdit(false);
       onChange(column, index);
+      setEdit(false);
     },
     [column, index, onChange]
   );
