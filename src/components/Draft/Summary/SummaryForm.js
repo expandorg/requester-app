@@ -41,15 +41,16 @@ export default function SummaryForm({
       <Description className={styles.description}>
         Review your task to confirm everything looks as intended.
       </Description>
-      <Section title="Settings" onStep={() => onStep(WizardSteps.Settings)}>
+      <Section
+        title="Task Settings"
+        onStep={() => onStep(WizardSteps.Settings)}
+      >
         <Settings draft={draft} />
       </Section>
       <Section title="Data" onStep={() => onStep(WizardSteps.Data)}>
         <Data draft={draft} />
       </Section>
-      {/* <Section title="Task" >
-          <TaskTemplate draft={draft} />
-        </Section> */}
+
       <Section
         title="Template Settings"
         onStep={() => onStep(WizardSteps.Settings)}
