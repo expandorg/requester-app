@@ -18,7 +18,9 @@ export default function Column({
   onToggleVarsDialog,
 }) {
   const [column, setColumn] = useState(original);
-  const [edit, setEdit] = useState(!original.skipped && !original.variable);
+  const [edit, setEdit] = useState(
+    !readOnly && !original.skipped && !original.variable
+  );
 
   useEffect(() => {
     setColumn(original);
