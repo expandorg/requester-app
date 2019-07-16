@@ -98,6 +98,7 @@ class UploadForm extends Component {
           {({ file }) =>
             file ? (
               <UploadProgressIndicator
+                className={styles.progress}
                 isUploading={uploading}
                 isUploaded={uploaded}
                 isUploadError={err}

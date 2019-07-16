@@ -51,7 +51,7 @@ export default function VariablesDropdown({
       {onToggleVarsDialog && (
         <div className={styles.add}>
           <button className={styles.addBtn} onClick={handleToggle}>
-            add/manage
+            manage variables
           </button>
         </div>
       )}
