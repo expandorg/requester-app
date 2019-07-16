@@ -6,53 +6,39 @@
   width: 241px
   min-width: 241px
 
-  padding: 20px 25px
+  padding: 20px 15px
 
-  background-color: color-teel-dark
-  border-right: 1px solid color-white
+  border-right: 1px solid color-heavy-blue
   border-bottom: 1px solid color-heavy-blue
 
   &:last-child
     border-right: none;
 
 .skipped
-  background-color: color-white
-  border-right-color: color-heavy-blue
+  background-color: #FEEEC0
+
+.assigned
+  background-color: #E1F2EF
 
 .header
   position relative
   text-align: center
 
   font(h3-bold)
-  color: color-white
+  color: color-text-dark
 
   .skipped &
-    color: color-text-grey
+    color: color-text-yellow-2
+
+  .assigned &
+    color: color-text-teel-strong
 
 .name
-  box-sizing: border-boxp
+  box-sizing: border-box
   padding: 0 15px
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-
-
-.edit
-  position absolute
-  right: 0
-  top 0
-
-  box-sizing: border-box
-  padding: 0
-
-  background-color: transparent
-  border: 0
-
-  outline: none
-  cursor pointer
-
-  path
-    fill color-white
 
 .content
   box-sizing: border-box
@@ -62,19 +48,20 @@
 
   height 60px
 
-.warning
-  font(body)
-  color: color-text-pink
-  text-align: center
-
 .variable
-  color: color-white
-  font(body)
+  font(small-text)
+  color: color-text-yellow-2
   text-align: center
 
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+
+
+.warning
+  font(small-text)
+  color: color-text-yellow-2
+  text-align: center
 
 .actions
   box-sizing: border-box
@@ -82,31 +69,54 @@
   align-items: center
   justify-content: center
 
-  height 40px
-
 .button
   box-sizing: border-box
-  height 40px
-  width: 100%
 
-  color: color-white
-  border-radius: 2px
+  height 40px
+  width: 86px
 
   font(subtitle, 800, false, 38px)
   text-transform: uppercase
+  background-color: transparent
+
+  border-radius: 2px
+  margin-right: 10px
 
   outline: 0
   cursor pointer
 
+  &:last-child
+    margin-right: 0
+
+
+.edit
+  border: 1px solid color-heavy-blue
+  background-color: color-medium-blue
+  color: color-text-blue
+
+  .assigned &
+    color: color-white
+    background-color: color-teel-strong
+    border-color: color-teel-strong
+
 .skip
-  background-color: transparent
-  border: 1px solid color-white
-  margin-right: 5px
+  border: 1px solid color-heavy-blue
+  color: color-primary-blue
+
+  .skipped &
+    border-color: color-text-yellow
+    background-color: color-text-yellow
+    color: color-text-yellow-2
+
+  .assigned &
+    color: color-text-teel-strong
+    border-color: color-text-teel-strong
 
 .save
-  background-color: color-blue-background
-  border: 1px solid color-blue-background
-  margin-left: 5px
+  border: 1px solid color-heavy-blue
+  background-color: color-medium-blue
+  color: color-text-blue
+
 
 .input
   position relative
@@ -119,10 +129,10 @@
 .varsToggle
   position relative
   box-sizing: border-box
-  width: 100%
+  width: calc(100% - 30px)
 
   padding: 0 0 10px 0
-  margin: 0 0
+  margin: 0 15px
 
   font(body, false, false, 1)
   text-align: left
@@ -131,11 +141,11 @@
   overflow: hidden;
   text-overflow: ellipsis;
 
-  color: color-white
+  color: color-text-gray
   background-color: transparent
 
   border: none
-  border-bottom: 1px solid color-white
+  border-bottom: 1px solid color-heavy-blue
 
   outline: none
   cursor pointer
@@ -146,5 +156,5 @@
   top: calc(50% - 8px)
 
   path
-    fill color-white
+    fill color-heavy-blue
 

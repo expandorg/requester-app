@@ -58,7 +58,7 @@ export default function Data({ draft, onBack, onNext }) {
             target="_blank"
             rel="noopener noreferrer"
           >
-            Here
+            here
           </a>
         </Description>
         <div className={styles.tabs}>
