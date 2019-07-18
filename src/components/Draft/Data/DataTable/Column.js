@@ -43,6 +43,7 @@ export default function Column({
         skipped: !original.skipped,
         variable: original.skipped ? original.variable : '',
       };
+      setEdit(false);
       onChange(edited, index, true);
     },
     [index, onChange, original]
