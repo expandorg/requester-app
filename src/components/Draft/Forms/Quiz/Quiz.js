@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
 
-import { Dialog } from '@expandorg/components';
+import { Dialog, useSyncedState } from '@expandorg/components';
 
 import { draftOnboardingStepProps } from '../../../shared/propTypes';
 
@@ -9,14 +9,13 @@ import Data from './Data/Data';
 import Settings from './Settings';
 
 import { WizardSteps } from './wizard';
-import usePropsState from '../../../common/usePropsState';
 
 import styles from './Quiz.module.styl';
 
 export default function Quiz({ onHide, onUpdate, group, visible }) {
   const [wizard, setWizard] = useState(WizardSteps.Data);
 
-  const [step, setStep] = usePropsState(group);
+  const [step, setStep] = useSyncedState(group);
 
   const update = useCallback(
     updated => {

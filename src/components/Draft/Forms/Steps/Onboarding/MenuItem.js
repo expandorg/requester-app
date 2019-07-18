@@ -2,8 +2,8 @@ import React, { useCallback, useRef } from 'react';
 import PropTypes from 'prop-types';
 
 import { useDrag, useDrop } from 'react-dnd';
+import { useToggle } from '@expandorg/components';
 
-import useToggle from '../../../../common/useToggle';
 import { draftOnboardingStepProps } from '../../../../shared/propTypes';
 
 import { ContextMenuItem } from '../../../../common/ContextMenu';

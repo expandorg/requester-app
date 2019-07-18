@@ -2,10 +2,8 @@ import React, { useState, useCallback, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 
-import { deferComponentRender } from '@expandorg/components';
+import { deferComponentRender, useToggle } from '@expandorg/components';
 import Steps from './Steps/Steps';
-
-import useToggle from '../../common/useToggle';
 
 import {
   updateTaskForm,

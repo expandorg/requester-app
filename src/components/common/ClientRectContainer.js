@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import useClientRect from './useClientRect';
+import { useClientRect } from '@expandorg/components';
 
 export default function ClientRectContainer({ className, children }) {
   const [ref, rect] = useClientRect();
