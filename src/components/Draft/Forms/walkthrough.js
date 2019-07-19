@@ -29,7 +29,7 @@ export default {
   preview: {
     htmlId: 'gems-preview',
     hint:
-      'This button allows you to preview the full task flow as seen in the eyes of the worker. The preview starts with your first screen and as you click next it will take you through your other screens. The verification screen is previewed last.',
+      "This button allows you to preview the task as seen from the worker's perspective. The preview starts with your first screen and as you click next it will take you through your other screens. The verification screen is previewed last.",
     orientation: 'top',
     order: 4,
   },
