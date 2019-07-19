@@ -48,7 +48,7 @@ export default function VerificationMenuItem({ draft, selected, onSelect }) {
           onSaved={saveComplete}
         />
       )}
-      <NavItem selected={selected} onClick={click}>
+      <NavItem id="add-verification" selected={selected} onClick={click}>
         Verification&nbsp;
         <SettingsButton onClick={iconClick} />
       </NavItem>

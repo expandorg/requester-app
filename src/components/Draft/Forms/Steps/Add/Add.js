@@ -30,7 +30,11 @@ export default function Add({ draft }) {
 
   return (
     <div className={styles.container}>
-      <button className={styles.add} onClick={() => setOpened(true)}>
+      <button
+        id="add-screen"
+        className={styles.add}
+        onClick={() => setOpened(true)}
+      >
         +
       </button>
       {opened && (
