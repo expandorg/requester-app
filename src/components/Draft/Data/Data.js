@@ -54,7 +54,7 @@ export default function Data({ draft, onBack, onNext }) {
           ways to supply data&nbsp;
           <a
             className={styles.link}
-            href="https://expandorg.zendesk.com"
+            href="https://expandsupport.zendesk.com/hc/en-us/articles/360025693051-How-To-Add-Data"
             target="_blank"
             rel="noopener noreferrer"
           >
