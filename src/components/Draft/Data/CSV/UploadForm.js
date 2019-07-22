@@ -110,9 +110,6 @@ class UploadForm extends Component {
                 <Placeholder className={styles.image} />
                 <div className={styles.or}>Drag a file or</div>
                 <div className={styles.button}>Browse</div>
-                <button className={styles.banner} onClick={this.handleDownload}>
-                  download a csv template based on your task
-                </button>
               </div>
             )
           }
