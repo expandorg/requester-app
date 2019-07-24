@@ -1,6 +1,8 @@
 import React, { useCallback, useState } from 'react';
 import PropTypes from 'prop-types';
 
+import { WalkthroughPin } from '@expandorg/components/app';
+
 import { NavItem, SettingsButton } from '../controls';
 import { FormSelection } from '../../forms';
 
@@ -9,6 +11,8 @@ import Settings from './Settings';
 import { draftProps } from '../../../../shared/propTypes';
 import DraftValidator from '../../../../../model/DraftValidator';
 import { VerificationType } from '../../../../../model/enums';
+
+import styles from './MenuItem.module.styl';
 
 export default function VerificationMenuItem({ draft, selected, onSelect }) {
   const [dialog, setDialog] = useState(false);
@@ -51,6 +55,7 @@ export default function VerificationMenuItem({ draft, selected, onSelect }) {
       <NavItem id="add-verification" selected={selected} onClick={click}>
         Verification&nbsp;
         <SettingsButton onClick={iconClick} />
+        <WalkthroughPin id="verification" className={styles.pin} />
       </NavItem>
     </>
   );

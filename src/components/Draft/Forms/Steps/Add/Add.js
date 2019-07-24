@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 
 import { useSelector, useDispatch } from 'react-redux';
 
+import { WalkthroughPin } from '@expandorg/components/app';
+
 import { ContextMenu, ContextMenuItem } from '../../../../common/ContextMenu';
 
 import { draftProps } from '../../../../shared/propTypes';
@@ -31,12 +33,13 @@ export default function Add({ draft }) {
   return (
     <div className={styles.container}>
       <button
-        id="add-screen"
         className={styles.add}
         onClick={() => setOpened(true)}
+        id="add-screen"
       >
         +
       </button>
+      <WalkthroughPin id="screen" className={styles.pin} />
       {opened && (
         <ContextMenu className={styles.menu} onHide={() => setOpened(false)}>
           <div className={styles.header}>Templates</div>

@@ -10,14 +10,15 @@ export default {
     htmlId: 'add-screen',
     hint:
       'Before workers attempt a task they need to know the rules right? They may also need to sign an NDA and you might want to filter out workers who are not a good fit for your job. Here you can add new screens seen before workers are assigned tasks.',
-    orientation: 'left',
+    orientation: 'bottom',
     order: 1,
   },
   search: {
     htmlId: 'gems-search',
     hint:
       "Use the search bar to search for the component you need. We are always adding new components and if you can't find the one you are looking for reach out to our team",
-    orientation: 2,
+    orientation: 'right',
+    order: 2,
   },
   components: {
     htmlId: 'gems-components',
