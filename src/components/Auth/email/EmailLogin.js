@@ -4,8 +4,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { Link } from 'react-router-dom';
-
 import {
   RequestStates,
   requestStateProps,
@@ -17,6 +15,8 @@ import { Button, ErrorMessage, Input } from '@expandorg/components';
 import { loginStateSelector } from '@expandorg/app-auth/selectors';
 import { login } from '@expandorg/app-auth/sagas';
 import { ReactComponent as Logo } from '@expandorg/uikit/assets/logo.svg';
+
+import settings from '../../../common/settings';
 
 import styles from './styles.module.styl';
 
@@ -93,9 +93,12 @@ class EmailLogin extends Component {
             onChange={this.handleChange}
           />
           <div className={styles.forgotContainer}>
-            <Link className={styles.forgot} to="/password">
+            <a
+              className={styles.forgot}
+              href={`${settings.frontendUrl}/password`}
+            >
               Forgot password?
-            </Link>
+            </a>
           </div>
           <ErrorMessage errors={error} className={styles.error} />
           <Button type="submit" theme="blue" className={styles.submit}>
