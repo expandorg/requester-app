@@ -24,7 +24,7 @@ export default class TreeEditor extends Component {
 
   handleAdd = (meta, scroll) => {
     const { modules, onChange, selection } = this.props;
-    onChange(treeEditor.push(modules, createModule(meta)), selection);
+    onChange(treeEditor.push(modules, createModule(meta, modules)), selection);
 
     if (scroll) {
       this.formRef.current.decoratedRef.current.scrollBottom();
@@ -52,7 +52,7 @@ export default class TreeEditor extends Component {
     const editied = treeEditor.insertAt(
       modules,
       path,
-      deepCopyModule(module, newModuleId)
+      deepCopyModule(module, newModuleId(modules))
     );
     onChange(editied, Ops.Copy);
   };
@@ -67,7 +67,11 @@ export default class TreeEditor extends Component {
 
     const edited =
       dragPath.length === 0
-        ? treeEditor.insertAt(modules, hoverPath, createModule(meta, true))
+        ? treeEditor.insertAt(
+            modules,
+            hoverPath,
+            createModule(meta, modules, true)
+          )
         : treeEditor.moveAt(modules, dragPath, hoverPath);
 
     onChange(edited, Ops.Move);

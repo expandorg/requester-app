@@ -21,10 +21,10 @@ export function Navs({ children }) {
 }
 
 export const NavItem = forwardRef(
-  ({ children, selected, onClick, className }, ref) => {
+  ({ children, selected, onClick, className, ...rest }, ref) => {
     const classes = cn(styles.item, { [styles.selected]: selected }, className);
     return (
-      <div ref={ref} className={classes} onClick={onClick}>
+      <div ref={ref} className={classes} onClick={onClick} {...rest}>
         {children}
       </div>
     );
