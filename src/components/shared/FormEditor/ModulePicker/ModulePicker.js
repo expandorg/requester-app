@@ -6,8 +6,6 @@ import { DropTarget } from 'react-dnd';
 
 import { getCategories, searchModules } from './categories';
 
-import ClientRectContainer from '../../../common/ClientRectContainer';
-
 import Search from './Search';
 import Category from './Category';
 
@@ -40,7 +38,6 @@ class ModulePicker extends Component {
 
     const categories = getCategories(props.moduleControls, exclude);
     this.state = {
-      preview: null,
       all: categories,
       categories,
     };
@@ -52,68 +49,42 @@ class ModulePicker extends Component {
     this.setState({ categories, search });
   };
 
-  handlePreview = type => {
-    this.setState({ preview: type });
-  };
-
   handleAdd = meta => {
     const { onAdd } = this.props;
-    this.setState({ preview: null });
     onAdd(meta, true);
-  };
-
-  handleScroll = () => {
-    const { preview } = this.state;
-    if (preview) {
-      this.setState({ preview: null });
-    }
   };
 
   render() {
     const { onEndDrag, connectDropTarget, className } = this.props;
-    const { preview, categories, search } = this.state;
+    const { categories, search } = this.state;
 
     /* eslint-disable jsx-a11y/click-events-have-key-events */
     /* eslint-disable jsx-a11y/no-static-element-interactions */
     return (
-      <ClientRectContainer
-        className={cn(styles.container, className)}
-        ref={this.container}
-      >
-        {({ rect }) => (
-          <>
-            <Search onSearch={this.handleSearch} />
-            {connectDropTarget(
-              <div
-                className={styles.list}
-                onScroll={this.handleScroll}
-                id="gems-components"
-              >
-                {categories.map(({ category, modules }) => (
-                  <Category
-                    key={category}
-                    forceOpen={!!search}
-                    name={category}
-                    modules={modules}
-                    offset={rect ? rect.top : 0}
-                    preview={preview}
-                    onEndDrag={onEndDrag}
-                    onAdd={this.handleAdd}
-                    onPreview={this.handlePreview}
-                  />
-                ))}
-                {isEmpty(categories) && (
-                  <div className={styles.empty}>
-                    No components have been found.
-                    <br />
-                    Try again maybe?
-                  </div>
-                )}
+      <div className={cn(styles.container, className)}>
+        <Search onSearch={this.handleSearch} />
+        {connectDropTarget(
+          <div className={styles.list} id="gems-components">
+            {categories.map(({ category, modules }) => (
+              <Category
+                key={category}
+                forceOpen={!!search}
+                name={category}
+                modules={modules}
+                onEndDrag={onEndDrag}
+                onAdd={this.handleAdd}
+              />
+            ))}
+            {isEmpty(categories) && (
+              <div className={styles.empty}>
+                No components have been found.
+                <br />
+                Try again maybe?
               </div>
             )}
-          </>
+          </div>
         )}
-      </ClientRectContainer>
+      </div>
     );
   }
 }

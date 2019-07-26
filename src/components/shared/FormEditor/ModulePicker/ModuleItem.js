@@ -4,10 +4,6 @@ import cn from 'classnames';
 
 import { DragSource } from 'react-dnd';
 
-import { ReactComponent as I } from '../../../../assets/circle-i.svg';
-
-import PreviewTooltip from './PreviewTooltip';
-
 import { metaSource, FORM_DND_ID } from '../dnd';
 import miniIcon from './icons/miniIcon';
 
@@ -19,16 +15,9 @@ class ModuleItem extends Component {
       type: PropTypes.string,
     }).isRequired,
     isDragging: PropTypes.bool.isRequired,
-    offset: PropTypes.number.isRequired,
-    isHovered: PropTypes.bool.isRequired,
     onEndDrag: PropTypes.func.isRequired, // eslint-disable-line
     onAdd: PropTypes.func.isRequired,
-    onPreview: PropTypes.func.isRequired,
     connectDragSource: PropTypes.func.isRequired,
-  };
-
-  state = {
-    previewTop: null,
   };
 
   handleAdd = () => {
@@ -36,32 +25,8 @@ class ModuleItem extends Component {
     onAdd(meta);
   };
 
-  handleMouseEnter = evt => {
-    const { isDragging, onPreview, meta, isHovered } = this.props;
-    if (!isDragging && !isHovered) {
-      const { top } = evt.currentTarget.getBoundingClientRect();
-      this.setState({ previewTop: top });
-      onPreview(meta.type);
-    }
-  };
-
-  handleMouseLeave = () => {
-    const { isDragging, onPreview } = this.props;
-    if (!isDragging) {
-      onPreview(null);
-    }
-  };
-
   render() {
-    const {
-      connectDragSource,
-      isHovered,
-      isDragging,
-      meta,
-      offset,
-    } = this.props;
-
-    const { previewTop } = this.state;
+    const { connectDragSource, isDragging, meta } = this.props;
 
     const classes = cn(styles.container, {
       [styles.dragging]: isDragging,
@@ -74,19 +39,6 @@ class ModuleItem extends Component {
       <div className={classes} onClick={this.handleAdd}>
         <div className={cn(styles.miniIcon, miniIcon(meta.type))}></div>
         <div className={styles.name}>{meta.name}</div>
-        <div
-          className={cn(styles.info, { [styles.markHover]: isHovered })}
-          onMouseEnter={this.handleMouseEnter}
-          onMouseLeave={this.handleMouseLeave}
-        >
-          <I
-            className={styles.mark}
-            width="20"
-            height="20"
-            viewBox="0 0 20 20"
-          />
-          {isHovered && <PreviewTooltip top={previewTop - offset} />}
-        </div>
       </div>
     );
   }

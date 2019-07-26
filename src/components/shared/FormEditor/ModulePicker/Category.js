@@ -13,16 +13,9 @@ export default class Category extends Component {
   static propTypes = {
     name: PropTypes.string.isRequired,
     modules: PropTypes.arrayOf(PropTypes.object).isRequired,
-    preview: PropTypes.string,
     forceOpen: PropTypes.bool.isRequired,
-    offset: PropTypes.number.isRequired,
     onEndDrag: PropTypes.func.isRequired,
-    onPreview: PropTypes.func.isRequired,
     onAdd: PropTypes.func.isRequired,
-  };
-
-  static defaultProps = {
-    preview: null,
   };
 
   state = {
@@ -34,16 +27,7 @@ export default class Category extends Component {
   };
 
   render() {
-    const {
-      name,
-      modules,
-      forceOpen,
-      onEndDrag,
-      onPreview,
-      preview,
-      offset,
-      onAdd,
-    } = this.props;
+    const { name, modules, forceOpen, onEndDrag, onAdd } = this.props;
     const { expanded } = this.state;
 
     if (!modules.length) {
@@ -76,9 +60,6 @@ export default class Category extends Component {
                 key={module.type}
                 onEndDrag={onEndDrag}
                 onAdd={onAdd}
-                offset={offset}
-                isHovered={module.type === preview}
-                onPreview={onPreview}
               />
             ))}
           </div>

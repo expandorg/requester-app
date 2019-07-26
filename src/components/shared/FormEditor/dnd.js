@@ -50,8 +50,7 @@ export const availableTarget = {
 };
 
 export const metaSource = {
-  beginDrag: ({ meta, onPreview }) => {
-    onPreview(null);
+  beginDrag: ({ meta }) => {
     return {
       meta,
       path: [],
