@@ -19,8 +19,8 @@ export default function Quiz({ onHide, onUpdate, group, visible }) {
 
   const update = useCallback(
     updated => {
-      onHide();
       onUpdate(updated);
+      onHide();
     },
     [onHide, onUpdate]
   );

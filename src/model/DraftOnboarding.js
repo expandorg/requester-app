@@ -10,8 +10,12 @@ import {
   type DraftOnboardingStep,
 } from './types.flow';
 
+import { fastCopy } from '../common/utils';
+
 export default class DraftOnboarding {
-  static add(draft: Draft, template: DraftOnboardingGroupTemplate) {
+  static add(draft: Draft, t: DraftOnboardingGroupTemplate) {
+    const template = fastCopy(t);
+
     const step = {
       id: nanoid(),
       name: template.name,
@@ -49,7 +53,7 @@ export default class DraftOnboarding {
   static duplicate(draft: Draft, id: string) {
     const index = draft.onboarding.steps.findIndex(s => s.id === id);
     const original = draft.onboarding.steps[index];
-    const copy = JSON.parse(JSON.stringify(original));
+    const copy = fastCopy(original);
 
     copy.id = nanoid();
     copy.name = `${original.name} - copy`;
