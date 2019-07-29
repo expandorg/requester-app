@@ -53,6 +53,7 @@ export default function PropertyEditor({
   return (
     <div className={styles.container}>
       <Editor
+        name={name}
         value={moduleProperties[name]}
         onChange={handleChange}
         variables={variables}
