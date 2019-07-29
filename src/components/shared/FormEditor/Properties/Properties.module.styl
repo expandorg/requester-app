@@ -30,9 +30,31 @@
   color: color-text-dark;
 
 .name
-  margin-top: 10px
-  color: color-text-grey
-  font(small-text)
+  box-sizing: border-box
+  position relative
+  display: flex
+  align-items: center
+  justify-content: space-between
+
+  margin-top: 30px
+  height 42px
+
+  border-bottom: 2px solid color-heavy-blue
+
+  font(body)
+  color: color-blue-background
+
+.i
+  position relative
+  margin-left: 10px
+  top: 1px
+
+.copy
+  font(subtitle-bold, 800)
+  color: color-text-blue
+  text-transform: uppercase
+
+  cursor pointer
 
 .actions
   display: flex;
