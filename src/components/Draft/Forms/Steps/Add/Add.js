@@ -50,13 +50,11 @@ export default function Add({ draft }) {
     [dispatch, draft]
   );
 
+  const open = useCallback(() => setOpened(true), []);
+
   return (
     <div className={styles.container}>
-      <button
-        className={styles.add}
-        onClick={() => setOpened(true)}
-        id="add-screen"
-      >
+      <button className={styles.add} onClick={open} id="add-screen">
         +
       </button>
       <WalkthroughPin id="screen" className={styles.pin} />
@@ -73,12 +71,7 @@ export default function Add({ draft }) {
         </ContextMenu>
       )}
       {!!quiz && (
-        <Quiz
-          group={quiz}
-          visible
-          onHide={() => setQuiz(null)}
-          onUpdate={updateQuiz}
-        />
+        <Quiz group={quiz} onHide={() => setQuiz(null)} onUpdate={updateQuiz} />
       )}
     </div>
   );

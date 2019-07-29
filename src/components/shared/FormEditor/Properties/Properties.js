@@ -9,7 +9,7 @@ import { Button } from '@expandorg/components';
 import PropertyEditor from './PropertyEditor/PropertyEditor';
 import ErrorContainer from './PropertyEditor/ErrorContainer';
 
-import FieldValidation from './FieldValidation';
+import Validation from './Validation/Validation';
 
 import styles from './Properties.module.styl';
 
@@ -88,21 +88,13 @@ export default class Properties extends Component {
     return (
       <aside className={styles.container}>
         <div className={styles.content}>
-          <div className={styles.title}>{name} properties</div>
-          <ErrorContainer errors={errors} field="name">
-            <div className={styles.name}>{module.name}</div>
-            {/* <Input
-              className={styles.name}
-              value={module.name}
-              readOnly
-              placeholder="Component name"
-              required
-              onChange={this.handleChangeName}
-            /> */}
-          </ErrorContainer>
-          {editor.properties && (
-            <div className={styles.props}>
-              {Reflect.ownKeys(editor.properties).map(propertyName => (
+          <div className={styles.props}>
+            <div className={styles.title}>{name} properties</div>
+            <ErrorContainer errors={errors} field="name">
+              <div className={styles.name}>{module.name}</div>
+            </ErrorContainer>
+            {!!editor.properties &&
+              Reflect.ownKeys(editor.properties).map(propertyName => (
                 <ErrorContainer
                   errors={errors}
                   field={propertyName}
@@ -119,13 +111,14 @@ export default class Properties extends Component {
                   />
                 </ErrorContainer>
               ))}
-            </div>
-          )}
-          <FieldValidation
-            rules={validation}
-            validation={module.validation}
-            onChange={this.handleChangeValidation}
-          />
+          </div>
+          <div className={styles.validation}>
+            <Validation
+              rules={validation}
+              validation={module.validation}
+              onChange={this.handleChangeValidation}
+            />
+          </div>
         </div>
         <div className={styles.actions}>
           <Button theme="grey" onClick={onCancel} className={styles.btn}>

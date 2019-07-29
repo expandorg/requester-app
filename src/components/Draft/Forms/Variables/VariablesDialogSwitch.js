@@ -35,7 +35,6 @@ export default function VariablesDialogSwitch({
   if (selection.isOnboarding()) {
     return (
       <Quiz
-        visible
         group={selection.getOnboardingStep(draft)}
         onUpdate={updateGroup}
         onHide={onHide}

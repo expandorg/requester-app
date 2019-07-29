@@ -12,7 +12,7 @@ import { WizardSteps } from './wizard';
 
 import styles from './Quiz.module.styl';
 
-export default function Quiz({ onHide, onUpdate, group, visible }) {
+export default function Quiz({ onHide, onUpdate, group }) {
   const [wizard, setWizard] = useState(WizardSteps.Data);
 
   const [step, setStep] = useSyncedState(group);
@@ -38,7 +38,7 @@ export default function Quiz({ onHide, onUpdate, group, visible }) {
 
   return (
     <Dialog
-      visible={visible}
+      visible
       onHide={onHide}
       modalClass={styles.modal}
       overlayClass={styles.overlay}
@@ -56,7 +56,6 @@ export default function Quiz({ onHide, onUpdate, group, visible }) {
 }
 
 Quiz.propTypes = {
-  visible: PropTypes.bool.isRequired,
   group: draftOnboardingStepProps.isRequired,
   onUpdate: PropTypes.func.isRequired,
   onHide: PropTypes.func.isRequired,

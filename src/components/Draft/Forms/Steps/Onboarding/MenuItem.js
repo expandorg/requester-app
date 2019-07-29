@@ -76,12 +76,7 @@ export default function OnboardingMenuItem({
         <ContextMenuItem onClick={duplicate}>Duplicate</ContextMenuItem>
         <ContextMenuItem onClick={remove}>Remove</ContextMenuItem>
       </NavItemContextMenu>
-      <Quiz
-        group={step}
-        visible={quiz}
-        onHide={toggleQuiz}
-        onUpdate={updateQuiz}
-      />
+      {quiz && <Quiz group={step} onHide={toggleQuiz} onUpdate={updateQuiz} />}
     </NavItem>
   );
 }

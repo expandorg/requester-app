@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { Checkbox, Input } from '@expandorg/components';
 import { getDefaultRuleMessage } from '@expandorg/modules/model';
 
-import styles from './FieldValidation.module.styl';
+import styles from './Rule.module.styl';
 
 const labels = {
   isRequired: 'Required',
@@ -14,7 +14,7 @@ const labels = {
   isRequiredArray: 'Should have at least one value',
 };
 
-class Rule extends Component {
+export default class Rule extends Component {
   static propTypes = {
     name: PropTypes.string.isRequired,
     validation: PropTypes.object, // eslint-disable-line
@@ -75,32 +75,3 @@ class Rule extends Component {
     );
   }
 }
-
-export default function FieldValidation({ rules, validation, onChange }) {
-  if (!rules) {
-    return null;
-  }
-  return (
-    <div className={styles.container}>
-      {Reflect.ownKeys(rules).map(name => (
-        <Rule
-          key={name}
-          name={name}
-          validation={validation}
-          onChange={onChange}
-        />
-      ))}
-    </div>
-  );
-}
-
-FieldValidation.propTypes = {
-  validation: PropTypes.object, // eslint-disable-line
-  rules: PropTypes.object, // eslint-disable-line
-  onChange: PropTypes.func.isRequired,
-};
-
-FieldValidation.defaultProps = {
-  validation: null,
-  rules: null,
-};
