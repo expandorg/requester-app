@@ -28,8 +28,12 @@ function Link({ link, title, icon, isActive }) {
 Link.propTypes = {
   link: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
-  icon: PropTypes.func.isRequired,
-  isActive: PropTypes.bool.isRequired,
+  icon: PropTypes.object.isRequired, // eslint-disable-line
+  isActive: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
+};
+
+Link.defaultProps = {
+  isActive: undefined,
 };
 
 export default function Sidebar() {
