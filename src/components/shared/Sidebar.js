@@ -74,7 +74,7 @@ Sidebar.navigation = [
     link: '/api',
     title: 'API',
     icon: () => (
-      <Api className={icn} width="24" height="24" viewBox="4 4 20 20" />
+      <Api className={icn} width="24" height="24" viewBox="0 0 24 24" />
     ),
   },
   {
