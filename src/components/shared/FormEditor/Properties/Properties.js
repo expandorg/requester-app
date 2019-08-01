@@ -20,7 +20,7 @@ export default class Properties extends Component {
     module: moduleProps.isRequired,
     controls: PropTypes.object.isRequired, // eslint-disable-line
     variables: PropTypes.arrayOf(PropTypes.string),
-    onEdit: PropTypes.func.isRequired,
+    onSave: PropTypes.func.isRequired,
     onValidate: PropTypes.func.isRequired,
     onCancel: PropTypes.func.isRequired,
     onToggleVarsDialog: PropTypes.func,
@@ -67,7 +67,7 @@ export default class Properties extends Component {
   };
 
   handleSave = () => {
-    const { onValidate, onEdit } = this.props;
+    const { onValidate, onSave } = this.props;
     const { module, original } = this.state;
 
     const errors = onValidate(module, original.name);
@@ -75,7 +75,7 @@ export default class Properties extends Component {
     if (errors) {
       this.setState({ errors });
     } else {
-      onEdit(module);
+      onSave(module);
     }
   };
 

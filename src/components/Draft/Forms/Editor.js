@@ -72,7 +72,7 @@ export default function Editor({
             module={p.selection.find(p.modules, 'edit')}
             controls={p.controlsMap}
             variables={variables}
-            onEdit={p.onEdit}
+            onSave={p.onEdit}
             onValidate={p.onValidateModule}
             onCancel={p.onDeselect}
             onToggleVarsDialog={onToggleVarsDialog}
