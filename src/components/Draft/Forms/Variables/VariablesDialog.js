@@ -48,6 +48,8 @@ export default function VariablesDialog({ onHide, draftId, variables }) {
     [vars]
   );
 
+  const change = useCallback(({ target }) => setValue(target.value), []);
+
   const hasVars = vars.length !== 0;
 
   return (
@@ -67,7 +69,7 @@ export default function VariablesDialog({ onHide, draftId, variables }) {
               className={styles.input}
               onKeyDown={keyDown}
               placeholder="Create variable tag"
-              onChange={({ target }) => setValue(target.value)}
+              onChange={change}
             />
             <button className={styles.add} onClick={add}>
               add

@@ -78,14 +78,13 @@ export default class Preview extends Component {
       return <NotSupported type={module.type} onRemove={this.handleRemove} />;
     }
 
-    const classes = cn(styles.container, {
-      [styles.selected]: treeEditor.getIdByPath(path) === selected,
-    });
-
+    const isSelected = treeEditor.getIdByPath(path) === selected;
     return (
       <Outer>
         {connectDragPreview(
-          <div className={classes}>
+          <div
+            className={cn(styles.container, { [styles.selected]: isSelected })}
+          >
             <Header module={module} onSelect={this.handleSelect} />
             <ModuleWrapper
               path={path}

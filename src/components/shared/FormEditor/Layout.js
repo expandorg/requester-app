@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import cn from 'classnames';
 
+import { Drawer } from '@expandorg/components';
 import { WalkthroughProvider } from '@expandorg/components/app';
 
 import styles from './Layout.module.styl';
@@ -24,10 +25,15 @@ FormLayout.defaultProps = {
 };
 
 export const Sidebar = ({ children, className, hidden }) => {
-  if (hidden) {
-    return null;
-  }
-  return <div className={cn(styles.sidebar, className)}>{children}</div>;
+  return (
+    <Drawer
+      className={cn(styles.sidebar, className)}
+      width={240}
+      visible={!hidden}
+    >
+      {!hidden && children}
+    </Drawer>
+  );
 };
 
 Sidebar.propTypes = {
