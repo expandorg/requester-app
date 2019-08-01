@@ -106,9 +106,9 @@ export default class Properties extends Component {
             {!!editor.properties &&
               Reflect.ownKeys(editor.properties).map(propertyName => (
                 <ErrorContainer
+                  key={propertyName}
                   errors={errors}
                   field={propertyName}
-                  key={propertyName}
                 >
                   <PropertyEditor
                     key={propertyName}

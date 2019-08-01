@@ -22,7 +22,7 @@ class Nested extends Component {
     modules: PropTypes.arrayOf(moduleProps),
     path: PropTypes.arrayOf(PropTypes.number).isRequired,
     controls: PropTypes.object.isRequired, // eslint-disable-line
-    selected: PropTypes.string,
+    selection: PropTypes.string,
     onMove: PropTypes.func.isRequired, // eslint-disable-line
     onSelect: PropTypes.func.isRequired,
     onRemove: PropTypes.func.isRequired,
@@ -34,7 +34,7 @@ class Nested extends Component {
   static defaultProps = {
     title: null,
     modules: null,
-    selected: null,
+    selection: null,
   };
 
   render() {
@@ -42,7 +42,7 @@ class Nested extends Component {
       title,
       connectDropTarget,
       modules,
-      selected,
+      selection,
       controls,
       path,
       onMove,
@@ -71,7 +71,7 @@ class Nested extends Component {
                     module={nestedModule}
                     path={p}
                     controls={controls}
-                    selected={selected}
+                    selection={selection}
                     onMove={onMove}
                     onRemove={onRemove}
                     onSelect={onSelect}

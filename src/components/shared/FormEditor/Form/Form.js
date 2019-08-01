@@ -98,7 +98,7 @@ class Form extends Component {
                         <Preview
                           path={p}
                           controls={controls}
-                          selected={selected}
+                          selection={selected}
                           module={module}
                           onMove={onMove}
                           onRemove={onRemove}

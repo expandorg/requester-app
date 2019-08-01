@@ -24,26 +24,26 @@ FormLayout.defaultProps = {
   className: null,
 };
 
-export const Sidebar = ({ children, className, hidden }) => {
+export const Sidebar = ({ children, className, visible }) => {
   return (
     <Drawer
       className={cn(styles.sidebar, className)}
       width={240}
-      visible={!hidden}
+      visible={visible}
     >
-      {!hidden && children}
+      {visible && children}
     </Drawer>
   );
 };
 
 Sidebar.propTypes = {
   className: PropTypes.string,
-  hidden: PropTypes.bool,
+  visible: PropTypes.bool,
 };
 
 Sidebar.defaultProps = {
   className: null,
-  hidden: false,
+  visible: false,
 };
 
 export const Content = ({ children, className }) => (

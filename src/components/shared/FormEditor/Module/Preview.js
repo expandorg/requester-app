@@ -26,7 +26,7 @@ export default class Preview extends Component {
     module: moduleProps.isRequired,
     path: PropTypes.arrayOf(PropTypes.number).isRequired,
     controls: PropTypes.object.isRequired, // eslint-disable-line
-    selected: PropTypes.string,
+    selection: PropTypes.string,
 
     onMove: PropTypes.func.isRequired, // eslint-disable-line
     onSelect: PropTypes.func.isRequired,
@@ -37,7 +37,7 @@ export default class Preview extends Component {
   };
 
   static defaultProps = {
-    selected: null,
+    selection: null,
   };
 
   handleSelect = () => {
@@ -64,7 +64,7 @@ export default class Preview extends Component {
     const {
       connectDragPreview,
       module,
-      selected,
+      selection,
       controls,
       path,
       onMove,
@@ -78,7 +78,7 @@ export default class Preview extends Component {
       return <NotSupported type={module.type} onRemove={this.handleRemove} />;
     }
 
-    const isSelected = treeEditor.getIdByPath(path) === selected;
+    const isSelected = treeEditor.getIdByPath(path) === selection;
     return (
       <Outer>
         {connectDragPreview(
@@ -87,8 +87,8 @@ export default class Preview extends Component {
           >
             <Header module={module} onSelect={this.handleSelect} />
             <ModuleWrapper
-              path={path}
-              selected={selected}
+              isSelected={isSelected}
+              selection={selection}
               module={module}
               onSelect={this.handleSelect}
             >
@@ -109,7 +109,7 @@ export default class Preview extends Component {
                 modules={module.modules}
                 path={path}
                 controls={controls}
-                selected={selected}
+                selection={selection}
                 onMove={onMove}
                 onSelect={onSelect}
                 onRemove={onRemove}

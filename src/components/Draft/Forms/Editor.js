@@ -35,7 +35,7 @@ export default function Editor({
     <FormEditor form={form} onChange={onSave} controls={moduleControls}>
       {p => (
         <FormLayout className={styles.container} walkthrough={walkthrough}>
-          <Sidebar hidden={!p.selection.isEmpty()}>
+          <Sidebar visible={p.selection.isEmpty()}>
             <ModulePicker
               moduleControls={pickerModules}
               onEndDrag={p.onEndDrag}

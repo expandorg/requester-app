@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import { DropTarget } from 'react-dnd';
 
-import { ReactComponent as Preview } from '@expandorg/uikit/assets/preview.svg';
+import { ReactComponent as PreviewIcon } from '@expandorg/uikit/assets/preview.svg';
 
 import { emptyTarget, FORM_DND_ID } from '../dnd';
 import { Placeholder } from '../Module/Placeholders';
@@ -25,7 +25,7 @@ class Empty extends Component {
         {!canDrop && (
           <div className={styles.content}>
             <div className={styles.preview}>
-              <Preview
+              <PreviewIcon
                 className={styles.icon}
                 width="144"
                 height="110"
