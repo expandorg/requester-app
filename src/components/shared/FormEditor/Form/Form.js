@@ -1,7 +1,6 @@
 import React, { Component, createRef } from 'react';
 import PropTypes from 'prop-types';
 
-import { DropTarget } from 'react-dnd';
 import {
   moduleProps,
   FormDataProvider,
@@ -9,9 +8,9 @@ import {
   ExecutionContextProvider,
 } from '@expandorg/modules';
 
-import { dropAreaTarget, FORM_DND_ID } from '../dnd';
-
 import Empty from './Empty';
+import DropArea from './DropArea';
+
 import { DnDContainer, Preview } from '../Module';
 
 import styles from './Form.module.styl';
@@ -23,7 +22,7 @@ const formData = {
 
 const services = new Map([['fileUpload', new FileUploadServiceMock()]]);
 
-class Form extends Component {
+export default class Form extends Component {
   static propTypes = {
     modules: PropTypes.arrayOf(moduleProps),
     selected: PropTypes.string,
@@ -34,7 +33,6 @@ class Form extends Component {
     onRemove: PropTypes.func.isRequired,
     onCopy: PropTypes.func.isRequired,
     onEndDrag: PropTypes.func.isRequired,
-    connectDropTarget: PropTypes.func.isRequired,
   };
 
   static defaultProps = {
@@ -70,56 +68,49 @@ class Form extends Component {
       selected,
       controls,
       onEndDrag,
-      connectDropTarget,
     } = this.props;
     return (
       <div className={styles.container} ref={this.formRef}>
-        {connectDropTarget(
-          <div className={styles.form}>
-            {modules.length === 0 && <Empty onAdd={onAdd} />}
-            <FormDataProvider formData={formData}>
-              <ExecutionContextProvider
-                form={{ modules }}
-                controls={controls}
-                services={services}
-              >
-                {modules.map((module, order) => {
-                  const p = [order];
-                  return (
-                    <DnDContainer
-                      key={module.name}
-                      module={module}
-                      path={p}
-                      controls={controls}
-                      onMove={onMove}
-                      onEndDrag={onEndDrag}
-                    >
-                      {({ connectDragPreview }) => (
-                        <Preview
-                          path={p}
-                          controls={controls}
-                          selection={selected}
-                          module={module}
-                          onMove={onMove}
-                          onRemove={onRemove}
-                          onSelect={onSelect}
-                          onCopy={onCopy}
-                          onEndDrag={onEndDrag}
-                          connectDragPreview={connectDragPreview}
-                        />
-                      )}
-                    </DnDContainer>
-                  );
-                })}
-              </ExecutionContextProvider>
-            </FormDataProvider>
-          </div>
-        )}
+        <DropArea className={styles.form} onAdd={onAdd}>
+          {modules.length === 0 && <Empty />}
+          <FormDataProvider formData={formData}>
+            <ExecutionContextProvider
+              form={{ modules }}
+              controls={controls}
+              services={services}
+            >
+              {modules.map((module, order) => {
+                const p = [order];
+                return (
+                  <DnDContainer
+                    key={module.name}
+                    module={module}
+                    path={p}
+                    controls={controls}
+                    onMove={onMove}
+                    onEndDrag={onEndDrag}
+                  >
+                    {({ connectDragPreview }) => (
+                      <Preview
+                        path={p}
+                        controls={controls}
+                        selection={selected}
+                        module={module}
+                        onMove={onMove}
+                        onRemove={onRemove}
+                        onSelect={onSelect}
+                        onCopy={onCopy}
+                        onEndDrag={onEndDrag}
+                        connectDragPreview={connectDragPreview}
+                      />
+                    )}
+                  </DnDContainer>
+                );
+              })}
+            </ExecutionContextProvider>
+          </FormDataProvider>
+        </DropArea>
       </div>
     );
   }
 }
-
-export default DropTarget(FORM_DND_ID, dropAreaTarget, connect => ({
-  connectDropTarget: connect.dropTarget(),
-}))(Form);

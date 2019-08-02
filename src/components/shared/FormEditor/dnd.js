@@ -4,13 +4,6 @@ import { treeEditor } from './Tree';
 
 export const FORM_DND_ID = 'FORM_DND_ID';
 
-export const emptyTarget = {
-  drop: ({ onAdd }, monitor) => {
-    const { meta } = monitor.getItem();
-    onAdd(meta);
-  },
-};
-
 export const nestedTarget = {
   hover: ({ path, onMove }, monitor) => {
     if (!monitor.isOver({ shallow: true })) {
@@ -27,12 +20,13 @@ export const nestedModuleTarget = {
   canDrop: () => false,
 };
 
-export const dropAreaTarget = {
-  canDrop: (props, monitor) => {
+export const dropAreaTarget = onAdd => ({
+  accept: FORM_DND_ID,
+  canDrop: (_, monitor) => {
     const { meta, path } = monitor.getItem();
     return !!meta && path.length === 0;
   },
-  drop: ({ onAdd }, monitor) => {
+  drop: (_, monitor) => {
     if (!monitor.didDrop()) {
       const { path, meta } = monitor.getItem();
       if (path.length === 0) {
@@ -40,7 +34,7 @@ export const dropAreaTarget = {
       }
     }
   },
-};
+});
 
 export const availableTarget = onRemoveModule => ({
   accept: FORM_DND_ID,

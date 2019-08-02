@@ -27,7 +27,7 @@ export default class TreeEditor extends Component {
     onChange(treeEditor.push(modules, createModule(meta, modules)), selection);
 
     if (scroll) {
-      this.formRef.current.decoratedRef.current.scrollBottom();
+      this.formRef.current.scrollBottom();
     }
   };
 
