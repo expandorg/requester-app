@@ -32,6 +32,7 @@ export default class Preview extends Component {
     onSelect: PropTypes.func.isRequired,
     onRemove: PropTypes.func.isRequired,
     onCopy: PropTypes.func.isRequired,
+    onEndDrag: PropTypes.func.isRequired,
 
     connectDragPreview: PropTypes.func.isRequired,
   };
@@ -71,6 +72,7 @@ export default class Preview extends Component {
       onRemove,
       onCopy,
       onSelect,
+      onEndDrag,
     } = this.props;
 
     const ControlType = controls[module.type];
@@ -113,6 +115,7 @@ export default class Preview extends Component {
                 onMove={onMove}
                 onSelect={onSelect}
                 onRemove={onRemove}
+                onEndDrag={onEndDrag}
                 onCopy={onCopy}
               />
             )}

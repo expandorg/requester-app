@@ -104,6 +104,7 @@ class Form extends Component {
                           onRemove={onRemove}
                           onSelect={onSelect}
                           onCopy={onCopy}
+                          onEndDrag={onEndDrag}
                           connectDragPreview={connectDragPreview}
                         />
                       )}

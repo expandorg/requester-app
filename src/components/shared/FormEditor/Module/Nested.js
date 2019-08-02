@@ -27,6 +27,7 @@ class Nested extends Component {
     onSelect: PropTypes.func.isRequired,
     onRemove: PropTypes.func.isRequired,
     onCopy: PropTypes.func.isRequired,
+    onEndDrag: PropTypes.func.isRequired,
 
     connectDropTarget: PropTypes.func.isRequired,
   };
@@ -48,6 +49,7 @@ class Nested extends Component {
       onMove,
       onRemove,
       onSelect,
+      onEndDrag,
       onCopy,
     } = this.props;
 
@@ -65,6 +67,7 @@ class Nested extends Component {
                 path={p}
                 module={nestedModule}
                 onMove={onMove}
+                onEndDrag={onEndDrag}
               >
                 {({ connectDragPreview }) => (
                   <Preview
@@ -76,6 +79,7 @@ class Nested extends Component {
                     onRemove={onRemove}
                     onSelect={onSelect}
                     onCopy={onCopy}
+                    onEndDrag={onEndDrag}
                     connectDragPreview={connectDragPreview}
                   />
                 )}
