@@ -1,15 +1,14 @@
-import React, { Component } from 'react';
+import React, { useRef, useCallback, useState, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
 
-import { DropTarget } from 'react-dnd';
-
-import { getCategories, searchModules } from './categories';
+import { useDrop } from 'react-dnd';
 
 import Search from './Search';
 import Category from './Category';
 
-import { availableTarget, FORM_DND_ID } from '../dnd';
+import { getCategories, searchModules } from './categories';
+import { availableTarget } from '../dnd';
 
 import styles from './ModulePicker.module.styl';
 
@@ -18,77 +17,72 @@ const exclude = ['progress', 'upload'];
 
 const isEmpty = categores => categores.every(c => !c.modules.length);
 
-class ModulePicker extends Component {
-  static propTypes = {
-    className: PropTypes.string,
-    onEndDrag: PropTypes.func.isRequired,
-    moduleControls: PropTypes.arrayOf(PropTypes.func).isRequired,
-    onAdd: PropTypes.func.isRequired,
-    onRemoveModule: PropTypes.func.isRequired, // eslint-disable-line
+export default function ModulePicker({
+  className,
+  onRemoveModule,
+  moduleControls,
+  onEndDrag,
+  onAdd,
+}) {
+  const all = useMemo(() => getCategories(moduleControls, exclude), [
+    moduleControls,
+  ]);
 
-    connectDropTarget: PropTypes.func.isRequired,
-  };
+  const [search, setSearch] = useState('');
+  const [categories, setCategories] = useState(all);
 
-  static defaultProps = {
-    className: null,
-  };
+  const ref = useRef(null);
+  const [, drop] = useDrop(availableTarget(onRemoveModule));
 
-  constructor(props) {
-    super(props);
+  const add = useCallback(
+    meta => {
+      onAdd(meta, true);
+    },
+    [onAdd]
+  );
 
-    const categories = getCategories(props.moduleControls, exclude);
-    this.state = {
-      all: categories,
-      categories,
-    };
-  }
+  const searchCb = useCallback(
+    q => {
+      setSearch(q);
+      setCategories(searchModules(all, q));
+    },
+    [all]
+  );
 
-  handleSearch = search => {
-    const { all } = this.state;
-    const categories = searchModules(all, search);
-    this.setState({ categories, search });
-  };
-
-  handleAdd = meta => {
-    const { onAdd } = this.props;
-    onAdd(meta, true);
-  };
-
-  render() {
-    const { onEndDrag, connectDropTarget, className } = this.props;
-    const { categories, search } = this.state;
-
-    /* eslint-disable jsx-a11y/click-events-have-key-events */
-    /* eslint-disable jsx-a11y/no-static-element-interactions */
-    return (
-      <div className={cn(styles.container, className)}>
-        <Search onSearch={this.handleSearch} />
-        {connectDropTarget(
-          <div className={styles.list} id="gems-components">
-            {categories.map(({ category, modules }) => (
-              <Category
-                key={category}
-                forceOpen={!!search}
-                name={category}
-                modules={modules}
-                onEndDrag={onEndDrag}
-                onAdd={this.handleAdd}
-              />
-            ))}
-            {isEmpty(categories) && (
-              <div className={styles.empty}>
-                No components have been found.
-                <br />
-                Try again maybe?
-              </div>
-            )}
+  return (
+    <div className={cn(styles.container, className)}>
+      <Search onSearch={searchCb} />
+      <div className={styles.list} id="gems-components" ref={drop(ref)}>
+        {categories.map(({ category, modules }) => (
+          <Category
+            key={category}
+            forceOpen={!!search}
+            name={category}
+            modules={modules}
+            onEndDrag={onEndDrag}
+            onAdd={add}
+          />
+        ))}
+        {isEmpty(categories) && (
+          <div className={styles.empty}>
+            No components have been found.
+            <br />
+            Try again maybe?
           </div>
         )}
       </div>
-    );
-  }
+    </div>
+  );
 }
 
-export default DropTarget(FORM_DND_ID, availableTarget, connect => ({
-  connectDropTarget: connect.dropTarget(),
-}))(ModulePicker);
+ModulePicker.propTypes = {
+  className: PropTypes.string,
+  onEndDrag: PropTypes.func.isRequired,
+  moduleControls: PropTypes.arrayOf(PropTypes.func).isRequired,
+  onAdd: PropTypes.func.isRequired,
+  onRemoveModule: PropTypes.func.isRequired, // eslint-disable-line
+};
+
+ModulePicker.defaultProps = {
+  className: null,
+};

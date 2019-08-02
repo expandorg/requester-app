@@ -42,12 +42,13 @@ export const dropAreaTarget = {
   },
 };
 
-export const availableTarget = {
-  drop: ({ onRemoveModule }, monitor) => {
+export const availableTarget = onRemoveModule => ({
+  accept: FORM_DND_ID,
+  drop: (_, monitor) => {
     const { path } = monitor.getItem();
     onRemoveModule(path);
   },
-};
+});
 
 export const metaSource = {
   beginDrag: ({ meta }) => {
