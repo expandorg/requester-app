@@ -54,7 +54,6 @@ export default function Editor({
                 onCancel={p.onDeselect}
               /> */}
               <Form
-                ref={p.formRef}
                 modules={p.modules}
                 selected={p.selection.getId('edit')}
                 controls={p.controlsMap}

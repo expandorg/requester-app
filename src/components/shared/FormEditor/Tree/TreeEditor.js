@@ -1,4 +1,4 @@
-import { Component, createRef } from 'react';
+import { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import { moduleProps } from '@expandorg/modules';
@@ -16,8 +16,6 @@ export default class TreeEditor extends Component {
     onChange: PropTypes.func.isRequired,
   };
 
-  formRef = createRef();
-
   static defaultProps = {
     modules: [],
   };
@@ -27,7 +25,8 @@ export default class TreeEditor extends Component {
     onChange(treeEditor.push(modules, createModule(meta, modules)), selection);
 
     if (scroll) {
-      this.formRef.current.scrollBottom();
+      // FIXIME: reactive scroll
+      // this.formRef.current.scrollBottom();
     }
   };
 
@@ -87,7 +86,6 @@ export default class TreeEditor extends Component {
       onEdit: this.handleEdit,
       onCopy: this.handleCopy,
       onMove: this.handleMove,
-      formRef: this.formRef,
     });
   }
 }
