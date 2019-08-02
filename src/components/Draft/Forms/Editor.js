@@ -56,7 +56,6 @@ export default function Editor({
               <Form
                 modules={p.modules}
                 selected={p.selection.getId('edit')}
-                controls={p.controlsMap}
                 onAdd={p.onAdd}
                 onEndDrag={p.onEndDrag}
                 onMove={p.onMove}
@@ -69,7 +68,6 @@ export default function Editor({
           </Content>
           <PropertiesPanel
             module={p.selection.find(p.modules, 'edit')}
-            controls={p.controlsMap}
             variables={variables}
             onSave={p.onEdit}
             onValidate={p.onValidateModule}

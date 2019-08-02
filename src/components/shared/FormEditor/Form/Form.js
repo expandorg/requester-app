@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 
 import {
@@ -11,6 +11,7 @@ import {
 import Empty from './Empty';
 import DropArea from './DropArea';
 import { DnDContainer, Preview } from '../Module';
+import { EditorContext } from '../EditorContext';
 
 import styles from './Form.module.styl';
 
@@ -29,9 +30,9 @@ export default function Form({
   onMove,
   onCopy,
   selected,
-  controls,
   onEndDrag,
 }) {
+  const { controlsMap: controls } = useContext(EditorContext);
   // scrollBottom = () => {
   //   setTimeout(() => {
   //     formRef.current.scrollTop =
@@ -86,7 +87,6 @@ export default function Form({
 Form.propTypes = {
   modules: PropTypes.arrayOf(moduleProps),
   selected: PropTypes.string,
-  controls: PropTypes.object.isRequired, // eslint-disable-line
   onAdd: PropTypes.func.isRequired,
   onMove: PropTypes.func.isRequired,
   onSelect: PropTypes.func.isRequired,

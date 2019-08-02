@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useContext } from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
 
@@ -9,12 +9,13 @@ import PropertyEditor from './PropertyEditor/PropertyEditor';
 import ErrorContainer from './PropertyEditor/ErrorContainer';
 import Validation from './Validation/Validation';
 
+import { EditorContext } from '../EditorContext';
+
 import I from '../../../common/I';
 
 import styles from './Properties.module.styl';
 
 export default function Properties({
-  controls,
   module,
   onChange,
   onSave,
@@ -23,6 +24,7 @@ export default function Properties({
   variables,
   onToggleVarsDialog,
 }) {
+  const { controlsMap: controls } = useContext(EditorContext);
   const [errors, setErrors] = useState(null);
 
   const change = useCallback(
@@ -105,7 +107,6 @@ export default function Properties({
 
 Properties.propTypes = {
   module: moduleProps.isRequired,
-  controls: PropTypes.object.isRequired, // eslint-disable-line
   variables: PropTypes.arrayOf(PropTypes.string),
   onChange: PropTypes.func.isRequired,
   onValidate: PropTypes.func.isRequired,

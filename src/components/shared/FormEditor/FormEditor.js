@@ -3,9 +3,8 @@ import PropTypes from 'prop-types';
 
 import { formProps } from '@expandorg/modules';
 
-import { getModuleControlsMap } from '@expandorg/modules/model';
-import { validateModuleProperties } from './Properties';
 import { ValueContextProvider } from './ValueContext';
+import { EditorContextProvider } from './EditorContext';
 
 import Selection from './Tree/Selection';
 
@@ -39,7 +38,6 @@ export default class FormEditor extends Component {
       selection: Selection.empty,
       prev: props.form, // eslint-disable-line react/no-unused-state
       modules: props.form ? props.form.modules : [],
-      controlsMap: getModuleControlsMap(props.controls),
     };
   }
 
@@ -78,36 +76,40 @@ export default class FormEditor extends Component {
     );
   };
 
-  validate = (module, originalName) => {
-    const { controlsMap, modules } = this.state;
-    const { module: meta } = controlsMap[module.type];
-    return validateModuleProperties(module, originalName, meta, modules);
+  getModules = () => {
+    const { modules } = this.state;
+    return modules;
   };
 
   render() {
-    const { children } = this.props;
-    const { selection, modules, controlsMap } = this.state;
+    const { children, controls } = this.props;
+    const { selection, modules } = this.state;
 
     return (
-      <ValueContextProvider selection={selection}>
-        <TreeEditor
-          modules={modules}
-          selection={selection}
-          onChange={this.handleChange}
-        >
-          {props =>
-            children({
-              ...props,
-              modules,
-              selection,
-              controlsMap,
-              onSelect: this.handleSelect,
-              onDeselect: this.handleDeselect,
-              onValidateModule: this.validate,
-            })
-          }
-        </TreeEditor>
-      </ValueContextProvider>
+      <EditorContextProvider
+        selection={selection}
+        controls={controls}
+        getModules={this.getModules}
+      >
+        <ValueContextProvider selection={selection}>
+          <TreeEditor
+            modules={modules}
+            selection={selection}
+            onChange={this.handleChange}
+          >
+            {props =>
+              children({
+                ...props,
+                modules,
+                selection,
+                onSelect: this.handleSelect,
+                onDeselect: this.handleDeselect,
+                onValidateModule: this.validate,
+              })
+            }
+          </TreeEditor>
+        </ValueContextProvider>
+      </EditorContextProvider>
     );
   }
 }
