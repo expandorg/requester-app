@@ -1,8 +1,6 @@
 import React, { useContext } from 'react';
-import PropTypes from 'prop-types';
 
 import {
-  moduleProps,
   FormDataProvider,
   FileUploadServiceMock,
   ExecutionContextProvider,
@@ -22,17 +20,19 @@ const formData = {
 
 const services = new Map([['fileUpload', new FileUploadServiceMock()]]);
 
-export default function Form({
-  modules,
-  onAdd,
-  onSelect,
-  onRemove,
-  onMove,
-  onCopy,
-  selected,
-  onEndDrag,
-}) {
-  const { controlsMap: controls } = useContext(EditorContext);
+export default function Form() {
+  const {
+    modules,
+    controlsMap,
+    selection,
+    onAdd,
+    onSelect,
+    onRemove,
+    onMove,
+    onCopy,
+    onEndDrag,
+  } = useContext(EditorContext);
+
   // scrollBottom = () => {
   //   setTimeout(() => {
   //     formRef.current.scrollTop =
@@ -46,7 +46,7 @@ export default function Form({
         <FormDataProvider formData={formData}>
           <ExecutionContextProvider
             form={{ modules }}
-            controls={controls}
+            controls={controlsMap}
             services={services}
           >
             {modules.map((module, order) => {
@@ -56,15 +56,15 @@ export default function Form({
                   key={module.name}
                   module={module}
                   path={p}
-                  controls={controls}
+                  controls={controlsMap}
                   onMove={onMove}
                   onEndDrag={onEndDrag}
                 >
                   {({ connectDragPreview }) => (
                     <Preview
                       path={p}
-                      controls={controls}
-                      selection={selected}
+                      controls={controlsMap}
+                      selection={selection.getId('edit')}
                       module={module}
                       onMove={onMove}
                       onRemove={onRemove}
@@ -83,19 +83,3 @@ export default function Form({
     </div>
   );
 }
-
-Form.propTypes = {
-  modules: PropTypes.arrayOf(moduleProps),
-  selected: PropTypes.string,
-  onAdd: PropTypes.func.isRequired,
-  onMove: PropTypes.func.isRequired,
-  onSelect: PropTypes.func.isRequired,
-  onRemove: PropTypes.func.isRequired,
-  onCopy: PropTypes.func.isRequired,
-  onEndDrag: PropTypes.func.isRequired,
-};
-
-Form.defaultProps = {
-  modules: [],
-  selected: null,
-};

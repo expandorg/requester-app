@@ -5,13 +5,9 @@ import { WalkthroughPin } from '@expandorg/components/app';
 import { formProps } from '@expandorg/modules';
 import { moduleControls } from '@expandorg/modules/app';
 
-import FormEditor from '../../shared/FormEditor/FormEditor';
-import {
-  FormLayout,
-  Sidebar,
-  Content,
-  Canvas,
-} from '../../shared/FormEditor/Layout';
+import { EditorContextProvider } from '../../shared/FormEditor/EditorContext';
+import { FormLayout, Content, Canvas } from '../../shared/FormEditor/Layout';
+import Sidebar from './Sidebar';
 
 // import { LogicPanel } from '../../shared/FormEditor/Logic';
 import ModulePicker from '../../shared/FormEditor/ModulePicker';
@@ -32,53 +28,30 @@ export default function Editor({
   onToggleVarsDialog,
 }) {
   return (
-    <FormEditor form={form} onChange={onSave} controls={moduleControls}>
-      {p => (
-        <FormLayout className={styles.container} walkthrough={walkthrough}>
-          <Sidebar visible={p.selection.isEmpty()}>
-            <ModulePicker
-              moduleControls={pickerModules}
-              onEndDrag={p.onEndDrag}
-              onAdd={p.onAdd}
-              onRemoveModule={p.onRemove}
-            />
-          </Sidebar>
-          <Content>
-            {children}
-            <Canvas>
-              {/* <LogicPanel
-                module={p.selection.find(p.modules, 'logic')}
-                modules={p.modules}
-                variables={variables}
-                onSave={p.onEdit}
-                onCancel={p.onDeselect}
-              /> */}
-              <Form
-                modules={p.modules}
-                selected={p.selection.getId('edit')}
-                onAdd={p.onAdd}
-                onEndDrag={p.onEndDrag}
-                onMove={p.onMove}
-                onRemove={p.onRemove}
-                onSelect={p.onSelect}
-                onCopy={p.onCopy}
-              />
-            </Canvas>
-            {toolbar}
-          </Content>
-          <PropertiesPanel
-            module={p.selection.find(p.modules, 'edit')}
-            variables={variables}
-            onSave={p.onEdit}
-            onValidate={p.onValidateModule}
-            onCancel={p.onDeselect}
-            onToggleVarsDialog={onToggleVarsDialog}
-          />
-          <WalkthroughPin id="search" className={styles.serachPin} />
-          <WalkthroughPin id="components" className={styles.componentsPin} />
-        </FormLayout>
-      )}
-    </FormEditor>
+    <EditorContextProvider
+      form={form}
+      onChange={onSave}
+      controls={moduleControls}
+    >
+      <FormLayout className={styles.container} walkthrough={walkthrough}>
+        <Sidebar>
+          <ModulePicker moduleControls={pickerModules} />
+        </Sidebar>
+        <Content>
+          {children}
+          <Canvas>
+            <Form />
+          </Canvas>
+          {toolbar}
+        </Content>
+        <PropertiesPanel
+          variables={variables}
+          onToggleVarsDialog={onToggleVarsDialog}
+        />
+        <WalkthroughPin id="search" className={styles.serachPin} />
+        <WalkthroughPin id="components" className={styles.componentsPin} />
+      </FormLayout>
+    </EditorContextProvider>
   );
 }
 
@@ -95,3 +68,11 @@ Editor.defaultProps = {
   variables: [],
   onToggleVarsDialog: null,
 };
+
+// <LogicPanel
+// module={p.selection.find(p.modules, 'logic')}
+// modules={p.modules}
+// variables={variables}
+// onSave={p.onEdit}
+// onCancel={p.onDeselect}
+// />

@@ -21,8 +21,8 @@ export default class TreeEditor extends Component {
   };
 
   handleAdd = (meta, scroll) => {
-    const { modules, onChange, selection } = this.props;
-    onChange(treeEditor.push(modules, createModule(meta, modules)), selection);
+    const { modules, onChange } = this.props;
+    onChange(treeEditor.push(modules, createModule(meta, modules)), Ops.Add);
 
     if (scroll) {
       // FIXIME: reactive scroll
@@ -31,13 +31,13 @@ export default class TreeEditor extends Component {
   };
 
   handleEndDrag = path => {
-    const { modules, onChange, selection } = this.props;
+    const { modules, onChange } = this.props;
     const modifiled = treeEditor.modifyAt(modules, path, item => {
       if (item !== undefined && item.isDragging) {
         item.isDragging = undefined;
       }
     });
-    onChange(modifiled, selection);
+    onChange(modifiled, Ops.EndDrag);
   };
 
   handleRemove = path => {
@@ -81,11 +81,11 @@ export default class TreeEditor extends Component {
 
     return children({
       onAdd: this.handleAdd,
-      onEndDrag: this.handleEndDrag,
       onRemove: this.handleRemove,
       onEdit: this.handleEdit,
-      onCopy: this.handleCopy,
       onMove: this.handleMove,
+      onEndDrag: this.handleEndDrag,
+      onCopy: this.handleCopy,
     });
   }
 }

@@ -17,6 +17,7 @@ export const nestedTarget = {
 };
 
 export const nestedModuleTarget = {
+  accept: FORM_DND_ID,
   canDrop: () => false,
 };
 

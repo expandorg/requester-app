@@ -42,13 +42,8 @@ export default class Preview extends Component {
   };
 
   handleSelect = () => {
-    const { onSelect, path } = this.props;
-    onSelect(path, 'edit');
-  };
-
-  handleSelectLogic = () => {
-    const { onSelect, path } = this.props;
-    onSelect(path, 'logic');
+    const { onSelect, module, path } = this.props;
+    onSelect(path, module, 'edit');
   };
 
   handleRemove = () => {
@@ -127,7 +122,6 @@ export default class Preview extends Component {
           canApplyLogic={isVisibilityAllowed(module)}
           onRemove={this.handleRemove}
           onCopy={this.handleCopy}
-          onLogic={this.handleSelectLogic}
         />
       </Outer>
     );

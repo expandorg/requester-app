@@ -1,41 +1,75 @@
 import React, { createContext, useMemo, useCallback } from 'react';
 import PropTypes from 'prop-types';
+
+import { useSyncedState } from '@expandorg/components';
+import { formProps } from '@expandorg/modules';
 import { getModuleControlsMap } from '@expandorg/modules/model';
 
-import validateModuleProperties from './Properties/validateModuleProperties';
+import { TreeEditor, Ops } from './Tree';
+import { ValueContextProvider } from './ValueContext';
+import useSelection from './useSelection';
 
 export const EditorContext = createContext();
 
-export function EditorContextProvider({
-  controls,
-  selection,
-  children,
-  getModules,
-}) {
-  const controlsMap = useMemo(() => getModuleControlsMap(controls), [controls]);
+const transform = f => (f && f.modules) || [];
 
-  const onValidateModule = useCallback(
-    (module, originalName) => {
-      const modules = getModules();
-      const { module: meta } = controlsMap[module.type];
-      return validateModuleProperties(module, originalName, meta, modules);
+const deselectActions = new Set([Ops.Remove, Ops.Copy, Ops.Edit, Ops.Move]);
+
+export function EditorContextProvider({ children, controls, form, onChange }) {
+  const controlsMap = useMemo(() => getModuleControlsMap(controls), [controls]);
+  const [modules, setModules] = useSyncedState(form, transform);
+
+  const [
+    selection,
+    onSelect,
+    onDeselect,
+    selectedModule,
+    onEditSelected,
+  ] = useSelection();
+
+  const change = useCallback(
+    (changedModules, op) => {
+      setModules(changedModules);
+      if (!selection.isEmpty() && deselectActions.has(op)) {
+        onDeselect();
+      }
+      if (op !== Ops.Move) {
+        onChange({ ...form, modules: changedModules });
+      }
     },
-    [controlsMap, getModules]
+    [form, onChange, onDeselect, selection, setModules]
   );
 
-  const ctx = { selection, controlsMap, onValidateModule };
-
   return (
-    <EditorContext.Provider value={ctx}>{children}</EditorContext.Provider>
+    <TreeEditor modules={modules} selection={selection} onChange={change}>
+      {treeOps => (
+        <EditorContext.Provider
+          value={{
+            ...treeOps,
+            selection,
+            selectedModule,
+            onEditSelected,
+            onSelect,
+            onDeselect,
+            controlsMap,
+            modules,
+          }}
+        >
+          <ValueContextProvider selection={selection}>
+            {children}
+          </ValueContextProvider>
+        </EditorContext.Provider>
+      )}
+    </TreeEditor>
   );
 }
 
 EditorContextProvider.propTypes = {
-  selection: PropTypes.shape({}),
+  form: formProps,
   controls: PropTypes.arrayOf(PropTypes.func).isRequired,
-  getModules: PropTypes.func.isRequired,
+  onChange: PropTypes.func.isRequired,
 };
 
 EditorContextProvider.defaultProps = {
-  selection: null,
+  form: null,
 };

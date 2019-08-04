@@ -1,14 +1,13 @@
-import React, { useRef, useCallback, useState, useMemo } from 'react';
+import React, { useCallback, useState, useMemo, useContext } from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
 
-import { useDrop } from 'react-dnd';
-
 import Search from './Search';
 import Category from './Category';
+import DropArea from './DropArea';
 
+import { EditorContext } from '../EditorContext';
 import { getCategories, searchModules } from './categories';
-import { availableTarget } from '../dnd';
 
 import styles from './ModulePicker.module.styl';
 
@@ -17,13 +16,9 @@ const exclude = ['progress', 'upload'];
 
 const isEmpty = categores => categores.every(c => !c.modules.length);
 
-export default function ModulePicker({
-  className,
-  onRemoveModule,
-  moduleControls,
-  onEndDrag,
-  onAdd,
-}) {
+export default function ModulePicker({ className, moduleControls }) {
+  const { onAdd, onEndDrag } = useContext(EditorContext);
+
   const all = useMemo(() => getCategories(moduleControls, exclude), [
     moduleControls,
   ]);
@@ -31,15 +26,7 @@ export default function ModulePicker({
   const [search, setSearch] = useState('');
   const [categories, setCategories] = useState(all);
 
-  const ref = useRef(null);
-  const [, drop] = useDrop(availableTarget(onRemoveModule));
-
-  const add = useCallback(
-    meta => {
-      onAdd(meta, true);
-    },
-    [onAdd]
-  );
+  const add = useCallback(meta => onAdd(meta, true), [onAdd]);
 
   const searchCb = useCallback(
     q => {
@@ -52,7 +39,7 @@ export default function ModulePicker({
   return (
     <div className={cn(styles.container, className)}>
       <Search onSearch={searchCb} />
-      <div className={styles.list} id="gems-components" ref={drop(ref)}>
+      <DropArea className={styles.list}>
         {categories.map(({ category, modules }) => (
           <Category
             key={category}
@@ -70,17 +57,14 @@ export default function ModulePicker({
             Try again maybe?
           </div>
         )}
-      </div>
+      </DropArea>
     </div>
   );
 }
 
 ModulePicker.propTypes = {
   className: PropTypes.string,
-  onEndDrag: PropTypes.func.isRequired,
   moduleControls: PropTypes.arrayOf(PropTypes.func).isRequired,
-  onAdd: PropTypes.func.isRequired,
-  onRemoveModule: PropTypes.func.isRequired, // eslint-disable-line
 };
 
 ModulePicker.defaultProps = {

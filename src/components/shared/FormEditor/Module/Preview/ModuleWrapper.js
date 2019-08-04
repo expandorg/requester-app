@@ -7,6 +7,7 @@ import { moduleProps } from '@expandorg/modules';
 import { ValueContext } from '../../ValueContext';
 
 import styles from './ModuleWrapper.module.styl';
+import { EditorContext } from '../../EditorContext';
 
 const overrideReadonly = module => {
   if (module.readOnly) {
@@ -21,10 +22,12 @@ export default function ModuleWrapper({
   selection,
   isSelected,
   onSelect,
-  module,
+  module: originalModule,
 }) {
   /* eslint-disable jsx-a11y/no-static-element-interactions */
   /* eslint-disable jsx-a11y/click-events-have-key-events */
+
+  const { selectedModule } = useContext(EditorContext);
 
   const { isValueEditable, moduleValues, onChangeValue } = useContext(
     ValueContext
@@ -33,6 +36,8 @@ export default function ModuleWrapper({
   const classes = cn(styles.inner, {
     [styles.dimmed]: selection !== null && !isSelected,
   });
+
+  const module = isSelected ? selectedModule : originalModule;
   const editable = isSelected && isValueEditable;
   return (
     <div className={classes}>
