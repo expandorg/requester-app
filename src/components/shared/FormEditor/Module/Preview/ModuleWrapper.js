@@ -33,14 +33,14 @@ export default function ModuleWrapper({
     ValueContext
   );
 
-  const classes = cn(styles.inner, {
-    [styles.dimmed]: selection !== null && !isSelected,
-  });
-
   const module = isSelected ? selectedModule : originalModule;
   const editable = isSelected && isValueEditable;
   return (
-    <div className={classes}>
+    <div
+      className={cn(styles.inner, {
+        [styles.dimmed]: selection !== null && !isSelected,
+      })}
+    >
       {children({
         module: editable ? overrideReadonly(module) : module,
         values: editable ? moduleValues : undefined,

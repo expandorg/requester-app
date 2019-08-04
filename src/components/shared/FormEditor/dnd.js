@@ -85,7 +85,7 @@ export const moduleTarget = {
     }
     const item = monitor.getItem();
 
-    if (treeEditor.getIdByPath(path) === treeEditor.getIdByPath(item.path)) {
+    if (treeEditor.eq(path, item.path)) {
       return;
     }
 

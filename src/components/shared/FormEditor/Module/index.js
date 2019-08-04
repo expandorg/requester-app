@@ -1,5 +1,5 @@
 // @flow
-import DnDContainer from './DnDContainer';
-import Preview from './Preview';
+import FormModule from './FormModule';
 
-export { DnDContainer, Preview };
+// eslint-disable-next-line import/prefer-default-export
+export { FormModule };

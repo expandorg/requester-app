@@ -8,7 +8,7 @@ import {
 
 import Empty from './Empty';
 import DropArea from './DropArea';
-import { DnDContainer, Preview } from '../Module';
+import { FormModule } from '../Module';
 import { EditorContext } from '../EditorContext';
 
 import styles from './Form.module.styl';
@@ -21,17 +21,7 @@ const formData = {
 const services = new Map([['fileUpload', new FileUploadServiceMock()]]);
 
 export default function Form() {
-  const {
-    modules,
-    controlsMap,
-    selection,
-    onAdd,
-    onSelect,
-    onRemove,
-    onMove,
-    onCopy,
-    onEndDrag,
-  } = useContext(EditorContext);
+  const { modules, controlsMap, selection, onAdd } = useContext(EditorContext);
 
   // scrollBottom = () => {
   //   setTimeout(() => {
@@ -49,34 +39,14 @@ export default function Form() {
             controls={controlsMap}
             services={services}
           >
-            {modules.map((module, order) => {
-              const p = [order];
-              return (
-                <DnDContainer
-                  key={module.name}
-                  module={module}
-                  path={p}
-                  controls={controlsMap}
-                  onMove={onMove}
-                  onEndDrag={onEndDrag}
-                >
-                  {({ connectDragPreview }) => (
-                    <Preview
-                      path={p}
-                      controls={controlsMap}
-                      selection={selection.getId('edit')}
-                      module={module}
-                      onMove={onMove}
-                      onRemove={onRemove}
-                      onSelect={onSelect}
-                      onCopy={onCopy}
-                      onEndDrag={onEndDrag}
-                      connectDragPreview={connectDragPreview}
-                    />
-                  )}
-                </DnDContainer>
-              );
-            })}
+            {modules.map((module, order) => (
+              <FormModule
+                key={module.name}
+                module={module}
+                path={[order]}
+                selection={selection.getId('edit')}
+              />
+            ))}
           </ExecutionContextProvider>
         </FormDataProvider>
       </DropArea>

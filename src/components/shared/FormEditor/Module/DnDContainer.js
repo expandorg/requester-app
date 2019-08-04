@@ -11,7 +11,7 @@ import { moduleSource, moduleTarget, FORM_DND_ID } from '../dnd';
 
 import styles from './DnDContainer.module.styl';
 
-class DnDModule extends Component {
+class DnDShell extends Component {
   static propTypes = {
     module: moduleProps.isRequired,
     path: PropTypes.arrayOf(PropTypes.number).isRequired, // eslint-disable-line
@@ -61,7 +61,7 @@ const DndContainer = DropTarget(FORM_DND_ID, moduleTarget, connect => ({
     connectDragSource: connect.dragSource(),
     connectDragPreview: connect.dragPreview(),
     isDragging: monitor.isDragging(),
-  }))(DnDModule)
+  }))(DnDShell)
 );
 
 export default DndContainer;
