@@ -60,17 +60,19 @@ export const metaSource = (meta, onEndDrag) => ({
   },
 });
 
-export const moduleSource = {
-  beginDrag: props => ({
-    id: props.module.name,
-    path: props.path,
+export const moduleSource = (id, path, onEndDrag) => ({
+  item: {
+    type: FORM_DND_ID,
+    id,
+    path,
+  },
+  collect: monitor => ({
+    isDragging: monitor.isDragging(),
   }),
-  endDrag: ({ onEndDrag }, monitor) => {
+  end: (_, monitor) => {
     onEndDrag(monitor.getItem().path);
   },
-};
-
-const getContainerRect = c => c.containerRef.getBoundingClientRect();
+});
 
 const getParentId = path =>
   treeEditor.getIdByPath(treeEditor.getParentPath(path));
@@ -81,9 +83,10 @@ const getControlEdges = (top, bottom, nesting, padding = 25) => {
   return [topEdge, bottomEdge];
 };
 
-export const moduleTarget = {
-  hover: ({ path, onMove, module, controls }, monitor, component) => {
-    if (!monitor.isOver({ shallow: true })) {
+export const moduleTarget = (ref, path, meta, onMove) => ({
+  accept: FORM_DND_ID,
+  hover: (_, monitor) => {
+    if (!ref.current || !monitor.isOver({ shallow: true })) {
       return;
     }
     const item = monitor.getItem();
@@ -92,16 +95,14 @@ export const moduleTarget = {
       return;
     }
 
-    const { top, bottom } = getContainerRect(component);
+    const { top, bottom } = ref.current.getBoundingClientRect();
 
     const { y } = monitor.getClientOffset();
     const dragY = y - top;
 
-    const [topEdge, bottomEdge] = getControlEdges(
-      top,
-      bottom,
-      supportNesting(controls[module.type].module)
-    );
+    const nesting = supportNesting(meta);
+    const [topEdge, bottomEdge] = getControlEdges(top, bottom, nesting);
+
     const compare = treeEditor.comparePaths(item.path, path);
 
     if (dragY < topEdge && compare > 0) {
@@ -119,4 +120,4 @@ export const moduleTarget = {
       item.path = treeEditor.pathOnRemoved(item.path, movePath);
     }
   },
-};
+});

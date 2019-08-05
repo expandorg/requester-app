@@ -22,12 +22,7 @@ import { EditorContext } from '../EditorContext';
 const isCopyAllowed = module => module.type !== 'submit';
 const getModulesHeader = meta => meta.editor.properties.modules.caption;
 
-export default function Preview({
-  connectDragPreview,
-  module,
-  selection,
-  path,
-}) {
+export default function Preview({ preview, module, selection, path }) {
   const { onCopy, onRemove, onSelect, controlsMap } = useContext(EditorContext);
 
   const copy = useCallback(() => {
@@ -50,7 +45,7 @@ export default function Preview({
   const isSelected = treeEditor.getIdByPath(path) === selection;
   return (
     <Outer>
-      {connectDragPreview(
+      {preview(
         <div
           className={cn(styles.container, { [styles.selected]: isSelected })}
         >
@@ -61,11 +56,11 @@ export default function Preview({
             module={module}
             onSelect={select}
           >
-            {({ values, onChange, module: preview }) => (
+            {({ values, onChange, module: m }) => (
               <Module
                 isModulePreview
                 isSubmitting={false}
-                module={preview}
+                module={m}
                 controls={controlsMap}
                 values={values}
                 onChange={onChange}
@@ -97,7 +92,7 @@ Preview.propTypes = {
   path: PropTypes.arrayOf(PropTypes.number).isRequired,
   selection: PropTypes.string,
 
-  connectDragPreview: PropTypes.func.isRequired,
+  preview: PropTypes.func.isRequired,
 };
 
 Preview.defaultProps = {
