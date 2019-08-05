@@ -4,8 +4,9 @@ import { treeEditor } from './Tree';
 
 export const FORM_DND_ID = 'FORM_DND_ID';
 
-export const nestedTarget = {
-  hover: ({ path, onMove }, monitor) => {
+export const nestedTarget = (onMove, path) => ({
+  accept: FORM_DND_ID,
+  hover: (_, monitor) => {
     if (!monitor.isOver({ shallow: true })) {
       return;
     }
@@ -14,7 +15,7 @@ export const nestedTarget = {
     onMove(item.path, newPath, item.meta);
     item.path = treeEditor.pathOnRemoved(item.path, newPath);
   },
-};
+});
 
 export const nestedModuleTarget = {
   accept: FORM_DND_ID,

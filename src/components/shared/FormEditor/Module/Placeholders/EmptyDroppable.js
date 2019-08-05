@@ -1,14 +1,26 @@
-import { DropTarget } from 'react-dnd';
+import React, { useContext } from 'react';
+import PropTypes from 'prop-types';
+
+import { useDrop } from 'react-dnd';
 
 import Placeholder from './Placeholder';
-
-import { nestedTarget, FORM_DND_ID } from '../../dnd';
+import { EditorContext } from '../../EditorContext';
+import { nestedTarget } from '../../dnd';
 
 import styles from './EmptyDroppable.module.styl';
 
-const EmptyDroppable = DropTarget(FORM_DND_ID, nestedTarget, connect => ({
-  connectDropTarget: connect.dropTarget(),
-  className: styles.container,
-}))(Placeholder);
+export default function EmptyDroppable({ title, path }) {
+  const { onMove } = useContext(EditorContext);
+  const [, drop] = useDrop(nestedTarget(onMove, path));
 
-export default EmptyDroppable;
+  return <Placeholder title={title} ref={drop} className={styles.container} />;
+}
+
+EmptyDroppable.propTypes = {
+  title: PropTypes.string,
+  path: PropTypes.arrayOf(PropTypes.number).isRequired,
+};
+
+EmptyDroppable.defaultProps = {
+  title: 'Drop here',
+};

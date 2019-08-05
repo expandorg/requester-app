@@ -28,9 +28,7 @@ export default function Preview({
   selection,
   path,
 }) {
-  const { onCopy, onRemove, onSelect, controlsMap, onMove } = useContext(
-    EditorContext
-  );
+  const { onCopy, onRemove, onSelect, controlsMap } = useContext(EditorContext);
 
   const copy = useCallback(() => {
     onCopy(path, module);
@@ -77,10 +75,9 @@ export default function Preview({
           {supportNesting(ControlType.module) && (
             <Nested
               title={getModulesHeader(ControlType.module)}
+              selection={selection}
               modules={module.modules}
               path={path}
-              selection={selection}
-              onMove={onMove}
             />
           )}
         </div>

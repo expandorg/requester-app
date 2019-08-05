@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
 import { useDrop } from 'react-dnd';
@@ -14,14 +14,12 @@ import { nestedModuleTarget } from '../dnd';
 
 import styles from './Nested.module.styl';
 
-export default function Nested({ title, modules, selection, path, onMove }) {
-  const ref = useRef(null);
+export default function Nested({ title, modules, selection, path }) {
   const [, drop] = useDrop(nestedModuleTarget);
-
   const hasNested = modules && modules.length > 0;
 
   return (
-    <div className={styles.nested} ref={drop(ref)}>
+    <div className={styles.nested} ref={drop}>
       {hasNested ? (
         modules.map((nestedModule, nestedOrder) => (
           <FormModule
@@ -32,11 +30,7 @@ export default function Nested({ title, modules, selection, path, onMove }) {
           />
         ))
       ) : (
-        <EmptyDroppable
-          title={title || 'Drop here'}
-          path={path}
-          onMove={onMove}
-        />
+        <EmptyDroppable title={title || 'Drop here'} path={path} />
       )}
     </div>
   );
@@ -47,7 +41,6 @@ Nested.propTypes = {
   modules: PropTypes.arrayOf(moduleProps),
   path: PropTypes.arrayOf(PropTypes.number).isRequired,
   selection: PropTypes.string,
-  onMove: PropTypes.func.isRequired,
 };
 
 Nested.defaultProps = {
