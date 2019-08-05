@@ -46,17 +46,19 @@ export const availableTarget = onRemoveModule => ({
   },
 });
 
-export const metaSource = {
-  beginDrag: ({ meta }) => {
-    return {
-      meta,
-      path: [],
-    };
+export const metaSource = (meta, onEndDrag) => ({
+  item: {
+    type: FORM_DND_ID,
+    meta,
+    path: [],
   },
-  endDrag: ({ onEndDrag }, monitor) => {
+  collect: monitor => ({
+    isDragging: monitor.isDragging(),
+  }),
+  end: (_, monitor) => {
     onEndDrag(monitor.getItem().path);
   },
-};
+});
 
 export const moduleSource = {
   beginDrag: props => ({
