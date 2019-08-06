@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import { WalkthroughPin } from '@expandorg/components/app';
 import { formProps } from '@expandorg/modules';
-import { moduleControls } from '@expandorg/modules/app';
+import { moduleControls as all } from '@expandorg/modules/app';
 
 import {
   EditorContextProvider,
@@ -29,14 +29,10 @@ export default function Editor({
   onToggleVarsDialog,
 }) {
   return (
-    <EditorContextProvider
-      form={form}
-      onChange={onSave}
-      controls={moduleControls}
-    >
+    <EditorContextProvider form={form} onChange={onSave} controls={all}>
       <FormLayout className={styles.container} walkthrough={walkthrough}>
         <Sidebar>
-          <ModulePicker moduleControls={pickerModules} />
+          <ModulePicker controls={pickerModules} />
         </Sidebar>
         <Content>
           {children}

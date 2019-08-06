@@ -6,7 +6,6 @@ import { deepCopyModule } from '@expandorg/modules/model';
 
 import Selection from './Selection';
 import { treeEditor, Ops } from './editor';
-
 import { createModule, newModuleId } from '../modules';
 
 export default class TreeEditor extends Component {

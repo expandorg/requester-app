@@ -16,12 +16,10 @@ const exclude = ['progress', 'upload'];
 
 const isEmpty = categores => categores.every(c => !c.modules.length);
 
-export default function ModulePicker({ className, moduleControls }) {
+export default function ModulePicker({ className, controls }) {
   const { onAdd, onEndDrag } = useContext(EditorContext);
 
-  const all = useMemo(() => getCategories(moduleControls, exclude), [
-    moduleControls,
-  ]);
+  const all = useMemo(() => getCategories(controls, exclude), [controls]);
 
   const [search, setSearch] = useState('');
   const [categories, setCategories] = useState(all);
@@ -64,7 +62,7 @@ export default function ModulePicker({ className, moduleControls }) {
 
 ModulePicker.propTypes = {
   className: PropTypes.string,
-  moduleControls: PropTypes.arrayOf(PropTypes.func).isRequired,
+  controls: PropTypes.arrayOf(PropTypes.func).isRequired,
 };
 
 ModulePicker.defaultProps = {

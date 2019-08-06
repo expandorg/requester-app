@@ -5,9 +5,8 @@ import { useSyncedState } from '@expandorg/components';
 import { formProps } from '@expandorg/modules';
 import { getModuleControlsMap } from '@expandorg/modules/model';
 
-import { TreeEditor, Ops } from './Tree';
+import { TreeEditor, Ops, useSelection, useTreeOpsPubSub } from './Tree';
 import { ValueContextProvider } from './ValueContext';
-import useSelection from './useSelection';
 
 export const EditorContext = createContext();
 
@@ -18,6 +17,8 @@ const deselectActions = new Set([Ops.Remove, Ops.Copy, Ops.Edit, Ops.Move]);
 export function EditorContextProvider({ children, controls, form, onChange }) {
   const controlsMap = useMemo(() => getModuleControlsMap(controls), [controls]);
   const [modules, setModules] = useSyncedState(form, transform);
+
+  const notifyTreeOp = useTreeOpsPubSub();
 
   const [
     selection,
@@ -30,6 +31,7 @@ export function EditorContextProvider({ children, controls, form, onChange }) {
   const change = useCallback(
     (changedModules, op) => {
       setModules(changedModules);
+      notifyTreeOp(op);
       if (!selection.isEmpty() && deselectActions.has(op)) {
         onDeselect();
       }
@@ -37,7 +39,7 @@ export function EditorContextProvider({ children, controls, form, onChange }) {
         onChange({ ...form, modules: changedModules });
       }
     },
-    [form, onChange, onDeselect, selection, setModules]
+    [form, notifyTreeOp, onChange, onDeselect, selection, setModules]
   );
 
   return (

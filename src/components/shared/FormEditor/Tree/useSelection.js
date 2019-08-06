@@ -1,6 +1,6 @@
 import { useCallback, useState } from 'react';
-import { Selection } from './Tree';
-import { fastCopy } from '../../../common/utils';
+import Selection from './Selection';
+import { fastCopy } from '../../../../common/utils';
 
 export default function useSelection() {
   const [selection, setSelection] = useState(Selection.empty);
