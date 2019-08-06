@@ -5,14 +5,15 @@ import { WalkthroughPin } from '@expandorg/components/app';
 import { formProps } from '@expandorg/modules';
 import { moduleControls } from '@expandorg/modules/app';
 
-import { EditorContextProvider } from '../../shared/FormEditor/EditorContext';
+import {
+  EditorContextProvider,
+  PropertiesPanel,
+  ModulePicker,
+  Form,
+} from '../../shared/FormEditor';
+
 import { FormLayout, Content, Canvas } from '../../shared/FormEditor/Layout';
 import Sidebar from './Sidebar';
-
-// import { LogicPanel } from '../../shared/FormEditor/Logic';
-import ModulePicker from '../../shared/FormEditor/ModulePicker';
-import Form from '../../shared/FormEditor/Form';
-import { PropertiesPanel } from '../../shared/FormEditor/Properties';
 
 import walkthrough from './walkthrough';
 

@@ -6,7 +6,7 @@ import { Button } from '@expandorg/components';
 import { WalkthroughPin, ToggleWalkthrough } from '@expandorg/components/app';
 import { ReactComponent as Bulb } from '../../../../assets/bulb.svg';
 
-import PreviewCtx from './PreviewCtx';
+import usePreview from './usePreview';
 
 import { Bottombar } from '../../../shared/FormEditor/Layout';
 import { draftProps } from '../../../shared/propTypes';
@@ -14,21 +14,18 @@ import { draftProps } from '../../../shared/propTypes';
 import styles from './Toolbar.module.styl';
 
 export default function Toolbar({ draft, onNext }) {
+  const onPreview = usePreview(draft);
   return (
     <Bottombar>
       <div className={styles.previewContainer}>
-        <PreviewCtx draft={draft}>
-          {({ onPreview }) => (
-            <Button
-              theme="aqua"
-              className={styles.btn}
-              onClick={onPreview}
-              id="gems-preview"
-            >
-              Preview
-            </Button>
-          )}
-        </PreviewCtx>
+        <Button
+          theme="aqua"
+          className={styles.btn}
+          onClick={onPreview}
+          id="gems-preview"
+        >
+          Preview
+        </Button>
         <WalkthroughPin id="preview" className={styles.previewPin} />
         <ToggleWalkthrough>
           {({ onToggle, enabled }) => (
