@@ -10,12 +10,14 @@ const getValue = (type, value) => {
   return value;
 };
 
-const SummaryField = ({ title, value, type }) => (
-  <div className={styles.item}>
-    <div className={styles.title}>{title}</div>
-    <div>{getValue(type, value)}</div>
-  </div>
-);
+export default function SummaryField({ title, value, type }) {
+  return (
+    <div className={styles.item}>
+      <div className={styles.title}>{title}</div>
+      <div>{getValue(type, value)}</div>
+    </div>
+  );
+}
 
 SummaryField.propTypes = {
   title: PropTypes.string.isRequired,
@@ -27,5 +29,3 @@ SummaryField.defaultProps = {
   value: null,
   type: 'string',
 };
-
-export default SummaryField;

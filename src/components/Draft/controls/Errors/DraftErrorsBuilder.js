@@ -1,8 +1,8 @@
 // @flow
-import { type DraftValidateionResult } from '../../../model/DraftValidator';
-import { FormSelection } from '../Forms/forms';
+import { type DraftValidateionResult } from '../../../../model/DraftValidator';
+import { FormSelection } from '../../Forms/forms';
 
-import WizardSteps from '../WizardSteps';
+import WizardSteps from '../../WizardSteps';
 
 type ErrorMessage = {
   path?: string,

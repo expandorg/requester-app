@@ -26,15 +26,15 @@ export default function Summary({ draft, onStep, onBack, validation }) {
   const complete = useCallback(() => setPublished(true), []);
   const failed = useCallback(({ error }) => setErrors(error), []);
 
-  const fetching = submitState.state === RequestStates.Fetching;
+  const publishing = submitState.state === RequestStates.Fetching;
 
   const submit = useCallback(
     schedule => {
-      if (!fetching) {
+      if (!publishing) {
         dispatch(publish(draft.id, schedule));
       }
     },
-    [dispatch, draft.id, fetching]
+    [dispatch, draft.id, publishing]
   );
 
   return (
@@ -45,7 +45,7 @@ export default function Summary({ draft, onStep, onBack, validation }) {
     >
       {!published && (
         <LoadIndicator
-          isLoading={fetching}
+          isLoading={publishing}
           message="Submitting your task, please wait..."
         >
           <SummaryForm

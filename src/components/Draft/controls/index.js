@@ -7,9 +7,9 @@ import Fieldset from './Fieldset';
 import Description from './Description';
 import Toggle from './Toggle';
 import SummaryField from './SummaryField';
-import NavItem from './NavItem';
-import Navigation from './Navigation';
-import DraftErrors from './DraftErrors';
+import NavItem from './Navigation/NavItem';
+import Navigation from './Navigation/Navigation';
+import DraftErrors from './Errors/DraftErrors';
 
 import Actions from './Actions';
 

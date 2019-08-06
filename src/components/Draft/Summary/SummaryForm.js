@@ -84,7 +84,7 @@ export default function SummaryForm({
           </HeroWarning>
         )}
       </Section>
-      <Actions className={styles.actions}>
+      <Actions>
         <Button theme="secondary" onClick={onBack}>
           Back
         </Button>

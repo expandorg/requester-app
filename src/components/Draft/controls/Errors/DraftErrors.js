@@ -1,15 +1,15 @@
 import React, { useRef, useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
 
-import { ReactComponent as Down } from '../../../assets/arrow_drop_down.svg';
-import { ReactComponent as Up } from '../../../assets/arrow_drop_up.svg';
-import { ReactComponent as Warning } from '../../../assets/warning.svg';
+import { ReactComponent as Down } from '../../../../assets/arrow_drop_down.svg';
+import { ReactComponent as Up } from '../../../../assets/arrow_drop_up.svg';
+import { ReactComponent as Warning } from '../../../../assets/warning.svg';
 
+import DraftValidator from '../../../../model/DraftValidator';
 import DraftErrorsBuilder from './DraftErrorsBuilder';
 import { ErrorsContextMenu, ErrorsMenuItem } from './ErrorsMenu';
 
 import styles from './DraftErrors.module.styl';
-import DraftValidator from '../../../model/DraftValidator';
 
 export default function DraftErrors({ validation, onNavigate }) {
   const ref = useRef(null);

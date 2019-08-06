@@ -16,8 +16,6 @@ import {
   Actions,
 } from '../controls';
 
-import { validate, getInitialState, getSettings } from './form';
-
 import {
   NameTooltip,
   StakingTooltip,
@@ -25,6 +23,7 @@ import {
   CallbackTooltip,
 } from './tooltips';
 
+import { validate, getInitialState, getSettings } from './form';
 import { updateSettings } from '../../../sagas/draftsSagas';
 import { updateDraftSettingsStateSelector } from '../../../selectors/uiStateSelectors';
 
