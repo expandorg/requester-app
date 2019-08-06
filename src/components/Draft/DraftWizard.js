@@ -25,15 +25,10 @@ export default function DraftWizard({ draft, tab, isSaving, validation }) {
   const next = useCallback(() => setActive({ tab: active.tab + 1 }), [active]);
   const back = useCallback(() => setActive({ tab: active.tab - 1 }), [active]);
 
+  const t = !isSaving ? draft.name : 'Saving...';
   return (
     <>
-      <Navbar
-        className={styles.navbar}
-        title={!isSaving ? draft.name : 'Saving...'}
-        theme="dark"
-        top={false}
-        logout={false}
-      >
+      <Navbar className={styles.navbar} title={t} theme="dark" logout={false}>
         <DraftErrors validation={validation} onNavigate={navigate} />
         <Navigation onChange={setTab} active={active.tab}>
           <NavItem>Create Job</NavItem>
