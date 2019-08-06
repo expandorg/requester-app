@@ -7,7 +7,7 @@ import { draftProps } from '../shared/propTypes';
 
 import { Navigation, NavItem, DraftErrors } from './controls';
 
-import Settings from './Settings/SettingsContainer';
+import Settings from './Settings/Settings';
 import Data from './Data/Data';
 import JobForms from './Forms/JobForms';
 import Payments from './Payments/Payments';
