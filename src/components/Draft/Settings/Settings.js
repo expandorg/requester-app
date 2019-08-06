@@ -108,9 +108,10 @@ export default function Settings({ onBack, onNext, draft }) {
           </Field>
           {settings.staking && (
             <>
-              <Field tooltip="How much to stake?">
+              <Field tooltip="How much to stake?" name="stake" errors={errors}>
                 <Input
                   placeholder="How much to stake?"
+                  error={!!(errors && errors.stake)}
                   name="stake"
                   value={settings.stake}
                   onChange={change}

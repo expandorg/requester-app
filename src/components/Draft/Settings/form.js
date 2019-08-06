@@ -1,6 +1,7 @@
 import { validateForm, rules } from '@expandorg/validation';
+import { gt } from '../../../model/validation';
 
-const validation = {
+const baseRules = {
   name: [
     [rules.isRequired, 'Title is required'],
     [x => x && x.length <= 40, 'Title can be a maximum of 40 characters'],
@@ -8,7 +9,16 @@ const validation = {
   description: [[rules.isRequired, 'Description is required']],
 };
 
-export const validate = s => validateForm(s, validation);
+export const validate = form => {
+  let formRules = baseRules;
+  if (form.staking) {
+    formRules = {
+      ...baseRules,
+      stake: [[rules.isNumber, 'Staking should be a number'], gt(0)],
+    };
+  }
+  return validateForm(form, formRules);
+};
 
 export const getInitialState = draft => {
   const { funding } = draft;
