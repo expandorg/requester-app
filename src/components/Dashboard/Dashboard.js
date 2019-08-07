@@ -58,9 +58,12 @@ function Dashboard({ match }) {
     [dispatch]
   );
 
-  const notify = useCallback(() => {
-    dispatch(addNotification('error', 'Open on desktop'));
-  }, [dispatch]);
+  const notify = useCallback(
+    (type, msg) => {
+      dispatch(addNotification(type, msg));
+    },
+    [dispatch]
+  );
 
   const isEmpty = items.length === 0;
   return (

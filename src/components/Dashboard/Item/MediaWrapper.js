@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
-import React from 'react';
+import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
 import { Link } from 'react-router-dom';
@@ -14,9 +14,13 @@ export default function MediaWrapper({ draft, children, onNotify, isMobile }) {
   const notPublished =
     draft.status === DraftStatus.draft || draft.status === DraftStatus.pending;
 
+  const notify = useCallback(() => {
+    onNotify('error', 'Hey, we don’t currently support mobile devices.');
+  }, [onNotify]);
+
   if (isMobile && notPublished) {
     return (
-      <div className={cn(styles.container, styles.task)} onClick={onNotify}>
+      <div className={cn(styles.container, styles.task)} onClick={notify}>
         {children}
       </div>
     );
