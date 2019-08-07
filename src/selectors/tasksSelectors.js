@@ -6,11 +6,7 @@ export const dashboardTasksListSelector = (state: Object) =>
 
 export const dashboardTasksSelector: any = createSelector(
   dashboardTasksListSelector,
-  list =>
-    list.map(item => ({
-      key: `${item.id}-${item.taskId}-${item.status}`,
-      ...item,
-    }))
+  list => list
 );
 
 export const jobStatsEntitiesSelector = (state: Object): any =>

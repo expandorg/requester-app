@@ -1,14 +1,14 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React, { useEffect, useCallback } from 'react';
 
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 import { withRouter } from 'react-router-dom';
 
 import { matchProps } from '@expandorg/app-utils';
+import { addNotification } from '@expandorg/app-utils/app';
 import { ListNav } from '@expandorg/components/app';
 
+import Media from 'react-media';
 import Navbar from '../shared/Navbar';
 import Sidebar from '../shared/Sidebar';
 
@@ -16,23 +16,18 @@ import { authenticated } from '../shared/auth';
 
 import Page from '../shared/Page';
 
-import List from './list/List';
-import NewJob from './list/NewJob';
-import JobItem from './list/JobItem';
-import Empty from './list/Empty';
+import Item from './Item/Item';
+import New from './Item/New';
+import Empty from './Empty';
 
 import { fetchTasks } from '../../sagas/tasksSagas';
 import { removeDraft, copyDraft } from '../../sagas/draftsSagas';
+
 import { dashboardTasksSelector } from '../../selectors/tasksSelectors';
 
 import styles from './Dashboard.module.styl';
 
-const mapStateToProps = state => ({
-  items: dashboardTasksSelector(state),
-});
-
-const mapDispatchToProps = dispatch =>
-  bindActionCreators({ fetchTasks, removeDraft, copyDraft }, dispatch);
+const q = { hover: 'none' };
 
 const links = [
   { href: '/', text: 'All' },
@@ -41,63 +36,64 @@ const links = [
   { href: '/tasks/in-progress', text: 'In Progress' },
 ];
 
-class Dashboard extends Component {
-  static propTypes = {
-    match: matchProps.isRequired,
-    items: PropTypes.arrayOf(PropTypes.object),
-    fetchTasks: PropTypes.func.isRequired,
-    removeDraft: PropTypes.func.isRequired,
-    copyDraft: PropTypes.func.isRequired,
-  };
+function Dashboard({ match }) {
+  const dispatch = useDispatch();
+  const items = useSelector(dashboardTasksSelector);
 
-  static defaultProps = {
-    items: [],
-  };
+  useEffect(() => {
+    dispatch(fetchTasks(match.params.category));
+  }, [dispatch, match.params.category]);
 
-  componentDidMount() {
-    const { match } = this.props;
-    this.props.fetchTasks(match.params.category);
-  }
+  const copy = useCallback(
+    draft => {
+      dispatch(copyDraft(draft));
+    },
+    [dispatch]
+  );
 
-  componentDidUpdate({ match: prevMatch }) {
-    const { match } = this.props;
-    if (match.params.category !== prevMatch.params.category) {
-      this.props.fetchTasks(match.params.category);
-    }
-  }
+  const del = useCallback(
+    draft => {
+      dispatch(removeDraft(draft));
+    },
+    [dispatch]
+  );
 
-  render() {
-    const { items } = this.props;
-    const isEmpty = items.length === 0;
-    return (
-      <Page title="Jobs">
-        <Navbar title="Jobs" />
-        <Sidebar />
-        <ListNav navs={links} theme="raised" className={styles.navs} />
-        {isEmpty && <Empty />}
-        {!isEmpty && (
-          <List className={styles.list}>
-            <NewJob />
-            {items.map(draft => (
-              <JobItem
-                key={draft.key}
-                draft={draft}
-                onCopy={this.props.copyDraft}
-                onDelete={this.props.removeDraft}
-              />
-            ))}
-          </List>
-        )}
-      </Page>
-    );
-  }
+  const notify = useCallback(() => {
+    dispatch(addNotification('error', 'Open on desktop'));
+  }, [dispatch]);
+
+  const isEmpty = items.length === 0;
+  return (
+    <Page title="Jobs">
+      <Navbar title="Jobs" />
+      <Sidebar />
+      <ListNav navs={links} theme="raised" className={styles.navs} />
+      {isEmpty && <Empty />}
+      {!isEmpty && (
+        <Media query={q}>
+          {isMobile => (
+            <div className={styles.list}>
+              <New />
+              {items.map(draft => (
+                <Item
+                  isMobile={isMobile}
+                  key={draft.id}
+                  draft={draft}
+                  onNotify={notify}
+                  onCopy={copy}
+                  onDelete={del}
+                />
+              ))}
+            </div>
+          )}
+        </Media>
+      )}
+    </Page>
+  );
 }
 
-export default withRouter(
-  authenticated(
-    connect(
-      mapStateToProps,
-      mapDispatchToProps
-    )(Dashboard)
-  )
-);
+Dashboard.propTypes = {
+  match: matchProps.isRequired,
+};
+
+export default withRouter(authenticated(Dashboard));

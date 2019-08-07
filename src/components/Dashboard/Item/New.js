@@ -9,7 +9,7 @@ import CreateDialog from '../../Create/CreateDialog';
 
 import styles from './styles.module.styl';
 
-export default function NewJob({ small }) {
+export default function New({ small }) {
   const [dialog, setDialog] = useState(false);
   const [ttprops, visible, ttcn] = useTooltip();
 
@@ -36,10 +36,10 @@ export default function NewJob({ small }) {
   );
 }
 
-NewJob.propTypes = {
+New.propTypes = {
   small: PropTypes.bool,
 };
 
-NewJob.defaultProps = {
+New.defaultProps = {
   small: false,
 };

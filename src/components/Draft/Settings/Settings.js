@@ -133,7 +133,7 @@ export default function Settings({ onBack, onNext, draft }) {
         <Button theme="secondary" onClick={onBack}>
           Back
         </Button>
-        <Button disable={isSubmitting} onClick={submit}>
+        <Button disabled={isSubmitting} onClick={submit}>
           Next
         </Button>
       </Actions>
