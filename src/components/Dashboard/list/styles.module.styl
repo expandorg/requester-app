@@ -1,5 +1,6 @@
 @import '~@expandorg/uikit/colors'
 @import '~@expandorg/uikit/font'
+@import '~@expandorg/uikit/size'
 
 .container
   box-sizing: border-box;
@@ -27,6 +28,9 @@
 
   outline: none
   cursor pointer
+
+  @media(hover:none)
+    display: none
 
   &:hover
     box-shadow: heavy-shadow
