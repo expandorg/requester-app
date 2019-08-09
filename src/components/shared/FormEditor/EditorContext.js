@@ -1,7 +1,12 @@
-import React, { createContext, useMemo, useCallback } from 'react';
+import React, {
+  createContext,
+  useMemo,
+  useCallback,
+  useState,
+  useEffect,
+} from 'react';
 import PropTypes from 'prop-types';
 
-import { useSyncedState } from '@expandorg/components';
 import { formProps } from '@expandorg/modules';
 import { getModuleControlsMap } from '@expandorg/modules/model';
 
@@ -16,7 +21,6 @@ const deselectActions = new Set([Ops.Remove, Ops.Copy, Ops.Edit, Ops.Move]);
 
 export function EditorContextProvider({ children, controls, form, onChange }) {
   const controlsMap = useMemo(() => getModuleControlsMap(controls), [controls]);
-  const [modules, setModules] = useSyncedState(form, transform);
 
   const notifyTreeOp = useTreeOpsPubSub();
 
@@ -27,6 +31,12 @@ export function EditorContextProvider({ children, controls, form, onChange }) {
     selectedModule,
     onEditSelected,
   ] = useSelection();
+
+  const [modules, setModules] = useState(transform(form));
+  useEffect(() => {
+    setModules(transform(form));
+    onDeselect();
+  }, [form, onDeselect]);
 
   const change = useCallback(
     (changedModules, op) => {
