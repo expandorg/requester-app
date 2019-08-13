@@ -2,10 +2,10 @@ import React, { useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
 
 import { useDispatch } from 'react-redux';
+import { KeyCodes } from '@expandorg/components/src/common/dom';
 
 import { Dialog, Button, DialogForm as DF, Input } from '@expandorg/components';
 
-import { keyCodes } from '../../../../common/consts';
 import { updateVariables } from '../../../../sagas/draftsSagas';
 
 import styles from './VariablesDialog.module.styl';
@@ -30,7 +30,7 @@ export default function VariablesDialog({ onHide, draftId, variables }) {
 
   const keyDown = useCallback(
     evt => {
-      if (evt.keyCode === keyCodes.ENTER) {
+      if (evt.keyCode === KeyCodes.ENTER) {
         evt.stopPropagation();
         if (value) {
           setVars([...new Set([value, ...vars])]);
