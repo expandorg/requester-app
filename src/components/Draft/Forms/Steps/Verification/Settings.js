@@ -31,17 +31,18 @@ const options = [
   // { value: VerificationType.AuditWhitelist, label: 'Whitelist' },
 ];
 
-const getInitialState = draft => {
-  const { verification } = draft;
+const getInitialState = ({ verification: v }) => {
   return {
-    verificationModule: verification.module || null,
-    agreementCount: `${verification.agreementCount || ''}`,
+    verificationModule: v.module || null,
+    agreementCount: `${v.agreementCount || ''}`,
+    minimumExecutionTime: `${v.minimumExecutionTime || ''}`,
   };
 };
 
 const getSettings = settings => ({
   ...settings,
   agreementCount: +settings.agreementCount,
+  minimumExecutionTime: +settings.minimumExecutionTime,
 });
 
 const validate = form => {
@@ -56,6 +57,9 @@ const validate = form => {
     } else if (count < 2) {
       errors.agreementCount = 'Minimal number of answers is 2';
     }
+  }
+  if (Number.isNaN(+form.minimumExecutionTime)) {
+    errors.minimumExecutionTime = 'Should be a positive number';
   }
   return Reflect.ownKeys(errors).length ? errors : null;
 };
@@ -129,6 +133,24 @@ export default function VerificationSettings({ onHide, onSaved, draft }) {
               />
             </Field>
           )}
+          <Field
+            className={styles.field}
+            tooltip={
+              <span>Enter how much time worker should spent on each task.</span>
+            }
+            tooltipOrientation="top"
+            tooltipPosition="right"
+            name="minimumExecutionTime"
+            errors={errors}
+          >
+            <Input
+              placeholder="Minimum time spent on task (seconds)"
+              value={form.minimumExecutionTime}
+              onChange={({ target }) =>
+                setForm({ ...form, minimumExecutionTime: target.value })
+              }
+            />
+          </Field>
         </Fieldset>
         <DF.Actions>
           <Button className={styles.btn} theme="secondary" onClick={onHide}>
