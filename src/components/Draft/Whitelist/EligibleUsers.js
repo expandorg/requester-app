@@ -8,10 +8,10 @@ import { bindActionCreators } from 'redux';
 
 import { requestStateProps, RequestStates } from '@expandorg/app-utils';
 
-import { getEligibleUsers } from '../../../../sagas/whitelistSagas';
+import { getEligibleUsers } from '../../../sagas/whitelistSagas';
 
-import { eligibleUsersSelector } from '../../../../selectors/whitelistSelectors';
-import { eligibleUsersStateSelector } from '../../../../selectors/uiStateSelectors';
+import { eligibleUsersSelector } from '../../../selectors/whitelistSelectors';
+import { eligibleUsersStateSelector } from '../../../selectors/uiStateSelectors';
 
 const mapsStateToProps = state => ({
   eligibleUsers: eligibleUsersSelector(state),

@@ -20,7 +20,7 @@ export default function ModuleItem({ meta, onAdd, onEndDrag }) {
   });
   return (
     <div className={classes} onClick={add} ref={drag}>
-      <div className={cn(styles.miniIcon, miniIcon(meta.type))}></div>
+      <div className={cn(styles.miniIcon, miniIcon(meta.type))} />
       <div className={styles.name}>{meta.name}</div>
     </div>
   );
@@ -29,6 +29,7 @@ export default function ModuleItem({ meta, onAdd, onEndDrag }) {
 ModuleItem.propTypes = {
   meta: PropTypes.shape({
     type: PropTypes.string,
+    name: PropTypes.string,
   }).isRequired,
   onEndDrag: PropTypes.func.isRequired,
   onAdd: PropTypes.func.isRequired,

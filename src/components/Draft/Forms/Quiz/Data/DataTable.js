@@ -26,6 +26,7 @@ export default class DataTable extends Component {
     data: PropTypes.shape({
       columns: PropTypes.arrayOf(PropTypes.object),
       steps: PropTypes.arrayOf(PropTypes.object),
+      answer: PropTypes.string,
     }).isRequired,
     fields: PropTypes.arrayOf(PropTypes.string),
     onUpdate: PropTypes.func,

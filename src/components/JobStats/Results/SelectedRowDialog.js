@@ -11,7 +11,9 @@ import styles from './SelectedRowDialog.module.styl';
 
 export default class SelectedRowDialog extends Component {
   static propTypes = {
-    response: PropTypes.shape({}).isRequired,
+    response: PropTypes.shape({
+      value: PropTypes.array,
+    }).isRequired,
     mode: PropTypes.oneOf(['json', 'table']).isRequired,
     index: PropTypes.number.isRequired,
     count: PropTypes.number.isRequired,

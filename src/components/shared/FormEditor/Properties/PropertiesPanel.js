@@ -12,7 +12,6 @@ export default function PropertiesPanel({ width, ...rest }) {
   const { onEdit, onDeselect, selectedModule, onEditSelected } = useContext(
     EditorContext
   );
-
   const visible = !!selectedModule;
   return (
     <Drawer className={styles.container} width={width} visible={visible}>

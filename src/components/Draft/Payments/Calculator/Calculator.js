@@ -30,7 +30,7 @@ export default function Calculator({ draft }) {
     <div className={styles.container}>
       <div className={styles.header} onClick={toggle}>
         <div className={styles.title}>Estimated Pay Calculator</div>
-        <div className={cn(styles.toggle, { [styles.visible]: visible })}></div>
+        <div className={cn(styles.toggle, { [styles.visible]: visible })} />
       </div>
       {visible && (
         <>

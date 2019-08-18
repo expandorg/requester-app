@@ -34,7 +34,10 @@ export default function Properties({
   );
 
   const changeValidation = useCallback(
-    validation => onChange({ ...module, validation }),
+    validation => {
+      const { validation: prev, ...rest } = module;
+      onChange(validation ? { ...rest, validation } : rest);
+    },
     [module, onChange]
   );
 

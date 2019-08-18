@@ -10,7 +10,12 @@ import styles from './Row.module.styl';
 
 export default class Row extends Component {
   static propTypes = {
-    report: PropTypes.shape({}).isRequired,
+    report: PropTypes.shape({
+      userId: PropTypes.string,
+      message: PropTypes.string,
+      reason: PropTypes.string,
+      createdAt: PropTypes.string,
+    }).isRequired,
   };
 
   render() {

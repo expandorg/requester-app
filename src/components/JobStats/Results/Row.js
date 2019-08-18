@@ -18,7 +18,12 @@ export default class Row extends Component {
     index: PropTypes.number.isRequired,
     preview: PropTypes.bool,
     mode: PropTypes.oneOf(['table', 'json']).isRequired,
-    response: PropTypes.shape({}).isRequired,
+    response: PropTypes.shape({
+      id: PropTypes.number,
+      value: PropTypes.array,
+      worker_id: PropTypes.number,
+      created_at: PropTypes.string,
+    }).isRequired,
     onSelectValue: PropTypes.func,
   };
 

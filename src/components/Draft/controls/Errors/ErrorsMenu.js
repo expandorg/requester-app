@@ -22,7 +22,10 @@ export function ErrorsContextMenu({ pos, children, onHide }) {
 }
 
 ErrorsContextMenu.propTypes = {
-  pos: PropTypes.shape({}),
+  pos: PropTypes.shape({
+    left: PropTypes.number,
+    top: PropTypes.number,
+  }),
   onHide: PropTypes.func.isRequired,
 };
 

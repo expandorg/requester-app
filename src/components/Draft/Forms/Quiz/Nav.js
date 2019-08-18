@@ -24,7 +24,7 @@ export default function Nav({ active, onChangeStep }) {
 
   return (
     <div className={styles.container}>
-      <div className={styles.title}></div>
+      <div className={styles.title} />
       {active && (
         <div className={styles.nav}>
           <button onClick={onData} className={dataClasses}>

@@ -101,9 +101,13 @@ export default function SummaryForm({
 
 SummaryForm.propTypes = {
   user: userProps.isRequired,
-  errors: PropTypes.shape({}),
+  errors: PropTypes.shape({
+    commonMessage: PropTypes.string,
+  }),
   draft: draftProps.isRequired,
-  validation: PropTypes.shape({}).isRequired,
+  validation: PropTypes.shape({
+    commonMessage: PropTypes.string,
+  }).isRequired,
   onBack: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired,
   onStep: PropTypes.func.isRequired,

@@ -1,3 +1,4 @@
+/* eslint-disable max-classes-per-file */
 // @flow
 
 import { getFormModulesNames } from '@expandorg/modules/model';
