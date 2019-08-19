@@ -84,9 +84,11 @@ class ApiKeyForm extends Component {
             </EmailConfirmed>
           )}
         </div>
-        <div className={styles.alert}>
-          Save your key or it will be lost if you leave this page.
-        </div>
+        {submitted && (
+          <div className={styles.alert}>
+            Save your key or it will be lost if you leave this page.
+          </div>
+        )}
       </Panel>
     );
   }
