@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 import Navbar from '../shared/Navbar';
 import Sidebar from '../shared/Sidebar';
@@ -10,18 +10,16 @@ import ApiKeyForm from './ApiKeyForm';
 
 import styles from './Api.module.styl';
 
-class Api extends Component {
-  render() {
-    return (
-      <Page title="API">
-        <Navbar title="API" />
-        <Sidebar />
-        <div className={styles.container}>
-          <ApiKeyForm />
-        </div>
-      </Page>
-    );
-  }
+function Api() {
+  return (
+    <Page title="API">
+      <Navbar title="API" />
+      <Sidebar />
+      <div className={styles.container}>
+        <ApiKeyForm />
+      </div>
+    </Page>
+  );
 }
 
 export default authenticated(Api);

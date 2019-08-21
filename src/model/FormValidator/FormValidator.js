@@ -23,7 +23,7 @@ export default class FormValidator {
     modules: Array<Module>,
     conditional: Function
   ) => {
-    // eslint-disable-next-line no-restricted-syntax
+    // eslint-disable-next-line
     for (const mod of modules) {
       const notMeet = conditional(mod);
       if (notMeet) {
@@ -34,6 +34,7 @@ export default class FormValidator {
           mod.modules,
           conditional
         );
+
         if (nestedError) {
           return nestedError;
         }
