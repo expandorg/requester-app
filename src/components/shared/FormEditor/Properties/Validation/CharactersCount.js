@@ -18,7 +18,7 @@ const getDefaultRuleMessage = (name, val) => {
   return fn ? fn(val) : 'Invalid';
 };
 
-export default function Rule({ onChange, name, value }) {
+export default function CharactersCount({ onChange, name, value }) {
   const [val, setVal] = useSyncedState(value, v => (v ? `${v[1]}` : '0'));
   const toggle = useCallback(
     v => {
@@ -61,12 +61,17 @@ export default function Rule({ onChange, name, value }) {
   );
 }
 
-Rule.propTypes = {
+CharactersCount.propTypes = {
   name: PropTypes.string.isRequired,
-  value: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
+  value: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.bool,
+    PropTypes.number,
+    PropTypes.array,
+  ]),
   onChange: PropTypes.func.isRequired,
 };
 
-Rule.defaultProps = {
+CharactersCount.defaultProps = {
   value: null,
 };
