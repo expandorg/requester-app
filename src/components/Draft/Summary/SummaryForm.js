@@ -41,6 +41,26 @@ export default function SummaryForm({
       <Description className={styles.description}>
         Review your task to confirm everything looks as intended.
       </Description>
+      <div>
+        {!isReady && (
+          <HeroWarning
+            className={styles.hero}
+            icon={<Warning width="64px" height="64px" viewBox="0 0 42 42" />}
+          >
+            There are still some sections that need completing.
+            <br />
+            The task can not be published until all sections are complete.
+          </HeroWarning>
+        )}
+        {errors && (
+          <HeroWarning
+            className={styles.hero}
+            icon={<Warning width="64px" height="64px" viewBox="0 0 42 42" />}
+          >
+            {errors.commonMessage}
+          </HeroWarning>
+        )}
+      </div>
       <Section
         title="Task Settings"
         onStep={() => onStep(WizardSteps.Settings)}
@@ -65,24 +85,6 @@ export default function SummaryForm({
         </Section> */}
       <Section title="Payout" onStep={() => onStep(WizardSteps.Pay)}>
         <Payout draft={draft} />
-      </Section>
-      <Section>
-        {!isReady && (
-          <HeroWarning
-            icon={<Warning width="64px" height="64px" viewBox="0 0 42 42" />}
-          >
-            There are still some sections that need completing.
-            <br />
-            The task can not be published until all sections are complete.
-          </HeroWarning>
-        )}
-        {errors && (
-          <HeroWarning
-            icon={<Warning width="64px" height="64px" viewBox="0 0 42 42" />}
-          >
-            {errors.commonMessage}
-          </HeroWarning>
-        )}
       </Section>
       <Actions>
         <Button theme="secondary" onClick={onBack}>

@@ -32,8 +32,6 @@ export default class PublishButton extends Component {
   handlePublishClick = evt => {
     const { onPublish } = this.props;
     onPublish();
-    // this.handleToggleSchedule();
-
     evt.preventDefault();
   };
 
@@ -71,6 +69,7 @@ export default class PublishButton extends Component {
               <Button
                 className={styles.toggle}
                 disabled={readOnly}
+                theme={readOnly ? 'grey' : 'primary'}
                 onClick={onToggle}
               >
                 Send for review
