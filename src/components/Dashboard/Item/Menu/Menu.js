@@ -53,7 +53,7 @@ export default function Menu({ draft, onHide, onCopy, onDelete }) {
   return (
     <ContextMenu onHide={onHide}>
       <ContextMenuItem onClick={copy} className={dupcs} disabled={!canCopy}>
-        Duplicate Job
+        Copy
       </ContextMenuItem>
       <ContextMenuItem onClick={del} className={delcs} disabled={!canDelete}>
         Delete
