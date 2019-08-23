@@ -13,8 +13,11 @@ import {
   AlignmentTool,
   FontPresetTool,
   VariablesButton,
+  LinkTool,
   ListTool,
 } from './toolbar';
+
+import { linkPlugin } from './toolbar/Link/Link';
 
 import {
   suggestionsOptions,
@@ -124,6 +127,7 @@ export default class DraftTextEditor extends Component {
             editorState={editorState}
             onChange={this.handleChange}
           />
+          <LinkTool editorState={editorState} onChange={this.handleChange} />
           <AlignmentTool
             editorState={editorState}
             onChange={this.handleChange}
@@ -140,7 +144,7 @@ export default class DraftTextEditor extends Component {
             placeholder={placeholder}
             className={styles.editor}
             editorState={editorState}
-            plugins={[this.mentionPlugin]}
+            plugins={[this.mentionPlugin, linkPlugin]}
             onChange={this.handleChange}
             handleKeyCommand={this.handleKeyCommand}
             blockStyleFn={blockStyleFn}

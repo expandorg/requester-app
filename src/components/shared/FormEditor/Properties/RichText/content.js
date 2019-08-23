@@ -195,3 +195,53 @@ export const insertVariable = (editorState: EditorState, value: string) => {
 
   return EditorState.push(editorState, contentState, 'apply-entity');
 };
+
+const getSelectedLinkEntity = (editorState: EditorState) => {
+  const contentState = editorState.getCurrentContent();
+  const startKey = editorState.getSelection().getStartKey();
+  const startOffset = editorState.getSelection().getStartOffset();
+  const blockWithLinkAtBeginning = contentState.getBlockForKey(startKey);
+  const key = blockWithLinkAtBeginning.getEntityAt(startOffset);
+  if (!key) {
+    return null;
+  }
+  const instance = contentState.getEntity(key);
+  if (instance.getType() !== 'LINK') {
+    return null;
+  }
+  return instance;
+};
+
+export const getLinkValue = (editorState: EditorState): string => {
+  const selection = editorState.getSelection();
+  if (selection.isCollapsed()) {
+    return '';
+  }
+  const link = getSelectedLinkEntity(editorState);
+  if (!link) {
+    return '';
+  }
+  return link.getData().url;
+};
+
+export const toggleLink = (editorState: EditorState, url: string) => {
+  let contentState = editorState.getCurrentContent();
+  const selection = editorState.getSelection();
+
+  if (selection.isCollapsed()) {
+    return editorState;
+  }
+
+  if (!url) {
+    return RichUtils.toggleLink(editorState, selection, null);
+  }
+
+  contentState = contentState.createEntity('LINK', 'MUTABLE', {
+    url,
+    target: '_blank',
+  });
+  const entityKey = contentState.getLastCreatedEntityKey();
+  contentState = Modifier.applyEntity(contentState, selection, entityKey);
+  const edited = EditorState.set(editorState, { currentContent: contentState });
+  return RichUtils.toggleLink(edited, edited.getSelection(), entityKey);
+};
