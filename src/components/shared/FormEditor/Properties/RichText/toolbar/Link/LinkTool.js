@@ -11,6 +11,8 @@ import {
 
 import { toggleLink, getLinkValue } from '../../content';
 
+import { ReactComponent as IconLink } from '../../assets/link.svg';
+
 import styles from './LinkTool.module.styl';
 
 const Btn = Tooltip(({ className, children, ...rest }) => (
@@ -61,7 +63,7 @@ export default function LinkTool({ editorState, onChange }) {
   return (
     <div className={styles.container}>
       <Btn onClick={toggleDialog} tooltip="Link">
-        L
+        <IconLink />
       </Btn>
       {dialog && (
         <LinkDialog
