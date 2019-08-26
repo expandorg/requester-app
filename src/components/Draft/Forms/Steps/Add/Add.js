@@ -60,7 +60,7 @@ export default function Add({ draft }) {
       <WalkthroughPin id="screen" className={styles.pin} />
       {opened && (
         <ContextMenu className={styles.menu} onHide={() => setOpened(false)}>
-          <div className={styles.header}>Templates</div>
+          <div className={styles.header}>Onboarding</div>
           <div className={styles.list}>
             {templates.map(template => (
               <ContextMenuItem key={template.id} onClick={() => add(template)}>
