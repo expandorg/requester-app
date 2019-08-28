@@ -14,13 +14,19 @@
   height 40px
   width: 170px
 
-  background-color: transparent
+  background-color: color-light-blue
 
   font(h4)
+  color: color-black
   border: 1px solid  color-heavy-blue
 
   outline: 0
   cursor pointer
+
+  &:hover
+    color: lighten(color-black, 30%)
+    border-color: lighten(color-heavy-blue, 20%)
+    background-color: lighten(color-light-blue, 30%)
 
   &:first-child
     border-top-left-radius: 5px
@@ -34,6 +40,9 @@
 .tabActive
   font-weight: 800
   background-color: color-white
+
+  &:hover
+    background-color: color-white
 
 .link
   color: color-heavy-blue
