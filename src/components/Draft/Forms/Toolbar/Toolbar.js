@@ -20,7 +20,7 @@ export default function Toolbar({ draft, onNext }) {
       <div className={styles.previewContainer}>
         <Button
           theme="aqua"
-          className={styles.btn}
+          className={cn(styles.btn, styles.preview)}
           onClick={onPreview}
           id="gems-preview"
         >

@@ -17,12 +17,20 @@
   outline: 0
   cursor: pointer;
 
+  &:hover
+    color: darken(color-white, 10%)
+
 .disabled
   cursor: default;
   opacity: 0.25
 
 .active
   background-color: color-primary-blue
+
+  &:hover
+    color: color-white
+    background-color: lighten(color-primary-blue, 5%)
+
 
   .status
     path

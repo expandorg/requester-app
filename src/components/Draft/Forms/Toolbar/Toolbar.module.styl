@@ -15,6 +15,11 @@
   align-items: center
   position: relative
 
+.preview
+  &:hover
+    color: lighten(color-teel-strong, 10%)
+    background-color: lighten(color-teel-light, 20%)
+
 .toggle
   display: flex
   justify-content: center
@@ -24,7 +29,7 @@
   height: 50px
 
   box-sizing: border-box;
-
+  background-color: color-white
   border: 1px solid color-primary-blue
   border-radius: 2px
 
@@ -33,6 +38,12 @@
 
   path
     fill color-primary-blue
+
+  &:hover
+    border-color: lighten(color-primary-blue, 20%)
+
+    path
+      fill lighten(color-primary-blue, 20%)
 
 .enabled
   background-color: color-primary-blue

@@ -2,6 +2,10 @@
 @import '~@expandorg/uikit/font';
 
 
+hover()
+  .container:hover &
+    {block}
+
 .container
   box-sizing: border-box;
 
@@ -40,6 +44,10 @@
   border-top-left-radius: 5px
   border-bottom-left-radius: 5px
 
+  +hover()
+    background-color: lighten(color-medium-blue, 30%)
+    border-color: lighten(color-medium-blue, 30%)
+
 .name
   box-sizing: border-box;
   padding: 0 6px
@@ -52,6 +60,9 @@
   white-space: nowrap
   overflow: hidden
   text-overflow: ellipsis
+
+  +hover()
+    color: lighten(color-text-dark, 20%)
 
 .info
   box-sizing: border-box;

@@ -11,6 +11,10 @@
     border-bottom: none
     padding-bottom: 100px
 
+hover()
+  .inner:hover &
+    {block}
+
 .inner
   box-sizing: border-box
   display: flex;
@@ -28,6 +32,10 @@
 .arrowIcon
   path
     fill color-white
+
+    +hover()
+      fill darken(color-white, 20%);
+
 
 
 .name
@@ -47,6 +55,9 @@
   user-select: none;
 
   transition: background-color  100ms linear, color 100ms linear
+
+  +hover()
+    color: darken(color-white, 20%);
 
 .list
   box-sizing: border-box;
