@@ -116,7 +116,7 @@ class JobStats extends Component {
         footer={false}
         className={styles.page}
       >
-        <Navbar title="" top={false} logout={false} />
+        <Navbar title="" top={false} />
         <div className={styles.content}>
           <LoadIndicator isLoading={isLoading}>
             {stats && (

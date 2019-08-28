@@ -10,12 +10,7 @@ export default class Choice extends Component {
   render() {
     return (
       <div className={styles.container}>
-        <Navbar
-          title="Getting Started"
-          theme="dark"
-          logout={false}
-          top={false}
-        />
+        <Navbar title="Getting Started" theme="dark" top={false} />
         <div className={styles.content}>
           <div className={styles.panel}>
             <div className={styles.header}>Choose a role.</div>

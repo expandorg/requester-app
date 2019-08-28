@@ -28,7 +28,7 @@ export default function DraftWizard({ draft, tab, isSaving, validation }) {
   const t = !isSaving ? draft.name : 'Saving...';
   return (
     <>
-      <Navbar className={styles.navbar} title={t} theme="dark" logout={false}>
+      <Navbar className={styles.navbar} title={t} theme="dark">
         <DraftErrors validation={validation} onNavigate={navigate} />
         <Navigation onChange={setTab} active={active.tab}>
           <NavItem>Create Job</NavItem>
