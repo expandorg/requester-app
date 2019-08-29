@@ -28,16 +28,17 @@ export default function FormPreview({
   if (!form || !form.modules || !form.modules.length) {
     return <div className={styles.empty}>Form is empty</div>;
   }
+
+  const classes = cn(styles.form, className, { [styles.readOnly]: readOnly });
+
   return (
     <FormDataProvider formData={formData}>
       <Form
+        className={classes}
+        form={form}
         controls={moduleControls}
         services={services}
-        className={cn(styles.form, className, {
-          [styles.readOnly]: readOnly,
-        })}
         variables={variables}
-        form={form}
         onSubmit={onSubmit}
         onNotify={onNotify}
       >

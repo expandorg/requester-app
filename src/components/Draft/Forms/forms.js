@@ -74,6 +74,8 @@ export class FormSelection {
   }
 }
 
+const defaultVars = ['workerId'];
+
 export class FormProps {
   static getUpdateAction(
     selection: FormSelection,
@@ -99,7 +101,7 @@ export class FormProps {
   ) {
     if (selection.isTask()) {
       return {
-        variables: draft.variables,
+        variables: [...(draft.variables || []), ...defaultVars],
         onToggleVarsDialog,
       };
     }
@@ -108,6 +110,7 @@ export class FormProps {
         variables: [
           ...getFormModulesNames(draft.taskForm),
           ...(draft.variables || []),
+          ...defaultVars,
         ],
         onToggleVarsDialog,
       };

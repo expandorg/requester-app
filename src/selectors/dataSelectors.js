@@ -2,6 +2,7 @@
 import { createSelector } from 'reselect';
 
 import { makeDraftSelector } from './draftsSelectors';
+import { defaultVariablesSelector } from './variablesSelectors';
 
 export const dataStateSelector = (state: Object) => state.data;
 
@@ -45,20 +46,21 @@ export const makeDataVarsSampleSelector = (): any => {
     dataEntitiesSelector,
     dataValuesSelector,
     draftSelector,
+    defaultVariablesSelector,
     (state, draftId, dataId) => dataId,
-    (entities, valueEntites, draft, dataId) => {
+    (entities, valueEntites, draft, defaultVars, dataId) => {
       if (!draft || !draft.variables) {
-        return null;
+        return defaultVars;
       }
 
       const entity = entities[dataId];
       if (!entity) {
-        return null;
+        return defaultVars;
       }
 
       const samplePage = valueEntites[dataId].pages[0];
       if (!samplePage) {
-        return null;
+        return defaultVars;
       }
       const variables = draft.variables.reduce((all, v) => {
         const index = entity.columns.findIndex(col => col.variable === v);
@@ -66,7 +68,7 @@ export const makeDataVarsSampleSelector = (): any => {
           return all;
         }
         return { ...all, [v]: samplePage[0][index] };
-      }, {});
+      }, defaultVars);
       return variables;
     }
   );
