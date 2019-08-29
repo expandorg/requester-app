@@ -1,10 +1,17 @@
 // @flow
 import type { Module } from '@expandorg/modules/src/form/model/types.flow';
-import FormValidator, { type FormValidationResult } from './FormValidator';
+import FormValidator, {
+  findFirstVisitor,
+  type FormValidationResult,
+} from './FormValidator';
 
 export default class TaskFormValidator extends FormValidator {
   checkInputs(modules: Array<Module>): ?FormValidationResult {
-    if (!modules.some(m => !!FormValidator.controls[m.type].module.isInput)) {
+    const found = findFirstVisitor(
+      modules,
+      m => !!FormValidator.controls[m.type].module.isInput
+    );
+    if (!found) {
       return { commonMessage: 'Form should have at least one input module' };
     }
     return null;

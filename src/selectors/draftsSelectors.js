@@ -23,6 +23,8 @@ export const makeDraftValidationSelector = (): any => {
   const validator = new DraftValidator();
   return createSelector(
     draftSelector,
-    draft => validator.validate(draft)
+    draft => {
+      return validator.validate(draft);
+    }
   );
 };

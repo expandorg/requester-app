@@ -16,37 +16,34 @@ export type FormValidationResult = {
   [key: string]: any,
 };
 
-export const inputModules: Array<string> = ['submit', 'wizard'];
+export const submitModules: Array<string> = ['submit', 'wizard'];
+
+export const findFirstVisitor = (
+  modules: Array<Module>,
+  condition: Function
+) => {
+  // eslint-disable-next-line
+  for (const mod of modules) {
+    const meet = condition(mod);
+    if (meet) {
+      return meet;
+    }
+    if (mod.modules) {
+      const meetChildren = findFirstVisitor(mod.modules, condition);
+
+      if (meetChildren) {
+        return meetChildren;
+      }
+    }
+  }
+  return false;
+};
 
 export default class FormValidator {
   static controls: ModuleControlsMap = getModuleControlsMap(moduleControls);
 
-  static conditionalVisitor = (
-    modules: Array<Module>,
-    conditional: Function
-  ) => {
-    // eslint-disable-next-line
-    for (const mod of modules) {
-      const notMeet = conditional(mod);
-      if (notMeet) {
-        return notMeet;
-      }
-      if (mod.modules) {
-        const nestedError = FormValidator.conditionalVisitor(
-          mod.modules,
-          conditional
-        );
-
-        if (nestedError) {
-          return nestedError;
-        }
-      }
-    }
-    return false;
-  };
-
   checkDeprecatedModules(modules: Array<Module>): ?FormValidationResult {
-    const notSuportedType = FormValidator.conditionalVisitor(
+    const notSuportedType = findFirstVisitor(
       modules,
       m => !FormValidator.controls[m.type] && m.type
     );
@@ -60,7 +57,7 @@ export default class FormValidator {
   }
 
   checkSubmit(modules: Array<Module>): ?FormValidationResult {
-    if (!modules.some(module => inputModules.includes(module.type))) {
+    if (!modules.some(module => submitModules.includes(module.type))) {
       return { commonMessage: 'Form should have submit button' };
     }
     return null;
