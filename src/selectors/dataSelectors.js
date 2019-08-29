@@ -1,9 +1,6 @@
 // @flow
 import { createSelector } from 'reselect';
 
-import { makeDraftSelector } from './draftsSelectors';
-import { defaultVariablesSelector } from './variablesSelectors';
-
 export const dataStateSelector = (state: Object) => state.data;
 
 export const dataEntitiesSelector: any = createSelector(
@@ -39,37 +36,3 @@ export const makeDataSelector = (): any =>
       };
     }
   );
-
-export const makeDataVarsSampleSelector = (): any => {
-  const draftSelector = makeDraftSelector();
-  return createSelector(
-    dataEntitiesSelector,
-    dataValuesSelector,
-    draftSelector,
-    defaultVariablesSelector,
-    (state, draftId, dataId) => dataId,
-    (entities, valueEntites, draft, defaultVars, dataId) => {
-      if (!draft || !draft.variables) {
-        return defaultVars;
-      }
-
-      const entity = entities[dataId];
-      if (!entity) {
-        return defaultVars;
-      }
-
-      const samplePage = valueEntites[dataId].pages[0];
-      if (!samplePage) {
-        return defaultVars;
-      }
-      const variables = draft.variables.reduce((all, v) => {
-        const index = entity.columns.findIndex(col => col.variable === v);
-        if (index === -1) {
-          return all;
-        }
-        return { ...all, [v]: samplePage[0][index] };
-      }, defaultVars);
-      return variables;
-    }
-  );
-};

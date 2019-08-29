@@ -7,16 +7,12 @@ import { formProps } from '@expandorg/modules';
 
 import FormPreview from '../../shared/FormPreview';
 
-import { makeDataVarsSampleSelector } from '../../../selectors/dataSelectors';
+import { makeVariablesSampleSelector } from '../../../selectors/variablesSelectors';
 
 const makeMapStateToProps = () => {
-  const dataVarsSampleSelector = makeDataVarsSampleSelector();
+  const varsSampleSelector = makeVariablesSampleSelector();
   return (state, props) => ({
-    variables: dataVarsSampleSelector(
-      state,
-      props.draft.id,
-      props.draft.dataId
-    ),
+    variables: varsSampleSelector(state, props.draft.id, props.draft.dataId),
   });
 };
 

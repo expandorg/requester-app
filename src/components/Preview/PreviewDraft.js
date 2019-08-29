@@ -16,17 +16,17 @@ import { authenticated } from '../shared/auth';
 import { fetch } from '../../sagas/draftsSagas';
 import { fetch as fetchData } from '../../sagas/dataSagas';
 import { makeDraftSelector } from '../../selectors/draftsSelectors';
-import { makeDataVarsSampleSelector } from '../../selectors/dataSelectors';
+import { makeVariablesSampleSelector } from '../../selectors/variablesSelectors';
 
 import styles from './styles.module.styl';
 
 function PreviewDraft({ match }) {
   const dispatch = useDispatch();
-  const draftSelector = useMemo(makeDraftSelector, []);
-  const varsSampleSelector = useMemo(makeDataVarsSampleSelector, []);
 
+  const draftSelector = useMemo(makeDraftSelector, []);
   const draft = useSelector(state => draftSelector(state, match.params.id));
 
+  const varsSampleSelector = useMemo(makeVariablesSampleSelector, []);
   const variables = useSelector(state =>
     varsSampleSelector(state, match.params.id, draft ? draft.dataId : null)
   );
