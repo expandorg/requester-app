@@ -16,6 +16,8 @@ export type FormValidationResult = {
   [key: string]: any,
 };
 
+export const inputModules: Array<string> = ['submit', 'wizard'];
+
 export default class FormValidator {
   static controls: ModuleControlsMap = getModuleControlsMap(moduleControls);
 
@@ -58,7 +60,7 @@ export default class FormValidator {
   }
 
   checkSubmit(modules: Array<Module>): ?FormValidationResult {
-    if (!modules.some(module => module.type === 'submit')) {
+    if (!modules.some(module => inputModules.includes(module.type))) {
       return { commonMessage: 'Form should have submit button' };
     }
     return null;
