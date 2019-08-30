@@ -4,12 +4,13 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { requestStateProps, RequestStates } from '@expandorg/app-utils';
 import { Table as T } from '@expandorg/components';
+import { Pagination } from '@expandorg/components/app';
 
 import { makeJobResponsesDataSelector } from '../../../selectors/jobResponsesSelectors';
 import { fetchJobResponsesStateSelector } from '../../../selectors/uiStateSelectors';
 
 import LoadIndicator from '../../shared/LoadIndicator';
-import { Pagination } from '../../common/Pagination';
+
 import Header from './Header';
 import Row from './Row';
 import SelectedRowDialog from './SelectedRowDialog';

@@ -4,9 +4,9 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { requestStateProps, RequestStates } from '@expandorg/app-utils';
+import { Pagination } from '@expandorg/components/app';
 
 import { DataTable, TableContainer } from '../../Data/DataTable';
-import { Pagination } from '../../../common/Pagination';
 
 import { dataProps } from '../../../shared/propTypes';
 

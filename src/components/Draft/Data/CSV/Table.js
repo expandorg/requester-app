@@ -3,11 +3,11 @@ import React, { useState, useCallback, useMemo, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { deferComponentRender } from '@expandorg/components';
+import { Pagination } from '@expandorg/components/app';
 import { RequestStates } from '@expandorg/app-utils';
 import { addNotification } from '@expandorg/app-utils/app';
 
 import { DataTable, TableContainer } from '../DataTable';
-import { Pagination } from '../../../common/Pagination';
 import VariablesDialog from '../../Forms/Variables/VariablesDialog';
 
 import { draftProps } from '../../../shared/propTypes';
