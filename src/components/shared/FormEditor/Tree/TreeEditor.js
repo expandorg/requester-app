@@ -2,11 +2,11 @@ import { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import { moduleProps } from '@expandorg/modules';
-import { deepCopyModule } from '@expandorg/modules/model';
+import { getFormModulesNames } from '@expandorg/modules/model';
 
 import Selection from './Selection';
 import { treeEditor, Ops } from './editor';
-import { createModule, newModuleId } from '../modules';
+import { createModule, deepCopyModule } from '../modules';
 
 export default class TreeEditor extends Component {
   static propTypes = {
@@ -19,14 +19,9 @@ export default class TreeEditor extends Component {
     modules: [],
   };
 
-  handleAdd = (meta, scroll) => {
+  handleAdd = meta => {
     const { modules, onChange } = this.props;
     onChange(treeEditor.push(modules, createModule(meta, modules)), Ops.Add);
-
-    if (scroll) {
-      // FIXIME: reactive scroll
-      // this.formRef.current.scrollBottom();
-    }
   };
 
   handleEndDrag = path => {
@@ -46,11 +41,11 @@ export default class TreeEditor extends Component {
 
   handleCopy = (path, module) => {
     const { modules, onChange } = this.props;
-
+    const names = new Set(getFormModulesNames({ modules }));
     const editied = treeEditor.insertAt(
       modules,
       path,
-      deepCopyModule(module, newModuleId(modules))
+      deepCopyModule(module, names)
     );
     onChange(editied, Ops.Copy);
   };

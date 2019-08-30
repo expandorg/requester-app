@@ -1,7 +1,6 @@
 // @flow
 
 import { ModuleCategories } from '@expandorg/modules';
-import { groupModulesByCategory } from '@expandorg/modules/model';
 
 import type {
   ModuleControl,
@@ -21,6 +20,22 @@ export const displayCategories = [
   ModuleCategories.Media,
   ModuleCategories.Onboarding,
 ];
+
+const groupModulesByCategory = (controls: Array<ModuleControl>) => {
+  const grouped = controls.reduce((map, Control) => {
+    if (Control.module.editor && Control.module.editor.category) {
+      let category = map[Control.module.editor.category];
+      if (!category) {
+        map[Control.module.editor.category] = [];
+        // $FlowFixMe
+        category = map[Control.module.editor.category];
+      }
+      category.push(Control);
+    }
+    return map;
+  }, {});
+  return grouped;
+};
 
 export const getCategories = (
   controls: Array<ModuleControl>,
