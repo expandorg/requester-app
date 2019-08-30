@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 
 import { Panel } from '@expandorg/components';
+import { Navbar } from '@expandorg/components/app';
+
 import I from '../common/I';
 
 import Page from '../shared/Page';
-import Navbar from '../shared/Navbar';
 import Sidebar from '../shared/Sidebar';
 
 import Hero from '../shared/Hero';

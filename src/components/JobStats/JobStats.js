@@ -11,8 +11,9 @@ import {
   matchProps,
 } from '@expandorg/app-utils';
 
+import { Navbar } from '@expandorg/components/app';
+
 import Page from '../shared/Page';
-import Navbar from '../shared/Navbar';
 import LoadIndicator from '../shared/LoadIndicator';
 
 import Stats from './Stats';

@@ -6,10 +6,10 @@ import { withRouter } from 'react-router-dom';
 
 import { matchProps } from '@expandorg/app-utils';
 import { addNotification } from '@expandorg/app-utils/app';
-import { ListNav } from '@expandorg/components/app';
+import { ListNav, Navbar } from '@expandorg/components/app';
 
 import Media from 'react-media';
-import Navbar from '../shared/Navbar';
+
 import Sidebar from '../shared/Sidebar';
 
 import { authenticated } from '../shared/auth';

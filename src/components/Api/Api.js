@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Navbar from '../shared/Navbar';
+import { Navbar } from '@expandorg/components/app';
 import Sidebar from '../shared/Sidebar';
 
 import Page from '../shared/Page';

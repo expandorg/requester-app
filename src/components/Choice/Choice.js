@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import cn from 'classnames';
 
-import Navbar from '../shared/Navbar';
+import { Navbar } from '@expandorg/components/app';
 
 import styles from './Choice.module.styl';
 

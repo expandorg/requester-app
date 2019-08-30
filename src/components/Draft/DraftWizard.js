@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
 
-import Navbar from '../shared/Navbar';
+import { Navbar } from '@expandorg/components/app';
 
 import { draftProps } from '../shared/propTypes';
 
