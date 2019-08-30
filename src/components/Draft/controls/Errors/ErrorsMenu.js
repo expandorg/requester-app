@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { Portal } from '@expandorg/components';
+import { ContextMenu } from '@expandorg/components/app';
 
 import { ReactComponent as Warning } from '../../../../assets/warning.svg';
-import { ContextMenu } from '../../../common/ContextMenu';
 
 import styles from './ErrorsMenu.module.styl';
 

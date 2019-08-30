@@ -5,14 +5,13 @@ import PropTypes from 'prop-types';
 import cn from 'classnames';
 
 import { Portal } from '@expandorg/components';
+import { ContextMenu } from '@expandorg/components/app';
 import { ReactComponent as SettingsIcon } from './settings.svg';
 
 import { ReactComponent as Down } from '../../../../assets/arrow_drop_down.svg';
 import { ReactComponent as Up } from '../../../../assets/arrow_drop_up.svg';
 // import { ReactComponent as Warning } from '../../../../assets/warning.svg';
 // import { ErrorsContextMenu, ErrorsMenuItem } from '../../controls/ErrorsMenu';
-
-import { ContextMenu } from '../../../common/ContextMenu';
 
 import styles from './controls.module.styl';
 

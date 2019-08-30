@@ -2,7 +2,7 @@ import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
 
-import { ContextMenu, ContextMenuItem } from '../../../common/ContextMenu';
+import { ContextMenu, ContextMenuItem } from '@expandorg/components/app';
 
 import { DraftStatus } from '../../../../model/enums';
 import { draftProps } from '../../../shared/propTypes';

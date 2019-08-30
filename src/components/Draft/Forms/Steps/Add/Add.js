@@ -2,9 +2,11 @@ import React, { useState, useEffect, useCallback } from 'react';
 
 import { useSelector, useDispatch } from 'react-redux';
 
-import { WalkthroughPin } from '@expandorg/components/app';
-
-import { ContextMenu, ContextMenuItem } from '../../../../common/ContextMenu';
+import {
+  WalkthroughPin,
+  ContextMenu,
+  ContextMenuItem,
+} from '@expandorg/components/app';
 
 import { draftProps } from '../../../../shared/propTypes';
 import { formTemplatesSelector } from '../../../../../selectors/formTemplatesSelectors';
