@@ -58,11 +58,7 @@ function Table({ draft }) {
       className={styles.container}
       footer={
         data && (
-          <Pagination
-            current={page}
-            total={data.total - 1}
-            onChange={setPage}
-          />
+          <Pagination current={page} total={data.total} onChange={setPage} />
         )
       }
     >
