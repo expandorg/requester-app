@@ -43,7 +43,7 @@ export default class DraftTextEditor extends Component {
     value: PropTypes.string,
     placeholder: PropTypes.string,
     autocomplete: PropTypes.arrayOf(PropTypes.string),
-    resotreEntities: PropTypes.func,
+    restoreEntities: PropTypes.func,
     onChange: PropTypes.func.isRequired,
     onToggleVarsDialog: PropTypes.func,
   };
@@ -51,7 +51,7 @@ export default class DraftTextEditor extends Component {
   static defaultProps = {
     value: undefined,
     autocomplete: [],
-    resotreEntities: undefined,
+    restoreEntities: undefined,
     placeholder: undefined,
     onToggleVarsDialog: null,
   };
@@ -65,7 +65,7 @@ export default class DraftTextEditor extends Component {
 
     this.state = {
       autocomplete: formatSuggestions(props.autocomplete),
-      editorState: editorStateFromHtml(props.value, props.resotreEntities),
+      editorState: editorStateFromHtml(props.value, props.restoreEntities),
     };
   }
 

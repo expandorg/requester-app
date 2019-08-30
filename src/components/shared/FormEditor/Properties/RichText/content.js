@@ -70,14 +70,14 @@ export const hasFocus = (editorState: EditorState): boolean =>
 
 export const editorStateFromText = (
   value: string | number,
-  resotreEntities: (c: ContentState) => ContentState = c => c,
+  restore: (c: ContentState) => ContentState = c => c,
   decorator: any = null
 ) => {
   if (value == null || value === undefined) {
     return EditorState.createEmpty(decorator);
   }
   let content = ContentState.createFromText(`${value}`);
-  content = resotreEntities(content);
+  content = restore(content);
   return EditorState.createWithContent(content, decorator);
 };
 
@@ -88,7 +88,7 @@ const clearHtml = (text: string) =>
 
 export const editorStateFromHtml = (
   html: string,
-  resotreEntities: (c: ContentState) => ContentState = c => c,
+  restore: (c: ContentState) => ContentState = c => c,
   decorator: any = null
 ) => {
   if (!html) {
@@ -109,7 +109,7 @@ export const editorStateFromHtml = (
     },
   });
 
-  content = resotreEntities(content);
+  content = restore(content);
   return EditorState.createWithContent(content, decorator);
 };
 

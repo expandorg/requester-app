@@ -87,7 +87,7 @@ class LinkedValueEditor extends Component {
               autocomplete={variables}
               readOnly
               value={stringifyValue(isValueEditable ? moduleValue : value)}
-              resotreEntities={restoreVariables}
+              restoreEntities={restoreVariables}
               placeholder={title}
               onSelectVar={this.handleSelectVar}
               onToggleVarsDialog={onToggleVarsDialog}

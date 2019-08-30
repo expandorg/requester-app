@@ -22,7 +22,7 @@ export default function RichTextEditor({
     <DraftTextEditor
       value={value}
       autocomplete={variables}
-      resotreEntities={restoreVariables}
+      restoreEntities={restoreVariables}
       onChange={handleChange}
       placeholder={placeholder}
       onToggleVarsDialog={onToggleVarsDialog}

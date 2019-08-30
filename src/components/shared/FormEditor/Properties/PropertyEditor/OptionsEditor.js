@@ -77,7 +77,7 @@ export default class OptionsEditor extends Component {
           autocomplete={variables}
           placeholder="Default Option 1"
           onChange={v => this.handleChangeValue(v, 0)}
-          resotreEntities={restoreVariables}
+          restoreEntities={restoreVariables}
           className={styles.default}
           onToggleVarsDialog={onToggleVarsDialog}
         />
@@ -89,7 +89,7 @@ export default class OptionsEditor extends Component {
               placeholder={`Option ${idx + 2}`}
               className={styles.option}
               onChange={v => this.handleChangeValue(v, idx + 1)}
-              resotreEntities={restoreVariables}
+              restoreEntities={restoreVariables}
               onToggleVarsDialog={onToggleVarsDialog}
             />
             <button

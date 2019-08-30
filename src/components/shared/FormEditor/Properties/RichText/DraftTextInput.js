@@ -33,7 +33,7 @@ export default class DraftTextInput extends Component {
     readOnly: PropTypes.bool,
     className: PropTypes.string,
     autocomplete: PropTypes.arrayOf(PropTypes.string),
-    resotreEntities: PropTypes.func,
+    restoreEntities: PropTypes.func,
     onChange: PropTypes.func,
     onSelectVar: PropTypes.func,
     onToggleVarsDialog: PropTypes.func,
@@ -43,7 +43,7 @@ export default class DraftTextInput extends Component {
     value: undefined,
     readOnly: false,
     autocomplete: [],
-    resotreEntities: undefined,
+    restoreEntities: undefined,
     placeholder: undefined,
     className: undefined,
     onChange: Function.prototype,
@@ -59,16 +59,16 @@ export default class DraftTextInput extends Component {
     this.state = {
       autocomplete: formatSuggestions(props.autocomplete),
       value: props.value,
-      editorState: editorStateFromText(props.value, props.resotreEntities),
+      editorState: editorStateFromText(props.value, props.restoreEntities),
     };
   }
 
-  componentWillReceiveProps({ value, resotreEntities }) {
+  componentWillReceiveProps({ value, restoreEntities }) {
     const { value: current } = this.state;
     if (current !== value) {
       this.setState({
         value,
-        editorState: editorStateFromText(value, resotreEntities),
+        editorState: editorStateFromText(value, restoreEntities),
       });
     }
   }

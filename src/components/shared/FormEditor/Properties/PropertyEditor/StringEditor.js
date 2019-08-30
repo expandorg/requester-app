@@ -25,7 +25,7 @@ export default function StringEditor({
       className={styles.input}
       autocomplete={variables}
       value={value}
-      resotreEntities={restoreVariables}
+      restoreEntities={restoreVariables}
       placeholder={placeholder}
       onChange={handleChange}
       onToggleVarsDialog={onToggleVarsDialog}
