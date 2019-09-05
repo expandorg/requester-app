@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
-import React from 'react';
+import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
 
 import { useToggle } from '@expandorg/components';
@@ -23,6 +23,15 @@ const isCopyAllowed = module => module.type !== 'submit';
 
 export default function Header({ module, onSelect, onCopy, onRemove }) {
   const [menu, toggle] = useToggle();
+  const copy = useCallback(() => {
+    toggle();
+    onCopy();
+  }, [onCopy, toggle]);
+
+  const remove = useCallback(() => {
+    toggle();
+    onRemove();
+  }, [onRemove, toggle]);
 
   return (
     <div className={styles.container}>
@@ -37,10 +46,10 @@ export default function Header({ module, onSelect, onCopy, onRemove }) {
         {menu && (
           <ContextMenu onHide={toggle}>
             {isCopyAllowed(module) && (
-              <ContextMenuItem onClick={onCopy}>Duplicate</ContextMenuItem>
+              <ContextMenuItem onClick={copy}>Duplicate</ContextMenuItem>
             )}
             {/* <ContextMenuItem>Manage logic</ContextMenuItem> */}
-            <ContextMenuItem onClick={onRemove}>Delete</ContextMenuItem>
+            <ContextMenuItem onClick={remove}>Delete</ContextMenuItem>
           </ContextMenu>
         )}
       </div>
