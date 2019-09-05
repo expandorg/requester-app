@@ -34,7 +34,7 @@ export default function FormModule({ module, selection, path }) {
           preview={preview}
         />
       ) : (
-        <Placeholder className={styles.placeholder} />
+        <Placeholder />
       )}
     </div>
   );
