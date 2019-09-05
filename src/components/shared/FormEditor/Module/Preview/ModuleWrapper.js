@@ -19,6 +19,7 @@ const overrideReadonly = module => {
 
 export default function ModuleWrapper({
   children,
+  visible,
   selection,
   isSelected,
   onSelect,
@@ -32,6 +33,10 @@ export default function ModuleWrapper({
   const { isValueEditable, moduleValues, onChangeValue } = useContext(
     ValueContext
   );
+
+  if (!visible) {
+    return null;
+  }
 
   const module = isSelected ? selectedModule : originalModule;
   const editable = isSelected && isValueEditable;
@@ -52,6 +57,7 @@ export default function ModuleWrapper({
 }
 
 ModuleWrapper.propTypes = {
+  visible: PropTypes.bool.isRequired,
   module: moduleProps.isRequired,
   isSelected: PropTypes.bool.isRequired,
   selection: PropTypes.string,

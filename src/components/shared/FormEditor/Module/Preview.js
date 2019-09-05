@@ -18,6 +18,8 @@ import { EditorContext } from '../EditorContext';
 
 const getModulesHeader = meta => meta.editor.properties.modules.caption;
 
+const skipPreview = meta => !!meta.editor.skipPreview;
+
 export default function Preview({ preview, module, selection, path }) {
   const { onCopy, onRemove, onSelect, controlsMap } = useContext(EditorContext);
 
@@ -48,6 +50,7 @@ export default function Preview({ preview, module, selection, path }) {
         onCopy={copy}
       />
       <ModuleWrapper
+        visible={!skipPreview(ControlType.module)}
         isSelected={isSelected}
         selection={selection}
         module={module}
