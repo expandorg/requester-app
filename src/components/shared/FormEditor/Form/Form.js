@@ -45,7 +45,10 @@ export default function Form() {
             form={{ modules }}
             controls={controlsMap}
             services={services}
+            isSubmitting={false}
             onValidate={Function.prototype}
+            onSubmit={Function.prototype}
+            onNotify={Function.prototype}
           >
             {modules.map((module, order) => (
               <FormModule

@@ -1,11 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { ReactComponent as Icon } from '@expandorg/uikit/assets/warning.svg';
 import { Tooltip } from '@expandorg/components';
-
-import Outer from './Outer';
-import Sidepanel from './Sidepanel';
+import { ReactComponent as Icon } from '@expandorg/uikit/assets/warning.svg';
+import { ReactComponent as Del } from '../../../../../assets/delete.svg';
 
 import styles from './NotSupported.module.styl';
 
@@ -18,16 +16,16 @@ const Warning = Tooltip(({ children, ...rest }) => (
 
 export default function NotSupported({ type, onRemove }) {
   return (
-    <Outer>
-      <div className={styles.container}>
-        <Warning
-          tooltipOrientation="right"
-          tooltip="This component has been deprecated. Please update."
-        />
-        <span className={styles.name}>{type} module</span>
-      </div>
-      <Sidepanel onRemove={onRemove} />
-    </Outer>
+    <div className={styles.container}>
+      <Warning
+        tooltipOrientation="right"
+        tooltip="This component has been deprecated. Please update."
+      />
+      <span className={styles.name}>{type} module</span>
+      <button onClick={onRemove} className={styles.remove}>
+        <Del />
+      </button>
+    </div>
   );
 }
 

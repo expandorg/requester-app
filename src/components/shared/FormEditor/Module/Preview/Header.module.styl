@@ -10,14 +10,14 @@
   padding-top: 10px
   height 30px
 
-  cursor pointer
-
 .name
+  flex-grow: 1
   color: color-text-grey
   font(small-text, false, 14px, 20px)
-  box-sizing: border-box
+  cursor pointer
 
-.icons
+.actions
+  position relative
   > *
     margin-left: 15px
 
@@ -26,3 +26,18 @@
 
   path
     fill: color-text-grey
+
+.more
+  border:  0
+  width: 24px
+  height 24px
+  background-color: transparent
+  cursor pointer
+  outline 0
+
+  path
+    fill: color-heavy-blue
+
+  &:hover
+    path
+      fill: color-primary-blue

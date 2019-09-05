@@ -6,9 +6,7 @@ import { moduleProps, Module } from '@expandorg/modules';
 
 // eslint-disable-next-line import/no-cycle
 import Nested from './Nested';
-import Outer from './Preview/Outer';
 import Header from './Preview/Header';
-import Sidepanel from './Preview/Sidepanel';
 import NotSupported from './Preview/NotSupported';
 import ModuleWrapper from './Preview/ModuleWrapper';
 
@@ -18,8 +16,6 @@ import { treeEditor } from '../Tree';
 import styles from './Preview.module.styl';
 import { EditorContext } from '../EditorContext';
 
-// const isVisibilityAllowed = module => module.type !== 'submit';
-const isCopyAllowed = module => module.type !== 'submit';
 const getModulesHeader = meta => meta.editor.properties.modules.caption;
 
 export default function Preview({ preview, module, selection, path }) {
@@ -43,47 +39,40 @@ export default function Preview({ preview, module, selection, path }) {
   }
 
   const isSelected = treeEditor.getIdByPath(path) === selection;
-  return (
-    <Outer>
-      {preview(
-        <div
-          className={cn(styles.container, { [styles.selected]: isSelected })}
-        >
-          <Header module={module} onSelect={select} />
-          <ModuleWrapper
-            isSelected={isSelected}
-            selection={selection}
-            module={module}
-            onSelect={select}
-          >
-            {({ values, onChange, module: m }) => (
-              <Module
-                isModulePreview
-                isSubmitting={false}
-                module={m}
-                controls={controlsMap}
-                values={values}
-                onChange={onChange}
-              />
-            )}
-          </ModuleWrapper>
-          {supportNesting(ControlType.module) && (
-            <Nested
-              title={getModulesHeader(ControlType.module)}
-              selection={selection}
-              modules={module.modules}
-              path={path}
-            />
-          )}
-        </div>
-      )}
-      <Sidepanel
-        nested={path.length > 1}
-        canCopy={isCopyAllowed(module)}
+  return preview(
+    <div className={cn(styles.container, { [styles.selected]: isSelected })}>
+      <Header
+        module={module}
+        onSelect={select}
         onRemove={remove}
         onCopy={copy}
       />
-    </Outer>
+      <ModuleWrapper
+        isSelected={isSelected}
+        selection={selection}
+        module={module}
+        onSelect={select}
+      >
+        {({ values, onChange, module: m }) => (
+          <Module
+            isModulePreview
+            isSubmitting={false}
+            module={m}
+            controls={controlsMap}
+            values={values}
+            onChange={onChange}
+          />
+        )}
+      </ModuleWrapper>
+      {supportNesting(ControlType.module) && (
+        <Nested
+          title={getModulesHeader(ControlType.module)}
+          selection={selection}
+          modules={module.modules}
+          path={path}
+        />
+      )}
+    </div>
   );
 }
 
@@ -91,7 +80,6 @@ Preview.propTypes = {
   module: moduleProps.isRequired,
   path: PropTypes.arrayOf(PropTypes.number).isRequired,
   selection: PropTypes.string,
-
   preview: PropTypes.func.isRequired,
 };
 
