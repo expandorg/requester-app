@@ -130,7 +130,7 @@ export default function Settings({ onBack, onNext, draft }) {
         </Fieldset>
       </div>
       <Actions>
-        <Button theme="secondary" onClick={onBack}>
+        <Button theme="white-blue" onClick={onBack}>
           Back
         </Button>
         <Button disabled={isSubmitting} onClick={submit}>

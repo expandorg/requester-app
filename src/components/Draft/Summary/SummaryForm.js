@@ -87,7 +87,7 @@ export default function SummaryForm({
         <Payout draft={draft} />
       </Section>
       <Actions>
-        <Button theme="secondary" onClick={onBack}>
+        <Button theme="white-blue" onClick={onBack}>
           Back
         </Button>
         <PublishButton

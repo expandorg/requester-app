@@ -33,7 +33,7 @@ export default function Form({
             className={styles.form}
           />
         </div>
-        <div className={styles.panel}>
+        <div className={styles.actions}>
           <Button onClick={onPreview} theme="aqua">
             Full Preview
           </Button>

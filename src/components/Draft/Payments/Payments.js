@@ -86,13 +86,14 @@ export default function Payments({ draft, onNext, onBack }) {
           <Field>
             <Deposit user={user}>
               {({ onToggleDepsoit }) => (
-                <button
-                  type="button"
+                <Button
                   className={styles.deposit}
                   onClick={onToggleDepsoit}
+                  size="small"
+                  theme="white-blue"
                 >
                   deposit XPN tokens
-                </button>
+                </Button>
               )}
             </Deposit>
           </Field>
@@ -137,7 +138,7 @@ export default function Payments({ draft, onNext, onBack }) {
         </Fieldset>
       </div>
       <Actions>
-        <Button theme="secondary" onClick={onBack}>
+        <Button theme="white-blue" onClick={onBack}>
           Back
         </Button>
         <Button onClick={submit}>Next</Button>

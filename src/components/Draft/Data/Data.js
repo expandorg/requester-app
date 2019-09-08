@@ -94,7 +94,7 @@ export default function Data({ draft, onBack, onNext }) {
           )}
         </div>
         <div className={styles.btns}>
-          <Button theme="secondary" onClick={onBack}>
+          <Button theme="white-blue" onClick={onBack}>
             Back
           </Button>
           <Button onClick={onNext}>Next</Button>
