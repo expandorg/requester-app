@@ -74,11 +74,11 @@ class ApiKeyForm extends Component {
                 <Button
                   className={styles.generate}
                   size="small"
-                  theme="blue"
+                  theme="white-blue"
                   disabled={submitting}
                   onClick={onToggle}
                 >
-                  generate api key
+                  generate an api key
                 </Button>
               )}
             </EmailConfirmed>

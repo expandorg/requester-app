@@ -1,38 +1,41 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
-import { ReactComponent as EditIcon } from '@expandorg/uikit/assets/edit-2.svg';
+import { ReactComponent as EditIcon } from '../../assets/edit.svg';
 
 import styles from './Field.module.styl';
 
-export default class Field extends Component {
-  static propTypes = {
-    title: PropTypes.string.isRequired,
-    value: PropTypes.any, //  eslint-disable-line react/forbid-prop-types
-    placeholder: PropTypes.string,
-    onToggle: PropTypes.func.isRequired,
-  };
-
-  static defaultProps = {
-    value: null,
-    placeholder: null,
-  };
-
-  render() {
-    const { title, onToggle, value, placeholder, children } = this.props;
-    return (
-      <div className={styles.container}>
-        <div className={styles.field}>
-          <div className={styles.title}>{title}</div>
-          <div className={styles.value}>
-            <div className={styles.text}>{value || placeholder}</div>
-            {children}
-          </div>
+export default function Field({
+  title,
+  onToggle,
+  value,
+  placeholder,
+  children,
+}) {
+  return (
+    <div className={styles.container}>
+      <div className={styles.field}>
+        <div className={styles.title}>{title}</div>
+        <div className={styles.value}>
+          <div className={styles.text}>{value || placeholder}</div>
+          {children}
         </div>
-        <button className={styles.edit} onClick={onToggle}>
-          <EditIcon />
-        </button>
       </div>
-    );
-  }
+      <button className={styles.edit} onClick={onToggle}>
+        <EditIcon />
+      </button>
+    </div>
+  );
 }
+
+Field.propTypes = {
+  title: PropTypes.string.isRequired,
+  value: PropTypes.any, //  eslint-disable-line react/forbid-prop-types
+  placeholder: PropTypes.string,
+  onToggle: PropTypes.func.isRequired,
+};
+
+Field.defaultProps = {
+  value: null,
+  placeholder: null,
+};

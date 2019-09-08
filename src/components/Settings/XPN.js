@@ -38,7 +38,7 @@ export default class XPN extends Component {
           <Withdraw user={user}>
             {({ onToggleWithdraw }) => (
               <Button
-                theme="secondary"
+                theme="white-blue"
                 className={styles.withdraw}
                 onClick={onToggleWithdraw}
               >
