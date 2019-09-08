@@ -42,7 +42,7 @@ export default function ModuleWrapper({
   const editable = isSelected && isValueEditable;
   return (
     <div
-      data-moduleId={module.name}
+      // data-moduleId={module.name}
       className={cn(styles.inner, {
         [styles.dimmed]: selection !== null && !isSelected,
       })}

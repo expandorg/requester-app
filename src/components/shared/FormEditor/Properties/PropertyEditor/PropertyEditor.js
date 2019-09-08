@@ -8,7 +8,7 @@ import RichTextEditor from './RichTextEditor';
 import SelectEditor from './SelectEditor';
 import BoolEditor from './BoolEditor';
 import OptionsEditor from './OptionsEditor';
-import ModulesEditor from './ModulesEditor';
+import ModulesEditor from './Children/ModulesEditor';
 import ModuleProperyOptionsEditor from './ModuleProperyOptionsEditor';
 import ImageRegionEditor from './ImageRegionEditor';
 import TimelineRangeEditor from './TimelineRangeEditor';
@@ -37,7 +37,7 @@ export default function PropertyEditor({
   onChange,
   onToggleVarsDialog,
 }) {
-  const handleChange = useCallback(
+  const change = useCallback(
     v => {
       onChange(name, v);
     },
@@ -55,7 +55,7 @@ export default function PropertyEditor({
       <Editor
         name={name}
         value={moduleProperties[name]}
-        onChange={handleChange}
+        onChange={change}
         variables={variables}
         onToggleVarsDialog={onToggleVarsDialog}
         moduleProperties={

@@ -55,9 +55,9 @@ export default function OnboardingMenu({ draft, selection, onSelect }) {
     [dispatch, draft]
   );
 
-  const endDrag = () => {
+  const endDrag = useCallback(() => {
     dispatch(updateOnboarding(draft.id, { ...draft.onboarding, steps }));
-  };
+  }, [dispatch, draft.id, draft.onboarding, steps]);
 
   return (
     <>
