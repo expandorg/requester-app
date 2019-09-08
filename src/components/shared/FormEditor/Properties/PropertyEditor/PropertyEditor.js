@@ -69,7 +69,7 @@ export default function PropertyEditor({
 
 PropertyEditor.propTypes = {
   name: PropTypes.string.isRequired,
-  property: PropTypes.object.isRequired, // eslint-disable-line
+  property: PropTypes.shape({ type: PropTypes.string }).isRequired,
   variables: PropTypes.arrayOf(PropTypes.string),
   moduleProperties: PropTypes.any, // eslint-disable-line
   onChange: PropTypes.func.isRequired,

@@ -8,7 +8,7 @@ import cn from 'classnames';
 import { useDrag } from 'react-dnd';
 
 import { metaSource } from '../dnd';
-import miniIcon from './icons/miniIcon';
+import miniIcon from '../icons/miniIcon';
 
 import styles from './ModuleItem.module.styl';
 
