@@ -10,7 +10,7 @@ import { FormSelection } from '../../forms';
 
 import MenuItem from './MenuItem';
 
-import { replace } from './dnd';
+import { dndReplace } from '../../../../../common/utils';
 
 const getSteps = draft => (draft.onboarding && draft.onboarding.steps) || [];
 
@@ -35,7 +35,9 @@ export default function OnboardingMenu({ draft, selection, onSelect }) {
   );
 
   const move = useCallback(
-    (dragIndex, hoverIndex) => setSteps(replace(steps, dragIndex, hoverIndex)),
+    (dragIndex, hoverIndex) => {
+      setSteps(dndReplace(steps, dragIndex, hoverIndex));
+    },
     [steps]
   );
 
