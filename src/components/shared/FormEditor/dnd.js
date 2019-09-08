@@ -60,11 +60,14 @@ export const metaSource = (meta, onEndDrag) => ({
   },
 });
 
-export const moduleSource = (id, path, onEndDrag) => ({
+export const moduleSource = (id, path, onEndDrag, selection) => ({
   item: {
     type: FORM_DND_ID,
     id,
     path,
+  },
+  canDrag: () => {
+    return !selection;
   },
   collect: monitor => ({
     isDragging: monitor.isDragging(),

@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { useCallback, useContext } from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
@@ -8,10 +10,10 @@ import { moduleProps, Module } from '@expandorg/modules';
 import Nested from './Nested';
 import Header from './Preview/Header';
 import NotSupported from './Preview/NotSupported';
-import ModuleWrapper from './Preview/ModuleWrapper';
+import useModuleWrapper from './Preview/useModuleWrapper';
+import { treeEditor } from '../Tree';
 
 import { supportNesting } from '../modules';
-import { treeEditor } from '../Tree';
 
 import styles from './Preview.module.styl';
 import { EditorContext } from '../EditorContext';
@@ -36,11 +38,22 @@ export default function Preview({ preview, module, selection, path }) {
   }, [module, onSelect, path]);
 
   const ControlType = controlsMap[module.type];
+  const isSelected = treeEditor.getIdByPath(path) === selection;
+
+  const { values, editing, onChange, dimmed, module: m } = useModuleWrapper(
+    module,
+    isSelected
+  );
+
   if (!ControlType) {
     return <NotSupported type={module.type} onRemove={remove} />;
   }
 
-  const isSelected = treeEditor.getIdByPath(path) === selection;
+  const classes = cn(styles.inner, {
+    [styles.dimmed]: dimmed,
+    [styles.hidden]: skipPreview(ControlType.module),
+  });
+
   return preview(
     <div className={cn(styles.container, { [styles.selected]: isSelected })}>
       <Header
@@ -49,29 +62,22 @@ export default function Preview({ preview, module, selection, path }) {
         onRemove={remove}
         onCopy={copy}
       />
-      <ModuleWrapper
-        visible={!skipPreview(ControlType.module)}
-        isSelected={isSelected}
-        selection={selection}
-        module={module}
-        onSelect={select}
-      >
-        {({ values, onChange, module: m }) => (
-          <Module
-            isModulePreview
-            isSubmitting={false}
-            module={m}
-            controls={controlsMap}
-            values={values}
-            onChange={onChange}
-          />
-        )}
-      </ModuleWrapper>
+      <div className={classes}>
+        <Module
+          isModulePreview
+          isSubmitting={false}
+          module={m}
+          controls={controlsMap}
+          values={values}
+          onChange={onChange}
+        />
+        {!editing && <div className={styles.edit} onClick={select} />}
+      </div>
       {supportNesting(ControlType.module) && (
         <Nested
           title={getModulesHeader(ControlType.module)}
           selection={selection}
-          modules={module.modules}
+          modules={m.modules}
           path={path}
         />
       )}

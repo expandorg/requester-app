@@ -19,7 +19,7 @@ export default function FormModule({ module, selection, path }) {
 
   const ref = useRef(null);
   const [{ isDragging }, drag, preview] = useDrag(
-    moduleSource(module.name, path, onEndDrag)
+    moduleSource(module.name, path, onEndDrag, selection)
   );
   const meta = controlsMap[module.type].module;
   const [, drop] = useDrop(moduleTarget(ref, path, meta, onMove));
