@@ -1,16 +1,18 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useContext } from 'react';
 import PropTypes from 'prop-types';
 
 import { useSyncedState } from '@expandorg/components';
 import { moduleProps } from '@expandorg/modules';
 
 import ChildModule from './ChildModule';
+import { EditorContext } from '../../../EditorContext';
 
 import { dndReplace } from '../../../../../../common/utils';
 
 import styles from './ModulesEditor.module.styl';
 
 export default function ModulesEditor({ value, onChange }) {
+  const { onSelect, selection } = useContext(EditorContext);
   const [modules, setModules] = useSyncedState(value);
 
   const drag = useCallback(
@@ -23,6 +25,13 @@ export default function ModulesEditor({ value, onChange }) {
   const endDrag = useCallback(() => {
     onChange(modules);
   }, [modules, onChange]);
+
+  const select = useCallback(
+    (index, module) => {
+      onSelect([...selection.path, index], module, 'edit');
+    },
+    [onSelect, selection.path]
+  );
 
   if (!modules) {
     return null;
@@ -39,6 +48,7 @@ export default function ModulesEditor({ value, onChange }) {
             index={index}
             onDrag={drag}
             onEndDrag={endDrag}
+            onSelect={select}
           />
         ))}
       </div>
