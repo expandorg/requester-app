@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
@@ -62,20 +64,20 @@ export default function Data({ draft, onBack, onNext }) {
           </a>
         </Description>
         <div className={styles.tabs}>
-          <button
+          <div
             className={cn(styles.tab, { [styles.tabActive]: !tab })}
             type="button"
             onClick={() => setTab(0)}
           >
             CSV
-          </button>
-          <button
+          </div>
+          <div
             className={cn(styles.tab, { [styles.tabActive]: tab })}
             type="button"
             onClick={() => setTab(1)}
           >
             API
-          </button>
+          </div>
         </div>
         {tab === 0 && (
           <>
