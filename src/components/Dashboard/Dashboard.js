@@ -70,7 +70,7 @@ function Dashboard({ match }) {
     <Page title="Jobs">
       <Navbar title="Jobs" />
       <Sidebar />
-      <ListNav navs={links} theme="raised" className={styles.navs} />
+      <ListNav navs={links} theme="underline" className={styles.navs} />
       {isEmpty && <Empty />}
       {!isEmpty && (
         <Media query={q}>
