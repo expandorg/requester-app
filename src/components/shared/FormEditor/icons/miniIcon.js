@@ -24,6 +24,8 @@ const modules = {
   yesno: styles.yesno,
   flex: styles.flex,
   input: styles.edit,
+  section: styles.section,
+  wizard: styles.wizard,
 };
 
 export default function miniIcon(type: string) {
