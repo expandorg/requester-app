@@ -15,7 +15,7 @@ import './styles.styl';
 class Signup extends Component {
   render() {
     return (
-      <PageDark title="Signup">
+      <PageDark title="Signup" className="gem-auth-page">
         <div className="gem-auth-container">
           <div className="gem-auth-header">
             <Logo width={100} height={100} viewBox="0 0 50 50" />
