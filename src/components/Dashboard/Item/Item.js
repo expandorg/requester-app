@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 import { JobLogo } from '@expandorg/components/app';
@@ -10,9 +10,27 @@ import MediaWrapper from './MediaWrapper';
 import styles from './styles.module.styl';
 import { draftProps } from '../../shared/propTypes';
 
+const highlighted = new Set();
+
 export default function Item({ draft, onDelete, onCopy, isMobile, onNotify }) {
+  const [highlight, setHighlight] = useState(
+    draft.isCopy && !highlighted.has(draft.id)
+  );
+
+  useEffect(() => {
+    if (highlight && !highlighted.has(draft.id)) {
+      highlighted.add(draft.id);
+      setTimeout(() => setHighlight(false), 0);
+    }
+  }, [draft.id, highlight]);
+
   return (
-    <MediaWrapper draft={draft} isMobile={isMobile} onNotify={onNotify}>
+    <MediaWrapper
+      highlight={highlight}
+      draft={draft}
+      isMobile={isMobile}
+      onNotify={onNotify}
+    >
       <div className={styles.actions}>
         <MenuButton draft={draft} onDelete={onDelete} onCopy={onCopy} />
       </div>

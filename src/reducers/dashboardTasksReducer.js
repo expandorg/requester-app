@@ -17,7 +17,7 @@ export default function dashboardTasksReducer(state = initialState, action) {
         payload: { result, entities },
         meta: { originalId },
       } = action;
-      const item = entities.drafts[result.draft];
+      const item = { ...entities.drafts[result.draft], isCopy: true };
       const index = state.findIndex(d => d.id === originalId);
       if (index === -1) {
         return [item, ...state];

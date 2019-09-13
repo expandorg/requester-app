@@ -6,11 +6,17 @@ import cn from 'classnames';
 import { Link } from 'react-router-dom';
 
 import { DraftStatus } from '../../../model/enums';
-
-import styles from './styles.module.styl';
 import { draftProps } from '../../shared/propTypes';
 
-export default function MediaWrapper({ draft, children, onNotify, isMobile }) {
+import styles from './styles.module.styl';
+
+export default function MediaWrapper({
+  draft,
+  children,
+  onNotify,
+  isMobile,
+  highlight,
+}) {
   const notPublished =
     draft.status === DraftStatus.draft || draft.status === DraftStatus.pending;
 
@@ -18,18 +24,20 @@ export default function MediaWrapper({ draft, children, onNotify, isMobile }) {
     onNotify('error', 'Hey, we don’t currently support mobile devices.');
   }, [onNotify]);
 
+  const classes = cn(styles.container, styles.task, {
+    [styles.highlight]: highlight,
+  });
+
   if (isMobile && notPublished) {
     return (
-      <div className={cn(styles.container, styles.task)} onClick={notify}>
+      <div className={classes} onClick={notify}>
         {children}
       </div>
     );
   }
+  const url = notPublished ? `/draft/${draft.id}` : `/job/${draft.jobId}`;
   return (
-    <Link
-      className={cn(styles.container, styles.task)}
-      to={notPublished ? `/draft/${draft.id}` : `/job/${draft.jobId}`}
-    >
+    <Link className={classes} to={url}>
       {children}
     </Link>
   );
@@ -38,5 +46,6 @@ export default function MediaWrapper({ draft, children, onNotify, isMobile }) {
 MediaWrapper.propTypes = {
   draft: draftProps.isRequired,
   isMobile: PropTypes.bool.isRequired,
+  highlight: PropTypes.bool.isRequired,
   onNotify: PropTypes.func.isRequired,
 };
