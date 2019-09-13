@@ -16,9 +16,8 @@ const Field = ({
   className,
 }) => {
   const error = name && errors && errors[name];
-  const classes = cn(styles.field, className);
   return (
-    <div className={classes}>
+    <div className={cn(styles.field, className)}>
       {children}
       {tooltip && (
         <I

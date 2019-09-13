@@ -1,12 +1,10 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React, { useCallback, useState } from 'react';
 
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { ErrorMessage } from '@expandorg/components';
 
-import { requestStateProps, SubmitStateEffect } from '@expandorg/app-utils';
+import { SubmitStateEffect } from '@expandorg/app-utils';
 import { signupMetamaskStateSelector } from '@expandorg/app-auth/selectors';
 import { signupMetamask } from '@expandorg/app-auth/sagas';
 
@@ -16,70 +14,43 @@ import { MetamaskState } from '@expandorg/app-web3';
 
 import styles from './styles.module.styl';
 
-const mapStateToProps = state => ({
-  metamaskState: metamaskStateSelector(state),
-  signupState: signupMetamaskStateSelector(state),
-});
+export default function MetamaskSignup() {
+  const dispatch = useDispatch();
+  const metamaskState = useSelector(metamaskStateSelector);
+  const signupState = useSelector(signupMetamaskStateSelector);
 
-const mapDispatchToProps = dispatch =>
-  bindActionCreators({ signupMetamask }, dispatch);
+  const [dialog, setDialog] = useState(false);
+  const hide = useCallback(() => setDialog(false), []);
 
-class MetamaskSignup extends Component {
-  static propTypes = {
-    metamaskState: PropTypes.string.isRequired,
-    signupState: requestStateProps.isRequired,
-    signupMetamask: PropTypes.func.isRequired,
-  };
+  const [error, setError] = useState(null);
+  const failed = useCallback(({ err }) => setError(err), []);
 
-  state = {
-    metamaskDialog: false,
-    error: null,
-  };
-
-  handleHide = () => {
-    this.setState({ metamaskDialog: false });
-  };
-
-  handleClick = () => {
-    if (this.props.metamaskState !== MetamaskState.Authorized) {
-      this.setState({ metamaskDialog: true });
+  const click = useCallback(() => {
+    if (metamaskState !== MetamaskState.Authorized) {
+      setDialog(true);
     } else {
-      this.props.signupMetamask();
+      dispatch(signupMetamask());
     }
-  };
+  }, [dispatch, metamaskState]);
 
-  handleFailed = ({ error }) => {
-    this.setState({ error });
-  };
+  const signup = useCallback(() => dispatch(signupMetamask()), [dispatch]);
 
-  render() {
-    const { metamaskState, signupState } = this.props;
-    const { metamaskDialog, error } = this.state;
-    return (
-      <div className={styles.container}>
-        <button className="gem-metamask-button" onClick={this.handleClick}>
-          <ins className={styles.fox} /> Sign up with MetaMask
-        </button>
-        {metamaskDialog && (
-          <MetamaskPromt
-            metamaskState={metamaskState}
-            onLogin={this.props.signupMetamask}
-            onHide={this.handleHide}
-            action="Sign up"
-            error={error}
-          />
-        )}
-        <ErrorMessage errors={error} className={styles.error} />
-        <SubmitStateEffect
-          submitState={signupState}
-          onFailed={this.handleFailed}
+  return (
+    <div className={styles.container}>
+      <button className="gem-metamask-button" onClick={click}>
+        <ins className={styles.fox} /> Sign up with MetaMask
+      </button>
+      {dialog && (
+        <MetamaskPromt
+          metamaskState={metamaskState}
+          onLogin={signup}
+          onHide={hide}
+          action="Sign up"
+          error={error}
         />
-      </div>
-    );
-  }
+      )}
+      <ErrorMessage errors={error} className={styles.error} />
+      <SubmitStateEffect submitState={signupState} onFailed={failed} />
+    </div>
+  );
 }
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(MetamaskSignup);
