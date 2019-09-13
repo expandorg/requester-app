@@ -94,7 +94,7 @@ export const copyDraft = draft => ({
   type: draftsActionTypes.COPY,
   payload: { id: draft.id },
   asyncCall: draftApi.copy,
-  meta: { schema: draftResponseSchema },
+  meta: { schema: draftResponseSchema, originalId: draft.id },
 });
 
 export function* draftsSagas() {

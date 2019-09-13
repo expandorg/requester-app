@@ -1,3 +1,5 @@
+import { insertAtIndex } from '@expandorg/utils';
+
 import { tasksActionTypes, draftsActionTypes } from '../sagas/actionTypes';
 
 const initialState = [];
@@ -11,8 +13,16 @@ export default function dashboardTasksReducer(state = initialState, action) {
       return state.filter(d => d.id !== draftId);
     }
     case draftsActionTypes.COPY_COMPLETE: {
-      const { result, entities } = action.payload;
-      return [entities.drafts[result.draft], ...state];
+      const {
+        payload: { result, entities },
+        meta: { originalId },
+      } = action;
+      const item = entities.drafts[result.draft];
+      const index = state.findIndex(d => d.id === originalId);
+      if (index === -1) {
+        return [item, ...state];
+      }
+      return insertAtIndex(state, index + 1, item);
     }
     default:
       break;
