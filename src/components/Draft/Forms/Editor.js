@@ -21,6 +21,7 @@ import styles from './Editor.module.styl';
 
 export default function Editor({
   form,
+  formId,
   variables,
   toolbar,
   children,
@@ -29,7 +30,12 @@ export default function Editor({
   onToggleVarsDialog,
 }) {
   return (
-    <EditorContextProvider form={form} onChange={onSave} controls={all}>
+    <EditorContextProvider
+      key={formId}
+      form={form}
+      onChange={onSave}
+      controls={all}
+    >
       <FormLayout className={styles.container} walkthrough={walkthrough}>
         <Sidebar>
           <ModulePicker controls={pickerModules} />
@@ -54,6 +60,7 @@ export default function Editor({
 
 Editor.propTypes = {
   form: formProps.isRequired,
+  formId: PropTypes.string.isRequired,
   toolbar: PropTypes.element.isRequired,
   variables: PropTypes.arrayOf(PropTypes.string),
   pickerModules: PropTypes.arrayOf(PropTypes.func).isRequired,

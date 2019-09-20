@@ -49,3 +49,7 @@ MediaWrapper.propTypes = {
   highlight: PropTypes.bool.isRequired,
   onNotify: PropTypes.func.isRequired,
 };
+
+MediaWrapper.defoultProps = {
+  highlight: false,
+};

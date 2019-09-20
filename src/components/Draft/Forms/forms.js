@@ -41,6 +41,10 @@ export class FormSelection {
     return this.type === 'verification';
   }
 
+  getFormId(): string {
+    return `${this.type}-${this.step || ''}`;
+  }
+
   isOnboardingStep(step: string): boolean {
     return this.isOnboarding() && this.step === step;
   }

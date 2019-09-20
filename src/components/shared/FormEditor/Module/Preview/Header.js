@@ -2,6 +2,7 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
+import cn from 'classnames';
 
 import { useToggle } from '@expandorg/components';
 import { ContextMenu, ContextMenuItem } from '@expandorg/components/app';
@@ -13,6 +14,8 @@ import { ReactComponent as Invisible } from '@expandorg/uikit/assets/invisible.s
 
 import { moduleProps } from '@expandorg/modules';
 
+import { ReactComponent as DownIcon } from '../../../../../assets/arrow_drop_down.svg';
+
 import styles from './Header.module.styl';
 
 const isVisible = module => {
@@ -21,7 +24,15 @@ const isVisible = module => {
 // const isVisibilityAllowed = module => module.type !== 'submit';
 const isCopyAllowed = module => module.type !== 'submit';
 
-export default function Header({ module, onSelect, onCopy, onRemove }) {
+export default function Header({
+  module,
+  nesting,
+  collapsed,
+  onSelect,
+  onCopy,
+  onRemove,
+  onToggleCollapse,
+}) {
   const [menu, toggle] = useToggle();
   const copy = useCallback(() => {
     toggle();
@@ -35,6 +46,13 @@ export default function Header({ module, onSelect, onCopy, onRemove }) {
 
   return (
     <div className={styles.container}>
+      {nesting && (
+        <button className={styles.toggle} onClick={onToggleCollapse}>
+          <DownIcon
+            className={cn(styles.arrow, { [styles.collapsed]: collapsed })}
+          />
+        </button>
+      )}
       <div className={styles.name} onClick={onSelect}>
         {module.name}
       </div>
@@ -59,7 +77,14 @@ export default function Header({ module, onSelect, onCopy, onRemove }) {
 
 Header.propTypes = {
   module: moduleProps.isRequired,
+  collapsed: PropTypes.bool,
+  nesting: PropTypes.bool.isRequired,
   onSelect: PropTypes.func.isRequired,
   onCopy: PropTypes.func.isRequired,
   onRemove: PropTypes.func.isRequired,
+  onToggleCollapse: PropTypes.func.isRequired,
+};
+
+Header.defaultProps = {
+  collapsed: false,
 };

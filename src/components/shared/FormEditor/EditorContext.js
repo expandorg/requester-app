@@ -10,7 +10,13 @@ import PropTypes from 'prop-types';
 import { formProps } from '@expandorg/modules';
 import { getModuleControlsMap } from '@expandorg/modules/model';
 
-import { TreeEditor, Ops, useSelection, useTreeOpsPubSub } from './Tree';
+import {
+  TreeEditor,
+  Ops,
+  useSelection,
+  useTreeOpsPubSub,
+  useCollapsing,
+} from './Tree';
 import { ValueContextProvider } from './ValueContext';
 
 export const EditorContext = createContext();
@@ -23,6 +29,7 @@ export function EditorContextProvider({ children, controls, form, onChange }) {
   const controlsMap = useMemo(() => getModuleControlsMap(controls), [controls]);
 
   const notifyTreeOp = useTreeOpsPubSub();
+  const [collapsedMap, onToggleCollapse] = useCollapsing();
 
   const [
     selection,
@@ -33,6 +40,7 @@ export function EditorContextProvider({ children, controls, form, onChange }) {
   ] = useSelection();
 
   const [modules, setModules] = useState(transform(form));
+
   useEffect(() => {
     setModules(transform(form));
     onDeselect();
@@ -60,11 +68,13 @@ export function EditorContextProvider({ children, controls, form, onChange }) {
             ...treeOps,
             selection,
             selectedModule,
+            controlsMap,
+            modules,
+            collapsedMap,
             onEditSelected,
             onSelect,
             onDeselect,
-            controlsMap,
-            modules,
+            onToggleCollapse,
           }}
         >
           <ValueContextProvider selection={selection}>

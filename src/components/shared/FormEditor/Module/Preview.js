@@ -23,19 +23,28 @@ const getModulesHeader = meta => meta.editor.properties.modules.caption;
 const skipPreview = meta => !!meta.editor.skipPreview;
 
 export default function Preview({ preview, module, selection, path }) {
-  const { onCopy, onRemove, onSelect, controlsMap } = useContext(EditorContext);
+  const {
+    onCopy,
+    onRemove,
+    onSelect,
+    controlsMap,
+    collapsedMap,
+    onToggleCollapse,
+  } = useContext(EditorContext);
 
-  const copy = useCallback(() => {
-    onCopy(path, module);
-  }, [module, onCopy, path]);
+  const copy = useCallback(() => onCopy(path, module), [module, onCopy, path]);
+  const remove = useCallback(() => onRemove(path), [onRemove, path]);
 
-  const remove = useCallback(() => {
-    onRemove(path);
-  }, [onRemove, path]);
+  const select = useCallback(() => onSelect(path, module, 'edit'), [
+    module,
+    onSelect,
+    path,
+  ]);
 
-  const select = useCallback(() => {
-    onSelect(path, module, 'edit');
-  }, [module, onSelect, path]);
+  const toggleCollapse = useCallback(() => onToggleCollapse(module.name), [
+    module.name,
+    onToggleCollapse,
+  ]);
 
   const ControlType = controlsMap[module.type];
   const isSelected = treeEditor.getIdByPath(path) === selection;
@@ -54,32 +63,42 @@ export default function Preview({ preview, module, selection, path }) {
     [styles.hidden]: skipPreview(ControlType.module),
   });
 
+  const nesting = supportNesting(ControlType.module);
+  const collapsed = collapsedMap[module.name];
+
   return preview(
     <div className={cn(styles.container, { [styles.selected]: isSelected })}>
       <Header
         module={module}
+        collapsed={collapsed}
+        nesting={nesting}
         onSelect={select}
         onRemove={remove}
         onCopy={copy}
+        onToggleCollapse={toggleCollapse}
       />
-      <div className={classes}>
-        <Module
-          isModulePreview
-          isSubmitting={false}
-          module={m}
-          controls={controlsMap}
-          values={values}
-          onChange={onChange}
-        />
-        {!editing && <div className={styles.edit} onClick={select} />}
-      </div>
-      {supportNesting(ControlType.module) && (
-        <Nested
-          title={getModulesHeader(ControlType.module)}
-          selection={selection}
-          modules={m.modules}
-          path={path}
-        />
+      {!collapsed && (
+        <>
+          <div className={classes}>
+            <Module
+              isModulePreview
+              isSubmitting={false}
+              module={m}
+              controls={controlsMap}
+              values={values}
+              onChange={onChange}
+            />
+            {!editing && <div className={styles.edit} onClick={select} />}
+          </div>
+          {nesting && (
+            <Nested
+              title={getModulesHeader(ControlType.module)}
+              selection={selection}
+              modules={m.modules}
+              path={path}
+            />
+          )}
+        </>
       )}
     </div>
   );

@@ -72,6 +72,7 @@ function JobForms({ draft, onNext, tab }) {
   return (
     <Editor
       form={selection.getForm(draft)}
+      formId={selection.getFormId()}
       onSave={save}
       toolbar={<Toolbar draft={draft} onNext={onNext} />}
       pickerModules={FormProps.getPickerModules(selection)}

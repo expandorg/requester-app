@@ -41,3 +41,30 @@
   &:hover
     path
       fill: color-primary-blue
+
+.toggle
+  box-sizing: border-box
+
+  width: 20px
+  height 20px
+
+  margin-right: 4px
+
+  border none
+  background-color: transparent
+
+  outline: 0
+  cursor pointer
+
+.arrow
+  position relative
+  top: -2px
+
+  transition: transform 70ms ease-in
+
+  path
+    fill color-text-blue
+
+.collapsed
+  transform-origin: center center
+  transform: rotate(-90deg)
