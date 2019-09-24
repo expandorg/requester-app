@@ -2,8 +2,6 @@ import React from 'react';
 
 import { Footer as UIFooter } from '@expandorg/components/app';
 
-import styles from './Footer.module.styl';
-
 const links = [
   {
     link: 'https://expand.org',
@@ -38,5 +36,5 @@ const links = [
 ];
 
 export default function Footer() {
-  return <UIFooter className={styles.footer} links={links} />;
+  return <UIFooter links={links} />;
 }
