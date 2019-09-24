@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
   Dialog,
   Button,
-  Input,
+  IconInput,
   Dropdown,
   DialogForm as DF,
 } from '@expandorg/components';
@@ -103,6 +103,9 @@ export default function VerificationSettings({ onHide, onSaved, draft }) {
           <Field>
             <Dropdown
               value={form.verificationModule}
+              tooltip="type"
+              tooltipOrientation="top"
+              tooltipPosition="right"
               label="Verification Type"
               options={options}
               onChange={value =>
@@ -113,19 +116,14 @@ export default function VerificationSettings({ onHide, onSaved, draft }) {
           {form.verificationModule === VerificationType.Consensus && (
             <Field
               className={styles.field}
-              tooltip={
-                <span>
-                  Enter how many workers need to get the right answer before the
-                  task is verified.
-                </span>
-              }
-              tooltipOrientation="top"
-              tooltipPosition="right"
               name="agreementCount"
               errors={errors}
             >
-              <Input
+              <IconInput
                 placeholder="Agreement count"
+                tooltip="Enter how many workers need to get the right answer before the task is verified."
+                tooltipOrientation="top"
+                tooltipPosition="right"
                 value={form.agreementCount}
                 onChange={({ target }) =>
                   setForm({ ...form, agreementCount: target.value })
@@ -135,16 +133,18 @@ export default function VerificationSettings({ onHide, onSaved, draft }) {
           )}
           <Field
             className={styles.field}
-            tooltip={
-              <span>Enter how much time worker should spent on each task.</span>
-            }
-            tooltipOrientation="top"
-            tooltipPosition="right"
             name="minimumExecutionTime"
             errors={errors}
           >
-            <Input
+            <IconInput
               placeholder="Minimum time spent on task (seconds)"
+              tooltip={
+                <span>
+                  Enter how much time worker should spent on each task.
+                </span>
+              }
+              tooltipOrientation="top"
+              tooltipPosition="right"
               value={form.minimumExecutionTime}
               onChange={({ target }) =>
                 setForm({ ...form, minimumExecutionTime: target.value })

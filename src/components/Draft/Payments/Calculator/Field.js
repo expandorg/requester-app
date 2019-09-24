@@ -20,6 +20,7 @@ const Field = ({
     <div className={styles.vlong}>
       <Input
         className={styles.input}
+        theme="white"
         value={value1}
         disabled={disabled}
         onChange={({ target }) => onChange1(target.value)}
@@ -30,6 +31,7 @@ const Field = ({
     <div className={styles.vshort}>
       <Input
         className={styles.input}
+        theme="white"
         value={value2}
         disabled={disabled}
         onChange={({ target }) => onChange2(target.value)}

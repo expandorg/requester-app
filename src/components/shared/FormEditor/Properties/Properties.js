@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import cn from 'classnames';
 
 import { moduleProps } from '@expandorg/modules';
-import { Button, ClipboardButton } from '@expandorg/components';
+import { Button, IconInput } from '@expandorg/components';
 
 import PropertyEditor from './PropertyEditor/PropertyEditor';
 import ErrorContainer from './PropertyEditor/ErrorContainer';
@@ -12,8 +12,6 @@ import Validation from './Validation/Validation';
 import validateModuleProperties from './validateModuleProperties';
 
 import { EditorContext } from '../EditorContext';
-
-import I from '../../../common/I';
 
 import styles from './Properties.module.styl';
 
@@ -61,15 +59,13 @@ export default function Properties({
         <div className={styles.props}>
           <div className={styles.title}>{name} properties</div>
           <ErrorContainer errors={errors} field="name">
-            <div className={styles.name}>
-              <div className={styles.cname}>
-                {module.name}
-                <I tooltip="component name" className={styles.i} />
-              </div>
-              <ClipboardButton value={module.name} className={styles.copy}>
-                Copy
-              </ClipboardButton>
-            </div>
+            <IconInput
+              readOnly
+              copy
+              placeholder="component name"
+              tooltip="component name"
+              value={module.name}
+            />
           </ErrorContainer>
           {!!editor.properties &&
             Reflect.ownKeys(editor.properties).map(propertyName => (

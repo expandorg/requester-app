@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { RequestStates, SubmitStateEffect } from '@expandorg/app-utils';
-import { Input, Button } from '@expandorg/components';
+import { IconInput, Button } from '@expandorg/components';
 
 import { draftProps } from '../../shared/propTypes';
 
@@ -79,19 +79,25 @@ export default function Settings({ onBack, onNext, draft }) {
           what your job is all about.
         </Description>
         <Fieldset className={styles.fieldset}>
-          <Field tooltip={<NameTooltip />} name="name" errors={errors}>
-            <Input
+          <Field name="name" errors={errors}>
+            <IconInput
               placeholder="Title *"
+              tooltip={<NameTooltip />}
+              tooltipOrientation="right"
+              tooltipPosition="center"
               name="name"
               error={!!(errors && errors.name)}
               value={settings.name}
               onChange={change}
             />
           </Field>
-          <Field tooltip={descTooltip} name="description" errors={errors}>
-            <Input
+          <Field name="description" errors={errors}>
+            <IconInput
               placeholder="Description *"
               name="description"
+              tooltip={descTooltip}
+              tooltipOrientation="right"
+              tooltipPosition="center"
               error={!!(errors && errors.description)}
               value={settings.description}
               onChange={change}
@@ -100,6 +106,8 @@ export default function Settings({ onBack, onNext, draft }) {
           <Field>
             <Toggle
               tooltip={<StakingTooltip />}
+              tooltipOrientation="right"
+              tooltipPosition="center"
               value={settings.staking}
               label="Staking"
               name="staking"
@@ -107,21 +115,25 @@ export default function Settings({ onBack, onNext, draft }) {
             />
           </Field>
           {settings.staking && (
-            <>
-              <Field tooltip="How much to stake?" name="stake" errors={errors}>
-                <Input
-                  placeholder="How much to stake?"
-                  error={!!(errors && errors.stake)}
-                  name="stake"
-                  value={settings.stake}
-                  onChange={change}
-                />
-              </Field>
-            </>
+            <Field name="stake" errors={errors}>
+              <IconInput
+                placeholder="How much to stake?"
+                tooltip="How much to stake?"
+                tooltipOrientation="right"
+                tooltipPosition="center"
+                error={!!(errors && errors.stake)}
+                name="stake"
+                value={settings.stake}
+                onChange={change}
+              />
+            </Field>
           )}
-          <Field tooltip={<CallbackTooltip />}>
-            <Input
+          <Field>
+            <IconInput
               placeholder="Callback Url"
+              tooltip={<CallbackTooltip />}
+              tooltipOrientation="right"
+              tooltipPosition="center"
               name="callbackUrl"
               value={settings.callbackUrl}
               onChange={change}

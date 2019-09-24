@@ -70,10 +70,11 @@ export default function VariablesDialog({ onHide, draftId, variables }) {
               onKeyDown={keyDown}
               placeholder="Create variable tag"
               onChange={change}
-            />
-            <button className={styles.add} onClick={add}>
-              add
-            </button>
+            >
+              <button className={styles.add} onClick={add}>
+                add
+              </button>
+            </Input>
           </div>
           <div className={styles.vars}>
             <div className={styles.title}>Variables List</div>

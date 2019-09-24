@@ -8,7 +8,7 @@ import { RequestStates, SubmitStateEffect } from '@expandorg/app-utils';
 
 import { userSelector } from '@expandorg/app-auth/selectors';
 import { Deposit } from '@expandorg/app-gemtokens/components';
-import { Input, Button } from '@expandorg/components';
+import { IconInput, Button } from '@expandorg/components';
 import { ReactComponent as Card } from '@expandorg/uikit/assets/creditcard.svg';
 
 import { Form, Description, Field, Fieldset, Actions } from '../controls';
@@ -98,13 +98,12 @@ export default function Payments({ draft, onNext, onBack }) {
             </Deposit>
           </Field>
           <Calculator draft={draft} />
-          <Field
-            tooltip="This is the total amount of funds you will set aside for the job. *"
-            name="balance"
-            errors={errors}
-          >
-            <Input
+          <Field name="balance" errors={errors}>
+            <IconInput
               placeholder="Total Budget *"
+              tooltip="This is the total amount of funds you will set aside for the job. *"
+              tooltipOrientation="right"
+              tooltipPosition="center"
               disabled={DraftFunding.balanceIsReadonly(draft)}
               name="balance"
               value={form.balance}
@@ -112,13 +111,12 @@ export default function Payments({ draft, onNext, onBack }) {
               onChange={inputChange}
             />
           </Field>
-          <Field
-            tooltip="The amount the workers will earn for each task completion. *"
-            name="reward"
-            errors={errors}
-          >
-            <Input
+          <Field name="reward" errors={errors}>
+            <IconInput
               placeholder="Amount Earned per Task *"
+              tooltip="The amount the workers will earn for each task completion. *"
+              tooltipOrientation="right"
+              tooltipPosition="center"
               name="reward"
               value={form.reward}
               error={!!(errors && errors.reward)}

@@ -128,12 +128,6 @@ export default class DraftTextInput extends Component {
           suggestions={autocomplete}
           entryComponent={SuggestionsEntry}
         />
-        {!isEmpty(editorState) && (
-          <TopPlaceholder
-            className={styles.placeholder}
-            placeholder={placeholder}
-          />
-        )}
         <VariablesToggle
           className={styles.dropdown}
           variables={allVars}
@@ -146,6 +140,12 @@ export default class DraftTextInput extends Component {
             </button>
           )}
         </VariablesToggle>
+        {!isEmpty(editorState) && (
+          <TopPlaceholder
+            className={styles.placeholder}
+            placeholder={placeholder}
+          />
+        )}
       </div>
     );
   }

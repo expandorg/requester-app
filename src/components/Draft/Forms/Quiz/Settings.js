@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import { Button, Input } from '@expandorg/components';
+import { Button, IconInput } from '@expandorg/components';
 import { validateForm, rules } from '@expandorg/validation';
 
 import { Fieldset, Field } from '../../controls';
@@ -86,13 +86,12 @@ export default class Settings extends Component {
         <div className={styles.content}>
           <Fieldset>
             <div className={styles.description}>Quiz settings</div>
-            <Field
-              tooltip="Number of attempts to pass quiz"
-              name="retries"
-              errors={errors}
-            >
-              <Input
+            <Field name="retries" errors={errors}>
+              <IconInput
                 placeholder="Number of tries"
+                tooltip="Number of attempts to pass quiz"
+                tooltipOrientation="right"
+                tooltipPosition="center"
                 name="retries"
                 type="number"
                 required
@@ -101,13 +100,12 @@ export default class Settings extends Component {
                 onChange={this.handleInputChange}
               />
             </Field>
-            <Field
-              tooltip="Score threshold"
-              name="scoreThreshold"
-              errors={errors}
-            >
-              <Input
+            <Field name="scoreThreshold" errors={errors}>
+              <IconInput
                 placeholder="Score threshold"
+                tooltip="Score threshold"
+                tooltipOrientation="right"
+                tooltipPosition="center"
                 name="scoreThreshold"
                 type="number"
                 required
@@ -116,12 +114,11 @@ export default class Settings extends Component {
                 onChange={this.handleInputChange}
               />
             </Field>
-            <Field
-              tooltip="Failure Message"
-              name="failureMessage"
-              errors={errors}
-            >
-              <Input
+            <Field name="failureMessage" errors={errors}>
+              <IconInput
+                tooltip="Failure Message"
+                tooltipOrientation="right"
+                tooltipPosition="center"
                 placeholder="Failure Message"
                 name="failureMessage"
                 required
