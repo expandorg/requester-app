@@ -19,9 +19,24 @@ export default class TreeEditor extends Component {
     modules: [],
   };
 
-  handleAdd = meta => {
+  handleAdd = (meta, isAppend) => {
     const { modules, onChange } = this.props;
-    onChange(treeEditor.push(modules, createModule(meta, modules)), Ops.Add);
+    const newModule = createModule(meta, modules);
+
+    let edited = null;
+
+    if (isAppend && modules.length) {
+      // last module is submit;
+      const lastIndex = modules.length - 1;
+      if (modules[lastIndex].type === 'submit') {
+        edited = treeEditor.insertAt(modules, [lastIndex], newModule);
+      }
+    }
+
+    if (!edited) {
+      edited = treeEditor.push(modules, newModule);
+    }
+    onChange(edited, Ops.Add);
   };
 
   handleEndDrag = path => {
