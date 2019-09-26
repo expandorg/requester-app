@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { addNotification } from '@expandorg/app-utils/app';
 import { Sidebar, Navbar } from '@expandorg/components/app';
-import { Panel, Button } from '@expandorg/components';
+import { Panel } from '@expandorg/components';
 import { matchProps } from '@expandorg/app-utils';
 
 import Page from '../shared/Page';
@@ -65,17 +65,7 @@ function PreviewDraft({ match }) {
 
   return (
     <Page title="Preview" className={styles.page}>
-      <Navbar title={draft ? draft.name : ''}>
-        <div className={styles.navbar}>
-          <Button
-            size="small"
-            className={styles.home}
-            onClick={() => window.close()}
-          >
-            take me home
-          </Button>
-        </div>
-      </Navbar>
+      <Navbar title={draft ? draft.name : ''} />
       <Sidebar />
       <div className={styles.container}>
         <Panel className={styles.panel}>
