@@ -25,11 +25,14 @@ export default function Properties({
 }) {
   const { controlsMap: controls, modules } = useContext(EditorContext);
   const [errors, setErrors] = useState(null);
+  const [moduleName, setModuleName] = useState(module.name);
 
   const change = useCallback(
     (name, value) => onChange({ ...module, [name]: value }),
     [module, onChange]
   );
+
+  const changeName = useCallback(e => setModuleName(e.target.value), []);
 
   const changeValidation = useCallback(
     validation => {
@@ -41,13 +44,14 @@ export default function Properties({
 
   const save = useCallback(() => {
     const { module: meta } = controls[module.type];
-    const e = validateModuleProperties(module, module.name, meta, modules);
+    const m = { ...module, name: moduleName };
+    const e = validateModuleProperties(m, module.name, meta, modules);
     if (e) {
       setErrors(e);
     } else {
-      onSave(module);
+      onSave(m);
     }
-  }, [controls, module, modules, onSave]);
+  }, [controls, module, moduleName, modules, onSave]);
 
   const {
     module: { name, editor, validation },
@@ -60,11 +64,11 @@ export default function Properties({
           <div className={styles.title}>{name} properties</div>
           <ErrorContainer errors={errors} field="name">
             <IconInput
-              readOnly
               copy
-              placeholder="component name"
-              tooltip="component name"
-              value={module.name}
+              onChange={changeName}
+              placeholder="Component Name"
+              tooltip="Component Name"
+              value={moduleName}
             />
           </ErrorContainer>
           {!!editor.properties &&
