@@ -26,6 +26,7 @@ const modules = {
   input: styles.edit,
   section: styles.section,
   wizard: styles.wizard,
+  slider: styles.slider,
 };
 
 export default function miniIcon(type: string) {
