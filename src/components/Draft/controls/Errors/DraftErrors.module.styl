@@ -4,8 +4,13 @@
 .container
   position relative
   margin-left 5px
+  margin-right 5px
   flex-grow: 1
 
+.inner
+  display flex
+  justify-content: center;
+  align-items: center;
 
 .button
   box-sizing: border-box
@@ -26,16 +31,9 @@
   border: 0
   cursor pointer
 
-.updown
-  position relative
-  top: 1px
-  margin-left: 5px
-  path
-    fill color-white
-
 .warning
   position relative
   top: -1px
   margin-right: 8px
   path
-    fill color-text-yellow
+    fill color-white
