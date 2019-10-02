@@ -21,8 +21,8 @@ import { FormSelection } from '../../forms';
 
 export default function OnboardingMenuItem({
   step,
-  selected,
   index,
+  selection,
   onSelect,
   onDuplcate,
   onRemove,
@@ -31,8 +31,9 @@ export default function OnboardingMenuItem({
   onEndDrag,
 }) {
   const ref = useRef(null);
-  const [quiz, toggleQuiz] = useToggle();
   const [menu, toggleMenu] = useToggle();
+
+  const selected = selection.isOnboardingStep(step.id);
 
   const [, drag] = useDrag(source(index, onEndDrag));
   const [, drop] = useDrop(target(ref, index, onMove));
@@ -62,28 +63,40 @@ export default function OnboardingMenuItem({
     [onUpdate]
   );
 
-  const select = useCallback(
-    () => onSelect(FormSelection.onboarding(step.id)),
+  const select = useCallback(() => {
+    console.log('hide');
+    onSelect(FormSelection.onboarding(step.id));
+  }, [onSelect, step.id]);
+
+  const selectQuiz = useCallback(
+    evt => {
+      evt.preventDefault();
+      evt.stopPropagation();
+      onSelect(FormSelection.onboarding(step.id, true));
+    },
     [onSelect, step.id]
   );
-
   return (
-    <NavItem selected={selected} ref={drag(drop(ref))} onClick={select}>
-      <NavItemText>{step.name}</NavItemText>
-      {step.isGroup && <SettingsButton onClick={toggleQuiz} />}
-      <NavItemContextMenu visible={menu} onToggle={toggleMenu}>
-        <ContextMenuItem onClick={duplicate}>Duplicate</ContextMenuItem>
-        <ContextMenuItem onClick={remove}>Remove</ContextMenuItem>
-      </NavItemContextMenu>
-      {quiz && <Quiz group={step} onHide={toggleQuiz} onUpdate={updateQuiz} />}
-    </NavItem>
+    <>
+      <NavItem selected={selected} ref={drag(drop(ref))} onClick={select}>
+        <NavItemText>{step.name}</NavItemText>
+        {step.isGroup && <SettingsButton onClick={selectQuiz} />}
+        <NavItemContextMenu visible={menu} onToggle={toggleMenu}>
+          <ContextMenuItem onClick={duplicate}>Duplicate</ContextMenuItem>
+          <ContextMenuItem onClick={remove}>Remove</ContextMenuItem>
+        </NavItemContextMenu>
+      </NavItem>
+      {selection.quizDialog(step.id) && (
+        <Quiz group={step} onHide={select} onUpdate={updateQuiz} />
+      )}
+    </>
   );
 }
 
 OnboardingMenuItem.propTypes = {
   step: draftOnboardingStepProps.isRequired,
   index: PropTypes.number.isRequired,
-  selected: PropTypes.bool.isRequired,
+  selection: PropTypes.instanceOf(FormSelection).isRequired,
   onSelect: PropTypes.func.isRequired,
   onDuplcate: PropTypes.func.isRequired,
   onUpdate: PropTypes.func.isRequired,

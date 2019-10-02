@@ -18,7 +18,7 @@ import styles from './Steps.module.styl';
 export default function Steps({ draft, selection, onSelect }) {
   return (
     <Topbar className={styles.topbar}>
-      <Add draft={draft} />
+      <Add draft={draft} onSelect={onSelect} />
       <Navs>
         <OnboardingMenu
           draft={draft}

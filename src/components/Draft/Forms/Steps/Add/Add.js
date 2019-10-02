@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
+import PropTypes from 'prop-types';
 
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -9,21 +10,21 @@ import {
 } from '@expandorg/components/app';
 
 import { draftProps } from '../../../../shared/propTypes';
+
 import { formTemplatesSelector } from '../../../../../selectors/formTemplatesSelectors';
 import { fetchFormTemplates } from '../../../../../sagas/formTemplateSagas';
 import { updateOnboarding } from '../../../../../sagas/draftsSagas';
-import DraftOnboarding from '../../../../../model/DraftOnboarding';
 
-import Quiz from '../../Quiz/Quiz';
+import { FormSelection } from '../../forms';
+import DraftOnboarding from '../../../../../model/DraftOnboarding';
 
 import styles from './Add.module.styl';
 
-export default function Add({ draft }) {
+export default function Add({ draft, onSelect }) {
   const dispatch = useDispatch();
 
   const templates = useSelector(formTemplatesSelector);
   const [opened, setOpened] = useState(false);
-  const [quiz, setQuiz] = useState();
 
   useEffect(() => {
     dispatch(fetchFormTemplates());
@@ -31,25 +32,15 @@ export default function Add({ draft }) {
 
   const add = useCallback(
     template => {
-      const onboarding = DraftOnboarding.add(draft, template);
-
-      dispatch(updateOnboarding(draft.id, onboarding, true));
       setOpened(false);
 
-      const lastStep = onboarding.steps[onboarding.steps.length - 1];
-      if (lastStep.isGroup) {
-        setQuiz(lastStep);
-      }
-    },
-    [dispatch, draft]
-  );
-
-  const updateQuiz = useCallback(
-    updatedStep => {
-      const onboarding = DraftOnboarding.update(draft, updatedStep);
+      const onboarding = DraftOnboarding.add(draft, template);
       dispatch(updateOnboarding(draft.id, onboarding, true));
+
+      const added = onboarding.steps[onboarding.steps.length - 1];
+      onSelect(FormSelection.onboarding(added.id, added.isGroup));
     },
-    [dispatch, draft]
+    [dispatch, draft, onSelect]
   );
 
   const open = useCallback(() => setOpened(true), []);
@@ -72,13 +63,11 @@ export default function Add({ draft }) {
           </div>
         </ContextMenu>
       )}
-      {!!quiz && (
-        <Quiz group={quiz} onHide={() => setQuiz(null)} onUpdate={updateQuiz} />
-      )}
     </div>
   );
 }
 
 Add.propTypes = {
   draft: draftProps.isRequired,
+  onSelect: PropTypes.func.isRequired,
 };

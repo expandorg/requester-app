@@ -17,16 +17,22 @@ export class FormSelection {
   static task: FormSelection = new FormSelection('task');
   static verification: FormSelection = new FormSelection('verification');
 
-  static onboarding(step: string): FormSelection {
-    return new FormSelection('onboarding', step);
+  static onboarding(step: string, settings: any = null): FormSelection {
+    return new FormSelection('onboarding', step, settings);
   }
 
   type: FormSelectionType;
   step: ?string;
+  settings: ?any;
 
-  constructor(type: FormSelectionType, step: ?string = null) {
+  constructor(
+    type: FormSelectionType,
+    step: ?string = null,
+    settings: any = null
+  ) {
     this.type = type;
     this.step = step;
+    this.settings = settings;
   }
 
   isOnboarding(): boolean {
@@ -47,6 +53,10 @@ export class FormSelection {
 
   isOnboardingStep(step: string): boolean {
     return this.isOnboarding() && this.step === step;
+  }
+
+  quizDialog(id: string): boolean {
+    return this.isOnboardingStep(id) && !!this.settings;
   }
 
   getOnboardingStep(draft: Draft): ?DraftOnboardingStep {

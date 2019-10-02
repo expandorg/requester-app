@@ -68,7 +68,7 @@ export default function OnboardingMenu({ draft, selection, onSelect }) {
           key={step.id}
           index={index}
           step={step}
-          selected={selection.isOnboardingStep(step.id)}
+          selection={selection}
           onSelect={onSelect}
           onDuplcate={duplicate}
           onUpdate={update}

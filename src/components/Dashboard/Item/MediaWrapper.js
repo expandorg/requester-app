@@ -46,10 +46,10 @@ export default function MediaWrapper({
 MediaWrapper.propTypes = {
   draft: draftProps.isRequired,
   isMobile: PropTypes.bool.isRequired,
-  highlight: PropTypes.bool.isRequired,
+  highlight: PropTypes.bool,
   onNotify: PropTypes.func.isRequired,
 };
 
-MediaWrapper.defoultProps = {
+MediaWrapper.defaultProps = {
   highlight: false,
 };
