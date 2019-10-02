@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from 'react';
 import PropTypes from 'prop-types';
 
-import { ReactComponent as MoreIcon } from '@expandorg/uikit/assets/more.svg';
+import { ReactComponent as MoreIcon } from '../../../../assets/more.svg';
 
 import Menu from './Menu';
 import { draftProps } from '../../../shared/propTypes';
@@ -22,7 +22,7 @@ export default function MenuButton({ draft, onCopy, onDelete }) {
   return (
     <div className={styles.container}>
       <button onClick={toggle} className={styles.more}>
-        <MoreIcon width="15" height="15" viewBox="0 0 15 4" />
+        <MoreIcon />
       </button>
       {menu && (
         <Menu draft={draft} onCopy={onCopy} onDelete={onDelete} onHide={hide} />

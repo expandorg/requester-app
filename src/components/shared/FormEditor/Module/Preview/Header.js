@@ -7,13 +7,12 @@ import cn from 'classnames';
 import { useToggle } from '@expandorg/components';
 import { ContextMenu, ContextMenuItem } from '@expandorg/components/app';
 
-import { ReactComponent as MoreIcon } from '@expandorg/uikit/assets/more.svg';
-
 import { ReactComponent as Visible } from '@expandorg/uikit/assets/visible.svg';
 import { ReactComponent as Invisible } from '@expandorg/uikit/assets/invisible.svg';
 
 import { moduleProps } from '@expandorg/modules';
 
+import { ReactComponent as MoreIcon } from '../../../../../assets/more.svg';
 import { ReactComponent as DownIcon } from '../../../../../assets/arrow_drop_down.svg';
 
 import styles from './Header.module.styl';
@@ -59,7 +58,7 @@ export default function Header({
       <div className={styles.actions}>
         {module.logic && (isVisible(module) ? <Visible /> : <Invisible />)}
         <button onClick={toggle} className={styles.more}>
-          <MoreIcon width="15" height="15" viewBox="0 0 15 4" />
+          <MoreIcon />
         </button>
         {menu && (
           <ContextMenu onHide={toggle}>
