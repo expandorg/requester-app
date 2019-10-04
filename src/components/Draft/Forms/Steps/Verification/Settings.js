@@ -64,7 +64,12 @@ const validate = form => {
   return Reflect.ownKeys(errors).length ? errors : null;
 };
 
-export default function VerificationSettings({ onHide, onSaved, draft }) {
+export default function VerificationSettings({
+  onHide,
+  onSaved,
+  draft,
+  onGenerate,
+}) {
   const dispatch = useDispatch();
 
   const [form, setForm] = useState(getInitialState(draft));
@@ -88,6 +93,8 @@ export default function VerificationSettings({ onHide, onSaved, draft }) {
       dispatch(updateVerificationSettings(draft.id, getSettings(form)));
     }
   }, [dispatch, draft.id, form, isSubmitting]);
+
+  const isConsensus = form.verificationModule === VerificationType.Consensus;
 
   return (
     <Dialog
@@ -113,7 +120,7 @@ export default function VerificationSettings({ onHide, onSaved, draft }) {
               }
             />
           </Field>
-          {form.verificationModule === VerificationType.Consensus && (
+          {isConsensus && (
             <Field
               className={styles.field}
               name="agreementCount"
@@ -151,6 +158,17 @@ export default function VerificationSettings({ onHide, onSaved, draft }) {
               }
             />
           </Field>
+          {!isConsensus && (
+            <Field className={styles.field}>
+              <Button
+                className={styles.btn}
+                theme="secondary"
+                onClick={onGenerate}
+              >
+                Generate Form
+              </Button>
+            </Field>
+          )}
         </Fieldset>
         <DF.Actions>
           <Button className={styles.btn} theme="secondary" onClick={onHide}>
@@ -169,5 +187,6 @@ export default function VerificationSettings({ onHide, onSaved, draft }) {
 VerificationSettings.propTypes = {
   draft: draftProps.isRequired,
   onSaved: PropTypes.func.isRequired,
+  onGenerate: PropTypes.func.isRequired,
   onHide: PropTypes.func.isRequired,
 };

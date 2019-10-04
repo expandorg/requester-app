@@ -15,7 +15,12 @@ import VerificationMenuItem from './Verification/MenuItem';
 
 import styles from './Steps.module.styl';
 
-export default function Steps({ draft, selection, onSelect }) {
+export default function Steps({
+  draft,
+  selection,
+  onSelect,
+  onUpdateVerificationForm,
+}) {
   return (
     <Topbar className={styles.topbar}>
       <Add draft={draft} onSelect={onSelect} />
@@ -30,6 +35,7 @@ export default function Steps({ draft, selection, onSelect }) {
           draft={draft}
           selected={selection.isVerification()}
           onSelect={onSelect}
+          onUpdate={onUpdateVerificationForm}
         />
       </Navs>
     </Topbar>
@@ -40,4 +46,5 @@ Steps.propTypes = {
   draft: draftProps.isRequired,
   selection: PropTypes.instanceOf(FormSelection).isRequired,
   onSelect: PropTypes.func.isRequired,
+  onUpdateVerificationForm: PropTypes.func.isRequired,
 };

@@ -78,7 +78,12 @@ function JobForms({ draft, onNext, tab }) {
       pickerModules={FormProps.getPickerModules(selection)}
       {...varParams}
     >
-      <Steps draft={draft} selection={selection} onSelect={setSelection} />
+      <Steps
+        draft={draft}
+        selection={selection}
+        onSelect={setSelection}
+        onUpdateVerificationForm={saveVerification}
+      />
       <VariablesDialogSwitch
         visible={varsDialog}
         selection={selection}
