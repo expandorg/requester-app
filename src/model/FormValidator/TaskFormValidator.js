@@ -1,13 +1,11 @@
 // @flow
 import type { Module } from '@expandorg/modules/src/form/model/types.flow';
-import FormValidator, {
-  findFirstVisitor,
-  type FormValidationResult,
-} from './FormValidator';
+import { findModuleVisitor } from '@expandorg/modules/model';
+import FormValidator, { type FormValidationResult } from './FormValidator';
 
 export default class TaskFormValidator extends FormValidator {
   checkInputs(modules: Array<Module>): ?FormValidationResult {
-    const found = findFirstVisitor(
+    const found = findModuleVisitor(
       modules,
       m => !!FormValidator.controls[m.type].module.isInput
     );

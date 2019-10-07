@@ -3,9 +3,9 @@ module.exports = {
   setupFiles: ['<rootDir>/scripts/jest.setup.js'],
   transformIgnorePatterns: [
     // 'node_modules',
-    '/node_modules/(?!(@expandorg)/).*/',
+    '/node_modules/(?!@expandorg)',
   ],
-  moduleDirectories: ['src', 'node_modules'],
+  moduleDirectories: ['node_modules'],
   transform: {
     '^.+\\.js$': 'babel-jest',
     '\\.js$': 'babel-jest',

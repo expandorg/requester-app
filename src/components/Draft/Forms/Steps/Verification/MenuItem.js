@@ -51,9 +51,9 @@ export default function VerificationMenuItem({
 
   const generateForm = useCallback(() => {
     setDialog(false);
-    onUpdate(generate(draft.taskForm));
+    onUpdate(generate(draft.taskForm, draft.verificationForm));
     onSelect(FormSelection.verification);
-  }, [draft.taskForm, onSelect, onUpdate]);
+  }, [draft.taskForm, draft.verificationForm, onSelect, onUpdate]);
 
   return (
     <>

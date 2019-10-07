@@ -3,12 +3,17 @@ import type { Module } from '@expandorg/modules/src/form/model/types.flow';
 
 type TransformFn = (module: Module) => ?Module;
 
+const verificaitonModuleProps = (module: Module) => ({
+  name: `${module.name}-answ`,
+  __tfId: module.name,
+});
+
 const text = (
   module: Module,
   contentFn: (answ: string) => string,
   style?: string = 'body'
 ) => ({
-  name: `${module.name}-answ`,
+  ...verificaitonModuleProps(module),
   type: 'text',
   align: 'left',
   style,
@@ -72,16 +77,16 @@ function yesNoTransform(module: Module): Module {
 }
 
 // eslint-disable-next-line no-unused-vars
-function voidTransform(_: Module): ?Module {
+function emptyTransform(_: Module): ?Module {
   return null;
 }
 
 export function identityTransform(module: Module): Module {
-  return { ...module, __tfId: module.name };
+  return { ...module, ...verificaitonModuleProps(module) };
 }
 
 export const transformMap: { [name: string]: TransformFn } = {
-  agreement: voidTransform,
+  agreement: emptyTransform,
   checkbox: checkboxTransform,
   dropdown: dropdownTransform,
   imageTiles: imageTilesTransform,
