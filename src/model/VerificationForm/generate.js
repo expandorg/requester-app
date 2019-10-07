@@ -1,8 +1,11 @@
 // @flow
+
 import type {
   Form,
   Module,
 } from '@expandorg/modules/src/form/model/types.flow';
+
+import { bfsVisitor } from '@expandorg/modules/model';
 
 import { transformMap, identityTransform } from './transformModule';
 
@@ -26,17 +29,6 @@ export function transformModule(
     ...result,
     modules: nested.map(child => transformModule(child, prev)).filter(Boolean),
   };
-}
-
-export function bfsVisitor(modules: Array<Module>, fn: (mod: Module) => any) {
-  const queue = [...modules];
-  while (queue.length) {
-    const m = queue.shift();
-    fn(m);
-    if (m.modules && m.modules.length) {
-      queue.push(...m.modules);
-    }
-  }
 }
 
 export function getModulesMap(modules: Array<Module>): Map<string, Module> {
