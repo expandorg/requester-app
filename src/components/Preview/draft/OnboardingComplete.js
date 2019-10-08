@@ -23,7 +23,7 @@ export default function OnboardingComplete({ onSubmit }) {
             className={styles.back}
             onClick={() => window.close()}
           >
-            Not interesting
+            Not interested
           </Button>
         </div>
       </Panel>
