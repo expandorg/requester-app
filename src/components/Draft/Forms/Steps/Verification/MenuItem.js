@@ -11,10 +11,16 @@ import Settings from './Settings';
 import { draftProps } from '../../../../shared/propTypes';
 import DraftValidator from '../../../../../model/DraftValidator';
 import { VerificationType } from '../../../../../model/enums';
+import generate from '../../../../../model/VerificationForm/generate';
 
 import styles from './MenuItem.module.styl';
 
-export default function VerificationMenuItem({ draft, selected, onSelect }) {
+export default function VerificationMenuItem({
+  draft,
+  selected,
+  onSelect,
+  onUpdate,
+}) {
   const [dialog, setDialog] = useState(false);
 
   const hasForm = DraftValidator.hasVerificationForm(draft);
@@ -43,6 +49,12 @@ export default function VerificationMenuItem({ draft, selected, onSelect }) {
     }
   }, [draft.verification.module, onSelect, selected]);
 
+  const generateForm = useCallback(() => {
+    setDialog(false);
+    onUpdate(generate(draft.taskForm, draft.verificationForm));
+    onSelect(FormSelection.verification);
+  }, [draft.taskForm, draft.verificationForm, onSelect, onUpdate]);
+
   return (
     <>
       {dialog && (
@@ -50,6 +62,7 @@ export default function VerificationMenuItem({ draft, selected, onSelect }) {
           draft={draft}
           onHide={() => setDialog(false)}
           onSaved={saveComplete}
+          onGenerate={generateForm}
         />
       )}
       <NavItem id="add-verification" selected={selected} onClick={click}>
@@ -65,4 +78,5 @@ VerificationMenuItem.propTypes = {
   draft: draftProps.isRequired,
   selected: PropTypes.bool.isRequired,
   onSelect: PropTypes.func.isRequired,
+  onUpdate: PropTypes.func.isRequired,
 };
