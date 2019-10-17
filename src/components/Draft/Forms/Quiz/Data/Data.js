@@ -56,13 +56,24 @@ export default class OnboardingGroupData extends Component {
     onChangeStep(WizardSteps.Settings);
   };
 
+  handleChangeStep = step => {
+    const { onChangeStep, onUpdate, group } = this.props;
+    const { isDirty, data } = this.state;
+
+    // update navigate away from page with changes
+    if (isDirty && step !== WizardSteps.Data) {
+      onUpdate({ ...group, data });
+    }
+    onChangeStep(step);
+  };
+
   render() {
     const { onChangeStep, group } = this.props;
     const { data } = this.state;
 
     return (
       <div className={styles.container}>
-        <Nav onChangeStep={onChangeStep} active={WizardSteps.Data} />
+        <Nav onChangeStep={this.handleChangeStep} active={WizardSteps.Data} />
         <div className={styles.content}>
           <div className={styles.description}>Your quiz data</div>
           {data && (
