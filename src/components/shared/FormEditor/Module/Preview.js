@@ -81,8 +81,6 @@ export default function Preview({ preview, module, selection, path }) {
         <>
           <div className={classes}>
             <Module
-              isModulePreview
-              isSubmitting={false}
               module={m}
               controls={controlsMap}
               values={values}

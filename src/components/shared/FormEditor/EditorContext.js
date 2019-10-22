@@ -7,7 +7,7 @@ import React, {
 } from 'react';
 import PropTypes from 'prop-types';
 
-import { formProps } from '@expandorg/modules';
+import { formProps, VarsPreviewContextProvider } from '@expandorg/modules';
 import { getModuleControlsMap } from '@expandorg/modules/model';
 
 import {
@@ -77,9 +77,11 @@ export function EditorContextProvider({ children, controls, form, onChange }) {
             onToggleCollapse,
           }}
         >
-          <ValueContextProvider selection={selection}>
-            {children}
-          </ValueContextProvider>
+          <VarsPreviewContextProvider isModulePreview>
+            <ValueContextProvider selection={selection}>
+              {children}
+            </ValueContextProvider>
+          </VarsPreviewContextProvider>
         </EditorContext.Provider>
       )}
     </TreeEditor>
