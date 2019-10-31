@@ -21,12 +21,12 @@ export default class ModuleProperyOptionsEditor extends PureComponent {
     dependency: null,
   };
 
-  static withModuleProperties = true;
-
   handleChange = value => {
     const { onChange } = this.props;
     onChange(value);
   };
+
+  static withModuleProperties = true;
 
   render() {
     const { value, label, moduleProperties, dependency } = this.props;

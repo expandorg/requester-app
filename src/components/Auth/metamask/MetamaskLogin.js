@@ -17,7 +17,7 @@ import styles from './styles.module.styl';
 
 export default function MetamaskLogin() {
   const dispatch = useDispatch();
-  const metamaskState = useSelector(metamaskStateSelector);
+  const mmask = useSelector(metamaskStateSelector);
   const loginState = useSelector(loginMetamaskStateSelector);
 
   const [dialog, setDialog] = useState(false);
@@ -27,12 +27,12 @@ export default function MetamaskLogin() {
   const failed = useCallback(({ err }) => setError(err), []);
 
   const click = useCallback(() => {
-    if (metamaskState !== MetamaskState.Authorized) {
+    if (mmask.state !== MetamaskState.Authorized) {
       setDialog(true);
     } else {
       dispatch(loginMetamask());
     }
-  }, [dispatch, metamaskState]);
+  }, [dispatch, mmask.state]);
 
   const login = useCallback(() => dispatch(loginMetamask()), [dispatch]);
 
@@ -41,14 +41,7 @@ export default function MetamaskLogin() {
       <button className="gem-metamask-button" onClick={click}>
         <ins className={styles.fox} /> Sign in with MetaMask
       </button>
-      {dialog && (
-        <MetamaskPromt
-          metamaskState={metamaskState}
-          onLogin={login}
-          onHide={hide}
-          error={error}
-        />
-      )}
+      {dialog && <MetamaskPromt onAction={login} onHide={hide} error={error} />}
       <ErrorMessage errors={error} className={styles.error} />
       <SubmitStateEffect submitState={loginState} onFailed={failed} />
     </div>

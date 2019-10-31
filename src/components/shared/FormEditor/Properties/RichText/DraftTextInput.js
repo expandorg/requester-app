@@ -63,6 +63,7 @@ export default class DraftTextInput extends Component {
     };
   }
 
+  // eslint-disable-next-line react/no-deprecated
   componentWillReceiveProps({ value, restoreEntities }) {
     const { value: current } = this.state;
     if (current !== value) {

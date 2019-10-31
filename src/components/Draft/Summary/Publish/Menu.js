@@ -6,14 +6,14 @@ import { clickOutside, Button } from '@expandorg/components';
 import styles from './styles.module.styl';
 
 class Menu extends Component {
+  timeoutId = null;
+
   static propTypes = {
     forwardedRef: PropTypes.object.isRequired, // eslint-disable-line
     onPublish: PropTypes.func.isRequired,
     onSchedule: PropTypes.func.isRequired,
     onToggle: PropTypes.func.isRequired,
   };
-
-  timeoutId = null;
 
   componentWillUnmount() {
     if (this.timeoutId !== null) {

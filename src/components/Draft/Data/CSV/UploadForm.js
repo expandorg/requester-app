@@ -28,6 +28,8 @@ const mapDispatchToProps = dispatch =>
   bindActionCreators({ uploadData, addNotification }, dispatch);
 
 class UploadForm extends Component {
+  progress = null;
+
   static propTypes = {
     draft: draftProps.isRequired,
     uploadState: requestStateProps.isRequired,
@@ -39,8 +41,6 @@ class UploadForm extends Component {
     data: null,
     progress: 0,
   };
-
-  progress = null;
 
   componentWillUnmount() {
     if (this.progress !== null) {
