@@ -2,6 +2,7 @@ import React, { useCallback, useState } from 'react';
 import PropTypes from 'prop-types';
 
 import { WalkthroughPin } from '@expandorg/components/app';
+import { verificationFormGenerator } from '@expandorg/modules/model';
 
 import { NavItem, SettingsButton } from '../controls';
 import { FormSelection } from '../../forms';
@@ -11,7 +12,6 @@ import Settings from './Settings';
 import { draftProps } from '../../../../shared/propTypes';
 import DraftValidator from '../../../../../model/DraftValidator';
 import { VerificationType } from '../../../../../model/enums';
-import generate from '../../../../../model/VerificationForm/generate';
 
 import styles from './MenuItem.module.styl';
 
@@ -51,7 +51,9 @@ export default function VerificationMenuItem({
 
   const generateForm = useCallback(() => {
     setDialog(false);
-    onUpdate(generate(draft.taskForm, draft.verificationForm));
+
+    const f = verificationFormGenerator(draft.taskForm, draft.verificationForm);
+    onUpdate(f);
     onSelect(FormSelection.verification);
   }, [draft.taskForm, draft.verificationForm, onSelect, onUpdate]);
 

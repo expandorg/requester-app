@@ -158,7 +158,7 @@ export default function VerificationSettings({
               }
             />
           </Field>
-          {false && !isConsensus && (
+          {!isConsensus && (
             <Field className={styles.field}>
               <Button
                 className={styles.btn}
