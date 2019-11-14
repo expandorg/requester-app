@@ -24,6 +24,12 @@ export const submitModules: Array<string> = ['submit', 'wizard'];
 export default class FormValidator {
   static controls: ModuleControlsMap = getModuleControlsMap(moduleControls);
 
+  errorMsg(commonMessage: string) {
+    return {
+      commonMessage,
+    };
+  }
+
   checkDeprecatedModules(modules: Array<Module>): ?FormValidationResult {
     const notSuported = findModuleVisitor(
       modules,
@@ -31,16 +37,16 @@ export default class FormValidator {
     );
 
     if (notSuported) {
-      return {
-        commonMessage: `Form includes deprecated module: ${notSuported.type}`,
-      };
+      return this.errorMsg(
+        `Form includes deprecated module: ${notSuported.type}`
+      );
     }
     return null;
   }
 
   checkSubmit(modules: Array<Module>): ?FormValidationResult {
     if (!modules.some(module => submitModules.includes(module.type))) {
-      return { commonMessage: 'Form should have submit button' };
+      return this.errorMsg('Form should have submit button');
     }
     return null;
   }

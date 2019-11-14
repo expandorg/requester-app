@@ -1,120 +1,99 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React, { useCallback, useState } from 'react';
 
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+import { useDispatch, useSelector } from 'react-redux';
 
-import {
-  RequestStates,
-  requestStateProps,
-  SubmitStateEffect,
-} from '@expandorg/app-utils';
+import { RequestStates, SubmitStateEffect } from '@expandorg/app-utils';
 
 import { Button, ErrorMessage, Input } from '@expandorg/components';
 
 import { loginStateSelector } from '@expandorg/app-auth/selectors';
 import { login } from '@expandorg/app-auth/sagas';
+
 import { ReactComponent as Logo } from '@expandorg/uikit/assets/logo.svg';
 
 import settings from '../../../common/settings';
 
 import styles from './styles.module.styl';
 
-const mapStateToProps = state => ({
-  loginState: loginStateSelector(state),
-});
+export default function EmailLogin() {
+  const dispatch = useDispatch();
 
-const mapDispatchToProps = dispatch => bindActionCreators({ login }, dispatch);
+  const loginState = useSelector(loginStateSelector);
 
-class EmailLogin extends Component {
-  static propTypes = {
-    loginState: requestStateProps.isRequired,
-    login: PropTypes.func.isRequired,
-  };
+  const [error, setError] = useState(null);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
-  state = {
-    email: '',
-    password: '',
-    error: null,
-  };
+  const changeEmail = useCallback(({ target }) => {
+    setEmail(target.value);
+    setError(null);
+  }, []);
 
-  handleSubmit = evt => {
-    evt.preventDefault();
-    const { loginState } = this.props;
+  const changePassword = useCallback(({ target }) => {
+    setPassword(target.value);
+    setError(null);
+  }, []);
 
-    if (loginState.state !== RequestStates.Fetching) {
-      const { email, password } = this.state;
-      this.setState({ error: null });
-      this.props.login(email, password);
-    }
-  };
+  const failed = useCallback(p => setError(p.error), []);
 
-  handleChange = ({ target }) => {
-    this.setState({ [target.name]: target.value, error: null });
-  };
+  const isFetching = loginState.state === RequestStates.Fetching;
 
-  handleFailed = ({ error }) => {
-    this.setState({ error });
-  };
+  const submit = useCallback(
+    evt => {
+      evt.preventDefault();
 
-  render() {
-    const { loginState } = this.props;
-    const { email, password, error } = this.state;
-    const isFetching = loginState.state === RequestStates.Fetching;
+      if (!isFetching) {
+        setError(null);
+        dispatch(login(email, password));
+      }
+    },
+    [dispatch, email, isFetching, password]
+  );
 
-    return (
-      <div className="gem-email-container">
-        <div className={styles.header}>
-          <Logo
-            width={40}
-            height={40}
-            viewBox="0 0 50 50"
-            className={styles.logo}
-          />
-          <h2 className={styles.title}>Sign in manually</h2>
-        </div>
-        <form className={styles.form} onSubmit={this.handleSubmit}>
-          <Input
-            className={styles.input}
-            type="email"
-            required
-            placeholder="Email address"
-            value={email}
-            name="email"
-            onChange={this.handleChange}
-          />
-          <Input
-            className={styles.input}
-            type="password"
-            required
-            placeholder="Password"
-            name="password"
-            value={password}
-            onChange={this.handleChange}
-          />
-          <div className={styles.forgotContainer}>
-            <a
-              className={styles.forgot}
-              href={`${settings.frontendUrl}/password`}
-            >
-              Forgot password?
-            </a>
-          </div>
-          <ErrorMessage errors={error} className={styles.error} />
-          <Button type="submit" className={styles.submit}>
-            {isFetching ? 'Logging in' : 'Log in'}
-          </Button>
-        </form>
-        <SubmitStateEffect
-          submitState={loginState}
-          onFailed={this.handleFailed}
+  return (
+    <div className="gem-email-container">
+      <div className={styles.header}>
+        <Logo
+          width={40}
+          height={40}
+          viewBox="0 0 50 50"
+          className={styles.logo}
         />
+        <h2 className={styles.title}>Sign in manually</h2>
       </div>
-    );
-  }
+      <form className={styles.form} onSubmit={submit}>
+        <Input
+          className={styles.input}
+          type="email"
+          required
+          placeholder="Email address"
+          value={email}
+          name="email"
+          onChange={changeEmail}
+        />
+        <Input
+          className={styles.input}
+          type="password"
+          required
+          placeholder="Password"
+          value={password}
+          name="password"
+          onChange={changePassword}
+        />
+        <div className={styles.forgotContainer}>
+          <a
+            className={styles.forgot}
+            href={`${settings.frontendUrl}/password`}
+          >
+            Forgot password?
+          </a>
+        </div>
+        <ErrorMessage errors={error} className={styles.error} />
+        <Button type="submit" className={styles.submit}>
+          {isFetching ? 'Logging in' : 'Log in'}
+        </Button>
+      </form>
+      <SubmitStateEffect submitState={loginState} onFailed={failed} />
+    </div>
+  );
 }
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(EmailLogin);

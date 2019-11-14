@@ -71,7 +71,4 @@ class EligibleUsers extends Component {
   }
 }
 
-export default connect(
-  mapsStateToProps,
-  mapDispatchToProps
-)(EligibleUsers);
+export default connect(mapsStateToProps, mapDispatchToProps)(EligibleUsers);

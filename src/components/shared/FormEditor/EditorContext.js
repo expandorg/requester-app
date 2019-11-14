@@ -25,7 +25,13 @@ const transform = f => (f && f.modules) || [];
 
 const deselectActions = new Set([Ops.Remove, Ops.Copy, Ops.Edit, Ops.Move]);
 
-export function EditorContextProvider({ children, controls, form, onChange }) {
+export function EditorContextProvider({
+  children,
+  controls,
+  form,
+  onChange,
+  getModuleActions,
+}) {
   const controlsMap = useMemo(() => getModuleControlsMap(controls), [controls]);
 
   const notifyTreeOp = useTreeOpsPubSub();
@@ -66,6 +72,7 @@ export function EditorContextProvider({ children, controls, form, onChange }) {
         <EditorContext.Provider
           value={{
             ...treeOps,
+            getModuleActions,
             selection,
             selectedModule,
             controlsMap,
@@ -92,6 +99,7 @@ EditorContextProvider.propTypes = {
   form: formProps,
   controls: PropTypes.arrayOf(PropTypes.func).isRequired,
   onChange: PropTypes.func.isRequired,
+  getModuleActions: PropTypes.func.isRequired,
 };
 
 EditorContextProvider.defaultProps = {

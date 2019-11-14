@@ -27,6 +27,7 @@ export class ModuleLogic {
       ...module,
       logic: {
         ...ModuleLogic.get(module),
+        // $FlowFixMe
         [action]: expression,
       },
     };
@@ -37,7 +38,6 @@ export class ModuleLogic {
       return module;
     }
     const { logic: __, ...modified } = module;
-    // $FlowFixMe
     return modified;
   }
 

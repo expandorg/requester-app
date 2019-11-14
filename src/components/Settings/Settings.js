@@ -126,8 +126,5 @@ class Settings extends Component {
 }
 
 export default authenticated(
-  connect(
-    mapStateToProps,
-    mapDispatchToProps
-  )(Settings)
+  connect(mapStateToProps, mapDispatchToProps)(Settings)
 );

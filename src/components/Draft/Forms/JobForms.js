@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect } from 'react';
+import React, { useState, useCallback, useEffect, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 
@@ -68,6 +68,14 @@ function JobForms({ draft, onNext, tab }) {
   );
 
   const varParams = FormProps.getVariablesParams(selection, draft, toggleVars);
+  const pickerControls = useMemo(() => FormProps.getPickerControls(selection), [
+    selection,
+  ]);
+
+  const getModuleActions = useMemo(
+    () => FormProps.getModuleActionsFactory(selection),
+    [selection]
+  );
 
   return (
     <Editor
@@ -75,7 +83,8 @@ function JobForms({ draft, onNext, tab }) {
       formId={selection.getFormId()}
       onSave={save}
       toolbar={<Toolbar draft={draft} onNext={onNext} />}
-      pickerModules={FormProps.getPickerModules(selection)}
+      pickerControls={pickerControls}
+      getModuleActions={getModuleActions}
       {...varParams}
     >
       <Steps

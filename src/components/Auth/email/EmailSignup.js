@@ -1,17 +1,11 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+import React, { useState, useCallback } from 'react';
 import cn from 'classnames';
+
+import { useDispatch, useSelector } from 'react-redux';
 
 import { Button, ErrorMessage, Input } from '@expandorg/components';
 
-import {
-  RequestStates,
-  requestStateProps,
-  SubmitStateEffect,
-} from '@expandorg/app-utils';
+import { RequestStates, SubmitStateEffect } from '@expandorg/app-utils';
 
 import { signupStateSelector } from '@expandorg/app-auth/selectors';
 import { signup } from '@expandorg/app-auth/sagas';
@@ -20,97 +14,79 @@ import { ReactComponent as Logo } from '@expandorg/uikit/assets/logo.svg';
 
 import styles from './styles.module.styl';
 
-const mapStateToProps = state => ({
-  signupState: signupStateSelector(state),
-});
+export default function EmailSignup() {
+  const dispatch = useDispatch();
+  const signupState = useSelector(signupStateSelector);
 
-const mapDispatchToProps = dispatch => bindActionCreators({ signup }, dispatch);
+  const [error, setError] = useState(null);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
-class EmailSignup extends Component {
-  static propTypes = {
-    signupState: requestStateProps.isRequired,
-    signup: PropTypes.func.isRequired,
-  };
+  const changeEmail = useCallback(({ target }) => {
+    setEmail(target.value);
+    setError(null);
+  }, []);
 
-  state = {
-    email: '',
-    password: '',
-    error: null,
-  };
+  const changePassword = useCallback(({ target }) => {
+    setPassword(target.value);
+    setError(null);
+  }, []);
 
-  handleSubmit = evt => {
-    evt.preventDefault();
-    const { signupState } = this.props;
+  const failed = useCallback(p => setError(p.error), []);
 
-    if (signupState.state !== RequestStates.Fetching) {
-      const { email, password } = this.state;
-      this.setState({ error: null });
-      this.props.signup({ email, password });
-    }
-  };
+  const isFetching = signupState.state === RequestStates.Fetching;
 
-  handleChange = ({ target }) => {
-    this.setState({ [target.name]: target.value, error: null });
-  };
+  const submit = useCallback(
+    evt => {
+      evt.preventDefault();
 
-  handleFailed = ({ error }) => {
-    this.setState({ error });
-  };
+      if (!isFetching) {
+        setError(null);
+        dispatch(signup({ email, password }));
+      }
+    },
+    [dispatch, email, isFetching, password]
+  );
 
-  render() {
-    const { signupState } = this.props;
-    const { email, password, error } = this.state;
-
-    const isFetching = signupState.state === RequestStates.Fetching;
-
-    return (
-      <div className="gem-email-container">
-        <div className={styles.header}>
-          <Logo
-            width={40}
-            height={40}
-            viewBox="0 0 50 50"
-            className={styles.logo}
-          />
-          <h2 className={styles.title}>Sign up manually</h2>
-        </div>
-        <form className={styles.form} onSubmit={this.handleSubmit}>
-          <Input
-            className={styles.input}
-            type="email"
-            required
-            placeholder="Email address"
-            value={email}
-            name="email"
-            onChange={this.handleChange}
-          />
-          <Input
-            className={styles.input}
-            type="password"
-            required
-            placeholder="Password"
-            value={password}
-            name="password"
-            onChange={this.handleChange}
-          />
-          <ErrorMessage errors={error} className={styles.error} />
-          <Button
-            type="submit"
-            className={cn(styles.submit, styles.signUpSubmit)}
-          >
-            {isFetching ? 'Signing up' : 'Sign up'}
-          </Button>
-        </form>
-        <SubmitStateEffect
-          submitState={signupState}
-          onFailed={this.handleFailed}
+  return (
+    <div className="gem-email-container">
+      <div className={styles.header}>
+        <Logo
+          width={40}
+          height={40}
+          viewBox="0 0 50 50"
+          className={styles.logo}
         />
+        <h2 className={styles.title}>Sign up manually</h2>
       </div>
-    );
-  }
+      <form className={styles.form} onSubmit={submit}>
+        <Input
+          className={styles.input}
+          type="email"
+          required
+          placeholder="Email address"
+          value={email}
+          name="email"
+          onChange={changeEmail}
+        />
+        <Input
+          className={styles.input}
+          type="password"
+          required
+          placeholder="Password"
+          value={password}
+          name="password"
+          onChange={changePassword}
+        />
+        <ErrorMessage errors={error} className={styles.error} />
+        <Button
+          type="submit"
+          className={cn(styles.submit, styles.signUpSubmit)}
+        >
+          {isFetching ? 'Signing up' : 'Sign up'}
+        </Button>
+      </form>
+      <SubmitStateEffect submitState={signupState} onFailed={failed} />
+    </div>
+  );
 }
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(EmailSignup);

@@ -127,7 +127,4 @@ class Whitelist extends Component {
   }
 }
 
-export default connect(
-  mapsStateToProps,
-  mapDispatchToProps
-)(Whitelist);
+export default connect(mapsStateToProps, mapDispatchToProps)(Whitelist);

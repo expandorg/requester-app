@@ -21,10 +21,7 @@ export const draftSavingSelector = (state: Object) => state.drafts.saving;
 export const makeDraftValidationSelector = (): any => {
   const draftSelector = makeDraftSelector();
   const validator = new DraftValidator();
-  return createSelector(
-    draftSelector,
-    draft => {
-      return validator.validate(draft);
-    }
-  );
+  return createSelector(draftSelector, draft => {
+    return validator.validate(draft);
+  });
 };

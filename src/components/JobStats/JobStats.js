@@ -140,10 +140,5 @@ class JobStats extends Component {
 }
 
 export default withRouter(
-  authenticated(
-    connect(
-      makeMapStateToProps,
-      mapDispatchToProps
-    )(JobStats)
-  )
+  authenticated(connect(makeMapStateToProps, mapDispatchToProps)(JobStats))
 );

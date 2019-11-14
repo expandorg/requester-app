@@ -27,13 +27,10 @@ export const makeTaskTemplateSelector = (): any =>
 
 export const makeDraftFromTemplateSelector = (): any => {
   const templateSelector = makeTaskTemplateSelector();
-  return createSelector(
-    templateSelector,
-    template => {
-      if (!template) {
-        return null;
-      }
-      return { ...template };
+  return createSelector(templateSelector, template => {
+    if (!template) {
+      return null;
     }
-  );
+    return { ...template };
+  });
 };

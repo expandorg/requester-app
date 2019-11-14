@@ -25,7 +25,7 @@ export default class TaskWorkflowBackend {
           return TaskState.getNextState(draft, response);
         }
         case TaskWorkflowState.VERIFICATION: {
-          return VerificationState.getNextState();
+          return VerificationState.getNextState(draft, response);
         }
         default:
           break;
