@@ -7,8 +7,6 @@ import { Table as T } from '@expandorg/components';
 import styles from './TablePreview.module.styl';
 
 const Value = value => {
-  console.log(value);
-
   if (typeof value === 'object') {
     return JSON.stringify(value, undefined, 2);
   }

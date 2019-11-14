@@ -7,14 +7,13 @@ import { createRepeatState, type WorkflowState } from './defs';
 
 export default class VerificationState {
   static getNextState(draft: Draft, response: any): WorkflowState {
-    if (draft.verificationForm) {
-      const score = getVerificationResponse(
-        response,
-        draft.verificationForm,
-        moduleControls
-      );
-      console.log('verification score:', score);
-    }
-    return createRepeatState();
+    const score = draft.verificationForm
+      ? getVerificationResponse(
+          response,
+          draft.verificationForm,
+          moduleControls
+        ).score
+      : 0;
+    return createRepeatState(score);
   }
 }

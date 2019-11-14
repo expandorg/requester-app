@@ -39,7 +39,8 @@ export const TaskWorkflowState = {
   REPEAT: 'REPEAT',
 };
 
-export const createRepeatState = (): WorkflowState => ({
+export const createRepeatState = (score?: number): WorkflowState => ({
+  verificationScore: score,
   state: TaskWorkflowState.REPEAT,
 });
 

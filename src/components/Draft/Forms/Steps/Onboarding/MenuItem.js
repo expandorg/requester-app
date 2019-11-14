@@ -64,7 +64,6 @@ export default function OnboardingMenuItem({
   );
 
   const select = useCallback(() => {
-    console.log('hide');
     onSelect(FormSelection.onboarding(step.id));
   }, [onSelect, step.id]);
 
