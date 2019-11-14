@@ -29,6 +29,7 @@ export default function Preview({ preview, module, selection, path }) {
     onSelect,
     controlsMap,
     collapsedMap,
+    getModuleActions,
     onToggleCollapse,
   } = useContext(EditorContext);
 
@@ -73,6 +74,7 @@ export default function Preview({ preview, module, selection, path }) {
         collapsed={collapsed}
         nesting={nesting}
         onSelect={select}
+        actions={getModuleActions(module)}
         onRemove={remove}
         onCopy={copy}
         onToggleCollapse={toggleCollapse}

@@ -142,8 +142,5 @@ class CreateDialog extends Component {
   }
 }
 export default withRouter(
-  connect(
-    mapsStateToProps,
-    { createDraft, fetchTaskTemplates }
-  )(CreateDialog)
+  connect(mapsStateToProps, { createDraft, fetchTaskTemplates })(CreateDialog)
 );

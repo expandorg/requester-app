@@ -25,7 +25,8 @@ export default function Editor({
   variables,
   toolbar,
   children,
-  pickerModules,
+  pickerControls,
+  getModuleActions,
   onSave,
   onToggleVarsDialog,
 }) {
@@ -35,10 +36,11 @@ export default function Editor({
       form={form}
       onChange={onSave}
       controls={all}
+      getModuleActions={getModuleActions}
     >
       <FormLayout className={styles.container} walkthrough={walkthrough}>
         <Sidebar>
-          <ModulePicker controls={pickerModules} />
+          <ModulePicker controls={pickerControls} />
         </Sidebar>
         <Content>
           {children}
@@ -63,9 +65,10 @@ Editor.propTypes = {
   formId: PropTypes.string.isRequired,
   toolbar: PropTypes.element.isRequired,
   variables: PropTypes.arrayOf(PropTypes.string),
-  pickerModules: PropTypes.arrayOf(PropTypes.func).isRequired,
+  pickerControls: PropTypes.arrayOf(PropTypes.func).isRequired,
   onSave: PropTypes.func.isRequired,
   onToggleVarsDialog: PropTypes.func,
+  getModuleActions: PropTypes.func.isRequired,
 };
 
 Editor.defaultProps = {

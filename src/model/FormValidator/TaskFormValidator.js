@@ -10,7 +10,7 @@ export default class TaskFormValidator extends FormValidator {
       m => !!FormValidator.controls[m.type].module.isInput
     );
     if (!found) {
-      return { commonMessage: 'Form should have at least one input module' };
+      return this.errorMsg('Form should have at least one input module');
     }
     return null;
   }

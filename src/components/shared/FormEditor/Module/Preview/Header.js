@@ -20,8 +20,6 @@ import styles from './Header.module.styl';
 const isVisible = module => {
   return !module.logic.show;
 };
-// const isVisibilityAllowed = module => module.type !== 'submit';
-const isCopyAllowed = module => module.type !== 'submit';
 
 export default function Header({
   module,
@@ -29,6 +27,7 @@ export default function Header({
   collapsed,
   onSelect,
   onCopy,
+  actions,
   onRemove,
   onToggleCollapse,
 }) {
@@ -62,11 +61,13 @@ export default function Header({
         </button>
         {menu && (
           <ContextMenu onHide={toggle}>
-            {isCopyAllowed(module) && (
+            {actions.has('copy') && (
               <ContextMenuItem onClick={copy}>Duplicate</ContextMenuItem>
             )}
             {/* <ContextMenuItem>Manage logic</ContextMenuItem> */}
-            <ContextMenuItem onClick={remove}>Delete</ContextMenuItem>
+            {actions.has('remove') && (
+              <ContextMenuItem onClick={remove}>Delete</ContextMenuItem>
+            )}
           </ContextMenu>
         )}
       </div>
@@ -82,6 +83,7 @@ Header.propTypes = {
   onCopy: PropTypes.func.isRequired,
   onRemove: PropTypes.func.isRequired,
   onToggleCollapse: PropTypes.func.isRequired,
+  actions: PropTypes.instanceOf(Set).isRequired,
 };
 
 Header.defaultProps = {

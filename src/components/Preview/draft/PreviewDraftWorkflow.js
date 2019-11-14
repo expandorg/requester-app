@@ -19,6 +19,7 @@ export default function PreviewDraftWorkflow({ draft, variables, onNotify }) {
 
   const submit = useCallback(
     (...args) => {
+      console.log(...args);
       setWorkflow(Backend.getNextState(draft, workflow, ...args));
     },
     [draft, workflow]

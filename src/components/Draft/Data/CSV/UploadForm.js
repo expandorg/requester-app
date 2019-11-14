@@ -119,7 +119,4 @@ class UploadForm extends Component {
   }
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(UploadForm);
+export default connect(mapStateToProps, mapDispatchToProps)(UploadForm);

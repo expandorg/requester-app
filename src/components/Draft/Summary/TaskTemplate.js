@@ -58,7 +58,4 @@ class TaskTemplate extends Component {
   }
 }
 
-export default connect(
-  makeMapStateToProps,
-  mapDispatchToProps
-)(TaskTemplate);
+export default connect(makeMapStateToProps, mapDispatchToProps)(TaskTemplate);
