@@ -5,8 +5,7 @@ import { Navbar } from '@expandorg/components/app';
 
 import I from '../common/I';
 
-import Page from '../shared/Page';
-import Sidebar from '../shared/Sidebar';
+import { Page, Sidebar } from '../shared/Page';
 
 import Hero from '../shared/Hero';
 

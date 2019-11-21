@@ -8,7 +8,7 @@ import { Sidebar, Navbar } from '@expandorg/components/app';
 import { Panel } from '@expandorg/components';
 import { matchProps } from '@expandorg/app-utils';
 
-import Page from '../shared/Page';
+import { Page } from '../shared/Page';
 
 import PreviewDraftWorkflow from './draft/PreviewDraftWorkflow';
 

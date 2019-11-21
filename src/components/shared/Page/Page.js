@@ -5,7 +5,7 @@ import cn from 'classnames';
 import { Page as UIPage } from '@expandorg/components/app';
 
 import Footer from './Footer';
-import Notifications from './Notifications';
+import Toast from './Toast';
 
 import styles from './Page.module.styl';
 
@@ -14,7 +14,7 @@ export default function Page({ children, footer, className, ...rest }) {
     <UIPage className={cn(styles.content, className)} {...rest}>
       <div className={styles.container}>{children}</div>
       {footer && <Footer />}
-      <Notifications />
+      <Toast />
     </UIPage>
   );
 }

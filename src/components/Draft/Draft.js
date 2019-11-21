@@ -8,7 +8,8 @@ import { RequestStates, matchProps, locationProps } from '@expandorg/app-utils';
 import DraftWizard from './DraftWizard';
 
 import LoadIndicator from '../shared/LoadIndicator';
-import Page from '../shared/Page';
+import { Page } from '../shared/Page';
+
 import { authenticated } from '../shared/auth';
 
 import {
@@ -16,6 +17,7 @@ import {
   draftSavingSelector,
   makeDraftValidationSelector,
 } from '../../selectors/draftsSelectors';
+
 import { fetchDraftStateSelector } from '../../selectors/uiStateSelectors';
 import { fetch } from '../../sagas/draftsSagas';
 

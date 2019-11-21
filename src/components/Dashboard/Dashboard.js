@@ -10,11 +10,9 @@ import { ListNav, Navbar } from '@expandorg/components/app';
 
 import Media from 'react-media';
 
-import Sidebar from '../shared/Sidebar';
-
 import { authenticated } from '../shared/auth';
 
-import Page from '../shared/Page';
+import { Page, Sidebar } from '../shared/Page';
 
 import Item from './Item/Item';
 import New from './Item/New';

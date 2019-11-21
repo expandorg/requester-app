@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
 
@@ -13,34 +13,31 @@ const Value = value => {
   return value;
 };
 
-export default class TablePreview extends Component {
-  static propTypes = {
-    value: PropTypes.shape({}).isRequired,
-    className: PropTypes.string,
-  };
-
-  static defaultProps = {
-    className: null,
-  };
-
-  render() {
-    const { value, className } = this.props;
-    const keys = Reflect.ownKeys(value);
-    return (
-      <div className={cn(styles.container, className)}>
-        <T.Table>
-          <T.Header className={styles.header}>
-            {keys.map(key => (
-              <T.HeaderCell className={styles.headerCell}>{key}</T.HeaderCell>
-            ))}
-          </T.Header>
-          <T.Row className={styles.row}>
-            {keys.map(key => (
-              <T.Cell className={styles.cell}>{Value(value[key])}</T.Cell>
-            ))}
-          </T.Row>
-        </T.Table>
-      </div>
-    );
-  }
+export default function TablePreview({ value, className }) {
+  const keys = Reflect.ownKeys(value);
+  return (
+    <div className={cn(styles.container, className)}>
+      <T.Table>
+        <T.Header className={styles.header}>
+          {keys.map(key => (
+            <T.HeaderCell className={styles.headerCell}>{key}</T.HeaderCell>
+          ))}
+        </T.Header>
+        <T.Row className={styles.row}>
+          {keys.map(key => (
+            <T.Cell className={styles.cell}>{Value(value[key])}</T.Cell>
+          ))}
+        </T.Row>
+      </T.Table>
+    </div>
+  );
 }
+
+TablePreview.propTypes = {
+  value: PropTypes.shape({}).isRequired,
+  className: PropTypes.string,
+};
+
+TablePreview.defaultProps = {
+  className: null,
+};

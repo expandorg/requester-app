@@ -1,9 +1,8 @@
 import React from 'react';
 
 import { Navbar } from '@expandorg/components/app';
-import Sidebar from '../shared/Sidebar';
 
-import Page from '../shared/Page';
+import { Page, Sidebar } from '../shared/Page';
 import { authenticated } from '../shared/auth';
 
 import ApiKeyForm from './ApiKeyForm';
