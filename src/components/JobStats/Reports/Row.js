@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { parse } from 'date-fns';
+
+import parse from 'date-fns/parse';
 
 import { Table as T } from '@expandorg/components';
 

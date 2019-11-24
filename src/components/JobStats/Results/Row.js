@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/mouse-events-have-key-events */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { parse } from 'date-fns';
+import parse from 'date-fns/parse';
 
 import { Table as T } from '@expandorg/components';
 import { ReactComponent as JsIcon } from './js.svg';

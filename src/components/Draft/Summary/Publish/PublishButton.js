@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import { parse, startOfHour, addHours } from 'date-fns';
+import parse from 'date-fns/parse';
+import startOfHour from 'date-fns/start_of_hour';
+import addHours from 'date-fns/add_hours';
 
 import { userProps } from '@expandorg/app-auth';
 import { Button, DateTimePicker } from '@expandorg/components';
