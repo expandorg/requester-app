@@ -7,8 +7,8 @@ import { Table as T } from '@expandorg/components';
 import { ReactComponent as JsIcon } from './js.svg';
 import { ReactComponent as TableIcon } from './table.svg';
 
-import JsonPreview from './JsonPreview';
-import TablePreview from './TablePreview';
+import JsonPreview from './Preview/JsonPreview';
+import TablePreview from './Preview/TablePreview';
 import { formatDate } from '../../../model/i18n';
 
 import styles from './Row.module.styl';

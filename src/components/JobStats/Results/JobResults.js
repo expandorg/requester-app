@@ -13,7 +13,7 @@ import LoadIndicator from '../../shared/LoadIndicator';
 
 import Header from './Header';
 import Row from './Row';
-import SelectedRowDialog from './SelectedRowDialog';
+import SelectedRowDialog from './Preview/SelectedRowDialog';
 
 import styles from './JobResults.module.styl';
 
