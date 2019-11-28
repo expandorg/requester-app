@@ -56,7 +56,6 @@ function JobStats() {
       title={(stats && stats.job.name) || ''}
       sidebar={false}
       navbar={false}
-      footer={false}
     >
       <Navbar top={false} />
       <LoadIndicator isLoading={isLoading}>
