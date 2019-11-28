@@ -1,6 +1,7 @@
 /* eslint-disable jsx-a11y/mouse-events-have-key-events */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import cn from 'classnames';
 import parse from 'date-fns/parse';
 
 import { Table as T } from '@expandorg/components';
@@ -26,8 +27,8 @@ export default class Row extends Component {
     const { response, mode } = this.props;
     return (
       <T.Row>
-        <T.Cell className={styles.cell}>{response.id}</T.Cell>
-        <T.Cell className={styles.valueCell}>
+        <T.Cell className={cn(styles.cell, styles.id)}>{response.id}</T.Cell>
+        <T.Cell className={styles.value}>
           {mode === 'json' && <JsonPreview value={response.value} />}
           {mode === 'table' && <TablePreview value={response.value} />}
         </T.Cell>
