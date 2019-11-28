@@ -1,4 +1,4 @@
-import React, { useCallback, useState, useMemo } from 'react';
+import React, { useState, useMemo } from 'react';
 import PropTypes from 'prop-types';
 
 import { useSelector } from 'react-redux';
@@ -13,20 +13,14 @@ import LoadIndicator from '../../shared/LoadIndicator';
 
 import Header from './Header';
 import Row from './Row';
-import SelectedRowDialog from './Preview/SelectedRowDialog';
 
-import styles from './JobResults.module.styl';
+import styles from './ResultsTable.module.styl';
 
-export default function JobResults({ id, page, total, onChangePage }) {
+export default function ResultsTable({ id, page, total, onChangePage }) {
   const responsesSelector = useMemo(makeJobResponsesDataSelector);
   const responses = useSelector(s => responsesSelector(s, id, page));
 
-  const [selected, select] = useState(null);
   const [mode, setMode] = useState('table');
-
-  const hide = useCallback(() => select(null), []);
-  const next = useCallback(() => select(s => s + 1), []);
-  const prev = useCallback(() => select(s => s - 1), []);
 
   const fetchState = useSelector(fetchJobResponsesStateSelector);
   const isFetching = fetchState.state === RequestStates.Fetching;
@@ -37,14 +31,8 @@ export default function JobResults({ id, page, total, onChangePage }) {
         {responses && responses.length !== 0 && (
           <T.Table>
             <Header mode={mode} onToggle={setMode} />
-            {responses.map((resp, i) => (
-              <Row
-                key={resp.id}
-                response={resp}
-                index={i}
-                mode={mode}
-                onSelectValue={select}
-              />
+            {responses.map(resp => (
+              <Row key={resp.id} response={resp} mode={mode} />
             ))}
           </T.Table>
         )}
@@ -55,22 +43,11 @@ export default function JobResults({ id, page, total, onChangePage }) {
         total={total}
         onChange={onChangePage}
       />
-      {selected !== null && (
-        <SelectedRowDialog
-          response={responses[selected]}
-          index={selected}
-          mode={mode}
-          count={responses.length}
-          onHide={hide}
-          onNext={next}
-          onPrev={prev}
-        />
-      )}
     </div>
   );
 }
 
-JobResults.propTypes = {
+ResultsTable.propTypes = {
   id: PropTypes.number.isRequired,
   page: PropTypes.number.isRequired,
   total: PropTypes.number.isRequired,

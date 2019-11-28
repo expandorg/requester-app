@@ -12,7 +12,7 @@ import { Page } from '../shared/Page';
 import LoadIndicator from '../shared/LoadIndicator';
 
 import Stats from './Stats';
-import JobResults from './Results/JobResults';
+import ResultsTable from './Results/ResultsTable';
 import Reports from './Reports/Reports';
 
 import { authenticated } from '../shared/auth';
@@ -63,7 +63,7 @@ function JobStats() {
         {stats && (
           <div className={styles.content}>
             <Stats stats={stats} reports={reports.length} />
-            <JobResults
+            <ResultsTable
               id={+id}
               page={page}
               total={Math.ceil(stats.accepted / 15)}
