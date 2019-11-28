@@ -20,12 +20,16 @@ export default function TablePreview({ value, className }) {
       <T.Table>
         <T.Header className={styles.header}>
           {keys.map(key => (
-            <T.HeaderCell className={styles.headerCell}>{key}</T.HeaderCell>
+            <T.HeaderCell key={key} className={styles.headerCell}>
+              {key}
+            </T.HeaderCell>
           ))}
         </T.Header>
         <T.Row className={styles.row}>
           {keys.map(key => (
-            <T.Cell className={styles.cell}>{Value(value[key])}</T.Cell>
+            <T.Cell key={key} className={styles.cell}>
+              {Value(value[key])}
+            </T.Cell>
           ))}
         </T.Row>
       </T.Table>

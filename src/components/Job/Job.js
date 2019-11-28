@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo, useCallback } from 'react';
+import React, { useEffect, useMemo } from 'react';
 
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -20,7 +20,7 @@ import { authenticated } from '../shared/auth';
 import { makeJobStatsSelector } from '../../selectors/tasksSelectors';
 import { jobReportSelector } from '../../selectors/jobReportsSelectors';
 import { fetchJobStatsStateSelector } from '../../selectors/uiStateSelectors';
-import { fetchJobStats, fetchResponses } from '../../sagas/tasksSagas';
+import { fetchJobStats } from '../../sagas/tasksSagas';
 import { fetchJobReports } from '../../sagas/jobReportsSagas';
 
 import styles from './Job.module.styl';
@@ -28,27 +28,18 @@ import styles from './Job.module.styl';
 function Job() {
   const dispatch = useDispatch();
 
-  const [page, setPage] = useState(0);
   const id = +useParams().id;
 
+  const loadState = useSelector(fetchJobStatsStateSelector);
   const jobStatsSelector = useMemo(makeJobStatsSelector);
   const stats = useSelector(s => jobStatsSelector(s, id));
+
   const reports = useSelector(jobReportSelector);
-  const loadState = useSelector(fetchJobStatsStateSelector);
 
   useEffect(() => {
     dispatch(fetchJobStats(id));
-    dispatch(fetchResponses(id));
     dispatch(fetchJobReports(id));
   }, [dispatch, id]);
-
-  const changePage = useCallback(
-    p => {
-      setPage(p);
-      dispatch(fetchResponses(id, p));
-    },
-    [dispatch, id]
-  );
 
   const isLoading = !stats && loadState.state === RequestStates.Fetching;
   return (
@@ -56,18 +47,14 @@ function Job() {
       title={(stats && stats.job.name) || ''}
       sidebar={false}
       navbar={false}
+      footer={false}
     >
       <Navbar top={false} />
       <LoadIndicator isLoading={isLoading}>
         {stats && (
           <div className={styles.content}>
             <Stats stats={stats} reports={reports.length} />
-            <ResultsTable
-              id={+id}
-              page={page}
-              total={Math.ceil(stats.accepted / 15)}
-              onChangePage={changePage}
-            />
+            <ResultsTable total={Math.ceil(stats.accepted / 15)} id={id} />
             <Reports reports={reports} />
           </div>
         )}

@@ -22,6 +22,7 @@ export default function Header({ mode, onToggle }) {
       </T.HeaderCell>
       <T.HeaderCell className={styles.cell}>Worker Id</T.HeaderCell>
       <T.HeaderCell className={styles.cell}>Date</T.HeaderCell>
+      <T.HeaderCell className={styles.cell}>Status</T.HeaderCell>
     </T.Header>
   );
 }

@@ -1,7 +1,7 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useCallback, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { RequestStates } from '@expandorg/app-utils';
 import { Table as T } from '@expandorg/components';
 import { Pagination } from '@expandorg/components/app';
@@ -14,16 +14,36 @@ import LoadIndicator from '../../shared/LoadIndicator';
 import Header from './Header';
 import Row from './Row';
 
+import { fetchResponses } from '../../../sagas/tasksSagas';
+
 import styles from './ResultsTable.module.styl';
 
-export default function ResultsTable({ id, page, total, onChangePage }) {
+export default function ResultsTable({ id, total }) {
+  const dispatch = useDispatch();
+
+  const [page, setPage] = useState(0);
+
   const responsesSelector = useMemo(makeJobResponsesDataSelector);
   const responses = useSelector(s => responsesSelector(s, id, page));
 
   const [mode, setMode] = useState('table');
 
   const fetchState = useSelector(fetchJobResponsesStateSelector);
+
+  useEffect(() => {
+    dispatch(fetchResponses(id));
+  }, [dispatch, id]);
+
+  const changePage = useCallback(
+    p => {
+      setPage(p);
+      dispatch(fetchResponses(id, p));
+    },
+    [dispatch, id]
+  );
+
   const isFetching = fetchState.state === RequestStates.Fetching;
+
   return (
     <div className={styles.container}>
       <div className={styles.header}>Task Results</div>
@@ -41,7 +61,7 @@ export default function ResultsTable({ id, page, total, onChangePage }) {
         className={styles.paging}
         current={page}
         total={total}
-        onChange={onChangePage}
+        onChange={changePage}
       />
     </div>
   );
@@ -49,7 +69,5 @@ export default function ResultsTable({ id, page, total, onChangePage }) {
 
 ResultsTable.propTypes = {
   id: PropTypes.number.isRequired,
-  page: PropTypes.number.isRequired,
   total: PropTypes.number.isRequired,
-  onChangePage: PropTypes.func.isRequired,
 };
