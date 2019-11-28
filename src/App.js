@@ -18,8 +18,7 @@ import Login from './components/Auth/Login';
 import Signup from './components/Auth/Signup';
 
 import Draft from './components/Draft/Draft';
-
-import JobStats from './components/JobStats/JobStats';
+import Job from './components/Job/Job';
 
 import PreviewDraft from './components/Preview/PreviewDraft';
 import PreviewTemplate from './components/Preview/PreviewTemplate';
@@ -51,7 +50,7 @@ const App = () => (
             <Route path="/tasks/:category" component={Dashboard} />
 
             <Route path="/draft/:id" component={Draft} />
-            <Route path="/job/:id" component={JobStats} />
+            <Route path="/job/:id" component={Job} />
 
             <Route path="/preview/draft/:id" component={PreviewDraft} />
             <Route path="/preview/template/:id" component={PreviewTemplate} />
