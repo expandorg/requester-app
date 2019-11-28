@@ -1,9 +1,8 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
-import { connect } from 'react-redux';
-
-import { requestStateProps, RequestStates } from '@expandorg/app-utils';
+import { useSelector } from 'react-redux';
+import { RequestStates } from '@expandorg/app-utils';
 import { Table as T } from '@expandorg/components';
 
 import LoadIndicator from '../../shared/LoadIndicator';
@@ -14,37 +13,33 @@ import { fetchJobReportsStateSelector } from '../../../selectors/uiStateSelector
 
 import styles from './Reports.module.styl';
 
-const mapStateToProps = state => ({
-  fetchState: fetchJobReportsStateSelector(state),
-});
+export default function Reports({ reports }) {
+  const fetchState = useSelector(fetchJobReportsStateSelector);
+  const isFetching = fetchState.state === RequestStates.Fetching;
 
-class Reports extends Component {
-  static propTypes = {
-    reports: PropTypes.arrayOf(PropTypes.shape({})),
-    fetchState: requestStateProps.isRequired,
-  };
-
-  static defaultProps = {
-    reports: [],
-  };
-
-  render() {
-    const { fetchState, reports } = this.props;
-    const isFetching = fetchState.state === RequestStates.Fetching;
-
-    return (
-      <div className={styles.container}>
-        <div className={styles.header}>Reported Questions</div>
-        <LoadIndicator isLoading={isFetching}>
-          <T.Table className={styles.table}>
-            <Header />
-            {reports.length !== 0 &&
-              reports.map(report => <Row key={report.id} report={report} />)}
-          </T.Table>
-        </LoadIndicator>
-      </div>
-    );
-  }
+  return (
+    <div className={styles.container}>
+      <LoadIndicator isLoading={isFetching}>
+        {reports.length !== 0 && (
+          <>
+            <div className={styles.header}>Reported Questions</div>
+            <T.Table className={styles.table}>
+              <Header />
+              {reports.map(report => (
+                <Row key={report.id} report={report} />
+              ))}
+            </T.Table>
+          </>
+        )}
+      </LoadIndicator>
+    </div>
+  );
 }
 
-export default connect(mapStateToProps)(Reports);
+Reports.propTypes = {
+  reports: PropTypes.arrayOf(PropTypes.shape({})),
+};
+
+Reports.defaultProps = {
+  reports: [],
+};

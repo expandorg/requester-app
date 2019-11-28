@@ -1,25 +1,22 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
 
 import styles from './JsonPreview.module.styl';
 
-export default class JsonPreview extends Component {
-  static propTypes = {
-    value: PropTypes.shape({}).isRequired,
-    className: PropTypes.string,
-  };
-
-  static defaultProps = {
-    className: null,
-  };
-
-  render() {
-    const { value, className } = this.props;
-    return (
-      <div className={cn(styles.container, className)}>
-        {JSON.stringify(value, undefined, 2)}
-      </div>
-    );
-  }
+export default function JsonPreview({ value, className }) {
+  return (
+    <div className={cn(styles.container, className)}>
+      {JSON.stringify(value, undefined, 2)}
+    </div>
+  );
 }
+
+JsonPreview.propTypes = {
+  value: PropTypes.shape({}).isRequired,
+  className: PropTypes.string,
+};
+
+JsonPreview.defaultProps = {
+  className: null,
+};

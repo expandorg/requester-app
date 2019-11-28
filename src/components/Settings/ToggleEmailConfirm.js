@@ -1,10 +1,8 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-import { Tooltip } from '@expandorg/components';
+import { Tooltip, useToggle } from '@expandorg/components';
 import { userProps } from '@expandorg/app-auth';
-
 import { ReactComponent as I } from '@expandorg/uikit/assets/i.svg';
-
 import { ConfirmEmailDialog } from '@expandorg/app-account/components';
 
 import styles from './ToggleEmailConfirm.module.styl';
@@ -16,35 +14,23 @@ const Btn = Tooltip(({ children, ...rest }) => (
   </button>
 ));
 
-export default class ToggleEmailConfirm extends Component {
-  static propTypes = {
-    user: userProps.isRequired,
-  };
+export default function ToggleEmailConfirm({ user }) {
+  const [dialog, toggle] = useToggle(false);
 
-  state = {
-    dialog: false,
-  };
-
-  handleToggle = () => {
-    this.setState(({ dialog }) => ({ dialog: !dialog }));
-  };
-
-  render() {
-    const { user } = this.props;
-    const { dialog } = this.state;
-    if (!user.email) {
-      return null;
-    }
-
-    return (
-      <>
-        {!user.emailConfirmed && (
-          <Btn onClick={this.handleToggle} tooltip="Confirm Email Address" />
-        )}
-        {dialog && (
-          <ConfirmEmailDialog user={user} onHide={this.handleToggle} />
-        )}
-      </>
-    );
+  if (!user.email) {
+    return null;
   }
+
+  return (
+    <>
+      {!user.emailConfirmed && (
+        <Btn onClick={toggle} tooltip="Confirm Email Address" />
+      )}
+      {dialog && <ConfirmEmailDialog user={user} onHide={toggle} />}
+    </>
+  );
 }
+
+ToggleEmailConfirm.propTypes = {
+  user: userProps.isRequired,
+};

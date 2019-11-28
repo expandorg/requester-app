@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import React, { useCallback, useState, useMemo } from 'react';
 import PropTypes from 'prop-types';
 
-import { connect } from 'react-redux';
-import { requestStateProps, RequestStates } from '@expandorg/app-utils';
+import { useSelector } from 'react-redux';
+import { RequestStates } from '@expandorg/app-utils';
 import { Table as T } from '@expandorg/components';
 import { Pagination } from '@expandorg/components/app';
 
@@ -17,101 +17,62 @@ import SelectedRowDialog from './SelectedRowDialog';
 
 import styles from './JobResults.module.styl';
 
-const makeMapStateToProps = () => {
-  const responsesSelector = makeJobResponsesDataSelector();
-  return (state, props) => ({
-    responses: responsesSelector(state, props.id, props.page),
-    fetchState: fetchJobResponsesStateSelector(state),
-  });
-};
+export default function JobResults({ id, page, total, onChangePage }) {
+  const responsesSelector = useMemo(makeJobResponsesDataSelector);
+  const responses = useSelector(s => responsesSelector(s, id, page));
 
-class JobResults extends Component {
-  static propTypes = {
-    responses: PropTypes.arrayOf(PropTypes.shape({})),
-    page: PropTypes.number.isRequired,
-    total: PropTypes.number.isRequired,
-    fetchState: requestStateProps.isRequired,
-    onChangePage: PropTypes.func.isRequired,
-  };
+  const [selected, select] = useState(null);
+  const [mode, setMode] = useState('table');
 
-  static defaultProps = {
-    responses: null,
-  };
+  const hide = useCallback(() => select(null), []);
+  const next = useCallback(() => select(s => s + 1), []);
+  const prev = useCallback(() => select(s => s - 1), []);
 
-  state = {
-    selected: null,
-    mode: 'table',
-  };
-
-  handleSelectValue = index => {
-    this.setState({ selected: index });
-  };
-
-  handleHide = () => {
-    this.setState({ selected: null });
-  };
-
-  handleNext = () => {
-    this.setState(({ selected }) => ({
-      selected: selected + 1,
-    }));
-  };
-
-  handlePrev = () => {
-    this.setState(({ selected }) => ({
-      selected: selected - 1,
-    }));
-  };
-
-  handleToggleMode = mode => {
-    this.setState({ mode });
-  };
-
-  render() {
-    const { fetchState, responses, page, total, onChangePage } = this.props;
-    const { selected, mode } = this.state;
-
-    const isFetching = fetchState.state === RequestStates.Fetching;
-
-    return (
-      <div className={styles.container}>
-        <div className={styles.header}>Task Results</div>
-        <LoadIndicator isLoading={!responses && isFetching}>
-          {responses && responses.length !== 0 && (
-            <T.Table>
-              <Header mode={mode} onToggle={this.handleToggleMode} />
-              {responses.map((resp, i) => (
-                <Row
-                  key={resp.id}
-                  response={resp}
-                  index={i}
-                  mode={mode}
-                  onSelectValue={this.handleSelectValue}
-                />
-              ))}
-            </T.Table>
-          )}
-        </LoadIndicator>
-        <Pagination
-          className={styles.paging}
-          current={page}
-          total={total}
-          onChange={onChangePage}
-        />
-        {selected !== null && (
-          <SelectedRowDialog
-            response={responses[selected]}
-            index={selected}
-            mode={mode}
-            count={responses.length}
-            onHide={this.handleHide}
-            onNext={this.handleNext}
-            onPrev={this.handlePrev}
-          />
+  const fetchState = useSelector(fetchJobResponsesStateSelector);
+  const isFetching = fetchState.state === RequestStates.Fetching;
+  return (
+    <div className={styles.container}>
+      <div className={styles.header}>Task Results</div>
+      <LoadIndicator isLoading={!responses && isFetching}>
+        {responses && responses.length !== 0 && (
+          <T.Table>
+            <Header mode={mode} onToggle={setMode} />
+            {responses.map((resp, i) => (
+              <Row
+                key={resp.id}
+                response={resp}
+                index={i}
+                mode={mode}
+                onSelectValue={select}
+              />
+            ))}
+          </T.Table>
         )}
-      </div>
-    );
-  }
+      </LoadIndicator>
+      <Pagination
+        className={styles.paging}
+        current={page}
+        total={total}
+        onChange={onChangePage}
+      />
+      {selected !== null && (
+        <SelectedRowDialog
+          response={responses[selected]}
+          index={selected}
+          mode={mode}
+          count={responses.length}
+          onHide={hide}
+          onNext={next}
+          onPrev={prev}
+        />
+      )}
+    </div>
+  );
 }
 
-export default connect(makeMapStateToProps)(JobResults);
+JobResults.propTypes = {
+  id: PropTypes.number.isRequired,
+  page: PropTypes.number.isRequired,
+  total: PropTypes.number.isRequired,
+  onChangePage: PropTypes.func.isRequired,
+};
