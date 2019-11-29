@@ -1,4 +1,4 @@
-import { jobReportsActionTypes } from '../sagas/actionTypes';
+import { jobReportsActionTypes } from '../../sagas/actionTypes';
 
 const initialState = [];
 

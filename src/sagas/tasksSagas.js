@@ -6,9 +6,21 @@ import { tasksActionTypes } from './actionTypes';
 
 import { dashboardApi } from '../api/DashboardApi';
 import { jobsApi } from '../api/JobsApi';
+import { tasksApi } from '../api/TasksApi';
 import { templatesApi } from '../api/TemplatesApi';
 
-import { taskTemplateSchema, jobStatsSchema } from '../model/schemas';
+import {
+  taskTemplateSchema,
+  jobStatsSchema,
+  taskSchema,
+} from '../model/schemas';
+
+export const fetchTask = taskId => ({
+  type: tasksActionTypes.FETCH,
+  payload: { taskId },
+  asyncCall: tasksApi.fetch,
+  meta: { schema: { task: taskSchema } },
+});
 
 export const fetchTasks = status => ({
   type: tasksActionTypes.FETCH_LIST,
@@ -47,6 +59,7 @@ export const fetchResponses = (jobId, page) => ({
 export function* tasksSagas() {
   yield takeEvery(
     [
+      tasksActionTypes.FETCH,
       tasksActionTypes.FETCH_STATS,
       tasksActionTypes.FETCH_LIST,
       tasksActionTypes.FETCH_TEMPLATES,

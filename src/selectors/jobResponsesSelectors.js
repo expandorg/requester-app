@@ -1,22 +1,12 @@
 // @flow
 import { createSelector } from 'reselect';
 
-export const jobResponsesStateSelecor = (state: Object) => state.jobResponses;
-
-export const dataEntitiesSelector: any = createSelector(
-  jobResponsesStateSelecor,
-  state => state.entities
-);
-
-// export const dataValuesSelector: any = createSelector(
-//   jobResponsesStateSelecor,
-//   state => state.values
-// );
+export const jobResponsesEntitiesSelector = (state: Object) =>
+  state.jobs.responses;
 
 export const makeJobResponsesDataSelector = (): any =>
   createSelector(
-    dataEntitiesSelector,
-    // dataValuesSelector,
+    jobResponsesEntitiesSelector,
     (state, id) => id,
     (state, id, page) => page,
     (entities, id, page) => {

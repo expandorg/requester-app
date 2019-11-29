@@ -12,9 +12,12 @@ import draftSaving from './drafts/draftSavingReducer';
 import taskTemplatesList from './taskTemplates/taskTemplatesListReducer';
 import taskTemplatesEntities from './taskTemplates/taskTemplatesEntitiesReducer';
 
-import jobStatsEntities from './jobStats/jobStatsEntitiesReducer';
-import jobResponsesEntities from './jobResponses/jobResponsesEntitiesReducer';
-import jobReports from './jobReportsReducer';
+import tasksEntities from './tasks/tasksEntitiesReducer';
+
+import jobResponsesEntities from './jobs/jobResponsesEntitiesReducer';
+import jobStatsEntities from './jobs/jobStatsEntitiesReducer';
+import jobEntities from './jobs/jobEntitiesReducer';
+import jobReports from './jobs/jobReportsReducer';
 
 import formTemplatesList from './formTemplates/formTemplatesListReducer';
 import formTemplatesEntities from './formTemplates/formTemplatesEntitiesReducer';
@@ -32,12 +35,18 @@ export default combineReducers({
   user,
   gemsBalance,
   dashboardTasks,
+  jobs: combineReducers({
+    entities: jobEntities,
+    stats: jobStatsEntities,
+    responses: jobResponsesEntities,
+    reports: jobReports,
+  }),
+  tasks: combineReducers({
+    entities: tasksEntities,
+  }),
   taskTemplates: combineReducers({
     list: taskTemplatesList,
     entities: taskTemplatesEntities,
-  }),
-  jobStats: combineReducers({
-    entities: jobStatsEntities,
   }),
   formTemplates: combineReducers({
     list: formTemplatesList,
@@ -51,10 +60,6 @@ export default combineReducers({
     entities: dataEntities,
     values: dataValues,
   }),
-  jobResponses: combineReducers({
-    entities: jobResponsesEntities,
-  }),
-  jobReports,
   accessToken,
   whitelist: combineReducers({
     eligible,

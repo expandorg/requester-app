@@ -97,3 +97,8 @@ export const fetchJobReportsStateSelector: any = createSelector(
   uiStateSelector,
   state => state.fetchJobReports
 );
+
+export const verifyResponseStateSelector: any = createSelector(
+  uiStateSelector,
+  state => state.verifyResponse
+);

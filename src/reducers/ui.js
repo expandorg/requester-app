@@ -13,6 +13,7 @@ import {
   tasksActionTypes,
   accessTokenActionTypes,
   jobReportsActionTypes,
+  responsesActionTypes,
 } from '../sagas/actionTypes';
 
 export default combineReducers({
@@ -50,4 +51,5 @@ export default combineReducers({
   fetchJobResponses: requestUiStateReducer(tasksActionTypes.FETCH_RESPONSES),
   fetchJobReports: requestUiStateReducer(jobReportsActionTypes.FETCH_LIST),
   accessToken: requestUiStateReducer(accessTokenActionTypes.GENERATE_KEY),
+  verifyResponse: requestUiStateReducer(responsesActionTypes.BULK_VERIFY),
 });

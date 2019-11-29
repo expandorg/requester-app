@@ -14,6 +14,7 @@ import { whitelistSagas } from './whitelistSagas';
 import { formTemplateSagas } from './formTemplateSagas';
 import { accessTokenSagas } from './accessTokenSagas';
 import { jobReportsSagas } from './jobReportsSagas';
+import { jobsSagas } from './jobSagas';
 
 export default function* sagas() {
   yield fork(authSagas);
@@ -29,4 +30,5 @@ export default function* sagas() {
   yield fork(gemsSagas);
   yield fork(accessTokenSagas);
   yield fork(jobReportsSagas);
+  yield fork(jobsSagas);
 }

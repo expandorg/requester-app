@@ -2,6 +2,10 @@
 import { createActionTypes } from '@expandorg/app-utils';
 
 export const tasksActionTypes = createActionTypes('tasks', {
+  FETCH: null,
+  FETCH_COMPLETE: null,
+  FETCH_FAILED: null,
+
   FETCH_STATS: null,
   FETCH_STATS_COMPLETE: null,
   FETCH_STATS_FAILED: null,
@@ -121,4 +125,16 @@ export const jobReportsActionTypes = createActionTypes('jobReports', {
   FETCH_LIST: null,
   FETCH_LIST_COMPLETE: null,
   FETCH_LIST_FAILED: null,
+});
+
+export const jobsActionTypes = createActionTypes('jobs', {
+  FETCH: null,
+  FETCH_COMPLETE: null,
+  FETCH_FAILED: null,
+});
+
+export const responsesActionTypes = createActionTypes('responses', {
+  BULK_VERIFY: null,
+  BULK_VERIFY_COMPLETE: null,
+  BULK_VERIFY_FAILED: null,
 });

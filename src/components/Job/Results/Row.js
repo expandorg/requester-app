@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/mouse-events-have-key-events */
-import React from 'react';
+import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
 import parse from 'date-fns/parse';
@@ -14,7 +14,8 @@ import { formatDate } from '../../../model/i18n';
 
 import styles from './Row.module.styl';
 
-export default function Row({ response, mode }) {
+export default function Row({ response, mode, onVerify }) {
+  const verify = useCallback(() => onVerify(response), [onVerify, response]);
   return (
     <T.Row>
       <T.Cell className={cn(styles.cell, styles.id)}>{response.id}</T.Cell>
@@ -27,8 +28,12 @@ export default function Row({ response, mode }) {
         {formatDate(parse(response.created_at))}
       </T.Cell>
       <T.Cell className={cn(styles.cell, styles.statusCell)}>
-        {!response.is_accepted && <AcceptedIcon />}
-        {/* <button className={styles.verify}>verify</button> */}
+        <AcceptedIcon />
+        {false && (
+          <button className={styles.verify} onClick={verify}>
+            verify
+          </button>
+        )}
       </T.Cell>
     </T.Row>
   );
@@ -43,4 +48,5 @@ Row.propTypes = {
     created_at: PropTypes.string,
     is_accepted: PropTypes.bool,
   }).isRequired,
+  onVerify: PropTypes.func.isRequired,
 };
