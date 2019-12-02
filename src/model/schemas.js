@@ -1,7 +1,7 @@
 // @flow
 import { schema } from 'normalizr';
 
-const jobSchema = new schema.Entity('jobs', {}, { idAttribute: 'ID' });
+const jobSchema = new schema.Entity('jobs');
 const taskSchema = new schema.Entity('tasks');
 
 const draftSchema = new schema.Entity('drafts');

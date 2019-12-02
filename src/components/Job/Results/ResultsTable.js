@@ -18,7 +18,7 @@ import { fetchResponses } from '../../../sagas/tasksSagas';
 
 import styles from './ResultsTable.module.styl';
 
-export default function ResultsTable({ id, total, onVerify }) {
+export default function ResultsTable({ id, total }) {
   const dispatch = useDispatch();
 
   const [page, setPage] = useState(0);
@@ -52,12 +52,7 @@ export default function ResultsTable({ id, total, onVerify }) {
           <T.Table>
             <Header mode={mode} onToggle={setMode} />
             {responses.map(resp => (
-              <Row
-                key={resp.id}
-                response={resp}
-                mode={mode}
-                onVerify={onVerify}
-              />
+              <Row key={resp.id} response={resp} mode={mode} />
             ))}
           </T.Table>
         )}
@@ -75,5 +70,4 @@ export default function ResultsTable({ id, total, onVerify }) {
 ResultsTable.propTypes = {
   id: PropTypes.number.isRequired,
   total: PropTypes.number.isRequired,
-  onVerify: PropTypes.func.isRequired,
 };

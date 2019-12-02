@@ -33,7 +33,7 @@ export default function VerifyDialog({ response, job, onHide }) {
 
   const submit = useCallback(
     data => {
-      const { score, reason } = getScore(data, job.VerificationForm, mc);
+      const { score, reason } = getScore(data, job.verificationForm, mc);
       dispatch(
         verifyResponse(job.id, response.task_id, response.id, score, reason)
       );
@@ -61,7 +61,7 @@ export default function VerifyDialog({ response, job, onHide }) {
     >
       <ModulesForm
         key={response.id}
-        form={job && job.VerificationForm}
+        form={job && job.verificationForm}
         variables={variables}
         isSubmitting={verifyState.state === RequestStates.Fetching}
         onSubmit={submit}
@@ -78,8 +78,8 @@ VerifyDialog.propTypes = {
     worker_id: PropTypes.number,
   }).isRequired,
   job: PropTypes.shape({
-    id: PropTypes.string,
-    VerificationForm: PropTypes.object,
+    id: PropTypes.number,
+    verificationForm: PropTypes.object,
   }).isRequired,
   onHide: PropTypes.func.isRequired,
 };
