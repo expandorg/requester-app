@@ -14,10 +14,12 @@ import taskTemplatesEntities from './taskTemplates/taskTemplatesEntitiesReducer'
 
 import tasksEntities from './tasks/tasksEntitiesReducer';
 
-import jobResponsesEntities from './jobs/jobResponsesEntitiesReducer';
 import jobStatsEntities from './jobs/jobStatsEntitiesReducer';
 import jobEntities from './jobs/jobEntitiesReducer';
 import jobReports from './jobs/jobReportsReducer';
+
+import acceptedResponses from './responses/acceptedResponsesReducer';
+import pendingResponses from './responses/pendingResponsesReducer';
 
 import formTemplatesList from './formTemplates/formTemplatesListReducer';
 import formTemplatesEntities from './formTemplates/formTemplatesEntitiesReducer';
@@ -38,8 +40,11 @@ export default combineReducers({
   jobs: combineReducers({
     entities: jobEntities,
     stats: jobStatsEntities,
-    responses: jobResponsesEntities,
     reports: jobReports,
+  }),
+  responses: combineReducers({
+    accepted: acceptedResponses,
+    pending: pendingResponses,
   }),
   tasks: combineReducers({
     entities: tasksEntities,

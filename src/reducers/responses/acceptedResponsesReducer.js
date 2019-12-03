@@ -1,8 +1,8 @@
-import { tasksActionTypes } from '../../sagas/actionTypes';
+import { responsesActionTypes } from '../../sagas/actionTypes';
 
-export default function jobResponsesEntitiesReducer(state = {}, action) {
+export default function acceptedResponsesReducer(state = {}, action) {
   switch (action.type) {
-    case tasksActionTypes.FETCH_RESPONSES_COMPLETE: {
+    case responsesActionTypes.FETCH_ACCEPTED_COMPLETE: {
       const { payload, meta } = action;
       return {
         ...state,

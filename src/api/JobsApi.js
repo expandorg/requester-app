@@ -6,8 +6,16 @@ export class JobsApi extends BaseApi {
 
   fetch = ({ jobId }: { jobId: number }) => this.get(`/jobs/${jobId}`);
 
-  fetchResponses = ({ jobId, page = 0 }: { jobId: number, page: number }) =>
-    this.get(`/jobs/${jobId}/responses`, { page });
+  fetchAcceptedResponses = ({
+    jobId,
+    page = 0,
+  }: {
+    jobId: number,
+    page: number,
+  }) => this.get(`/jobs/${jobId}/responses`, { page });
+
+  fetchPendingResponses = ({ jobId }: { jobId: number }) =>
+    this.get(`/jobs/${jobId}/responses/pending`);
 }
 
 export const jobsApi = new JobsApi();

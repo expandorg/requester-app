@@ -6,7 +6,7 @@ import { RequestStates } from '@expandorg/app-utils';
 import { Table as T } from '@expandorg/components';
 import { Pagination } from '@expandorg/components/app';
 
-import { makeJobResponsesDataSelector } from '../../../selectors/jobResponsesSelectors';
+import { makeAcceptedResponsesSelector } from '../../../selectors/jobResponsesSelectors';
 import { fetchJobResponsesStateSelector } from '../../../selectors/uiStateSelectors';
 
 import LoadIndicator from '../../shared/LoadIndicator';
@@ -14,7 +14,7 @@ import LoadIndicator from '../../shared/LoadIndicator';
 import Header from './Header';
 import Row from './Row';
 
-import { fetchResponses } from '../../../sagas/tasksSagas';
+import { fetchAcceptedResponses } from '../../../sagas/responseSagas';
 
 import styles from './ResultsTable.module.styl';
 
@@ -23,7 +23,7 @@ export default function ResultsTable({ id, total }) {
 
   const [page, setPage] = useState(0);
 
-  const responsesSelector = useMemo(makeJobResponsesDataSelector);
+  const responsesSelector = useMemo(makeAcceptedResponsesSelector);
   const responses = useSelector(s => responsesSelector(s, id, page));
 
   const [mode, setMode] = useState('table');
@@ -31,13 +31,13 @@ export default function ResultsTable({ id, total }) {
   const fetchState = useSelector(fetchJobResponsesStateSelector);
 
   useEffect(() => {
-    dispatch(fetchResponses(id));
+    dispatch(fetchAcceptedResponses(id));
   }, [dispatch, id]);
 
   const changePage = useCallback(
     p => {
       setPage(p);
-      dispatch(fetchResponses(id, p));
+      dispatch(fetchAcceptedResponses(id, p));
     },
     [dispatch, id]
   );

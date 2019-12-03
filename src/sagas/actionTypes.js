@@ -21,10 +21,6 @@ export const tasksActionTypes = createActionTypes('tasks', {
   FETCH_TEMPLATE: null,
   FETCH_TEMPLATE_COMPLETE: null,
   FETCH_TEMPLATE_FAILED: null,
-
-  FETCH_RESPONSES: null,
-  FETCH_RESPONSES_COMPLETE: null,
-  FETCH_RESPONSES_FAILED: null,
 });
 
 export const draftsActionTypes = createActionTypes('drafts', {
@@ -134,6 +130,14 @@ export const jobsActionTypes = createActionTypes('jobs', {
 });
 
 export const responsesActionTypes = createActionTypes('responses', {
+  FETCH_ACCEPTED: null,
+  FETCH_ACCEPTED_COMPLETE: null,
+  FETCH_ACCEPTED_FAILED: null,
+
+  FETCH_PENDING: null,
+  FETCH_PENDING_COMPLETE: null,
+  FETCH_PENDING_FAILED: null,
+
   BULK_VERIFY: null,
   BULK_VERIFY_COMPLETE: null,
   BULK_VERIFY_FAILED: null,

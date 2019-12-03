@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import cn from 'classnames';
 
 import { JobLogo } from '@expandorg/components/app';
+import { Button } from '@expandorg/components';
 
 import Hero from '../shared/Hero';
 import settings from '../../common/settings';
@@ -11,7 +12,7 @@ import { jobStatsProps } from '../shared/propTypes';
 
 import styles from './Stats.module.styl';
 
-export default function Stats({ stats, reports }) {
+export default function Stats({ stats, reports, onVerify }) {
   const dlClasses = cn(
     'gem-button',
     'gem-button-primary',
@@ -58,10 +59,10 @@ export default function Stats({ stats, reports }) {
       </div>
       {!!(stats.pending || 0) && (
         <div className={styles.verify}>
-          <a href={`${settings.frontendUrl}`} className={styles.verifyLink}>
+          <Button size="small" theme="link" onClick={onVerify}>
             You have {stats.pending} responses awaiting verification for this
             job
-          </a>
+          </Button>
         </div>
       )}
     </div>
@@ -71,4 +72,5 @@ export default function Stats({ stats, reports }) {
 Stats.propTypes = {
   stats: jobStatsProps.isRequired,
   reports: PropTypes.number.isRequired,
+  onVerify: PropTypes.func.isRequired,
 };

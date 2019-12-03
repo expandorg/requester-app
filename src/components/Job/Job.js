@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState, useCallback } from 'react';
+import React, { useEffect, useMemo } from 'react';
 
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RequestStates } from '@expandorg/app-utils';
 
 import { Navbar } from '@expandorg/components/app';
+import { useToggle } from '@expandorg/components';
 
 import { Page } from '../shared/Page';
 
@@ -20,11 +21,10 @@ import { authenticated } from '../shared/auth';
 
 import { makeJobStatsSelector } from '../../selectors/tasksSelectors';
 import { jobReportSelector } from '../../selectors/jobReportsSelectors';
-import { makeJobSelector } from '../../selectors/jobSelectos';
+
 import { fetchJobStatsStateSelector } from '../../selectors/uiStateSelectors';
 import { fetchJobStats } from '../../sagas/tasksSagas';
 import { fetchJobReports } from '../../sagas/jobReportsSagas';
-import { fetchJob } from '../../sagas/jobSagas';
 
 import styles from './Job.module.styl';
 
@@ -35,20 +35,15 @@ function Job() {
 
   const loadState = useSelector(fetchJobStatsStateSelector);
 
-  const jobSelector = useMemo(makeJobSelector);
-  const job = useSelector(s => jobSelector(s, id));
-
   const jobStatsSelector = useMemo(makeJobStatsSelector);
   const stats = useSelector(s => jobStatsSelector(s, id));
 
   useEffect(() => {
-    dispatch(fetchJob(id));
     dispatch(fetchJobStats(id));
     dispatch(fetchJobReports(id));
   }, [dispatch, id]);
 
-  const [verify, setVerify] = useState(null);
-  const hide = useCallback(() => setVerify(null), []);
+  const [verify, toggleVerify] = useToggle();
 
   const reports = useSelector(jobReportSelector);
   const isLoading = !stats && loadState.state === RequestStates.Fetching;
@@ -63,17 +58,17 @@ function Job() {
       <LoadIndicator isLoading={isLoading}>
         {stats && (
           <div className={styles.content}>
-            <Stats stats={stats} reports={reports.length} />
-            <ResultsTable
-              id={id}
-              total={Math.ceil(stats.accepted / 15)}
-              onVerify={setVerify}
+            <Stats
+              stats={stats}
+              reports={reports.length}
+              onVerify={toggleVerify}
             />
+            <ResultsTable id={id} total={Math.ceil(stats.accepted / 15)} />
             <Reports reports={reports} />
           </div>
         )}
       </LoadIndicator>
-      {!!verify && <VerifyDialog response={verify} job={job} onHide={hide} />}
+      {verify && <VerifyDialog jobId={id} onHide={toggleVerify} />}
     </Page>
   );
 }

@@ -15,6 +15,7 @@ import { formTemplateSagas } from './formTemplateSagas';
 import { accessTokenSagas } from './accessTokenSagas';
 import { jobReportsSagas } from './jobReportsSagas';
 import { jobsSagas } from './jobSagas';
+import { responseSagas } from './responseSagas';
 
 export default function* sagas() {
   yield fork(authSagas);
@@ -31,4 +32,5 @@ export default function* sagas() {
   yield fork(accessTokenSagas);
   yield fork(jobReportsSagas);
   yield fork(jobsSagas);
+  yield fork(responseSagas);
 }

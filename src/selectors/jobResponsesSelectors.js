@@ -1,12 +1,15 @@
 // @flow
 import { createSelector } from 'reselect';
 
-export const jobResponsesEntitiesSelector = (state: Object) =>
-  state.jobs.responses;
+export const acceptedResponsesPagedSelector = (state: Object) =>
+  state.responses.accepted;
 
-export const makeJobResponsesDataSelector = (): any =>
+export const pendingResponsesItemsSelector = (state: Object) =>
+  state.responses.pending;
+
+export const makeAcceptedResponsesSelector = (): any =>
   createSelector(
-    jobResponsesEntitiesSelector,
+    acceptedResponsesPagedSelector,
     (state, id) => id,
     (state, id, page) => page,
     (entities, id, page) => {
@@ -15,5 +18,18 @@ export const makeJobResponsesDataSelector = (): any =>
         return null;
       }
       return jobResults[+page || 0] || null;
+    }
+  );
+
+export const makeNextPendingResponseSelector = (): any =>
+  createSelector(
+    pendingResponsesItemsSelector,
+    (state, id) => id,
+    (entities, id) => {
+      const byJob = entities[id];
+      if (!byJob || byJob.isFetching) {
+        return [];
+      }
+      return byJob.results[0];
     }
   );

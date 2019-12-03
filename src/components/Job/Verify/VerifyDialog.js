@@ -1,54 +1,37 @@
-import React, { useCallback, useMemo, useEffect } from 'react';
+import React, { useMemo, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 import { useDispatch, useSelector } from 'react-redux';
 
 import { Dialog } from '@expandorg/components';
 
-import { moduleControls as mc } from '@expandorg/modules/app';
-import { getVerificationResponse as getScore } from '@expandorg/modules/model';
+import Verify from './Verify';
 
-import { RequestStates } from '@expandorg/app-utils';
+import { makeJobSelector } from '../../../selectors/jobSelectos';
+import { makeNextPendingResponseSelector } from '../../../selectors/jobResponsesSelectors';
 
-import { fetchTask } from '../../../sagas/tasksSagas';
-import { verifyResponse } from '../../../sagas/responseSagas';
-
-import { makeTaskSelector } from '../../../selectors/tasksSelectors';
-import { verifyResponseStateSelector } from '../../../selectors/uiStateSelectors';
-
-import ModulesForm from './ModulesForm';
+import { fetchPendingResponses } from '../../../sagas/responseSagas';
+import { fetchJob } from '../../../sagas/jobSagas';
 
 import styles from './VerifyDialog.module.styl';
 
-export default function VerifyDialog({ response, job, onHide }) {
+export default function VerifyDialog({ jobId, onHide }) {
   const dispatch = useDispatch();
-  const taskSelector = useMemo(makeTaskSelector);
-  const task = useSelector(s => taskSelector(s, response.task_id));
-
-  const verifyState = useSelector(verifyResponseStateSelector);
 
   useEffect(() => {
-    dispatch(fetchTask(response.task_id));
-  }, [dispatch, response.task_id]);
+    dispatch(fetchPendingResponses(jobId));
+    dispatch(fetchJob(jobId));
+  }, [dispatch, jobId]);
 
-  const submit = useCallback(
-    data => {
-      const { score, reason } = getScore(data, job.verificationForm, mc);
-      dispatch(
-        verifyResponse(job.id, response.task_id, response.id, score, reason)
-      );
-    },
-    [dispatch, job, response.id, response.task_id]
-  );
+  const pendingResponseSelector = useMemo(makeNextPendingResponseSelector);
+  const response = useSelector(s => pendingResponseSelector(s, jobId));
 
-  const variables = useMemo(
-    () => ({
-      workerId: response.worker_id,
-      ...((task && task.taskData) || {}),
-      ...(response.value || {}),
-    }),
-    [response.value, response.worker_id, task]
-  );
+  const jobSelector = useMemo(makeJobSelector);
+  const job = useSelector(s => jobSelector(s, jobId));
+
+  if (!job || !response) {
+    return null;
+  }
 
   return (
     <Dialog
@@ -59,27 +42,12 @@ export default function VerifyDialog({ response, job, onHide }) {
       contentLabel="verify-dialog"
       hideButton
     >
-      <ModulesForm
-        key={response.id}
-        form={job && job.verificationForm}
-        variables={variables}
-        isSubmitting={verifyState.state === RequestStates.Fetching}
-        onSubmit={submit}
-      />
+      <Verify response={response} job={job} />
     </Dialog>
   );
 }
 
 VerifyDialog.propTypes = {
-  response: PropTypes.shape({
-    id: PropTypes.number,
-    value: PropTypes.object,
-    task_id: PropTypes.number,
-    worker_id: PropTypes.number,
-  }).isRequired,
-  job: PropTypes.shape({
-    id: PropTypes.number,
-    verificationForm: PropTypes.object,
-  }).isRequired,
+  jobId: PropTypes.number.isRequired,
   onHide: PropTypes.func.isRequired,
 };
