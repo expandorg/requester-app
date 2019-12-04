@@ -30,7 +30,7 @@ export default function Verify({ response, job, onSubmit }) {
   const submit = useCallback(
     data => {
       const result = getScore(data, job.verificationForm, mc);
-      onSubmit(response, result);
+      onSubmit(response, result.score, result.reason);
     },
     [job.verificationForm, onSubmit, response]
   );

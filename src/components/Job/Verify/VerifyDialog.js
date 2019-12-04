@@ -36,15 +36,19 @@ export default function VerifyDialog({ jobId, onHide, left }) {
 
   const submit = useCallback(
     // eslint-disable-next-line camelcase
-    ({ task_id, id, worker_id }, r) => {
-      dispatch(
-        verifyResponse(jobId, task_id, id, worker_id, r.score, r.reason)
-      );
+    ({ task_id, id, worker_id }, score, reason) => {
+      dispatch(verifyResponse(jobId, task_id, id, worker_id, score, reason));
     },
     [dispatch, jobId]
   );
 
-  if (!job || !response) {
+  useEffect(() => {
+    if (!left) {
+      onHide();
+    }
+  }, [left, onHide]);
+
+  if (!job) {
     return null;
   }
 
@@ -57,7 +61,7 @@ export default function VerifyDialog({ jobId, onHide, left }) {
       contentLabel="verify-dialog"
     >
       <Navbar title={`${left} responses left to verify`} top={false} />
-      <Verify response={response} job={job} onSubmit={submit} />
+      {response && <Verify response={response} job={job} onSubmit={submit} />}
     </Dialog>
   );
 }
