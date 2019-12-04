@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { Dialog } from '@expandorg/components';
+import { Navbar } from '@expandorg/components/app';
 
 import Verify from './Verify';
 
@@ -15,7 +16,7 @@ import { fetchJob } from '../../../sagas/jobSagas';
 
 import styles from './VerifyDialog.module.styl';
 
-export default function VerifyDialog({ jobId, onHide }) {
+export default function VerifyDialog({ jobId, onHide, left }) {
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -40,8 +41,8 @@ export default function VerifyDialog({ jobId, onHide }) {
       modalClass={styles.modal}
       overlayClass={styles.overlay}
       contentLabel="verify-dialog"
-      hideButton
     >
+      <Navbar title={`${left} responses left to verify`} top={false} />
       <Verify response={response} job={job} />
     </Dialog>
   );
@@ -49,5 +50,6 @@ export default function VerifyDialog({ jobId, onHide }) {
 
 VerifyDialog.propTypes = {
   jobId: PropTypes.number.isRequired,
+  left: PropTypes.bool.isRequired,
   onHide: PropTypes.func.isRequired,
 };

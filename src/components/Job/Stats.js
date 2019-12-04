@@ -59,7 +59,7 @@ export default function Stats({ stats, reports, onVerify }) {
       </div>
       {!!(stats.pending || 0) && (
         <div className={styles.verify}>
-          <Button size="small" theme="link" onClick={onVerify}>
+          <Button size="small" theme="white-blue" onClick={onVerify}>
             You have {stats.pending} responses awaiting verification for this
             job
           </Button>

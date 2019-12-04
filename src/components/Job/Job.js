@@ -68,7 +68,9 @@ function Job() {
           </div>
         )}
       </LoadIndicator>
-      {verify && <VerifyDialog jobId={id} onHide={toggleVerify} />}
+      {verify && (
+        <VerifyDialog jobId={id} left={stats.pending} onHide={toggleVerify} />
+      )}
     </Page>
   );
 }
