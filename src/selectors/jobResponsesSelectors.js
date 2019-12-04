@@ -28,7 +28,7 @@ export const makeNextPendingResponseSelector = (): any =>
     (entities, id) => {
       const byJob = entities[id];
       if (!byJob || byJob.isFetching) {
-        return [];
+        return null;
       }
       return byJob.results[0];
     }

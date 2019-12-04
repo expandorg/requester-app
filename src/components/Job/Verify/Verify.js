@@ -7,16 +7,16 @@ import { moduleControls as mc } from '@expandorg/modules/app';
 import { getVerificationResponse as getScore } from '@expandorg/modules/model';
 
 import { RequestStates } from '@expandorg/app-utils';
+import LoadIndicator from '../../shared/LoadIndicator';
 
 import { fetchTask } from '../../../sagas/tasksSagas';
-import { verifyResponse } from '../../../sagas/responseSagas';
 
 import { makeTaskSelector } from '../../../selectors/tasksSelectors';
 import { verifyResponseStateSelector } from '../../../selectors/uiStateSelectors';
 
 import ModulesForm from './ModulesForm';
 
-export default function Verify({ response, job }) {
+export default function Verify({ response, job, onSubmit }) {
   const dispatch = useDispatch();
   const taskSelector = useMemo(makeTaskSelector);
   const task = useSelector(s => taskSelector(s, response.task_id));
@@ -29,26 +29,10 @@ export default function Verify({ response, job }) {
 
   const submit = useCallback(
     data => {
-      const { score, reason } = getScore(data, job.verificationForm, mc);
-      dispatch(
-        verifyResponse(
-          job.id,
-          response.task_id,
-          response.id,
-          response.worker_id,
-          score,
-          reason
-        )
-      );
+      const result = getScore(data, job.verificationForm, mc);
+      onSubmit(response, result);
     },
-    [
-      dispatch,
-      job.id,
-      job.verificationForm,
-      response.id,
-      response.task_id,
-      response.worker_id,
-    ]
+    [job.verificationForm, onSubmit, response]
   );
 
   const variables = useMemo(
@@ -61,13 +45,15 @@ export default function Verify({ response, job }) {
   );
 
   return (
-    <ModulesForm
-      key={response.id}
-      form={job && job.verificationForm}
-      variables={variables}
-      isSubmitting={verifyState.state === RequestStates.Fetching}
-      onSubmit={submit}
-    />
+    <LoadIndicator isLoading={!task}>
+      <ModulesForm
+        key={response.id}
+        form={job && job.verificationForm}
+        variables={variables}
+        isSubmitting={verifyState.state === RequestStates.Fetching}
+        onSubmit={submit}
+      />
+    </LoadIndicator>
   );
 }
 
@@ -82,4 +68,5 @@ Verify.propTypes = {
     id: PropTypes.number,
     verificationForm: PropTypes.object,
   }).isRequired,
+  onSubmit: PropTypes.func.isRequired,
 };

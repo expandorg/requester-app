@@ -1,4 +1,4 @@
-import React, { useMemo, useEffect } from 'react';
+import React, { useMemo, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
 
 import { useDispatch, useSelector } from 'react-redux';
@@ -11,7 +11,11 @@ import Verify from './Verify';
 import { makeJobSelector } from '../../../selectors/jobSelectos';
 import { makeNextPendingResponseSelector } from '../../../selectors/jobResponsesSelectors';
 
-import { fetchPendingResponses } from '../../../sagas/responseSagas';
+import {
+  fetchPendingResponses,
+  verifyResponse,
+} from '../../../sagas/responseSagas';
+
 import { fetchJob } from '../../../sagas/jobSagas';
 
 import styles from './VerifyDialog.module.styl';
@@ -19,16 +23,26 @@ import styles from './VerifyDialog.module.styl';
 export default function VerifyDialog({ jobId, onHide, left }) {
   const dispatch = useDispatch();
 
+  const jobSelector = useMemo(makeJobSelector);
+  const job = useSelector(s => jobSelector(s, jobId));
+
+  const pendingResponseSelector = useMemo(makeNextPendingResponseSelector);
+  const response = useSelector(s => pendingResponseSelector(s, jobId));
+
   useEffect(() => {
     dispatch(fetchPendingResponses(jobId));
     dispatch(fetchJob(jobId));
   }, [dispatch, jobId]);
 
-  const pendingResponseSelector = useMemo(makeNextPendingResponseSelector);
-  const response = useSelector(s => pendingResponseSelector(s, jobId));
-
-  const jobSelector = useMemo(makeJobSelector);
-  const job = useSelector(s => jobSelector(s, jobId));
+  const submit = useCallback(
+    // eslint-disable-next-line camelcase
+    ({ task_id, id, worker_id }, r) => {
+      dispatch(
+        verifyResponse(jobId, task_id, id, worker_id, r.score, r.reason)
+      );
+    },
+    [dispatch, jobId]
+  );
 
   if (!job || !response) {
     return null;
@@ -43,13 +57,13 @@ export default function VerifyDialog({ jobId, onHide, left }) {
       contentLabel="verify-dialog"
     >
       <Navbar title={`${left} responses left to verify`} top={false} />
-      <Verify response={response} job={job} />
+      <Verify response={response} job={job} onSubmit={submit} />
     </Dialog>
   );
 }
 
 VerifyDialog.propTypes = {
   jobId: PropTypes.number.isRequired,
-  left: PropTypes.bool.isRequired,
+  left: PropTypes.number.isRequired,
   onHide: PropTypes.func.isRequired,
 };

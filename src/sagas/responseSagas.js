@@ -1,7 +1,9 @@
-import { takeEvery } from 'redux-saga/effects';
+import { takeEvery, put } from 'redux-saga/effects';
 import { handleAsyncCall } from '@expandorg/app-utils';
 
 import { responsesActionTypes } from './actionTypes';
+import { fetchJobStats } from './tasksSagas';
+
 import { responsesApi } from '../api/ResponsesApi';
 import { jobsApi } from '../api/JobsApi';
 
@@ -38,7 +40,12 @@ export const verifyResponse = (
   meta: { params: { jobId, responseIds: [responseId] } },
 });
 
+function* refreshStats({ meta }) {
+  yield put(fetchJobStats(meta.params.jobId));
+}
+
 export function* responseSagas() {
+  yield takeEvery(responsesActionTypes.BULK_VERIFY_COMPLETE, refreshStats);
   yield takeEvery(
     [
       responsesActionTypes.FETCH_ACCEPTED,
