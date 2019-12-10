@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 import { Link } from 'react-router-dom';
 
@@ -12,29 +12,27 @@ import { notAuthenticated } from '../shared/auth';
 
 import './styles.styl';
 
-class Signup extends Component {
-  render() {
-    return (
-      <PageDark title="Signup" className="gem-auth-page">
-        <div className="gem-auth-container">
-          <div className="gem-auth-header">
-            <Logo width={100} height={100} viewBox="0 0 50 50" />
-            <h2 className="gem-auth-title">Expand</h2>
-          </div>
-          <div className="gem-auth-form">
-            <MetamaskSignup />
-            <EmailSignup />
-          </div>
-          <div className="gem-auth-toggle">
-            Already have an account?
-            <Link to="/login" className="gem-auth-link">
-              Sign in here.
-            </Link>
-          </div>
+function Signup() {
+  return (
+    <PageDark title="Signup" className="gem-auth-page">
+      <div className="gem-auth-container">
+        <div className="gem-auth-header">
+          <Logo width={100} height={100} viewBox="0 0 50 50" />
+          <h2 className="gem-auth-title">Expand</h2>
         </div>
-      </PageDark>
-    );
-  }
+        <div className="gem-auth-form">
+          <MetamaskSignup />
+          <EmailSignup />
+        </div>
+        <div className="gem-auth-toggle">
+          Already have an account?
+          <Link to="/login" className="gem-auth-link">
+            Sign in here.
+          </Link>
+        </div>
+      </div>
+    </PageDark>
+  );
 }
 
 export default notAuthenticated(Signup);

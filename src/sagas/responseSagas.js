@@ -42,6 +42,7 @@ export const verifyResponse = (
 
 function* refreshStats({ meta }) {
   yield put(fetchJobStats(meta.params.jobId));
+  yield put(fetchAcceptedResponses(meta.params.jobId));
 }
 
 export function* responseSagas() {

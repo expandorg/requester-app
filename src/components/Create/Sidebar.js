@@ -29,7 +29,6 @@ export default function Sidebar({ templates, selected, onSelect }) {
 
 Sidebar.propTypes = {
   templates: PropTypes.arrayOf(taskTemplateProps),
-
   selected: PropTypes.string,
   onSelect: PropTypes.func.isRequired,
 };

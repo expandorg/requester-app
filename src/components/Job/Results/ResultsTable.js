@@ -36,8 +36,8 @@ export default function ResultsTable({ id, total }) {
 
   const changePage = useCallback(
     p => {
-      setPage(p);
       dispatch(fetchAcceptedResponses(id, p));
+      setPage(p);
     },
     [dispatch, id]
   );
