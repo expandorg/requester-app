@@ -3,9 +3,11 @@ import PropTypes from 'prop-types';
 import cn from 'classnames';
 
 import { JobLogo } from '@expandorg/components/app';
-import { Button } from '@expandorg/components';
+import { Button, useToggle } from '@expandorg/components';
 
 import Hero from '../shared/Hero';
+
+import ShareDialog from './ShareDialog';
 import settings from '../../common/settings';
 
 import { jobStatsProps } from '../shared/propTypes';
@@ -13,15 +15,7 @@ import { jobStatsProps } from '../shared/propTypes';
 import styles from './Stats.module.styl';
 
 export default function Stats({ stats, reports, onVerify }) {
-  const dlClasses = cn(
-    'gem-button',
-    'gem-button-primary',
-    'gem-button-small',
-    styles.download
-  );
-
-  const dlLink = `${settings.apiUrl}/jobs/${stats.job.id}/responses/csv`;
-
+  const [share, toggleShare] = useToggle(false);
   return (
     <div className={styles.container}>
       <div className={styles.info}>
@@ -38,14 +32,31 @@ export default function Stats({ stats, reports, onVerify }) {
             <div className={styles.status}>in progress</div>
           </div>
         </div>
-        <a
-          href={dlLink}
-          target="_blank"
-          rel="noopener noreferrer"
-          className={dlClasses}
-        >
-          Download CSV
-        </a>
+        <div className={styles.links}>
+          {false && (
+            <Button
+              className={styles.share}
+              size="small"
+              theme="white-blue"
+              onClick={toggleShare}
+            >
+              Share
+            </Button>
+          )}
+          <a
+            href={`${settings.apiUrl}/jobs/${stats.job.id}/responses/csv`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={cn(
+              'gem-button',
+              'gem-button-primary',
+              'gem-button-small',
+              styles.download
+            )}
+          >
+            Download CSV
+          </a>
+        </div>
       </div>
       <div className={styles.stats}>
         <Hero className={styles.hero} value={stats.accepted} title="results" />
@@ -65,6 +76,7 @@ export default function Stats({ stats, reports, onVerify }) {
           </Button>
         </div>
       )}
+      <ShareDialog visible={share} onHide={toggleShare} jobId={stats.job.id} />
     </div>
   );
 }
