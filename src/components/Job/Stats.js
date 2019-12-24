@@ -33,7 +33,7 @@ export default function Stats({ stats, reports, onVerify }) {
           </div>
         </div>
         <div className={styles.links}>
-          {false && (
+          {true && (
             <Button
               className={styles.share}
               size="small"
