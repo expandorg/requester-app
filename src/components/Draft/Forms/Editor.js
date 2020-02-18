@@ -10,9 +10,11 @@ import {
   PropertiesPanel,
   ModulePicker,
   Form,
-} from '../../shared/FormEditor';
+  FormLayout,
+  Content,
+  Canvas,
+} from '@expandorg/form-editor';
 
-import { FormLayout, Content, Canvas } from '../../shared/FormEditor/Layout';
 import Sidebar from './Sidebar';
 
 import walkthrough from './walkthrough';
