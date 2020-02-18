@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { draftProps } from '../../../shared/propTypes';
+import { Topbar } from '@expandorg/form-editor';
 
-import { Topbar } from '../../../shared/FormEditor/Layout';
+import { draftProps } from '../../../shared/propTypes';
 
 import { Navs } from './controls';
 import { FormSelection } from '../forms';

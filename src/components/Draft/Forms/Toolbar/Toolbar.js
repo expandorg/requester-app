@@ -2,13 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
 
+import { Bottombar } from '@expandorg/form-editor';
 import { Button } from '@expandorg/components';
 import { WalkthroughPin, ToggleWalkthrough } from '@expandorg/components/app';
 import { ReactComponent as Bulb } from '../../../../assets/bulb.svg';
 
 import usePreview from './usePreview';
 
-import { Bottombar } from '../../../shared/FormEditor/Layout';
 import { draftProps } from '../../../shared/propTypes';
 
 import styles from './Toolbar.module.styl';
