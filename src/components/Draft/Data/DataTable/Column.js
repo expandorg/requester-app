@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import cn from 'classnames';
 
 import { ReactComponent as Arrow } from '@expandorg/uikit/assets/arrow-down.svg';
-import VariablesToggle from '@expandorg/form-editor/src/components/VariablesDropdown/VariablesToggle';
+import { VariablesToggle } from '@expandorg/richtext';
 
 import { dataColumnProps } from '../../../shared/propTypes';
 
