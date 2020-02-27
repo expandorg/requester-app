@@ -1,7 +1,7 @@
 {
-  "name": "requester-portal",
+  "name": "requester-app",
   "version": "0.0.1",
-  "description": "Expand.orfg requesters application",
+  "description": "Expand.org requesters application",
   "license": "ISC",
   "author": "expand.org",
   "main": "src/index.js",
