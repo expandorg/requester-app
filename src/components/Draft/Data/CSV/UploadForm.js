@@ -1,11 +1,9 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React, { useCallback, useRef, useState, useEffect } from 'react';
 
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { UploadProgressIndicator } from '@expandorg/components/app';
-import { RequestStates, requestStateProps } from '@expandorg/app-utils';
+import { RequestStates } from '@expandorg/app-utils';
 import { addNotification } from '@expandorg/app-utils/app';
 
 import { ReactComponent as Placeholder } from '../../../../assets/cloud_upload.svg';
@@ -20,103 +18,84 @@ import { uploadDataStateSelector } from '../../../../selectors/uiStateSelectors'
 
 import styles from './UploadForm.module.styl';
 
-const mapStateToProps = state => ({
-  uploadState: uploadDataStateSelector(state),
-});
+export default function UploadForm({ draft }) {
+  const dispatch = useDispatch();
+  const uploadState = useSelector(uploadDataStateSelector);
 
-const mapDispatchToProps = dispatch =>
-  bindActionCreators({ uploadData, addNotification }, dispatch);
+  const ps = useRef(null);
+  const [progress, setProgress] = useState(0);
+  const [data, setData] = useState(null);
 
-class UploadForm extends Component {
-  progress = null;
+  const uploading = uploadState.state === RequestStates.Fetching;
 
-  static propTypes = {
-    draft: draftProps.isRequired,
-    uploadState: requestStateProps.isRequired,
-    uploadData: PropTypes.func.isRequired,
-    addNotification: PropTypes.func.isRequired,
-  };
+  useEffect(() => {
+    return () => {
+      if (ps.current !== null) {
+        ps.current.unsubscribe();
+      }
+    };
+  }, []);
 
-  state = {
-    data: null,
-    progress: 0,
-  };
+  const upload = useCallback(
+    d => {
+      if (!uploading) {
+        setProgress(0);
+        setData(d);
+        ps.current = new ProgressPubSub(setProgress);
+        dispatch(uploadData(draft.id, d, ps.current));
+      }
+    },
+    [dispatch, uploading, draft.id]
+  );
 
-  componentWillUnmount() {
-    if (this.progress !== null) {
-      this.progress.unsubscribe();
-    }
-  }
-
-  handleUpload = data => {
-    const { draft, uploadState } = this.props;
-    if (uploadState.state !== RequestStates.Fetching) {
-      this.setState({ data, progress: 0 });
-
-      this.progress = new ProgressPubSub(this.handleProgress);
-      this.props.uploadData(draft.id, data, this.progress);
-    }
-  };
-
-  handleProgress = progress => {
-    this.setState({ progress });
-  };
-
-  handleAbort = () => {
-    if (this.progress) {
-      this.progress.abortRequest();
-    }
-  };
-
-  handleReject = () => {
-    const message = `Filetype is not supported. Only .csv are supported. Please try again.`;
-    this.props.addNotification('error', message);
-  };
-
-  handleDownload = evt => {
-    evt.preventDefault();
-    evt.stopPropagation();
-  };
-
-  render() {
-    const { uploadState } = this.props;
-    const { data, progress } = this.state;
-
-    const uploading = uploadState.state === RequestStates.Fetching;
-    const uploaded = uploadState.state === RequestStates.Fetched;
-    const err = uploadState.state === RequestStates.FetchError;
-    return (
-      <Fieldset>
-        <Upload
-          file={data}
-          accept="text/csv"
-          isUploading={uploading}
-          className={styles.upload}
-          onSelect={this.handleUpload}
-          onReject={this.handleReject}
-        >
-          {({ file }) =>
-            file ? (
-              <UploadProgressIndicator
-                className={styles.progress}
-                isUploading={uploading}
-                isUploaded={uploaded}
-                isUploadError={err}
-                progress={progress}
-                onAbort={this.handleAbort}
-              />
-            ) : (
-              <div className={styles.placeholder}>
-                <Placeholder className={styles.image} />
-                <div className={styles.or}>Drag a file or</div>
-                <div className={styles.button}>Browse</div>
-              </div>
-            )
-          }
-        </Upload>
-      </Fieldset>
+  const rejected = useCallback(() => {
+    dispatch(
+      addNotification(
+        'error',
+        'This file type is not supported. Only .csv are supported. Please try again.'
+      )
     );
-  }
+  }, [dispatch]);
+
+  const abort = useCallback(() => {
+    if (ps.current !== null) {
+      ps.current.abortRequest();
+    }
+  }, []);
+
+  return (
+    <Fieldset>
+      <Upload
+        file={data}
+        accept="text/csv"
+        isUploading={uploading}
+        className={styles.upload}
+        onSelect={upload}
+        onReject={rejected}
+      >
+        {({ file }) =>
+          file ? (
+            <UploadProgressIndicator
+              className={styles.progress}
+              isUploading={uploading}
+              isUploaded={uploadState.state === RequestStates.Fetched}
+              isUploadError={uploadState.state === RequestStates.FetchError}
+              progress={progress}
+              onAbort={abort}
+            />
+          ) : (
+            <div className={styles.placeholder}>
+              <Placeholder className={styles.image} />
+              <div className={styles.or}>Drag a file or</div>
+              <div className={styles.button}>Browse</div>
+            </div>
+          )
+        }
+      </Upload>
+    </Fieldset>
+  );
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(UploadForm);
+UploadForm.propTypes = {
+  draft: draftProps.isRequired,
+};

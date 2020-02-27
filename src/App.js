@@ -35,36 +35,38 @@ import services from './services';
 
 store.dispatch(initSaga());
 
-const App = () => (
-  <ServiceProvider services={services}>
-    <DndProvider backend={HTML5Backend}>
-      <Provider store={store}>
-        <BrowserRouter>
-          <Switch>
-            <Route path="/" exact component={Dashboard} />
-            <Route path="/choice" exact component={Choice} />
+function App() {
+  return (
+    <ServiceProvider services={services}>
+      <DndProvider backend={HTML5Backend}>
+        <Provider store={store}>
+          <BrowserRouter>
+            <Switch>
+              <Route path="/" exact component={Dashboard} />
+              <Route path="/choice" exact component={Choice} />
 
-            <Route path="/login" component={Login} />
-            <Route path="/signup" component={Signup} />
+              <Route path="/login" component={Login} />
+              <Route path="/signup" component={Signup} />
 
-            <Route path="/tasks/:category" component={Dashboard} />
+              <Route path="/tasks/:category" component={Dashboard} />
 
-            <Route path="/draft/:id" component={Draft} />
-            <Route path="/job/:id" component={Job} />
+              <Route path="/draft/:id" component={Draft} />
+              <Route path="/job/:id" component={Job} />
 
-            <Route path="/preview/draft/:id" component={PreviewDraft} />
-            <Route path="/preview/template/:id" component={PreviewTemplate} />
+              <Route path="/preview/draft/:id" component={PreviewDraft} />
+              <Route path="/preview/template/:id" component={PreviewTemplate} />
 
-            <Route path="/api" component={Api} />
-            {/* <Route path="/stats" component={Stats} /> */}
-            <Route path="/settings" component={Settings} />
+              <Route path="/api" component={Api} />
+              {/* <Route path="/stats" component={Stats} /> */}
+              <Route path="/settings" component={Settings} />
 
-            <Route component={NotFound} />
-          </Switch>
-        </BrowserRouter>
-      </Provider>
-    </DndProvider>
-  </ServiceProvider>
-);
+              <Route component={NotFound} />
+            </Switch>
+          </BrowserRouter>
+        </Provider>
+      </DndProvider>
+    </ServiceProvider>
+  );
+}
 
 export default hot(App);
