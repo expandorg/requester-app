@@ -1,2 +1,2 @@
-# requester-portal
+# requester-app
 gem.org requester application
