@@ -1,6 +1,6 @@
 # Requester App
  
-Requester Aoo responsible for handling worker's disputes about response rejections. 
+Requester App is an application that allows requesters to develop and publish new tasks at expand.org
 
 ## Getting started 
 
