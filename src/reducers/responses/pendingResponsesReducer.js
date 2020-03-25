@@ -26,7 +26,7 @@ export default function acceptedResponsesReducer(state = {}, action) {
           ...state,
           [jobId]: {
             ...byJob,
-            results: byJob.results.filter(r => !verified.has(r.id)),
+            results: byJob.results.filter((r) => !verified.has(r.id)),
           },
         };
       }

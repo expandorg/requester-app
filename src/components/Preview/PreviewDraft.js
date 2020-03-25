@@ -24,10 +24,10 @@ function PreviewDraft({ match }) {
   const dispatch = useDispatch();
 
   const draftSelector = useMemo(makeDraftSelector, []);
-  const draft = useSelector(state => draftSelector(state, match.params.id));
+  const draft = useSelector((state) => draftSelector(state, match.params.id));
 
   const varsSampleSelector = useMemo(makeVariablesSampleSelector, []);
-  const variables = useSelector(state =>
+  const variables = useSelector((state) =>
     varsSampleSelector(state, match.params.id, draft ? draft.dataId : null)
   );
 

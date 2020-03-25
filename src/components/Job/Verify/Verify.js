@@ -19,7 +19,7 @@ import ModulesForm from './ModulesForm';
 export default function Verify({ response, job, onSubmit }) {
   const dispatch = useDispatch();
   const taskSelector = useMemo(makeTaskSelector);
-  const task = useSelector(s => taskSelector(s, response.task_id));
+  const task = useSelector((s) => taskSelector(s, response.task_id));
 
   const verifyState = useSelector(verifyResponseStateSelector);
 
@@ -28,7 +28,7 @@ export default function Verify({ response, job, onSubmit }) {
   }, [dispatch, response.task_id]);
 
   const submit = useCallback(
-    data => {
+    (data) => {
       const result = getScore(data, job.verificationForm, mc);
       onSubmit(response, result.score, result.reason);
     },

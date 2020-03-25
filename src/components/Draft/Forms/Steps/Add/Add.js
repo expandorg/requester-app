@@ -31,7 +31,7 @@ export default function Add({ draft, onSelect }) {
   }, [dispatch]);
 
   const add = useCallback(
-    template => {
+    (template) => {
       setOpened(false);
 
       const onboarding = DraftOnboarding.add(draft, template);
@@ -55,7 +55,7 @@ export default function Add({ draft, onSelect }) {
         <ContextMenu className={styles.menu} onHide={() => setOpened(false)}>
           <div className={styles.header}>Onboarding</div>
           <div className={styles.list}>
-            {templates.map(template => (
+            {templates.map((template) => (
               <ContextMenuItem key={template.id} onClick={() => add(template)}>
                 {template.name}
               </ContextMenuItem>

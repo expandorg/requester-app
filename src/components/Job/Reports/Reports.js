@@ -25,7 +25,7 @@ export default function Reports({ reports }) {
             <div className={styles.header}>Reported Questions</div>
             <T.Table className={styles.table}>
               <Header />
-              {reports.map(report => (
+              {reports.map((report) => (
                 <Row key={report.id} report={report} />
               ))}
             </T.Table>

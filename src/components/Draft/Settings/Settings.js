@@ -59,7 +59,7 @@ export default function Settings({ onBack, onNext, draft }) {
   );
 
   const changeStaking = useCallback(
-    val => {
+    (val) => {
       setSettings({
         ...settings,
         staking: val,

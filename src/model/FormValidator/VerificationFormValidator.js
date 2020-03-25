@@ -7,7 +7,7 @@ import TaskFormValidator from './TaskFormValidator';
 
 export default class VerificationFormValidator extends TaskFormValidator {
   checkVerifyModule(modules: Array<Module>) {
-    const found = findModuleVisitor(modules, m => m.type === 'verify');
+    const found = findModuleVisitor(modules, (m) => m.type === 'verify');
     if (!found) {
       return this.errorMsg('Verification form should have verify module');
     }

@@ -14,7 +14,7 @@ export const fetchAcceptedResponses = (jobId, page) => ({
   meta: { params: { jobId, page } },
 });
 
-export const fetchPendingResponses = jobId => ({
+export const fetchPendingResponses = (jobId) => ({
   type: responsesActionTypes.FETCH_PENDING,
   payload: { jobId },
   asyncCall: jobsApi.fetchPendingResponses,

@@ -39,7 +39,7 @@ export default class UserFilter extends Component {
     className: null,
   };
 
-  handleRemove = index => {
+  handleRemove = (index) => {
     const { onChange, filters } = this.props;
     onChange(removeAtIndex(filters, index));
   };
@@ -49,7 +49,7 @@ export default class UserFilter extends Component {
     onChange(replaceAtIndex(filters, index, condition));
   };
 
-  handleAdd = evt => {
+  handleAdd = (evt) => {
     const { onChange, filters } = this.props;
     onChange([...filters, newCondition()]);
 

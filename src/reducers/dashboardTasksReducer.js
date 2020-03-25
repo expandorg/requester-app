@@ -10,7 +10,7 @@ export default function dashboardTasksReducer(state = initialState, action) {
       return action.payload.tasks;
     case draftsActionTypes.REMOVE_COMPLETE: {
       const { draftId } = action.payload;
-      return state.filter(d => d.id !== draftId);
+      return state.filter((d) => d.id !== draftId);
     }
     case draftsActionTypes.COPY_COMPLETE: {
       const {
@@ -18,7 +18,7 @@ export default function dashboardTasksReducer(state = initialState, action) {
         meta: { originalId },
       } = action;
       const item = { ...entities.drafts[result.draft], isCopy: true };
-      const index = state.findIndex(d => d.id === originalId);
+      const index = state.findIndex((d) => d.id === originalId);
       if (index === -1) {
         return [item, ...state];
       }

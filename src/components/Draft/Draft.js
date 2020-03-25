@@ -25,13 +25,13 @@ function Draft({ match, location }) {
   const dispatch = useDispatch();
 
   const draftSelector = useMemo(makeDraftSelector, []);
-  const draft = useSelector(state => draftSelector(state, match.params.id));
+  const draft = useSelector((state) => draftSelector(state, match.params.id));
 
   const isSaving = useSelector(draftSavingSelector);
   const loadState = useSelector(fetchDraftStateSelector);
 
   const selectValidation = useMemo(makeDraftValidationSelector, []);
-  const validation = useSelector(s => selectValidation(s, match.params.id));
+  const validation = useSelector((s) => selectValidation(s, match.params.id));
 
   useEffect(() => {
     dispatch(fetch(match.params.id));

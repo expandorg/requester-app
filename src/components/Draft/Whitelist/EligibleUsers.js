@@ -13,12 +13,12 @@ import { getEligibleUsers } from '../../../sagas/whitelistSagas';
 import { eligibleUsersSelector } from '../../../selectors/whitelistSelectors';
 import { eligibleUsersStateSelector } from '../../../selectors/uiStateSelectors';
 
-const mapsStateToProps = state => ({
+const mapsStateToProps = (state) => ({
   eligibleUsers: eligibleUsersSelector(state),
   fetchState: eligibleUsersStateSelector(state),
 });
 
-const mapDispatchToProps = dispatch =>
+const mapDispatchToProps = (dispatch) =>
   bindActionCreators({ getEligibleUsers }, dispatch);
 
 const DEBOUNCE_TIMEOUT = 400;

@@ -36,7 +36,7 @@ function Job() {
   const loadState = useSelector(fetchJobStatsStateSelector);
 
   const jobStatsSelector = useMemo(makeJobStatsSelector);
-  const stats = useSelector(s => jobStatsSelector(s, id));
+  const stats = useSelector((s) => jobStatsSelector(s, id));
 
   useEffect(() => {
     dispatch(fetchJobStats(id));

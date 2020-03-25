@@ -94,7 +94,7 @@ export default function SummaryForm({
           user={user}
           readOnly={!isReady}
           draft={draft}
-          onPublish={schedule => onSubmit(schedule)}
+          onPublish={(schedule) => onSubmit(schedule)}
         />
       </Actions>
     </div>

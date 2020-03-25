@@ -10,5 +10,5 @@ export const formTemplatesListSelector = (state: Object) =>
 export const formTemplatesSelector: any = createSelector(
   formTemplatesListSelector,
   formTemplatesEntitiesSelector,
-  (list, entities) => list.map(id => entities[id])
+  (list, entities) => list.map((id) => entities[id])
 );

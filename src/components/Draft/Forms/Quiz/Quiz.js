@@ -18,7 +18,7 @@ export default function Quiz({ onHide, onUpdate, group }) {
   const [step, setStep] = useSyncedState(group);
 
   const update = useCallback(
-    updated => {
+    (updated) => {
       onUpdate(updated);
       onHide();
     },
@@ -26,7 +26,7 @@ export default function Quiz({ onHide, onUpdate, group }) {
   );
 
   const changeWizard = useCallback(
-    s => {
+    (s) => {
       if (!s) {
         onHide();
       } else {

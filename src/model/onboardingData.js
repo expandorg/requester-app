@@ -17,7 +17,7 @@ export const dataToVars = ({
   answer: { [filed: string]: string },
   variables: { [key: string]: any },
 }> =>
-  steps.map(row => {
+  steps.map((row) => {
     const variables = columns.reduce((set, col, index) => {
       set[col.name] = row.values[index];
       return set;
@@ -31,7 +31,7 @@ export const getQuizDataVarialbes = (
   if (!data) {
     return [];
   }
-  return data.columns.map(c => c.name);
+  return data.columns.map((c) => c.name);
 };
 
 export const createNewRow = (columns: Array<any>): Array<string> =>
@@ -65,7 +65,7 @@ export const updateValuesType = (
   col: number,
   type: string
 ) =>
-  immer(steps, draft => {
+  immer(steps, (draft) => {
     for (let i = 0; i < steps.length; i += 1) {
       draft[i].values[col] = convertType(draft[i].values[col], type);
     }
@@ -75,7 +75,7 @@ export const removeValuesColumns = (
   steps: Array<{ values: Array<string>, answer: string }>,
   col: number
 ) =>
-  immer(steps, draft => {
+  immer(steps, (draft) => {
     for (let i = 0; i < steps.length; i += 1) {
       draft[i].values.splice(col, 1);
     }
@@ -84,7 +84,7 @@ export const removeValuesColumns = (
 export const insertValuesColumn = (
   steps: Array<{ values: Array<string>, answer: string }>
 ) =>
-  immer(steps, draft => {
+  immer(steps, (draft) => {
     for (let i = 0; i < steps.length; i += 1) {
       draft[i].values.push('');
     }
@@ -99,6 +99,6 @@ const answersFields = new Set([
 ]);
 
 export const gerAnswerFields = (form: Form) => {
-  const valid = getFormModules(form).filter(m => answersFields.has(m.type));
-  return [...new Set(valid.map(m => m.name))];
+  const valid = getFormModules(form).filter((m) => answersFields.has(m.type));
+  return [...new Set(valid.map((m) => m.name))];
 };

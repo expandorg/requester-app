@@ -10,7 +10,7 @@ export const taskTemplatesListSelector = (state: Object) =>
 export const taskTemplatesSelector: any = createSelector(
   taskTemplatesListSelector,
   taskTemplatesEntitiesSelector,
-  (list, entities) => list.map(id => entities[id])
+  (list, entities) => list.map((id) => entities[id])
 );
 
 export const makeTaskTemplateSelector = (): any =>
@@ -27,7 +27,7 @@ export const makeTaskTemplateSelector = (): any =>
 
 export const makeDraftFromTemplateSelector = (): any => {
   const templateSelector = makeTaskTemplateSelector();
-  return createSelector(templateSelector, template => {
+  return createSelector(templateSelector, (template) => {
     if (!template) {
       return null;
     }

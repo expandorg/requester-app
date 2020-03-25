@@ -42,7 +42,7 @@ export default function FormPreview({
         onSubmit={onSubmit}
         onNotify={onNotify}
       >
-        {props => <Module {...props} />}
+        {(props) => <Module {...props} />}
       </Form>
     </FormDataProvider>
   );

@@ -9,7 +9,7 @@ import { dataEntitiesSelector, dataValuesSelector } from './dataSelectors';
 // eslint-disable-next-line import/prefer-default-export
 export const defaultVariablesSelector: any = createSelector(
   userSelector,
-  user => ({
+  (user) => ({
     workerId: user.id,
   })
 );
@@ -36,8 +36,9 @@ export const makeVariablesSampleSelector = (): any => {
       if (!samplePage) {
         return defaultVars;
       }
+
       const variables = draft.variables.reduce((all, v) => {
-        const index = entity.columns.findIndex(col => col.variable === v);
+        const index = entity.columns.findIndex((col) => col.variable === v);
         if (index === -1) {
           return all;
         }

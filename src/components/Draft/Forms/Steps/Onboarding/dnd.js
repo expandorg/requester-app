@@ -5,7 +5,7 @@ export const source = (index, onEndDrag) => ({
     index,
     type,
   },
-  collect: monitor => ({
+  collect: (monitor) => ({
     isDragging: monitor.isDragging(),
   }),
   end: () => {

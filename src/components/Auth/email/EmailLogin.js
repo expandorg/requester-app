@@ -34,12 +34,12 @@ export default function EmailLogin() {
     setError(null);
   }, []);
 
-  const failed = useCallback(p => setError(p.error), []);
+  const failed = useCallback((p) => setError(p.error), []);
 
   const isFetching = loginState.state === RequestStates.Fetching;
 
   const submit = useCallback(
-    evt => {
+    (evt) => {
       evt.preventDefault();
 
       if (!isFetching) {

@@ -37,7 +37,7 @@ export default function UploadForm({ draft }) {
   }, []);
 
   const upload = useCallback(
-    d => {
+    (d) => {
       if (!uploading) {
         setProgress(0);
         setData(d);

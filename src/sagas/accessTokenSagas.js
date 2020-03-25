@@ -6,7 +6,7 @@ import { accessTokenActionTypes } from './actionTypes';
 
 import { accessTokenApi } from '../api/AccessTokenApi';
 
-export const generateKey = user => ({
+export const generateKey = (user) => ({
   type: accessTokenActionTypes.GENERATE_KEY,
   payload: { userId: user.id },
   asyncCall: accessTokenApi.generateKey,

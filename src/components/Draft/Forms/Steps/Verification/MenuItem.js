@@ -33,7 +33,7 @@ export default function VerificationMenuItem({
     }
   }, [hasForm, onSelect]);
 
-  const iconClick = useCallback(evt => {
+  const iconClick = useCallback((evt) => {
     evt.stopPropagation();
     setDialog(true);
   }, []);

@@ -44,7 +44,7 @@ export default class DraftErrorsBuilder {
         },
       });
     }
-    Reflect.ownKeys(result.onboardingForms).forEach(id => {
+    Reflect.ownKeys(result.onboardingForms).forEach((id) => {
       const item = result.onboardingForms[id];
       if (item && item.meta) {
         messages.push({

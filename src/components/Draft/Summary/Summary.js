@@ -29,7 +29,7 @@ export default function Summary({ draft, onStep, onBack, validation }) {
   const publishing = submitState.state === RequestStates.Fetching;
 
   const submit = useCallback(
-    schedule => {
+    (schedule) => {
       if (!publishing) {
         dispatch(publish(draft.id, schedule));
       }

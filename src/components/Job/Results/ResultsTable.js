@@ -24,7 +24,7 @@ export default function ResultsTable({ id, total }) {
   const [page, setPage] = useState(0);
 
   const responsesSelector = useMemo(makeAcceptedResponsesSelector);
-  const responses = useSelector(s => responsesSelector(s, id, page));
+  const responses = useSelector((s) => responsesSelector(s, id, page));
 
   const [mode, setMode] = useState('table');
 
@@ -35,7 +35,7 @@ export default function ResultsTable({ id, total }) {
   }, [dispatch, id]);
 
   const changePage = useCallback(
-    p => {
+    (p) => {
       dispatch(fetchAcceptedResponses(id, p));
       setPage(p);
     },
@@ -51,7 +51,7 @@ export default function ResultsTable({ id, total }) {
         {responses && responses.length !== 0 && (
           <T.Table>
             <Header mode={mode} onToggle={setMode} />
-            {responses.map(resp => (
+            {responses.map((resp) => (
               <Row key={resp.id} response={resp} mode={mode} />
             ))}
           </T.Table>

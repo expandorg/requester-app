@@ -11,7 +11,7 @@ import styles from './SidebarItem.module.styl';
 
 function SidebarItem({ children, template, selected, onSelect, ...rest }) {
   const click = useCallback(
-    evt => {
+    (evt) => {
       evt.preventDefault();
       onSelect(template.id);
     },

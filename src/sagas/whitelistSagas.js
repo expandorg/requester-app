@@ -6,7 +6,7 @@ import { whitelistActionTypes } from './actionTypes';
 
 import { whitelistApi } from '../api/WhitelistApi';
 
-export const getEligibleUsers = conditions => ({
+export const getEligibleUsers = (conditions) => ({
   type: whitelistActionTypes.GET_ELIGIBLE,
   payload: { conditions },
   asyncCall: whitelistApi.eligible,

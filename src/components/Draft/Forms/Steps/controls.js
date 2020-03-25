@@ -96,7 +96,7 @@ export function NavItemContextMenu({ visible, onToggle, children }) {
   const [pos, setPos] = useState(null);
 
   const toggle = useCallback(
-    evt => {
+    (evt) => {
       evt.preventDefault();
       evt.stopPropagation();
       if (!visible) {

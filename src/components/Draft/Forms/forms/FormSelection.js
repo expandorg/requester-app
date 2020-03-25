@@ -61,7 +61,7 @@ export default class FormSelection {
       return null;
     }
 
-    return draft.onboarding.steps.find(s => s.id === this.step);
+    return draft.onboarding.steps.find((s) => s.id === this.step);
   }
 
   getForm(draft: Draft): ?Form {

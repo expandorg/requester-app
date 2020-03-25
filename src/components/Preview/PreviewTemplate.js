@@ -21,7 +21,7 @@ function PreviewTemplate({ match }) {
   const dispatch = useDispatch();
   const draftSelector = useMemo(makeDraftFromTemplateSelector, []);
 
-  const draft = useSelector(state => draftSelector(state, match.params.id));
+  const draft = useSelector((state) => draftSelector(state, match.params.id));
 
   useEffect(() => {
     dispatch(fetchTaskTemplate(match.params.id));

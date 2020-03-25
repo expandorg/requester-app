@@ -7,14 +7,14 @@ import { draftsActionTypes } from './actionTypes';
 import { draftApi } from '../api/DraftApi';
 import { draftResponseSchema } from '../model/schemas';
 
-export const fetch = id => ({
+export const fetch = (id) => ({
   type: draftsActionTypes.FETCH,
   payload: { id },
   asyncCall: draftApi.fetch,
   meta: { schema: draftResponseSchema },
 });
 
-export const createDraft = templateId => ({
+export const createDraft = (templateId) => ({
   type: draftsActionTypes.CREATE,
   payload: { templateId },
   asyncCall: draftApi.create,
@@ -84,13 +84,13 @@ export const publish = (id, schedule) => ({
   meta: { schema: draftResponseSchema },
 });
 
-export const removeDraft = draft => ({
+export const removeDraft = (draft) => ({
   type: draftsActionTypes.REMOVE,
   payload: { id: draft.id },
   asyncCall: draftApi.remove,
 });
 
-export const copyDraft = draft => ({
+export const copyDraft = (draft) => ({
   type: draftsActionTypes.COPY,
   payload: { id: draft.id },
   asyncCall: draftApi.copy,

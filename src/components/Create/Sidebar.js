@@ -13,7 +13,7 @@ export default function Sidebar({ templates, selected, onSelect }) {
       <div className={styles.title}>Task Templates</div>
       <div className={styles.list}>
         <div className={styles.inner}>
-          {templates.map(template => (
+          {templates.map((template) => (
             <SidebarItem
               key={template.id}
               template={template}

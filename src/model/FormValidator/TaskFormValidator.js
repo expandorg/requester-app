@@ -7,7 +7,7 @@ export default class TaskFormValidator extends FormValidator {
   checkInputs(modules: Array<Module>): ?FormValidationResult {
     const found = findModuleVisitor(
       modules,
-      m => !!FormValidator.controls[m.type].module.isInput
+      (m) => !!FormValidator.controls[m.type].module.isInput
     );
     if (!found) {
       return this.errorMsg('Form should have at least one input module');

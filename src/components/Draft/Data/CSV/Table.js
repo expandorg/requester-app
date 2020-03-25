@@ -30,7 +30,7 @@ function Table({ draft }) {
   }, [dispatch, draft.dataId, draft.id, page]);
 
   const dataSelector = useMemo(makeDataSelector, []);
-  const data = useSelector(state => dataSelector(state, draft.dataId, page));
+  const data = useSelector((state) => dataSelector(state, draft.dataId, page));
 
   const [varsDialog, setVarsDialog] = useState(false);
 
@@ -42,7 +42,7 @@ function Table({ draft }) {
 
   const change = useCallback(
     (columns, isSkipping) => {
-      if (isSkipping && !columns.some(c => !c.skipped)) {
+      if (isSkipping && !columns.some((c) => !c.skipped)) {
         dispatch(addNotification('error', message));
       } else {
         dispatch(uppdateColumns(draft.id, draft.dataId, columns));

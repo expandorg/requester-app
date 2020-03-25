@@ -14,7 +14,7 @@ export const fetchFormTemplates = () => ({
   meta: { schema: { templates: [formTemplateSchema] } },
 });
 
-export const fetchFormTemplate = id => ({
+export const fetchFormTemplate = (id) => ({
   type: formActionTypes.FETCH_TEMPLATE,
   payload: { id },
   asyncCall: templatesApi.formTemplate,

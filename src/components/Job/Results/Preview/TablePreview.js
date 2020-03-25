@@ -6,7 +6,7 @@ import { Table as T } from '@expandorg/components';
 
 import styles from './TablePreview.module.styl';
 
-const Value = value => {
+const Value = (value) => {
   if (typeof value === 'object') {
     return JSON.stringify(value, undefined, 2);
   }
@@ -19,14 +19,14 @@ export default function TablePreview({ value, className }) {
     <div className={cn(styles.container, className)}>
       <T.Table>
         <T.Header className={styles.header}>
-          {keys.map(key => (
+          {keys.map((key) => (
             <T.HeaderCell key={key} className={styles.headerCell}>
               {key}
             </T.HeaderCell>
           ))}
         </T.Header>
         <T.Row className={styles.row}>
-          {keys.map(key => (
+          {keys.map((key) => (
             <T.Cell key={key} className={styles.cell}>
               {Value(value[key])}
             </T.Cell>

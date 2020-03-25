@@ -28,7 +28,7 @@ export default class Value extends PureComponent {
     answer: false,
   };
 
-  handleChange = value => {
+  handleChange = (value) => {
     const { onChange, type, columnIndex } = this.props;
     let adjusted = value;
     if (type === 'number') {

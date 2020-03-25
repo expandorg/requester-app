@@ -20,8 +20,8 @@ import WizardSteps from './WizardSteps';
 export default function DraftWizard({ draft, tab, isSaving, validation }) {
   const [active, setActive] = useState({ tab });
 
-  const navigate = useCallback(nav => setActive(nav), []);
-  const setTab = useCallback(i => setActive({ tab: i }), []);
+  const navigate = useCallback((nav) => setActive(nav), []);
+  const setTab = useCallback((i) => setActive({ tab: i }), []);
   const next = useCallback(() => setActive({ tab: active.tab + 1 }), [active]);
   const back = useCallback(() => setActive({ tab: active.tab - 1 }), [active]);
 

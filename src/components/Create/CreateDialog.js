@@ -28,7 +28,7 @@ import { taskTemplateProps } from '../shared/propTypes';
 import styles from './CreateDialog.module.styl';
 import PreviewTemplateTab from '../../common/popups/PreviewTemplateTab';
 
-const mapsStateToProps = state => ({
+const mapsStateToProps = (state) => ({
   submitState: createDraftStateSelector(state),
   templates: taskTemplatesSelector(state),
   fetchTemplatesState: fetchTemplatesStateSelector(state),
@@ -84,7 +84,7 @@ class CreateDialog extends Component {
     history.replace(`/draft/${payload.result.draft}`);
   };
 
-  handleSelect = templateId => {
+  handleSelect = (templateId) => {
     this.setState({ templateId });
   };
 

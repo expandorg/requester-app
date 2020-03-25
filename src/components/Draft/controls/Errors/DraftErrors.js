@@ -15,7 +15,7 @@ export default function DraftErrors({ validation, onNavigate }) {
   const [pos, setPos] = useState(null);
 
   const toggle = useCallback(
-    evt => {
+    (evt) => {
       if (evt) {
         evt.preventDefault();
         evt.stopPropagation();
@@ -29,7 +29,7 @@ export default function DraftErrors({ validation, onNavigate }) {
   );
 
   const navigate = useCallback(
-    nav => {
+    (nav) => {
       onNavigate(nav);
       setVisible(false);
     },

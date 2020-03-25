@@ -10,7 +10,7 @@ export default function Whitelist({ draft }) {
     <div className={styles.container}>
       <Fieldset>
         {draft.whitelist &&
-          draft.whitelist.map(condition => (
+          draft.whitelist.map((condition) => (
             <div key={condition.id} className={styles.condition}>
               <span className={styles.param}>{condition.param}</span>
               <span className={styles.op}>{condition.op}</span>

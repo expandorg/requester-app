@@ -59,7 +59,7 @@ const initialGroupState: OnboardingGroupState = {
 
 export const createOnboardingState = (draft: Draft): WorkflowState =>
   createGroupState(
-    draft.onboarding.steps.map(step => getGroup(step)),
+    draft.onboarding.steps.map((step) => getGroup(step)),
     initialGroupState
   );
 

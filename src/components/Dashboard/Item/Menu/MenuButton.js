@@ -11,7 +11,7 @@ import styles from './MenuButton.module.styl';
 export default function MenuButton({ draft, onCopy, onDelete }) {
   const [menu, setMenu] = useState(false);
   const toggle = useCallback(
-    evt => {
+    (evt) => {
       evt.preventDefault();
       setMenu(!menu);
     },

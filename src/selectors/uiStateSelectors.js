@@ -5,100 +5,100 @@ export const uiStateSelector = (state: Object) => state.ui;
 
 export const notificationSelector: any = createSelector(
   uiStateSelector,
-  state => state.notification
+  (state) => state.notification
 );
 
 export const fetchDraftStateSelector: any = createSelector(
   uiStateSelector,
-  state => state.fetchDraft
+  (state) => state.fetchDraft
 );
 
 export const createDraftStateSelector: any = createSelector(
   uiStateSelector,
-  state => state.createDraft
+  (state) => state.createDraft
 );
 
 export const updateDraftSettingsStateSelector: any = createSelector(
   uiStateSelector,
-  state => state.updateDraftSettings
+  (state) => state.updateDraftSettings
 );
 
 export const updateDraftVerificationStateSelector: any = createSelector(
   uiStateSelector,
-  state => state.updateDraftVerification
+  (state) => state.updateDraftVerification
 );
 
 export const fetchTemplatesStateSelector: any = createSelector(
   uiStateSelector,
-  state => state.fetchTemplates
+  (state) => state.fetchTemplates
 );
 
 export const updateDraftTaskStateSelector: any = createSelector(
   uiStateSelector,
-  state => state.updateDraftTask
+  (state) => state.updateDraftTask
 );
 
 export const updateDraftOnboardingStateSelector: any = createSelector(
   uiStateSelector,
-  state => state.updateDraftOnboarding
+  (state) => state.updateDraftOnboarding
 );
 
 export const updateDraftWhitelistStateSelector: any = createSelector(
   uiStateSelector,
-  state => state.updateDraftWhitelist
+  (state) => state.updateDraftWhitelist
 );
 
 export const updateDraftFundingStateSelector: any = createSelector(
   uiStateSelector,
-  state => state.updateDraftFunding
+  (state) => state.updateDraftFunding
 );
 
 export const publishDraftStateSelector: any = createSelector(
   uiStateSelector,
-  state => state.publishDraft
+  (state) => state.publishDraft
 );
 
 export const fetchDataStateSelector: any = createSelector(
   uiStateSelector,
-  state => state.fetchData
+  (state) => state.fetchData
 );
 
 export const uploadDataStateSelector: any = createSelector(
   uiStateSelector,
-  state => state.uploadData
+  (state) => state.uploadData
 );
 
 export const removeDataStateSelector: any = createSelector(
   uiStateSelector,
-  state => state.removeData
+  (state) => state.removeData
 );
 
 export const eligibleUsersStateSelector: any = createSelector(
   uiStateSelector,
-  state => state.eligibleUsers
+  (state) => state.eligibleUsers
 );
 
 export const fetchJobStatsStateSelector: any = createSelector(
   uiStateSelector,
-  state => state.fetchJobStats
+  (state) => state.fetchJobStats
 );
 
 export const fetchJobResponsesStateSelector: any = createSelector(
   uiStateSelector,
-  state => state.fetchJobResponses
+  (state) => state.fetchJobResponses
 );
 
 export const generateAccessTokenStateSelector: any = createSelector(
   uiStateSelector,
-  state => state.accessToken
+  (state) => state.accessToken
 );
 
 export const fetchJobReportsStateSelector: any = createSelector(
   uiStateSelector,
-  state => state.fetchJobReports
+  (state) => state.fetchJobReports
 );
 
 export const verifyResponseStateSelector: any = createSelector(
   uiStateSelector,
-  state => state.verifyResponse
+  (state) => state.verifyResponse
 );

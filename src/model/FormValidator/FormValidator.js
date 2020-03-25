@@ -33,7 +33,7 @@ export default class FormValidator {
   checkDeprecatedModules(modules: Array<Module>): ?FormValidationResult {
     const notSuported = findModuleVisitor(
       modules,
-      m => !FormValidator.controls[m.type] && !!m.type
+      (m) => !FormValidator.controls[m.type] && !!m.type
     );
 
     if (notSuported) {
@@ -45,7 +45,7 @@ export default class FormValidator {
   }
 
   checkSubmit(modules: Array<Module>): ?FormValidationResult {
-    if (!modules.some(module => submitModules.includes(module.type))) {
+    if (!modules.some((module) => submitModules.includes(module.type))) {
       return this.errorMsg('Form should have submit button');
     }
     return null;

@@ -29,11 +29,12 @@ import XPN from './XPN';
 
 import styles from './Settings.module.styl';
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   user: userSelector(state),
 });
 
-const mapDispatchToProps = dispatch => bindActionCreators({ logout }, dispatch);
+const mapDispatchToProps = (dispatch) =>
+  bindActionCreators({ logout }, dispatch);
 
 class Settings extends Component {
   static propTypes = {

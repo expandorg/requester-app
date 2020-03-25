@@ -33,21 +33,21 @@ function JobForms({ draft, onNext, tab }) {
   }, [tab]);
 
   const saveTask = useCallback(
-    form => {
+    (form) => {
       dispatch(updateTaskForm(draft.id, form));
     },
     [dispatch, draft.id]
   );
 
   const saveVerification = useCallback(
-    form => {
+    (form) => {
       dispatch(updateVerificationForm(draft.id, form));
     },
     [dispatch, draft.id]
   );
 
   const saveOnboarding = useCallback(
-    form => {
+    (form) => {
       const onboarding = DraftOnboarding.updateForm(
         draft,
         selection.step,

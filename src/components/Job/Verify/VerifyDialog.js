@@ -24,10 +24,10 @@ export default function VerifyDialog({ jobId, onHide, left }) {
   const dispatch = useDispatch();
 
   const jobSelector = useMemo(makeJobSelector);
-  const job = useSelector(s => jobSelector(s, jobId));
+  const job = useSelector((s) => jobSelector(s, jobId));
 
   const pendingResponseSelector = useMemo(makeNextPendingResponseSelector);
-  const response = useSelector(s => pendingResponseSelector(s, jobId));
+  const response = useSelector((s) => pendingResponseSelector(s, jobId));
 
   useEffect(() => {
     dispatch(fetchPendingResponses(jobId));

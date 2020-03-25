@@ -16,7 +16,7 @@ export default function Form({
   onPreview,
   onHide,
 }) {
-  const template = templates.find(t => t.id === selected);
+  const template = templates.find((t) => t.id === selected);
   return (
     <div className={styles.container}>
       <Sidebar templates={templates} selected={selected} onSelect={onSelect} />

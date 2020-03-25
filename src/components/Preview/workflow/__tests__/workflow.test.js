@@ -89,7 +89,10 @@ describe('TaskWorkflowBackend', () => {
                   { name: 'var1', type: 'string' },
                   { name: 'var2', isAnswer: true, type: 'string' },
                 ],
-                values: [['1', '2'], ['3', '4']],
+                values: [
+                  ['1', '2'],
+                  ['3', '4'],
+                ],
               },
               form: form1,
             },

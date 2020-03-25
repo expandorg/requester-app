@@ -46,7 +46,7 @@ export default function ModulesForm({
           onSubmit={onSubmit}
           onNotify={notify}
         >
-          {mp => <Module {...mp} />}
+          {(mp) => <Module {...mp} />}
         </Form>
       </FormDataProvider>
     </Panel>

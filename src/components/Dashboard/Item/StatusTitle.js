@@ -8,7 +8,7 @@ import { formatDate, DraftStatusTitles } from '../../../model/i18n';
 import styles from './StatusTitle.module.styl';
 import { draftProps } from '../../shared/propTypes';
 
-const getTooltip = draft => {
+const getTooltip = (draft) => {
   if (draft.status === DraftStatus.inprogress) {
     if (draft.endDate) {
       return `Still running. Task is due to end on ${formatDate(

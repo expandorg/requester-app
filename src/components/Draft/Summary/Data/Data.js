@@ -21,7 +21,7 @@ export default function Data({ draft }) {
     }
   }, [dispatch, draft.dataId, draft.id, page]);
 
-  const changePage = useCallback(p => setPage(p), []);
+  const changePage = useCallback((p) => setPage(p), []);
 
   const hasData = DraftValidator.hasData(draft);
   return (

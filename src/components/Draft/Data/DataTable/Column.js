@@ -27,7 +27,7 @@ export default function Column({
   }, [original]);
 
   const toggle = useCallback(
-    evt => {
+    (evt) => {
       evt.preventDefault();
       setEdit(!edit);
       setColumn(original);
@@ -36,7 +36,7 @@ export default function Column({
   );
 
   const skip = useCallback(
-    evt => {
+    (evt) => {
       evt.preventDefault();
       const edited = {
         ...original,
@@ -50,7 +50,7 @@ export default function Column({
   );
 
   const save = useCallback(
-    evt => {
+    (evt) => {
       evt.preventDefault();
       onChange(column, index);
       setEdit(false);

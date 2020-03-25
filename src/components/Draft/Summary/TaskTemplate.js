@@ -20,7 +20,7 @@ const makeMapStateToProps = () => {
   });
 };
 
-const mapDispatchToProps = dispatch =>
+const mapDispatchToProps = (dispatch) =>
   bindActionCreators({ fetchTaskTemplate }, dispatch);
 
 class TaskTemplate extends Component {

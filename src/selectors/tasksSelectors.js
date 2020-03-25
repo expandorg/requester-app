@@ -15,7 +15,7 @@ export const dashboardTasksListSelector = (state: Object) =>
 
 export const dashboardTasksSelector: any = createSelector(
   dashboardTasksListSelector,
-  list => list
+  (list) => list
 );
 
 export const jobStatsEntitiesSelector = (state: Object): any =>

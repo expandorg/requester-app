@@ -40,7 +40,7 @@ export default class Answer extends Component {
     return null;
   }
 
-  handleToggleEdit = evt => {
+  handleToggleEdit = (evt) => {
     evt.preventDefault();
 
     const { edit, original } = this.state;
@@ -51,13 +51,13 @@ export default class Answer extends Component {
     });
   };
 
-  handleChangeField = field => {
+  handleChangeField = (field) => {
     this.setState(({ answer }) => ({
       answer: { ...answer, field },
     }));
   };
 
-  handleSave = evt => {
+  handleSave = (evt) => {
     evt.preventDefault();
 
     const { onChange } = this.props;

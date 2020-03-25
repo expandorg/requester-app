@@ -15,20 +15,20 @@ import {
   taskSchema,
 } from '../model/schemas';
 
-export const fetchTask = taskId => ({
+export const fetchTask = (taskId) => ({
   type: tasksActionTypes.FETCH,
   payload: { taskId },
   asyncCall: tasksApi.fetch,
   meta: { schema: { task: taskSchema } },
 });
 
-export const fetchTasks = status => ({
+export const fetchTasks = (status) => ({
   type: tasksActionTypes.FETCH_LIST,
   payload: { status },
   asyncCall: dashboardApi.list,
 });
 
-export const fetchJobStats = jobId => ({
+export const fetchJobStats = (jobId) => ({
   type: tasksActionTypes.FETCH_STATS,
   payload: { jobId },
   asyncCall: jobsApi.stats,
@@ -42,7 +42,7 @@ export const fetchTaskTemplates = () => ({
   meta: { schema: { templates: [taskTemplateSchema] } },
 });
 
-export const fetchTaskTemplate = id => ({
+export const fetchTaskTemplate = (id) => ({
   type: tasksActionTypes.FETCH_TEMPLATE,
   payload: { id },
   asyncCall: templatesApi.taskTemplate,

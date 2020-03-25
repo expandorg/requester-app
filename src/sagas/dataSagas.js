@@ -50,7 +50,7 @@ export const uppdateColumns = (draftId, dataId, columns) => ({
   meta: { schema: dataResponseSchema, optimistic: true },
 });
 
-export const removeData = draftId => ({
+export const removeData = (draftId) => ({
   type: dataActionTypes.REMOVE_DATA,
   payload: { draftId },
   asyncCall: dataApi.removeData,

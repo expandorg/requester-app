@@ -43,14 +43,14 @@ function Dashboard({ match }) {
   }, [dispatch, match.params.category]);
 
   const copy = useCallback(
-    draft => {
+    (draft) => {
       dispatch(copyDraft(draft));
     },
     [dispatch]
   );
 
   const del = useCallback(
-    draft => {
+    (draft) => {
       dispatch(removeDraft(draft));
     },
     [dispatch]
@@ -72,10 +72,10 @@ function Dashboard({ match }) {
       {isEmpty && <Empty />}
       {!isEmpty && (
         <Media query={q}>
-          {isMobile => (
+          {(isMobile) => (
             <div className={styles.list}>
               <New />
-              {items.map(draft => (
+              {items.map((draft) => (
                 <Item
                   isMobile={isMobile}
                   key={draft.id}

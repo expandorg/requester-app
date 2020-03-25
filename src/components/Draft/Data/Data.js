@@ -32,7 +32,7 @@ export default function Data({ draft, onBack, onNext }) {
   const hasData = DraftValidator.hasData(draft);
 
   const toggle = useCallback(
-    evt => {
+    (evt) => {
       if (evt) {
         evt.preventDefault();
       }

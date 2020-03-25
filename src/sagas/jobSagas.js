@@ -7,7 +7,7 @@ import { jobsActionTypes } from './actionTypes';
 import { jobsApi } from '../api/JobsApi';
 import { jobSchema } from '../model/schemas';
 
-export const fetchJob = jobId => ({
+export const fetchJob = (jobId) => ({
   type: jobsActionTypes.FETCH,
   payload: { jobId },
   asyncCall: jobsApi.fetch,

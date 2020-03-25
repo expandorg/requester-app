@@ -26,7 +26,7 @@ export default function Menu({ draft, onHide, onCopy, onDelete }) {
   const canCopy = canCopyStates.includes(draft.status);
 
   const copy = useCallback(
-    evt => {
+    (evt) => {
       evt.preventDefault();
       if (canCopy) {
         onHide();
@@ -37,7 +37,7 @@ export default function Menu({ draft, onHide, onCopy, onDelete }) {
   );
 
   const del = useCallback(
-    evt => {
+    (evt) => {
       evt.preventDefault();
       if (canDelete) {
         onHide();

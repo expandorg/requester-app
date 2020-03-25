@@ -12,7 +12,7 @@ import MenuItem from './MenuItem';
 
 import { dndReplace } from '../../../../../common/utils';
 
-const getSteps = draft => (draft.onboarding && draft.onboarding.steps) || [];
+const getSteps = (draft) => (draft.onboarding && draft.onboarding.steps) || [];
 
 export default function OnboardingMenu({ draft, selection, onSelect }) {
   const dispatch = useDispatch();
@@ -24,7 +24,7 @@ export default function OnboardingMenu({ draft, selection, onSelect }) {
   }, [draft]);
 
   const remove = useCallback(
-    id => {
+    (id) => {
       if (selection.isOnboardingStep(id)) {
         onSelect(FormSelection.task);
       }
@@ -50,7 +50,7 @@ export default function OnboardingMenu({ draft, selection, onSelect }) {
   );
 
   const duplicate = useCallback(
-    id => {
+    (id) => {
       const onboarding = DraftOnboarding.duplicate(draft, id);
       dispatch(updateOnboarding(draft.id, onboarding));
     },

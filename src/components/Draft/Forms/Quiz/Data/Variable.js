@@ -41,7 +41,7 @@ export default class Variable extends Component {
     return null;
   }
 
-  handleToggleEdit = evt => {
+  handleToggleEdit = (evt) => {
     evt.preventDefault();
 
     const { edit, original } = this.state;
@@ -58,13 +58,13 @@ export default class Variable extends Component {
     }));
   };
 
-  handleChangeType = type => {
+  handleChangeType = (type) => {
     this.setState(({ column }) => ({
       column: { ...column, type },
     }));
   };
 
-  handleSave = evt => {
+  handleSave = (evt) => {
     evt.preventDefault();
 
     const { onChange, index } = this.props;

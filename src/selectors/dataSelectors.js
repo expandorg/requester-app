@@ -5,12 +5,12 @@ export const dataStateSelector = (state: Object) => state.data;
 
 export const dataEntitiesSelector: any = createSelector(
   dataStateSelector,
-  state => state.entities
+  (state) => state.entities
 );
 
 export const dataValuesSelector: any = createSelector(
   dataStateSelector,
-  state => state.values
+  (state) => state.values
 );
 
 export const makeDataSelector = (): any =>

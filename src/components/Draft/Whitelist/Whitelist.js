@@ -26,11 +26,11 @@ import { updateDraftWhitelistStateSelector } from '../../../selectors/uiStateSel
 
 import styles from './Whitelist.module.styl';
 
-const mapsStateToProps = state => ({
+const mapsStateToProps = (state) => ({
   updateState: updateDraftWhitelistStateSelector(state),
 });
 
-const mapDispatchToProps = dispatch =>
+const mapDispatchToProps = (dispatch) =>
   bindActionCreators({ updateWhitelist }, dispatch);
 
 class Whitelist extends Component {
@@ -74,14 +74,14 @@ class Whitelist extends Component {
     onNext();
   };
 
-  handleBack = evt => {
+  handleBack = (evt) => {
     const { onBack } = this.props;
     onBack();
 
     evt.preventDefault();
   };
 
-  handleChange = whitelist => {
+  handleChange = (whitelist) => {
     this.setState({ whitelist });
   };
 

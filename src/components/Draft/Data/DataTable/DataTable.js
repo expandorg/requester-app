@@ -12,7 +12,7 @@ import Value from './Value';
 import styles from './DataTable.module.styl';
 
 const filterAssignedVars = (variables, assigned, columnVariable) =>
-  variables.filter(v => v === columnVariable || assigned.indexOf(v) === -1);
+  variables.filter((v) => v === columnVariable || assigned.indexOf(v) === -1);
 
 export default class DataTable extends Component {
   static propTypes = {
@@ -77,7 +77,7 @@ export default class DataTable extends Component {
 
     const array = isFetching && !values.length ? original.values : values;
 
-    const assigned = columns.map(c => c.variable);
+    const assigned = columns.map((c) => c.variable);
 
     /* eslint-disable react/no-array-index-key */
     return (

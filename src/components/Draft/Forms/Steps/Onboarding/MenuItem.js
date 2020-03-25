@@ -39,7 +39,7 @@ export default function OnboardingMenuItem({
   const [, drop] = useDrop(target(ref, index, onMove));
 
   const duplicate = useCallback(
-    evt => {
+    (evt) => {
       evt.stopPropagation();
       toggleMenu();
       onDuplcate(step.id);
@@ -48,7 +48,7 @@ export default function OnboardingMenuItem({
   );
 
   const remove = useCallback(
-    evt => {
+    (evt) => {
       evt.stopPropagation();
       toggleMenu();
       onRemove(step.id);
@@ -57,7 +57,7 @@ export default function OnboardingMenuItem({
   );
 
   const updateQuiz = useCallback(
-    updated => {
+    (updated) => {
       onUpdate(updated, true);
     },
     [onUpdate]
@@ -68,7 +68,7 @@ export default function OnboardingMenuItem({
   }, [onSelect, step.id]);
 
   const selectQuiz = useCallback(
-    evt => {
+    (evt) => {
       evt.preventDefault();
       evt.stopPropagation();
       onSelect(FormSelection.onboarding(step.id, true));

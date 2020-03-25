@@ -17,7 +17,7 @@ export default function Calculator({ draft }) {
   const [visible, setToggle] = useState(false);
 
   const toggle = useCallback(
-    evt => {
+    (evt) => {
       evt.preventDefault();
       setToggle(!visible);
     },

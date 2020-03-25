@@ -33,25 +33,25 @@ export default class DraftOnboarding {
 
   static remove(draft: Draft, id: string) {
     // $FlowFixMe
-    const steps = draft.onboarding.steps.filter(s => s.id !== id);
+    const steps = draft.onboarding.steps.filter((s) => s.id !== id);
     return { ...draft.onboarding, enabled: steps.length > 0, steps };
   }
 
   static update(draft: Draft, step: DraftOnboardingStep) {
-    const index = draft.onboarding.steps.findIndex(s => s.id === step.id);
+    const index = draft.onboarding.steps.findIndex((s) => s.id === step.id);
     const steps = replaceAtIndex(draft.onboarding.steps, index, step);
     return { ...draft.onboarding, steps };
   }
 
   static updateForm(draft: Draft, stepId: string, form: Form) {
-    const index = draft.onboarding.steps.findIndex(s => s.id === stepId);
+    const index = draft.onboarding.steps.findIndex((s) => s.id === stepId);
     const step = { ...draft.onboarding.steps[index], form };
     const steps = replaceAtIndex(draft.onboarding.steps, index, step);
     return { ...draft.onboarding, steps };
   }
 
   static duplicate(draft: Draft, id: string) {
-    const index = draft.onboarding.steps.findIndex(s => s.id === id);
+    const index = draft.onboarding.steps.findIndex((s) => s.id === id);
     const original = draft.onboarding.steps[index];
     const copy = fastCopy(original);
 

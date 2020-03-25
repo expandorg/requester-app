@@ -22,13 +22,13 @@ export default class Condition extends Component {
     onRemove: PropTypes.func.isRequired,
   };
 
-  handleRemove = evt => {
+  handleRemove = (evt) => {
     const { onRemove, index } = this.props;
     onRemove(index);
     evt.preventDefault();
   };
 
-  handleChangeParam = param => {
+  handleChangeParam = (param) => {
     const { onChange, condition, index } = this.props;
     onChange(
       {
@@ -41,7 +41,7 @@ export default class Condition extends Component {
     );
   };
 
-  handleChangeOp = op => {
+  handleChangeOp = (op) => {
     const { onChange, condition, index } = this.props;
     onChange({ ...condition, op, value: undefined }, index);
   };

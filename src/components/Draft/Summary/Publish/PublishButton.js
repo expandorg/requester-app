@@ -31,13 +31,13 @@ export default class PublishButton extends Component {
     initialDate: addHours(startOfHour(new Date()), 1),
   };
 
-  handlePublishClick = evt => {
+  handlePublishClick = (evt) => {
     const { onPublish } = this.props;
     onPublish();
     evt.preventDefault();
   };
 
-  handleSchedulePublish = dateTime => {
+  handleSchedulePublish = (dateTime) => {
     const { onPublish, draft } = this.props;
     if (draft.endDate && parse(draft.endDate) < dateTime) {
       const endDate = formatDate(parse(draft.endDate));

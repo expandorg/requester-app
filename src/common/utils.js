@@ -11,7 +11,7 @@ export const dndReplace = (
 ): Array<any> => {
   const dragged = collection[dragIndex];
   const hovered = collection[hoverIndex];
-  return immer(collection, d => {
+  return immer(collection, (d) => {
     d[dragIndex] = hovered;
     d[hoverIndex] = dragged;
   });

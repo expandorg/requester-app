@@ -39,13 +39,13 @@ const getInitialState = ({ verification: v }) => {
   };
 };
 
-const getSettings = settings => ({
+const getSettings = (settings) => ({
   ...settings,
   agreementCount: +settings.agreementCount,
   minimumExecutionTime: +settings.minimumExecutionTime,
 });
 
-const validate = form => {
+const validate = (form) => {
   const errors = {};
   if (!form.verificationModule) {
     errors.verificationModule = 'You should provide Verification type';
@@ -115,7 +115,7 @@ export default function VerificationSettings({
               tooltipPosition="right"
               label="Verification Type"
               options={options}
-              onChange={value =>
+              onChange={(value) =>
                 setForm({ ...form, verificationModule: value })
               }
             />

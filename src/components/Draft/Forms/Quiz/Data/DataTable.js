@@ -37,12 +37,12 @@ export default class DataTable extends Component {
     onUpdate: Function.prototype,
   };
 
-  handleDeleteRow = index => {
+  handleDeleteRow = (index) => {
     const { data, onUpdate } = this.props;
     onUpdate(
-      immer(data, draft => {
+      immer(data, (draft) => {
         draft.steps[index] = null;
-        draft.steps = draft.steps.filter(s => s !== null);
+        draft.steps = draft.steps.filter((s) => s !== null);
       })
     );
   };
@@ -81,7 +81,7 @@ export default class DataTable extends Component {
     });
   };
 
-  handleDeleteVar = index => {
+  handleDeleteVar = (index) => {
     const { data, onUpdate } = this.props;
     onUpdate({
       ...data,
@@ -93,7 +93,7 @@ export default class DataTable extends Component {
   handleChangeValue = (row, col, value) => {
     const { data, onUpdate } = this.props;
     onUpdate(
-      immer(data, draft => {
+      immer(data, (draft) => {
         draft.steps[row].values[col] = value;
       })
     );
@@ -102,13 +102,13 @@ export default class DataTable extends Component {
   handleChangeAnswerValue = (row, answer) => {
     const { data, onUpdate } = this.props;
     onUpdate(
-      immer(data, draft => {
+      immer(data, (draft) => {
         draft.steps[row].answer = answer;
       })
     );
   };
 
-  handleChangeAnswer = answer => {
+  handleChangeAnswer = (answer) => {
     const { data, onUpdate } = this.props;
     onUpdate({ ...data, answer });
   };

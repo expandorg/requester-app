@@ -21,7 +21,7 @@ export default function ApiKeyForm() {
   const submitState = useSelector(generateAccessTokenStateSelector);
 
   const generate = useCallback(
-    evt => {
+    (evt) => {
       if (submitState !== RequestStates.Fetching) {
         dispatch(generateKey(user));
       }

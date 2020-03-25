@@ -29,7 +29,7 @@ export default function VariablesDialog({ onHide, draftId, variables }) {
   }, [value, vars]);
 
   const keyDown = useCallback(
-    evt => {
+    (evt) => {
       if (evt.keyCode === KeyCodes.ENTER) {
         evt.stopPropagation();
         if (value) {
@@ -42,8 +42,8 @@ export default function VariablesDialog({ onHide, draftId, variables }) {
   );
 
   const remove = useCallback(
-    val => {
-      setVars(vars.filter(v => v !== val));
+    (val) => {
+      setVars(vars.filter((v) => v !== val));
     },
     [vars]
   );
@@ -88,7 +88,7 @@ export default function VariablesDialog({ onHide, draftId, variables }) {
                   <div className={styles.heanderName}>name</div>
                 </div>
                 <div className={styles.list}>
-                  {vars.map(v => (
+                  {vars.map((v) => (
                     <div key={v} className={styles.variable}>
                       <div key={v} className={styles.name}>
                         {v}

@@ -4,12 +4,12 @@ import { gt } from '../../../model/validation';
 const baseRules = {
   name: [
     [rules.isRequired, 'Title is required'],
-    [x => x && x.length <= 40, 'Title can be a maximum of 40 characters'],
+    [(x) => x && x.length <= 40, 'Title can be a maximum of 40 characters'],
   ],
   description: [[rules.isRequired, 'Description is required']],
 };
 
-export const validate = form => {
+export const validate = (form) => {
   let formRules = baseRules;
   if (form.staking) {
     formRules = {
@@ -20,7 +20,7 @@ export const validate = form => {
   return validateForm(form, formRules);
 };
 
-export const getInitialState = draft => {
+export const getInitialState = (draft) => {
   const { funding } = draft;
 
   return {
@@ -32,7 +32,7 @@ export const getInitialState = draft => {
   };
 };
 
-export const getSettings = settings => ({
+export const getSettings = (settings) => ({
   ...settings,
   stake: +settings.stake,
 });

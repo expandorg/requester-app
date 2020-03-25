@@ -6,7 +6,7 @@ export const draftsStateSelector = (state: Object) => state.drafts;
 
 export const draftsEntitiesSelector: any = createSelector(
   draftsStateSelector,
-  state => state.entities
+  (state) => state.entities
 );
 
 export const makeDraftSelector = (): any =>
@@ -21,7 +21,7 @@ export const draftSavingSelector = (state: Object) => state.drafts.saving;
 export const makeDraftValidationSelector = (): any => {
   const draftSelector = makeDraftSelector();
   const validator = new DraftValidator();
-  return createSelector(draftSelector, draft => {
+  return createSelector(draftSelector, (draft) => {
     return validator.validate(draft);
   });
 };

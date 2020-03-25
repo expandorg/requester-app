@@ -40,7 +40,7 @@ export default class OnboardingGroupData extends Component {
     return null;
   }
 
-  handleUpdateData = data => {
+  handleUpdateData = (data) => {
     this.setState({
       data,
       isDirty: true,
@@ -56,7 +56,7 @@ export default class OnboardingGroupData extends Component {
     onChangeStep(WizardSteps.Settings);
   };
 
-  handleChangeStep = step => {
+  handleChangeStep = (step) => {
     const { onChangeStep, onUpdate, group } = this.props;
     const { isDirty, data } = this.state;
 

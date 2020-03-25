@@ -10,7 +10,7 @@ import rootReducer from './rootReducer';
 
 export const sagaMiddleware = createSagaMiddleware({ context: { services } });
 
-const middleware = (middlewares => {
+const middleware = ((middlewares) => {
   if (process.env.NODE_ENV !== 'production' || settings.devTools) {
     if (window.__REDUX_DEVTOOLS_EXTENSION__) {
       return compose(
