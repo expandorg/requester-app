@@ -48,7 +48,7 @@
     "core-js": "^3.6.4",
     "date-fns": "^1.30.1",
     "debounce": "^1.2.0",
-    "immer": "^5.3.6",
+    "immer": "^8.0.1",
     "nanoid": "^2.1.11",
     "normalizr": "^3.6.0",
     "prop-types": "^15.7.2",
